@@ -1,0 +1,6 @@
+framework module XRCarouselView {
+  umbrella header "XRCarouselView-umbrella.h"
+
+  export *
+  module * { export * }
+}
