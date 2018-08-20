@@ -145,7 +145,9 @@ blue:((float)(rgbValue & 0xFF)) / 255.0 alpha:1.0]
 #define Tabbar  49                                                      // 标签栏高度
 #define Nav 64                                                          // 导航栏高度
 
-
+#define SafeAreaTopHeight (kScreenHeight == 812.0 ? 88 : 64)
+#define TopHeight (kScreenHeight == 812.0 ? 44 : 20)
+#define SafeAreaBottomHeight (kScreenHeight == 812.0 ? 34 : 0)
 
 
 

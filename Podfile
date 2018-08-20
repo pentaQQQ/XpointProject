@@ -12,5 +12,5 @@ target 'TPAPP' do
     pod 'Masonry'
     pod 'JKCategories'
     pod 'GTMBase64'
-    
+    pod 'SDCycleScrollView'
 end

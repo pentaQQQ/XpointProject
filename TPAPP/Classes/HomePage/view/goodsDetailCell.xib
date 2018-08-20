@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="441" id="KGk-i7-Jjw" customClass="goodsDetailCell">
+            <rect key="frame" x="0.0" y="0.0" width="412" height="441"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="412" height="440.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aMQ-Nv-Uij">
+                        <rect key="frame" x="0.0" y="0.0" width="412" height="440.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gkG-8i-kE5">
+                                <rect key="frame" x="10" y="10" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gkG-8i-kE5" secondAttribute="height" multiplier="1:1" id="dOE-zl-9GF"/>
+                                    <constraint firstAttribute="width" constant="40" id="x4B-5w-LUu"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Br-Hj-P2L">
+                                <rect key="frame" x="60" y="10" width="342" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lily 女装旗舰店" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOB-77-00U">
+                                        <rect key="frame" x="0.0" y="0.0" width="93" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.35686274509803922" green="0.035294117647058823" blue="0.27058823529411763" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Ig2-fj-bH5"/>
+                                    <constraint firstItem="oOB-77-00U" firstAttribute="top" secondItem="8Br-Hj-P2L" secondAttribute="top" id="eTt-hD-4r6"/>
+                                    <constraint firstAttribute="bottom" secondItem="oOB-77-00U" secondAttribute="bottom" id="eb3-I5-5zd"/>
+                                    <constraint firstItem="oOB-77-00U" firstAttribute="leading" secondItem="8Br-Hj-P2L" secondAttribute="leading" id="k3C-aY-yFn"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5H4-V2-hyj">
+                                <rect key="frame" x="60" y="40" width="342" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="mw1-4I-jvs"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="哈斯说就啊好时机啊哈暗杀计划时啊就是哈啊说哈精神啊山水啊说就啊好爽啊就睡觉啊说啊说就啊说啊就睡觉啊说啊说就啊就是爽啊睡觉暗杀计划时就啊就好时机啊哈" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szg-vh-m0P">
+                                <rect key="frame" x="60" y="200" width="342" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="pex-px-iUA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iu1-yq-6g1">
+                                <rect key="frame" x="60" y="265" width="342" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="JSS-c2-irb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5H4-V2-hyj" firstAttribute="leading" secondItem="8Br-Hj-P2L" secondAttribute="leading" id="DRc-wq-4KE"/>
+                            <constraint firstItem="5H4-V2-hyj" firstAttribute="trailing" secondItem="8Br-Hj-P2L" secondAttribute="trailing" id="FRG-fV-vg6"/>
+                            <constraint firstItem="Iu1-yq-6g1" firstAttribute="trailing" secondItem="szg-vh-m0P" secondAttribute="trailing" id="Itt-ZR-jgI"/>
+                            <constraint firstItem="szg-vh-m0P" firstAttribute="top" secondItem="5H4-V2-hyj" secondAttribute="bottom" constant="10" id="Kf3-4F-bv7"/>
+                            <constraint firstItem="Iu1-yq-6g1" firstAttribute="top" secondItem="szg-vh-m0P" secondAttribute="bottom" constant="5" id="MYx-UN-gjM"/>
+                            <constraint firstItem="5H4-V2-hyj" firstAttribute="top" secondItem="8Br-Hj-P2L" secondAttribute="bottom" id="N5w-rm-PLF"/>
+                            <constraint firstItem="8Br-Hj-P2L" firstAttribute="top" secondItem="gkG-8i-kE5" secondAttribute="top" id="YNW-R5-OnD"/>
+                            <constraint firstItem="gkG-8i-kE5" firstAttribute="top" secondItem="aMQ-Nv-Uij" secondAttribute="top" constant="10" id="cJa-0w-2an"/>
+                            <constraint firstItem="szg-vh-m0P" firstAttribute="leading" secondItem="5H4-V2-hyj" secondAttribute="leading" id="cnH-Ty-UMq"/>
+                            <constraint firstItem="Iu1-yq-6g1" firstAttribute="leading" secondItem="szg-vh-m0P" secondAttribute="leading" id="d6q-xo-EdJ"/>
+                            <constraint firstItem="szg-vh-m0P" firstAttribute="trailing" secondItem="5H4-V2-hyj" secondAttribute="trailing" id="dNF-ay-Cmv"/>
+                            <constraint firstAttribute="trailing" secondItem="8Br-Hj-P2L" secondAttribute="trailing" constant="10" id="jJb-1l-MnY"/>
+                            <constraint firstItem="8Br-Hj-P2L" firstAttribute="leading" secondItem="gkG-8i-kE5" secondAttribute="trailing" constant="10" id="lGp-sB-xDS"/>
+                            <constraint firstItem="gkG-8i-kE5" firstAttribute="leading" secondItem="aMQ-Nv-Uij" secondAttribute="leading" constant="10" id="o6k-5z-Rlp"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="aMQ-Nv-Uij" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ERH-DP-yd2"/>
+                    <constraint firstAttribute="trailing" secondItem="aMQ-Nv-Uij" secondAttribute="trailing" id="OpF-iL-pMa"/>
+                    <constraint firstItem="aMQ-Nv-Uij" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="V3G-2g-dkq"/>
+                    <constraint firstAttribute="bottom" secondItem="aMQ-Nv-Uij" secondAttribute="bottom" id="Vby-uB-iTC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <point key="canvasLocation" x="80" y="252.5"/>
+        </tableViewCell>
+    </objects>
+</document>

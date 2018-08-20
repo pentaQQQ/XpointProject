@@ -19,6 +19,8 @@ PODS:
   - GVUserDefaults (1.0.2)
   - JKCategories (1.5)
   - Masonry (1.0.2)
+  - SDCycleScrollView (1.75):
+    - SDWebImage (>= 4.0.0)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
@@ -32,9 +34,23 @@ DEPENDENCIES:
   - GVUserDefaults
   - JKCategories
   - Masonry
+  - SDCycleScrollView
   - SDWebImage
   - TPKeyboardAvoiding
   - XRCarouselView
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - FDFullscreenPopGesture
+    - GTMBase64
+    - GVUserDefaults
+    - JKCategories
+    - Masonry
+    - SDCycleScrollView
+    - SDWebImage
+    - TPKeyboardAvoiding
+    - XRCarouselView
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -43,10 +59,11 @@ SPEC CHECKSUMS:
   GVUserDefaults: 52d48cf8ba578b40a1a76312b196dfc9134ba36a
   JKCategories: 863f4c7ed2d521ee6bf72ceea97948da23bb5af4
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
   XRCarouselView: 52529f924d26ee4787f9bd958150800b73e60922
 
-PODFILE CHECKSUM: ae481ef7ceb857f7f416168df69afafd5750a3b5
+PODFILE CHECKSUM: a1ec777374c767d4634adad2f1d94c583958b9ba
 
-COCOAPODS: 1.4.0.rc.1
+COCOAPODS: 1.5.3
