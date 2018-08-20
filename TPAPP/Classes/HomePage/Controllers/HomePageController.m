@@ -25,6 +25,17 @@
 {
     [[NetworkManager sharedManager] postCityData:@"" Success:^(id json) {
         
+        //保存一次全局都能用
+        USERINFO.password = @"";
+        //颜色
+        //colorWithRGB(0x000000)
+        //字体
+        //font(12);
+        //宽 高  适配比列
+        //SCREEN_WIDTH
+        //SCREEN_HEIGHT
+        //SCREEN_PRESENT
+   
     } Failure:^(NSError *error) {
         
     }];
