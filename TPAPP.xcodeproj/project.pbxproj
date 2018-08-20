@@ -87,6 +87,16 @@
 		547C49AD1F1DBB8200178B67 /* tab_mine_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 547C495B1F1DBB8200178B67 /* tab_mine_nor@3x.png */; };
 		547C49B21F1DD82500178B67 /* GoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C49B11F1DD82500178B67 /* GoodsViewController.m */; };
 		547C49B51F1DD88500178B67 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C49B41F1DD88500178B67 /* FindViewController.m */; };
+		8EA952A4212AC4C50057AC78 /* goodsDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA952A2212AC4C50057AC78 /* goodsDetailCell.m */; };
+		8EA952A5212AC4C50057AC78 /* goodsDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA952A3212AC4C50057AC78 /* goodsDetailCell.xib */; };
+		8ED5B48A212A5F7B00B5983B /* ClassDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B489212A5F7B00B5983B /* ClassDetailViewController.m */; };
+		8ED5B4B7212A6AC100B5983B /* NSString+SGPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4A9212A6AC100B5983B /* NSString+SGPagingView.m */; };
+		8ED5B4B8212A6AC100B5983B /* UIButton+SGPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4AA212A6AC100B5983B /* UIButton+SGPagingView.m */; };
+		8ED5B4B9212A6AC100B5983B /* UIView+SGPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4AB212A6AC100B5983B /* UIView+SGPagingView.m */; };
+		8ED5B4BA212A6AC100B5983B /* SGPageContentScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4AD212A6AC100B5983B /* SGPageContentScrollView.m */; };
+		8ED5B4BB212A6AC100B5983B /* SGPageContentCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4B0212A6AC100B5983B /* SGPageContentCollectionView.m */; };
+		8ED5B4BC212A6AC100B5983B /* SGPageTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4B2212A6AC100B5983B /* SGPageTitleView.m */; };
+		8ED5B4BD212A6AC100B5983B /* SGPageTitleViewConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4B3212A6AC100B5983B /* SGPageTitleViewConfigure.m */; };
 		9A8745061FC508CE006E892C /* HomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8745031FC508CE006E892C /* HomePageController.m */; };
 		9ABCEEA01FFCA6BB00DF4380 /* MSHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ABCEE9E1FFCA6BB00DF4380 /* MSHttpTool.m */; };
 		9ABCEEA11FFCA6BB00DF4380 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ABCEE9F1FFCA6BB00DF4380 /* NetworkManager.m */; };
@@ -247,6 +257,26 @@
 		547C49B31F1DD88500178B67 /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindViewController.h; sourceTree = "<group>"; };
 		547C49B41F1DD88500178B67 /* FindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindViewController.m; sourceTree = "<group>"; };
 		857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TPAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-TPAPP/Pods-TPAPP.release.xcconfig"; sourceTree = "<group>"; };
+		8EA952A1212AC4C50057AC78 /* goodsDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = goodsDetailCell.h; sourceTree = "<group>"; };
+		8EA952A2212AC4C50057AC78 /* goodsDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = goodsDetailCell.m; sourceTree = "<group>"; };
+		8EA952A3212AC4C50057AC78 /* goodsDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = goodsDetailCell.xib; sourceTree = "<group>"; };
+		8ED5B488212A5F7B00B5983B /* ClassDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassDetailViewController.h; sourceTree = "<group>"; };
+		8ED5B489212A5F7B00B5983B /* ClassDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassDetailViewController.m; sourceTree = "<group>"; };
+		8ED5B4A6212A6AC100B5983B /* UIButton+SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+SGPagingView.h"; sourceTree = "<group>"; };
+		8ED5B4A7212A6AC100B5983B /* NSString+SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SGPagingView.h"; sourceTree = "<group>"; };
+		8ED5B4A8212A6AC100B5983B /* UIView+SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SGPagingView.h"; sourceTree = "<group>"; };
+		8ED5B4A9212A6AC100B5983B /* NSString+SGPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SGPagingView.m"; sourceTree = "<group>"; };
+		8ED5B4AA212A6AC100B5983B /* UIButton+SGPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SGPagingView.m"; sourceTree = "<group>"; };
+		8ED5B4AB212A6AC100B5983B /* UIView+SGPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SGPagingView.m"; sourceTree = "<group>"; };
+		8ED5B4AD212A6AC100B5983B /* SGPageContentScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGPageContentScrollView.m; sourceTree = "<group>"; };
+		8ED5B4AE212A6AC100B5983B /* SGPageContentCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPageContentCollectionView.h; sourceTree = "<group>"; };
+		8ED5B4AF212A6AC100B5983B /* SGPageContentScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPageContentScrollView.h; sourceTree = "<group>"; };
+		8ED5B4B0212A6AC100B5983B /* SGPageContentCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGPageContentCollectionView.m; sourceTree = "<group>"; };
+		8ED5B4B2212A6AC100B5983B /* SGPageTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGPageTitleView.m; sourceTree = "<group>"; };
+		8ED5B4B3212A6AC100B5983B /* SGPageTitleViewConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGPageTitleViewConfigure.m; sourceTree = "<group>"; };
+		8ED5B4B4212A6AC100B5983B /* SGPageTitleViewConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPageTitleViewConfigure.h; sourceTree = "<group>"; };
+		8ED5B4B5212A6AC100B5983B /* SGPageTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPageTitleView.h; sourceTree = "<group>"; };
+		8ED5B4B6212A6AC100B5983B /* SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPagingView.h; sourceTree = "<group>"; };
 		9A8745021FC508CE006E892C /* HomePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageController.h; sourceTree = "<group>"; };
 		9A8745031FC508CE006E892C /* HomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageController.m; sourceTree = "<group>"; };
 		9ABCEE9C1FFCA6BB00DF4380 /* MSHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSHttpTool.h; sourceTree = "<group>"; };
@@ -836,12 +866,75 @@
 			path = tabbar;
 			sourceTree = "<group>";
 		};
+		8EA9529F212AC4800057AC78 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		8EA952A0212AC4850057AC78 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				8EA952A1212AC4C50057AC78 /* goodsDetailCell.h */,
+				8EA952A2212AC4C50057AC78 /* goodsDetailCell.m */,
+				8EA952A3212AC4C50057AC78 /* goodsDetailCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		8ED5B4A4212A6AC100B5983B /* SGPagingView */ = {
+			isa = PBXGroup;
+			children = (
+				8ED5B4A5212A6AC100B5983B /* Category */,
+				8ED5B4AC212A6AC100B5983B /* SGPageContent */,
+				8ED5B4B1212A6AC100B5983B /* SGPageTitle */,
+				8ED5B4B6212A6AC100B5983B /* SGPagingView.h */,
+			);
+			path = SGPagingView;
+			sourceTree = "<group>";
+		};
+		8ED5B4A5212A6AC100B5983B /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				8ED5B4A6212A6AC100B5983B /* UIButton+SGPagingView.h */,
+				8ED5B4A7212A6AC100B5983B /* NSString+SGPagingView.h */,
+				8ED5B4A8212A6AC100B5983B /* UIView+SGPagingView.h */,
+				8ED5B4A9212A6AC100B5983B /* NSString+SGPagingView.m */,
+				8ED5B4AA212A6AC100B5983B /* UIButton+SGPagingView.m */,
+				8ED5B4AB212A6AC100B5983B /* UIView+SGPagingView.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		8ED5B4AC212A6AC100B5983B /* SGPageContent */ = {
+			isa = PBXGroup;
+			children = (
+				8ED5B4AD212A6AC100B5983B /* SGPageContentScrollView.m */,
+				8ED5B4AE212A6AC100B5983B /* SGPageContentCollectionView.h */,
+				8ED5B4AF212A6AC100B5983B /* SGPageContentScrollView.h */,
+				8ED5B4B0212A6AC100B5983B /* SGPageContentCollectionView.m */,
+			);
+			path = SGPageContent;
+			sourceTree = "<group>";
+		};
+		8ED5B4B1212A6AC100B5983B /* SGPageTitle */ = {
+			isa = PBXGroup;
+			children = (
+				8ED5B4B2212A6AC100B5983B /* SGPageTitleView.m */,
+				8ED5B4B3212A6AC100B5983B /* SGPageTitleViewConfigure.m */,
+				8ED5B4B4212A6AC100B5983B /* SGPageTitleViewConfigure.h */,
+				8ED5B4B5212A6AC100B5983B /* SGPageTitleView.h */,
+			);
+			path = SGPageTitle;
+			sourceTree = "<group>";
+		};
 		9A8745001FC508CE006E892C /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
+				8EA952A0212AC4850057AC78 /* view */,
+				8EA9529F212AC4800057AC78 /* model */,
 				9A8745011FC508CE006E892C /* Controllers */,
-				9A8745041FC508CE006E892C /* Models */,
-				9A8745051FC508CE006E892C /* Views */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -849,24 +942,13 @@
 		9A8745011FC508CE006E892C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8ED5B4A4212A6AC100B5983B /* SGPagingView */,
 				9A8745021FC508CE006E892C /* HomePageController.h */,
 				9A8745031FC508CE006E892C /* HomePageController.m */,
+				8ED5B488212A5F7B00B5983B /* ClassDetailViewController.h */,
+				8ED5B489212A5F7B00B5983B /* ClassDetailViewController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		9A8745041FC508CE006E892C /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		9A8745051FC508CE006E892C /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		9ABCEE9B1FFCA6BB00DF4380 /* HttpTools */ = {
@@ -900,7 +982,6 @@
 				547C48651F1DA8AF00178B67 /* Frameworks */,
 				547C48661F1DA8AF00178B67 /* Resources */,
 				DBC58AB939066576721BBB15 /* [CP] Embed Pods Frameworks */,
-				8A2661DEBA39EBAF13FA0C30 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -958,7 +1039,7 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = X7GF9H7LXU;
+						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -1019,6 +1100,7 @@
 				547C49A31F1DBB8200178B67 /* back@3x.png in Resources */,
 				547C497C1F1DBB8200178B67 /* Address.plist in Resources */,
 				547C49AC1F1DBB8200178B67 /* tab_mine_nor@2x.png in Resources */,
+				8EA952A5212AC4C50057AC78 /* goodsDetailCell.xib in Resources */,
 				547C496B1F1DBB8200178B67 /* lkbubble5.jpg in Resources */,
 				547C496A1F1DBB8200178B67 /* lkbubble4.jpg in Resources */,
 				547C49AA1F1DBB8200178B67 /* tab_market_nor@2x.png in Resources */,
@@ -1051,21 +1133,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8A2661DEBA39EBAF13FA0C30 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TPAPP/Pods-TPAPP-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		952F7312F2B04CB0FEB99652 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1097,6 +1164,7 @@
 				"${BUILT_PRODUCTS_DIR}/GVUserDefaults/GVUserDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/JKCategories/JKCategories.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/SDCycleScrollView/SDCycleScrollView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/XRCarouselView/XRCarouselView.framework",
@@ -1109,6 +1177,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GVUserDefaults.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JKCategories.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDCycleScrollView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XRCarouselView.framework",
@@ -1125,12 +1194,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8ED5B48A212A5F7B00B5983B /* ClassDetailViewController.m in Sources */,
+				8ED5B4B9212A6AC100B5983B /* UIView+SGPagingView.m in Sources */,
 				547C49821F1DBB8200178B67 /* SGLocationPickerCenterView.m in Sources */,
 				547C499D1F1DBB8200178B67 /* UIViewController+Cache.m in Sources */,
 				547C497D1F1DBB8200178B67 /* SGDatePicker.m in Sources */,
 				547C49801F1DBB8200178B67 /* SGDatePickerSheetView.m in Sources */,
 				547C49A11F1DBB8200178B67 /* MineViewController.m in Sources */,
 				9ABCEEA01FFCA6BB00DF4380 /* MSHttpTool.m in Sources */,
+				8ED5B4BC212A6AC100B5983B /* SGPageTitleView.m in Sources */,
 				547C49621F1DBB8200178B67 /* BaseTabBarController.m in Sources */,
 				547C49A01F1DBB8200178B67 /* Validate.m in Sources */,
 				547C49901F1DBB8200178B67 /* AESTools.m in Sources */,
@@ -1138,6 +1210,7 @@
 				547C495D1F1DBB8200178B67 /* UIView+Extension.m in Sources */,
 				547C49951F1DBB8200178B67 /* MBCircleView.m in Sources */,
 				547C49641F1DBB8200178B67 /* LKBubbleInfo.m in Sources */,
+				8ED5B4B7212A6AC100B5983B /* NSString+SGPagingView.m in Sources */,
 				547C49971F1DBB8200178B67 /* GHWalkThroughPageCell.m in Sources */,
 				547C499C1F1DBB8200178B67 /* GVUserDefaults+Information.m in Sources */,
 				547C495C1F1DBB8200178B67 /* CartViewController.m in Sources */,
@@ -1145,20 +1218,24 @@
 				547C49651F1DBB8200178B67 /* LKBubbleView.m in Sources */,
 				547C498C1F1DBB8200178B67 /* UIAlertController+Extension.m in Sources */,
 				547C49921F1DBB8200178B67 /* NSData+CommonCrypto.m in Sources */,
+				8ED5B4B8212A6AC100B5983B /* UIButton+SGPagingView.m in Sources */,
 				547C497B1F1DBB8200178B67 /* UIView+SGExtension.m in Sources */,
 				547C49781F1DBB8200178B67 /* SGActionSheet.m in Sources */,
 				547C49701F1DBB8200178B67 /* LKNotificationBar.m in Sources */,
 				547C49601F1DBB8200178B67 /* BaseNavigationController.m in Sources */,
 				547C49751F1DBB8200178B67 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
 				9A8745061FC508CE006E892C /* HomePageController.m in Sources */,
+				8ED5B4BD212A6AC100B5983B /* SGPageTitleViewConfigure.m in Sources */,
 				547C49711F1DBB8200178B67 /* LKNotificationManager.m in Sources */,
 				547C49861F1DBB8200178B67 /* SGNormalPickerView.m in Sources */,
 				547C49881F1DBB8200178B67 /* ShareView.m in Sources */,
 				547C49941F1DBB8200178B67 /* DESTools.m in Sources */,
+				8ED5B4BB212A6AC100B5983B /* SGPageContentCollectionView.m in Sources */,
 				547C497E1F1DBB8200178B67 /* SGDatePickerCenterView.m in Sources */,
 				547C49911F1DBB8200178B67 /* NSData+Base64.m in Sources */,
 				547C49761F1DBB8200178B67 /* UIView+SDAutoLayout.m in Sources */,
 				547C49B51F1DD88500178B67 /* FindViewController.m in Sources */,
+				8ED5B4BA212A6AC100B5983B /* SGPageContentScrollView.m in Sources */,
 				547C499B1F1DBB8200178B67 /* UIBarButtonItem+Create.m in Sources */,
 				547C495E1F1DBB8200178B67 /* NewsViewController.m in Sources */,
 				9ABCEEA11FFCA6BB00DF4380 /* NetworkManager.m in Sources */,
@@ -1166,6 +1243,7 @@
 				547C49791F1DBB8200178B67 /* SGActionSheetCell.m in Sources */,
 				547C49981F1DBB8200178B67 /* GHWalkThroughView.m in Sources */,
 				547C49721F1DBB8200178B67 /* UIResponder+LKNotification.m in Sources */,
+				8EA952A4212AC4C50057AC78 /* goodsDetailCell.m in Sources */,
 				547C499A1F1DBB8200178B67 /* UIAppearance.m in Sources */,
 				547C48701F1DA8AF00178B67 /* AppDelegate.m in Sources */,
 				547C49841F1DBB8200178B67 /* SGLocationPickerSheetView.m in Sources */,
@@ -1323,10 +1401,10 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = X7GF9H7LXU;
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ideaSource.TPAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1338,10 +1416,10 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = X7GF9H7LXU;
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ideaSource.TPAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
