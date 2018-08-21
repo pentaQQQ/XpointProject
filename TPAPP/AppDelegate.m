@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "BaseTabBarController.h"
+#import "XYSideViewController.h"
+#import "SideViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -17,9 +19,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
    
+    // 侧拉VC
+    SideViewController *leftViewController = [[SideViewController alloc] init];
     //市场人员
     BaseTabBarController *tabar = [[BaseTabBarController alloc] init];
-    self.window.rootViewController = tabar;
+    
+    // 初始化XYSideViewController 设置为window.rootViewController
+    XYSideViewController *rootViewController = [[XYSideViewController alloc] initWithSideVC:leftViewController currentVC:tabar];
+    
+    self.window.rootViewController = rootViewController;
     
     return YES;
 }

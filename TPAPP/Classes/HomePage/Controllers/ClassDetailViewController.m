@@ -80,19 +80,17 @@
     if (cell == nil) {
         cell = [[NSBundle mainBundle]loadNibNamed:@"goodsDetailCell" owner:self options:nil].lastObject;
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
 
 
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    
+
     CGFloat width = (kScreenWidth-70-10)/3.0;
-    
-    
-    
+
     return (width+5)*3+215;
 }
 

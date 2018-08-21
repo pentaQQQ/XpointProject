@@ -9,6 +9,10 @@
 #import "HomePageController.h"
 #import "SGPagingView.h"
 #import "ClassDetailViewController.h"
+#import "XYSideViewController.h"
+#import "UIViewController+XYSideCategory.h"
+#import "SearchViewController.h"
+
 @interface HomePageController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentScrollView *pageContentScrollView;
@@ -50,9 +54,28 @@
     SGPageTitleViewConfigure *configure = [SGPageTitleViewConfigure pageTitleViewConfigure];
     configure.indicatorAdditionalWidth = 10; // 说明：指示器额外增加的宽度，不设置，指示器宽度为标题文字宽度；若设置无限大，则指示器宽度为按钮宽度
     configure.showBottomSeparator = NO;
+    configure.titleSelectedFont = [UIFont systemFontOfSize:14];
+    configure.titleColor = [UIColor lightGrayColor];
+    configure.titleSelectedColor = kRGBColor(228, 135, 60);
+    configure.indicatorColor = kRGBColor(228, 135, 60);
+    
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, pageTitleViewY, 44, 44)];
+    leftBtn.backgroundColor = [UIColor redColor];
+    [self.view addSubview:leftBtn];
+    [leftBtn addTarget:self action:@selector(leftBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    
+    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-44, pageTitleViewY, 44, 44)];
+    rightBtn.backgroundColor = [UIColor clearColor];
+    [rightBtn setImage:[UIImage imageNamed:@"search_icon"] forState:UIControlStateNormal];
+    [self.view addSubview:rightBtn];
+    [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
     
     /// pageTitleView
-    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, pageTitleViewY, self.view.frame.size.width, 44) delegate:self titleNames:titleArr configure:configure];
+    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(44, pageTitleViewY, self.view.frame.size.width-88, 44) delegate:self titleNames:titleArr configure:configure];
     [self.view addSubview:_pageTitleView];
     [_pageTitleView addBadgeForIndex:1];
     [_pageTitleView addBadgeForIndex:5];
@@ -81,6 +104,20 @@
     if (index == 1 || index == 5) {
         [_pageTitleView removeBadgeForIndex:index];
     }
+}
+
+
+
+
+
+-(void)leftBtnClick{
+    
+     [self XYSideOpenVC];
+    
+}
+-(void)rightBtnClick{
+    SearchViewController *vc = [[SearchViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

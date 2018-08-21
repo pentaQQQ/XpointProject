@@ -119,6 +119,16 @@
 		8EA9530E212BAA930057AC78 /* ZLPhotoPickerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA952EE212BAA930057AC78 /* ZLPhotoPickerImageView.m */; };
 		8EA9530F212BAA930057AC78 /* ZLPhotoPickerGroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA952EF212BAA930057AC78 /* ZLPhotoPickerGroupTableViewCell.m */; };
 		8EA95310212BAA930057AC78 /* ZLPhotoLib.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8EA952F2212BAA930057AC78 /* ZLPhotoLib.bundle */; };
+		8EA95316212BBB810057AC78 /* XYSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95312212BBB810057AC78 /* XYSideViewController.m */; };
+		8EA95317212BBB810057AC78 /* UIViewController+XYSideCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95315212BBB810057AC78 /* UIViewController+XYSideCategory.m */; };
+		8EA9531A212BBC080057AC78 /* SideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95319212BBC080057AC78 /* SideViewController.m */; };
+		8EA95322212BDCC90057AC78 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95320212BDCC90057AC78 /* SearchViewController.m */; };
+		8EA95327212BDD060057AC78 /* SearchHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95326212BDD060057AC78 /* SearchHeaderView.m */; };
+		8EA95329212BDD150057AC78 /* SearchHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA95328212BDD150057AC78 /* SearchHeaderView.xib */; };
+		8EA9532C212BE0D70057AC78 /* HeaderTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9532B212BE0D70057AC78 /* HeaderTabView.m */; };
+		8EA9532E212BE0E20057AC78 /* HeaderTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA9532D212BE0E20057AC78 /* HeaderTabView.xib */; };
+		8EA95332212BE1C20057AC78 /* pingpaiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95330212BE1C20057AC78 /* pingpaiCell.m */; };
+		8EA95333212BE1C20057AC78 /* pingpaiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA95331212BE1C20057AC78 /* pingpaiCell.xib */; };
 		8ED5B48A212A5F7B00B5983B /* ClassDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B489212A5F7B00B5983B /* ClassDetailViewController.m */; };
 		8ED5B4B7212A6AC100B5983B /* NSString+SGPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4A9212A6AC100B5983B /* NSString+SGPagingView.m */; };
 		8ED5B4B8212A6AC100B5983B /* UIButton+SGPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4AA212A6AC100B5983B /* UIButton+SGPagingView.m */; };
@@ -351,6 +361,23 @@
 		8EA952F0212BAA930057AC78 /* ZLPhotoPickerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLPhotoPickerCommon.h; sourceTree = "<group>"; };
 		8EA952F1212BAA930057AC78 /* ZLPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLPhoto.h; sourceTree = "<group>"; };
 		8EA952F2212BAA930057AC78 /* ZLPhotoLib.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZLPhotoLib.bundle; sourceTree = "<group>"; };
+		8EA95312212BBB810057AC78 /* XYSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSideViewController.m; sourceTree = "<group>"; };
+		8EA95313212BBB810057AC78 /* UIViewController+XYSideCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+XYSideCategory.h"; sourceTree = "<group>"; };
+		8EA95314212BBB810057AC78 /* XYSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSideViewController.h; sourceTree = "<group>"; };
+		8EA95315212BBB810057AC78 /* UIViewController+XYSideCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+XYSideCategory.m"; sourceTree = "<group>"; };
+		8EA95318212BBC080057AC78 /* SideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideViewController.h; sourceTree = "<group>"; };
+		8EA95319212BBC080057AC78 /* SideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideViewController.m; sourceTree = "<group>"; };
+		8EA95320212BDCC90057AC78 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		8EA95321212BDCC90057AC78 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		8EA95325212BDD060057AC78 /* SearchHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHeaderView.h; sourceTree = "<group>"; };
+		8EA95326212BDD060057AC78 /* SearchHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHeaderView.m; sourceTree = "<group>"; };
+		8EA95328212BDD150057AC78 /* SearchHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchHeaderView.xib; sourceTree = "<group>"; };
+		8EA9532A212BE0D70057AC78 /* HeaderTabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderTabView.h; sourceTree = "<group>"; };
+		8EA9532B212BE0D70057AC78 /* HeaderTabView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderTabView.m; sourceTree = "<group>"; };
+		8EA9532D212BE0E20057AC78 /* HeaderTabView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTabView.xib; sourceTree = "<group>"; };
+		8EA9532F212BE1C20057AC78 /* pingpaiCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pingpaiCell.h; sourceTree = "<group>"; };
+		8EA95330212BE1C20057AC78 /* pingpaiCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pingpaiCell.m; sourceTree = "<group>"; };
+		8EA95331212BE1C20057AC78 /* pingpaiCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = pingpaiCell.xib; sourceTree = "<group>"; };
 		8ED5B488212A5F7B00B5983B /* ClassDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassDetailViewController.h; sourceTree = "<group>"; };
 		8ED5B489212A5F7B00B5983B /* ClassDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassDetailViewController.m; sourceTree = "<group>"; };
 		8ED5B4A6212A6AC100B5983B /* UIButton+SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+SGPagingView.h"; sourceTree = "<group>"; };
@@ -1162,6 +1189,59 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		8EA95311212BBB810057AC78 /* XYSideViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8EA95312212BBB810057AC78 /* XYSideViewController.m */,
+				8EA95313212BBB810057AC78 /* UIViewController+XYSideCategory.h */,
+				8EA95314212BBB810057AC78 /* XYSideViewController.h */,
+				8EA95315212BBB810057AC78 /* UIViewController+XYSideCategory.m */,
+			);
+			path = XYSideViewController;
+			sourceTree = "<group>";
+		};
+		8EA9531B212BC0A00057AC78 /* search */ = {
+			isa = PBXGroup;
+			children = (
+				8EA95324212BDCD50057AC78 /* view */,
+				8EA95323212BDCCE0057AC78 /* model */,
+				8EA9531F212BDCC90057AC78 /* conteoller */,
+			);
+			path = search;
+			sourceTree = "<group>";
+		};
+		8EA9531F212BDCC90057AC78 /* conteoller */ = {
+			isa = PBXGroup;
+			children = (
+				8EA95321212BDCC90057AC78 /* SearchViewController.h */,
+				8EA95320212BDCC90057AC78 /* SearchViewController.m */,
+			);
+			path = conteoller;
+			sourceTree = "<group>";
+		};
+		8EA95323212BDCCE0057AC78 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		8EA95324212BDCD50057AC78 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				8EA95325212BDD060057AC78 /* SearchHeaderView.h */,
+				8EA95326212BDD060057AC78 /* SearchHeaderView.m */,
+				8EA95328212BDD150057AC78 /* SearchHeaderView.xib */,
+				8EA9532A212BE0D70057AC78 /* HeaderTabView.h */,
+				8EA9532B212BE0D70057AC78 /* HeaderTabView.m */,
+				8EA9532D212BE0E20057AC78 /* HeaderTabView.xib */,
+				8EA9532F212BE1C20057AC78 /* pingpaiCell.h */,
+				8EA95330212BE1C20057AC78 /* pingpaiCell.m */,
+				8EA95331212BE1C20057AC78 /* pingpaiCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		8ED5B4A4212A6AC100B5983B /* SGPagingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1221,12 +1301,16 @@
 		9A8745011FC508CE006E892C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8EA9531B212BC0A00057AC78 /* search */,
+				8EA95311212BBB810057AC78 /* XYSideViewController */,
 				8EA952A6212BAA930057AC78 /* ZLPhotoLib */,
 				8ED5B4A4212A6AC100B5983B /* SGPagingView */,
 				9A8745021FC508CE006E892C /* HomePageController.h */,
 				9A8745031FC508CE006E892C /* HomePageController.m */,
 				8ED5B488212A5F7B00B5983B /* ClassDetailViewController.h */,
 				8ED5B489212A5F7B00B5983B /* ClassDetailViewController.m */,
+				8EA95318212BBC080057AC78 /* SideViewController.h */,
+				8EA95319212BBC080057AC78 /* SideViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1363,7 +1447,9 @@
 			files = (
 				547C49AD1F1DBB8200178B67 /* tab_mine_nor@3x.png in Resources */,
 				547C49A91F1DBB8200178B67 /* tab_job_nor@3x.png in Resources */,
+				8EA9532E212BE0E20057AC78 /* HeaderTabView.xib in Resources */,
 				547C496E1F1DBB8200178B67 /* lkbubble8.jpg in Resources */,
+				8EA95333212BE1C20057AC78 /* pingpaiCell.xib in Resources */,
 				547C49A41F1DBB8200178B67 /* tab_edu_nor@2x.png in Resources */,
 				547C49A51F1DBB8200178B67 /* tab_edu_nor@3x.png in Resources */,
 				547C49671F1DBB8200178B67 /* lkbubble1.jpg in Resources */,
@@ -1394,6 +1480,7 @@
 				547C48761F1DA8AF00178B67 /* Main.storyboard in Resources */,
 				547C49A81F1DBB8200178B67 /* tab_job_nor@2x.png in Resources */,
 				547C496C1F1DBB8200178B67 /* lkbubble6.jpg in Resources */,
+				8EA95329212BDD150057AC78 /* SearchHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1480,11 +1567,13 @@
 				8ED5B4B9212A6AC100B5983B /* UIView+SGPagingView.m in Sources */,
 				547C49821F1DBB8200178B67 /* SGLocationPickerCenterView.m in Sources */,
 				547C499D1F1DBB8200178B67 /* UIViewController+Cache.m in Sources */,
+				8EA9531A212BBC080057AC78 /* SideViewController.m in Sources */,
 				547C497D1F1DBB8200178B67 /* SGDatePicker.m in Sources */,
 				547C49801F1DBB8200178B67 /* SGDatePickerSheetView.m in Sources */,
 				547C49A11F1DBB8200178B67 /* MineViewController.m in Sources */,
 				8EA952FC212BAA930057AC78 /* ZLPhotoPickerBrowserViewController.m in Sources */,
 				9ABCEEA01FFCA6BB00DF4380 /* MSHttpTool.m in Sources */,
+				8EA95327212BDD060057AC78 /* SearchHeaderView.m in Sources */,
 				8ED5B4BC212A6AC100B5983B /* SGPageTitleView.m in Sources */,
 				547C49621F1DBB8200178B67 /* BaseTabBarController.m in Sources */,
 				547C49A01F1DBB8200178B67 /* Validate.m in Sources */,
@@ -1501,9 +1590,11 @@
 				8ED5B4B7212A6AC100B5983B /* NSString+SGPagingView.m in Sources */,
 				547C49971F1DBB8200178B67 /* GHWalkThroughPageCell.m in Sources */,
 				547C499C1F1DBB8200178B67 /* GVUserDefaults+Information.m in Sources */,
+				8EA95322212BDCC90057AC78 /* SearchViewController.m in Sources */,
 				547C495C1F1DBB8200178B67 /* CartViewController.m in Sources */,
 				547C49741F1DBB8200178B67 /* README.md in Sources */,
 				547C49651F1DBB8200178B67 /* LKBubbleView.m in Sources */,
+				8EA95317212BBB810057AC78 /* UIViewController+XYSideCategory.m in Sources */,
 				547C498C1F1DBB8200178B67 /* UIAlertController+Extension.m in Sources */,
 				547C49921F1DBB8200178B67 /* NSData+CommonCrypto.m in Sources */,
 				8ED5B4B8212A6AC100B5983B /* UIButton+SGPagingView.m in Sources */,
@@ -1541,11 +1632,13 @@
 				8ED5B4BA212A6AC100B5983B /* SGPageContentScrollView.m in Sources */,
 				8EA952F3212BAA930057AC78 /* DALabeledCircularProgressView.m in Sources */,
 				547C499B1F1DBB8200178B67 /* UIBarButtonItem+Create.m in Sources */,
+				8EA95332212BE1C20057AC78 /* pingpaiCell.m in Sources */,
 				547C495E1F1DBB8200178B67 /* NewsViewController.m in Sources */,
 				9ABCEEA11FFCA6BB00DF4380 /* NetworkManager.m in Sources */,
 				547C49871F1DBB8200178B67 /* SGPickerView.m in Sources */,
 				8EA952F8212BAA930057AC78 /* ZLCameraView.m in Sources */,
 				547C49791F1DBB8200178B67 /* SGActionSheetCell.m in Sources */,
+				8EA9532C212BE0D70057AC78 /* HeaderTabView.m in Sources */,
 				547C49981F1DBB8200178B67 /* GHWalkThroughView.m in Sources */,
 				8EA95304212BAA930057AC78 /* ZLPhotoPickerGroup.m in Sources */,
 				547C49721F1DBB8200178B67 /* UIResponder+LKNotification.m in Sources */,
@@ -1561,6 +1654,7 @@
 				547C49931F1DBB8200178B67 /* NSString+Base64.m in Sources */,
 				547C497A1F1DBB8200178B67 /* SGAlertView.m in Sources */,
 				8EA95302212BAA930057AC78 /* UIView+ZLExtension.m in Sources */,
+				8EA95316212BBB810057AC78 /* XYSideViewController.m in Sources */,
 				8EA952FE212BAA930057AC78 /* ZLPhotoPickerBrowserPhotoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
