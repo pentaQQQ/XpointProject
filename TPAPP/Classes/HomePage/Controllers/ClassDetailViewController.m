@@ -8,6 +8,7 @@
 
 #import "ClassDetailViewController.h"
 #import "SDCycleScrollView.h"
+#import "goodsDetailCell.h"
 @interface ClassDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView*tableview;
 @property(nonatomic,strong)NSMutableArray*dataArr;
@@ -30,12 +31,10 @@
 }
 
 -(void)setUpUI{
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-SafeAreaTopHeight-44-49-SafeAreaBottomHeight) style:UITableViewStylePlain];
     self.tableview = tableview;
     [self.view addSubview:tableview];
     
-    
-//    UIView *vie = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 200)];
     
     SDCycleScrollView*scrollview = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenWidth, 200) delegate:self placeholderImage:[UIImage imageNamed:@"WechatIMG3"]];
     
@@ -49,8 +48,8 @@
     
     
     
-//    self.tableview.delegate = self;
-//    self.tableview.dataSource = self;
+    self.tableview.delegate = self;
+    self.tableview.dataSource = self;
     
     
     
@@ -74,18 +73,27 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return nil;
+    
+    
+    static NSString *reuesId = @"goodsDetailCell";
+    goodsDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:reuesId];
+    if (cell == nil) {
+        cell = [[NSBundle mainBundle]loadNibNamed:@"goodsDetailCell" owner:self options:nil].lastObject;
+    }
+    
+    return cell;
 }
 
 
-
-
-
-
-
-
-
-
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    
+    CGFloat width = (kScreenWidth-70-10)/3.0;
+    
+    
+    
+    return (width+5)*3+215;
+}
 
 @end

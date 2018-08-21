@@ -154,4 +154,16 @@ blue:((float)(rgbValue & 0xFF)) / 255.0 alpha:1.0]
 
 
 
+
+
+
+// View圆角和边框
+#define ViewBorderRadius(View, Radius, Width, Color)\
+\
+[View.layer setCornerRadius:(Radius)];\
+[View.layer setMasksToBounds:YES];\
+[View.layer setBorderWidth:(Width)];\
+[View.layer setBorderColor:[Color CGColor]]
+
+
 #endif /* Common_h */

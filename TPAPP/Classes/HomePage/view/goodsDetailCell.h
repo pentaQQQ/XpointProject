@@ -9,5 +9,29 @@
 #import <UIKit/UIKit.h>
 
 @interface goodsDetailCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *imageview;
+
+@property (weak, nonatomic) IBOutlet UILabel *title;
+
+
+
+@property (weak, nonatomic) IBOutlet UIView *pictureView;
+
+@property (weak, nonatomic) IBOutlet UILabel *content;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *beginTime;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *beginDetailTime;
+
+@property (weak, nonatomic) IBOutlet UILabel *endtime;
+
+@property (weak, nonatomic) IBOutlet UIButton *zhuanfaBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *qianggouBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pictureViewHigh;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHigh;
+
 
 @end
