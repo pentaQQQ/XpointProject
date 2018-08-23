@@ -129,6 +129,14 @@
 		8EA9532E212BE0E20057AC78 /* HeaderTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA9532D212BE0E20057AC78 /* HeaderTabView.xib */; };
 		8EA95332212BE1C20057AC78 /* pingpaiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95330212BE1C20057AC78 /* pingpaiCell.m */; };
 		8EA95333212BE1C20057AC78 /* pingpaiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA95331212BE1C20057AC78 /* pingpaiCell.xib */; };
+		8EA9533B212BEE330057AC78 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95339212BEE330057AC78 /* LoginViewController.m */; };
+		8EA9533C212BEE330057AC78 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA9533A212BEE330057AC78 /* LoginViewController.xib */; };
+		8EA95346212E49BC0057AC78 /* LXFloaintButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95345212E49BC0057AC78 /* LXFloaintButton.m */; };
+		8EA9534D212E4C550057AC78 /* zhuanfaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9534C212E4C550057AC78 /* zhuanfaViewController.m */; };
+		8EA95350212E545A0057AC78 /* zhuanfaHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9534F212E545A0057AC78 /* zhuanfaHeaderView.m */; };
+		8EA95352212E54650057AC78 /* zhuanfaHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA95351212E54650057AC78 /* zhuanfaHeaderView.xib */; };
+		8EA95356212E62480057AC78 /* zhuanfaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95354212E62480057AC78 /* zhuanfaCell.m */; };
+		8EA95357212E62480057AC78 /* zhuanfaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA95355212E62480057AC78 /* zhuanfaCell.xib */; };
 		8ED5B48A212A5F7B00B5983B /* ClassDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B489212A5F7B00B5983B /* ClassDetailViewController.m */; };
 		8ED5B4B7212A6AC100B5983B /* NSString+SGPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4A9212A6AC100B5983B /* NSString+SGPagingView.m */; };
 		8ED5B4B8212A6AC100B5983B /* UIButton+SGPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4AA212A6AC100B5983B /* UIButton+SGPagingView.m */; };
@@ -378,6 +386,19 @@
 		8EA9532F212BE1C20057AC78 /* pingpaiCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pingpaiCell.h; sourceTree = "<group>"; };
 		8EA95330212BE1C20057AC78 /* pingpaiCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pingpaiCell.m; sourceTree = "<group>"; };
 		8EA95331212BE1C20057AC78 /* pingpaiCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = pingpaiCell.xib; sourceTree = "<group>"; };
+		8EA95338212BEE330057AC78 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		8EA95339212BEE330057AC78 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		8EA9533A212BEE330057AC78 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		8EA95344212E49BC0057AC78 /* LXFloaintButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXFloaintButton.h; sourceTree = "<group>"; };
+		8EA95345212E49BC0057AC78 /* LXFloaintButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXFloaintButton.m; sourceTree = "<group>"; };
+		8EA9534B212E4C550057AC78 /* zhuanfaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaViewController.h; sourceTree = "<group>"; };
+		8EA9534C212E4C550057AC78 /* zhuanfaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaViewController.m; sourceTree = "<group>"; };
+		8EA9534E212E545A0057AC78 /* zhuanfaHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaHeaderView.h; sourceTree = "<group>"; };
+		8EA9534F212E545A0057AC78 /* zhuanfaHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaHeaderView.m; sourceTree = "<group>"; };
+		8EA95351212E54650057AC78 /* zhuanfaHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = zhuanfaHeaderView.xib; sourceTree = "<group>"; };
+		8EA95353212E62480057AC78 /* zhuanfaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaCell.h; sourceTree = "<group>"; };
+		8EA95354212E62480057AC78 /* zhuanfaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaCell.m; sourceTree = "<group>"; };
+		8EA95355212E62480057AC78 /* zhuanfaCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = zhuanfaCell.xib; sourceTree = "<group>"; };
 		8ED5B488212A5F7B00B5983B /* ClassDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassDetailViewController.h; sourceTree = "<group>"; };
 		8ED5B489212A5F7B00B5983B /* ClassDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassDetailViewController.m; sourceTree = "<group>"; };
 		8ED5B4A6212A6AC100B5983B /* UIButton+SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+SGPagingView.h"; sourceTree = "<group>"; };
@@ -515,13 +536,13 @@
 		547C489F1F1DBB8200178B67 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8EA95334212BEE050057AC78 /* Login&Register */,
 				9A8745001FC508CE006E892C /* HomePage */,
 				547C48AF1F1DBB8200178B67 /* Goods(商品) */,
 				547C48A91F1DBB8200178B67 /* Find(发现) */,
 				547C49481F1DBB8200178B67 /* Mine(我的) */,
 				547C48A01F1DBB8200178B67 /* Cart(购物车) */,
 				547C48A61F1DBB8200178B67 /* Categories(分类) */,
-				547C48B91F1DBB8200178B67 /* Login&Register */,
 				547C48BA1F1DBB8200178B67 /* Main(基类) */,
 				547C48C31F1DBB8200178B67 /* Manual(第三方) */,
 				547C494E1F1DBB8200178B67 /* Resourse(图片资源) */,
@@ -637,13 +658,6 @@
 			children = (
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		547C48B91F1DBB8200178B67 /* Login&Register */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Login&Register";
 			sourceTree = "<group>";
 		};
 		547C48BA1F1DBB8200178B67 /* Main(基类) */ = {
@@ -1242,6 +1256,88 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		8EA95334212BEE050057AC78 /* Login&Register */ = {
+			isa = PBXGroup;
+			children = (
+				8EA95335212BEE050057AC78 /* controller */,
+				8EA95336212BEE050057AC78 /* model */,
+				8EA95337212BEE060057AC78 /* view */,
+			);
+			path = "Login&Register";
+			sourceTree = "<group>";
+		};
+		8EA95335212BEE050057AC78 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				8EA95338212BEE330057AC78 /* LoginViewController.h */,
+				8EA95339212BEE330057AC78 /* LoginViewController.m */,
+				8EA9533A212BEE330057AC78 /* LoginViewController.xib */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		8EA95336212BEE050057AC78 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		8EA95337212BEE060057AC78 /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		8EA95343212E49BC0057AC78 /* FloatingButton */ = {
+			isa = PBXGroup;
+			children = (
+				8EA95344212E49BC0057AC78 /* LXFloaintButton.h */,
+				8EA95345212E49BC0057AC78 /* LXFloaintButton.m */,
+			);
+			path = FloatingButton;
+			sourceTree = "<group>";
+		};
+		8EA95347212E4BEA0057AC78 /* 转发 */ = {
+			isa = PBXGroup;
+			children = (
+				8EA95348212E4BEA0057AC78 /* controller */,
+				8EA95349212E4BEA0057AC78 /* model */,
+				8EA9534A212E4BEA0057AC78 /* view */,
+			);
+			path = "转发";
+			sourceTree = "<group>";
+		};
+		8EA95348212E4BEA0057AC78 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				8EA9534B212E4C550057AC78 /* zhuanfaViewController.h */,
+				8EA9534C212E4C550057AC78 /* zhuanfaViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		8EA95349212E4BEA0057AC78 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		8EA9534A212E4BEA0057AC78 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				8EA9534E212E545A0057AC78 /* zhuanfaHeaderView.h */,
+				8EA9534F212E545A0057AC78 /* zhuanfaHeaderView.m */,
+				8EA95351212E54650057AC78 /* zhuanfaHeaderView.xib */,
+				8EA95353212E62480057AC78 /* zhuanfaCell.h */,
+				8EA95354212E62480057AC78 /* zhuanfaCell.m */,
+				8EA95355212E62480057AC78 /* zhuanfaCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		8ED5B4A4212A6AC100B5983B /* SGPagingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1301,6 +1397,8 @@
 		9A8745011FC508CE006E892C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8EA95347212E4BEA0057AC78 /* 转发 */,
+				8EA95343212E49BC0057AC78 /* FloatingButton */,
 				8EA9531B212BC0A00057AC78 /* search */,
 				8EA95311212BBB810057AC78 /* XYSideViewController */,
 				8EA952A6212BAA930057AC78 /* ZLPhotoLib */,
@@ -1462,14 +1560,17 @@
 				547C496F1F1DBB8200178B67 /* lkbubble_warning.png in Resources */,
 				547C496D1F1DBB8200178B67 /* lkbubble7.jpg in Resources */,
 				547C49691F1DBB8200178B67 /* lkbubble3.jpg in Resources */,
+				8EA95352212E54650057AC78 /* zhuanfaHeaderView.xib in Resources */,
 				547C49681F1DBB8200178B67 /* lkbubble2.jpg in Resources */,
 				547C49A31F1DBB8200178B67 /* back@3x.png in Resources */,
 				547C497C1F1DBB8200178B67 /* Address.plist in Resources */,
 				547C49AC1F1DBB8200178B67 /* tab_mine_nor@2x.png in Resources */,
+				8EA95357212E62480057AC78 /* zhuanfaCell.xib in Resources */,
 				8EA952A5212AC4C50057AC78 /* goodsDetailCell.xib in Resources */,
 				547C496B1F1DBB8200178B67 /* lkbubble5.jpg in Resources */,
 				547C496A1F1DBB8200178B67 /* lkbubble4.jpg in Resources */,
 				547C49AA1F1DBB8200178B67 /* tab_market_nor@2x.png in Resources */,
+				8EA9533C212BEE330057AC78 /* LoginViewController.xib in Resources */,
 				547C49A71F1DBB8200178B67 /* tab_index_nor@3x.png in Resources */,
 				547C48781F1DA8AF00178B67 /* Assets.xcassets in Resources */,
 				547C497F1F1DBB8200178B67 /* SGDatePickerCenterView.xib in Resources */,
@@ -1579,6 +1680,7 @@
 				547C49A01F1DBB8200178B67 /* Validate.m in Sources */,
 				547C49901F1DBB8200178B67 /* AESTools.m in Sources */,
 				8EA95300212BAA930057AC78 /* ZLPhotoPickerBrowserPhotoScrollView.m in Sources */,
+				8EA95350212E545A0057AC78 /* zhuanfaHeaderView.m in Sources */,
 				8EA95309212BAA930057AC78 /* ZLNavigationController.m in Sources */,
 				547C49631F1DBB8200178B67 /* BaseViewController.m in Sources */,
 				547C495D1F1DBB8200178B67 /* UIView+Extension.m in Sources */,
@@ -1596,6 +1698,7 @@
 				547C49651F1DBB8200178B67 /* LKBubbleView.m in Sources */,
 				8EA95317212BBB810057AC78 /* UIViewController+XYSideCategory.m in Sources */,
 				547C498C1F1DBB8200178B67 /* UIAlertController+Extension.m in Sources */,
+				8EA9533B212BEE330057AC78 /* LoginViewController.m in Sources */,
 				547C49921F1DBB8200178B67 /* NSData+CommonCrypto.m in Sources */,
 				8ED5B4B8212A6AC100B5983B /* UIButton+SGPagingView.m in Sources */,
 				8EA95308212BAA930057AC78 /* ZLPhotoPickerAssetsViewController.m in Sources */,
@@ -1624,6 +1727,7 @@
 				8EA9530A212BAA930057AC78 /* ZLPhotoPickerViewController.m in Sources */,
 				8EA952FF212BAA930057AC78 /* ZLPhotoPickerCustomToolBarView.m in Sources */,
 				8ED5B4BB212A6AC100B5983B /* SGPageContentCollectionView.m in Sources */,
+				8EA95356212E62480057AC78 /* zhuanfaCell.m in Sources */,
 				547C497E1F1DBB8200178B67 /* SGDatePickerCenterView.m in Sources */,
 				8EA952F7212BAA930057AC78 /* ZLCamera.m in Sources */,
 				547C49911F1DBB8200178B67 /* NSData+Base64.m in Sources */,
@@ -1632,6 +1736,7 @@
 				8ED5B4BA212A6AC100B5983B /* SGPageContentScrollView.m in Sources */,
 				8EA952F3212BAA930057AC78 /* DALabeledCircularProgressView.m in Sources */,
 				547C499B1F1DBB8200178B67 /* UIBarButtonItem+Create.m in Sources */,
+				8EA9534D212E4C550057AC78 /* zhuanfaViewController.m in Sources */,
 				8EA95332212BE1C20057AC78 /* pingpaiCell.m in Sources */,
 				547C495E1F1DBB8200178B67 /* NewsViewController.m in Sources */,
 				9ABCEEA11FFCA6BB00DF4380 /* NetworkManager.m in Sources */,
@@ -1650,6 +1755,7 @@
 				547C49B21F1DD82500178B67 /* GoodsViewController.m in Sources */,
 				8EA9530D212BAA930057AC78 /* ZLPhotoPickerFooterCollectionReusableView.m in Sources */,
 				547C486D1F1DA8AF00178B67 /* main.m in Sources */,
+				8EA95346212E49BC0057AC78 /* LXFloaintButton.m in Sources */,
 				547C49661F1DBB8200178B67 /* UIResponder+LKBubble.m in Sources */,
 				547C49931F1DBB8200178B67 /* NSString+Base64.m in Sources */,
 				547C497A1F1DBB8200178B67 /* SGAlertView.m in Sources */,

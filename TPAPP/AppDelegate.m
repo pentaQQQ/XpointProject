@@ -10,6 +10,9 @@
 #import "BaseTabBarController.h"
 #import "XYSideViewController.h"
 #import "SideViewController.h"
+
+#import "LoginViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -28,6 +31,13 @@
     XYSideViewController *rootViewController = [[XYSideViewController alloc] initWithSideVC:leftViewController currentVC:tabar];
     
     self.window.rootViewController = rootViewController;
+    
+    
+//    LoginViewController*vc = [[LoginViewController alloc]init];
+//    
+//     self.window.rootViewController = vc;
+    
+    
     
     return YES;
 }

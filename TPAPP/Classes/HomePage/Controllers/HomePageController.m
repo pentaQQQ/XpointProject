@@ -12,10 +12,15 @@
 #import "XYSideViewController.h"
 #import "UIViewController+XYSideCategory.h"
 #import "SearchViewController.h"
+#import "LXFloaintButton.h"
+#import "zhuanfaViewController.h"
+
+
 
 @interface HomePageController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentScrollView *pageContentScrollView;
+@property(nonatomic,strong)LXFloaintButton *button;
 
 @end
 
@@ -35,6 +40,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSelectedIndex:) name:@"changeSelectedIndex" object:nil];
     
     [self setupPageView];
+    
+    [self setUpDrageBtn];
 }
 
 - (void)changeSelectedIndex:(NSNotification *)noti {
@@ -143,7 +150,31 @@
     }];
     
 }
+-(void)setUpDrageBtn{
+    LXFloaintButton *button = [LXFloaintButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 80, 80,80);
+    [button setTitle:@"拖动" forState:UIControlStateNormal];
+    button.backgroundColor =[UIColor blueColor];
+    ViewBorderRadius(button, 40, 0, [UIColor clearColor]);
+    
+    button.safeInsets = UIEdgeInsetsMake(0, 0, SafeAreaBottomHeight, 0);
+   [self.view addSubview:button];
+    
+    button.parentView = [UIApplication sharedApplication].keyWindow;
+    
+    self.button  = button;
+    
+    [button addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
+}
 
+-(void)buttonClick{
+    zhuanfaViewController *vc = [[zhuanfaViewController alloc]init];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    
+    [self presentViewController:nav animated:YES completion:nil];
+    
+    
+    
+}
 
-//各种用法请看宏定义 关于常用色值 字体等
 @end
