@@ -24,25 +24,29 @@
 - (void)makeUI {
     HomePageController *firstViewController = [[HomePageController alloc] init];
     firstViewController.title=@"首页";
-    firstViewController.tabBarItem.image=[UIImage imageNamed:@"tab_index_nor"];
+    firstViewController.tabBarItem.image=[UIImage imageNamed:@"icon_foot_home"];
+    firstViewController.tabBarItem.selectedImage =[UIImage imageNamed:@"icon_foot_home_press"];
     BaseNavigationController *firstNavigationController = [[BaseNavigationController alloc]
                                                            initWithRootViewController:firstViewController];
     
     GoodsViewController *c6=[[GoodsViewController alloc]init];
     c6.title=@"客服";
-    c6.tabBarItem.image=[UIImage imageNamed:@"tab_index_nor"];
+    c6.tabBarItem.image=[UIImage imageNamed:@"icon_foot_xiaoxi"];
+    c6.tabBarItem.selectedImage =[UIImage imageNamed:@"icon_foot_xiaoxi_press"];
     //c6.tabBarItem.selectedImage =[[UIImage imageNamed:@"tab_market_nor"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     BaseNavigationController *fourthNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c6];
     
     FindViewController *secondViewController = [[FindViewController alloc] init];
     secondViewController.title=@"发现";
-    secondViewController.tabBarItem.image=[UIImage imageNamed:@"tab_index_nor"];
+    secondViewController.tabBarItem.image=[UIImage imageNamed:@"icon_foot_home"];
+    secondViewController.tabBarItem.selectedImage =[UIImage imageNamed:@"icon_foot_home_press"];
     BaseNavigationController *secondNavigationController = [[BaseNavigationController alloc]
                                                             initWithRootViewController:secondViewController];
     
     CartViewController *c4=[[CartViewController alloc]init];
     c4.title=@"购物车";
-    c4.tabBarItem.image=[UIImage imageNamed:@"tab_index_nor"];
+    c4.tabBarItem.image=[UIImage imageNamed:@"icon_foot_buy"];
+    c4.tabBarItem.selectedImage =[UIImage imageNamed:@"icon_foot_buy_press"];
     BaseNavigationController *thirdNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c4];
     
     
@@ -50,7 +54,8 @@
     
     MineViewController *c7=[[MineViewController alloc]init];
     c7.title=@"我的";
-    c7.tabBarItem.image=[UIImage imageNamed:@"tab_index_nor"];
+    c7.tabBarItem.image=[UIImage imageNamed:@"icon_foot_mine"];
+    c7.tabBarItem.selectedImage =[UIImage imageNamed:@"icon_foot_mine_press"];
     BaseNavigationController *sevenNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c7];
     
     
