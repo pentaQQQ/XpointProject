@@ -104,6 +104,9 @@
 		011210722133E1C40071AC5F /* ServiceTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011210712133E1C40071AC5F /* ServiceTypeCell.m */; };
 		011210752133E8330071AC5F /* QuestionDeatailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011210742133E8330071AC5F /* QuestionDeatailCell.m */; };
 		011210772133FD790071AC5F /* delete_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 011210762133FD790071AC5F /* delete_image.png */; };
+		019AA51821343CFC0018A832 /* BuyGoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51721343CFC0018A832 /* BuyGoodsListController.m */; };
+		019AA51C21343F600018A832 /* SystemInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51B21343F600018A832 /* SystemInformationController.m */; };
+		019AA51F213440AF0018A832 /* SystemInformationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51E213440AF0018A832 /* SystemInformationCell.m */; };
 		20908A7E4AD0D5620F537756 /* Pods_TPAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DEB8D54F546355CB17A5807 /* Pods_TPAPP.framework */; };
 		547C486D1F1DA8AF00178B67 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C486C1F1DA8AF00178B67 /* main.m */; };
 		547C48701F1DA8AF00178B67 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C486F1F1DA8AF00178B67 /* AppDelegate.m */; };
@@ -449,6 +452,12 @@
 		011210732133E8330071AC5F /* QuestionDeatailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuestionDeatailCell.h; sourceTree = "<group>"; };
 		011210742133E8330071AC5F /* QuestionDeatailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestionDeatailCell.m; sourceTree = "<group>"; };
 		011210762133FD790071AC5F /* delete_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_image.png; sourceTree = "<group>"; };
+		019AA51621343CFC0018A832 /* BuyGoodsListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyGoodsListController.h; sourceTree = "<group>"; };
+		019AA51721343CFC0018A832 /* BuyGoodsListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuyGoodsListController.m; sourceTree = "<group>"; };
+		019AA51A21343F600018A832 /* SystemInformationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemInformationController.h; sourceTree = "<group>"; };
+		019AA51B21343F600018A832 /* SystemInformationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SystemInformationController.m; sourceTree = "<group>"; };
+		019AA51D213440AF0018A832 /* SystemInformationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemInformationCell.h; sourceTree = "<group>"; };
+		019AA51E213440AF0018A832 /* SystemInformationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SystemInformationCell.m; sourceTree = "<group>"; };
 		3DEB8D54F546355CB17A5807 /* Pods_TPAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TPAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		547C48681F1DA8AF00178B67 /* TPAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TPAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		547C486C1F1DA8AF00178B67 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -766,6 +775,7 @@
 		01120EA521338F9C0071AC5F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				019AA51921343EFA0018A832 /* 系统信息 */,
 				01120EA621338F9C0071AC5F /* 会员等级 */,
 				01120EAD21338F9C0071AC5F /* 地址管理 */,
 				01120EB421338F9C0071AC5F /* 客户对账 */,
@@ -956,6 +966,8 @@
 			children = (
 				01120F2021338FC40071AC5F /* CartViewController.h */,
 				01120F2121338FC40071AC5F /* CartViewController.m */,
+				019AA51621343CFC0018A832 /* BuyGoodsListController.h */,
+				019AA51721343CFC0018A832 /* BuyGoodsListController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1207,6 +1219,17 @@
 				01120FE4213392FD0071AC5F /* arrow@2x.png */,
 			);
 			path = model_image;
+			sourceTree = "<group>";
+		};
+		019AA51921343EFA0018A832 /* 系统信息 */ = {
+			isa = PBXGroup;
+			children = (
+				019AA51A21343F600018A832 /* SystemInformationController.h */,
+				019AA51B21343F600018A832 /* SystemInformationController.m */,
+				019AA51D213440AF0018A832 /* SystemInformationCell.h */,
+				019AA51E213440AF0018A832 /* SystemInformationCell.m */,
+			);
+			path = "系统信息";
 			sourceTree = "<group>";
 		};
 		138A493607932299C6FEF726 /* Pods */ = {
@@ -2218,7 +2241,6 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 4K4B647X6V;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -2542,6 +2564,8 @@
 				011210722133E1C40071AC5F /* ServiceTypeCell.m in Sources */,
 				0112100F213392FD0071AC5F /* JXCategoryTitleImageCellModel.m in Sources */,
 				01121004213392FD0071AC5F /* JXCategoryComponentView.m in Sources */,
+				019AA51F213440AF0018A832 /* SystemInformationCell.m in Sources */,
+				019AA51C21343F600018A832 /* SystemInformationController.m in Sources */,
 				8EA9532C212BE0D70057AC78 /* HeaderTabView.m in Sources */,
 				01120EF721338F9C0071AC5F /* EditAddressController.m in Sources */,
 				547C49981F1DBB8200178B67 /* GHWalkThroughView.m in Sources */,
@@ -2572,6 +2596,7 @@
 				8EA95302212BAA930057AC78 /* UIView+ZLExtension.m in Sources */,
 				8EA95316212BBB810057AC78 /* XYSideViewController.m in Sources */,
 				8EA952FE212BAA930057AC78 /* ZLPhotoPickerBrowserPhotoView.m in Sources */,
+				019AA51821343CFC0018A832 /* BuyGoodsListController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2721,7 +2746,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4K4B647X6V;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2736,7 +2761,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4K4B647X6V;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

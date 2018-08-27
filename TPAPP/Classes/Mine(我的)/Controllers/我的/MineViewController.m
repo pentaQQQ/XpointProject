@@ -572,7 +572,8 @@
 - (void)leftBackAction
 {
     
-    [self.navigationController popViewControllerAnimated:YES];;
+    SystemInformationController *minePerCtrl = [[SystemInformationController alloc] init];
+    [self.navigationController pushViewController:minePerCtrl animated:YES];
 }
 - (void)rightAction
 {

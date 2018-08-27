@@ -96,8 +96,10 @@
 {
     if (section == 0) {
         return 0;
+    }else{
+        return 40;
     }
-    return 40;
+    
 }
 //cell高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -141,7 +143,7 @@
                 AddressManageController *addressMaCtrl = [[AddressManageController alloc] init];
                 [self.navigationController pushViewController:addressMaCtrl animated:YES];
             }else{
-                
+
             }
         }];
         return cell;
@@ -152,9 +154,9 @@
         if ([dict[@"Edit"] isEqualToString:@"0"]) {
             CompileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompileCellID"];
             
-            //    if (!cell) {
+                if (cell==nil) {
             cell = [[CompileCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompileCellID"];
-            //    }
+                }
             
             cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]],[MGSwipeButton buttonWithTitle:@"更多" backgroundColor:[UIColor grayColor]]];
             
@@ -372,15 +374,19 @@
         //根据头部section的选中状态  判断结账栏的状态
         BOOL sectionChose = YES;
         for (NSInteger i = 0; i < _dataSource.count; i++) {
+            
             NSArray *arr = _dataSource[i];
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
-            if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
-                sectionChose = YES;
-            }else{
-                sectionChose = NO;
-                
-                break;
+            if (arr.count != 0) {
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
+                if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
+                    sectionChose = YES;
+                }else{
+                    sectionChose = NO;
+                    
+                    break;
+                }
             }
+            
         }
         
         if (sectionChose == YES) {
@@ -457,14 +463,17 @@
     BOOL sectionChose = YES;
     for (NSInteger i = 0; i < _dataSource.count; i++) {
         NSArray *arr = _dataSource[i];
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
-        if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
-            sectionChose = YES;
-        }else{
-            sectionChose = NO;
-            
-            break;
+        if (arr.count != 0) {
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
+            if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
+                sectionChose = YES;
+            }else{
+                sectionChose = NO;
+                
+                break;
+            }
         }
+       
     }
     
     if (sectionChose == YES) {
