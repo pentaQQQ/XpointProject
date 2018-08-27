@@ -28,22 +28,24 @@
     BaseNavigationController *firstNavigationController = [[BaseNavigationController alloc]
                                                            initWithRootViewController:firstViewController];
     
+    GoodsViewController *c6=[[GoodsViewController alloc]init];
+    c6.title=@"客服";
+    c6.tabBarItem.image=[UIImage imageNamed:@"tab_index_nor"];
+    //c6.tabBarItem.selectedImage =[[UIImage imageNamed:@"tab_market_nor"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    BaseNavigationController *fourthNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c6];
+    
     FindViewController *secondViewController = [[FindViewController alloc] init];
-    secondViewController.title=@"客服";
+    secondViewController.title=@"发现";
     secondViewController.tabBarItem.image=[UIImage imageNamed:@"tab_index_nor"];
     BaseNavigationController *secondNavigationController = [[BaseNavigationController alloc]
                                                             initWithRootViewController:secondViewController];
     
     CartViewController *c4=[[CartViewController alloc]init];
-    c4.title=@"发现";
+    c4.title=@"购物车";
     c4.tabBarItem.image=[UIImage imageNamed:@"tab_index_nor"];
     BaseNavigationController *thirdNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c4];
     
-    GoodsViewController *c6=[[GoodsViewController alloc]init];
-    c6.title=@"购物车";
-    c6.tabBarItem.image=[UIImage imageNamed:@"tab_index_nor"];
-    //c6.tabBarItem.selectedImage =[[UIImage imageNamed:@"tab_market_nor"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    BaseNavigationController *fourthNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c6];
+    
     
     
     MineViewController *c7=[[MineViewController alloc]init];
@@ -54,9 +56,9 @@
     
     NSArray *viewControllers = @[
                                  firstNavigationController,
+                                 fourthNavigationController,
                                  secondNavigationController,
                                  thirdNavigationController,
-                                 fourthNavigationController,
                                  sevenNavigationController
                                  ];
     
@@ -76,7 +78,7 @@
     // set the text color for selected state
     // 选中状态下的文字属性
     NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
-    selectedAttrs[NSForegroundColorAttributeName] = colorWithRGB(0x0099E3);
+    selectedAttrs[NSForegroundColorAttributeName] = colorWithRGB(0xFF6B24);
     
     // set the text Attributes
     // 设置文字属性
