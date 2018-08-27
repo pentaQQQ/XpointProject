@@ -272,6 +272,42 @@
     //判断是否把section的全选按钮取消
     [self didChangeValueForSectionRow:indexPath.section];
 }
+
+/**
+ *  取消选中商品
+ */
+-(void)SelectedRemarkCell:(CompileCell *)cell
+{
+    UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"修改昵称" message: nil preferredStyle:UIAlertControllerStyleAlert];
+    [alertCtrl  addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+    
+         textField.text = cell.RemarksLabel.text;
+         textField.borderStyle = UITextBorderStyleNone;
+         textField.textColor = [UIColor blackColor];
+         textField.clearButtonMode = UITextFieldViewModeAlways;
+    }];
+    [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    [alertCtrl  addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+         NSArray * textfields = alertCtrl.textFields;
+         UITextField * namefield = textfields[0];
+        cell.RemarksLabel.text = namefield.text;
+    }]];
+    [self presentViewController:alertCtrl animated:YES completion:nil];
+//    NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
+//    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[indexPath.section]];
+//    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
+//    [dict setValue:@"未选中支付" forKey:@"SelectedType"];
+//    [dict setValue:@"0" forKey:@"Type"];
+//    [arr replaceObjectAtIndex:indexPath.row withObject:dict];
+//
+//    [_dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+//
+//    //判断是否把section的全选按钮取消
+//    [self didChangeValueForSectionRow:indexPath.section];
+}
+
+
 /**
  *  选中了哪一section
  */

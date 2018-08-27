@@ -51,7 +51,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title =@"退货/售后";
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = colorWithRGB(0xEEEEEE);
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    //    self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]],@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]], nil];
     [self listTableView];
 }
 
@@ -65,9 +67,9 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GoodsListCell *headerCell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"GoodsListCellID%ld",self.selectCtrl]];
+    GoodsListCell *headerCell = [tableView dequeueReusableCellWithIdentifier:@"GoodsListCellID"];
     if (!headerCell) {
-        headerCell = [[GoodsListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"GoodsListCellID%ld",self.selectCtrl]];
+        headerCell = [[GoodsListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"GoodsListCellID"];
     }
     
     headerCell.selectionStyle = UITableViewCellSelectionStyleNone;

@@ -121,24 +121,24 @@
         }else if (indexPath.row == 1){
             EditNicknameController *idCtrl = [[EditNicknameController alloc] init];
             [self.navigationController pushViewController:idCtrl animated:YES];
-            //            dispatch_async(dispatch_get_main_queue(), ^{
-            //                UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"修改昵称" message: nil preferredStyle:UIAlertControllerStyleAlert];
-            //                [alertCtrl  addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-            //
-            //                    textField.text = cellModel.indicatorTitle;
-            //                    textField.borderStyle = UITextBorderStyleNone;
-            //                    textField.textColor = [UIColor blackColor];
-            //                    textField.clearButtonMode = UITextFieldViewModeAlways;
-            //                }];
-            //                [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            //                }]];
-            //                [alertCtrl  addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //                    NSArray * textfields = alertCtrl.textFields;
-            //                    UITextField * namefield = textfields[0];
-            //                    NSLog(@"%@",namefield.text);
-            //                }]];
-            //                [self presentViewController:alertCtrl animated:YES completion:nil];
-            //            });
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                            UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"修改昵称" message: nil preferredStyle:UIAlertControllerStyleAlert];
+//                            [alertCtrl  addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+//            
+//                                textField.text = cellModel.indicatorTitle;
+//                                textField.borderStyle = UITextBorderStyleNone;
+//                                textField.textColor = [UIColor blackColor];
+//                                textField.clearButtonMode = UITextFieldViewModeAlways;
+//                            }];
+//                            [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//                            }]];
+//                            [alertCtrl  addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                                NSArray * textfields = alertCtrl.textFields;
+//                                UITextField * namefield = textfields[0];
+//                                NSLog(@"%@",namefield.text);
+//                            }]];
+//                            [self presentViewController:alertCtrl animated:YES completion:nil];
+//                        });
             
         }
     }else if (indexPath.section == 1){

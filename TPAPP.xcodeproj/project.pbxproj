@@ -99,6 +99,11 @@
 		01121018213392FD0071AC5F /* YSStaticCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01120FEA213392FD0071AC5F /* YSStaticCellModel.m */; };
 		01121019213392FD0071AC5F /* YSStaticSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01120FEC213392FD0071AC5F /* YSStaticSectionModel.m */; };
 		0112101A213392FD0071AC5F /* YSStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01120FEE213392FD0071AC5F /* YSStaticTableViewCell.m */; };
+		0112106C2133DA120071AC5F /* ApplyDeatailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112106B2133DA120071AC5F /* ApplyDeatailController.m */; };
+		0112106F2133DAF60071AC5F /* ApplyDeatailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112106E2133DAF60071AC5F /* ApplyDeatailCell.m */; };
+		011210722133E1C40071AC5F /* ServiceTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011210712133E1C40071AC5F /* ServiceTypeCell.m */; };
+		011210752133E8330071AC5F /* QuestionDeatailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011210742133E8330071AC5F /* QuestionDeatailCell.m */; };
+		011210772133FD790071AC5F /* delete_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 011210762133FD790071AC5F /* delete_image.png */; };
 		20908A7E4AD0D5620F537756 /* Pods_TPAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DEB8D54F546355CB17A5807 /* Pods_TPAPP.framework */; };
 		547C486D1F1DA8AF00178B67 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C486C1F1DA8AF00178B67 /* main.m */; };
 		547C48701F1DA8AF00178B67 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C486F1F1DA8AF00178B67 /* AppDelegate.m */; };
@@ -435,6 +440,15 @@
 		01120FEC213392FD0071AC5F /* YSStaticSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSStaticSectionModel.m; sourceTree = "<group>"; };
 		01120FED213392FD0071AC5F /* YSStaticTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSStaticTableViewCell.h; sourceTree = "<group>"; };
 		01120FEE213392FD0071AC5F /* YSStaticTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSStaticTableViewCell.m; sourceTree = "<group>"; };
+		0112106A2133DA120071AC5F /* ApplyDeatailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyDeatailController.h; sourceTree = "<group>"; };
+		0112106B2133DA120071AC5F /* ApplyDeatailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyDeatailController.m; sourceTree = "<group>"; };
+		0112106D2133DAF60071AC5F /* ApplyDeatailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplyDeatailCell.h; sourceTree = "<group>"; };
+		0112106E2133DAF60071AC5F /* ApplyDeatailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplyDeatailCell.m; sourceTree = "<group>"; };
+		011210702133E1C40071AC5F /* ServiceTypeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceTypeCell.h; sourceTree = "<group>"; };
+		011210712133E1C40071AC5F /* ServiceTypeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceTypeCell.m; sourceTree = "<group>"; };
+		011210732133E8330071AC5F /* QuestionDeatailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuestionDeatailCell.h; sourceTree = "<group>"; };
+		011210742133E8330071AC5F /* QuestionDeatailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestionDeatailCell.m; sourceTree = "<group>"; };
+		011210762133FD790071AC5F /* delete_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_image.png; sourceTree = "<group>"; };
 		3DEB8D54F546355CB17A5807 /* Pods_TPAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TPAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		547C48681F1DA8AF00178B67 /* TPAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TPAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		547C486C1F1DA8AF00178B67 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -845,6 +859,15 @@
 			children = (
 				01120ECB21338F9C0071AC5F /* ApplyGoodsServiceController.h */,
 				01120ECC21338F9C0071AC5F /* ApplyGoodsServiceController.m */,
+				0112106A2133DA120071AC5F /* ApplyDeatailController.h */,
+				0112106B2133DA120071AC5F /* ApplyDeatailController.m */,
+				0112106D2133DAF60071AC5F /* ApplyDeatailCell.h */,
+				0112106E2133DAF60071AC5F /* ApplyDeatailCell.m */,
+				011210702133E1C40071AC5F /* ServiceTypeCell.h */,
+				011210712133E1C40071AC5F /* ServiceTypeCell.m */,
+				011210732133E8330071AC5F /* QuestionDeatailCell.h */,
+				011210742133E8330071AC5F /* QuestionDeatailCell.m */,
+				011210762133FD790071AC5F /* delete_image.png */,
 			);
 			path = "申请售后";
 			sourceTree = "<group>";
@@ -2195,6 +2218,7 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 4K4B647X6V;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -2244,6 +2268,7 @@
 				8EA95333212BE1C20057AC78 /* pingpaiCell.xib in Resources */,
 				547C49A41F1DBB8200178B67 /* tab_edu_nor@2x.png in Resources */,
 				547C49A51F1DBB8200178B67 /* tab_edu_nor@3x.png in Resources */,
+				011210772133FD790071AC5F /* delete_image.png in Resources */,
 				01121014213392FD0071AC5F /* README.md in Resources */,
 				547C49671F1DBB8200178B67 /* lkbubble1.jpg in Resources */,
 				547C49811F1DBB8200178B67 /* SGDatePickerSheetView.xib in Resources */,
@@ -2364,6 +2389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0112106F2133DAF60071AC5F /* ApplyDeatailCell.m in Sources */,
 				8EA952FB212BAA930057AC78 /* ZLPhotoPickerBrowserViewController+SignlePhotoBrowser.m in Sources */,
 				8ED5B48A212A5F7B00B5983B /* ClassDetailViewController.m in Sources */,
 				01121008213392FD0071AC5F /* JXCategoryNumberCell.m in Sources */,
@@ -2371,6 +2397,7 @@
 				01120F0421338F9C0071AC5F /* TXRecordViewController.m in Sources */,
 				01120EFA21338F9C0071AC5F /* MinePerformanceCell.m in Sources */,
 				547C49821F1DBB8200178B67 /* SGLocationPickerCenterView.m in Sources */,
+				011210752133E8330071AC5F /* QuestionDeatailCell.m in Sources */,
 				547C499D1F1DBB8200178B67 /* UIViewController+Cache.m in Sources */,
 				8EA9531A212BBC080057AC78 /* SideViewController.m in Sources */,
 				547C497D1F1DBB8200178B67 /* SGDatePicker.m in Sources */,
@@ -2469,6 +2496,7 @@
 				8EA952F9212BAA930057AC78 /* ZLPhotoPickerBrowserPhoto.m in Sources */,
 				0112100C213392FD0071AC5F /* JXCategoryTitleCellModel.m in Sources */,
 				01121006213392FD0071AC5F /* JXCategoryLineStyleCellModel.m in Sources */,
+				0112106C2133DA120071AC5F /* ApplyDeatailController.m in Sources */,
 				01120FF2213392FD0071AC5F /* NSDate+BRAdd.m in Sources */,
 				8EA9530F212BAA930057AC78 /* ZLPhotoPickerGroupTableViewCell.m in Sources */,
 				01120EE921338F9C0071AC5F /* IndentCell.m in Sources */,
@@ -2511,6 +2539,7 @@
 				01121010213392FD0071AC5F /* JXCategoryTitleImageView.m in Sources */,
 				547C49791F1DBB8200178B67 /* SGActionSheetCell.m in Sources */,
 				01120F0621338F9C0071AC5F /* EditNicknameController.m in Sources */,
+				011210722133E1C40071AC5F /* ServiceTypeCell.m in Sources */,
 				0112100F213392FD0071AC5F /* JXCategoryTitleImageCellModel.m in Sources */,
 				01121004213392FD0071AC5F /* JXCategoryComponentView.m in Sources */,
 				8EA9532C212BE0D70057AC78 /* HeaderTabView.m in Sources */,
@@ -2692,7 +2721,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4K4B647X6V;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2707,7 +2736,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4K4B647X6V;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

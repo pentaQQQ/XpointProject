@@ -18,7 +18,7 @@
 -(NSMutableArray *)titles
 {
     if (_titles == nil) {
-        _titles = [NSMutableArray arrayWithObjects:@"全部", @"平台缺货", @"用户取消", @"退货中", @"已退货", nil];
+        _titles = [NSMutableArray arrayWithObjects:@"全部", @"已缺货", @"已取消", @"退货中", @"已退货", nil];
     }
     return _titles;
 }

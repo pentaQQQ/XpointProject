@@ -149,7 +149,7 @@
 
 - (void)remarkAction
 {
-    
+    [self.SelectedDelegate SelectedRemarkCell:self];
 }
 
 -(void)withData:(NSDictionary *)info

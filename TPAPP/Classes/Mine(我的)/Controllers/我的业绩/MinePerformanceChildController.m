@@ -131,21 +131,7 @@
 {
     // 这里是你点击了cell里的某个按钮后要做的操作
     if (index == 0) {
-//        self.listTableView.frame = CGRectMake(0, 50, kScreenWidth, self.view.bounds.size.height-50);
-//        self.topView.alpha = 1;
-//        self.startLineView.alpha = 1;
-//        self.endLineView.alpha = 1;
-//        self.dateLabel.alpha = 1;
-//        self.startDateBtn.alpha = 1;
-//        self.endDateBtn.alpha = 1;
     }else{
-//        self.listTableView.frame = CGRectMake(0, 0, kScreenWidth, self.view.bounds.size.height);
-//        self.topView.alpha = 0;
-//        self.startLineView.alpha = 0;
-//        self.endLineView.alpha = 0;
-//        self.dateLabel.alpha = 0;
-//        self.startDateBtn.alpha = 0;
-//        self.endDateBtn.alpha = 0;
     }
 }
 - (void)createTopView

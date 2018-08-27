@@ -186,7 +186,7 @@
 }
 - (void)applyBtnAction
 {
-    
+    self.selectBlock(self);
 }
 #pragma mark-字体宽度自适应
 - (CGFloat)widthLabelWithModel:(NSString *)titleString withFont:(NSInteger)font

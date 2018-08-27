@@ -7,7 +7,7 @@
 //
 
 #import "ApplyGoodsServiceController.h"
-
+#import "ApplyDeatailController.h"
 @interface ApplyGoodsServiceController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong)UITableView *listTableView;
@@ -72,6 +72,10 @@
     }
    
     headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [headerCell setSelectBlock:^(GoodsListCell * cell) {
+        ApplyDeatailController *applyCtrl = [[ApplyDeatailController alloc] init];
+        [self.navigationController pushViewController:applyCtrl animated:YES];
+    }];
     return headerCell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -125,6 +129,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 }
+
+
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

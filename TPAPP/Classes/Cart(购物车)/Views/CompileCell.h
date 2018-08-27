@@ -7,11 +7,14 @@
 //
 
 #import "MGSwipeTableCell.h"
-
+@class CompileCell;
 @protocol ShoppingSelectedDelegate <NSObject>
 
 -(void)SelectedConfirmCell:(UITableViewCell *)cell;
 -(void)SelectedCancelCell:(UITableViewCell *)cell;
+-(void)SelectedRemarkCell:(CompileCell *)cell;
+
+
 @end
 
 @interface CompileCell : MGSwipeTableCell
