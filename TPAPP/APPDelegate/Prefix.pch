@@ -53,4 +53,5 @@
 #import "GoodsChildViewController.h"
 #import "ApplyGoodsServiceController.h"
 #import "VIPViewController.h"
+#import "SystemInformationController.h"
 #endif /* Prefix_pch */

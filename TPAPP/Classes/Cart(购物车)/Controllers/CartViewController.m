@@ -96,8 +96,10 @@
 {
     if (section == 0) {
         return 0;
+    }else{
+        return 40;
     }
-    return 40;
+    
 }
 //cell高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -141,7 +143,7 @@
                 AddressManageController *addressMaCtrl = [[AddressManageController alloc] init];
                 [self.navigationController pushViewController:addressMaCtrl animated:YES];
             }else{
-                
+
             }
         }];
         return cell;
@@ -152,9 +154,9 @@
         if ([dict[@"Edit"] isEqualToString:@"0"]) {
             CompileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompileCellID"];
             
-            //    if (!cell) {
+                if (cell==nil) {
             cell = [[CompileCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompileCellID"];
-            //    }
+                }
             
             cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]],[MGSwipeButton buttonWithTitle:@"更多" backgroundColor:[UIColor grayColor]]];
             
@@ -272,6 +274,42 @@
     //判断是否把section的全选按钮取消
     [self didChangeValueForSectionRow:indexPath.section];
 }
+
+/**
+ *  取消选中商品
+ */
+-(void)SelectedRemarkCell:(CompileCell *)cell
+{
+    UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"修改昵称" message: nil preferredStyle:UIAlertControllerStyleAlert];
+    [alertCtrl  addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+    
+         textField.text = cell.RemarksLabel.text;
+         textField.borderStyle = UITextBorderStyleNone;
+         textField.textColor = [UIColor blackColor];
+         textField.clearButtonMode = UITextFieldViewModeAlways;
+    }];
+    [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    [alertCtrl  addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+         NSArray * textfields = alertCtrl.textFields;
+         UITextField * namefield = textfields[0];
+        cell.RemarksLabel.text = namefield.text;
+    }]];
+    [self presentViewController:alertCtrl animated:YES completion:nil];
+//    NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
+//    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[indexPath.section]];
+//    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
+//    [dict setValue:@"未选中支付" forKey:@"SelectedType"];
+//    [dict setValue:@"0" forKey:@"Type"];
+//    [arr replaceObjectAtIndex:indexPath.row withObject:dict];
+//
+//    [_dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+//
+//    //判断是否把section的全选按钮取消
+//    [self didChangeValueForSectionRow:indexPath.section];
+}
+
+
 /**
  *  选中了哪一section
  */
@@ -336,15 +374,19 @@
         //根据头部section的选中状态  判断结账栏的状态
         BOOL sectionChose = YES;
         for (NSInteger i = 0; i < _dataSource.count; i++) {
+            
             NSArray *arr = _dataSource[i];
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
-            if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
-                sectionChose = YES;
-            }else{
-                sectionChose = NO;
-                
-                break;
+            if (arr.count != 0) {
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
+                if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
+                    sectionChose = YES;
+                }else{
+                    sectionChose = NO;
+                    
+                    break;
+                }
             }
+            
         }
         
         if (sectionChose == YES) {
@@ -421,14 +463,17 @@
     BOOL sectionChose = YES;
     for (NSInteger i = 0; i < _dataSource.count; i++) {
         NSArray *arr = _dataSource[i];
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
-        if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
-            sectionChose = YES;
-        }else{
-            sectionChose = NO;
-            
-            break;
+        if (arr.count != 0) {
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
+            if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
+                sectionChose = YES;
+            }else{
+                sectionChose = NO;
+                
+                break;
+            }
         }
+       
     }
     
     if (sectionChose == YES) {

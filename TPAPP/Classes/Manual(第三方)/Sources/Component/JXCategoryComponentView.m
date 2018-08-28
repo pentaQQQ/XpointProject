@@ -26,7 +26,7 @@
     _indicatorViewScrollEnabled = YES;
     _indicatorLineViewColor = [UIColor redColor];
     _zoomEnabled = NO;
-    _zoomScale = 1.2;
+    _zoomScale = 1.1;
     _indicatorLineViewShowEnabled = YES;
     _backgroundEllipseLayerWidth = JXCategoryViewAutomaticDimension;
     _backgroundEllipseLayerHeight = 20;

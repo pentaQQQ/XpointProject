@@ -230,14 +230,14 @@
     .leftSpaceToView(self.moneyBgView, 0)
     .widthIs((self.headerBgView.frame.size.width-40)/2)
     .heightIs(20);
-    self.moneyView.layer.cornerRadius = 15;
+    self.moneyView.layer.cornerRadius = 10;
     self.moneyView.layer.masksToBounds = YES;
     
     self.moneyLabel = [[UILabel alloc] init];
     self.moneyLabel.backgroundColor = colorWithRGB(0xFF6B24);
     [self.moneyView addSubview:self.moneyLabel];
     self.moneyLabel.sd_layout
-    .topSpaceToView(self.moneyView, 5)
+    .topSpaceToView(self.moneyView, 0)
     .rightSpaceToView(self.moneyView, 10)
     .widthIs(self.moneyView.frame.size.width-10)
     .heightIs(20);

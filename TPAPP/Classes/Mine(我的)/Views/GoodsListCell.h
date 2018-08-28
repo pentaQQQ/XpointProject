@@ -23,4 +23,7 @@
 @property (nonatomic, strong)UIButton *applyBtn;
 @property (nonatomic, strong)UIView *upLineView;
 @property (nonatomic, strong)UIView *downLineView;
+
+@property (nonatomic, strong)void(^selectBlock)(GoodsListCell *);
+
 @end

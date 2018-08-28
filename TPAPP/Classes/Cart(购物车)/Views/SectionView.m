@@ -57,12 +57,12 @@
         [self addSubview:SelectedStoreBtn];
         
         //编辑按钮
-//        UIButton *EditBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 40, 12.5, 30, 15)];
-//        [EditBtn setTitle:@"编辑" forState:UIControlStateNormal];
-//        [EditBtn addTarget:self action:@selector(EditAction) forControlEvents:UIControlEventTouchUpInside];
-//        [EditBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        EditBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-//        [self addSubview:EditBtn];
+        UIButton *EditBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 40, 12.5, 30, 15)];
+        [EditBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        [EditBtn addTarget:self action:@selector(EditAction) forControlEvents:UIControlEventTouchUpInside];
+        [EditBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        EditBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        [self addSubview:EditBtn];
         
     }
     return self;
@@ -91,8 +91,8 @@
     }
 }
 
-//-(void)EditAction
-//{
-//    [self.delegate SelectedEdit:_Section];
-//}
+-(void)EditAction
+{
+    [self.delegate SelectedEdit:_Section];
+}
 @end

@@ -252,6 +252,11 @@
             if (num == 0) {
                 ReturnGoodsViewController*goodsCtrl = [[ReturnGoodsViewController alloc] init];
                 goodsCtrl.selectType = 2;
+                goodsCtrl.title = @"退款/售后";
+                JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)goodsCtrl.categoryView;
+                titleCategoryView.titleColorGradientEnabled = YES;
+                titleCategoryView.indicatorLineViewShowEnabled = YES;
+                titleCategoryView.zoomEnabled = NO;
                 [self.navigationController pushViewController:goodsCtrl animated:YES];
             }else if (num == 1){
                 
@@ -510,14 +515,15 @@
         JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)minePerCtrl.categoryView;
         titleCategoryView.titleColorGradientEnabled = YES;
         titleCategoryView.indicatorLineViewShowEnabled = YES;
+        titleCategoryView.zoomEnabled = YES;
         [self.navigationController pushViewController:minePerCtrl animated:YES];
     }else{
         MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
         minePerCtrl.title = @"我的订单";
         minePerCtrl.selectType = 1;
         JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)minePerCtrl.categoryView;
+        titleCategoryView.zoomEnabled = YES;
         titleCategoryView.titleColorGradientEnabled = YES;
-        titleCategoryView.indicatorLineViewShowEnabled = NO;
         titleCategoryView.indicatorLineViewShowEnabled = YES;
         [self.navigationController pushViewController:minePerCtrl animated:YES];
     }
@@ -566,7 +572,8 @@
 - (void)leftBackAction
 {
     
-    [self.navigationController popViewControllerAnimated:YES];;
+    SystemInformationController *minePerCtrl = [[SystemInformationController alloc] init];
+    [self.navigationController pushViewController:minePerCtrl animated:YES];
 }
 - (void)rightAction
 {
