@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef void (^GestureActionBlock)(UIGestureRecognizer *gestureRecoginzer);
 @interface UIView (Extension)
 
 @property (nonatomic, assign) CGFloat x;
@@ -18,5 +18,5 @@
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, assign) CGSize size;
 @property (nonatomic, assign) CGPoint origin;
-
+- (void)addTapActionWithBlock:(GestureActionBlock)block;
 @end

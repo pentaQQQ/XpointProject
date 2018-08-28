@@ -10,4 +10,35 @@
 
 @interface zhuanfaHeaderView : UIView
 
+
+@property (weak, nonatomic) IBOutlet UIImageView *firstImageview;
+@property (weak, nonatomic) IBOutlet UIImageView *secondImageview;
+@property (weak, nonatomic) IBOutlet UIImageView *thirdImageview;
+@property (weak, nonatomic) IBOutlet UIImageView *fourthImageview;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *xinghaoLab;
+@property (weak, nonatomic) IBOutlet UILabel *kuanshiLab;
+@property (weak, nonatomic) IBOutlet UILabel *kuanhaoLab;
+
+
+
+@property (weak, nonatomic) IBOutlet UIButton *firstBtn;
+@property (weak, nonatomic) IBOutlet UIButton *firstSaveBtn;
+@property (weak, nonatomic) IBOutlet UIButton *secondBtn;
+@property (weak, nonatomic) IBOutlet UIButton *secondSaveBtn;
+@property (weak, nonatomic) IBOutlet UIButton *thirdBtn;
+@property (weak, nonatomic) IBOutlet UIButton *thirdSaveBtn;
+@property (weak, nonatomic) IBOutlet UIButton *fourthBtn;
+@property (weak, nonatomic) IBOutlet UIButton *fourthSaveBtn;
+
+
+
+
+@property (weak, nonatomic) IBOutlet UIButton *previousPageBtn;
+@property (weak, nonatomic) IBOutlet UIButton *nextPageBtn;
+@property (weak, nonatomic) IBOutlet UIButton *numberBtn;
+@property (weak, nonatomic) IBOutlet UIButton *zhuanfaBtn;
+
+
 @end

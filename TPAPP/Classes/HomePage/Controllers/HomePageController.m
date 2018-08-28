@@ -152,7 +152,7 @@
 }
 -(void)setUpDrageBtn{
     LXFloaintButton *button = [LXFloaintButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(0, 80, 80,80);
+    button.frame = CGRectMake(0, kScreenHeight-160, 80,80);
     [button setTitle:@"拖动" forState:UIControlStateNormal];
     button.backgroundColor =[UIColor blueColor];
     ViewBorderRadius(button, 40, 0, [UIColor clearColor]);
