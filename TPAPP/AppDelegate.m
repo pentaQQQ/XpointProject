@@ -21,7 +21,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-   
+    
     // 侧拉VC
     SideViewController *leftViewController = [[SideViewController alloc] init];
     //市场人员
@@ -33,9 +33,9 @@
     self.window.rootViewController = rootViewController;
     
     
-//    LoginViewController*vc = [[LoginViewController alloc]init];
-//    
-//     self.window.rootViewController = vc;
+    //    LoginViewController*vc = [[LoginViewController alloc]init];
+    //
+    //     self.window.rootViewController = vc;
     
     
     
@@ -43,13 +43,18 @@
 }
 
 
+
+
+
+
+
 - (void)applicationWillResignActive:(UIApplication *)application {
-  
+    
 }
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-  
+    
 }
 
 
@@ -64,7 +69,7 @@
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-   
+    
 }
 
 
