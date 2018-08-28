@@ -9,6 +9,7 @@
 #import "zhuanfaViewController.h"
 #import "zhuanfaHeaderView.h"
 #import "zhuanfaCell.h"
+#import "zhuanfasetViewController.h"
 @interface zhuanfaViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)zhuanfaHeaderView*headerview;
 @property(nonatomic,strong)UITableView*tableview;
@@ -39,7 +40,8 @@
     self.navigationItem.leftBarButtonItems = @[gap, set];
     
     UIBarButtonItem*rightitem  = [[UIBarButtonItem alloc]initWithTitle:@"转发设置" complete:^{
-        
+        zhuanfasetViewController *vc = [[zhuanfasetViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
     }];
     
     self.navigationItem.rightBarButtonItem =rightitem;

@@ -7,7 +7,9 @@
 //  frame
 
 #import "UIView+Extension.h"
-
+#import <objc/runtime.h>
+static char kActionHandlerTapBlockKey;
+static char kActionHandlerTapGestureKey;
 @implementation UIView (Extension)
 
 - (void)setX:(CGFloat)x
@@ -106,5 +108,29 @@
     return self.frame.origin;
 }
 
+- (void)addTapActionWithBlock:(GestureActionBlock)block
+{
+    self.userInteractionEnabled = YES;
+    UITapGestureRecognizer *gesture = objc_getAssociatedObject(self, &kActionHandlerTapGestureKey);
+    if (!gesture)
+    {
+        gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleActionForTapGesture:)];
+        [self addGestureRecognizer:gesture];
+        objc_setAssociatedObject(self, &kActionHandlerTapGestureKey, gesture, OBJC_ASSOCIATION_RETAIN);
+    }
+    objc_setAssociatedObject(self, &kActionHandlerTapBlockKey, block, OBJC_ASSOCIATION_COPY);
+}
+
+- (void)handleActionForTapGesture:(UITapGestureRecognizer*)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateRecognized)
+    {
+        GestureActionBlock block = objc_getAssociatedObject(self, &kActionHandlerTapBlockKey);
+        if (block)
+        {
+            block(gesture);
+        }
+    }
+}
 
 @end
