@@ -13,6 +13,7 @@
 #import "BottomView.h"
 #import "Helper.h"
 #import "CartHeaderCell.h"
+#import "BuyGoodsListController.h"
 @interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate>
 {
     BOOL allowMultipleSwipe;
@@ -496,6 +497,12 @@
  
  ***********************************************************/
 
+- (void)BalanceSelectedGoods
+{
+    BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
+    [self.navigationController pushViewController:buyCtrl animated:YES];
+}
+
 -(void)DidSelectedAllGoods
 {
     for (NSInteger i = 0; i < _dataSource.count; i ++) {
@@ -513,7 +520,7 @@
         [_dataSource replaceObjectAtIndex:i withObject:arr];
     }
     [self postCenter];
-    
+
     [_CartTableView reloadData];
 }
 
@@ -533,7 +540,6 @@
         }
         [_dataSource replaceObjectAtIndex:i withObject:arr];
     }
-    
     [self postCenter];
     
     [_CartTableView reloadData];

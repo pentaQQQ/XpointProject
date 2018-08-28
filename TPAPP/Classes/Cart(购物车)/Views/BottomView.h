@@ -14,7 +14,8 @@
 -(void)DidSelectedAllGoods;
 //取消选中所有商品
 -(void)NoDidSelectedAllGoods;
-
+//商品结算
+-(void)BalanceSelectedGoods;
 @end
 
 

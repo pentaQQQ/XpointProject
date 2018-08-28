@@ -52,6 +52,7 @@
         BalanceAccount.backgroundColor = [UIColor orangeColor];
         BalanceAccount.frame = CGRectMake(self.frame.size.width/3 * 2 + 10, 0, self.frame.size.width/3 - 10, 44);
         BalanceAccount.titleLabel.font = [UIFont systemFontOfSize:15];
+        [BalanceAccount addTarget:self action:@selector(BalanceAccountAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:BalanceAccount];
         
         
@@ -77,7 +78,10 @@
     return self;
 
 }
-
+- (void)BalanceAccountAction
+{
+     [self.delegate BalanceSelectedGoods];
+}
 -(void)init:(NSDictionary *)dict GoodsData:(NSMutableArray *)goods
 {
     [SelectedAll setImage:Image(dict[@"SelectIcon"]) forState:UIControlStateNormal];

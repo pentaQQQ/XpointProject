@@ -25,28 +25,39 @@
     }
     return _listDataArr;
 }
-#pragma mark - 创建tableview
--(UITableView *)listTableView
+//#pragma mark - 创建tableview
+//-(UITableView *)listTableView
+//{
+//    if (_listTableView == nil) {
+//        _listTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+//        _listTableView.backgroundColor = colorWithRGB(0xEEEEEE);
+//        _listTableView.delegate = self;
+//        _listTableView.dataSource = self;
+//        _listTableView.showsVerticalScrollIndicator = NO;
+//        _listTableView.showsHorizontalScrollIndicator = NO;
+//        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        [self.view addSubview:_listTableView];
+//        _listTableView.sd_layout
+//        .topSpaceToView(self.view, 0)
+//        .leftEqualToView(self.view)
+//        .rightEqualToView(self.view)
+//        .bottomEqualToView(self.view);
+//
+//    }
+//    return _listTableView;
+//}
+- (void)setUpUI
 {
-    if (_listTableView == nil) {
-        _listTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-        _listTableView.backgroundColor = colorWithRGB(0xEEEEEE);
-        _listTableView.delegate = self;
-        _listTableView.dataSource = self;
-        _listTableView.showsVerticalScrollIndicator = NO;
-        _listTableView.showsHorizontalScrollIndicator = NO;
-        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.view addSubview:_listTableView];
-        _listTableView.sd_layout
-        .topSpaceToView(self.view, 0)
-        .leftEqualToView(self.view)
-        .rightEqualToView(self.view)
-        .bottomEqualToView(self.view);
-        
-    }
-    return _listTableView;
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-SafeAreaTopHeight-44) style:UITableViewStyleGrouped];
+    self.listTableView = tableview;
+    [self.view addSubview:tableview];
+    self.listTableView.backgroundColor = colorWithRGB(0xEEEEEE);
+    self.listTableView.delegate = self;
+    self.listTableView.dataSource = self;
+    self.listTableView.showsVerticalScrollIndicator = NO;
+    self.listTableView.showsHorizontalScrollIndicator = NO;
+    self.listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -54,7 +65,8 @@
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
     //    self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]],@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]], nil];
-    [self listTableView];
+//    [self listTableView];
+    [self setUpUI];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

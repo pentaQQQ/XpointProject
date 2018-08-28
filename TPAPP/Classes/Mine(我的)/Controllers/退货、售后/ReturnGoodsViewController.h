@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "MineBaseController.h"
-@interface ReturnGoodsViewController : MineBaseController
+@interface ReturnGoodsViewController : UIViewController
 
 @end

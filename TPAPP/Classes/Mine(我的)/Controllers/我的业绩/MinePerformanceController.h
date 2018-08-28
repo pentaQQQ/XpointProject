@@ -8,5 +8,5 @@
 
 #import <UIKit/UIKit.h>
 #import "MineBaseController.h"
-@interface MinePerformanceController : MineBaseController
+@interface MinePerformanceController : UIViewController
 @end

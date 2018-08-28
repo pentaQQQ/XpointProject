@@ -184,6 +184,7 @@
         if (!cell) {
             cell = [[MarketCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MarketCell"];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell configWithMarketLimit:[NSMutableArray arrayWithObjects:@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0", nil] andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额",@"上月销售额",@"上月代购额", nil]];
         return cell;
     }else if (indexPath.section==2){
@@ -192,6 +193,7 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = colorWithRGB(0xEEEEEE);
         UIButton *btn = [[UIButton alloc] init];
         [cell addSubview:btn];
@@ -220,15 +222,16 @@
         if (!cell) {
             cell = [[IndentCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"IndentCell"];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setSelectBlcok:^(NSInteger num) {
             MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
             minePerCtrl.title = @"我的订单";
             minePerCtrl.selectIndex = num+1;
-            minePerCtrl.selectType = 1;
-            JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)minePerCtrl.categoryView;
-            
-            titleCategoryView.titleColorGradientEnabled = YES;
-            titleCategoryView.indicatorLineViewShowEnabled = YES;
+//            minePerCtrl.selectType = 1;
+//            JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)minePerCtrl.categoryView;
+//
+//            titleCategoryView.titleColorGradientEnabled = YES;
+//            titleCategoryView.indicatorLineViewShowEnabled = YES;
             [self.navigationController pushViewController:minePerCtrl animated:YES];
         }];
         //        [cell configWithMarketLimit:[NSMutableArray arrayWithObjects:@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0", nil] andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额",@"上月销售额",@"上月代购额", nil]];
@@ -248,15 +251,16 @@
         if (!headerCell) {
             headerCell = [[ElseTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ElseTableCell"];
         }
+        headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [headerCell setSelectBlcok:^(NSInteger num) {
             if (num == 0) {
                 ReturnGoodsViewController*goodsCtrl = [[ReturnGoodsViewController alloc] init];
-                goodsCtrl.selectType = 2;
+//                goodsCtrl.selectType = 2;
                 goodsCtrl.title = @"退款/售后";
-                JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)goodsCtrl.categoryView;
-                titleCategoryView.titleColorGradientEnabled = YES;
-                titleCategoryView.indicatorLineViewShowEnabled = YES;
-                titleCategoryView.zoomEnabled = NO;
+//                JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)goodsCtrl.categoryView;
+//                titleCategoryView.titleColorGradientEnabled = YES;
+//                titleCategoryView.indicatorLineViewShowEnabled = YES;
+//                titleCategoryView.zoomEnabled = NO;
                 [self.navigationController pushViewController:goodsCtrl animated:YES];
             }else if (num == 1){
                 
@@ -511,7 +515,7 @@
     if (view.tag == 1) {
         MinePerformanceController *minePerCtrl = [[MinePerformanceController alloc] init];
         minePerCtrl.title = @"我的销售业绩";
-        minePerCtrl.selectType = 0;
+//        minePerCtrl.selectType = 0;
 //        JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)minePerCtrl.categoryView;
 //        titleCategoryView.titleColorGradientEnabled = YES;
 //        titleCategoryView.indicatorLineViewShowEnabled = YES;
@@ -520,7 +524,7 @@
     }else{
         MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
         minePerCtrl.title = @"我的订单";
-        minePerCtrl.selectType = 1;
+//        minePerCtrl.selectType = 1;
         
 //        JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)minePerCtrl.categoryView;
 

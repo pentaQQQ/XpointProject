@@ -24,8 +24,8 @@
 - (void)makeUI {
     HomePageController *firstViewController = [[HomePageController alloc] init];
     firstViewController.title=@"首页";
-    firstViewController.tabBarItem.image=[UIImage imageNamed:@"icon_foot_home"];
-    firstViewController.tabBarItem.selectedImage =[UIImage imageNamed:@"icon_foot_home_press"];
+    firstViewController.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_home"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    firstViewController.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_home_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     BaseNavigationController *firstNavigationController = [[BaseNavigationController alloc]
                                                            initWithRootViewController:firstViewController];
     
@@ -90,7 +90,6 @@
     UITabBarItem *tabBar = [UITabBarItem appearance];
     [tabBar setTitleTextAttributes:normalAttrs forState:UIControlStateNormal];
     [tabBar setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
-    
    
     [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
     [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
