@@ -105,6 +105,7 @@
 		011210752133E8330071AC5F /* QuestionDeatailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011210742133E8330071AC5F /* QuestionDeatailCell.m */; };
 		011210772133FD790071AC5F /* delete_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 011210762133FD790071AC5F /* delete_image.png */; };
 		0112107D2135269F0071AC5F /* PayIndentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112107C2135269F0071AC5F /* PayIndentCell.m */; };
+		017888A521359FD400C17F07 /* CustomerReCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 017888A421359FD400C17F07 /* CustomerReCell.m */; };
 		019AA51821343CFC0018A832 /* BuyGoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51721343CFC0018A832 /* BuyGoodsListController.m */; };
 		019AA51C21343F600018A832 /* SystemInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51B21343F600018A832 /* SystemInformationController.m */; };
 		019AA51F213440AF0018A832 /* SystemInformationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51E213440AF0018A832 /* SystemInformationCell.m */; };
@@ -469,6 +470,8 @@
 		011210762133FD790071AC5F /* delete_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_image.png; sourceTree = "<group>"; };
 		0112107B2135269F0071AC5F /* PayIndentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayIndentCell.h; sourceTree = "<group>"; };
 		0112107C2135269F0071AC5F /* PayIndentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayIndentCell.m; sourceTree = "<group>"; };
+		017888A321359FD400C17F07 /* CustomerReCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerReCell.h; sourceTree = "<group>"; };
+		017888A421359FD400C17F07 /* CustomerReCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerReCell.m; sourceTree = "<group>"; };
 		019AA51621343CFC0018A832 /* BuyGoodsListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyGoodsListController.h; sourceTree = "<group>"; };
 		019AA51721343CFC0018A832 /* BuyGoodsListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuyGoodsListController.m; sourceTree = "<group>"; };
 		019AA51A21343F600018A832 /* SystemInformationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemInformationController.h; sourceTree = "<group>"; };
@@ -861,6 +864,8 @@
 			children = (
 				01120EB521338F9C0071AC5F /* CustomerReconciliationsController.h */,
 				01120EB621338F9C0071AC5F /* CustomerReconciliationsController.m */,
+				017888A321359FD400C17F07 /* CustomerReCell.h */,
+				017888A421359FD400C17F07 /* CustomerReCell.m */,
 			);
 			path = "客户对账";
 			sourceTree = "<group>";
@@ -2562,6 +2567,7 @@
 				8EA95303212BAA930057AC78 /* ZLPhotoPickerDatas.m in Sources */,
 				01120EFD21338F9C0071AC5F /* PerformaceHeaderCell.m in Sources */,
 				8EA952F5212BAA930057AC78 /* ZLCameraViewController.m in Sources */,
+				017888A521359FD400C17F07 /* CustomerReCell.m in Sources */,
 				01121016213392FD0071AC5F /* YSAvatarModel.m in Sources */,
 				01120EEB21338F9C0071AC5F /* InviteAwardCell.m in Sources */,
 				01120EF921338F9C0071AC5F /* MineViewController.m in Sources */,

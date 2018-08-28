@@ -9,6 +9,7 @@
 #import "MineViewController.h"
 #import "JXCategoryTitleView.h"
 #import "ReturnGoodsViewController.h"
+#import "CustomerReconciliationsController.h"
 #import <Photos/Photos.h>
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
@@ -263,7 +264,8 @@
 //                titleCategoryView.zoomEnabled = NO;
                 [self.navigationController pushViewController:goodsCtrl animated:YES];
             }else if (num == 1){
-                
+                CustomerReconciliationsController *inviteCtrl = [[CustomerReconciliationsController alloc] init];
+                [self.navigationController pushViewController:inviteCtrl animated:YES];
             }else if (num == 2){
                 ApplyGoodsServiceController *inviteCtrl = [[ApplyGoodsServiceController alloc] init];
                 [self.navigationController pushViewController:inviteCtrl animated:YES];

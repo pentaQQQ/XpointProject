@@ -77,6 +77,8 @@
  *  选择支付方式
  */
 @property (nonatomic, retain)UIButton *choosePayTypeButton;
+@property (nonatomic, assign) BOOL isSelect;
+@property (nonatomic, copy) void(^qhxSelectBlock)(BOOL choice,NSInteger btntag);
 - (void)configWithModel:(NSMutableArray *)model;
 @end
 
