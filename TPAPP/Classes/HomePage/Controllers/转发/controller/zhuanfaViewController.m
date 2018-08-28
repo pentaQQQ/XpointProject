@@ -57,11 +57,7 @@
     tableview.delegate = self;
     tableview.dataSource = self;
     
-    
-    
-    
-    
-    
+ 
 
     zhuanfaHeaderView*headerview = [[NSBundle mainBundle]loadNibNamed:@"zhuanfaHeaderView" owner:self options:nil].lastObject;
     self.headerview = headerview;

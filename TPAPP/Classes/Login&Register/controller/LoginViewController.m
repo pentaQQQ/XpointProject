@@ -7,38 +7,33 @@
 //
 
 #import "LoginViewController.h"
-
+#import "WeChateBoardViewController.h"
 @interface LoginViewController ()
-@property (weak, nonatomic) IBOutlet UIView *bottomview;
-@property (weak, nonatomic) IBOutlet UITextField *phonetextField;
-@property (weak, nonatomic) IBOutlet UITextField *yanzhengmaField;
-@property (weak, nonatomic) IBOutlet UIButton *yanzhengmaBtn;
-@property (weak, nonatomic) IBOutlet UIButton *quanBtn;
-@property (weak, nonatomic) IBOutlet UILabel *xieyiLab;
-@property (weak, nonatomic) IBOutlet UIButton *boardBtn;
+
 @end
 
 @implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    ViewBorderRadius(self.bottomview, 0, 1, [UIColor groupTableViewBackgroundColor]);
-    ViewBorderRadius(self.boardBtn,5, 1, [UIColor clearColor]);
+    self.view.backgroundColor = [UIColor whiteColor];
+}
+- (IBAction)zhanghaobtnClick:(id)sender {
+    
+//    //  来吧旋转动画
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        weakSelf.view.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);  // 当前view，这句代码可以不要。这是我的需求
+//        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//        window.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);
+    } completion:^(BOOL finished) {
+        WeChateBoardViewController *newVC =[WeChateBoardViewController new];
+        [weakSelf presentViewController:newVC animated:NO completion:nil];
+    }];
+    
+   
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end
