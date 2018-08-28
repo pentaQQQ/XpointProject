@@ -7,10 +7,10 @@
 //
 
 #import "MinePerformanceController.h"
-#import "JXCategoryTitleView.h"
+#import "JXCategoryNumberView.h"
 @interface MinePerformanceController ()
 @property (nonatomic, strong) NSMutableArray *titles;
-@property (nonatomic, strong) JXCategoryTitleView *myCategoryView;
+@property (nonatomic, strong) JXCategoryNumberView *myCategoryView;
 
 @end
 
@@ -26,12 +26,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    NSArray *numbers = @[@0, @0];
+    self.myCategoryView.counts = numbers;
+    self.myCategoryView.zoomEnabled = YES;
+    self.myCategoryView.titleColorGradientEnabled = YES;
+    self.myCategoryView.indicatorLineViewShowEnabled = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     self.myCategoryView.titles = self.titles;
 }
-- (JXCategoryTitleView *)myCategoryView {
-    return (JXCategoryTitleView *)self.categoryView;
+- (JXCategoryNumberView *)myCategoryView {
+    return (JXCategoryNumberView *)self.categoryView;
 }
 
 - (NSUInteger)preferredListViewCount {
@@ -39,8 +43,9 @@
 }
 
 - (Class)preferredCategoryViewClass {
-    return [JXCategoryTitleView class];
+    return [JXCategoryNumberView class];
 }
+
 
 
 

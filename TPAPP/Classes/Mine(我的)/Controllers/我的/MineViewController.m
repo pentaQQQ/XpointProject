@@ -512,19 +512,23 @@
         MinePerformanceController *minePerCtrl = [[MinePerformanceController alloc] init];
         minePerCtrl.title = @"我的销售业绩";
         minePerCtrl.selectType = 0;
-        JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)minePerCtrl.categoryView;
-        titleCategoryView.titleColorGradientEnabled = YES;
-        titleCategoryView.indicatorLineViewShowEnabled = YES;
-        titleCategoryView.zoomEnabled = YES;
+//        JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)minePerCtrl.categoryView;
+//        titleCategoryView.titleColorGradientEnabled = YES;
+//        titleCategoryView.indicatorLineViewShowEnabled = YES;
+//        titleCategoryView.zoomEnabled = YES;
         [self.navigationController pushViewController:minePerCtrl animated:YES];
     }else{
         MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
         minePerCtrl.title = @"我的订单";
         minePerCtrl.selectType = 1;
-        JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)minePerCtrl.categoryView;
-        titleCategoryView.zoomEnabled = YES;
-        titleCategoryView.titleColorGradientEnabled = YES;
-        titleCategoryView.indicatorLineViewShowEnabled = YES;
+        
+//        JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)minePerCtrl.categoryView;
+
+        
+        
+//        titleCategoryView.zoomEnabled = YES;
+//        titleCategoryView.titleColorGradientEnabled = YES;
+//        titleCategoryView.indicatorLineViewShowEnabled = YES;
         [self.navigationController pushViewController:minePerCtrl animated:YES];
     }
 }

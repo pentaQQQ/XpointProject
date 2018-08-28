@@ -7,10 +7,10 @@
 //
 
 #import "MineIndentViewController.h"
-#import "JXCategoryTitleView.h"
-@interface MineIndentViewController ()
+#import "JXCategoryNumberView.h"
+@interface MineIndentViewController ()<JXCategoryViewDelegate>
 @property (nonatomic, strong) NSMutableArray *titles;
-@property (nonatomic, strong) JXCategoryTitleView *myCategoryView;
+@property (nonatomic, strong) JXCategoryNumberView *myCategoryView;
 @end
 
 @implementation MineIndentViewController
@@ -24,13 +24,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-   
+    NSArray *numbers = @[@0, @1, @0, @0, @0, @0];
+    self.myCategoryView.counts = numbers;
     self.view.backgroundColor = [UIColor whiteColor];
     self.myCategoryView.titles = self.titles;
     self.myCategoryView.defaultSelectedIndex = self.selectIndex;
+    self.myCategoryView.zoomEnabled = YES;
+    self.myCategoryView.titleColorGradientEnabled = YES;
+    self.myCategoryView.indicatorLineViewShowEnabled = YES;
 }
-- (JXCategoryTitleView *)myCategoryView {
-    return (JXCategoryTitleView *)self.categoryView;
+- (JXCategoryNumberView *)myCategoryView {
+    return (JXCategoryNumberView *)self.categoryView;
 }
 
 - (NSUInteger)preferredListViewCount {
@@ -38,8 +42,9 @@
 }
 
 - (Class)preferredCategoryViewClass {
-    return [JXCategoryTitleView class];
+    return [JXCategoryNumberView class];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

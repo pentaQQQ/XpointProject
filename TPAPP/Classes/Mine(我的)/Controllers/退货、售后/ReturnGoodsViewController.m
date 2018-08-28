@@ -7,10 +7,10 @@
 //
 
 #import "ReturnGoodsViewController.h"
-#import "JXCategoryTitleView.h"
+#import "JXCategoryNumberView.h"
 @interface ReturnGoodsViewController ()
 @property (nonatomic, strong) NSMutableArray *titles;
-@property (nonatomic, strong) JXCategoryTitleView *myCategoryView;
+@property (nonatomic, strong) JXCategoryNumberView *myCategoryView;
 @end
 
 @implementation ReturnGoodsViewController
@@ -18,7 +18,7 @@
 -(NSMutableArray *)titles
 {
     if (_titles == nil) {
-        _titles = [NSMutableArray arrayWithObjects:@"全部", @"已缺货", @"已取消", @"退货中", @"已退货", nil];
+        _titles = [NSMutableArray arrayWithObjects:@"全部", @"平台缺货", @"用户取消", @"退货中", @"已退货", nil];
     }
     return _titles;
 }
@@ -26,11 +26,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    NSArray *numbers = @[@0, @0, @0, @0, @0];
+    self.myCategoryView.counts = numbers;
     self.view.backgroundColor = [UIColor whiteColor];
     self.myCategoryView.titles = self.titles;
+    self.myCategoryView.zoomEnabled = YES;
+    self.myCategoryView.titleColorGradientEnabled = YES;
+//    self.myCategoryView.indicatorLineViewShowEnabled = YES;
 }
-- (JXCategoryTitleView *)myCategoryView {
-    return (JXCategoryTitleView *)self.categoryView;
+- (JXCategoryNumberView *)myCategoryView {
+    return (JXCategoryNumberView *)self.categoryView;
 }
 
 - (NSUInteger)preferredListViewCount {
@@ -38,7 +43,7 @@
 }
 
 - (Class)preferredCategoryViewClass {
-    return [JXCategoryTitleView class];
+    return [JXCategoryNumberView class];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
