@@ -88,6 +88,9 @@
     }
     
     headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [headerCell setSelectBlock:^(GoodsListCell * cell) {
+        
+    }];
     return headerCell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -139,7 +142,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    OrderDetailViewController *minePerCtrl = [[OrderDetailViewController alloc] init];
+    [self.navigationController pushViewController:minePerCtrl animated:YES];
 }
 #pragma mark --------------- LeftBodyCellDelegate
 - (void)selecteTypeNumber:(NSInteger)index

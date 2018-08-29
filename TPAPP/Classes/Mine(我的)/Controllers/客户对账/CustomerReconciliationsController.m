@@ -8,10 +8,13 @@
 
 #import "CustomerReconciliationsController.h"
 #import "CustomerReCell.h"
-@interface CustomerReconciliationsController ()<UITableViewDelegate, UITableViewDataSource>
+#import "TuYeTextField.h"
+@interface CustomerReconciliationsController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
-
+@property (strong,nonatomic)NSMutableArray *searchList;  //搜索结果
+@property (nonatomic, strong)TuYeTextField *searchField;
+@property (nonatomic, strong)UIButton *searchBtn;
 @end
 
 @implementation CustomerReconciliationsController
@@ -22,6 +25,14 @@
         _listDataArr = [NSMutableArray array];
     }
     return _listDataArr;
+}
+#pragma mark - 懒加载
+-(NSMutableArray *)searchList
+{
+    if (_searchList == nil) {
+        _searchList = [NSMutableArray array];
+    }
+    return _searchList;
 }
 #pragma mark - 创建tableview
 -(UITableView *)listTableView
@@ -46,7 +57,6 @@
         if ([self.listTableView respondsToSelector:@selector(setLayoutMargins:)]) {
             [self.listTableView setLayoutMargins:UIEdgeInsetsZero];
         }
-
     }
     return _listTableView;
 }
@@ -78,7 +88,12 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.listDataArr.count;
+    if (self.searchList.count != 0) {
+        return [self.searchList count];
+    }else{
+        return [self.listDataArr count];
+    }
+    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -88,15 +103,21 @@
         }
         
         headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [headerCell configWithModel:self.listDataArr[indexPath.row]];
+    if (self.searchList.count != 0) {
+        [headerCell configWithModel:self.searchList[indexPath.row]];
+    }
+    else{
+        [headerCell configWithModel:self.listDataArr[indexPath.row]];
+    }
+
         return headerCell;
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    
-   return 30;
-    
+
+   return 30+44;
+
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -110,28 +131,95 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
-        view.backgroundColor = [UIColor whiteColor];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30+44)];
+    view.backgroundColor = [UIColor whiteColor];
+
+    self.searchField = [[TuYeTextField alloc]initWithFrame:CGRectMake(0,0,kScreenWidth-60,34)];
+    [view addSubview:self.searchField];
+    self.searchField.placeholder = @"品牌名称";
+    UIImageView *leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 15, 15)];
+    leftImageView.image = [UIImage imageNamed:@"icon_home_search"];
+    self.searchField.leftView = leftImageView;
+    self.searchField.leftViewMode = UITextFieldViewModeAlways;
+    self.searchField.borderStyle = UITextBorderStyleRoundedRect;
+    self.searchField.textColor = [UIColor blackColor];
+    self.searchField.font= [UIFont systemFontOfSize:16] ;
+    self.searchField.backgroundColor= [UIColor whiteColor] ;
+ self.searchField.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
+    self.searchField.contentHorizontalAlignment=UIControlContentHorizontalAlignmentLeft;
+    [self.searchField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged]; // textField的文本发生变化时相应事件
+    [self.searchField setReturnKeyType:UIReturnKeySearch];
+    self.searchField.delegate=self;
     
-        
-        UILabel *listLabel = [[UILabel alloc] init];
-        listLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:17];
-        listLabel.textColor = [UIColor redColor];
-        [view addSubview:listLabel];
-        listLabel.sd_layout
-        .topSpaceToView(view, 5)
-        .leftSpaceToView(view, 10)
-        .widthIs(150)
-        .heightIs(20);
-        listLabel.text = @"选择活动";
-        
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 29.5,kScreenWidth , 1)];
-        lineView.backgroundColor = colorWithRGB(0xEEEEEE);
-        [view addSubview:lineView];
-        return view;
+    self.searchBtn = [[UIButton alloc] init];
+    self.searchBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [self.searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+    [self.searchBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [self.searchBtn addTarget:self action:@selector(searchBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:self.searchBtn];
+    self.searchBtn.sd_layout
+    .topSpaceToView(view, 0)
+    .rightSpaceToView(view, 0)
+    .widthIs(60)
+    .heightIs(34);
     
     
+    UILabel *listLabel = [[UILabel alloc] init];
+    listLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:17];
+    listLabel.textColor = [UIColor redColor];
+    [view addSubview:listLabel];
+    listLabel.sd_layout
+    .topSpaceToView(view, 5+44)
+    .leftSpaceToView(view, 10)
+    .widthIs(150)
+    .heightIs(20);
+    listLabel.text = @"选择活动";
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 29.5+44,kScreenWidth , 1)];
+    lineView.backgroundColor = colorWithRGB(0xEEEEEE);
+    [view addSubview:lineView];
+    return view;
 }
+#pragma mark - 搜索按钮事件
+- (void)searchBtnAction
+{
+    if (self.listDataArr.count != 0) {
+        [self.searchList removeAllObjects];
+        for (NSArray *arr in self.listDataArr) {
+            
+            if ([arr[1] rangeOfString:self.searchField.text].location != NSNotFound) {
+                [self.searchList addObject:arr];
+            }
+        }
+        [self.listTableView reloadData];
+    }
+}
+- (BOOL)textFieldShouldReturn:(UITextField*)theTextField {
+    [self.view endEditing:YES];
+    if (self.listDataArr.count != 0) {
+        [self.searchList removeAllObjects];
+        for (NSArray *arr in self.listDataArr) {
+
+            if ([arr[1] rangeOfString:theTextField.text].location != NSNotFound) {
+                [self.searchList addObject:arr];
+            }
+        }
+        [self.listTableView reloadData];
+    }
+    NSLog(@"do something what you want");
+    return YES;
+}
+//textField的文本内容发生变化时,处理事件函数
+- (void) textFieldDidChange:(UITextField*) TextField{
+    NSLog(@"textFieldDidChange textFieldDidChange");
+    if(![TextField.text isEqualToString:@""]) {
+        
+    } else{
+        [self.searchList removeAllObjects];
+        [self.listTableView reloadData];
+    }
+}
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
    

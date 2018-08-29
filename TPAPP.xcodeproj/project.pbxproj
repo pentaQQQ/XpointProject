@@ -105,6 +105,12 @@
 		011210752133E8330071AC5F /* QuestionDeatailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011210742133E8330071AC5F /* QuestionDeatailCell.m */; };
 		011210772133FD790071AC5F /* delete_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 011210762133FD790071AC5F /* delete_image.png */; };
 		0112107D2135269F0071AC5F /* PayIndentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112107C2135269F0071AC5F /* PayIndentCell.m */; };
+		0112108021362BB70071AC5F /* CustomerReDeatailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112107F21362BB70071AC5F /* CustomerReDeatailController.m */; };
+		0112108321362EA90071AC5F /* CustomerReDeatailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112108221362EA90071AC5F /* CustomerReDeatailCell.m */; };
+		0112108521363CF00071AC5F /* 编辑.png in Resources */ = {isa = PBXBuildFile; fileRef = 0112108421363CEF0071AC5F /* 编辑.png */; };
+		0112108A213663F00071AC5F /* OrderDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01121089213663F00071AC5F /* OrderDetailCell.m */; };
+		0112108D213664020071AC5F /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112108C213664020071AC5F /* OrderDetailViewController.m */; };
+		01121091213690A30071AC5F /* TuYeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 01121090213690A20071AC5F /* TuYeTextField.m */; };
 		017888A521359FD400C17F07 /* CustomerReCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 017888A421359FD400C17F07 /* CustomerReCell.m */; };
 		019AA51821343CFC0018A832 /* BuyGoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51721343CFC0018A832 /* BuyGoodsListController.m */; };
 		019AA51C21343F600018A832 /* SystemInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51B21343F600018A832 /* SystemInformationController.m */; };
@@ -470,6 +476,17 @@
 		011210762133FD790071AC5F /* delete_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_image.png; sourceTree = "<group>"; };
 		0112107B2135269F0071AC5F /* PayIndentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayIndentCell.h; sourceTree = "<group>"; };
 		0112107C2135269F0071AC5F /* PayIndentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayIndentCell.m; sourceTree = "<group>"; };
+		0112107E21362BB70071AC5F /* CustomerReDeatailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerReDeatailController.h; sourceTree = "<group>"; };
+		0112107F21362BB70071AC5F /* CustomerReDeatailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerReDeatailController.m; sourceTree = "<group>"; };
+		0112108121362EA90071AC5F /* CustomerReDeatailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerReDeatailCell.h; sourceTree = "<group>"; };
+		0112108221362EA90071AC5F /* CustomerReDeatailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerReDeatailCell.m; sourceTree = "<group>"; };
+		0112108421363CEF0071AC5F /* 编辑.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "编辑.png"; sourceTree = "<group>"; };
+		01121088213663F00071AC5F /* OrderDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailCell.h; sourceTree = "<group>"; };
+		01121089213663F00071AC5F /* OrderDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailCell.m; sourceTree = "<group>"; };
+		0112108B213664020071AC5F /* OrderDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
+		0112108C213664020071AC5F /* OrderDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
+		0112108F213690A20071AC5F /* TuYeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuYeTextField.h; sourceTree = "<group>"; };
+		01121090213690A20071AC5F /* TuYeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuYeTextField.m; sourceTree = "<group>"; };
 		017888A321359FD400C17F07 /* CustomerReCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerReCell.h; sourceTree = "<group>"; };
 		017888A421359FD400C17F07 /* CustomerReCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerReCell.m; sourceTree = "<group>"; };
 		019AA51621343CFC0018A832 /* BuyGoodsListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyGoodsListController.h; sourceTree = "<group>"; };
@@ -862,10 +879,15 @@
 		01120EB421338F9C0071AC5F /* 客户对账 */ = {
 			isa = PBXGroup;
 			children = (
+				0112108E213690A20071AC5F /* TuYeTextField */,
 				01120EB521338F9C0071AC5F /* CustomerReconciliationsController.h */,
 				01120EB621338F9C0071AC5F /* CustomerReconciliationsController.m */,
 				017888A321359FD400C17F07 /* CustomerReCell.h */,
 				017888A421359FD400C17F07 /* CustomerReCell.m */,
+				0112107E21362BB70071AC5F /* CustomerReDeatailController.h */,
+				0112107F21362BB70071AC5F /* CustomerReDeatailController.m */,
+				0112108121362EA90071AC5F /* CustomerReDeatailCell.h */,
+				0112108221362EA90071AC5F /* CustomerReDeatailCell.m */,
 			);
 			path = "客户对账";
 			sourceTree = "<group>";
@@ -991,6 +1013,7 @@
 		01120F0E21338FB60071AC5F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0112108421363CEF0071AC5F /* 编辑.png */,
 				01120F0F21338FB60071AC5F /* BottomView.h */,
 				01120F1021338FB60071AC5F /* BottomView.m */,
 				01120F1121338FB60071AC5F /* CartHeaderCell.h */,
@@ -1010,10 +1033,10 @@
 		01120F1921338FB70071AC5F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				01121087213663660071AC5F /* 订单详情 */,
+				011210862136635B0071AC5F /* 付款订单 */,
 				01120F2021338FC40071AC5F /* CartViewController.h */,
 				01120F2121338FC40071AC5F /* CartViewController.m */,
-				019AA51621343CFC0018A832 /* BuyGoodsListController.h */,
-				019AA51721343CFC0018A832 /* BuyGoodsListController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1265,6 +1288,35 @@
 				01120FE4213392FD0071AC5F /* arrow@2x.png */,
 			);
 			path = model_image;
+			sourceTree = "<group>";
+		};
+		011210862136635B0071AC5F /* 付款订单 */ = {
+			isa = PBXGroup;
+			children = (
+				019AA51621343CFC0018A832 /* BuyGoodsListController.h */,
+				019AA51721343CFC0018A832 /* BuyGoodsListController.m */,
+			);
+			path = "付款订单";
+			sourceTree = "<group>";
+		};
+		01121087213663660071AC5F /* 订单详情 */ = {
+			isa = PBXGroup;
+			children = (
+				01121088213663F00071AC5F /* OrderDetailCell.h */,
+				01121089213663F00071AC5F /* OrderDetailCell.m */,
+				0112108B213664020071AC5F /* OrderDetailViewController.h */,
+				0112108C213664020071AC5F /* OrderDetailViewController.m */,
+			);
+			path = "订单详情";
+			sourceTree = "<group>";
+		};
+		0112108E213690A20071AC5F /* TuYeTextField */ = {
+			isa = PBXGroup;
+			children = (
+				0112108F213690A20071AC5F /* TuYeTextField.h */,
+				01121090213690A20071AC5F /* TuYeTextField.m */,
+			);
+			path = TuYeTextField;
 			sourceTree = "<group>";
 		};
 		019AA51921343EFA0018A832 /* 系统信息 */ = {
@@ -2416,6 +2468,7 @@
 				547C497F1F1DBB8200178B67 /* SGDatePickerCenterView.xib in Resources */,
 				547C49851F1DBB8200178B67 /* SGLocationPickerSheetView.xib in Resources */,
 				8EA95310212BAA930057AC78 /* ZLPhotoLib.bundle in Resources */,
+				0112108521363CF00071AC5F /* 编辑.png in Resources */,
 				547C49A21F1DBB8200178B67 /* back@2x.png in Resources */,
 				547C49A61F1DBB8200178B67 /* tab_index_nor@2x.png in Resources */,
 				547C48761F1DA8AF00178B67 /* Main.storyboard in Resources */,
@@ -2556,6 +2609,7 @@
 				01120EF821338F9C0071AC5F /* CustomerReconciliationsController.m in Sources */,
 				01120F0021338F9C0071AC5F /* MineIndentViewController.m in Sources */,
 				01120EE721338F9C0071AC5F /* ElseTableCell.m in Sources */,
+				0112108321362EA90071AC5F /* CustomerReDeatailCell.m in Sources */,
 				01120F2221338FC50071AC5F /* CartViewController.m in Sources */,
 				01120FF7213392FD0071AC5F /* YYClassInfo.m in Sources */,
 				01120EFF21338F9C0071AC5F /* MineIndentChildController.m in Sources */,
@@ -2565,6 +2619,7 @@
 				01121007213392FD0071AC5F /* JXCategoryLineStyleView.m in Sources */,
 				8EA9530C212BAA930057AC78 /* ZLPhotoPickerCollectionViewCell.m in Sources */,
 				8EA95303212BAA930057AC78 /* ZLPhotoPickerDatas.m in Sources */,
+				01121091213690A30071AC5F /* TuYeTextField.m in Sources */,
 				01120EFD21338F9C0071AC5F /* PerformaceHeaderCell.m in Sources */,
 				8EA952F5212BAA930057AC78 /* ZLCameraViewController.m in Sources */,
 				017888A521359FD400C17F07 /* CustomerReCell.m in Sources */,
@@ -2625,6 +2680,7 @@
 				01120FF2213392FD0071AC5F /* NSDate+BRAdd.m in Sources */,
 				8EA9530F212BAA930057AC78 /* ZLPhotoPickerGroupTableViewCell.m in Sources */,
 				01120EE921338F9C0071AC5F /* IndentCell.m in Sources */,
+				0112108021362BB70071AC5F /* CustomerReDeatailController.m in Sources */,
 				01120EF521338F9C0071AC5F /* AddAddressController.m in Sources */,
 				547C49711F1DBB8200178B67 /* LKNotificationManager.m in Sources */,
 				547C49861F1DBB8200178B67 /* SGNormalPickerView.m in Sources */,
@@ -2653,6 +2709,7 @@
 				8E78BDFB21353489000A9EA4 /* chimasetview.m in Sources */,
 				8ED5B4BA212A6AC100B5983B /* SGPageContentScrollView.m in Sources */,
 				8EA952F3212BAA930057AC78 /* DALabeledCircularProgressView.m in Sources */,
+				0112108A213663F00071AC5F /* OrderDetailCell.m in Sources */,
 				547C499B1F1DBB8200178B67 /* UIBarButtonItem+Create.m in Sources */,
 				8EA9534D212E4C550057AC78 /* zhuanfaViewController.m in Sources */,
 				0112101A213392FD0071AC5F /* YSStaticTableViewCell.m in Sources */,
@@ -2703,6 +2760,7 @@
 				8EA95316212BBB810057AC78 /* XYSideViewController.m in Sources */,
 				8EA952FE212BAA930057AC78 /* ZLPhotoPickerBrowserPhotoView.m in Sources */,
 				019AA51821343CFC0018A832 /* BuyGoodsListController.m in Sources */,
+				0112108D213664020071AC5F /* OrderDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

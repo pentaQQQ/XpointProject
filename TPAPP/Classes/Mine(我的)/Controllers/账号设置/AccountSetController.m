@@ -147,6 +147,7 @@
             [self.navigationController pushViewController:vipCtrl animated:YES];
         }else if (indexPath.row == 1){
             AddressManageController *idCtrl = [[AddressManageController alloc] init];
+            idCtrl.title = @"地址管理";
             [self.navigationController pushViewController:idCtrl animated:YES];
         }else{
             IdentificationController *idCtrl = [[IdentificationController alloc] init];

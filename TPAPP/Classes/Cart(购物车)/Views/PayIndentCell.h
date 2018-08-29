@@ -53,7 +53,7 @@
 @end
 @interface PayIndentDefaultCell : UITableViewCell
 /**
- * 切换地址按钮
+ * 名称
  */
 @property (nonatomic, retain)UILabel *titleLabel;
 /**
@@ -85,7 +85,7 @@
 
 @interface ChangeAddressButton : UIControl
 /**
- *  左侧图标
+ *  图标
  */
 @property (nonatomic, retain)UIImageView *changeAddressImageView;
 /**

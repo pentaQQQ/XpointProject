@@ -106,16 +106,15 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 130;
+        return 155;
+//        return 120;
     }else{
       return 120;
     }
-    
 }
 //有多少section
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
     return _dataSource.count;
 }
 //每个section有多少row
@@ -133,15 +132,32 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        CartHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CartHeaderCellID"];
+//        CartHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CartHeaderCellID"];
+//        if (cell==nil) {
+//            cell = [[CartHeaderCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CartHeaderCellID"];
+//        }
+//        cell.backgroundColor = [UIColor whiteColor];
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        [cell setSelectBlock:^(NSInteger num) {
+//            if (num == 1) {
+//                AddressManageController *addressMaCtrl = [[AddressManageController alloc] init];
+//                [self.navigationController pushViewController:addressMaCtrl animated:YES];
+//            }else{
+//
+//            }
+//        }];
+//        return cell;
+//
+        CartHeaderAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CartHeaderAddressCellID"];
         if (cell==nil) {
-          cell = [[CartHeaderCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CartHeaderCellID"];
+          cell = [[CartHeaderAddressCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CartHeaderAddressCellID"];
         }
         cell.backgroundColor = [UIColor whiteColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setSelectBlock:^(NSInteger num) {
             if (num == 1) {
                 AddressManageController *addressMaCtrl = [[AddressManageController alloc] init];
+                addressMaCtrl.title = @"选择地址";
                 [self.navigationController pushViewController:addressMaCtrl animated:YES];
             }else{
 
