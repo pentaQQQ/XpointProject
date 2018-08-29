@@ -18,7 +18,18 @@
     _imageview = imageview;
     ViewBorderRadius(imageview, 5, 1, [UIColor lightGrayColor]);
 }
-
+-(void)setShouqianBtn:(UIButton *)shouqianBtn{
+    _shouqianBtn = shouqianBtn;
+     ViewBorderRadius(shouqianBtn, 5, 1, [UIColor clearColor]);
+}
+-(void)setZhuanfaBtn:(UIButton *)zhuanfaBtn{
+    _zhuanfaBtn = zhuanfaBtn;
+     ViewBorderRadius(zhuanfaBtn, 5, 1, [UIColor clearColor]);
+}
+-(void)setShoppingcartBtn:(UIButton *)shoppingcartBtn{
+    _shoppingcartBtn = shoppingcartBtn;
+     ViewBorderRadius(shoppingcartBtn, 5, 1, [UIColor clearColor]);
+}
 
 -(void)setModel:(SimilarProductModel *)model{
     
@@ -81,7 +92,7 @@
     int rows = (int)self.model.specs.count / 2;
     CGFloat high = 20;
     rows += tm == 0 ? 0:1;
-    self.xianghaoViewHigh.constant = (high+5)*rows+40;
+    self.xianghaoViewHigh.constant = (high+10)*rows+50;
     
     
     
@@ -194,8 +205,8 @@
                 
                 CGFloat widt = [LYTools widthForString:title fontSize:12 andHeight:20]+40;
                 
-                UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake((widt+5)*j, (5+high)*i,  widt, high)];
-                
+                UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake((widt+10)*j+10, (10+high)*i+10,  widt, high)];
+                ViewBorderRadius(btn, 5, 1, [UIColor clearColor]);
                 [self.xinghaoView addSubview:btn];
                 btn.backgroundColor = [UIColor lightGrayColor];
                 btn.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -209,28 +220,6 @@
     
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

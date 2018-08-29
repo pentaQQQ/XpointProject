@@ -285,6 +285,7 @@
                 <outlet property="originPriceLab" destination="cNL-bm-mbi" id="gJb-LC-b7c"/>
                 <outlet property="pictureHigh" destination="Z9Q-hc-3om" id="DCb-Lw-UjB"/>
                 <outlet property="pictureView" destination="CBm-xn-HDp" id="DqU-8U-DUI"/>
+                <outlet property="shoppingcartBtn" destination="0UO-Jf-tT1" id="Ff9-wb-XM9"/>
                 <outlet property="shouqianBtn" destination="1l8-pb-bpq" id="esF-ne-GXY"/>
                 <outlet property="title" destination="Hm7-Dl-P0p" id="MFi-G3-WdK"/>
                 <outlet property="xianghaoViewHigh" destination="uyD-4d-Dhx" id="PQN-n6-MKk"/>

@@ -36,6 +36,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *xinghaoView;//型号view
 
+@property (weak, nonatomic) IBOutlet UIButton *shoppingcartBtn;//购物车按钮
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHigh;//产品介绍高度
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *chimaHigh;//产品尺码高度

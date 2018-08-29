@@ -50,7 +50,7 @@
     tableview.dataSource = self;
     
     
-    
+    tableview.tableFooterView = [UIView new];
     
     
     [self.view addSubview:tableview];
@@ -111,10 +111,6 @@
     
     SimilarProductModel*model = self.dataArr[indexPath.row];
     
-    
-    
-    
-    
     NSString *str = @"";
     for (int i=0; i<model.specs.count; i++) {
         specsModel*spmodel =model.specs[i];
@@ -126,8 +122,7 @@
             str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
         }
     }
-    
-    
+
     
     NSString *chima = [NSString stringWithFormat:@"尺码 %@",str];
     NSString *kuanshi = [NSString stringWithFormat:@"款式 %@",model.design];
@@ -159,7 +154,7 @@
     int rows = (int)model.specs.count / 2;
     CGFloat high = 20;
     rows += tm == 0 ? 0:1;
-    CGFloat high6 = (high+5)*rows+40;
+    CGFloat high6 = (high+10)*rows+50;
     
     
     
