@@ -7,6 +7,7 @@
 //
 
 #import "CustomerReconciliationsController.h"
+#import "CustomerReDeatailController.h"
 #import "CustomerReCell.h"
 #import "TuYeTextField.h"
 @interface CustomerReconciliationsController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
@@ -194,7 +195,7 @@
     }
 }
 - (BOOL)textFieldShouldReturn:(UITextField*)theTextField {
-    [self.view endEditing:YES];
+//    [self.view endEditing:YES];
     if (self.listDataArr.count != 0) {
         [self.searchList removeAllObjects];
         for (NSArray *arr in self.listDataArr) {
@@ -230,6 +231,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CustomerReDeatailController *customerCtrl = [[CustomerReDeatailController alloc] init];
+    [self.navigationController pushViewController:customerCtrl animated:YES];
     
 }
 

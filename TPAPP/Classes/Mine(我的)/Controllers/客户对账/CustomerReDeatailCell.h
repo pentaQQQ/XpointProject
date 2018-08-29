@@ -55,5 +55,6 @@
  * 备注按钮
  */
 @property (nonatomic, retain)UIButton *Remarks_button;
+
 - (void)configWithModel:(NSMutableArray *)model;
 @end

@@ -14,11 +14,11 @@
  */
 @property (nonatomic, retain)UIImageView *goodImageView;
 /**
- *  姓名
+ *  商品名称
  */
 @property (nonatomic, retain)UILabel *goodName;
 /**
- *  手机号
+ *  事件
  */
 @property (nonatomic, retain)UILabel *buyGoodDate;
 - (void)configWithModel:(NSMutableArray *)model;
