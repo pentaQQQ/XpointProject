@@ -78,7 +78,7 @@
     
     [self.contentView addSubview:self.lineView];
     self.lineView.sd_layout
-    .topSpaceToView(self.buyUserAddess, 20)
+    .topSpaceToView(self.buyUserAddess, 15)
     .leftSpaceToView(self.contentView, 0)
     .rightSpaceToView(self.contentView, 0)
     .heightIs(1);
@@ -87,8 +87,8 @@
     [self.contentView addSubview:self.defaultLabel];
     self.defaultLabel.text = @"是否代发货";
     self.defaultLabel.sd_layout
-    .topSpaceToView(self.lineView, 20)
-    .leftSpaceToView(self.contentView, 10)
+    .topSpaceToView(self.lineView, 15)
+    .leftSpaceToView(self.contentView, 15)
     .widthIs([self widthLabelWithModel:@"是否代发货" withFont:15])
     .heightIs(20);
     
@@ -99,8 +99,8 @@
      self.defaultSwitch.transform = CGAffineTransformMakeScale(.8, .8);
      self.defaultSwitch.layer.anchorPoint = CGPointMake(0, 0);
     self.defaultSwitch.sd_layout
-    .topSpaceToView(self.lineView, 20)
-    .rightSpaceToView(self.contentView, 10)
+    .topSpaceToView(self.lineView, 15)
+    .rightSpaceToView(self.contentView, 5)
     .widthIs(40)
     .heightIs(20);
 }
@@ -311,9 +311,9 @@
 {
     self.payTypeImageView.image = [UIImage imageNamed:model[0]];
     self.payTypeLabel.text = model[1];
-    if ([model[1] isEqualToString:@"微信支付"]) {
-        [self.choosePayTypeButton setImage:[UIImage imageNamed:@"选中支付"] forState:UIControlStateNormal];
-    }
+//    if ([model[1] isEqualToString:@"微信支付"]) {
+//        [self.choosePayTypeButton setImage:[UIImage imageNamed:@"选中支付"] forState:UIControlStateNormal];
+//    }
 }
 
 #pragma mark - 懒加载
@@ -340,10 +340,21 @@
     }
     return _choosePayTypeButton;
 }
-- (void)choosePayTypeButtonAction:(UIButton*)btn
-{
+
+- (void)choosePayTypeButtonAction:(UIButton *)sender{
+    self.isSelect = !self.isSelect;
+    if (self.qhxSelectBlock) {
+        self.qhxSelectBlock(self.isSelect,sender.tag);
+    }
     
 }
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    
+    // Configure the view for the selected state
+}
+
 @end
 
 

@@ -81,8 +81,8 @@
     .topSpaceToView(self.buyLabel, 15)
     .rightSpaceToView(self.contentView, 15)
     .leftSpaceToView(self.contentView, 15)
-    .heightIs(50);
-    self.address_button.layer.cornerRadius = 25;
+    .heightIs(40);
+    self.address_button.layer.cornerRadius = 20;
     self.address_button.layer.masksToBounds = YES;
     [self.address_button setImage:[UIImage imageNamed:@"icon_addres"] forState:UIControlStateNormal];
 

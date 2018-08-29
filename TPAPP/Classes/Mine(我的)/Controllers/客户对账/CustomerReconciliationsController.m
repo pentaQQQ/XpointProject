@@ -7,7 +7,7 @@
 //
 
 #import "CustomerReconciliationsController.h"
-
+#import "CustomerReCell.h"
 @interface CustomerReconciliationsController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
@@ -33,14 +33,20 @@
         _listTableView.dataSource = self;
         _listTableView.showsVerticalScrollIndicator = NO;
         _listTableView.showsHorizontalScrollIndicator = NO;
-        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:_listTableView];
         _listTableView.sd_layout
         .topSpaceToView(self.view, 0)
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .bottomEqualToView(self.view);
-        
+        if ([self.listTableView respondsToSelector:@selector(setSeparatorInset:)]) {
+            [self.listTableView setSeparatorInset:UIEdgeInsetsZero];
+        }
+        if ([self.listTableView respondsToSelector:@selector(setLayoutMargins:)]) {
+            [self.listTableView setLayoutMargins:UIEdgeInsetsZero];
+        }
+
     }
     return _listTableView;
 }
@@ -48,100 +54,88 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"客户对账";
+    self.listDataArr = [NSMutableArray arrayWithObjects:@[@"",@"法曼斯FOMOCE",@"2018年08月28日"],@[@"",@"施华洛世奇",@"2018年08月27日"],@[@"",@"法国兰蔻",@"2018年08月26日"],@[@"",@"杰克琼斯",@"2018年08月25日"],@[@"",@"耐克NIKE",@"2018年08月24日"], nil];
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self listTableView];
 }
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+#pragma mark - UITableview代理方法
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 3;
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsMake(0, 0, 0, 0)];
+    }
+    if([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]){
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
 }
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.listDataArr.count;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        UITableViewCell *headerCell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCellID"];
+        CustomerReCell *headerCell = [tableView dequeueReusableCellWithIdentifier:@"CustomerReCellID"];
         if (!headerCell) {
-            headerCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCellID"];
+            headerCell = [[CustomerReCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CustomerReCellID"];
         }
         
         headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [headerCell configWithModel:self.listDataArr[indexPath.row]];
         return headerCell;
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section== 0) {
-        return 0;
-    }else{
-        return 30;
-    }
+    
+   return 30;
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 2) {
-        return 0;
-    }else{
-        return 10;
-    }
+    return 0;
     
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 2) {
-        return nil;
-    }else{
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 10)];
-        view.backgroundColor = colorWithRGB(0xEEEEEE);
-        return view;
-    }
+    return nil;
     
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return nil;
-    }else{
-        NSArray *listArr = @[@"会员权益",@"升级规则"];
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
         view.backgroundColor = [UIColor whiteColor];
-        
-        UIImageView *lineImgeView = [[UIImageView alloc] init];
-        [view addSubview:lineImgeView];
-        lineImgeView.image = [UIImage imageNamed:@"icon_mine_line"];
-        lineImgeView.sd_layout
-        .topSpaceToView(view, 7)
-        .leftSpaceToView(view, 15)
-        .bottomSpaceToView(view, 7)
-        .widthIs(2);
+    
         
         UILabel *listLabel = [[UILabel alloc] init];
+        listLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:17];
+        listLabel.textColor = [UIColor redColor];
         [view addSubview:listLabel];
         listLabel.sd_layout
         .topSpaceToView(view, 5)
-        .leftSpaceToView(lineImgeView, 5)
+        .leftSpaceToView(view, 10)
         .widthIs(150)
         .heightIs(20);
-        listLabel.font = [UIFont systemFontOfSize:15];
-        listLabel.text = listArr[section-1];
+        listLabel.text = @"选择活动";
         
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 29.5,kScreenWidth , 1)];
         lineView.backgroundColor = colorWithRGB(0xEEEEEE);
         [view addSubview:lineView];
         return view;
-    }
+    
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return 120;
-    }
-    return 200;
+   
+    return 50;
     
 }
 
