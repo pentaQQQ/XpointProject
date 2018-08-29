@@ -31,24 +31,27 @@
 
 -(void)setItems{
     
-    UIBarButtonItem *gap = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    gap.width = -6;
-    UIBarButtonItem *set = [[UIBarButtonItem alloc] initWithImage:@"back" complete:^{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+
+    UIBarButtonItem *leftitem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftitemClick)];
     
-    self.navigationItem.leftBarButtonItems = @[gap, set];
+    self.navigationItem.leftBarButtonItem = leftitem;
     
-    UIBarButtonItem*rightitem  = [[UIBarButtonItem alloc]initWithTitle:@"转发设置" complete:^{
-        zhuanfasetViewController *vc = [[zhuanfasetViewController alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }];
     
-    self.navigationItem.rightBarButtonItem =rightitem;
+    UIBarButtonItem *rightitem = [[UIBarButtonItem alloc]initWithTitle:@"转发设置" style:UIBarButtonItemStylePlain target:self action:@selector(rightitemClick)];
+    
+    self.navigationItem.rightBarButtonItem = rightitem;
+    
+    
     
 }
 
-
+-(void)leftitemClick{
+     [self dismissViewControllerAnimated:YES completion:nil];
+}
+-(void)rightitemClick{
+    zhuanfasetViewController *vc = [[zhuanfasetViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 -(void)setUpHeaderview{
     

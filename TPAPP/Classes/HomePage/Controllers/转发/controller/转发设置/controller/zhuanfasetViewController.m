@@ -113,7 +113,7 @@
     
     tupiansetview *tupianview = [[NSBundle mainBundle]loadNibNamed:@"tupiansetview" owner:self options:nil].lastObject;
     self.tupianview = tupianview;
-    tupianview.frame = CGRectMake(0, kScreenHeight-255, kScreenWidth, 255);
+    tupianview.frame = CGRectMake(0, kScreenHeight-255-SafeAreaBottomHeight, kScreenWidth, 255+SafeAreaBottomHeight);
     
     [keyWindow addSubview:tupianview];
     
@@ -151,7 +151,7 @@
     
     chimasetview *chimaview = [[NSBundle mainBundle]loadNibNamed:@"chimasetview" owner:self options:nil].lastObject;
     self.chimaview = chimaview;
-    chimaview.frame = CGRectMake(0, kScreenHeight-255, kScreenWidth, 255);
+    chimaview.frame = CGRectMake(0, kScreenHeight-255-SafeAreaBottomHeight, kScreenWidth, 255+SafeAreaBottomHeight);
     
     [keyWindow addSubview:chimaview];
     
@@ -190,7 +190,7 @@
     
     jiajiaView *jiajiaview = [[NSBundle mainBundle]loadNibNamed:@"jiajiaView" owner:self options:nil].lastObject;
     self.jiajiaview = jiajiaview;
-    jiajiaview.frame = CGRectMake(0, kScreenHeight-255, kScreenWidth, 255);
+    jiajiaview.frame = CGRectMake(0, kScreenHeight-255-SafeAreaBottomHeight, kScreenWidth, 255+SafeAreaBottomHeight);
     
     [keyWindow addSubview:jiajiaview];
     
@@ -288,7 +288,7 @@
     
     zhuanfashuView *zhuanfashuview = [[NSBundle mainBundle]loadNibNamed:@"zhuanfashuView" owner:self options:nil].lastObject;
     self.zhuanfashuview = zhuanfashuview;
-    zhuanfashuview.frame = CGRectMake(0, kScreenHeight-255, kScreenWidth, 255);
+    zhuanfashuview.frame = CGRectMake(0, kScreenHeight-255-SafeAreaBottomHeight, kScreenWidth, 255+SafeAreaBottomHeight);
     
     [keyWindow addSubview:zhuanfashuview];
     

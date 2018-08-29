@@ -67,16 +67,15 @@
     configure.indicatorColor = kRGBColor(228, 135, 60);
     
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, pageTitleViewY, 44, 44)];
-    leftBtn.backgroundColor = [UIColor redColor];
     [self.view addSubview:leftBtn];
     [leftBtn addTarget:self action:@selector(leftBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    
+    [leftBtn setImage:[UIImage imageNamed:@"icon_home_fenlei"] forState:UIControlStateNormal];
     
     
     
     UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-44, pageTitleViewY, 44, 44)];
     rightBtn.backgroundColor = [UIColor clearColor];
-    [rightBtn setImage:[UIImage imageNamed:@"search_icon"] forState:UIControlStateNormal];
+    [rightBtn setImage:[UIImage imageNamed:@"icon_home_search"] forState:UIControlStateNormal];
     [self.view addSubview:rightBtn];
     [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
@@ -119,7 +118,7 @@
 
 -(void)leftBtnClick{
     
-     [self XYSideOpenVC];
+    [self XYSideOpenVC];
     
 }
 -(void)rightBtnClick{
@@ -144,12 +143,14 @@
         //SCREEN_WIDTH
         //SCREEN_HEIGHT
         //SCREEN_PRESENT
-   
+        
     } Failure:^(NSError *error) {
         
     }];
     
 }
+
+
 -(void)setUpDrageBtn{
     LXFloaintButton *button = [LXFloaintButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0, kScreenHeight-160, 80,80);
@@ -158,7 +159,7 @@
     ViewBorderRadius(button, 40, 0, [UIColor clearColor]);
     
     button.safeInsets = UIEdgeInsetsMake(0, 0, SafeAreaBottomHeight, 0);
-   [self.view addSubview:button];
+    [self.view addSubview:button];
     
     button.parentView = [UIApplication sharedApplication].keyWindow;
     
