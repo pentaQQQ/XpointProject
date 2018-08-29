@@ -147,14 +147,14 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2c-Gf-B4z">
-                            <rect key="frame" x="0.0" y="214" width="375" height="40"/>
+                            <rect key="frame" x="0.0" y="214" width="375" height="87"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="lZO-6g-7cX"/>
-                            </constraints>
                             <state key="normal" title="取消">
                                 <color key="titleColor" red="1" green="0.21960784310000001" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
+                            <connections>
+                                <action selector="cancelBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="Egk-Wt-84e"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -189,6 +189,7 @@
                         <constraint firstItem="ISX-y6-9ap" firstAttribute="top" secondItem="W9o-8k-hIn" secondAttribute="bottom" id="sps-uw-OwK"/>
                         <constraint firstAttribute="trailing" secondItem="9ck-Nv-Lo9" secondAttribute="trailing" id="t3a-jR-c3B"/>
                         <constraint firstItem="9ck-Nv-Lo9" firstAttribute="leading" secondItem="IoF-XN-lDc" secondAttribute="leading" id="xvm-cn-681"/>
+                        <constraint firstAttribute="bottom" secondItem="w2c-Gf-B4z" secondAttribute="bottom" id="z4y-Yd-4Qn"/>
                     </constraints>
                 </view>
             </subviews>
@@ -197,7 +198,7 @@
                 <constraint firstItem="IoF-XN-lDc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="IFL-69-CXH"/>
                 <constraint firstAttribute="trailing" secondItem="IoF-XN-lDc" secondAttribute="trailing" id="JAB-1c-Znh"/>
                 <constraint firstItem="IoF-XN-lDc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="MAs-Jl-Ym3"/>
-                <constraint firstAttribute="bottom" secondItem="IoF-XN-lDc" secondAttribute="bottom" id="xQX-fi-TRd"/>
+                <constraint firstAttribute="bottom" secondItem="IoF-XN-lDc" secondAttribute="bottom" id="iEy-J1-gcZ"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

@@ -8,6 +8,8 @@
 
 #import "goodsDetailCell.h"
 #import "ZLPhotoPickerBrowserViewController.h"
+#import "imagesListModel.h"
+#import "UIButton+WebCache.h"
 @implementation goodsDetailCell
 
 - (void)awakeFromNib {
@@ -17,7 +19,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 -(void)setImageview:(UIImageView *)imageview{
@@ -33,22 +35,48 @@
 
 -(void)setZhuanfaBtn:(UIButton *)zhuanfaBtn{
     _zhuanfaBtn = zhuanfaBtn;
-     ViewBorderRadius(zhuanfaBtn, 5, 1, [UIColor clearColor]);
+    ViewBorderRadius(zhuanfaBtn, 5, 1, [UIColor clearColor]);
 }
 
 
 -(void)setQianggouBtn:(UIButton *)qianggouBtn{
     _qianggouBtn = qianggouBtn;
-     ViewBorderRadius(qianggouBtn, 5, 1, [UIColor clearColor]);
+    ViewBorderRadius(qianggouBtn, 5, 1, [UIColor clearColor]);
+}
+
+
+-(void)setModel:(releaseActivitiesModel *)model{
+    _model = model;
+    
+    self.title.text = model.merchantName;
+    self.content.text = model.context;
+    self.beginTime.text = model.beginTime;
+    self.endtime.text = model.endTime;
+    
+    
+    [self setImagewithArray:model.imagesList];
+    
+    
+    int tmp = self.model.imagesList.count % 3;
+    int row = (int)self.model.imagesList.count / 3;
+    CGFloat width = (kScreenWidth-70-10)/3.0;
+    row += tmp == 0 ? 0:1;
+    self.pictureViewHigh.constant = (width+5)*row;
+    
+    
+    
+    
+    CGFloat high = [LYTools getHeighWithTitle:model.context font:[UIFont systemFontOfSize:14] width:kScreenWidth-70];
+    self.contentHigh.constant = high;
+    
 }
 
 
 
-
--(void)setPictureView:(UIView *)pictureView{
-    _pictureView = pictureView;
-    int tmp = 9 % 3;
-    int row = 9 / 3;
+-(void)setImagewithArray:(NSArray*)array{
+    
+    int tmp = array.count % 3;
+    int row = (int)array.count / 3;
     
     
     CGFloat width = (kScreenWidth-70-10)/3.0;
@@ -63,36 +91,26 @@
         for (j=0; j<3; j++) {
             int k = 3*i +j;
             
-            if (k<9) {
+            if (k<array.count) {
                 UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake((width+5)*j, (5+high)*i,  width, high)];
                 
                 [self.pictureView addSubview:btn];
-                
-                [btn setBackgroundImage:[self imageWithColor:[self getColorFromRGB:[self randomStringWithLength:6]]] forState:UIControlStateNormal];
+              
                 
                 btn.tag = k;
                 
                 [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
                 
+                imagesListModel *model =array[k];
+                
+                [btn sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] forState:UIControlStateNormal];
+    
             }
         }
     }
-//    self.pictureViewHigh.constant =(high+5)*row;
+    
+    
 }
-
-
-
-
--(void)setPictureViewHigh:(NSLayoutConstraint *)pictureViewHigh{
-    _pictureViewHigh = pictureViewHigh;
-     CGFloat width = (kScreenWidth-70-10)/3.0;
-    pictureViewHigh.constant = (width+5)*3;
-}
-
-
-
-
-
 
 
 
@@ -107,16 +125,14 @@
     NSMutableArray * ZLPhotosArry = [NSMutableArray array];
     
     
-    int imagecount = 9;
+    int imagecount = (int)self.model.imagesList.count;
     
     for (int i = 0; i<imagecount; i++) {
         
-        
+        imagesListModel*model = self.model.imagesList[i];
         ZLPhotoPickerBrowserPhoto *photo1 = [[ZLPhotoPickerBrowserPhoto alloc] init];
         
-        photo1.photoImage = btn.currentBackgroundImage;
-        
-        //        photo1.toView = imageview;
+        photo1.photoURL = [NSURL URLWithString:model.imgUrl];;
         
         [ZLPhotosArry addObject:photo1];
         
@@ -134,6 +150,29 @@
     [pickerBrowser showPickerVc:[UIApplication sharedApplication].keyWindow.rootViewController];
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //  颜色转换为背景图片

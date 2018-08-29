@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ClassDetailViewController : UIViewController
-
+@property(nonatomic,strong)NSArray*arr;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "releaseActivitiesModel.h"
 
 @interface goodsDetailCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageview;
@@ -33,5 +34,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pictureViewHigh;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHigh;
 
+
+@property(nonatomic,strong)releaseActivitiesModel*model;
 
 @end

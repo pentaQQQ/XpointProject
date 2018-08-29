@@ -147,11 +147,8 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jOY-Ha-QNu">
-                            <rect key="frame" x="0.0" y="214" width="375" height="40"/>
+                            <rect key="frame" x="0.0" y="214" width="375" height="147"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="9Er-N4-1mr"/>
-                            </constraints>
                             <state key="normal" title="取消">
                                 <color key="titleColor" red="1" green="0.21960784310000001" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
@@ -191,6 +188,7 @@
                         <constraint firstAttribute="trailing" secondItem="CvF-b3-Y2f" secondAttribute="trailing" id="lr3-cm-gVh"/>
                         <constraint firstItem="KCU-U4-YrD" firstAttribute="top" secondItem="r5c-9d-br8" secondAttribute="bottom" id="n7j-bn-HmR"/>
                         <constraint firstItem="KCU-U4-YrD" firstAttribute="leading" secondItem="Kmr-gn-e9j" secondAttribute="leading" id="ook-nh-RwW"/>
+                        <constraint firstAttribute="bottom" secondItem="jOY-Ha-QNu" secondAttribute="bottom" id="uGY-Ku-3z4"/>
                         <constraint firstAttribute="trailing" secondItem="Ttp-MO-X6V" secondAttribute="trailing" id="yTl-JJ-7tP"/>
                     </constraints>
                 </view>
@@ -198,8 +196,8 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Kmr-gn-e9j" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="CKL-lr-Pji"/>
+                <constraint firstAttribute="bottom" secondItem="Kmr-gn-e9j" secondAttribute="bottom" id="H9a-CX-dac"/>
                 <constraint firstAttribute="trailing" secondItem="Kmr-gn-e9j" secondAttribute="trailing" id="cPx-lT-4P9"/>
-                <constraint firstAttribute="bottom" secondItem="Kmr-gn-e9j" secondAttribute="bottom" id="o1Q-nj-h9Y"/>
                 <constraint firstItem="Kmr-gn-e9j" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="td0-PP-vmQ"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -195,11 +195,8 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wBF-dX-zTs">
-                            <rect key="frame" x="0.0" y="214" width="375" height="40"/>
+                            <rect key="frame" x="0.0" y="214" width="375" height="110"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="gKs-hz-VXd"/>
-                            </constraints>
                             <state key="normal" title="取消">
                                 <color key="titleColor" red="1" green="0.21960784310000001" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
@@ -236,6 +233,7 @@
                         <constraint firstAttribute="trailing" secondItem="5e4-JE-LkM" secondAttribute="trailing" id="hV2-HG-2Pw"/>
                         <constraint firstAttribute="trailing" secondItem="0sZ-BF-q2m" secondAttribute="trailing" id="m44-RK-sey"/>
                         <constraint firstAttribute="trailing" secondItem="AST-yj-0bT" secondAttribute="trailing" id="o5b-kC-A7e"/>
+                        <constraint firstAttribute="bottom" secondItem="wBF-dX-zTs" secondAttribute="bottom" id="oJa-3H-K00"/>
                         <constraint firstItem="h2C-Mi-bjF" firstAttribute="leading" secondItem="XQV-va-ouz" secondAttribute="leading" id="ozc-Tc-ti0"/>
                         <constraint firstItem="5e4-JE-LkM" firstAttribute="top" secondItem="XQV-va-ouz" secondAttribute="top" id="pIQ-n8-qE2"/>
                         <constraint firstItem="KeQ-fB-X3J" firstAttribute="top" secondItem="GO2-tG-LSt" secondAttribute="bottom" id="u90-Zf-qSt"/>
@@ -245,10 +243,10 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="XQV-va-ouz" secondAttribute="bottom" id="6BI-fG-B4o"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XQV-va-ouz" secondAttribute="trailing" id="d4M-W1-NKI"/>
                 <constraint firstItem="XQV-va-ouz" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="dVZ-ax-GQX"/>
                 <constraint firstItem="XQV-va-ouz" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="hnL-eh-zZ7"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="XQV-va-ouz" secondAttribute="bottom" id="j3d-gd-l8Y"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

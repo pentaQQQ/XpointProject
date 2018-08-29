@@ -184,11 +184,8 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHG-j6-lha">
-                            <rect key="frame" x="0.0" y="214" width="375" height="40"/>
+                            <rect key="frame" x="0.0" y="214" width="375" height="74"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="fVG-PY-iVA"/>
-                            </constraints>
                             <state key="normal" title="取消">
                                 <color key="titleColor" red="1" green="0.21960784310000001" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
@@ -229,13 +226,14 @@
                         <constraint firstAttribute="trailing" secondItem="sf7-h4-7Gw" secondAttribute="trailing" id="uYS-ss-hwf"/>
                         <constraint firstItem="GyN-96-wMZ" firstAttribute="leading" secondItem="wNH-93-qkT" secondAttribute="leading" id="y6z-fl-Mhh"/>
                         <constraint firstAttribute="trailing" secondItem="2yT-uk-1uC" secondAttribute="trailing" id="ybb-U9-gXA"/>
+                        <constraint firstAttribute="bottom" secondItem="DHG-j6-lha" secondAttribute="bottom" id="ydE-gI-ysN"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="wNH-93-qkT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="100-6B-GoB"/>
-                <constraint firstAttribute="bottom" secondItem="wNH-93-qkT" secondAttribute="bottom" id="J3D-Ws-baI"/>
+                <constraint firstAttribute="bottom" secondItem="wNH-93-qkT" secondAttribute="bottom" id="Oab-nE-2sr"/>
                 <constraint firstItem="wNH-93-qkT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Q4Y-bZ-kYi"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="wNH-93-qkT" secondAttribute="trailing" id="aS3-Z7-9UH"/>
             </constraints>

@@ -13,4 +13,7 @@ target 'TPAPP' do
     pod 'JKCategories'
     pod 'GTMBase64'
     pod 'SDCycleScrollView'
+    pod 'MJExtension'
+    pod 'SVProgressHUD'
+    pod 'MJRefresh'
 end

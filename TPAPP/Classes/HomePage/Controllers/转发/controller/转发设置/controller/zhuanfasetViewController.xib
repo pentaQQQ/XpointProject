@@ -275,7 +275,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="SIi-gz-fBZ" firstAttribute="top" secondItem="TaA-YC-cNx" secondAttribute="top" id="HBJ-e7-Vvq"/>
                         <constraint firstAttribute="trailing" secondItem="SIi-gz-fBZ" secondAttribute="trailing" id="Zhe-vp-5Yq"/>
@@ -288,7 +288,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="TaA-YC-cNx" secondAttribute="trailing" id="0ZQ-ub-KfS"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="TaA-YC-cNx" secondAttribute="bottom" id="WDf-i7-2nF"/>
+                <constraint firstAttribute="bottom" secondItem="TaA-YC-cNx" secondAttribute="bottom" id="7Y4-qO-ZFL"/>
                 <constraint firstItem="TaA-YC-cNx" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="Yqm-Kg-Hbo"/>
                 <constraint firstItem="TaA-YC-cNx" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="i8b-gz-eZz"/>
             </constraints>

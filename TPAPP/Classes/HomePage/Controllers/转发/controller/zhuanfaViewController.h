@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface zhuanfaViewController : UIViewController
+#import "BaseViewController.h"
+@interface zhuanfaViewController : BaseViewController
 
 @end

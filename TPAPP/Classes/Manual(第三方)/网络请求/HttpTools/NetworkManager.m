@@ -64,4 +64,44 @@
 }
 
 
+
+-(void)getWithUrl:(NSString *)url
+            param:(NSDictionary*)dic
+          success:(void (^)(id json))success
+          failure:(void (^)(NSError *error))failure{
+    
+    [self.httpTool ms_getWithURL:url params:dic success:^(id json) {
+        if (success) {
+            success(json);
+        }
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+    
+    
+}
+
+
+
+-(void)postWithUrl:(NSString *)url
+             param:(NSDictionary*)dic
+           success:(void (^)(id json))success
+           failure:(void (^)(NSError *error))failure{
+    
+    [self.httpTool ms_postWithURL:url params:dic success:^(id json) {
+        if (success) {
+            success(json);
+        }
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+
+
+
 @end
