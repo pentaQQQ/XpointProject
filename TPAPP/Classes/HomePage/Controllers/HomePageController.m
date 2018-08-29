@@ -15,6 +15,7 @@
 #import "LXFloaintButton.h"
 #import "zhuanfaViewController.h"
 
+#import "homePageHeaderModel.h"
 
 
 @interface HomePageController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
@@ -22,9 +23,34 @@
 @property (nonatomic, strong) SGPageContentScrollView *pageContentScrollView;
 @property(nonatomic,strong)LXFloaintButton *button;
 
+
+@property(nonatomic,strong)NSMutableArray*titleArr;
+@property(nonatomic,strong)NSMutableArray*dataArr;
+
+
+
 @end
 
 @implementation HomePageController
+
+
+
+-(NSMutableArray*)titleArr{
+    
+    if (_titleArr == nil) {
+        _titleArr = [NSMutableArray array];
+    }
+    return _titleArr;
+    
+}
+-(NSMutableArray*)dataArr{
+    if (_dataArr == nil) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
+}
+
+
 
 - (void)dealloc {
     NSLog(@"DefaultScrollVC - - dealloc");
@@ -39,10 +65,14 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSelectedIndex:) name:@"changeSelectedIndex" object:nil];
     
-    [self setupPageView];
-    
-    [self setUpDrageBtn];
+    [self lodaDataSuccess:^(id respons) {
+        [self setupPageView];
+        
+        [self setUpDrageBtn];
+    }];
 }
+
+
 
 - (void)changeSelectedIndex:(NSNotification *)noti {
     _pageTitleView.resetSelectedIndex = [noti.object integerValue];
@@ -57,7 +87,7 @@
         pageTitleViewY = 88;
     }
     
-    NSArray *titleArr = @[@"精选", @"电影", @"电视剧", @"综艺", @"NBA", @"娱乐", @"动漫", @"演唱会", @"VIP会员"];
+//    NSArray *titleArr = @[@"精选", @"电影", @"电视剧", @"综艺", @"NBA", @"娱乐", @"动漫", @"演唱会", @"VIP会员"];
     SGPageTitleViewConfigure *configure = [SGPageTitleViewConfigure pageTitleViewConfigure];
     configure.indicatorAdditionalWidth = 10; // 说明：指示器额外增加的宽度，不设置，指示器宽度为标题文字宽度；若设置无限大，则指示器宽度为按钮宽度
     configure.showBottomSeparator = NO;
@@ -81,14 +111,16 @@
     
     
     /// pageTitleView
-    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(44, pageTitleViewY, self.view.frame.size.width-88, 44) delegate:self titleNames:titleArr configure:configure];
+    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(44, pageTitleViewY, self.view.frame.size.width-88, 44) delegate:self titleNames:self.titleArr configure:configure];
     [self.view addSubview:_pageTitleView];
-    [_pageTitleView addBadgeForIndex:1];
-    [_pageTitleView addBadgeForIndex:5];
+//    [_pageTitleView addBadgeForIndex:1];
+//    [_pageTitleView addBadgeForIndex:5];
     
     NSMutableArray *childArr = [NSMutableArray array];
-    for (int i=0; i<titleArr.count; i++) {
+    for (int i=0; i<self.titleArr.count; i++) {
+        homePageHeaderModel *model = self.dataArr[i];
         ClassDetailViewController *vc = [[ClassDetailViewController alloc]init];
+        vc.arr = model.releaseActivities;
         [childArr addObject:vc];
     }
     
@@ -129,23 +161,27 @@
 
 
 //网络请求实列
-- (void)lodaData
-{
-    [[NetworkManager sharedManager] postCityData:@"" Success:^(id json) {
+- (void)lodaDataSuccess:(void(^)(id respons))success
+{[[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
         
-        //保存一次全局都能用
-        USERINFO.password = @"";
-        //颜色
-        //colorWithRGB(0x000000)
-        //字体
-        //font(12);
-        //宽 高  适配比列
-        //SCREEN_WIDTH
-        //SCREEN_HEIGHT
-        //SCREEN_PRESENT
+        NSLog(@"%@",json);
         
-    } Failure:^(NSError *error) {
         
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            
+            for (NSDictionary *dic in json[@"data"]) {
+                homePageHeaderModel *model = [homePageHeaderModel mj_objectWithKeyValues:dic];
+                [self.titleArr addObject:model.labelName];
+                
+                [self.dataArr addObject:model];
+            }
+            success(self.titleArr);
+         
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
     }];
     
 }
@@ -153,7 +189,7 @@
 
 -(void)setUpDrageBtn{
     LXFloaintButton *button = [LXFloaintButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(0, kScreenHeight-160, 80,80);
+    button.frame = CGRectMake(0, kScreenHeight-80-SafeAreaBottomHeight-49, 80,80);
     [button setTitle:@"拖动" forState:UIControlStateNormal];
     button.backgroundColor =[UIColor blueColor];
     ViewBorderRadius(button, 40, 0, [UIColor clearColor]);
@@ -170,12 +206,12 @@
 
 -(void)buttonClick{
     zhuanfaViewController *vc = [[zhuanfaViewController alloc]init];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+//    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+//
+//    [self presentViewController:nav animated:YES completion:nil];
     
-    [self presentViewController:nav animated:YES completion:nil];
     
-    
-    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface zhuanfasetViewController : UIViewController
+@interface zhuanfasetViewController : BaseViewController
 
 @end

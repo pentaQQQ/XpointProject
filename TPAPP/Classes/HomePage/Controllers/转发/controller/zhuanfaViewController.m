@@ -32,9 +32,9 @@
 -(void)setItems{
     
 
-    UIBarButtonItem *leftitem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftitemClick)];
-    
-    self.navigationItem.leftBarButtonItem = leftitem;
+//    UIBarButtonItem *leftitem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftitemClick)];
+//    
+//    self.navigationItem.leftBarButtonItem = leftitem;
     
     
     UIBarButtonItem *rightitem = [[UIBarButtonItem alloc]initWithTitle:@"转发设置" style:UIBarButtonItemStylePlain target:self action:@selector(rightitemClick)];

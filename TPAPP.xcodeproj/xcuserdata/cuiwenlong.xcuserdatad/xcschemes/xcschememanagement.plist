@@ -7,7 +7,25 @@
 		<key>TPAPP.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>14</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>547C48671F1DA8AF00178B67</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>547C48801F1DA8AF00178B67</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>547C488B1F1DA8AF00178B67</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
