@@ -270,6 +270,21 @@
 		8E78BE2A21366F2E000A9EA4 /* specsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BE2921366F2E000A9EA4 /* specsModel.m */; };
 		8E78BE3321367AE5000A9EA4 /* GoDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BE3121367AE5000A9EA4 /* GoDetailTableViewCell.m */; };
 		8E78BE3421367AE5000A9EA4 /* GoDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BE3221367AE5000A9EA4 /* GoDetailTableViewCell.xib */; };
+		8E78BE3721377D2D000A9EA4 /* SVProgressHUD+DoAnythingAfter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BE3621377D2D000A9EA4 /* SVProgressHUD+DoAnythingAfter.m */; };
+		8E78BE3A21378097000A9EA4 /* UIButton+LYCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BE3921378096000A9EA4 /* UIButton+LYCountDownButton.m */; };
+		8E78BE4121378A04000A9EA4 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BE3E21378A04000A9EA4 /* README.txt */; };
+		8E78BE4221378A04000A9EA4 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E78BE4021378A04000A9EA4 /* libWeChatSDK.a */; };
+		8E78BE4C21378B0C000A9EA4 /* WXApiRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BE4521378B0C000A9EA4 /* WXApiRequestHandler.m */; };
+		8E78BE4D21378B0C000A9EA4 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BE4721378B0C000A9EA4 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m */; };
+		8E78BE4E21378B0C000A9EA4 /* WXMediaMessage+messageConstruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BE4821378B0C000A9EA4 /* WXMediaMessage+messageConstruct.m */; };
+		8E78BE4F21378B0C000A9EA4 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BE4A21378B0C000A9EA4 /* WXApiManager.m */; };
+		8E78BE5121378B7E000A9EA4 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E78BE5021378B7E000A9EA4 /* libsqlite3.0.tbd */; };
+		8E78BE5321378B9E000A9EA4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E78BE5221378B9E000A9EA4 /* CoreTelephony.framework */; };
+		8E78BE5521378BD4000A9EA4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E78BE5421378BD4000A9EA4 /* CFNetwork.framework */; };
+		8E78BE5721378BDE000A9EA4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E78BE5621378BDE000A9EA4 /* Security.framework */; };
+		8E78BE5921378BE9000A9EA4 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E78BE5821378BE9000A9EA4 /* libz.tbd */; };
+		8E78BE5B21378BF0000A9EA4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E78BE5A21378BF0000A9EA4 /* SystemConfiguration.framework */; };
+		8E78BE5D21378C13000A9EA4 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E78BE5C21378C13000A9EA4 /* libc++.tbd */; };
 		8EA952A4212AC4C50057AC78 /* goodsDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA952A2212AC4C50057AC78 /* goodsDetailCell.m */; };
 		8EA952A5212AC4C50057AC78 /* goodsDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA952A3212AC4C50057AC78 /* goodsDetailCell.xib */; };
 		8EA952F3212BAA930057AC78 /* DALabeledCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA952A8212BAA930057AC78 /* DALabeledCircularProgressView.m */; };
@@ -810,6 +825,30 @@
 		8E78BE3021367AE5000A9EA4 /* GoDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoDetailTableViewCell.h; sourceTree = "<group>"; };
 		8E78BE3121367AE5000A9EA4 /* GoDetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoDetailTableViewCell.m; sourceTree = "<group>"; };
 		8E78BE3221367AE5000A9EA4 /* GoDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoDetailTableViewCell.xib; sourceTree = "<group>"; };
+		8E78BE3521377D2C000A9EA4 /* SVProgressHUD+DoAnythingAfter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+DoAnythingAfter.h"; sourceTree = "<group>"; };
+		8E78BE3621377D2D000A9EA4 /* SVProgressHUD+DoAnythingAfter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+DoAnythingAfter.m"; sourceTree = "<group>"; };
+		8E78BE3821378096000A9EA4 /* UIButton+LYCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+LYCountDownButton.h"; sourceTree = "<group>"; };
+		8E78BE3921378096000A9EA4 /* UIButton+LYCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+LYCountDownButton.m"; sourceTree = "<group>"; };
+		8E78BE3C21378A04000A9EA4 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		8E78BE3D21378A04000A9EA4 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		8E78BE3E21378A04000A9EA4 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		8E78BE3F21378A04000A9EA4 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		8E78BE4021378A04000A9EA4 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		8E78BE4421378B0C000A9EA4 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		8E78BE4521378B0C000A9EA4 /* WXApiRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiRequestHandler.m; sourceTree = "<group>"; };
+		8E78BE4621378B0C000A9EA4 /* WXMediaMessage+messageConstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WXMediaMessage+messageConstruct.h"; sourceTree = "<group>"; };
+		8E78BE4721378B0C000A9EA4 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SendMessageToWXReq+requestWithTextOrMediaMessage.m"; sourceTree = "<group>"; };
+		8E78BE4821378B0C000A9EA4 /* WXMediaMessage+messageConstruct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WXMediaMessage+messageConstruct.m"; sourceTree = "<group>"; };
+		8E78BE4921378B0C000A9EA4 /* WXApiRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiRequestHandler.h; sourceTree = "<group>"; };
+		8E78BE4A21378B0C000A9EA4 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
+		8E78BE4B21378B0C000A9EA4 /* SendMessageToWXReq+requestWithTextOrMediaMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SendMessageToWXReq+requestWithTextOrMediaMessage.h"; sourceTree = "<group>"; };
+		8E78BE5021378B7E000A9EA4 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		8E78BE5221378B9E000A9EA4 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		8E78BE5421378BD4000A9EA4 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		8E78BE5621378BDE000A9EA4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		8E78BE5821378BE9000A9EA4 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		8E78BE5A21378BF0000A9EA4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8E78BE5C21378C13000A9EA4 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		8EA952A1212AC4C50057AC78 /* goodsDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = goodsDetailCell.h; sourceTree = "<group>"; };
 		8EA952A2212AC4C50057AC78 /* goodsDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = goodsDetailCell.m; sourceTree = "<group>"; };
 		8EA952A3212AC4C50057AC78 /* goodsDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = goodsDetailCell.xib; sourceTree = "<group>"; };
@@ -938,8 +977,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E78BE5D21378C13000A9EA4 /* libc++.tbd in Frameworks */,
+				8E78BE5B21378BF0000A9EA4 /* SystemConfiguration.framework in Frameworks */,
+				8E78BE5921378BE9000A9EA4 /* libz.tbd in Frameworks */,
+				8E78BE5721378BDE000A9EA4 /* Security.framework in Frameworks */,
+				8E78BE5521378BD4000A9EA4 /* CFNetwork.framework in Frameworks */,
+				8E78BE5321378B9E000A9EA4 /* CoreTelephony.framework in Frameworks */,
+				8E78BE5121378B7E000A9EA4 /* libsqlite3.0.tbd in Frameworks */,
 				01120E8821338F070071AC5F /* PhotosUI.framework in Frameworks */,
 				01120E8921338F070071AC5F /* Photos.framework in Frameworks */,
+				8E78BE4221378A04000A9EA4 /* libWeChatSDK.a in Frameworks */,
 				20908A7E4AD0D5620F537756 /* Pods_TPAPP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1760,6 +1807,10 @@
 		547C48A61F1DBB8200178B67 /* Categories(分类) */ = {
 			isa = PBXGroup;
 			children = (
+				8E78BE3821378096000A9EA4 /* UIButton+LYCountDownButton.h */,
+				8E78BE3921378096000A9EA4 /* UIButton+LYCountDownButton.m */,
+				8E78BE3521377D2C000A9EA4 /* SVProgressHUD+DoAnythingAfter.h */,
+				8E78BE3621377D2D000A9EA4 /* SVProgressHUD+DoAnythingAfter.m */,
 				547C48A71F1DBB8200178B67 /* UIView+Extension.h */,
 				547C48A81F1DBB8200178B67 /* UIView+Extension.m */,
 			);
@@ -1840,9 +1891,13 @@
 		547C48C31F1DBB8200178B67 /* Manual(第三方) */ = {
 			isa = PBXGroup;
 			children = (
+
 				01E7C2F32137C67A00F79FF7 /* MMWebView */,
 				01E7C2ED2137C67A00F79FF7 /* UUButton */,
 				01E7C2C72137C5CE00F79FF7 /* MLLabel */,
+
+				8E78BE3B21378A04000A9EA4 /* WechatSDK1.8.2 */,
+a4555645543636bc8e04339bec9c38dbe1cf6b3d
 				01120F85213392FD0071AC5F /* BRPickerView */,
 				01120FDA213392FD0071AC5F /* MGSwipeTableCell */,
 				01120FA2213392FD0071AC5F /* Sources */,
@@ -2234,6 +2289,33 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		8E78BE3B21378A04000A9EA4 /* WechatSDK1.8.2 */ = {
+			isa = PBXGroup;
+			children = (
+				8E78BE3C21378A04000A9EA4 /* WXApi.h */,
+				8E78BE3D21378A04000A9EA4 /* WXApiObject.h */,
+				8E78BE3E21378A04000A9EA4 /* README.txt */,
+				8E78BE3F21378A04000A9EA4 /* WechatAuthSDK.h */,
+				8E78BE4021378A04000A9EA4 /* libWeChatSDK.a */,
+			);
+			path = WechatSDK1.8.2;
+			sourceTree = "<group>";
+		};
+		8E78BE4321378B0C000A9EA4 /* wechate */ = {
+			isa = PBXGroup;
+			children = (
+				8E78BE4421378B0C000A9EA4 /* WXApiManager.h */,
+				8E78BE4521378B0C000A9EA4 /* WXApiRequestHandler.m */,
+				8E78BE4621378B0C000A9EA4 /* WXMediaMessage+messageConstruct.h */,
+				8E78BE4721378B0C000A9EA4 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m */,
+				8E78BE4821378B0C000A9EA4 /* WXMediaMessage+messageConstruct.m */,
+				8E78BE4921378B0C000A9EA4 /* WXApiRequestHandler.h */,
+				8E78BE4A21378B0C000A9EA4 /* WXApiManager.m */,
+				8E78BE4B21378B0C000A9EA4 /* SendMessageToWXReq+requestWithTextOrMediaMessage.h */,
+			);
+			path = wechate;
+			sourceTree = "<group>";
+		};
 		8EA9529F212AC4800057AC78 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2501,6 +2583,7 @@
 		8EA95334212BEE050057AC78 /* Login&Register */ = {
 			isa = PBXGroup;
 			children = (
+				8E78BE4321378B0C000A9EA4 /* wechate */,
 				8EA95335212BEE050057AC78 /* controller */,
 				8EA95336212BEE050057AC78 /* model */,
 				8EA95337212BEE060057AC78 /* view */,
@@ -2674,6 +2757,13 @@
 		D63B1E6C203BBED43C75CC97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E78BE5C21378C13000A9EA4 /* libc++.tbd */,
+				8E78BE5A21378BF0000A9EA4 /* SystemConfiguration.framework */,
+				8E78BE5821378BE9000A9EA4 /* libz.tbd */,
+				8E78BE5621378BDE000A9EA4 /* Security.framework */,
+				8E78BE5421378BD4000A9EA4 /* CFNetwork.framework */,
+				8E78BE5221378B9E000A9EA4 /* CoreTelephony.framework */,
+				8E78BE5021378B7E000A9EA4 /* libsqlite3.0.tbd */,
 				01120E8721338F070071AC5F /* Photos.framework */,
 				01120E8621338F060071AC5F /* PhotosUI.framework */,
 				3DEB8D54F546355CB17A5807 /* Pods_TPAPP.framework */,
@@ -2750,6 +2840,7 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -2807,8 +2898,12 @@
 				8E78BDFD21353494000A9EA4 /* chimasetview.xib in Resources */,
 				01E7C2C12137C56600F79FF7 /* moment_pic_4@2x.png in Resources */,
 				01121014213392FD0071AC5F /* README.md in Resources */,
+
 				01E7C2EC2137C60000F79FF7 /* MLLabel.xcconfig in Resources */,
 				01E7C2B42137C56600F79FF7 /* moment_head@2x.png in Resources */,
+
+				8E78BE4121378A04000A9EA4 /* README.txt in Resources */,
+
 				8E78BE0221353B2E000A9EA4 /* jiajiaView.xib in Resources */,
 				01E7C2B72137C56600F79FF7 /* moment_like_hl@2x.png in Resources */,
 				547C49671F1DBB8200178B67 /* lkbubble1.jpg in Resources */,
@@ -2930,6 +3025,7 @@
 				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMBase64/GTMBase64.framework",
 				"${BUILT_PRODUCTS_DIR}/GVUserDefaults/GVUserDefaults.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/JKCategories/JKCategories.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
@@ -2946,6 +3042,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMBase64.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GVUserDefaults.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JKCategories.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
@@ -2982,6 +3079,7 @@
 				547C499D1F1DBB8200178B67 /* UIViewController+Cache.m in Sources */,
 				01E7C2DF2137C5F900F79FF7 /* MLExpressionManager.m in Sources */,
 				8EA9531A212BBC080057AC78 /* SideViewController.m in Sources */,
+				8E78BE3721377D2D000A9EA4 /* SVProgressHUD+DoAnythingAfter.m in Sources */,
 				547C497D1F1DBB8200178B67 /* SGDatePicker.m in Sources */,
 				01120EEA21338F9C0071AC5F /* IndentControl.m in Sources */,
 				547C49801F1DBB8200178B67 /* SGDatePickerSheetView.m in Sources */,
@@ -3016,6 +3114,7 @@
 				547C495D1F1DBB8200178B67 /* UIView+Extension.m in Sources */,
 				01120F0821338F9C0071AC5F /* GoodsChildViewController.m in Sources */,
 				01121019213392FD0071AC5F /* YSStaticSectionModel.m in Sources */,
+				8E78BE4D21378B0C000A9EA4 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				01120F1B21338FB70071AC5F /* BottomView.m in Sources */,
 				01120EF821338F9C0071AC5F /* CustomerReconciliationsController.m in Sources */,
 				01120F0021338F9C0071AC5F /* MineIndentViewController.m in Sources */,
@@ -3032,6 +3131,7 @@
 				8EA9530C212BAA930057AC78 /* ZLPhotoPickerCollectionViewCell.m in Sources */,
 				01E7C2E42137C5F900F79FF7 /* NSMutableAttributedString+MLLabel.m in Sources */,
 				8EA95303212BAA930057AC78 /* ZLPhotoPickerDatas.m in Sources */,
+				8E78BE3A21378097000A9EA4 /* UIButton+LYCountDownButton.m in Sources */,
 				01121091213690A30071AC5F /* TuYeTextField.m in Sources */,
 				01E7C2E02137C5F900F79FF7 /* NSString+MLExpression.m in Sources */,
 				01120EFD21338F9C0071AC5F /* PerformaceHeaderCell.m in Sources */,
@@ -3090,6 +3190,7 @@
 				547C49751F1DBB8200178B67 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
 				8EA9530E212BAA930057AC78 /* ZLPhotoPickerImageView.m in Sources */,
 				9A8745061FC508CE006E892C /* HomePageController.m in Sources */,
+				8E78BE4F21378B0C000A9EA4 /* WXApiManager.m in Sources */,
 				8EA953752133C6A40057AC78 /* WeChateBoardViewController.m in Sources */,
 				8ED5B4BD212A6AC100B5983B /* SGPageTitleViewConfigure.m in Sources */,
 				8EA95306212BAA930057AC78 /* UIViewController+Alert.m in Sources */,
@@ -3154,6 +3255,7 @@
 				01120F0621338F9C0071AC5F /* EditNicknameController.m in Sources */,
 				011210722133E1C40071AC5F /* ServiceTypeCell.m in Sources */,
 				0112100F213392FD0071AC5F /* JXCategoryTitleImageCellModel.m in Sources */,
+				8E78BE4E21378B0C000A9EA4 /* WXMediaMessage+messageConstruct.m in Sources */,
 				01121004213392FD0071AC5F /* JXCategoryComponentView.m in Sources */,
 				019AA51F213440AF0018A832 /* SystemInformationCell.m in Sources */,
 				019AA51C21343F600018A832 /* SystemInformationController.m in Sources */,
@@ -3187,6 +3289,7 @@
 				547C486D1F1DA8AF00178B67 /* main.m in Sources */,
 				01120F0121338F9C0071AC5F /* ApplyGoodsServiceController.m in Sources */,
 				01120F0921338F9C0071AC5F /* ReturnGoodsViewController.m in Sources */,
+				8E78BE4C21378B0C000A9EA4 /* WXApiRequestHandler.m in Sources */,
 				8E78BE3321367AE5000A9EA4 /* GoDetailTableViewCell.m in Sources */,
 				8EA95346212E49BC0057AC78 /* LXFloaintButton.m in Sources */,
 				547C49661F1DBB8200178B67 /* UIResponder+LKBubble.m in Sources */,
@@ -3348,12 +3451,49 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ideaSource.TPAPP;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TPAPP/Classes/Manual(第三方)/WechatSDK1.8.2",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"FDFullscreenPopGesture\"",
+					"-framework",
+					"\"GTMBase64\"",
+					"-framework",
+					"\"GVUserDefaults\"",
+					"-framework",
+					"\"IQKeyboardManager\"",
+					"-framework",
+					"\"JKCategories\"",
+					"-framework",
+					"\"MJExtension\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"SDCycleScrollView\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"TPKeyboardAvoiding\"",
+					"-framework",
+					"\"XRCarouselView\"",
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.loongcent.doulong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -3363,12 +3503,49 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ideaSource.TPAPP;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TPAPP/Classes/Manual(第三方)/WechatSDK1.8.2",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"FDFullscreenPopGesture\"",
+					"-framework",
+					"\"GTMBase64\"",
+					"-framework",
+					"\"GVUserDefaults\"",
+					"-framework",
+					"\"IQKeyboardManager\"",
+					"-framework",
+					"\"JKCategories\"",
+					"-framework",
+					"\"MJExtension\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"SDCycleScrollView\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"TPKeyboardAvoiding\"",
+					"-framework",
+					"\"XRCarouselView\"",
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.loongcent.doulong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

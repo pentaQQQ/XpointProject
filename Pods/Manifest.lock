@@ -17,6 +17,7 @@ PODS:
   - FDFullscreenPopGesture (1.1)
   - GTMBase64 (1.0.0)
   - GVUserDefaults (1.0.2)
+  - IQKeyboardManager (6.0.4)
   - JKCategories (1.5)
   - Masonry (1.0.2)
   - MJExtension (3.0.15)
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - FDFullscreenPopGesture
   - GTMBase64
   - GVUserDefaults
+  - IQKeyboardManager
   - JKCategories
   - Masonry
   - MJExtension
@@ -51,6 +53,7 @@ SPEC REPOS:
     - FDFullscreenPopGesture
     - GTMBase64
     - GVUserDefaults
+    - IQKeyboardManager
     - JKCategories
     - Masonry
     - MJExtension
@@ -66,6 +69,7 @@ SPEC CHECKSUMS:
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   GTMBase64: 0da7372e95f5171f3f652db38cde6716f8eb5e24
   GVUserDefaults: 52d48cf8ba578b40a1a76312b196dfc9134ba36a
+  IQKeyboardManager: 29514134ef0334a6fa33cf4eee11c36c064baeaf
   JKCategories: 863f4c7ed2d521ee6bf72ceea97948da23bb5af4
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJExtension: 3f039575db1b135a20699ad298713b26acec1528
@@ -76,6 +80,6 @@ SPEC CHECKSUMS:
   TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
   XRCarouselView: 52529f924d26ee4787f9bd958150800b73e60922
 
-PODFILE CHECKSUM: 5de8f4d3d65a13d29d37f5b52f3d2e011dd30ad2
+PODFILE CHECKSUM: 2fbc2c802eed95bb5b62d54df69b6ae8babb309d
 
 COCOAPODS: 1.5.3
