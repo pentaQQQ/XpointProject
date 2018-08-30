@@ -155,7 +155,7 @@ blue:((float)(rgbValue & 0xFF)) / 255.0 alpha:1.0]
 
 
 
-
+#define WeakSelf(weakSelf)  __weak __typeof(self) weakSelf = self;
 
 // View圆角和边框
 #define ViewBorderRadius(View, Radius, Width, Color)\

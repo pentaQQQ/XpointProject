@@ -3155,7 +3155,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.loongcent.doulong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ideaSource.TPAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -3207,7 +3207,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.loongcent.doulong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ideaSource.TPAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
