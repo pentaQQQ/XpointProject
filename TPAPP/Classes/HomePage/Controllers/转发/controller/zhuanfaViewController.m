@@ -10,6 +10,8 @@
 #import "zhuanfaHeaderView.h"
 #import "zhuanfaCell.h"
 #import "zhuanfasetViewController.h"
+
+
 @interface zhuanfaViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)zhuanfaHeaderView*headerview;
 @property(nonatomic,strong)UITableView*tableview;

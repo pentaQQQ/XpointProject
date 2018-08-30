@@ -134,7 +134,16 @@ blue:((float)(rgbValue & 0xFF)) / 255.0 alpha:1.0]
 #define kStartTime CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
 #define kEndTime   NSLog(@"Time: %f", CFAbsoluteTimeGetCurrent() - start)
 
-
+// 屏幕物理尺寸宽度
+#define k_screen_width      [UIScreen mainScreen].bounds.size.width
+// 屏幕物理尺寸高度
+#define k_screen_height     [UIScreen mainScreen].bounds.size.height
+// 状态栏高度
+#define k_status_height     [[UIApplication sharedApplication] statusBarFrame].size.height
+// 导航栏高度
+#define k_nav_height        self.navigationController.navigationBar.height
+// 顶部整体高度
+#define k_top_height        (k_status_height + k_nav_height)
 
 /**
  *  适配
@@ -155,7 +164,7 @@ blue:((float)(rgbValue & 0xFF)) / 255.0 alpha:1.0]
 
 
 
-
+#define WeakSelf(weakSelf)  __weak __typeof(self) weakSelf = self;
 
 // View圆角和边框
 #define ViewBorderRadius(View, Radius, Width, Color)\
