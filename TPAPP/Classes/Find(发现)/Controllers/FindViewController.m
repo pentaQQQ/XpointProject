@@ -40,12 +40,9 @@
     return _dataArr;
 }
 
-
-
 - (void)dealloc {
     NSLog(@"DefaultScrollVC - - dealloc");
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeSelectedIndex" object:nil];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
