@@ -29,20 +29,20 @@ NSMutableAttributedString *kMLLinkLabelAttributedText(id object)
     if ([object isKindOfClass:[Comment class]])
     {
         Comment *comment = (Comment *)object;
-        if (comment.pk % 2 == 0) {
-            NSString *likeString  = [NSString stringWithFormat:@"Jeanne回复%@：%@",comment.userName,comment.text];
-            attributedText = [[NSMutableAttributedString alloc] initWithString:likeString];
-            [attributedText setAttributes:@{NSFontAttributeName:kComHLTextFont,NSLinkAttributeName:@"Jeanne"}
-                                    range:[likeString rangeOfString:@"Jeanne"]];
-            [attributedText setAttributes:@{NSFontAttributeName:kComHLTextFont,NSLinkAttributeName:comment.userName}
-                                    range:[likeString rangeOfString:comment.userName]];
-        } else {
+//        if (comment.pk % 2 == 0) {
+//            NSString *likeString  = [NSString stringWithFormat:@"Jeanne回复%@：%@",comment.userName,comment.text];
+//            attributedText = [[NSMutableAttributedString alloc] initWithString:likeString];
+//            [attributedText setAttributes:@{NSFontAttributeName:kComHLTextFont,NSLinkAttributeName:@"Jeanne"}
+//                                    range:[likeString rangeOfString:@"Jeanne"]];
+//            [attributedText setAttributes:@{NSFontAttributeName:kComHLTextFont,NSLinkAttributeName:comment.userName}
+//                                    range:[likeString rangeOfString:comment.userName]];
+//        } else {
             NSString *likeString  = [NSString stringWithFormat:@"%@：%@",comment.userName,comment.text];
             attributedText = [[NSMutableAttributedString alloc] initWithString:likeString];
             [attributedText setAttributes:@{NSFontAttributeName:kComHLTextFont,NSLinkAttributeName:comment.userName}
                                     range:[likeString rangeOfString:comment.userName]];
         }
-    }
+//    }
     if ([object isKindOfClass:[NSString class]])
     {
         NSString *content = (NSString *)object;

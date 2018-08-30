@@ -12,27 +12,7 @@
 #import "imagesListModel.h"
 #import "UIButton+WebCache.h"
 
-@interface GoDetailTableViewCell()
-@property(nonatomic,strong)NSMutableArray*dataArr;
-@property(nonatomic,strong)NSMutableArray*btnArr;
-@end
-
-
 @implementation GoDetailTableViewCell
--(NSMutableArray*)dataArr{
-    if (_dataArr == nil) {
-        _dataArr = [NSMutableArray array];
-    }
-    return _dataArr;
-}
-
--(NSMutableArray*)btnArr{
-    if (_btnArr == nil) {
-        _btnArr = [NSMutableArray array];
-    }
-    return _btnArr;
-}
-
 
 -(void)setImageview:(UIImageView *)imageview{
     _imageview = imageview;
@@ -40,15 +20,15 @@
 }
 -(void)setShouqianBtn:(UIButton *)shouqianBtn{
     _shouqianBtn = shouqianBtn;
-    ViewBorderRadius(shouqianBtn, 5, 1, [UIColor clearColor]);
+     ViewBorderRadius(shouqianBtn, 5, 1, [UIColor clearColor]);
 }
 -(void)setZhuanfaBtn:(UIButton *)zhuanfaBtn{
     _zhuanfaBtn = zhuanfaBtn;
-    ViewBorderRadius(zhuanfaBtn, 5, 1, [UIColor clearColor]);
+     ViewBorderRadius(zhuanfaBtn, 5, 1, [UIColor clearColor]);
 }
 -(void)setShoppingcartBtn:(UIButton *)shoppingcartBtn{
     _shoppingcartBtn = shoppingcartBtn;
-    ViewBorderRadius(shoppingcartBtn, 5, 1, [UIColor clearColor]);
+     ViewBorderRadius(shoppingcartBtn, 5, 1, [UIColor clearColor]);
 }
 
 -(void)setModel:(SimilarProductModel *)model{
@@ -106,7 +86,7 @@
     self.pictureHigh.constant = (width+5)*row;
     
     
-    
+
     
     int tm = self.model.specs.count % 2;
     int rows = (int)self.model.specs.count / 2;
@@ -233,48 +213,7 @@
                 [btn setTitle:title forState:UIControlStateNormal];
                 [btn setTintColor:[UIColor blackColor]];
                 btn.tag = k;
-                btn.selected = NO;
-                
-                [self.btnArr addObject:btn];
-                
-                __weak __typeof(btn) weakSelfbtn = btn;
-                __weak __typeof(self) weakSelf = self;
-                [weakSelfbtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
-                    
-                    
-                    
-                    for (UIButton *bt in weakSelf.btnArr) {
-                        specsModel*spmodel = weakSelf.model.specs[bt.tag];
-                        if (bt.tag == weakSelfbtn.tag) {
-                            
-                            if (bt.selected == NO) {
-                                bt.selected = YES;
-                                bt.backgroundColor = [UIColor redColor];
-                                [weakSelf.dataArr addObject:spmodel];
-                            }else{
-                                bt.selected = NO;
-                                bt.backgroundColor = [UIColor lightGrayColor];
-                                [weakSelf.dataArr removeObject:spmodel];
-                            }
-                            
-                        }else{
-                            [weakSelf.dataArr removeObject:spmodel];
-                            bt.selected = NO;
-                            bt.backgroundColor = [UIColor lightGrayColor];
-                        }
-                    }
-                    
-                    
-                    if (weakSelf.dataArr.count) {
-                        weakSelf.shoppingcartBtn.backgroundColor = [UIColor redColor];
-                        weakSelf.shoppingcartBtn.userInteractionEnabled = YES;
-                    }else{
-                        
-                        weakSelf.shoppingcartBtn.backgroundColor = [UIColor lightGrayColor];
-                        weakSelf.shoppingcartBtn.userInteractionEnabled = NO;
-                    }
-                    
-                }];
+  
             }
         }
     }

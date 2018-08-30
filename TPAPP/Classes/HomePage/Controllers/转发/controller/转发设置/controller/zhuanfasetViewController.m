@@ -213,7 +213,9 @@
             
             [weakSelf setUpZidingyijineView];
         }
-
+        
+        
+        
     };
     jiajiaview.removeBlock = ^{
         [weakSelf.mengbanView removeFromSuperview];

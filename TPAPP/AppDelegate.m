@@ -10,9 +10,8 @@
 #import "BaseTabBarController.h"
 #import "XYSideViewController.h"
 #import "SideViewController.h"
-#import "IQKeyboardManager.h"
+
 #import "LoginViewController.h"
-#import "WXApiManager.h"
 
 @interface AppDelegate ()
 
@@ -22,9 +21,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [self.window makeKeyAndVisible];
     
     // 侧拉VC
     SideViewController *leftViewController = [[SideViewController alloc] init];
@@ -39,65 +35,11 @@
     
     //    LoginViewController*vc = [[LoginViewController alloc]init];
     //
-    //    self.window.rootViewController = vc;
-    //
+    //     self.window.rootViewController = vc;
     
-    [self initKeyboard];
-    
-    
-    [WXApi startLogByLevel:WXLogLevelNormal logBlock:^(NSString *log) {
-        NSLog(@"log : %@", log);
-    }];
-    
-    [WXApi registerApp:WeChateappid enableMTA:YES];
-    
-    
-    //向微信注册支持的文件类型
-    UInt64 typeFlag = MMAPP_SUPPORT_TEXT | MMAPP_SUPPORT_PICTURE | MMAPP_SUPPORT_LOCATION | MMAPP_SUPPORT_VIDEO |MMAPP_SUPPORT_AUDIO | MMAPP_SUPPORT_WEBPAGE | MMAPP_SUPPORT_DOC | MMAPP_SUPPORT_DOCX | MMAPP_SUPPORT_PPT | MMAPP_SUPPORT_PPTX | MMAPP_SUPPORT_XLS | MMAPP_SUPPORT_XLSX | MMAPP_SUPPORT_PDF;
-    
-    [WXApi registerAppSupportContentFlag:typeFlag];
     
     
     return YES;
-}
-
-
-
--(void)initKeyboard
-{
-    
-    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
-    manager.enable = YES;
-    manager.shouldResignOnTouchOutside = YES;
-    manager.shouldToolbarUsesTextFieldTintColor = YES;
-    manager.enableAutoToolbar = NO;
-    manager.shouldShowToolbarPlaceholder = YES; // 是否显示占位文字
-    manager.placeholderFont = [UIFont boldSystemFontOfSize:17]; // 设置占位文字的字体
-    manager.keyboardDistanceFromTextField = 10.0f;
-    
-    
-}
-
-
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-}
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-}
-
-
-
--(void) onResp:(BaseResp*)resp
-{
-    if([resp isKindOfClass:[SendAuthResp class]])
-    {
-        SendAuthResp *rep = (SendAuthResp*)resp;
-        if (rep.errCode == 0) {//成功
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"WXAuthorizationSuccess" object:@{@"code":rep.code}];
-        }
-    }
 }
 
 
