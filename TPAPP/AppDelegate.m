@@ -26,21 +26,21 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
     
-    //    // 侧拉VC
-    //    SideViewController *leftViewController = [[SideViewController alloc] init];
-    //    //市场人员
-    //    BaseTabBarController *tabar = [[BaseTabBarController alloc] init];
+    // 侧拉VC
+    SideViewController *leftViewController = [[SideViewController alloc] init];
+    //市场人员
+    BaseTabBarController *tabar = [[BaseTabBarController alloc] init];
+    
+    // 初始化XYSideViewController 设置为window.rootViewController
+    XYSideViewController *rootViewController = [[XYSideViewController alloc] initWithSideVC:leftViewController currentVC:tabar];
+    
+    self.window.rootViewController = rootViewController;
+    
+    
+    //    LoginViewController*vc = [[LoginViewController alloc]init];
     //
-    //    // 初始化XYSideViewController 设置为window.rootViewController
-    //    XYSideViewController *rootViewController = [[XYSideViewController alloc] initWithSideVC:leftViewController currentVC:tabar];
+    //    self.window.rootViewController = vc;
     //
-    //    self.window.rootViewController = rootViewController;
-    
-    
-    LoginViewController*vc = [[LoginViewController alloc]init];
-    
-    self.window.rootViewController = vc;
-   
     
     [self initKeyboard];
     
@@ -48,13 +48,13 @@
     [WXApi startLogByLevel:WXLogLevelNormal logBlock:^(NSString *log) {
         NSLog(@"log : %@", log);
     }];
-  
+    
     [WXApi registerApp:WeChateappid enableMTA:YES];
-
-
+    
+    
     //向微信注册支持的文件类型
     UInt64 typeFlag = MMAPP_SUPPORT_TEXT | MMAPP_SUPPORT_PICTURE | MMAPP_SUPPORT_LOCATION | MMAPP_SUPPORT_VIDEO |MMAPP_SUPPORT_AUDIO | MMAPP_SUPPORT_WEBPAGE | MMAPP_SUPPORT_DOC | MMAPP_SUPPORT_DOCX | MMAPP_SUPPORT_PPT | MMAPP_SUPPORT_PPTX | MMAPP_SUPPORT_XLS | MMAPP_SUPPORT_XLSX | MMAPP_SUPPORT_PDF;
-
+    
     [WXApi registerAppSupportContentFlag:typeFlag];
     
     
