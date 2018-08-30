@@ -8,13 +8,7 @@
 
 #import "WeChateBoardViewController.h"
 #import "LoginViewController.h"
-#import "WXApi.h"
-#import "WXApiRequestHandler.h"
-#import "WXApiManager.h"
-#import "WechatAuthSDK.h"
-
-
-@interface WeChateBoardViewController ()<WXApiManagerDelegate,WechatAuthAPIDelegate>
+@interface WeChateBoardViewController ()
 
 @end
 
@@ -23,8 +17,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [WXApiManager sharedManager].delegate = self;
 }
+
+
+
+
+//- (void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
+//    [UIView animateWithDuration:0 animations:^{
+//        self.view.layer.transform = CATransform3DMakeRotation(3*M_PI/2, 0, 1, 0);// 先将页面翻转270度。此时是你看不见这个控制器的，设置了alpha
+//    } completion:^(BOOL finished) {
+//        self.view.alpha = 1;
+//        [UIView animateWithDuration:0.5 animations:^{
+//            // 先将window 翻转270.
+////            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+////            window.layer.transform = CATransform3DRotate(window.layer.transform,M_PI*3/2.0, 0, 1, 0);
+//            self.view.layer.transform = CATransform3DRotate(self.view.layer.transform, M_PI/2, 0, 1, 0);
+//        } completion:^(BOOL finished) {
+//        }];
+//    }];
+//}
 
 
 
@@ -34,93 +46,36 @@
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         weakSelf.view.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);  // 当前view，这句代码可以不要。这是我的需求
+        //        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        //        window.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);
     } completion:^(BOOL finished) {
         LoginViewController *newVC =[LoginViewController new];
         [weakSelf presentViewController:newVC animated:NO completion:nil];
     }];
- 
+
+    
+       
+
 }
 
 
+    
+    
 
-- (IBAction)wechateBtnClick:(id)sender {
-    
-    
-    [WXApiRequestHandler sendAuthRequestScope: @"snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact"
-                                        State:@"doulong"
-                                       OpenID:WeChateappid
-                             InViewController:self];
-    
-    
-    
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
+/*
+#pragma mark - Navigation
 
-
-- (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
-    
-    [self getAccess_tokenWithCode:response.code];
-    
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
-
--(void)getAccess_tokenWithCode:(NSString*)code{
-    
-    NSString *url = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",WeChateappid,WeChateSecret,code];
-    
-    
-    [[NetworkManager sharedManager]getWithUrl:url param:nil success:^(id json) {
-        
-        NSLog(@"%@",json);
-        
-        
-        NSString *access_token = [NSString stringWithFormat:@"%@",json[@"access_token"]];
-        NSString *openid = [NSString stringWithFormat:@"%@",json[@"openid"]];
-        
-        [self getPeopleinfomationWithOpenid:openid AndAccess_token:access_token];
-        
-    } failure:^(NSError *error) {
-        
-    }];
-    
-    
-}
-
-
-
-
--(void)getPeopleinfomationWithOpenid:(NSString*)openid AndAccess_token:(NSString*)access_token{
-    
-    NSString *url = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?openid=%@&access_token=%@",openid,access_token];
-    
-    [[NetworkManager sharedManager]getWithUrl:url param:nil success:^(id json) {
-        
-        NSLog(@"%@",json);
-        
-        
-        [self thirdloginAppWithOpenid:json[@"openid"]];
-    } failure:^(NSError *error) {
-        
-    }];
-    
-}
-
--(void)thirdloginAppWithOpenid:(NSString*)openid{
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:openid forKey:@"openId"];
-    
-    NSString*url = [NSString stringWithFormat:@"%@/%@",getweChatelogin,openid];
-  
-    [[NetworkManager sharedManager]postWithUrl:url param:dic success:^(id json) {
-        NSLog(@"%@",json);
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            
-        }else{
-            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"msg"] withDuration:1.5];
-        }
-    } failure:^(NSError *error) {
-        
-    }];
-}
+*/
 
 @end

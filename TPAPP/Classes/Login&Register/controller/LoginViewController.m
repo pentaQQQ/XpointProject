@@ -9,123 +9,31 @@
 #import "LoginViewController.h"
 #import "WeChateBoardViewController.h"
 @interface LoginViewController ()
-@property (weak, nonatomic) IBOutlet UIView *bottomview;
-
-
-@property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
-
-
-@property (weak, nonatomic) IBOutlet UITextField *codeField;
-
-@property (weak, nonatomic) IBOutlet UIButton *codeBtn;
-
-@property (weak, nonatomic) IBOutlet UIButton *boardBtn;
-
 
 @end
 
 @implementation LoginViewController
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    
 }
-
-
 - (IBAction)zhanghaobtnClick:(id)sender {
     
-    //    //  来吧旋转动画
+//    //  来吧旋转动画
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         weakSelf.view.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);  // 当前view，这句代码可以不要。这是我的需求
-        
+//        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//        window.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);
     } completion:^(BOOL finished) {
         WeChateBoardViewController *newVC =[WeChateBoardViewController new];
         [weakSelf presentViewController:newVC animated:NO completion:nil];
     }];
     
-}
-
-
-
-- (IBAction)codeBtnClick:(id)sender {
-    
-    if (!self.phoneNumberField.text.length) {
-        [SVProgressHUD doAnyRemindWithHUDMessage:@"输入电话号码不能为空" withDuration:1.5];
-        return;
-    }
-    if (![LYTools isTelphoneWithPhonenum:self.phoneNumberField.text]) {
-        [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入正确的电话号码" withDuration:1.5];
-        return;
-    }
-    
-    
-    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:self.phoneNumberField.text forKey:@"phone"];
-    [dic setValue:@"login" forKey:@"method"];
-    NSString*url = [NSString stringWithFormat:@"%@/%@",getSecurityCode,self.phoneNumberField.text];
-    [[NetworkManager sharedManager]getWithUrl:url param:dic success:^(id json) {
-        NSLog(@"%@",json);
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            
-            [self.codeBtn  startWithTime:60 title:@"获取验证码" countDownTitle:@"s后重新获取" mainColor:[UIColor redColor] countColor:kRGBAColor(150, 150, 150, 0.8) titleColor:kRGBColor(250, 250, 250)];
-            
-            
-        }else{
-            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"msg"] withDuration:1.5];
-        }
-    } failure:^(NSError *error) {
-        
-    }];
-    
+   
     
 }
-
-
-
-
-
-
-- (IBAction)boardBtnClick:(id)sender {
-    
-    if (!self.phoneNumberField.text.length) {
-        [SVProgressHUD doAnyRemindWithHUDMessage:@"输入电话号码不能为空" withDuration:1.5];
-        return;
-    }
-    if (![LYTools isTelphoneWithPhonenum:self.phoneNumberField.text]) {
-        [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入正确的电话号码" withDuration:1.5];
-        return;
-    }
-    if (!self.codeField.text) {
-        [SVProgressHUD doAnyRemindWithHUDMessage:@"输入验证码不能为空" withDuration:1.5];
-        return;
-    }
-    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:self.phoneNumberField.text forKey:@"phone"];
-    [dic setValue:self.codeField.text forKey:@"validCode"];
-    [dic setValue:@"login" forKey:@"method"];
-    [dic setValue:@"1" forKey:@"type"];
-    [[NetworkManager sharedManager]postWithUrl:getlogin param:dic success:^(id json) {
-        NSLog(@"%@",json);
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            
-        }else{
-            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"msg"] withDuration:1.5];
-        }
-    } failure:^(NSError *error) {
-        
-    }];
-}
-
-
-
 
 
 @end
