@@ -56,8 +56,48 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.listDataArr = [NSMutableArray arrayWithObjects:@[@"更高效的完成订单",@"安分守己卡多少分肯定撒飞机哦未确认Joe全文IQ威尔金额可领取文件附件文档附件噢请问积分人气王热情而忘记而温热",@"2018-07-23"],@[@"服装行业面临的问题",@"啊速度加快立法上的可乐放哈迪斯发多少钱围殴IE我我佛的出发点是浪费空间啊大神福利和外人去陪我我偶然且危害撒地方就卡掉了首付即可拉伸考虑对方空间撒看到了付款就安静思考的房间啊圣诞节快乐",@"2018-07-20"],@[@"高效的流程，为客户",@"热为其人气问饿哦日的设计开发框架爱多少卡就开始对方加强为轻微积分去我姐发的是解放军爱豆世纪飞机撒地方就困了就快来撒打飞机卡的积分即可拉动世界咖啡圣诞节快乐健康拉多少方法的就是骄傲的双方纠纷的撒娇阿道夫撒打发时间放假爱的开始发的世界发达啊啊打发时间爱上对方发的技术",@"2018-07-20"],@[@"高效的流程，为客户",@"爱的色放哗啦的方式的萨芬辣豆腐砂电风扇辣豆腐乐山大佛后视镜阿道夫撒多舒服哈代发货撒地方哈撒打发时间啊阿打发时间的飞洒地方撒娇拉卡拉东方斯卡拉东方斯卡拉；卡的方式；拉德芳斯困了就爱的方式可立即热为其人气问饿哦日的设计开发框架爱多少卡就开始对方加强为轻微积分去我姐发的是解放军爱豆世纪飞机撒地方就困了就快来撒打飞机卡的积分即可拉动世界咖啡圣诞节快乐健康拉多少方法的就是骄傲的双方纠纷的撒娇阿道夫撒打发时间放假爱的开始发的世界发达啊啊打发时间爱上对方发的技术",@"2018-07-20"], nil];
     [self listTableView];
+    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+    //自动更改透明度
+    self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+    
+    //进入刷新状态
+    [self.listTableView.mj_header beginRefreshing];
+    self.listTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreTopic)];
 }
-
+#pragma mark - 上拉加载更多数据
+- (void)loadMoreTopic
+{
+    [[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
+        NSLog(@"%@",json);
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        
+        if ([respCode isEqualToString:@"00000"]) {
+             self.listTableView.mj_footer.state = MJRefreshStateNoMoreData;
+            [self.listTableView.mj_footer endRefreshing];
+            //            for (NSDictionary *dic in json[@"data"]) {
+            //
+            //            }
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+#pragma mark - 下拉刷新数据
+- (void)loadNewTopic
+{
+    [[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
+        NSLog(@"%@",json);
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            [self.listTableView.mj_header endRefreshing];
+//            for (NSDictionary *dic in json[@"data"]) {
+//            
+//            }
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.listDataArr.count;

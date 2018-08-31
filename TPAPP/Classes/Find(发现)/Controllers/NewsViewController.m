@@ -354,10 +354,10 @@
     Moment *moment = self.cell.moment;
     NSMutableArray *arr = [NSMutableArray arrayWithArray:moment.commentList];
     Comment *comment = [[Comment alloc] init];
-    comment.userName = @"我";
+    comment.userName = @"我自己";
     comment.text = text;
     comment.time = 1487649503;
-    comment.pk = 1;
+    comment.pk = 1000;
     [arr addObject:comment];
     moment.commentList = [arr copy];
     NSIndexPath *indexPath=[self.tableView indexPathForCell:(MomentCell *)self.cell];

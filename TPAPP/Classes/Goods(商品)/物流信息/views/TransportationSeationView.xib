@@ -204,19 +204,22 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dwv-34-SwB">
                                     <rect key="frame" x="50" y="10" width="40" height="40"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_mine_yfh" translatesAutoresizingMaskIntoConstraints="NO" id="OYP-pj-bvF">
-                                            <rect key="frame" x="7.5" y="9" width="25" height="21"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_wuliu_ing" translatesAutoresizingMaskIntoConstraints="NO" id="OYP-pj-bvF">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="25" id="Hn0-tf-7kN"/>
-                                                <constraint firstAttribute="width" secondItem="OYP-pj-bvF" secondAttribute="height" multiplier="47:39" id="oax-Nx-CgY"/>
+                                                <constraint firstAttribute="width" secondItem="OYP-pj-bvF" secondAttribute="height" multiplier="47:47" id="oax-Nx-CgY"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.88235294119999996" green="0.41568627450000001" blue="0.1058823529" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="OYP-pj-bvF" secondAttribute="bottom" id="ABe-fL-mIB"/>
                                         <constraint firstAttribute="width" secondItem="Dwv-34-SwB" secondAttribute="height" multiplier="1:1" id="JnC-Oa-Zxg"/>
+                                        <constraint firstAttribute="trailing" secondItem="OYP-pj-bvF" secondAttribute="trailing" id="RTb-aw-QnI"/>
                                         <constraint firstAttribute="width" constant="40" id="WAQ-W5-dbI"/>
+                                        <constraint firstItem="OYP-pj-bvF" firstAttribute="leading" secondItem="Dwv-34-SwB" secondAttribute="leading" id="d9m-5Y-4ot"/>
                                         <constraint firstItem="OYP-pj-bvF" firstAttribute="centerX" secondItem="Dwv-34-SwB" secondAttribute="centerX" id="mPj-PT-XtD"/>
+                                        <constraint firstItem="OYP-pj-bvF" firstAttribute="top" secondItem="Dwv-34-SwB" secondAttribute="top" id="td0-SM-QLm"/>
                                         <constraint firstItem="OYP-pj-bvF" firstAttribute="centerY" secondItem="Dwv-34-SwB" secondAttribute="centerY" id="xF8-Gh-g9J"/>
                                     </constraints>
                                 </view>
@@ -290,6 +293,6 @@
     </objects>
     <resources>
         <image name="icon_arrow_down" width="18" height="18"/>
-        <image name="icon_mine_yfh" width="23" height="19"/>
+        <image name="icon_wuliu_ing" width="32" height="32"/>
     </resources>
 </document>

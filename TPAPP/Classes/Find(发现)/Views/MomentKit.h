@@ -25,7 +25,7 @@
 // 正文字体
 #define kTextFont           [UIFont systemFontOfSize:15.0]
 // 内容视图宽度
-#define kTextWidth          (k_screen_width-30)
+#define kTextWidth          (k_screen_width-35)
 // 评论字体
 #define kComTextFont        [UIFont systemFontOfSize:14.0]
 // 评论高亮字体

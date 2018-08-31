@@ -58,19 +58,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dc5-BB-6JQ">
                                 <rect key="frame" x="50" y="46" width="40" height="40"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_mine_yfh" translatesAutoresizingMaskIntoConstraints="NO" id="4lH-0e-lrp">
-                                        <rect key="frame" x="7.5" y="9" width="25" height="21"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_wuliu" translatesAutoresizingMaskIntoConstraints="NO" id="4lH-0e-lrp">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="hoy-Ds-wCV"/>
-                                            <constraint firstAttribute="width" secondItem="4lH-0e-lrp" secondAttribute="height" multiplier="47:39" id="pqg-oY-5rG"/>
+                                            <constraint firstAttribute="width" secondItem="4lH-0e-lrp" secondAttribute="height" multiplier="47:47" id="pqg-oY-5rG"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="4lH-0e-lrp" firstAttribute="leading" secondItem="Dc5-BB-6JQ" secondAttribute="leading" id="5Ew-8p-I03"/>
                                     <constraint firstItem="4lH-0e-lrp" firstAttribute="centerX" secondItem="Dc5-BB-6JQ" secondAttribute="centerX" id="OEd-sq-HRa"/>
                                     <constraint firstAttribute="width" secondItem="Dc5-BB-6JQ" secondAttribute="height" multiplier="1:1" id="WSq-sE-RCO"/>
+                                    <constraint firstItem="4lH-0e-lrp" firstAttribute="top" secondItem="Dc5-BB-6JQ" secondAttribute="top" id="gXW-3b-o0x"/>
                                     <constraint firstItem="4lH-0e-lrp" firstAttribute="centerY" secondItem="Dc5-BB-6JQ" secondAttribute="centerY" id="iZ8-GB-inD"/>
+                                    <constraint firstAttribute="bottom" secondItem="4lH-0e-lrp" secondAttribute="bottom" id="mdO-AN-jK6"/>
+                                    <constraint firstAttribute="trailing" secondItem="4lH-0e-lrp" secondAttribute="trailing" id="nXR-9D-tbH"/>
                                     <constraint firstAttribute="width" constant="40" id="paT-s0-5Oc"/>
                                 </constraints>
                             </view>
@@ -121,6 +124,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icon_mine_yfh" width="23" height="19"/>
+        <image name="icon_wuliu" width="32" height="32"/>
     </resources>
 </document>
