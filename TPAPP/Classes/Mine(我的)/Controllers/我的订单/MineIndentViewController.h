@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MineBaseController.h"
-@interface MineIndentViewController : UIViewController
+#import "BaseViewController.h"
+@interface MineIndentViewController : BaseViewController
 @property (nonatomic, assign)NSInteger selectIndex;
 @end

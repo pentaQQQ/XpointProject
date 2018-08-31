@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface OrderDetailViewController : UIViewController
+#import "BaseViewController.h"
+@interface OrderDetailViewController : BaseViewController
 
 @end

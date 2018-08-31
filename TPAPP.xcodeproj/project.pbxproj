@@ -112,6 +112,10 @@
 		0112108D213664020071AC5F /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112108C213664020071AC5F /* OrderDetailViewController.m */; };
 		01121091213690A30071AC5F /* TuYeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 01121090213690A20071AC5F /* TuYeTextField.m */; };
 		0112109421369FB20071AC5F /* FindSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112109321369FB20071AC5F /* FindSearchViewController.m */; };
+		0129977521390CD700ADE72B /* GoodLogisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0129977421390CD700ADE72B /* GoodLogisticsViewController.m */; };
+		0129977A2139120400ADE72B /* GoodLogisticsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997792139120400ADE72B /* GoodLogisticsHeaderView.m */; };
+		0129977D2139173200ADE72B /* GoodLogisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0129977C2139173200ADE72B /* GoodLogisticsModel.m */; };
+		01299780213919DB00ADE72B /* LogisticsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0129977F213919DB00ADE72B /* LogisticsListTableViewCell.m */; };
 		017888A521359FD400C17F07 /* CustomerReCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 017888A421359FD400C17F07 /* CustomerReCell.m */; };
 		019AA51821343CFC0018A832 /* BuyGoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51721343CFC0018A832 /* BuyGoodsListController.m */; };
 		019AA51C21343F600018A832 /* SystemInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51B21343F600018A832 /* SystemInformationController.m */; };
@@ -563,6 +567,14 @@
 		01121090213690A20071AC5F /* TuYeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuYeTextField.m; sourceTree = "<group>"; };
 		0112109221369FB20071AC5F /* FindSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindSearchViewController.h; sourceTree = "<group>"; };
 		0112109321369FB20071AC5F /* FindSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindSearchViewController.m; sourceTree = "<group>"; };
+		0129977321390CD700ADE72B /* GoodLogisticsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodLogisticsViewController.h; sourceTree = "<group>"; };
+		0129977421390CD700ADE72B /* GoodLogisticsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsViewController.m; sourceTree = "<group>"; };
+		012997782139120400ADE72B /* GoodLogisticsHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodLogisticsHeaderView.h; sourceTree = "<group>"; };
+		012997792139120400ADE72B /* GoodLogisticsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsHeaderView.m; sourceTree = "<group>"; };
+		0129977B2139173200ADE72B /* GoodLogisticsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodLogisticsModel.h; sourceTree = "<group>"; };
+		0129977C2139173200ADE72B /* GoodLogisticsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsModel.m; sourceTree = "<group>"; };
+		0129977E213919DB00ADE72B /* LogisticsListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticsListTableViewCell.h; sourceTree = "<group>"; };
+		0129977F213919DB00ADE72B /* LogisticsListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsListTableViewCell.m; sourceTree = "<group>"; };
 		017888A321359FD400C17F07 /* CustomerReCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerReCell.h; sourceTree = "<group>"; };
 		017888A421359FD400C17F07 /* CustomerReCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerReCell.m; sourceTree = "<group>"; };
 		019AA51621343CFC0018A832 /* BuyGoodsListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyGoodsListController.h; sourceTree = "<group>"; };
@@ -1518,6 +1530,26 @@
 			path = TuYeTextField;
 			sourceTree = "<group>";
 		};
+		012997762139119F00ADE72B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0129977B2139173200ADE72B /* GoodLogisticsModel.h */,
+				0129977C2139173200ADE72B /* GoodLogisticsModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		01299777213911A900ADE72B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				012997782139120400ADE72B /* GoodLogisticsHeaderView.h */,
+				012997792139120400ADE72B /* GoodLogisticsHeaderView.m */,
+				0129977E213919DB00ADE72B /* LogisticsListTableViewCell.h */,
+				0129977F213919DB00ADE72B /* LogisticsListTableViewCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		019AA51921343EFA0018A832 /* 系统信息 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1611,7 +1643,7 @@
 			path = Moment;
 			sourceTree = "<group>";
 		};
-		019AEE6321382B0B00EB3405 /* model */ = {
+		019AEE6321382B0B00EB3405 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				019AEE6421382B0B00EB3405 /* Comment.h */,
@@ -1619,7 +1651,7 @@
 				019AEE6621382B0B00EB3405 /* Moment.h */,
 				019AEE6721382B0B00EB3405 /* Moment.m */,
 			);
-			path = model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		019AEE6821382B0B00EB3405 /* Utility */ = {
@@ -1635,7 +1667,7 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		019AEE6F21382B0B00EB3405 /* view */ = {
+		019AEE6F21382B0B00EB3405 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				019AEE7021382B0B00EB3405 /* MMImageListView.h */,
@@ -1648,7 +1680,7 @@
 				019AEE7721382B0B00EB3405 /* MomentCell.m */,
 				019AEE7821382B0B00EB3405 /* MomentKit.h */,
 			);
-			path = view;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		138A493607932299C6FEF726 /* Pods */ = {
@@ -1778,10 +1810,10 @@
 		547C48A91F1DBB8200178B67 /* Find(发现) */ = {
 			isa = PBXGroup;
 			children = (
-				019AEE6321382B0B00EB3405 /* model */,
+				019AEE6321382B0B00EB3405 /* Models */,
 				019AEE4621382B0A00EB3405 /* Moment */,
 				019AEE6821382B0B00EB3405 /* Utility */,
-				019AEE6F21382B0B00EB3405 /* view */,
+				019AEE6F21382B0B00EB3405 /* Views */,
 				547C48AA1F1DBB8200178B67 /* Controllers */,
 			);
 			path = "Find(发现)";
@@ -1803,9 +1835,9 @@
 		547C48AF1F1DBB8200178B67 /* Goods(商品) */ = {
 			isa = PBXGroup;
 			children = (
+				01299777213911A900ADE72B /* Views */,
+				012997762139119F00ADE72B /* Models */,
 				547C48B01F1DBB8200178B67 /* Controllers */,
-				547C48B11F1DBB8200178B67 /* Models */,
-				547C48B21F1DBB8200178B67 /* Views */,
 			);
 			path = "Goods(商品)";
 			sourceTree = "<group>";
@@ -1815,22 +1847,10 @@
 			children = (
 				547C49B01F1DD82500178B67 /* GoodsViewController.h */,
 				547C49B11F1DD82500178B67 /* GoodsViewController.m */,
+				0129977321390CD700ADE72B /* GoodLogisticsViewController.h */,
+				0129977421390CD700ADE72B /* GoodLogisticsViewController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		547C48B11F1DBB8200178B67 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		547C48B21F1DBB8200178B67 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		547C48BA1F1DBB8200178B67 /* Main(基类) */ = {
@@ -3017,6 +3037,7 @@
 				01121008213392FD0071AC5F /* JXCategoryNumberCell.m in Sources */,
 				8ED5B4B9212A6AC100B5983B /* UIView+SGPagingView.m in Sources */,
 				01120F0421338F9C0071AC5F /* TXRecordViewController.m in Sources */,
+				0129977A2139120400ADE72B /* GoodLogisticsHeaderView.m in Sources */,
 				01120EFA21338F9C0071AC5F /* MinePerformanceCell.m in Sources */,
 				547C49821F1DBB8200178B67 /* SGLocationPickerCenterView.m in Sources */,
 				011210752133E8330071AC5F /* QuestionDeatailCell.m in Sources */,
@@ -3025,6 +3046,7 @@
 				8EA9531A212BBC080057AC78 /* SideViewController.m in Sources */,
 				547C497D1F1DBB8200178B67 /* SGDatePicker.m in Sources */,
 				01120EEA21338F9C0071AC5F /* IndentControl.m in Sources */,
+				0129977521390CD700ADE72B /* GoodLogisticsViewController.m in Sources */,
 				547C49801F1DBB8200178B67 /* SGDatePickerSheetView.m in Sources */,
 				01120FF6213392FD0071AC5F /* NSObject+YYModel.m in Sources */,
 				01120EF421338F9C0071AC5F /* VIPViewController.m in Sources */,
@@ -3144,6 +3166,7 @@
 				01121006213392FD0071AC5F /* JXCategoryLineStyleCellModel.m in Sources */,
 				0112106C2133DA120071AC5F /* ApplyDeatailController.m in Sources */,
 				01120FF2213392FD0071AC5F /* NSDate+BRAdd.m in Sources */,
+				01299780213919DB00ADE72B /* LogisticsListTableViewCell.m in Sources */,
 				8EA9530F212BAA930057AC78 /* ZLPhotoPickerGroupTableViewCell.m in Sources */,
 				01120EE921338F9C0071AC5F /* IndentCell.m in Sources */,
 				0112108021362BB70071AC5F /* CustomerReDeatailController.m in Sources */,
@@ -3231,6 +3254,7 @@
 				01120EFC21338F9C0071AC5F /* MinePerformanceController.m in Sources */,
 				01120FF4213392FD0071AC5F /* BRDatePickerView.m in Sources */,
 				01121005213392FD0071AC5F /* JXCategoryLineStyleCell.m in Sources */,
+				0129977D2139173200ADE72B /* GoodLogisticsModel.m in Sources */,
 				019AEE3C21382A5C00EB3405 /* MLLabelLayoutManager.m in Sources */,
 				547C486D1F1DA8AF00178B67 /* main.m in Sources */,
 				01120F0121338F9C0071AC5F /* ApplyGoodsServiceController.m in Sources */,
