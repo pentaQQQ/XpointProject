@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MineBaseController.h"
 @interface MineIndentChildController : UIViewController<SelecteTypeNumberDelegate>
 @property (nonatomic, assign)NSInteger selectCtrl;
 @end

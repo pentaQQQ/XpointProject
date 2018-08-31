@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MineBaseController.h"
+
 
 @interface GoodsChildViewController : UIViewController<SelecteTypeNumberDelegate>
 @property (nonatomic, assign)NSInteger selectCtrl;

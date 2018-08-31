@@ -8,6 +8,7 @@
 
 #import "MarketCell.h"
 #import "MarketControl.h"
+#import "MineHeaderViewCell.h"
 @interface MarketCell()<UIScrollViewDelegate>
 
 

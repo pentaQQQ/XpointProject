@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MineBaseController.h"
 @interface MinePerformanceChildController : UIViewController<SelecteTypeNumberDelegate>
 @property (nonatomic, assign)NSInteger firstCtrl;
 @property (nonatomic, assign)NSInteger secondCtrl;
