@@ -9,6 +9,9 @@
 #import "AccountSetController.h"
 #import <Photos/Photos.h>
 #import "EditNicknameController.h"
+#import "VIPViewController.h"
+#import "IdentificationController.h"
+#import "AddressManageController.h"
 @interface AccountSetController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, readwrite, strong) UITableView *tableView;
 

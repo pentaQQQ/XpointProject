@@ -9,6 +9,8 @@
 #import "MinePerformanceChildController.h"
 #import "BRPickerView.h"
 #import "NSDate+BRAdd.h"
+#import "PerformaceHeaderCell.h"
+#import "MinePerformanceCell.h"
 @interface MinePerformanceChildController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;

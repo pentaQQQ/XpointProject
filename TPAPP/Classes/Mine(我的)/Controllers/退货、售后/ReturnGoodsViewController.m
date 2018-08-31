@@ -8,6 +8,7 @@
 
 #import "ReturnGoodsViewController.h"
 #import "SGPagingView.h"
+#import "MineIndentChildController.h"
 //#import "JXCategoryNumberView.h"
 @interface ReturnGoodsViewController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;

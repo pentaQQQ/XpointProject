@@ -11,6 +11,21 @@
 #import "ReturnGoodsViewController.h"
 #import "CustomerReconciliationsController.h"
 #import <Photos/Photos.h>
+#import "SystemInformationController.h"
+#import "VIPViewController.h"
+#import "ApplyGoodsServiceController.h"
+#import "InviteAwardController.h"
+#import "MinePerformanceController.h"
+#import "AccountSetController.h"
+#import "MineIndentViewController.h"
+#import "ApplyTXViewController.h"
+#import "IdentificationController.h"
+#import "MineHeaderViewCell.h"
+#import "MarketCell.h"
+#import "IndentCell.h"
+#import "RefundCell.h"
+#import "ElseTableCell.h"
+
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;

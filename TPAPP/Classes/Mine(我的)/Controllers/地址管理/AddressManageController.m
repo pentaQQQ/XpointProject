@@ -7,7 +7,9 @@
 //
 
 #import "AddressManageController.h"
-
+#import "AddAddressController.h"
+#import "AddressTableViewCell.h"
+#import "EditAddressController.h"
 @interface AddressManageController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;

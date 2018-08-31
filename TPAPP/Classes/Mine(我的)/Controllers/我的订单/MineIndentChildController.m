@@ -7,7 +7,8 @@
 //
 
 #import "MineIndentChildController.h"
-
+#import "OrderDetailViewController.h"
+#import "GoodsListCell.h"
 @interface MineIndentChildController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong)UITableView *listTableView;

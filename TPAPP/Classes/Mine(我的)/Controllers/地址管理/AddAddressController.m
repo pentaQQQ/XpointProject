@@ -7,6 +7,7 @@
 //
 
 #import "AddAddressController.h"
+#import "AddAddressCell.h"
 #import "BRPickerView.h"
 #import "NSDate+BRAdd.h"
 
