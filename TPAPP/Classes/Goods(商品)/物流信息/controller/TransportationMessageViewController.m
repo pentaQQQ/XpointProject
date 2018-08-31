@@ -130,13 +130,6 @@
 }
 
 
-
-
-
-
-
-
-
 - (void)openClick:(UIButton *)sender {
     
     
