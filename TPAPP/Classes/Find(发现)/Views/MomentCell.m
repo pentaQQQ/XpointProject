@@ -343,8 +343,13 @@ CGFloat maxLimitHeight = 0;
 {
     _comment = comment;
     _linkLabel.attributedText = kMLLinkLabelAttributedText(comment);
+
     CGSize attrStrSize = [_linkLabel preferredSizeWithMaxWidth:kTextWidth];
     _linkLabel.frame = CGRectMake(5, 3, attrStrSize.width-10, attrStrSize.height);
+
+    CGSize attrStrSize = [_linkLabel preferredSizeWithMaxWidth:kTextWidth-10];
+    _linkLabel.frame = CGRectMake(5, 3, kTextWidth-10, attrStrSize.height);
+
     self.height = attrStrSize.height + 5;
 }
 
