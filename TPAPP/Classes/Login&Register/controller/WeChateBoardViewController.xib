@@ -68,6 +68,9 @@
                     <state key="normal" title="微信账号登陆">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="wechateBtnClick:" destination="-1" eventType="touchUpInside" id="aoQ-8e-kr3"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有货源联系：13916257745" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tb-XC-ntM">
                     <rect key="frame" x="95" y="393.5" width="186" height="21"/>

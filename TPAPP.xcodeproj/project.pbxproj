@@ -243,6 +243,25 @@
 		547C49AD1F1DBB8200178B67 /* tab_mine_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 547C495B1F1DBB8200178B67 /* tab_mine_nor@3x.png */; };
 		547C49B21F1DD82500178B67 /* GoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C49B11F1DD82500178B67 /* GoodsViewController.m */; };
 		547C49B51F1DD88500178B67 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C49B41F1DD88500178B67 /* FindViewController.m */; };
+		8E3E6D382138D4BE007B3306 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D352138D4BD007B3306 /* README.txt */; };
+		8E3E6D392138D4BE007B3306 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3E6D372138D4BD007B3306 /* libWeChatSDK.a */; };
+		8E3E6D3B2138D4FA007B3306 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3E6D3A2138D4FA007B3306 /* libsqlite3.0.tbd */; };
+		8E3E6D3D2138D504007B3306 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3E6D3C2138D504007B3306 /* CoreTelephony.framework */; };
+		8E3E6D3F2138D50B007B3306 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3E6D3E2138D50B007B3306 /* CFNetwork.framework */; };
+		8E3E6D412138D515007B3306 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3E6D402138D515007B3306 /* Security.framework */; };
+		8E3E6D432138D51F007B3306 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3E6D422138D51F007B3306 /* libz.tbd */; };
+		8E3E6D452138D526007B3306 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3E6D442138D526007B3306 /* SystemConfiguration.framework */; };
+		8E3E6D472138D52F007B3306 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3E6D462138D52F007B3306 /* libc++.tbd */; };
+		8E3E6D512138D5DB007B3306 /* WXApiRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D4A2138D5DB007B3306 /* WXApiRequestHandler.m */; };
+		8E3E6D522138D5DB007B3306 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D4C2138D5DB007B3306 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m */; };
+		8E3E6D532138D5DB007B3306 /* WXMediaMessage+messageConstruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D4D2138D5DB007B3306 /* WXMediaMessage+messageConstruct.m */; };
+		8E3E6D542138D5DB007B3306 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D4F2138D5DB007B3306 /* WXApiManager.m */; };
+		8E3E6D5B2138D76F007B3306 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D552138D76E007B3306 /* LoginViewController.m */; };
+		8E3E6D5C2138D76F007B3306 /* WeChateBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D562138D76E007B3306 /* WeChateBoardViewController.xib */; };
+		8E3E6D5D2138D76F007B3306 /* WeChateBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D582138D76F007B3306 /* WeChateBoardViewController.m */; };
+		8E3E6D5E2138D76F007B3306 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D5A2138D76F007B3306 /* LoginViewController.xib */; };
+		8E3E6D632138D79B007B3306 /* UIButton+LYCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D5F2138D79A007B3306 /* UIButton+LYCountDownButton.m */; };
+		8E3E6D642138D79B007B3306 /* SVProgressHUD+DoAnythingAfter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D602138D79A007B3306 /* SVProgressHUD+DoAnythingAfter.m */; };
 		8E78BDF52135343A000A9EA4 /* zhuanfasetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */; };
 		8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */; };
 		8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDF22135343A000A9EA4 /* tupiansetview.xib */; };
@@ -306,16 +325,12 @@
 		8EA9532E212BE0E20057AC78 /* HeaderTabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA9532D212BE0E20057AC78 /* HeaderTabView.xib */; };
 		8EA95332212BE1C20057AC78 /* pingpaiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95330212BE1C20057AC78 /* pingpaiCell.m */; };
 		8EA95333212BE1C20057AC78 /* pingpaiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA95331212BE1C20057AC78 /* pingpaiCell.xib */; };
-		8EA9533B212BEE330057AC78 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95339212BEE330057AC78 /* LoginViewController.m */; };
-		8EA9533C212BEE330057AC78 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA9533A212BEE330057AC78 /* LoginViewController.xib */; };
 		8EA95346212E49BC0057AC78 /* LXFloaintButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95345212E49BC0057AC78 /* LXFloaintButton.m */; };
 		8EA9534D212E4C550057AC78 /* zhuanfaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9534C212E4C550057AC78 /* zhuanfaViewController.m */; };
 		8EA95350212E545A0057AC78 /* zhuanfaHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9534F212E545A0057AC78 /* zhuanfaHeaderView.m */; };
 		8EA95352212E54650057AC78 /* zhuanfaHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA95351212E54650057AC78 /* zhuanfaHeaderView.xib */; };
 		8EA95356212E62480057AC78 /* zhuanfaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA95354212E62480057AC78 /* zhuanfaCell.m */; };
 		8EA95357212E62480057AC78 /* zhuanfaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA95355212E62480057AC78 /* zhuanfaCell.xib */; };
-		8EA953752133C6A40057AC78 /* WeChateBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA953732133C6A40057AC78 /* WeChateBoardViewController.m */; };
-		8EA953762133C6A40057AC78 /* WeChateBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA953742133C6A40057AC78 /* WeChateBoardViewController.xib */; };
 		8ED5B48A212A5F7B00B5983B /* ClassDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B489212A5F7B00B5983B /* ClassDetailViewController.m */; };
 		8ED5B4B7212A6AC100B5983B /* NSString+SGPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4A9212A6AC100B5983B /* NSString+SGPagingView.m */; };
 		8ED5B4B8212A6AC100B5983B /* UIButton+SGPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED5B4AA212A6AC100B5983B /* UIButton+SGPagingView.m */; };
@@ -762,6 +777,36 @@
 		547C49B31F1DD88500178B67 /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindViewController.h; sourceTree = "<group>"; };
 		547C49B41F1DD88500178B67 /* FindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindViewController.m; sourceTree = "<group>"; };
 		857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TPAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-TPAPP/Pods-TPAPP.release.xcconfig"; sourceTree = "<group>"; };
+		8E3E6D332138D4BD007B3306 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		8E3E6D342138D4BD007B3306 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		8E3E6D352138D4BD007B3306 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		8E3E6D362138D4BD007B3306 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		8E3E6D372138D4BD007B3306 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		8E3E6D3A2138D4FA007B3306 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		8E3E6D3C2138D504007B3306 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		8E3E6D3E2138D50B007B3306 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		8E3E6D402138D515007B3306 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		8E3E6D422138D51F007B3306 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		8E3E6D442138D526007B3306 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8E3E6D462138D52F007B3306 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		8E3E6D492138D5DB007B3306 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		8E3E6D4A2138D5DB007B3306 /* WXApiRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiRequestHandler.m; sourceTree = "<group>"; };
+		8E3E6D4B2138D5DB007B3306 /* WXMediaMessage+messageConstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WXMediaMessage+messageConstruct.h"; sourceTree = "<group>"; };
+		8E3E6D4C2138D5DB007B3306 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SendMessageToWXReq+requestWithTextOrMediaMessage.m"; sourceTree = "<group>"; };
+		8E3E6D4D2138D5DB007B3306 /* WXMediaMessage+messageConstruct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WXMediaMessage+messageConstruct.m"; sourceTree = "<group>"; };
+		8E3E6D4E2138D5DB007B3306 /* WXApiRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiRequestHandler.h; sourceTree = "<group>"; };
+		8E3E6D4F2138D5DB007B3306 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
+		8E3E6D502138D5DB007B3306 /* SendMessageToWXReq+requestWithTextOrMediaMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SendMessageToWXReq+requestWithTextOrMediaMessage.h"; sourceTree = "<group>"; };
+		8E3E6D552138D76E007B3306 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		8E3E6D562138D76E007B3306 /* WeChateBoardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeChateBoardViewController.xib; sourceTree = "<group>"; };
+		8E3E6D572138D76E007B3306 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		8E3E6D582138D76F007B3306 /* WeChateBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeChateBoardViewController.m; sourceTree = "<group>"; };
+		8E3E6D592138D76F007B3306 /* WeChateBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChateBoardViewController.h; sourceTree = "<group>"; };
+		8E3E6D5A2138D76F007B3306 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		8E3E6D5F2138D79A007B3306 /* UIButton+LYCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+LYCountDownButton.m"; sourceTree = "<group>"; };
+		8E3E6D602138D79A007B3306 /* SVProgressHUD+DoAnythingAfter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+DoAnythingAfter.m"; sourceTree = "<group>"; };
+		8E3E6D612138D79B007B3306 /* UIButton+LYCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+LYCountDownButton.h"; sourceTree = "<group>"; };
+		8E3E6D622138D79B007B3306 /* SVProgressHUD+DoAnythingAfter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+DoAnythingAfter.h"; sourceTree = "<group>"; };
 		8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = zhuanfasetViewController.xib; sourceTree = "<group>"; };
 		8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhuanfasetViewController.m; sourceTree = "<group>"; };
 		8E78BDF02135343A000A9EA4 /* zhuanfasetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhuanfasetViewController.h; sourceTree = "<group>"; };
@@ -879,9 +924,6 @@
 		8EA9532F212BE1C20057AC78 /* pingpaiCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pingpaiCell.h; sourceTree = "<group>"; };
 		8EA95330212BE1C20057AC78 /* pingpaiCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pingpaiCell.m; sourceTree = "<group>"; };
 		8EA95331212BE1C20057AC78 /* pingpaiCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = pingpaiCell.xib; sourceTree = "<group>"; };
-		8EA95338212BEE330057AC78 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		8EA95339212BEE330057AC78 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		8EA9533A212BEE330057AC78 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		8EA95344212E49BC0057AC78 /* LXFloaintButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXFloaintButton.h; sourceTree = "<group>"; };
 		8EA95345212E49BC0057AC78 /* LXFloaintButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXFloaintButton.m; sourceTree = "<group>"; };
 		8EA9534B212E4C550057AC78 /* zhuanfaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaViewController.h; sourceTree = "<group>"; };
@@ -892,9 +934,6 @@
 		8EA95353212E62480057AC78 /* zhuanfaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaCell.h; sourceTree = "<group>"; };
 		8EA95354212E62480057AC78 /* zhuanfaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaCell.m; sourceTree = "<group>"; };
 		8EA95355212E62480057AC78 /* zhuanfaCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = zhuanfaCell.xib; sourceTree = "<group>"; };
-		8EA953722133C6A40057AC78 /* WeChateBoardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeChateBoardViewController.h; sourceTree = "<group>"; };
-		8EA953732133C6A40057AC78 /* WeChateBoardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeChateBoardViewController.m; sourceTree = "<group>"; };
-		8EA953742133C6A40057AC78 /* WeChateBoardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeChateBoardViewController.xib; sourceTree = "<group>"; };
 		8ED5B488212A5F7B00B5983B /* ClassDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassDetailViewController.h; sourceTree = "<group>"; };
 		8ED5B489212A5F7B00B5983B /* ClassDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassDetailViewController.m; sourceTree = "<group>"; };
 		8ED5B4A6212A6AC100B5983B /* UIButton+SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+SGPagingView.h"; sourceTree = "<group>"; };
@@ -926,8 +965,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E3E6D472138D52F007B3306 /* libc++.tbd in Frameworks */,
+				8E3E6D452138D526007B3306 /* SystemConfiguration.framework in Frameworks */,
+				8E3E6D432138D51F007B3306 /* libz.tbd in Frameworks */,
+				8E3E6D412138D515007B3306 /* Security.framework in Frameworks */,
+				8E3E6D3F2138D50B007B3306 /* CFNetwork.framework in Frameworks */,
+				8E3E6D3D2138D504007B3306 /* CoreTelephony.framework in Frameworks */,
+				8E3E6D3B2138D4FA007B3306 /* libsqlite3.0.tbd in Frameworks */,
 				01120E8821338F070071AC5F /* PhotosUI.framework in Frameworks */,
 				01120E8921338F070071AC5F /* Photos.framework in Frameworks */,
+				8E3E6D392138D4BE007B3306 /* libWeChatSDK.a in Frameworks */,
 				20908A7E4AD0D5620F537756 /* Pods_TPAPP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1718,6 +1765,10 @@
 		547C48A61F1DBB8200178B67 /* Categories(分类) */ = {
 			isa = PBXGroup;
 			children = (
+				8E3E6D622138D79B007B3306 /* SVProgressHUD+DoAnythingAfter.h */,
+				8E3E6D602138D79A007B3306 /* SVProgressHUD+DoAnythingAfter.m */,
+				8E3E6D612138D79B007B3306 /* UIButton+LYCountDownButton.h */,
+				8E3E6D5F2138D79A007B3306 /* UIButton+LYCountDownButton.m */,
 				547C48A71F1DBB8200178B67 /* UIView+Extension.h */,
 				547C48A81F1DBB8200178B67 /* UIView+Extension.m */,
 			);
@@ -1798,6 +1849,7 @@
 		547C48C31F1DBB8200178B67 /* Manual(第三方) */ = {
 			isa = PBXGroup;
 			children = (
+				8E3E6D322138D4BD007B3306 /* WechatSDK1.8.2 */,
 				019AEE1A21382A5C00EB3405 /* MLLabel */,
 				019AEE0E21382A5B00EB3405 /* MMWebView */,
 				019AEE1421382A5C00EB3405 /* UUButton */,
@@ -2102,6 +2154,33 @@
 			path = tabbar;
 			sourceTree = "<group>";
 		};
+		8E3E6D322138D4BD007B3306 /* WechatSDK1.8.2 */ = {
+			isa = PBXGroup;
+			children = (
+				8E3E6D332138D4BD007B3306 /* WXApi.h */,
+				8E3E6D342138D4BD007B3306 /* WXApiObject.h */,
+				8E3E6D352138D4BD007B3306 /* README.txt */,
+				8E3E6D362138D4BD007B3306 /* WechatAuthSDK.h */,
+				8E3E6D372138D4BD007B3306 /* libWeChatSDK.a */,
+			);
+			path = WechatSDK1.8.2;
+			sourceTree = "<group>";
+		};
+		8E3E6D482138D5DB007B3306 /* wechate */ = {
+			isa = PBXGroup;
+			children = (
+				8E3E6D492138D5DB007B3306 /* WXApiManager.h */,
+				8E3E6D4A2138D5DB007B3306 /* WXApiRequestHandler.m */,
+				8E3E6D4B2138D5DB007B3306 /* WXMediaMessage+messageConstruct.h */,
+				8E3E6D4C2138D5DB007B3306 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m */,
+				8E3E6D4D2138D5DB007B3306 /* WXMediaMessage+messageConstruct.m */,
+				8E3E6D4E2138D5DB007B3306 /* WXApiRequestHandler.h */,
+				8E3E6D4F2138D5DB007B3306 /* WXApiManager.m */,
+				8E3E6D502138D5DB007B3306 /* SendMessageToWXReq+requestWithTextOrMediaMessage.h */,
+			);
+			path = wechate;
+			sourceTree = "<group>";
+		};
 		8E78BDEC2135343A000A9EA4 /* 转发设置 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2146,6 +2225,7 @@
 		8E78BE17213666FF000A9EA4 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				8E3E6D482138D5DB007B3306 /* wechate */,
 				8E78BE1921366708000A9EA4 /* LYTools.h */,
 				8E78BE1821366708000A9EA4 /* LYTools.m */,
 			);
@@ -2469,12 +2549,12 @@
 		8EA95335212BEE050057AC78 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				8EA95338212BEE330057AC78 /* LoginViewController.h */,
-				8EA95339212BEE330057AC78 /* LoginViewController.m */,
-				8EA9533A212BEE330057AC78 /* LoginViewController.xib */,
-				8EA953722133C6A40057AC78 /* WeChateBoardViewController.h */,
-				8EA953732133C6A40057AC78 /* WeChateBoardViewController.m */,
-				8EA953742133C6A40057AC78 /* WeChateBoardViewController.xib */,
+				8E3E6D572138D76E007B3306 /* LoginViewController.h */,
+				8E3E6D552138D76E007B3306 /* LoginViewController.m */,
+				8E3E6D5A2138D76F007B3306 /* LoginViewController.xib */,
+				8E3E6D592138D76F007B3306 /* WeChateBoardViewController.h */,
+				8E3E6D582138D76F007B3306 /* WeChateBoardViewController.m */,
+				8E3E6D562138D76E007B3306 /* WeChateBoardViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2632,6 +2712,13 @@
 		D63B1E6C203BBED43C75CC97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E3E6D462138D52F007B3306 /* libc++.tbd */,
+				8E3E6D442138D526007B3306 /* SystemConfiguration.framework */,
+				8E3E6D422138D51F007B3306 /* libz.tbd */,
+				8E3E6D402138D515007B3306 /* Security.framework */,
+				8E3E6D3E2138D50B007B3306 /* CFNetwork.framework */,
+				8E3E6D3C2138D504007B3306 /* CoreTelephony.framework */,
+				8E3E6D3A2138D4FA007B3306 /* libsqlite3.0.tbd */,
 				01120E8721338F070071AC5F /* Photos.framework */,
 				01120E8621338F060071AC5F /* PhotosUI.framework */,
 				3DEB8D54F546355CB17A5807 /* Pods_TPAPP.framework */,
@@ -2708,6 +2795,7 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -2756,7 +2844,6 @@
 				547C496E1F1DBB8200178B67 /* lkbubble8.jpg in Resources */,
 				8EA95333212BE1C20057AC78 /* pingpaiCell.xib in Resources */,
 				547C49A41F1DBB8200178B67 /* tab_edu_nor@2x.png in Resources */,
-				8EA953762133C6A40057AC78 /* WeChateBoardViewController.xib in Resources */,
 				547C49A51F1DBB8200178B67 /* tab_edu_nor@3x.png in Resources */,
 				019AEE7B21382B0B00EB3405 /* moment_camera@2x.png in Resources */,
 				019AEE7F21382B0B00EB3405 /* moment_comment_hl@2x.png in Resources */,
@@ -2804,13 +2891,13 @@
 				019AEE9021382B0B00EB3405 /* moment_pic_5@2x.png in Resources */,
 				547C496A1F1DBB8200178B67 /* lkbubble4.jpg in Resources */,
 				547C49AA1F1DBB8200178B67 /* tab_market_nor@2x.png in Resources */,
-				8EA9533C212BEE330057AC78 /* LoginViewController.xib in Resources */,
 				019AEE8121382B0B00EB3405 /* moment_cover@2x.png in Resources */,
 				547C49A71F1DBB8200178B67 /* tab_index_nor@3x.png in Resources */,
 				547C48781F1DA8AF00178B67 /* Assets.xcassets in Resources */,
 				019AEE7921382B0B00EB3405 /* comment_bg@2x.png in Resources */,
 				019AEE8821382B0B00EB3405 /* moment_operate@3x.png in Resources */,
 				8E78BE0C213547C3000A9EA4 /* zhuanfashuView.xib in Resources */,
+				8E3E6D382138D4BE007B3306 /* README.txt in Resources */,
 				019AEE8D21382B0B00EB3405 /* moment_pic_2@2x.png in Resources */,
 				019AEE9321382B0B00EB3405 /* moment_pic_8@2x.png in Resources */,
 				019AEE8421382B0B00EB3405 /* moment_like@3x.png in Resources */,
@@ -2821,8 +2908,10 @@
 				0112108521363CF00071AC5F /* 编辑.png in Resources */,
 				019AEE7C21382B0B00EB3405 /* moment_camera@3x.png in Resources */,
 				547C49A21F1DBB8200178B67 /* back@2x.png in Resources */,
+				8E3E6D5C2138D76F007B3306 /* WeChateBoardViewController.xib in Resources */,
 				547C49A61F1DBB8200178B67 /* tab_index_nor@2x.png in Resources */,
 				547C48761F1DA8AF00178B67 /* Main.storyboard in Resources */,
+				8E3E6D5E2138D76F007B3306 /* LoginViewController.xib in Resources */,
 				547C49A81F1DBB8200178B67 /* tab_job_nor@2x.png in Resources */,
 				019AEE8921382B0B00EB3405 /* moment_operate_hl@2x.png in Resources */,
 				547C496C1F1DBB8200178B67 /* lkbubble6.jpg in Resources */,
@@ -2883,6 +2972,7 @@
 				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMBase64/GTMBase64.framework",
 				"${BUILT_PRODUCTS_DIR}/GVUserDefaults/GVUserDefaults.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/JKCategories/JKCategories.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
@@ -2899,6 +2989,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMBase64.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GVUserDefaults.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JKCategories.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
@@ -2930,6 +3021,7 @@
 				01120EFA21338F9C0071AC5F /* MinePerformanceCell.m in Sources */,
 				547C49821F1DBB8200178B67 /* SGLocationPickerCenterView.m in Sources */,
 				011210752133E8330071AC5F /* QuestionDeatailCell.m in Sources */,
+				8E3E6D5D2138D76F007B3306 /* WeChateBoardViewController.m in Sources */,
 				547C499D1F1DBB8200178B67 /* UIViewController+Cache.m in Sources */,
 				8EA9531A212BBC080057AC78 /* SideViewController.m in Sources */,
 				547C497D1F1DBB8200178B67 /* SGDatePicker.m in Sources */,
@@ -2994,6 +3086,7 @@
 				547C49641F1DBB8200178B67 /* LKBubbleInfo.m in Sources */,
 				01120FF0213392FD0071AC5F /* BRAddressPickerView.m in Sources */,
 				8ED5B4B7212A6AC100B5983B /* NSString+SGPagingView.m in Sources */,
+				8E3E6D522138D5DB007B3306 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				01121013213392FD0071AC5F /* MGSwipeTableCell.m in Sources */,
 				547C49971F1DBB8200178B67 /* GHWalkThroughPageCell.m in Sources */,
 				01120EF321338F9C0071AC5F /* VipHeaderCell.m in Sources */,
@@ -3002,13 +3095,14 @@
 				019AEE4121382A5C00EB3405 /* NSMutableAttributedString+MLLabel.m in Sources */,
 				547C49741F1DBB8200178B67 /* README.md in Sources */,
 				019AEE4221382A5C00EB3405 /* NSString+MLExpression.m in Sources */,
+				8E3E6D532138D5DB007B3306 /* WXMediaMessage+messageConstruct.m in Sources */,
 				547C49651F1DBB8200178B67 /* LKBubbleView.m in Sources */,
 				01120FF5213392FD0071AC5F /* BRStringPickerView.m in Sources */,
 				8EA95317212BBB810057AC78 /* UIViewController+XYSideCategory.m in Sources */,
 				547C498C1F1DBB8200178B67 /* UIAlertController+Extension.m in Sources */,
-				8EA9533B212BEE330057AC78 /* LoginViewController.m in Sources */,
 				547C49921F1DBB8200178B67 /* NSData+CommonCrypto.m in Sources */,
 				0112100B213392FD0071AC5F /* JXCategoryTitleCell.m in Sources */,
+				8E3E6D512138D5DB007B3306 /* WXApiRequestHandler.m in Sources */,
 				01120F0521338F9C0071AC5F /* AccountSetController.m in Sources */,
 				8ED5B4B8212A6AC100B5983B /* UIButton+SGPagingView.m in Sources */,
 				8EA95308212BAA930057AC78 /* ZLPhotoPickerAssetsViewController.m in Sources */,
@@ -3041,8 +3135,8 @@
 				9A8745061FC508CE006E892C /* HomePageController.m in Sources */,
 				019AEE9C21382B0B00EB3405 /* MMOperateMenuView.m in Sources */,
 				019AEE3D21382A5C00EB3405 /* MLLinkLabel.m in Sources */,
-				8EA953752133C6A40057AC78 /* WeChateBoardViewController.m in Sources */,
 				8ED5B4BD212A6AC100B5983B /* SGPageTitleViewConfigure.m in Sources */,
+				8E3E6D5B2138D76F007B3306 /* LoginViewController.m in Sources */,
 				8EA95306212BAA930057AC78 /* UIViewController+Alert.m in Sources */,
 				01121009213392FD0071AC5F /* JXCategoryNumberCellModel.m in Sources */,
 				8EA952F9212BAA930057AC78 /* ZLPhotoPickerBrowserPhoto.m in Sources */,
@@ -3065,6 +3159,7 @@
 				8E78BE2421366E4C000A9EA4 /* GoodsDetailViewController.m in Sources */,
 				8EA952F6212BAA930057AC78 /* ZLCameraImageView.m in Sources */,
 				019AEE9D21382B0B00EB3405 /* MomentCell.m in Sources */,
+				8E3E6D542138D5DB007B3306 /* WXApiManager.m in Sources */,
 				01120F0721338F9C0071AC5F /* IdentificationController.m in Sources */,
 				547C49941F1DBB8200178B67 /* DESTools.m in Sources */,
 				8EA9530B212BAA930057AC78 /* ZLPhotoPickerCollectionView.m in Sources */,
@@ -3077,6 +3172,7 @@
 				8EA95356212E62480057AC78 /* zhuanfaCell.m in Sources */,
 				8E78BE0021353B23000A9EA4 /* jiajiaView.m in Sources */,
 				01121012213392FD0071AC5F /* MGSwipeButton.m in Sources */,
+				8E3E6D632138D79B007B3306 /* UIButton+LYCountDownButton.m in Sources */,
 				547C497E1F1DBB8200178B67 /* SGDatePickerCenterView.m in Sources */,
 				01120FFD213392FD0071AC5F /* JXCategoryBaseCell.m in Sources */,
 				8EA952F7212BAA930057AC78 /* ZLCamera.m in Sources */,
@@ -3087,6 +3183,7 @@
 				547C49B51F1DD88500178B67 /* FindViewController.m in Sources */,
 				8E78BDFB21353489000A9EA4 /* chimasetview.m in Sources */,
 				8ED5B4BA212A6AC100B5983B /* SGPageContentScrollView.m in Sources */,
+				8E3E6D642138D79B007B3306 /* SVProgressHUD+DoAnythingAfter.m in Sources */,
 				8EA952F3212BAA930057AC78 /* DALabeledCircularProgressView.m in Sources */,
 				0112108A213663F00071AC5F /* OrderDetailCell.m in Sources */,
 				019AEE4321382A5C00EB3405 /* NSString+MLLabel.m in Sources */,
@@ -3300,11 +3397,46 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TPAPP/Classes/Manual(第三方)/WechatSDK1.8.2",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"FDFullscreenPopGesture\"",
+					"-framework",
+					"\"GTMBase64\"",
+					"-framework",
+					"\"GVUserDefaults\"",
+					"-framework",
+					"\"JKCategories\"",
+					"-framework",
+					"\"MJExtension\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"SDCycleScrollView\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"TPKeyboardAvoiding\"",
+					"-framework",
+					"\"XRCarouselView\"",
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ideaSource.TPAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -3315,11 +3447,46 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TPAPP/Classes/Manual(第三方)/WechatSDK1.8.2",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"FDFullscreenPopGesture\"",
+					"-framework",
+					"\"GTMBase64\"",
+					"-framework",
+					"\"GVUserDefaults\"",
+					"-framework",
+					"\"JKCategories\"",
+					"-framework",
+					"\"MJExtension\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"SDCycleScrollView\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"TPKeyboardAvoiding\"",
+					"-framework",
+					"\"XRCarouselView\"",
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ideaSource.TPAPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
