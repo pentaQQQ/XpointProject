@@ -25,7 +25,7 @@
     self.imageIcon.image = [UIImage imageNamed:@"icon_xiaoxi"];
     [self.contentView addSubview:self.imageIcon];
     self.imageIcon.sd_layout
-    .topSpaceToView(self.contentView, 20)
+    .topSpaceToView(self.contentView, 15)
     .leftSpaceToView(self.contentView, 15)
     .widthIs(20)
     .heightIs(20);
@@ -40,7 +40,7 @@
     .topSpaceToView(self.contentView, 15)
     .leftSpaceToView(self.imageIcon, 10)
     .rightSpaceToView(self.contentView, 100)
-    .heightIs(30);
+    .heightIs(20);
     
     self.messageDeatail = [[UILabel alloc] init];
     self.messageDeatail.numberOfLines = 0;
@@ -49,7 +49,7 @@
     self.messageDeatail.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:self.messageDeatail];
     self.messageDeatail.sd_layout
-    .topSpaceToView(self.messageName, 10)
+    .topSpaceToView(self.messageName, 5)
     .leftSpaceToView(self.contentView, 45)
     .rightSpaceToView(self.contentView, 15)
     .bottomSpaceToView(self.contentView, 15);
@@ -64,18 +64,23 @@
     .topSpaceToView(self.contentView, 15)
     .rightSpaceToView(self.contentView, 15)
     .leftSpaceToView(self.messageName, 0)
-    .heightIs(30);
+    .heightIs(20);
 
     self.messageUnread = [[UIImageView alloc] init];
     self.messageUnread.image = [UIImage imageNamed:@"icon-new"];
     [self.contentView addSubview:self.messageUnread];
     self.messageUnread.sd_layout
-    .topSpaceToView(self.contentView, 10)
-    .rightSpaceToView(self.contentView, 10)
+    .topSpaceToView(self.contentView, 8)
+    .rightSpaceToView(self.contentView, 8)
     .widthIs(10)
     .heightIs(10);
 }
-
+- (void)configWithModel:(NSMutableArray *)arr
+{
+    self.messageName.text = arr[0];
+    self.messageDate.text = arr[2];
+    self.messageDeatail.text = arr[1];
+}
 #pragma mark-字体宽度自适应
 - (CGFloat)widthLabelWithModel:(NSString *)titleString withFont:(NSInteger)font
 {

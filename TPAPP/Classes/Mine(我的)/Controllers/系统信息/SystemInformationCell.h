@@ -14,5 +14,5 @@
 @property (nonatomic, strong)UILabel *messageDeatail;
 @property (nonatomic, strong)UILabel *messageDate;
 @property (nonatomic, strong)UIImageView *messageUnread;
-
+- (void)configWithModel:(NSMutableArray *)arr;
 @end

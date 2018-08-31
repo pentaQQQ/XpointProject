@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ApplyDeatailController : UIViewController
+#import "BaseViewController.h"
+@interface ApplyDeatailController : BaseViewController
 
 @end

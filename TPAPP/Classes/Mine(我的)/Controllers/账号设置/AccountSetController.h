@@ -10,9 +10,9 @@
 #import "YSStaticSectionModel.h"
 #import "YSStaticCellModel.h"
 #import "YSStaticTableViewCell.h"
+#import "BaseViewController.h"
 
-
-@interface AccountSetController : UIViewController
+@interface AccountSetController : BaseViewController
 @property (nonatomic, readwrite, strong) NSArray *sectionModelArray;
 @property (nonatomic, readonly , strong) UITableView *tableView;
 

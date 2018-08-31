@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface CustomerReconciliationsController : UIViewController
+#import "BaseViewController.h"
+@interface CustomerReconciliationsController : BaseViewController
 
 @end

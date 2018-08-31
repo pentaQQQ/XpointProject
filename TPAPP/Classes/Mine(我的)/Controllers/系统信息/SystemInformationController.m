@@ -71,9 +71,8 @@
     
     headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSArray *arr = self.listDataArr[indexPath.row];
-    headerCell.messageName.text = arr[0];
-    headerCell.messageDate.text = arr[2];
-    headerCell.messageDeatail.text = arr[1];
+    [headerCell configWithModel:arr];
+
     return headerCell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -114,7 +113,7 @@
     titleHeight = ceilf(rect.size.height);
     
     
-    return  titleHeight+80;
+    return  titleHeight+55;
     
 }
 

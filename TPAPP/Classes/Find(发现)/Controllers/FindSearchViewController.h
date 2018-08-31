@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface FindSearchViewController : UIViewController
+#import "BaseViewController.h"
+@interface FindSearchViewController : BaseViewController
 
 @end

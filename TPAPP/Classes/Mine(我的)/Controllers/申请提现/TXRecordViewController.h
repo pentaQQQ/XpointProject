@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface TXRecordViewController : UIViewController
+#import "BaseViewController.h"
+@interface TXRecordViewController : BaseViewController
 
 @end

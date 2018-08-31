@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface EditNicknameController : UIViewController
+#import "BaseViewController.h"
+@interface EditNicknameController : BaseViewController
 
 @end
