@@ -10,6 +10,7 @@
 #import "UIViewController+XYSideCategory.h"
 #import "LXFloaintButton.h"
 #import "MinePerformanceController.h"
+#import "MinePerformanceChildController.h"
 //#import "JXCategoryNumberView.h"
 @interface MinePerformanceController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;

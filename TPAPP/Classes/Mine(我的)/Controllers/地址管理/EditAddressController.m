@@ -7,6 +7,8 @@
 //
 
 #import "EditAddressController.h"
+#import "AddAddressController.h"
+#import "AddAddressCell.h"
 #import "BRPickerView.h"
 #import "NSDate+BRAdd.h"
 @interface EditAddressController ()<UITableViewDelegate,UITableViewDataSource>

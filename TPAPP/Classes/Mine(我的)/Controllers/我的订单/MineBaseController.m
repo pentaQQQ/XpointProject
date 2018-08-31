@@ -8,6 +8,8 @@
 
 #import "MineBaseController.h"
 #import "MineIndentChildController.h"
+#import "GoodsChildViewController.h"
+#import "MinePerformanceChildController.h"
 @interface MineBaseController ()
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "GoodsChildViewController.h"
-
+#import "GoodsListCell.h"
 @interface GoodsChildViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong)UITableView *listTableView;

@@ -7,7 +7,7 @@
 //
 
 #import "InviteAwardController.h"
-
+#import "InviteAwardCell.h"
 @interface InviteAwardController ()<UITableViewDelegate, UITableViewDataSource,UIDocumentInteractionControllerDelegate>
 
 @property (nonatomic, retain) UIDocumentInteractionController *docuController;

@@ -11,6 +11,7 @@
 #import "LXFloaintButton.h"
 #import "MineIndentViewController.h"
 #import "JXCategoryNumberView.h"
+#import "MineIndentChildController.h"
 @interface MineIndentViewController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentScrollView *pageContentScrollView;
