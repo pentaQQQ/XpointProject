@@ -262,6 +262,15 @@
 		8E3E6D5E2138D76F007B3306 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D5A2138D76F007B3306 /* LoginViewController.xib */; };
 		8E3E6D632138D79B007B3306 /* UIButton+LYCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D5F2138D79A007B3306 /* UIButton+LYCountDownButton.m */; };
 		8E3E6D642138D79B007B3306 /* SVProgressHUD+DoAnythingAfter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D602138D79A007B3306 /* SVProgressHUD+DoAnythingAfter.m */; };
+		8E3E6D682138E70E007B3306 /* messageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D672138E70E007B3306 /* messageHeaderView.m */; };
+		8E3E6D6A2138E71C007B3306 /* messageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D692138E71C007B3306 /* messageHeaderView.xib */; };
+		8E3E6D6E2138EA8E007B3306 /* TPMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D6C2138EA8E007B3306 /* TPMessageCell.m */; };
+		8E3E6D6F2138EA8E007B3306 /* TPMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D6D2138EA8E007B3306 /* TPMessageCell.xib */; };
+		8E3E6D7621390806007B3306 /* TransportationMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D7521390806007B3306 /* TransportationMessageViewController.m */; };
+		8E3E6D7A2139098D007B3306 /* TransportationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D782139098D007B3306 /* TransportationCell.m */; };
+		8E3E6D7B2139098D007B3306 /* TransportationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D792139098D007B3306 /* TransportationCell.xib */; };
+		8E3E6D7E21390A55007B3306 /* TransportationSeationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D7D21390A55007B3306 /* TransportationSeationView.m */; };
+		8E3E6D8021390A60007B3306 /* TransportationSeationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D7F21390A60007B3306 /* TransportationSeationView.xib */; };
 		8E78BDF52135343A000A9EA4 /* zhuanfasetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */; };
 		8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */; };
 		8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDF22135343A000A9EA4 /* tupiansetview.xib */; };
@@ -807,6 +816,20 @@
 		8E3E6D602138D79A007B3306 /* SVProgressHUD+DoAnythingAfter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+DoAnythingAfter.m"; sourceTree = "<group>"; };
 		8E3E6D612138D79B007B3306 /* UIButton+LYCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+LYCountDownButton.h"; sourceTree = "<group>"; };
 		8E3E6D622138D79B007B3306 /* SVProgressHUD+DoAnythingAfter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+DoAnythingAfter.h"; sourceTree = "<group>"; };
+		8E3E6D662138E70E007B3306 /* messageHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = messageHeaderView.h; sourceTree = "<group>"; };
+		8E3E6D672138E70E007B3306 /* messageHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = messageHeaderView.m; sourceTree = "<group>"; };
+		8E3E6D692138E71C007B3306 /* messageHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = messageHeaderView.xib; sourceTree = "<group>"; };
+		8E3E6D6B2138EA8E007B3306 /* TPMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TPMessageCell.h; sourceTree = "<group>"; };
+		8E3E6D6C2138EA8E007B3306 /* TPMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TPMessageCell.m; sourceTree = "<group>"; };
+		8E3E6D6D2138EA8E007B3306 /* TPMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TPMessageCell.xib; sourceTree = "<group>"; };
+		8E3E6D7421390806007B3306 /* TransportationMessageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransportationMessageViewController.h; sourceTree = "<group>"; };
+		8E3E6D7521390806007B3306 /* TransportationMessageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportationMessageViewController.m; sourceTree = "<group>"; };
+		8E3E6D772139098D007B3306 /* TransportationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransportationCell.h; sourceTree = "<group>"; };
+		8E3E6D782139098D007B3306 /* TransportationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportationCell.m; sourceTree = "<group>"; };
+		8E3E6D792139098D007B3306 /* TransportationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransportationCell.xib; sourceTree = "<group>"; };
+		8E3E6D7C21390A55007B3306 /* TransportationSeationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransportationSeationView.h; sourceTree = "<group>"; };
+		8E3E6D7D21390A55007B3306 /* TransportationSeationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportationSeationView.m; sourceTree = "<group>"; };
+		8E3E6D7F21390A60007B3306 /* TransportationSeationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransportationSeationView.xib; sourceTree = "<group>"; };
 		8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = zhuanfasetViewController.xib; sourceTree = "<group>"; };
 		8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhuanfasetViewController.m; sourceTree = "<group>"; };
 		8E78BDF02135343A000A9EA4 /* zhuanfasetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhuanfasetViewController.h; sourceTree = "<group>"; };
@@ -1803,9 +1826,9 @@
 		547C48AF1F1DBB8200178B67 /* Goods(商品) */ = {
 			isa = PBXGroup;
 			children = (
+				8E3E6D70213905BC007B3306 /* 物流信息 */,
+				8E3E6D652138E6ED007B3306 /* views */,
 				547C48B01F1DBB8200178B67 /* Controllers */,
-				547C48B11F1DBB8200178B67 /* Models */,
-				547C48B21F1DBB8200178B67 /* Views */,
 			);
 			path = "Goods(商品)";
 			sourceTree = "<group>";
@@ -1817,20 +1840,6 @@
 				547C49B11F1DD82500178B67 /* GoodsViewController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		547C48B11F1DBB8200178B67 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		547C48B21F1DBB8200178B67 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		547C48BA1F1DBB8200178B67 /* Main(基类) */ = {
@@ -2179,6 +2188,58 @@
 				8E3E6D502138D5DB007B3306 /* SendMessageToWXReq+requestWithTextOrMediaMessage.h */,
 			);
 			path = wechate;
+			sourceTree = "<group>";
+		};
+		8E3E6D652138E6ED007B3306 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				8E3E6D662138E70E007B3306 /* messageHeaderView.h */,
+				8E3E6D672138E70E007B3306 /* messageHeaderView.m */,
+				8E3E6D692138E71C007B3306 /* messageHeaderView.xib */,
+				8E3E6D6B2138EA8E007B3306 /* TPMessageCell.h */,
+				8E3E6D6C2138EA8E007B3306 /* TPMessageCell.m */,
+				8E3E6D6D2138EA8E007B3306 /* TPMessageCell.xib */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		8E3E6D70213905BC007B3306 /* 物流信息 */ = {
+			isa = PBXGroup;
+			children = (
+				8E3E6D71213905BC007B3306 /* controller */,
+				8E3E6D72213905BC007B3306 /* model */,
+				8E3E6D73213905BC007B3306 /* views */,
+			);
+			path = "物流信息";
+			sourceTree = "<group>";
+		};
+		8E3E6D71213905BC007B3306 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				8E3E6D7421390806007B3306 /* TransportationMessageViewController.h */,
+				8E3E6D7521390806007B3306 /* TransportationMessageViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		8E3E6D72213905BC007B3306 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		8E3E6D73213905BC007B3306 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				8E3E6D772139098D007B3306 /* TransportationCell.h */,
+				8E3E6D782139098D007B3306 /* TransportationCell.m */,
+				8E3E6D792139098D007B3306 /* TransportationCell.xib */,
+				8E3E6D7C21390A55007B3306 /* TransportationSeationView.h */,
+				8E3E6D7D21390A55007B3306 /* TransportationSeationView.m */,
+				8E3E6D7F21390A60007B3306 /* TransportationSeationView.xib */,
+			);
+			path = views;
 			sourceTree = "<group>";
 		};
 		8E78BDEC2135343A000A9EA4 /* 转发设置 */ = {
@@ -2795,6 +2856,7 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -2842,6 +2904,7 @@
 				8EA9532E212BE0E20057AC78 /* HeaderTabView.xib in Resources */,
 				547C496E1F1DBB8200178B67 /* lkbubble8.jpg in Resources */,
 				8EA95333212BE1C20057AC78 /* pingpaiCell.xib in Resources */,
+				8E3E6D6A2138E71C007B3306 /* messageHeaderView.xib in Resources */,
 				547C49A41F1DBB8200178B67 /* tab_edu_nor@2x.png in Resources */,
 				547C49A51F1DBB8200178B67 /* tab_edu_nor@3x.png in Resources */,
 				019AEE7B21382B0B00EB3405 /* moment_camera@2x.png in Resources */,
@@ -2854,6 +2917,7 @@
 				019AEE8221382B0B00EB3405 /* moment_head@2x.png in Resources */,
 				8E78BE0221353B2E000A9EA4 /* jiajiaView.xib in Resources */,
 				019AEE8521382B0B00EB3405 /* moment_like_hl@2x.png in Resources */,
+				8E3E6D6F2138EA8E007B3306 /* TPMessageCell.xib in Resources */,
 				547C49671F1DBB8200178B67 /* lkbubble1.jpg in Resources */,
 				547C49811F1DBB8200178B67 /* SGDatePickerSheetView.xib in Resources */,
 				547C49731F1DBB8200178B67 /* LICENSE in Resources */,
@@ -2882,6 +2946,7 @@
 				019AEE8621382B0B00EB3405 /* moment_like_hl@3x.png in Resources */,
 				01121011213392FD0071AC5F /* LICENSE in Resources */,
 				019AEE8C21382B0B00EB3405 /* moment_pic_1@2x.png in Resources */,
+				8E3E6D8021390A60007B3306 /* TransportationSeationView.xib in Resources */,
 				8EA95357212E62480057AC78 /* zhuanfaCell.xib in Resources */,
 				8EA952A5212AC4C50057AC78 /* goodsDetailCell.xib in Resources */,
 				019AEE8A21382B0B00EB3405 /* moment_operate_hl@3x.png in Resources */,
@@ -2900,6 +2965,7 @@
 				019AEE8D21382B0B00EB3405 /* moment_pic_2@2x.png in Resources */,
 				019AEE9321382B0B00EB3405 /* moment_pic_8@2x.png in Resources */,
 				019AEE8421382B0B00EB3405 /* moment_like@3x.png in Resources */,
+				8E3E6D7B2139098D007B3306 /* TransportationCell.xib in Resources */,
 				547C497F1F1DBB8200178B67 /* SGDatePickerCenterView.xib in Resources */,
 				019AEE8321382B0B00EB3405 /* moment_like@2x.png in Resources */,
 				547C49851F1DBB8200178B67 /* SGLocationPickerSheetView.xib in Resources */,
@@ -3098,6 +3164,8 @@
 				547C49651F1DBB8200178B67 /* LKBubbleView.m in Sources */,
 				01120FF5213392FD0071AC5F /* BRStringPickerView.m in Sources */,
 				8EA95317212BBB810057AC78 /* UIViewController+XYSideCategory.m in Sources */,
+				8E3E6D7E21390A55007B3306 /* TransportationSeationView.m in Sources */,
+				8E3E6D7A2139098D007B3306 /* TransportationCell.m in Sources */,
 				547C498C1F1DBB8200178B67 /* UIAlertController+Extension.m in Sources */,
 				547C49921F1DBB8200178B67 /* NSData+CommonCrypto.m in Sources */,
 				0112100B213392FD0071AC5F /* JXCategoryTitleCell.m in Sources */,
@@ -3107,6 +3175,7 @@
 				8EA95308212BAA930057AC78 /* ZLPhotoPickerAssetsViewController.m in Sources */,
 				8EA952F4212BAA930057AC78 /* DACircularProgressView.m in Sources */,
 				019AEE3F21382A5C00EB3405 /* NSAttributedString+MLExpression.m in Sources */,
+				8E3E6D7621390806007B3306 /* TransportationMessageViewController.m in Sources */,
 				547C497B1F1DBB8200178B67 /* UIView+SGExtension.m in Sources */,
 				01120EEF21338F9C0071AC5F /* RefundCell.m in Sources */,
 				01120F1F21338FB70071AC5F /* SectionView.m in Sources */,
@@ -3134,6 +3203,7 @@
 				9A8745061FC508CE006E892C /* HomePageController.m in Sources */,
 				019AEE9C21382B0B00EB3405 /* MMOperateMenuView.m in Sources */,
 				019AEE3D21382A5C00EB3405 /* MLLinkLabel.m in Sources */,
+				8E3E6D6E2138EA8E007B3306 /* TPMessageCell.m in Sources */,
 				8ED5B4BD212A6AC100B5983B /* SGPageTitleViewConfigure.m in Sources */,
 				8E3E6D5B2138D76F007B3306 /* LoginViewController.m in Sources */,
 				8EA95306212BAA930057AC78 /* UIViewController+Alert.m in Sources */,
@@ -3226,6 +3296,7 @@
 				01120EFB21338F9C0071AC5F /* MinePerformanceChildController.m in Sources */,
 				8E78BE2A21366F2E000A9EA4 /* specsModel.m in Sources */,
 				8EA9530D212BAA930057AC78 /* ZLPhotoPickerFooterCollectionReusableView.m in Sources */,
+				8E3E6D682138E70E007B3306 /* messageHeaderView.m in Sources */,
 				01120EF621338F9C0071AC5F /* AddressManageController.m in Sources */,
 				019AEE9821382B0B00EB3405 /* UIView+Geometry.m in Sources */,
 				01120EFC21338F9C0071AC5F /* MinePerformanceController.m in Sources */,
@@ -3396,7 +3467,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3446,7 +3517,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
