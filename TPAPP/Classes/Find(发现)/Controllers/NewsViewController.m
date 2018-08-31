@@ -127,7 +127,15 @@
         moment.commentList = commentList;
         //        moment.praiseNameList = @"胡一菲，唐悠悠，陈美嘉，吕小布，曾小贤，张伟，关谷神奇";
         moment.userName = @"Jeanne";
-        moment.time = 1487649403;
+        moment.time = [[NSString stringWithFormat:@"1535%d31852",i] longLongValue];
+  
+        if (i== 0) {
+            moment.fileCount = 1;
+           
+        }else{
+            moment.fileCount = i;
+        }
+            
         moment.singleWidth = 500;
         moment.singleHeight = 315;
         //        moment.location = @"北京 · 西单";
@@ -145,7 +153,7 @@
             moment.fileCount = 9;
         } else {
             moment.text = @"大大盯上了；大胜靠德就按士大夫撒地方斯蒂芬是规范等十多个收费规定是否给对方是个发生的撒旦飞洒的发送到发送到发送到发士大夫士大夫发送；鲁大师的；就奥斯卡大师大师大师的天界大乱，九州屠戮，当初被推下地狱cheerylau@126.com的她已经浴火归来，😭剑指仙界'你们杀了他，我便覆了你的天，毁了你的界，永世不得超生又如何！👍👍";
-            moment.fileCount = arc4random()%10;
+//            moment.fileCount = arc4random()%10;
         }
         [self.momentList addObject:moment];
     }
@@ -343,7 +351,17 @@
 //    [comments addObject:dic];
 //    item.comments = [comments copy];
 //    [[FriendCircleViewModel new] calculateItemHeight:item];
-    [self.tableView reloadData];
+    Moment *moment = self.cell.moment;
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:moment.commentList];
+    Comment *comment = [[Comment alloc] init];
+    comment.userName = @"我";
+    comment.text = text;
+    comment.time = 1487649503;
+    comment.pk = 1;
+    [arr addObject:comment];
+    moment.commentList = [arr copy];
+    NSIndexPath *indexPath=[self.tableView indexPathForCell:(MomentCell *)self.cell];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationFade];
 }
 #pragma mark - 通知方法
 

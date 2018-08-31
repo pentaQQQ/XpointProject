@@ -16,5 +16,4 @@ target 'TPAPP' do
     pod 'MJExtension'
     pod 'SVProgressHUD'
     pod 'MJRefresh'
-    pod 'IQKeyboardManager'
 end
