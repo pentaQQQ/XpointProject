@@ -7,11 +7,7 @@
 		<key>AFNetworking.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-<<<<<<< HEAD
-			<integer>0</integer>
-=======
 			<integer>1</integer>
->>>>>>> d7cdb9c487488e4afac3960b41163d5fcca54b0a
 		</dict>
 		<key>FDFullscreenPopGesture.xcscheme</key>
 		<dict>
