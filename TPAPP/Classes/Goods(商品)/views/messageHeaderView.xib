@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="messageHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="81"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P4P-Uk-GMS">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ae4-3a-1sR">
+                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="61"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="系统消息" image="icon_meassage_press">
+                                <color key="titleColor" red="1" green="0.41960784309999999" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </state>
+                            <connections>
+                                <action selector="messageBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="TXb-lC-EtU"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t48-xM-BdZ">
+                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="61"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="物流信息" image="icon_wuliu_press">
+                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="wuliuBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="ovI-Vk-old"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="t48-xM-BdZ" firstAttribute="leading" secondItem="ae4-3a-1sR" secondAttribute="trailing" id="0gc-fF-4ml"/>
+                        <constraint firstItem="ae4-3a-1sR" firstAttribute="width" secondItem="P4P-Uk-GMS" secondAttribute="width" multiplier="1:2" id="3Ey-oI-nfc"/>
+                        <constraint firstAttribute="bottom" secondItem="ae4-3a-1sR" secondAttribute="bottom" id="70z-rN-cVp"/>
+                        <constraint firstItem="ae4-3a-1sR" firstAttribute="top" secondItem="P4P-Uk-GMS" secondAttribute="top" id="LSE-yM-2I5"/>
+                        <constraint firstItem="ae4-3a-1sR" firstAttribute="leading" secondItem="P4P-Uk-GMS" secondAttribute="leading" id="dUP-uh-f7b"/>
+                        <constraint firstAttribute="bottom" secondItem="t48-xM-BdZ" secondAttribute="bottom" id="duX-i5-8fV"/>
+                        <constraint firstItem="t48-xM-BdZ" firstAttribute="top" secondItem="P4P-Uk-GMS" secondAttribute="top" id="zu6-tg-xXL"/>
+                        <constraint firstAttribute="trailing" secondItem="t48-xM-BdZ" secondAttribute="trailing" id="zwR-Vk-IU0"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="P4P-Uk-GMS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="78h-5c-snB"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="P4P-Uk-GMS" secondAttribute="bottom" constant="20" id="Pto-AK-7hW"/>
+                <constraint firstItem="P4P-Uk-GMS" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="cmN-Fg-2mV"/>
+                <constraint firstItem="P4P-Uk-GMS" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="sFA-1f-XEj"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="messageBtn" destination="ae4-3a-1sR" id="rhl-bE-vM4"/>
+                <outlet property="wuliuBtn" destination="t48-xM-BdZ" id="oSJ-Ge-4pZ"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="-239.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_meassage_press" width="14" height="14"/>
+        <image name="icon_wuliu_press" width="17" height="14"/>
+    </resources>
+</document>
