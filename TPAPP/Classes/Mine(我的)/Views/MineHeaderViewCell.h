@@ -15,7 +15,7 @@ typedef NS_ENUM(NSUInteger, GradientType) {
     GradientTypeUprightToLowleft = 3,//右上到左下
 };
 @interface MineHeaderViewCell : UITableViewCell
-@property (nonatomi`c, strong)UIView *headerBgView;
+@property (nonatomic, strong)UIView *headerBgView;
 
 @property (nonatomic, strong)UIView *myAwardBgView;
 @property (nonatomic, strong)UILabel *myAwardLabel;
