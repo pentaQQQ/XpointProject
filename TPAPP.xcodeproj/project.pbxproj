@@ -112,22 +112,21 @@
 		0112108D213664020071AC5F /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112108C213664020071AC5F /* OrderDetailViewController.m */; };
 		01121091213690A30071AC5F /* TuYeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 01121090213690A20071AC5F /* TuYeTextField.m */; };
 		0112109421369FB20071AC5F /* FindSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112109321369FB20071AC5F /* FindSearchViewController.m */; };
-		0129977521390CD700ADE72B /* GoodLogisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0129977421390CD700ADE72B /* GoodLogisticsViewController.m */; };
 		0129977A2139120400ADE72B /* GoodLogisticsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997792139120400ADE72B /* GoodLogisticsHeaderView.m */; };
 		0129977D2139173200ADE72B /* GoodLogisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0129977C2139173200ADE72B /* GoodLogisticsModel.m */; };
 		01299780213919DB00ADE72B /* LogisticsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0129977F213919DB00ADE72B /* LogisticsListTableViewCell.m */; };
-		0129979E2139215500ADE72B /* GoodLogisticsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997872139215400ADE72B /* GoodLogisticsHeaderView.m */; };
-		0129979F2139215500ADE72B /* LogisticsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997892139215400ADE72B /* LogisticsListTableViewCell.m */; };
-		012997A02139215500ADE72B /* messageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0129978B2139215400ADE72B /* messageHeaderView.m */; };
-		012997A12139215500ADE72B /* messageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0129978C2139215400ADE72B /* messageHeaderView.xib */; };
-		012997A22139215500ADE72B /* TPMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0129978E2139215400ADE72B /* TPMessageCell.m */; };
-		012997A32139215500ADE72B /* TPMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0129978F2139215400ADE72B /* TPMessageCell.xib */; };
-		012997A42139215500ADE72B /* TransportationMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997932139215500ADE72B /* TransportationMessageViewController.m */; };
-		012997A52139215500ADE72B /* TransportationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997962139215500ADE72B /* TransportationCell.m */; };
-		012997A62139215500ADE72B /* TransportationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 012997972139215500ADE72B /* TransportationCell.xib */; };
-		012997A72139215500ADE72B /* TransportationSeationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997992139215500ADE72B /* TransportationSeationView.m */; };
-		012997A82139215500ADE72B /* TransportationSeationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0129979A2139215500ADE72B /* TransportationSeationView.xib */; };
-		012997A92139215500ADE72B /* GoodLogisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0129979D2139215500ADE72B /* GoodLogisticsModel.m */; };
+		012997C12139267200ADE72B /* LogisticsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997AC2139267100ADE72B /* LogisticsListTableViewCell.m */; };
+		012997C22139267200ADE72B /* messageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997AE2139267100ADE72B /* messageHeaderView.m */; };
+		012997C32139267200ADE72B /* messageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 012997AF2139267100ADE72B /* messageHeaderView.xib */; };
+		012997C42139267200ADE72B /* TPMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997B12139267100ADE72B /* TPMessageCell.m */; };
+		012997C52139267200ADE72B /* TPMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 012997B22139267100ADE72B /* TPMessageCell.xib */; };
+		012997C62139267200ADE72B /* TransportationMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997B62139267100ADE72B /* TransportationMessageViewController.m */; };
+		012997C72139267200ADE72B /* TransportationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997B92139267100ADE72B /* TransportationCell.m */; };
+		012997C82139267200ADE72B /* TransportationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 012997BA2139267100ADE72B /* TransportationCell.xib */; };
+		012997C92139267200ADE72B /* TransportationSeationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997BC2139267100ADE72B /* TransportationSeationView.m */; };
+		012997CA2139267200ADE72B /* TransportationSeationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 012997BD2139267100ADE72B /* TransportationSeationView.xib */; };
+		012997CB2139267200ADE72B /* GoodLogisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997C02139267200ADE72B /* GoodLogisticsModel.m */; };
+		012997CE213926B700ADE72B /* GoodLogisticsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997CD213926B600ADE72B /* GoodLogisticsHeaderView.m */; };
 		017888A521359FD400C17F07 /* CustomerReCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 017888A421359FD400C17F07 /* CustomerReCell.m */; };
 		019AA51821343CFC0018A832 /* BuyGoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51721343CFC0018A832 /* BuyGoodsListController.m */; };
 		019AA51C21343F600018A832 /* SystemInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51B21343F600018A832 /* SystemInformationController.m */; };
@@ -588,31 +587,29 @@
 		01121090213690A20071AC5F /* TuYeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuYeTextField.m; sourceTree = "<group>"; };
 		0112109221369FB20071AC5F /* FindSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindSearchViewController.h; sourceTree = "<group>"; };
 		0112109321369FB20071AC5F /* FindSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindSearchViewController.m; sourceTree = "<group>"; };
-		0129977321390CD700ADE72B /* GoodLogisticsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodLogisticsViewController.h; sourceTree = "<group>"; };
-		0129977421390CD700ADE72B /* GoodLogisticsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsViewController.m; sourceTree = "<group>"; };
 		012997792139120400ADE72B /* GoodLogisticsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsHeaderView.m; sourceTree = "<group>"; };
 		0129977C2139173200ADE72B /* GoodLogisticsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsModel.m; sourceTree = "<group>"; };
 		0129977F213919DB00ADE72B /* LogisticsListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsListTableViewCell.m; sourceTree = "<group>"; };
-		012997862139215400ADE72B /* GoodLogisticsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodLogisticsHeaderView.h; sourceTree = "<group>"; };
-		012997872139215400ADE72B /* GoodLogisticsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsHeaderView.m; sourceTree = "<group>"; };
-		012997882139215400ADE72B /* LogisticsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogisticsListTableViewCell.h; sourceTree = "<group>"; };
-		012997892139215400ADE72B /* LogisticsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogisticsListTableViewCell.m; sourceTree = "<group>"; };
-		0129978A2139215400ADE72B /* messageHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageHeaderView.h; sourceTree = "<group>"; };
-		0129978B2139215400ADE72B /* messageHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageHeaderView.m; sourceTree = "<group>"; };
-		0129978C2139215400ADE72B /* messageHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = messageHeaderView.xib; sourceTree = "<group>"; };
-		0129978D2139215400ADE72B /* TPMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPMessageCell.h; sourceTree = "<group>"; };
-		0129978E2139215400ADE72B /* TPMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPMessageCell.m; sourceTree = "<group>"; };
-		0129978F2139215400ADE72B /* TPMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TPMessageCell.xib; sourceTree = "<group>"; };
-		012997922139215500ADE72B /* TransportationMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationMessageViewController.h; sourceTree = "<group>"; };
-		012997932139215500ADE72B /* TransportationMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationMessageViewController.m; sourceTree = "<group>"; };
-		012997952139215500ADE72B /* TransportationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationCell.h; sourceTree = "<group>"; };
-		012997962139215500ADE72B /* TransportationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationCell.m; sourceTree = "<group>"; };
-		012997972139215500ADE72B /* TransportationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransportationCell.xib; sourceTree = "<group>"; };
-		012997982139215500ADE72B /* TransportationSeationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationSeationView.h; sourceTree = "<group>"; };
-		012997992139215500ADE72B /* TransportationSeationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationSeationView.m; sourceTree = "<group>"; };
-		0129979A2139215500ADE72B /* TransportationSeationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransportationSeationView.xib; sourceTree = "<group>"; };
-		0129979C2139215500ADE72B /* GoodLogisticsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodLogisticsModel.h; sourceTree = "<group>"; };
-		0129979D2139215500ADE72B /* GoodLogisticsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsModel.m; sourceTree = "<group>"; };
+		012997AB2139267100ADE72B /* LogisticsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogisticsListTableViewCell.h; sourceTree = "<group>"; };
+		012997AC2139267100ADE72B /* LogisticsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogisticsListTableViewCell.m; sourceTree = "<group>"; };
+		012997AD2139267100ADE72B /* messageHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageHeaderView.h; sourceTree = "<group>"; };
+		012997AE2139267100ADE72B /* messageHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageHeaderView.m; sourceTree = "<group>"; };
+		012997AF2139267100ADE72B /* messageHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = messageHeaderView.xib; sourceTree = "<group>"; };
+		012997B02139267100ADE72B /* TPMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPMessageCell.h; sourceTree = "<group>"; };
+		012997B12139267100ADE72B /* TPMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPMessageCell.m; sourceTree = "<group>"; };
+		012997B22139267100ADE72B /* TPMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TPMessageCell.xib; sourceTree = "<group>"; };
+		012997B52139267100ADE72B /* TransportationMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationMessageViewController.h; sourceTree = "<group>"; };
+		012997B62139267100ADE72B /* TransportationMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationMessageViewController.m; sourceTree = "<group>"; };
+		012997B82139267100ADE72B /* TransportationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationCell.h; sourceTree = "<group>"; };
+		012997B92139267100ADE72B /* TransportationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationCell.m; sourceTree = "<group>"; };
+		012997BA2139267100ADE72B /* TransportationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransportationCell.xib; sourceTree = "<group>"; };
+		012997BB2139267100ADE72B /* TransportationSeationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationSeationView.h; sourceTree = "<group>"; };
+		012997BC2139267100ADE72B /* TransportationSeationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationSeationView.m; sourceTree = "<group>"; };
+		012997BD2139267100ADE72B /* TransportationSeationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransportationSeationView.xib; sourceTree = "<group>"; };
+		012997BF2139267200ADE72B /* GoodLogisticsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodLogisticsModel.h; sourceTree = "<group>"; };
+		012997C02139267200ADE72B /* GoodLogisticsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsModel.m; sourceTree = "<group>"; };
+		012997CC213926B600ADE72B /* GoodLogisticsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodLogisticsHeaderView.h; sourceTree = "<group>"; };
+		012997CD213926B600ADE72B /* GoodLogisticsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsHeaderView.m; sourceTree = "<group>"; };
 		017888A321359FD400C17F07 /* CustomerReCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerReCell.h; sourceTree = "<group>"; };
 		017888A421359FD400C17F07 /* CustomerReCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerReCell.m; sourceTree = "<group>"; };
 		019AA51621343CFC0018A832 /* BuyGoodsListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyGoodsListController.h; sourceTree = "<group>"; };
@@ -1596,59 +1593,59 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		012997852139215400ADE72B /* Views */ = {
+		012997AA2139267100ADE72B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				012997862139215400ADE72B /* GoodLogisticsHeaderView.h */,
-				012997872139215400ADE72B /* GoodLogisticsHeaderView.m */,
-				012997882139215400ADE72B /* LogisticsListTableViewCell.h */,
-				012997892139215400ADE72B /* LogisticsListTableViewCell.m */,
-				0129978A2139215400ADE72B /* messageHeaderView.h */,
-				0129978B2139215400ADE72B /* messageHeaderView.m */,
-				0129978C2139215400ADE72B /* messageHeaderView.xib */,
-				0129978D2139215400ADE72B /* TPMessageCell.h */,
-				0129978E2139215400ADE72B /* TPMessageCell.m */,
-				0129978F2139215400ADE72B /* TPMessageCell.xib */,
+				012997CC213926B600ADE72B /* GoodLogisticsHeaderView.h */,
+				012997CD213926B600ADE72B /* GoodLogisticsHeaderView.m */,
+				012997AB2139267100ADE72B /* LogisticsListTableViewCell.h */,
+				012997AC2139267100ADE72B /* LogisticsListTableViewCell.m */,
+				012997AD2139267100ADE72B /* messageHeaderView.h */,
+				012997AE2139267100ADE72B /* messageHeaderView.m */,
+				012997AF2139267100ADE72B /* messageHeaderView.xib */,
+				012997B02139267100ADE72B /* TPMessageCell.h */,
+				012997B12139267100ADE72B /* TPMessageCell.m */,
+				012997B22139267100ADE72B /* TPMessageCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		012997902139215500ADE72B /* 物流信息 */ = {
+		012997B32139267100ADE72B /* 物流信息 */ = {
 			isa = PBXGroup;
 			children = (
-				012997912139215500ADE72B /* controller */,
-				012997942139215500ADE72B /* views */,
+				012997B42139267100ADE72B /* controller */,
+				012997B72139267100ADE72B /* views */,
 			);
 			path = "物流信息";
 			sourceTree = "<group>";
 		};
-		012997912139215500ADE72B /* controller */ = {
+		012997B42139267100ADE72B /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				012997922139215500ADE72B /* TransportationMessageViewController.h */,
-				012997932139215500ADE72B /* TransportationMessageViewController.m */,
+				012997B52139267100ADE72B /* TransportationMessageViewController.h */,
+				012997B62139267100ADE72B /* TransportationMessageViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
 		};
-		012997942139215500ADE72B /* views */ = {
+		012997B72139267100ADE72B /* views */ = {
 			isa = PBXGroup;
 			children = (
-				012997952139215500ADE72B /* TransportationCell.h */,
-				012997962139215500ADE72B /* TransportationCell.m */,
-				012997972139215500ADE72B /* TransportationCell.xib */,
-				012997982139215500ADE72B /* TransportationSeationView.h */,
-				012997992139215500ADE72B /* TransportationSeationView.m */,
-				0129979A2139215500ADE72B /* TransportationSeationView.xib */,
+				012997B82139267100ADE72B /* TransportationCell.h */,
+				012997B92139267100ADE72B /* TransportationCell.m */,
+				012997BA2139267100ADE72B /* TransportationCell.xib */,
+				012997BB2139267100ADE72B /* TransportationSeationView.h */,
+				012997BC2139267100ADE72B /* TransportationSeationView.m */,
+				012997BD2139267100ADE72B /* TransportationSeationView.xib */,
 			);
 			path = views;
 			sourceTree = "<group>";
 		};
-		0129979B2139215500ADE72B /* Models */ = {
+		012997BE2139267200ADE72B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0129979C2139215500ADE72B /* GoodLogisticsModel.h */,
-				0129979D2139215500ADE72B /* GoodLogisticsModel.m */,
+				012997BF2139267200ADE72B /* GoodLogisticsModel.h */,
+				012997C02139267200ADE72B /* GoodLogisticsModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1939,9 +1936,9 @@
 		547C48AF1F1DBB8200178B67 /* Goods(商品) */ = {
 			isa = PBXGroup;
 			children = (
-				012997902139215500ADE72B /* 物流信息 */,
-				0129979B2139215500ADE72B /* Models */,
-				012997852139215400ADE72B /* Views */,
+				012997B32139267100ADE72B /* 物流信息 */,
+				012997BE2139267200ADE72B /* Models */,
+				012997AA2139267100ADE72B /* Views */,
 				547C48B01F1DBB8200178B67 /* Controllers */,
 			);
 			path = "Goods(商品)";
@@ -1952,8 +1949,6 @@
 			children = (
 				547C49B01F1DD82500178B67 /* GoodsViewController.h */,
 				547C49B11F1DD82500178B67 /* GoodsViewController.m */,
-				0129977321390CD700ADE72B /* GoodLogisticsViewController.h */,
-				0129977421390CD700ADE72B /* GoodLogisticsViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2920,6 +2915,7 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 4K4B647X6V;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -2986,7 +2982,7 @@
 				547C49731F1DBB8200178B67 /* LICENSE in Resources */,
 				547C49771F1DBB8200178B67 /* SGActionSheet.bundle in Resources */,
 				547C49AB1F1DBB8200178B67 /* tab_market_nor@3x.png in Resources */,
-				012997A62139215500ADE72B /* TransportationCell.xib in Resources */,
+				012997C82139267200ADE72B /* TransportationCell.xib in Resources */,
 				547C487B1F1DA8AF00178B67 /* LaunchScreen.storyboard in Resources */,
 				547C49831F1DBB8200178B67 /* SGLocationPickerCenterView.xib in Resources */,
 				019AEE8721382B0B00EB3405 /* moment_operate@2x.png in Resources */,
@@ -2999,7 +2995,7 @@
 				019AEE8E21382B0B00EB3405 /* moment_pic_3@2x.png in Resources */,
 				8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */,
 				8EA95352212E54650057AC78 /* zhuanfaHeaderView.xib in Resources */,
-				012997A82139215500ADE72B /* TransportationSeationView.xib in Resources */,
+				012997CA2139267200ADE72B /* TransportationSeationView.xib in Resources */,
 				547C49681F1DBB8200178B67 /* lkbubble2.jpg in Resources */,
 				547C49A31F1DBB8200178B67 /* back@3x.png in Resources */,
 				547C497C1F1DBB8200178B67 /* Address.plist in Resources */,
@@ -3012,7 +3008,7 @@
 				01121011213392FD0071AC5F /* LICENSE in Resources */,
 				019AEE8C21382B0B00EB3405 /* moment_pic_1@2x.png in Resources */,
 				8E3E6D8021390A60007B3306 /* TransportationSeationView.xib in Resources */,
-				012997A12139215500ADE72B /* messageHeaderView.xib in Resources */,
+				012997C32139267200ADE72B /* messageHeaderView.xib in Resources */,
 				8EA95357212E62480057AC78 /* zhuanfaCell.xib in Resources */,
 				8EA952A5212AC4C50057AC78 /* goodsDetailCell.xib in Resources */,
 				019AEE8A21382B0B00EB3405 /* moment_operate_hl@3x.png in Resources */,
@@ -3050,7 +3046,7 @@
 				01120EF121338F9C0071AC5F /* 测试头像.jpeg in Resources */,
 				019AEE8B21382B0B00EB3405 /* moment_pic_0@2x.png in Resources */,
 				019AEE7E21382B0B00EB3405 /* moment_comment@3x.png in Resources */,
-				012997A32139215500ADE72B /* TPMessageCell.xib in Resources */,
+				012997C52139267200ADE72B /* TPMessageCell.xib in Resources */,
 				01121015213392FD0071AC5F /* arrow@2x.png in Resources */,
 				8E78BDF52135343A000A9EA4 /* zhuanfasetViewController.xib in Resources */,
 				01120FF9213392FD0071AC5F /* README.md in Resources */,
@@ -3159,8 +3155,6 @@
 				8EA9531A212BBC080057AC78 /* SideViewController.m in Sources */,
 				547C497D1F1DBB8200178B67 /* SGDatePicker.m in Sources */,
 				01120EEA21338F9C0071AC5F /* IndentControl.m in Sources */,
-				012997A02139215500ADE72B /* messageHeaderView.m in Sources */,
-				0129977521390CD700ADE72B /* GoodLogisticsViewController.m in Sources */,
 				547C49801F1DBB8200178B67 /* SGDatePickerSheetView.m in Sources */,
 				01120FF6213392FD0071AC5F /* NSObject+YYModel.m in Sources */,
 				01120EF421338F9C0071AC5F /* VIPViewController.m in Sources */,
@@ -3172,7 +3166,6 @@
 				8E78BE05213541E5000A9EA4 /* zidingyijineView.m in Sources */,
 				8EA95327212BDD060057AC78 /* SearchHeaderView.m in Sources */,
 				8ED5B4BC212A6AC100B5983B /* SGPageTitleView.m in Sources */,
-				012997A72139215500ADE72B /* TransportationSeationView.m in Sources */,
 				01121003213392FD0071AC5F /* JXCategoryComponentCellModel.m in Sources */,
 				0112100D213392FD0071AC5F /* JXCategoryTitleView.m in Sources */,
 				01120F0A21338F9C0071AC5F /* InviteAwardController.m in Sources */,
@@ -3180,6 +3173,7 @@
 				547C49621F1DBB8200178B67 /* BaseTabBarController.m in Sources */,
 				547C49A01F1DBB8200178B67 /* Validate.m in Sources */,
 				547C49901F1DBB8200178B67 /* AESTools.m in Sources */,
+				012997C42139267200ADE72B /* TPMessageCell.m in Sources */,
 				8EA95300212BAA930057AC78 /* ZLPhotoPickerBrowserPhotoScrollView.m in Sources */,
 				8EA95350212E545A0057AC78 /* zhuanfaHeaderView.m in Sources */,
 				01120EE821338F9C0071AC5F /* GoodsListCell.m in Sources */,
@@ -3201,7 +3195,6 @@
 				0112108321362EA90071AC5F /* CustomerReDeatailCell.m in Sources */,
 				01120F2221338FC50071AC5F /* CartViewController.m in Sources */,
 				01120FF7213392FD0071AC5F /* YYClassInfo.m in Sources */,
-				012997A42139215500ADE72B /* TransportationMessageViewController.m in Sources */,
 				01120EFF21338F9C0071AC5F /* MineIndentChildController.m in Sources */,
 				01121001213392FD0071AC5F /* UIColor+JXAdd.m in Sources */,
 				01120F1E21338FB70071AC5F /* Helper.m in Sources */,
@@ -3219,7 +3212,6 @@
 				01120EEB21338F9C0071AC5F /* InviteAwardCell.m in Sources */,
 				01120EF921338F9C0071AC5F /* MineViewController.m in Sources */,
 				01120FF3213392FD0071AC5F /* BaseView.m in Sources */,
-				0129979E2139215500ADE72B /* GoodLogisticsHeaderView.m in Sources */,
 				01121000213392FD0071AC5F /* JXCategoryCollectionView.m in Sources */,
 				547C49641F1DBB8200178B67 /* LKBubbleInfo.m in Sources */,
 				01120FF0213392FD0071AC5F /* BRAddressPickerView.m in Sources */,
@@ -3241,7 +3233,6 @@
 				8E3E6D7A2139098D007B3306 /* TransportationCell.m in Sources */,
 				547C498C1F1DBB8200178B67 /* UIAlertController+Extension.m in Sources */,
 				547C49921F1DBB8200178B67 /* NSData+CommonCrypto.m in Sources */,
-				012997A92139215500ADE72B /* GoodLogisticsModel.m in Sources */,
 				0112100B213392FD0071AC5F /* JXCategoryTitleCell.m in Sources */,
 				8E3E6D512138D5DB007B3306 /* WXApiRequestHandler.m in Sources */,
 				01120F0521338F9C0071AC5F /* AccountSetController.m in Sources */,
@@ -3251,13 +3242,14 @@
 				019AEE3F21382A5C00EB3405 /* NSAttributedString+MLExpression.m in Sources */,
 				8E3E6D7621390806007B3306 /* TransportationMessageViewController.m in Sources */,
 				547C497B1F1DBB8200178B67 /* UIView+SGExtension.m in Sources */,
-				012997A22139215500ADE72B /* TPMessageCell.m in Sources */,
 				01120EEF21338F9C0071AC5F /* RefundCell.m in Sources */,
 				01120F1F21338FB70071AC5F /* SectionView.m in Sources */,
 				01121017213392FD0071AC5F /* YSAvatorCell.m in Sources */,
 				019AEE3B21382A5C00EB3405 /* MLLabel.m in Sources */,
 				01121002213392FD0071AC5F /* JXCategoryComponentCell.m in Sources */,
 				8EA952FD212BAA930057AC78 /* ZLPhotoPickerBrowserPhotoImageView.m in Sources */,
+				012997C22139267200ADE72B /* messageHeaderView.m in Sources */,
+				012997CB2139267200ADE72B /* GoodLogisticsModel.m in Sources */,
 				547C49781F1DBB8200178B67 /* SGActionSheet.m in Sources */,
 				8E78BE0A213547B8000A9EA4 /* zhuanfashuView.m in Sources */,
 				8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */,
@@ -3273,6 +3265,7 @@
 				0112109421369FB20071AC5F /* FindSearchViewController.m in Sources */,
 				01120FFA213392FD0071AC5F /* JXCategoryBackgroundImageCell.m in Sources */,
 				01120FEF213392FD0071AC5F /* BRAddressModel.m in Sources */,
+				012997C62139267200ADE72B /* TransportationMessageViewController.m in Sources */,
 				547C49751F1DBB8200178B67 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
 				8EA9530E212BAA930057AC78 /* ZLPhotoPickerImageView.m in Sources */,
 				9A8745061FC508CE006E892C /* HomePageController.m in Sources */,
@@ -3280,7 +3273,6 @@
 				019AEE3D21382A5C00EB3405 /* MLLinkLabel.m in Sources */,
 				8E3E6D6E2138EA8E007B3306 /* TPMessageCell.m in Sources */,
 				8ED5B4BD212A6AC100B5983B /* SGPageTitleViewConfigure.m in Sources */,
-				0129979F2139215500ADE72B /* LogisticsListTableViewCell.m in Sources */,
 				8E3E6D5B2138D76F007B3306 /* LoginViewController.m in Sources */,
 				8EA95306212BAA930057AC78 /* UIViewController+Alert.m in Sources */,
 				01121009213392FD0071AC5F /* JXCategoryNumberCellModel.m in Sources */,
@@ -3307,9 +3299,11 @@
 				019AEE9D21382B0B00EB3405 /* MomentCell.m in Sources */,
 				8E3E6D542138D5DB007B3306 /* WXApiManager.m in Sources */,
 				01120F0721338F9C0071AC5F /* IdentificationController.m in Sources */,
+				012997C12139267200ADE72B /* LogisticsListTableViewCell.m in Sources */,
 				547C49941F1DBB8200178B67 /* DESTools.m in Sources */,
 				8EA9530B212BAA930057AC78 /* ZLPhotoPickerCollectionView.m in Sources */,
 				8EA952FA212BAA930057AC78 /* ZLPhotoRect.m in Sources */,
+				012997C92139267200ADE72B /* TransportationSeationView.m in Sources */,
 				8E78BE13213643B3000A9EA4 /* releaseActivitiesModel.m in Sources */,
 				8EA9530A212BAA930057AC78 /* ZLPhotoPickerViewController.m in Sources */,
 				8EA952FF212BAA930057AC78 /* ZLPhotoPickerCustomToolBarView.m in Sources */,
@@ -3320,6 +3314,7 @@
 				01121012213392FD0071AC5F /* MGSwipeButton.m in Sources */,
 				8E3E6D632138D79B007B3306 /* UIButton+LYCountDownButton.m in Sources */,
 				547C497E1F1DBB8200178B67 /* SGDatePickerCenterView.m in Sources */,
+				012997CE213926B700ADE72B /* GoodLogisticsHeaderView.m in Sources */,
 				01120FFD213392FD0071AC5F /* JXCategoryBaseCell.m in Sources */,
 				8EA952F7212BAA930057AC78 /* ZLCamera.m in Sources */,
 				01120EFE21338F9C0071AC5F /* MineBaseController.m in Sources */,
@@ -3389,9 +3384,9 @@
 				8EA95346212E49BC0057AC78 /* LXFloaintButton.m in Sources */,
 				547C49661F1DBB8200178B67 /* UIResponder+LKBubble.m in Sources */,
 				547C49931F1DBB8200178B67 /* NSString+Base64.m in Sources */,
-				012997A52139215500ADE72B /* TransportationCell.m in Sources */,
 				547C497A1F1DBB8200178B67 /* SGAlertView.m in Sources */,
 				01120EF221338F9C0071AC5F /* VipDeatailCell.m in Sources */,
+				012997C72139267200ADE72B /* TransportationCell.m in Sources */,
 				8EA95302212BAA930057AC78 /* UIView+ZLExtension.m in Sources */,
 				8EA95316212BBB810057AC78 /* XYSideViewController.m in Sources */,
 				8EA952FE212BAA930057AC78 /* ZLPhotoPickerBrowserPhotoView.m in Sources */,
@@ -3546,7 +3541,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4K4B647X6V;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3596,7 +3591,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4K4B647X6V;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
