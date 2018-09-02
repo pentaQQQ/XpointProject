@@ -62,7 +62,7 @@
         [_submitBtn addTarget:self action:@selector(submitBtnAction) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_submitBtn];
         _submitBtn.sd_layout
-        .bottomSpaceToView(self.view, 15)
+        .bottomSpaceToView(self.view, SafeAreaBottomHeight+15)
         .leftSpaceToView(self.view, 50)
         .widthIs(kScreenWidth-100)
         .heightIs(40);

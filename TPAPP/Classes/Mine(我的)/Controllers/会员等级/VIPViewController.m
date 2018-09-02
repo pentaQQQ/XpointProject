@@ -41,7 +41,7 @@
         .topSpaceToView(self.view, 0)
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
-        .bottomEqualToView(self.view);
+        .bottomSpaceToView(self.view, SafeAreaBottomHeight);
         
     }
     return _listTableView;

@@ -31,9 +31,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     // Do any additional setup after loading the view.
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self CartData];
     
-    _CartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44) style:UITableViewStyleGrouped];
+    _CartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44-SafeAreaBottomHeight) style:UITableViewStyleGrouped];
     _CartTableView.delegate = self;
     _CartTableView.dataSource = self;
     _CartTableView.backgroundColor = colorWithRGB(0xEEEEEE);
@@ -63,7 +64,7 @@
  */
 -(void)AccountsView
 {
-    self.AccountView = [[BottomView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 44 - 44, SCREEN_WIDTH, 44)];
+    self.AccountView = [[BottomView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 44 - 44-SafeAreaBottomHeight, SCREEN_WIDTH, 44)];
     self.AccountView.backgroundColor = [UIColor whiteColor];
     self.AccountView.AllSelected = YES;
     self.AccountView.delegate = self;

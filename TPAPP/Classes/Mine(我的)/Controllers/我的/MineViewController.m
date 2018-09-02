@@ -80,10 +80,21 @@
         [self.leftBtn setImage:[UIImage imageNamed:@"消息_white"] forState:UIControlStateNormal];
         [self.rightBtn setImage:[UIImage imageNamed:@"设置_white"] forState:UIControlStateNormal];
     }
-    if (offsetY < 137)
-    {
-        _view1.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent: offsetY/64];
+    
+    if (SafeAreaTopHeight == 88) {
+        if (offsetY < 64)
+        {
+            _view1.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent: offsetY/40];
+        }
+    }else{
+        if (offsetY < 137)
+        {
+            _view1.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent: offsetY/64];
+        }
     }
+        
+    
+    
     
 }
 #pragma mark - iOS 设置导航栏全透明
