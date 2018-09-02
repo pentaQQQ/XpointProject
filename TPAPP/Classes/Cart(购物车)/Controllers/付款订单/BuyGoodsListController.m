@@ -89,8 +89,9 @@
     
     self.buyButton = [[UIButton alloc] init];
     self.buyButton.backgroundColor = colorWithRGB(0xFF6B24);
-    [self.buyButton setTitle:@"结算" forState:UIControlStateNormal];
+    [self.buyButton setTitle:@"提交订单" forState:UIControlStateNormal];
     [self.buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.buyButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.buyButton addTarget:self action:@selector(buyButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomView addSubview:self.buyButton];
     self.buyButton.sd_layout

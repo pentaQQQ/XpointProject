@@ -7,6 +7,7 @@
 //
 
 #import "AddAddressController.h"
+#import "AddAddressCell.h"
 #import "BRPickerView.h"
 #import "NSDate+BRAdd.h"
 
@@ -25,7 +26,7 @@
     self.title = @"新建地址";
 //    [self createItems];
     [self listTableView];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"收货人:",@"请输入收货人名字",@0],@[@"电    话:",@"请输入收货人电话",@0]],@[@[@"省 市 区",@"",@1],@[@"请输入详细地址",@"",@2],@[@"身份证号码:",@"请输入身份证号码",@0],@[@"是否设置为默认地址",@"",@3]], nil];
     
     
@@ -63,7 +64,7 @@
 -(UITableView *)listTableView
 {
     if (_listTableView == nil) {
-        _listTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _listTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _listTableView.backgroundColor = colorWithRGB(0xEEEEEE);
         _listTableView.delegate = self;
         _listTableView.showsVerticalScrollIndicator = NO;
@@ -122,6 +123,7 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         cell.backgroundColor = [UIColor clearColor];
         self.addBtn = [[UIButton alloc] init];
@@ -147,7 +149,7 @@
         if (indexPath.section == 1 && indexPath.row == 0) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-        //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell configWithModel:self.listDataArr[indexPath.section][indexPath.row]];
         return cell;
     }
@@ -178,6 +180,17 @@
     return view;
     
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    return nil;
+    
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.view endEditing:YES];

@@ -14,6 +14,7 @@
 #import "Helper.h"
 #import "CartHeaderCell.h"
 #import "BuyGoodsListController.h"
+#import "AddressManageController.h"
 @interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate>
 {
     BOOL allowMultipleSwipe;

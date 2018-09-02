@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface AddAddressController : UIViewController
+#import "BaseViewController.h"
+@interface AddAddressController : BaseViewController
 
 @end

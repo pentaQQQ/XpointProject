@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface BuyGoodsListController : UIViewController
+#import "BaseViewController.h"
+@interface BuyGoodsListController : BaseViewController
 
 @end

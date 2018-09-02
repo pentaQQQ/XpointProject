@@ -104,9 +104,6 @@
     int tmp = model.imagesList.count % 3;
     int row = (int)model.imagesList.count / 3;
     row += tmp == 0 ? 0:1;
-   
-    
-    
     return (width+5)*row+163+high;
 }
 

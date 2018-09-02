@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface VIPViewController : UIViewController
+#import "BaseViewController.h"
+@interface VIPViewController : BaseViewController
 
 @end

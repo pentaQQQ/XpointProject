@@ -8,6 +8,7 @@
 
 #import "ApplyGoodsServiceController.h"
 #import "ApplyDeatailController.h"
+#import "GoodsListCell.h"
 @interface ApplyGoodsServiceController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong)UITableView *listTableView;

@@ -7,7 +7,7 @@
 //
 #define BUTTON_TAG 1000
 #import "IndentCell.h"
-
+#import "IndentControl.h"
 @implementation IndentCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

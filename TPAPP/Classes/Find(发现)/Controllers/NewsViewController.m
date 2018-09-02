@@ -163,7 +163,7 @@
 - (void)setUpUI
 {
     // 表格
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, k_screen_width, k_screen_height-k_top_height)];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, k_screen_width, k_screen_height-k_top_height-self.tabBarController.tabBar.bounds.size.height)];
     tableView.backgroundColor = [UIColor clearColor];
     tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     tableView.separatorColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
@@ -354,10 +354,10 @@
     Moment *moment = self.cell.moment;
     NSMutableArray *arr = [NSMutableArray arrayWithArray:moment.commentList];
     Comment *comment = [[Comment alloc] init];
-    comment.userName = @"我";
+    comment.userName = @"我自己";
     comment.text = text;
     comment.time = 1487649503;
-    comment.pk = 1;
+    comment.pk = 1000;
     [arr addObject:comment];
     moment.commentList = [arr copy];
     NSIndexPath *indexPath=[self.tableView indexPathForCell:(MomentCell *)self.cell];

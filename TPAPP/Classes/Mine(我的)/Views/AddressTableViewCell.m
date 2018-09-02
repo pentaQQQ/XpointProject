@@ -26,7 +26,7 @@
     self.localImageView.image = image;
     [self.contentView addSubview:self.localImageView];
     self.localImageView.sd_layout
-    .topSpaceToView(self.contentView, 26)
+    .topSpaceToView(self.contentView, 21)
     .leftSpaceToView(self.contentView, 20)
     .widthIs(15)
     .heightIs(15*image.size.height/image.size.width);
@@ -37,7 +37,7 @@
     .topSpaceToView(self.contentView, 10)
     .leftSpaceToView(self.contentView, 45)
     .widthIs(100)
-    .heightIs(30);
+    .heightIs(25);
     
     self.iphoneLabel = [[UILabel alloc] init];
     [self.contentView addSubview:self.iphoneLabel];
@@ -45,15 +45,15 @@
     .topSpaceToView(self.contentView, 10)
     .leftSpaceToView(self.userNameLabel, 45)
     .widthIs(120)
-    .heightIs(30);
+    .heightIs(25);
     
     self.statusImageView = [[UIImageView alloc] init];
     [self.contentView addSubview:self.statusImageView];
     self.statusImageView.sd_layout
-    .topSpaceToView(self.contentView, 30)
+    .topSpaceToView(self.contentView, 27.5)
     .rightSpaceToView(self.contentView, 20)
-    .widthIs(20)
-    .heightIs(20);
+    .widthIs(15)
+    .heightIs(15);
     
     
     self.addressLabel = [[UILabel alloc] init];
@@ -61,7 +61,7 @@
     self.addressLabel.textColor = [UIColor lightGrayColor];
     [self.contentView addSubview:self.addressLabel];
     self.addressLabel.sd_layout
-    .topSpaceToView(self.userNameLabel, 5)
+    .topSpaceToView(self.userNameLabel, 0)
     .leftSpaceToView(self.contentView, 45)
     .widthIs(120)
     .heightIs(20);
@@ -71,7 +71,7 @@
     self.detailAddressLabel.textColor = [UIColor lightGrayColor];
     [self.contentView addSubview:self.detailAddressLabel];
     self.detailAddressLabel.sd_layout
-    .topSpaceToView(self.userNameLabel, 5)
+    .topSpaceToView(self.userNameLabel, 0)
     .leftSpaceToView(self.contentView, 130+10+25)
     .widthIs(120)
     .heightIs(20);
@@ -94,7 +94,7 @@
     [self.defaultSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
     [self.contentView addSubview:self.defaultSwitch];
     self.defaultSwitch.sd_layout
-    .topSpaceToView(self.lineView, 12)
+    .topSpaceToView(self.lineView, 7)
     .rightSpaceToView(self.contentView, 10)
     .widthIs(40)
     .heightIs(20);
@@ -106,7 +106,7 @@
     self.defaultLabel.textColor = [UIColor blackColor];
     [self.contentView addSubview:self.defaultLabel];
     self.defaultLabel.sd_layout
-    .topSpaceToView(self.lineView, 15)
+    .topSpaceToView(self.lineView, 10)
     .rightSpaceToView(self.defaultSwitch, 5)
     .widthIs(40)
     .heightIs(20);
@@ -114,12 +114,12 @@
     self.editBtn = [[UIButton alloc] init];
     self.editBtn.backgroundColor = colorWithRGB(0xFF6B24);
     [self.editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-    [self.editBtn addTarget:self action:@selector(editBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.editBtn addTarget:self action:@selector(editBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.editBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [self.editBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.contentView addSubview:self.editBtn];
     self.editBtn.sd_layout
-    .topSpaceToView(self.lineView, 15)
+    .topSpaceToView(self.lineView, 10)
     .rightSpaceToView(self.defaultLabel, 5)
     .widthIs(40)
     .heightIs(20);
@@ -127,7 +127,7 @@
     self.editBtn.layer.masksToBounds = YES;
     
 }
--(void)editBtnAction
+-(void)editBtnAction:(UIButton *)btn
 {
     self.selectBlcok(0);
 }
@@ -145,30 +145,32 @@
     .topSpaceToView(self.contentView, 10)
     .leftSpaceToView(self.contentView, 45)
     .widthIs([self widthLabelWithModel:arr[0] withFont:17])
-    .heightIs(30);
+    .heightIs(25);
     self.userNameLabel.text = arr[0];
+    self.userNameLabel.adjustsFontSizeToFitWidth = YES;
     
     self.iphoneLabel.sd_layout
     .topSpaceToView(self.contentView, 10)
     .leftSpaceToView(self.userNameLabel, 10)
     .widthIs([self widthLabelWithModel:arr[1] withFont:17])
-    .heightIs(30);
+    .heightIs(25);
     self.iphoneLabel.text = arr[1];
-    
+    self.iphoneLabel.adjustsFontSizeToFitWidth = YES;
     self.addressLabel.sd_layout
-    .topSpaceToView(self.userNameLabel, 5)
+    .topSpaceToView(self.userNameLabel, 0)
     .leftSpaceToView(self.contentView, 45)
     .widthIs([self widthLabelWithModel:arr[2] withFont:15])
     .heightIs(20);
     self.addressLabel.text = arr[2];
+    self.addressLabel.adjustsFontSizeToFitWidth = YES;
     
     self.detailAddressLabel.sd_layout
-    .topSpaceToView(self.userNameLabel, 5)
+    .topSpaceToView(self.userNameLabel, 0)
     .leftSpaceToView(self.contentView, [self widthLabelWithModel:arr[2] withFont:15]+10+15+25)
     .widthIs([self widthLabelWithModel:arr[3] withFont:14])
     .heightIs(20);
     self.detailAddressLabel.text = arr[3];
-    
+    self.detailAddressLabel.adjustsFontSizeToFitWidth = YES;
     if ([arr[4] intValue] == 1) {
        self.statusImageView.image = [UIImage imageNamed:@"已选中"];
     }else{

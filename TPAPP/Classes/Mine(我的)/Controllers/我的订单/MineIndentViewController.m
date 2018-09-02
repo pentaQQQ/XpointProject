@@ -11,6 +11,7 @@
 #import "LXFloaintButton.h"
 #import "MineIndentViewController.h"
 #import "JXCategoryNumberView.h"
+#import "MineIndentChildController.h"
 @interface MineIndentViewController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentScrollView *pageContentScrollView;
@@ -82,6 +83,8 @@
     for (int i=0; i<titleArr.count; i++) {
         MineIndentChildController *vc = [[MineIndentChildController alloc]init];
         vc.selectCtrl = i;
+        //设置代理
+        self.selecteDelegate = vc;
         [childArr addObject:vc];
     }
     
@@ -93,13 +96,21 @@
 
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex {
     [self.pageContentScrollView setPageContentScrollViewCurrentIndex:selectedIndex];
+    
 }
 
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView progress:(CGFloat)progress originalIndex:(NSInteger)originalIndex targetIndex:(NSInteger)targetIndex {
+   
     [self.pageTitleView setPageTitleViewWithProgress:progress originalIndex:originalIndex targetIndex:targetIndex];
+    if (self.selecteDelegate && [self.selecteDelegate respondsToSelector:@selector(selecteNumber:)])
+    {
+        // 调用代理方法
+        [self.selecteDelegate selecteNumber:targetIndex];
+    }
 }
 
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView index:(NSInteger)index {
+    
     if (index == 1 || index == 5) {
         [_pageTitleView removeBadgeForIndex:index];
     }

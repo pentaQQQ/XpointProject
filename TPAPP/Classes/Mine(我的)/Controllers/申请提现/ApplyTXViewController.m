@@ -7,7 +7,8 @@
 //
 
 #import "ApplyTXViewController.h"
-
+#import "TXRecordViewController.h"
+#import "BankCardViewController.h"
 @interface ApplyTXViewController ()
 @property (nonatomic, strong)UIView *topView;
 @property (nonatomic, strong)UILabel *todayMarketMoney;

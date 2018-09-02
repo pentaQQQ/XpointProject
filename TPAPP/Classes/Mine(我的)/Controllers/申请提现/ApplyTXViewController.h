@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ApplyTXViewController : UIViewController
+#import "BaseViewController.h"
+@interface ApplyTXViewController : BaseViewController
 
 @end

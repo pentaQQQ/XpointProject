@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface InviteAwardController : UIViewController
+#import "BaseViewController.h"
+@interface InviteAwardController : BaseViewController
 
 @end

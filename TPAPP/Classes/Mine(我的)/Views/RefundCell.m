@@ -7,7 +7,8 @@
 //
 #define BUTTON_TAG 10000
 #import "RefundCell.h"
-
+#import "MarketControl.h"
+#import "IndentControl.h"
 @implementation RefundCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -36,7 +37,7 @@
         markCtrl.marketTypeLabel.font = [UIFont systemFontOfSize:14];
     }
 }
-- (void)btnAction:(IndentControl *)btn
+- (void)btnAction:(MarketControl *)btn
 {
     if (btn.tag == BUTTON_TAG) {
         
