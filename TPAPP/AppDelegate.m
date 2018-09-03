@@ -48,26 +48,26 @@
 
 -(void)chooseTheRootViewController{
     
-//    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:@"token"];
-//    if (token.length>6) {
-//        // 侧拉VC
-//        SideViewController *leftViewController = [[SideViewController alloc] init];
-//        //市场人员
-//        BaseTabBarController *tabar = [[BaseTabBarController alloc] init];
-//
-//        // 初始化XYSideViewController 设置为window.rootViewController
-//        XYSideViewController *rootViewController = [[XYSideViewController alloc] initWithSideVC:leftViewController currentVC:tabar];
-//
-//        self.window.rootViewController = rootViewController;
-//
-//
-//    }else{
+    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:@"token"];
+    if (token.length>6) {
+        // 侧拉VC
+        SideViewController *leftViewController = [[SideViewController alloc] init];
+        //市场人员
+        BaseTabBarController *tabar = [[BaseTabBarController alloc] init];
+
+        // 初始化XYSideViewController 设置为window.rootViewController
+        XYSideViewController *rootViewController = [[XYSideViewController alloc] initWithSideVC:leftViewController currentVC:tabar];
+
+        self.window.rootViewController = rootViewController;
+
+
+    }else{
     
         LoginViewController*vc = [[LoginViewController alloc]init];
         RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
         rootVC.rt_disableInteractivePop = YES ;
         self.window.rootViewController = rootVC;
-//    }
+    }
     
     
 }
