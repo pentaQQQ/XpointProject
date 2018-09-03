@@ -93,11 +93,11 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     releaseActivitiesModel*model = self.arr[indexPath.row];
     
     CGFloat width = (kScreenWidth-70-10)/3.0;
-
+    
     //content的高度
     CGFloat high = [LYTools getHeighWithTitle:model.context font:[UIFont systemFontOfSize:14] width:kScreenWidth-70];
     
@@ -111,7 +111,7 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-     releaseActivitiesModel*model = self.arr[indexPath.row];
+    releaseActivitiesModel*model = self.arr[indexPath.row];
     GoodsDetailViewController *vc = [[GoodsDetailViewController alloc]init];
     vc.ID = model.id;
     [self.navigationController pushViewController:vc animated:YES];

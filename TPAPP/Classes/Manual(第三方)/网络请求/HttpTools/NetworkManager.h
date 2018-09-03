@@ -23,9 +23,6 @@
           success:(void (^)(id json))success
           failure:(void (^)(NSError *error))failure;
 
--(void)getCityData:(NSString *)api Success:(void (^)(id json))success Failure:(void (^)(NSError *error))failure;
-
--(void)postCityData:(NSString *)api Success:(void (^)(id json))success Failure:(void (^)(NSError *error))failure;
 
 
 @end

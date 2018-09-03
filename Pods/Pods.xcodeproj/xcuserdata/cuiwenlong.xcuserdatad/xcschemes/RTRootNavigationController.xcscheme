@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F327C788DA2658E27265991FF400B22C"
-               BlueprintName = "SVProgressHUD"
+               BlueprintIdentifier = "644BDDBC126ABD80A24FE16B86A12F82"
+               BlueprintName = "RTRootNavigationController"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "SVProgressHUD.framework">
+               BuildableName = "RTRootNavigationController.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

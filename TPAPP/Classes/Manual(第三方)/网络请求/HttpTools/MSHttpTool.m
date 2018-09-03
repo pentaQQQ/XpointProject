@@ -25,6 +25,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MSHttpTool)
         _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         _manager.responseSerializer = [AFJSONResponseSerializer serializer];
         _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html",@"text/plain", nil];
+        
+        NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:@"token"];
+        
+        [_manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     }
     return _manager;
 }

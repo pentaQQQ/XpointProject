@@ -1,16 +1,14 @@
 //
-//  LoginViewController.m
+//  registViewController.m
 //  TPAPP
 //
-//  Created by 崔文龙 on 2018/8/21.
+//  Created by 崔文龙 on 2018/9/3.
 //  Copyright © 2018年 cbl－　点硕. All rights reserved.
 //
 
-#import "LoginViewController.h"
-#import "WeChateBoardViewController.h"
 #import "registViewController.h"
 
-@interface LoginViewController ()
+@interface registViewController ()
 @property (weak, nonatomic) IBOutlet UIView *bottomview;
 
 
@@ -19,38 +17,24 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *codeField;
 
+@property (weak, nonatomic) IBOutlet UITextField *yaoqingField;
+
+
 @property (weak, nonatomic) IBOutlet UIButton *codeBtn;
 
-@property (weak, nonatomic) IBOutlet UIButton *boardBtn;
-
-
+@property (weak, nonatomic) IBOutlet UIButton *registBtn;
 @end
 
-@implementation LoginViewController
+@implementation registViewController
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.hidden = YES;
-    
-    
+    // Do any additional setup after loading the view from its nib.
 }
 
-
-
-- (IBAction)zhanghaobtnClick:(id)sender {
-    
-        //    //  来吧旋转动画
-        __weak typeof(self) weakSelf = self;
-        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            weakSelf.view.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);  // 当前view，这句代码可以不要。这是我的需求
-    
-        } completion:^(BOOL finished) {
-            WeChateBoardViewController *newVC =[WeChateBoardViewController new];
-            [weakSelf presentViewController:newVC animated:NO completion:nil];
-        }];
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 
@@ -70,7 +54,7 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:self.phoneNumberField.text forKey:@"phone"];
-    [dic setValue:@"register" forKey:@"method"];
+    [dic setValue:@"login" forKey:@"method"];
     NSString*url = [NSString stringWithFormat:@"%@/%@",getSecurityCode,self.phoneNumberField.text];
     [[NetworkManager sharedManager]getWithUrl:url param:dic success:^(id json) {
         NSLog(@"%@",json);
@@ -93,10 +77,7 @@
 
 
 
-
-
-
-- (IBAction)boardBtnClick:(id)sender {
+- (IBAction)registBtnClick:(id)sender {
     
     if (!self.phoneNumberField.text.length) {
         [SVProgressHUD doAnyRemindWithHUDMessage:@"输入电话号码不能为空" withDuration:1.5];
@@ -113,21 +94,16 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:self.phoneNumberField.text forKey:@"phone"];
-    [dic setValue:self.codeField.text forKey:@"validCode"];
-    [dic setValue:@"login" forKey:@"method"];
+    [dic setValue:self.codeField.text forKey:@"validCode"];//验证码
+    [dic setValue:self.yaoqingField.text forKey:@"inviteCode"];//邀请码
+    [dic setValue:@"register" forKey:@"method"];
     [dic setValue:@"1" forKey:@"type"];
-    [[NetworkManager sharedManager]postWithUrl:getlogin param:dic success:^(id json) {
+    [[NetworkManager sharedManager]postWithUrl:getreg param:dic success:^(id json) {
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            NSString *data = [NSString stringWithFormat:@"%@",json[@"data"]];
-            [[NSUserDefaults standardUserDefaults]setValue:data forKey:@"token"];
-
-            [LYTools setUpTabbarController];
-
-        }else if ([respCode isEqualToString:@"99999"]){
-                registViewController *vc = [[registViewController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
+            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"注册成功" withDuration:1.5];
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
         }
@@ -135,13 +111,6 @@
         
     }];
 }
-
-
-
-
-
-
-
 
 
 @end

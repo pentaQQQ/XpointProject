@@ -572,7 +572,17 @@
 
 
 
-
++(void)setUpTabbarController{
+    // 侧拉VC
+    SideViewController *leftViewController = [[SideViewController alloc] init];
+    //市场人员
+    BaseTabBarController *tabar = [[BaseTabBarController alloc] init];
+    
+    // 初始化XYSideViewController 设置为window.rootViewController
+    XYSideViewController *rootViewController = [[XYSideViewController alloc] initWithSideVC:leftViewController currentVC:tabar];
+    
+    [UIApplication sharedApplication].keyWindow.rootViewController = rootViewController;
+}
 
 
 
