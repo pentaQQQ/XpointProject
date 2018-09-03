@@ -278,6 +278,7 @@
 		8E3E6D642138D79B007B3306 /* SVProgressHUD+DoAnythingAfter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D602138D79A007B3306 /* SVProgressHUD+DoAnythingAfter.m */; };
 		8E3E6D84213D067B007B3306 /* registViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D82213D067B007B3306 /* registViewController.m */; };
 		8E3E6D85213D067B007B3306 /* registViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D83213D067B007B3306 /* registViewController.xib */; };
+		8E3E6D88213D37AE007B3306 /* LYAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D86213D37AD007B3306 /* LYAccount.m */; };
 		8E78BDF52135343A000A9EA4 /* zhuanfasetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */; };
 		8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */; };
 		8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDF22135343A000A9EA4 /* tupiansetview.xib */; };
@@ -862,6 +863,8 @@
 		8E3E6D81213D067B007B3306 /* registViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = registViewController.h; sourceTree = "<group>"; };
 		8E3E6D82213D067B007B3306 /* registViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = registViewController.m; sourceTree = "<group>"; };
 		8E3E6D83213D067B007B3306 /* registViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = registViewController.xib; sourceTree = "<group>"; };
+		8E3E6D86213D37AD007B3306 /* LYAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYAccount.m; sourceTree = "<group>"; };
+		8E3E6D87213D37AD007B3306 /* LYAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYAccount.h; sourceTree = "<group>"; };
 		8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = zhuanfasetViewController.xib; sourceTree = "<group>"; };
 		8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhuanfasetViewController.m; sourceTree = "<group>"; };
 		8E78BDF02135343A000A9EA4 /* zhuanfasetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhuanfasetViewController.h; sourceTree = "<group>"; };
@@ -1868,6 +1871,8 @@
 		547C489E1F1DBB8200178B67 /* APPDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				8E3E6D87213D37AD007B3306 /* LYAccount.h */,
+				8E3E6D86213D37AD007B3306 /* LYAccount.m */,
 				547C49AF1F1DCF5300178B67 /* Common.h */,
 				547C49AE1F1DBD3F00178B67 /* Prefix.pch */,
 				547C486E1F1DA8AF00178B67 /* AppDelegate.h */,
@@ -3169,6 +3174,7 @@
 				8EA9531A212BBC080057AC78 /* SideViewController.m in Sources */,
 				547C497D1F1DBB8200178B67 /* SGDatePicker.m in Sources */,
 				01120EEA21338F9C0071AC5F /* IndentControl.m in Sources */,
+				8E3E6D88213D37AE007B3306 /* LYAccount.m in Sources */,
 				547C49801F1DBB8200178B67 /* SGDatePickerSheetView.m in Sources */,
 				01120FF6213392FD0071AC5F /* NSObject+YYModel.m in Sources */,
 				01120EF421338F9C0071AC5F /* VIPViewController.m in Sources */,

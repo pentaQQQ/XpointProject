@@ -54,7 +54,7 @@
 -(void)setUpTableview{
     
     
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight ) style:UITableViewStyleGrouped];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
     self.tableview = tableview;
     
     tableview.delegate = self;

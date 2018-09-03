@@ -39,15 +39,16 @@
     [self.view addSubview:tableview];
     
     
-    SDCycleScrollView*scrollview = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenWidth, 200) delegate:self placeholderImage:[UIImage imageNamed:@"WechatIMG3"]];
-    
-    self.scrollview = scrollview;
-    
-    self.tableview.tableHeaderView = scrollview;
+//    SDCycleScrollView*scrollview = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenWidth, 100) delegate:self placeholderImage:[UIImage imageNamed:@"WechatIMG3"]];
+//
+//    self.scrollview = scrollview;
+//
+//    self.tableview.tableHeaderView = scrollview;
+//    self.scrollview.imageURLStringsGroup = [NSArray array];
     self.tableview.tableFooterView = [UIView new];
     
     
-    self.scrollview.imageURLStringsGroup = [NSArray array];
+
     
     
     
@@ -87,6 +88,15 @@
     releaseActivitiesModel *model = self.arr[indexPath.row];
     
     cell.model = model;
+    
+    cell.qianggouBlock = ^(releaseActivitiesModel *model) {
+        GoodsDetailViewController *vc = [[GoodsDetailViewController alloc]init];
+        vc.ID = model.id;
+        [self.navigationController pushViewController:vc animated:YES];
+    };
+    
+    
+    
     return cell;
 }
 

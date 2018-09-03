@@ -59,6 +59,8 @@
         XYSideViewController *rootViewController = [[XYSideViewController alloc] initWithSideVC:leftViewController currentVC:tabar];
 
         self.window.rootViewController = rootViewController;
+        
+        [self getPeopleInfomation];
 
 
     }else{
@@ -141,6 +143,28 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     
 }
+
+-(void)getPeopleInfomation{
+
+    
+    [[NetworkManager sharedManager]getWithUrl:getinfomation param:nil success:^(id json) {
+        NSLog(@"%@",json);
+        
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]){
+            
+            // 单例赋值
+            [LYAccount mj_objectWithKeyValues:json[@"data"]];
+            
+        }
+    } failure:^(NSError *error) {
+
+        
+    }];
+    
+}
+
 
 
 @end

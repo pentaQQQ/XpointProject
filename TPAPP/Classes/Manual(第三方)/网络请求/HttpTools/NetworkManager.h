@@ -11,6 +11,7 @@
 @interface NetworkManager : NSObject
 
 
+
 + (NetworkManager *)sharedManager;
 
 -(void)postWithUrl:(NSString *)url
@@ -24,5 +25,15 @@
           failure:(void (^)(NSError *error))failure;
 
 
+-(void)putWithUrl:(NSString *)url
+            param:(NSDictionary*)dic
+          success:(void (^)(id json))success
+          failure:(void (^)(NSError *error))failure;
+
+
+-(void)deleteWithUrl:(NSString *)url
+               param:(NSDictionary*)dic
+             success:(void (^)(id json))success
+             failure:(void (^)(NSError *error))failure;
 
 @end

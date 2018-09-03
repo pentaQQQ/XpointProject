@@ -41,9 +41,8 @@
 //注册
 #define getreg [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/reg"]
 
-
-
-
+//获取用户信息
+#define getinfomation [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/"]
 
 
 

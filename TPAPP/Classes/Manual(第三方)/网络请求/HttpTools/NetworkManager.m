@@ -81,6 +81,52 @@
 
 
 
+-(void)putWithUrl:(NSString *)url
+             param:(NSDictionary*)dic
+           success:(void (^)(id json))success
+           failure:(void (^)(NSError *error))failure{
+    
+    [self.httpTool ms_putWithURL:url params:dic success:^(id json) {
+        
+        [self WeatherToLoginWithJson:json success:^(id json) {
+            if (success) {
+                success(json);
+            }
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+
+-(void)deleteWithUrl:(NSString *)url
+            param:(NSDictionary*)dic
+          success:(void (^)(id json))success
+          failure:(void (^)(NSError *error))failure{
+    
+    [self.httpTool ms_deleteWithURL:url params:dic success:^(id json) {
+        
+        [self WeatherToLoginWithJson:json success:^(id json) {
+            if (success) {
+                success(json);
+            }
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+
+
+
 -(void)WeatherToLoginWithJson:(id)json success:(void(^)(id json))success{
     
     NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
@@ -93,5 +139,13 @@
         success(json);
     }
 }
+
+
+
+
+
+
+
+
 
 @end
