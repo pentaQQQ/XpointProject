@@ -15,48 +15,96 @@
 #import "CartHeaderCell.h"
 #import "BuyGoodsListController.h"
 #import "AddressManageController.h"
+#import "XYNoDataView.h"
+#import <objc/runtime.h>
 @interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate>
 {
     BOOL allowMultipleSwipe;
-    
-    NSMutableArray *_dataSource;
 }
 
 @property (nonatomic, strong)UITableView *CartTableView;
 @property (nonatomic, strong)BottomView *AccountView;
+@property (nonatomic, strong)UIView *remindView;
+@property (nonatomic, strong)NSMutableArray *dataSource;
 @end
 
 @implementation CartViewController
+
+-(NSMutableArray *)dataSource
+{
+    if (_dataSource == nil) {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self CartData];
     
-    _CartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 44-SafeAreaBottomHeight) style:UITableViewStyleGrouped];
+    
+    _CartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -SafeAreaBottomHeight) style:UITableViewStyleGrouped];
+    _CartTableView.estimatedRowHeight = 0;
     _CartTableView.delegate = self;
     _CartTableView.dataSource = self;
     _CartTableView.backgroundColor = colorWithRGB(0xEEEEEE);
     _CartTableView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_CartTableView];
+    _CartTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+    //自动更改透明度
+    _CartTableView.mj_header.automaticallyChangeAlpha = YES;
     
-    [self AccountsView];
+    
+   
 }
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ([_CartTableView.mj_header isRefreshing]) {
+        [_CartTableView.mj_header endRefreshing];
+    }
+    //进入刷新状态
+    [_CartTableView.mj_header beginRefreshing];
+}
+#pragma mark - 下拉刷新数据
+- (void)loadNewTopic
+{
+    [[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
+        NSLog(@"%@",json);
+        _CartTableView.backgroundView = nil;
+        [_CartTableView.mj_header endRefreshing];
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            
+           [self CartData];
+            [_CartTableView reloadData];
+        }else if([json[@"code"]longValue] == 500){
+            
+            [_CartTableView reloadData];
+        }
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+
 -( NSMutableArray *)CartData
 {
-    if (_dataSource == nil) {
+    
+    [self.dataSource removeAllObjects];
+    
+        NSArray *data = @[@[],@[@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571326962&di=8f502445613592dc9dd19dde4032c6ec&imgtype=0&src=http%3A%2F%2Fimg009.hc360.cn%2Fm6%2FM0A%2F98%2F05%2FwKhQoVVat96Ee_nyAAAAANCKIXo389.jpg",@"GoodsName":@"秋冬季毛呢显瘦直筒西装裤韩版高腰哈伦裤女小脚裤休闲裤宽松裤子",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"15",@"GoodsOldPrice":@"￥235",@"GoodsNumber":@"3",@"SelectedType":@"未选中支付",@"Type":@"0",@"CheckAll":@"0",@"Edit":@"0",@"EditBtn":@"0"},@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571328758&di=0f9dafd5ef73a3eff0a125ae310174ac&imgtype=0&src=http%3A%2F%2Fpic36.nipic.com%2F20131205%2F12477111_155227608129_2.jpg",@"GoodsName":@"秋冬加绒卫裤2016韩版松紧腰系带金丝绒哈伦裤男女情侣休闲裤保暖",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"7",@"GoodsOldPrice":@"￥353",@"GoodsNumber":@"2",@"SelectedType":@"未选中支付",@"Type":@"0",@"Edit":@"0"}],
+                          @[@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571383364&di=3aea37c3e86ada28783624a5475d27cf&imgtype=0&src=http%3A%2F%2Fimg.shushi100.com%2F2017%2F02%2F15%2F1487169103-2682884336966288.jpg",@"GoodsName":@"简易牛津布大号双人无纺布艺衣柜收纳加固加厚钢架衣橱衣柜挂衣柜",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"5",@"GoodsOldPrice":@"￥3533",@"GoodsNumber":@"4",@"SelectedType":@"未选中支付",@"Type":@"0",@"CheckAll":@"0",@"Edit":@"0",@"EditBtn":@"0"}],
+                          @[@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571404170&di=93c67271812592cb3483b4e88d633e2c&imgtype=0&src=http%3A%2F%2Fpic16.nipic.com%2F20110911%2F3059559_103205656510_2.png",@"GoodsName":@"运动裤女长裤春秋卫裤纯棉宽松学生三道杠哈伦裤小脚运动裤男收口",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"15",@"GoodsOldPrice":@"￥125",@"GoodsNumber":@"2",@"SelectedType":@"未选中支付",@"Type":@"0",@"CheckAll":@"0",@"Edit":@"0",@"EditBtn":@"0"},@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571451068&di=33fa6647e96d7213edb8773522775191&imgtype=0&src=http%3A%2F%2Fd10.yihaodianimg.com%2FN10%2FM04%2FD7%2FD6%2FChEi3FYbPAqALUz-AAIG6KjEa9c87800_320x320.jpg",@"GoodsName":@"春季李易峰鹿晗纯棉同款条纹长袖T恤打底衫男女卫衣学生情侣衣服",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"13",@"GoodsOldPrice":@"￥3225",@"GoodsNumber":@"1",@"SelectedType":@"未选中支付",@"Type":@"0",@"Edit":@"0"},@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571466593&di=2814d8170a2e17baf9b4de1bd9b9a930&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D25193392%2C2952556956%26fm%3D214%26gp%3D0.jpg",@"GoodsName":@"gd权志龙同款卫衣长袖男女bigbang演唱会欧美潮牌衣服嘻哈街舞潮",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"25",@"GoodsOldPrice":@"￥3523",@"GoodsNumber":@"2",@"SelectedType":@"未选中支付",@"Type":@"0",@"Edit":@"0"}]];
+        [self.dataSource addObjectsFromArray:data];
         
-        _dataSource = [[NSMutableArray alloc]init];
-        
-        NSArray *data =      @[@[],@[@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571326962&di=8f502445613592dc9dd19dde4032c6ec&imgtype=0&src=http%3A%2F%2Fimg009.hc360.cn%2Fm6%2FM0A%2F98%2F05%2FwKhQoVVat96Ee_nyAAAAANCKIXo389.jpg",@"GoodsName":@"秋冬季毛呢显瘦直筒西装裤韩版高腰哈伦裤女小脚裤休闲裤宽松裤子",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"15",@"GoodsOldPrice":@"￥235",@"GoodsNumber":@"3",@"SelectedType":@"未选中支付",@"Type":@"0",@"CheckAll":@"0",@"Edit":@"0",@"EditBtn":@"0"},@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571328758&di=0f9dafd5ef73a3eff0a125ae310174ac&imgtype=0&src=http%3A%2F%2Fpic36.nipic.com%2F20131205%2F12477111_155227608129_2.jpg",@"GoodsName":@"秋冬加绒卫裤2016韩版松紧腰系带金丝绒哈伦裤男女情侣休闲裤保暖",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"7",@"GoodsOldPrice":@"￥353",@"GoodsNumber":@"2",@"SelectedType":@"未选中支付",@"Type":@"0",@"Edit":@"0"}],
-                               @[@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571383364&di=3aea37c3e86ada28783624a5475d27cf&imgtype=0&src=http%3A%2F%2Fimg.shushi100.com%2F2017%2F02%2F15%2F1487169103-2682884336966288.jpg",@"GoodsName":@"简易牛津布大号双人无纺布艺衣柜收纳加固加厚钢架衣橱衣柜挂衣柜",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"5",@"GoodsOldPrice":@"￥3533",@"GoodsNumber":@"4",@"SelectedType":@"未选中支付",@"Type":@"0",@"CheckAll":@"0",@"Edit":@"0",@"EditBtn":@"0"}],
-                               @[@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571404170&di=93c67271812592cb3483b4e88d633e2c&imgtype=0&src=http%3A%2F%2Fpic16.nipic.com%2F20110911%2F3059559_103205656510_2.png",@"GoodsName":@"运动裤女长裤春秋卫裤纯棉宽松学生三道杠哈伦裤小脚运动裤男收口",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"15",@"GoodsOldPrice":@"￥125",@"GoodsNumber":@"2",@"SelectedType":@"未选中支付",@"Type":@"0",@"CheckAll":@"0",@"Edit":@"0",@"EditBtn":@"0"},@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571451068&di=33fa6647e96d7213edb8773522775191&imgtype=0&src=http%3A%2F%2Fd10.yihaodianimg.com%2FN10%2FM04%2FD7%2FD6%2FChEi3FYbPAqALUz-AAIG6KjEa9c87800_320x320.jpg",@"GoodsName":@"春季李易峰鹿晗纯棉同款条纹长袖T恤打底衫男女卫衣学生情侣衣服",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"13",@"GoodsOldPrice":@"￥3225",@"GoodsNumber":@"1",@"SelectedType":@"未选中支付",@"Type":@"0",@"Edit":@"0"},@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571466593&di=2814d8170a2e17baf9b4de1bd9b9a930&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D25193392%2C2952556956%26fm%3D214%26gp%3D0.jpg",@"GoodsName":@"gd权志龙同款卫衣长袖男女bigbang演唱会欧美潮牌衣服嘻哈街舞潮",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"25",@"GoodsOldPrice":@"￥3523",@"GoodsNumber":@"2",@"SelectedType":@"未选中支付",@"Type":@"0",@"Edit":@"0"}]];
-        
-        [_dataSource addObjectsFromArray:data];
-        
-    }
-    return _dataSource;
+    return self.dataSource;
 }
 
 /**
@@ -79,7 +127,7 @@
 {
     if (section !=0) {
 #warning notice ---  我只把信息放在了第一个row中  这里不想改  但是原理一样
-        NSArray *arr = _dataSource[section];
+        NSArray *arr = self.dataSource[section];
         NSDictionary *dict = arr[0];
         
         //自定义一个View
@@ -117,7 +165,7 @@
 //有多少section
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _dataSource.count;
+    return self.dataSource.count;
 }
 //每个section有多少row
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -125,7 +173,7 @@
     if (section == 0) {
         return 1;
     }else{
-        NSArray *ListArr = _dataSource[section];
+        NSArray *ListArr = self.dataSource[section];
         return ListArr.count;
     }
     
@@ -167,7 +215,7 @@
         }];
         return cell;
     }else{
-        NSArray *ListArr = _dataSource[indexPath.section];
+        NSArray *ListArr = self.dataSource[indexPath.section];
         NSDictionary *dict = ListArr[indexPath.row];
         
         if ([dict[@"Edit"] isEqualToString:@"0"]) {
@@ -200,7 +248,7 @@
 -(BOOL) swipeTableCell:(MGSwipeTableCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion
 {
     NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[indexPath.section]];
+    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
     
     NSLog(@"Delegate: button tapped, %@ position, index %d, from Expansion: %@",
           direction == MGSwipeDirectionLeftToRight ? @"left" : @"right", (int)index, fromExpansion ? @"YES" : @"NO");
@@ -211,7 +259,7 @@
             
             [arr removeObjectAtIndex:indexPath.row];
             if (arr.count > 0) {
-                [_dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+                [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
                 
                 [self postCenter];
                 
@@ -219,7 +267,7 @@
                 
                 //                [_CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
                 
-                NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[indexPath.section]];
+                NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
                 NSInteger index = 0; //判读section下的row是否全部勾选
                 for (NSInteger i = 0; i < arr.count; i++) {
                     NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[i]];
@@ -235,18 +283,19 @@
                     [arr replaceObjectAtIndex:0 withObject:dict];
                 }
                 
-                [_dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+                [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
                 
                 //                //一个section刷新
                 NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
                 [_CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
             }else{
-                [_dataSource removeObjectAtIndex:indexPath.section];
+                [self.dataSource removeObjectAtIndex:indexPath.section];
                 
                 [self postCenter];
                 
                 //                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
                 //                [_CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                _CartTableView.backgroundView = nil;
                 [_CartTableView reloadData];
             }
             
@@ -266,13 +315,13 @@
 -(void)SelectedConfirmCell:(UITableViewCell *)cell
 {
     NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[indexPath.section]];
+    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
     [dict setValue:@"已选中" forKey:@"SelectedType"];
     [dict setValue:@"1" forKey:@"Type"];
     [arr replaceObjectAtIndex:indexPath.row withObject:dict];
     
-    [_dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
     
     [self didChangeValueForSectionAllRow:indexPath.section];
 }
@@ -282,13 +331,13 @@
 -(void)SelectedCancelCell:(UITableViewCell *)cell
 {
     NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[indexPath.section]];
+    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
     [dict setValue:@"未选中支付" forKey:@"SelectedType"];
     [dict setValue:@"0" forKey:@"Type"];
     [arr replaceObjectAtIndex:indexPath.row withObject:dict];
     
-    [_dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
     
     //判断是否把section的全选按钮取消
     [self didChangeValueForSectionRow:indexPath.section];
@@ -316,13 +365,13 @@
     }]];
     [self presentViewController:alertCtrl animated:YES completion:nil];
 //    NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
-//    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[indexPath.section]];
+//    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
 //    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
 //    [dict setValue:@"未选中支付" forKey:@"SelectedType"];
 //    [dict setValue:@"0" forKey:@"Type"];
 //    [arr replaceObjectAtIndex:indexPath.row withObject:dict];
 //
-//    [_dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+//    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
 //
 //    //判断是否把section的全选按钮取消
 //    [self didChangeValueForSectionRow:indexPath.section];
@@ -335,12 +384,12 @@
 -(void)SelectedSection:(NSInteger)section
 {
     //修改section的选中状态
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[section]];
+    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[section]];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
     [dict setValue:@"1" forKey:@"CheckAll"];
     [arr replaceObjectAtIndex:0 withObject:dict];
     
-    [_dataSource replaceObjectAtIndex:section withObject:arr];
+    [self.dataSource replaceObjectAtIndex:section withObject:arr];
     
     
     [self didChangeValueForSection:section SectionSelectedTyep:YES];
@@ -351,12 +400,12 @@
 -(void)SelectedSectionCancel:(NSInteger)section
 {
     //修改section的选中状态
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[section]];
+    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[section]];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
     [dict setValue:@"0" forKey:@"CheckAll"];
     [arr replaceObjectAtIndex:0 withObject:dict];
     
-    [_dataSource replaceObjectAtIndex:section withObject:arr];
+    [self.dataSource replaceObjectAtIndex:section withObject:arr];
     
     [self didChangeValueForSection:section SectionSelectedTyep:NO];
     
@@ -371,7 +420,7 @@
  *********************************************************/
 -(void)didChangeValueForSection:(NSInteger)section SectionSelectedTyep:(BOOL)Check
 {
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[section]];
+    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[section]];
     
     for (NSInteger i = 0; i < arr.count; i++) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[i]];
@@ -385,16 +434,16 @@
         
         [arr replaceObjectAtIndex:i withObject:dict];
     }
-    [_dataSource replaceObjectAtIndex:section withObject:arr];
+    [self.dataSource replaceObjectAtIndex:section withObject:arr];
     
     
     //判断section按钮是选中还是取消  再判断结账栏的状态
     if (Check) {
         //根据头部section的选中状态  判断结账栏的状态
         BOOL sectionChose = YES;
-        for (NSInteger i = 0; i < _dataSource.count; i++) {
+        for (NSInteger i = 0; i < self.dataSource.count; i++) {
             
-            NSArray *arr = _dataSource[i];
+            NSArray *arr = self.dataSource[i];
             if (arr.count != 0) {
                 NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
                 if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
@@ -409,11 +458,11 @@
         }
         
         if (sectionChose == YES) {
-            [_AccountView init:@{@"SelectIcon":@"已选中",@"SelectedType":@"YES"} GoodsData:_dataSource];
+            [_AccountView init:@{@"SelectIcon":@"已选中",@"SelectedType":@"YES"} GoodsData:self.dataSource];
         }
         
     }else{
-        [_AccountView init:@{@"SelectIcon":@"未选中支付",@"SelectedType":@"NO"} GoodsData:_dataSource];
+        [_AccountView init:@{@"SelectIcon":@"未选中支付",@"SelectedType":@"NO"} GoodsData:self.dataSource];
     }
     
     [self postCenter];
@@ -431,18 +480,18 @@
 
 -(void)didChangeValueForSectionRow:(NSInteger)section
 {
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[section]];
+    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[section]];
     for (NSInteger i = 0; i < arr.count; i++) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
         if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
             [dict setValue:@"0" forKey:@"CheckAll"];
             [arr replaceObjectAtIndex:0 withObject:dict];
             
-            [_AccountView init:@{@"SelectIcon":@"未选中支付",@"SelectedType":@"NO"} GoodsData:_dataSource];
+            [_AccountView init:@{@"SelectIcon":@"未选中支付",@"SelectedType":@"NO"} GoodsData:self.dataSource];
         }
     }
     
-    [_dataSource replaceObjectAtIndex:section withObject:arr];
+    [self.dataSource replaceObjectAtIndex:section withObject:arr];
     
     [self postCenter];
     
@@ -460,7 +509,7 @@
 
 -(void)didChangeValueForSectionAllRow:(NSInteger)section
 {
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[section]];
+    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[section]];
     NSInteger index = 0; //判读section下的row是否全部勾选
     for (NSInteger i = 0; i < arr.count; i++) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[i]];
@@ -476,12 +525,12 @@
         [arr replaceObjectAtIndex:0 withObject:dict];
     }
     
-    [_dataSource replaceObjectAtIndex:section withObject:arr];
+    [self.dataSource replaceObjectAtIndex:section withObject:arr];
     
     //根据头部section的选中状态  判断结账栏的状态
     BOOL sectionChose = YES;
-    for (NSInteger i = 0; i < _dataSource.count; i++) {
-        NSArray *arr = _dataSource[i];
+    for (NSInteger i = 0; i < self.dataSource.count; i++) {
+        NSArray *arr = self.dataSource[i];
         if (arr.count != 0) {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
             if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
@@ -496,7 +545,7 @@
     }
     
     if (sectionChose == YES) {
-        [_AccountView init:@{@"SelectIcon":@"已选中",@"SelectedType":@"YES"} GoodsData:_dataSource];
+        [_AccountView init:@{@"SelectIcon":@"已选中",@"SelectedType":@"YES"} GoodsData:self.dataSource];
     }
     
     
@@ -523,8 +572,8 @@
 
 -(void)DidSelectedAllGoods
 {
-    for (NSInteger i = 0; i < _dataSource.count; i ++) {
-        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[i]];
+    for (NSInteger i = 0; i < self.dataSource.count; i ++) {
+        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[i]];
         for (NSInteger j = 0; j < arr.count; j ++) {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[j]];
             if (j == 0) {
@@ -535,7 +584,7 @@
             [dict setValue:@"1" forKey:@"Type"];
             [arr replaceObjectAtIndex:j withObject:dict];
         }
-        [_dataSource replaceObjectAtIndex:i withObject:arr];
+        [self.dataSource replaceObjectAtIndex:i withObject:arr];
     }
     [self postCenter];
 
@@ -544,8 +593,8 @@
 
 -(void)NoDidSelectedAllGoods
 {
-    for (NSInteger i = 0; i < _dataSource.count; i ++) {
-        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[i]];
+    for (NSInteger i = 0; i < self.dataSource.count; i ++) {
+        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[i]];
         for (NSInteger j = 0; j < arr.count; j ++) {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[j]];
             if (j == 0) {
@@ -556,7 +605,7 @@
             [dict setValue:@"0" forKey:@"Type"];
             [arr replaceObjectAtIndex:j withObject:dict];
         }
-        [_dataSource replaceObjectAtIndex:i withObject:arr];
+        [self.dataSource replaceObjectAtIndex:i withObject:arr];
     }
     [self postCenter];
     
@@ -568,7 +617,7 @@
  */
 -(void)postCenter
 {
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"BottomRefresh" object:nil userInfo:@{@"Data":_dataSource}];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"BottomRefresh" object:nil userInfo:@{@"Data":self.dataSource}];
 }
 
 /**
@@ -576,7 +625,7 @@
  */
 -(void)SelectedEdit:(NSInteger)section
 {
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[section]];
+    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[section]];
     if ([arr[0][@"EditBtn"] isEqualToString:@"0"]) {
         for (NSInteger i = 0; i < arr.count; i ++) {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[i]];
@@ -598,7 +647,7 @@
         }
     }
     
-    [_dataSource replaceObjectAtIndex:section withObject:arr];
+    [self.dataSource replaceObjectAtIndex:section withObject:arr];
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
@@ -613,12 +662,12 @@
 -(void)ChangeGoodsNumberCell:(UITableViewCell *)cell Number:(NSInteger)num
 {
     NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[indexPath.section]];
+    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
     [dict setValue:[NSString stringWithFormat:@"%ld",num] forKey:@"GoodsNumber"];
     [arr replaceObjectAtIndex:indexPath.row withObject:dict];
     
-    [_dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
     
     [self postCenter];
     
@@ -633,7 +682,7 @@
 -(void)DeleteTheGoodsCell:(UITableViewCell *)cell
 {
     NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:_dataSource[indexPath.section]];
+    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
     
     [Helper ShowAlertWithTitle:@"是否删除该商品" prompt:@"" cancel:@"取消" defaultLb:@"确定" ViewController:self alertOkClick:^{
         
@@ -641,7 +690,7 @@
         
         if (arr.count > 0) {
             
-            [_dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+            [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
             
             [self postCenter];
             
@@ -652,13 +701,12 @@
             [_CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
             
         }else{
-            [_dataSource removeObjectAtIndex:indexPath.section];
+            [self.dataSource removeObjectAtIndex:indexPath.section];
             
             [self postCenter];
             
             NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
             [_CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-            //                [_CartTableView reloadData];
         }
         
         
@@ -667,6 +715,201 @@
         
     }];
     
+}
+#pragma mark - TableView 占位图
+- (UIImage *)xy_noDataViewImage {
+    return [UIImage imageNamed:@"购物车"];
+}
+
+- (NSString *)xy_noDataViewMessage {
+    return @"购物车为空";
+}
+
+- (UIColor *)xy_noDataViewMessageColor {
+    return colorWithRGB(0xC7C7C7);
+}
+- (UIView *)xy_noDataView
+{
+    if (self.dataSource.count == 1) {
+        _CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-SafeAreaBottomHeight);
+        [self.AccountView removeFromSuperview];
+        //  计算位置, 垂直居中, 图片默认中心偏上.
+        CGFloat sW = _CartTableView.bounds.size.width;
+        CGFloat cX = sW / 2;
+        CGFloat cY = _CartTableView.contentSize.height+30;
+        CGFloat iW = 74;
+        CGFloat iH = 74;
+        
+        //  图片
+        UIImageView *imgView = [[UIImageView alloc] init];
+        imgView.frame        = CGRectMake(cX - iW / 2, cY - iH / 2, iW, iH);
+        imgView.image        = [UIImage imageNamed:@"购物车"];
+        
+        //  文字
+        UILabel *label       = [[UILabel alloc] init];
+        label.font           = [UIFont systemFontOfSize:15];
+        label.textColor      = colorWithRGB(0xC7C7C7);
+        
+        label.text           = @"购物车为空";
+        label.textAlignment  = NSTextAlignmentCenter;
+        label.frame          = CGRectMake(0, CGRectGetMaxY(imgView.frame) + 14, sW, label.font.lineHeight);
+        
+        //  图片
+        UIImageView *leftImgView = [[UIImageView alloc] init];
+        leftImgView.frame        = CGRectMake(30, CGRectGetMaxY(label.frame)+45, (kScreenWidth-60)/3-10, 1.5);
+        leftImgView.image        = [UIImage imageNamed:@"我的订单_line"];
+        
+        //  图片
+        UIImageView *rightImgView = [[UIImageView alloc] init];
+        rightImgView.frame        = CGRectMake(30+(kScreenWidth-60)/3*2+10, CGRectGetMaxY(label.frame)+45, (kScreenWidth-60)/3-10, 1.5);
+        rightImgView.image        = [UIImage imageNamed:@"我的订单_line"];
+        
+        
+        UIButton *btn = [[UIButton alloc] init];
+        btn.frame        = CGRectMake(30+(kScreenWidth-60)/3-10, CGRectGetMaxY(label.frame)+30, (kScreenWidth-60)/3+20, 30);
+        [btn setImage:[UIImage imageNamed:@"icon_mine_sqsh"] forState:UIControlStateNormal];
+        btn.imageEdgeInsets = UIEdgeInsetsMake(5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+10, 5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+((kScreenWidth-60)/3+20-20)-10-10);
+        
+        [btn addTarget:self action:@selector(guanzhuAction) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitle:@"关注商品" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        btn.titleEdgeInsets = UIEdgeInsetsMake(5, -((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2, 5, 0);
+        
+        //  文字
+        UILabel *remindLabel       = [[UILabel alloc] init];
+        remindLabel.font           = [UIFont systemFontOfSize:15];
+        remindLabel.textColor      = colorWithRGB(0xC7C7C7);
+        
+        remindLabel.text           = @"你还没有关注的商品";
+        remindLabel.textAlignment  = NSTextAlignmentCenter;
+        remindLabel.frame          = CGRectMake(0, CGRectGetMaxY(btn.frame) + 30, sW, label.font.lineHeight);
+        
+        UIButton *guanzhuBtn = [[UIButton alloc] init];
+        guanzhuBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
+        guanzhuBtn.frame        = CGRectMake((kScreenWidth-((kScreenWidth-60)/3+30))/2, CGRectGetMaxY(remindLabel.frame)+20, (kScreenWidth-60)/3+30, 30);
+        guanzhuBtn.layer.cornerRadius = 5;
+        guanzhuBtn.layer.masksToBounds = YES;
+        [guanzhuBtn addTarget:self action:@selector(goGuanzhuAction) forControlEvents:UIControlEventTouchUpInside];
+        [guanzhuBtn setTitle:@"去关注" forState:UIControlStateNormal];
+        [guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        //  视图
+        XYNoDataView *view   = [[XYNoDataView alloc] init];
+        [view addSubview:imgView];
+        [view addSubview:label];
+        [view addSubview:leftImgView];
+        [view addSubview:btn];
+        [view addSubview:rightImgView];
+        [view addSubview:remindLabel];
+        [view addSubview:guanzhuBtn];
+        //  实现跟随 TableView 滚动
+        [view addObserver:self forKeyPath:kXYNoDataViewObserveKeyPath options:NSKeyValueObservingOptionNew context:nil];
+        return view;
+    }else{
+        _CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-SafeAreaBottomHeight);
+        [self AccountsView];
+        //  计算位置, 垂直居中, 图片默认中心偏上.
+        CGFloat sW = _CartTableView.size.width;
+//        CGFloat cX = sW / 2;
+        CGFloat cY = _CartTableView.contentSize.height+30;
+//        CGFloat iW = 74;
+        CGFloat iH = 74;
+        
+        //  图片
+        UIImageView *leftImgView = [[UIImageView alloc] init];
+        leftImgView.frame        = CGRectMake(30, cY - iH / 2+15, (kScreenWidth-60)/3-10, 1.5);
+        leftImgView.image        = [UIImage imageNamed:@"我的订单_line"];
+        
+        //  图片
+        UIImageView *rightImgView = [[UIImageView alloc] init];
+        rightImgView.frame        = CGRectMake(30+(kScreenWidth-60)/3*2+10, cY - iH / 2+15, (kScreenWidth-60)/3-10, 1.5);
+        rightImgView.image        = [UIImage imageNamed:@"我的订单_line"];
+        
+        
+        UIButton *btn = [[UIButton alloc] init];
+        btn.frame        = CGRectMake(30+(kScreenWidth-60)/3-10, cY - iH / 2, (kScreenWidth-60)/3+20, 30);
+        [btn setImage:[UIImage imageNamed:@"icon_mine_sqsh"] forState:UIControlStateNormal];
+        btn.imageEdgeInsets = UIEdgeInsetsMake(5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+10, 5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+((kScreenWidth-60)/3+20-20)-10-10);
+        
+        [btn addTarget:self action:@selector(guanzhuAction) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitle:@"关注商品" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        btn.titleEdgeInsets = UIEdgeInsetsMake(5, -((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2, 5, 0);
+        
+        //  文字
+        UILabel *remindLabel       = [[UILabel alloc] init];
+        remindLabel.font           = [UIFont systemFontOfSize:15];
+        remindLabel.textColor      = colorWithRGB(0xC7C7C7);
+        
+        remindLabel.text           = @"你还没有关注的商品";
+        remindLabel.textAlignment  = NSTextAlignmentCenter;
+        remindLabel.frame          = CGRectMake(0, CGRectGetMaxY(btn.frame) + 30, sW, remindLabel.font.lineHeight);
+        
+        UIButton *guanzhuBtn = [[UIButton alloc] init];
+        guanzhuBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
+        guanzhuBtn.frame        = CGRectMake((kScreenWidth-((kScreenWidth-60)/3+30))/2, CGRectGetMaxY(remindLabel.frame)+20, (kScreenWidth-60)/3+30, 30);
+        guanzhuBtn.layer.cornerRadius = 5;
+        guanzhuBtn.layer.masksToBounds = YES;
+        [guanzhuBtn addTarget:self action:@selector(goGuanzhuAction) forControlEvents:UIControlEventTouchUpInside];
+        [guanzhuBtn setTitle:@"去关注" forState:UIControlStateNormal];
+        [guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        //  视图
+        XYNoDataView *view   = [[XYNoDataView alloc] init];
+        [view addSubview:leftImgView];
+        [view addSubview:btn];
+        [view addSubview:rightImgView];
+        [view addSubview:remindLabel];
+        [view addSubview:guanzhuBtn];
+        //  实现跟随 TableView 滚动
+        [view addObserver:self forKeyPath:kXYNoDataViewObserveKeyPath options:NSKeyValueObservingOptionNew context:nil];
+        return view;
+    }
+    
+    
+}
+- (void)goGuanzhuAction
+{
+    
+}
+- (void)guanzhuAction
+{
+    
+}
+
+/**
+ 监听
+ */
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:kXYNoDataViewObserveKeyPath]) {
+        
+        /**
+         在 TableView 滚动 ContentOffset 改变时, 会同步改变 backgroundView 的 frame.origin.y
+         可以实现, backgroundView 位置相对于 TableView 不动, 但是我们希望
+         backgroundView 跟随 TableView 的滚动而滚动, 只能强制设置 frame.origin.y 永远为 0
+         兼容 MJRefresh
+         */
+        CGRect frame = [[change objectForKey:NSKeyValueChangeNewKey] CGRectValue];
+        if (frame.origin.y != 0) {
+            frame.origin.y  = 0;
+            _CartTableView.backgroundView.frame = frame;
+        }
+    }
+}
+
+/**
+ 移除 KVO 监听
+ */
+- (void)freeNoDataViewIfNeeded {
+    
+    if ([_CartTableView.backgroundView isKindOfClass:[XYNoDataView class]]) {
+        [_CartTableView.backgroundView removeObserver:self forKeyPath:kXYNoDataViewObserveKeyPath context:nil];
+    }
+}
+
+- (void)dealloc {
+    [self freeNoDataViewIfNeeded];
+    NSLog(@"TableView + XY 视图正常销毁");
 }
 
 - (void)didReceiveMemoryWarning {

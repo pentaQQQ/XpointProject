@@ -16,6 +16,7 @@
 @property(nonatomic,strong)NSArray *imagesList;
 @property(nonatomic,copy)NSString *merchantId;
 @property(nonatomic,copy)NSString *merchantName;
+@property(nonatomic,copy)NSString *merchantUrL;
 @property(nonatomic,copy)NSString *typeac;
 
 

@@ -48,9 +48,11 @@
 -(void)setModel:(releaseActivitiesModel *)model{
     _model = model;
     
+    [self.imageview sd_setImageWithURL:[NSURL URLWithString:model.merchantUrL]];
+    
     self.title.text = model.merchantName;
     self.content.text = model.context;
-    self.beginTime.text = model.beginTime;
+//    self.beginTime.text = model.beginTime;
     self.endtime.text = model.endTime;
     
     
@@ -166,9 +168,16 @@
 
 
 
+- (IBAction)qianggouBtnClick:(id)sender {
+    if (self.qianggouBlock) {
+        self.qianggouBlock(self.model);
+    }
+}
 
 
 
+- (IBAction)zhuanfaBtnClick:(id)sender {
+}
 
 
 

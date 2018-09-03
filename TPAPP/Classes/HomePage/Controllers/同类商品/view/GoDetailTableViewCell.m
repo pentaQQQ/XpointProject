@@ -49,6 +49,7 @@
 -(void)setShoppingcartBtn:(UIButton *)shoppingcartBtn{
     _shoppingcartBtn = shoppingcartBtn;
     ViewBorderRadius(shoppingcartBtn, 5, 1, [UIColor clearColor]);
+    shoppingcartBtn.userInteractionEnabled = NO;
 }
 
 -(void)setModel:(SimilarProductModel *)model{

@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
-
+#import "XYSideViewController.h"
+#import "SideViewController.h"
+#import "BaseTabBarController.h"
 @interface LYTools : NSObject
 //通过RGB取颜色
 + (UIColor *)getColorFromRGB:(NSString *)inColorString;
@@ -65,5 +66,5 @@
 
 + (UIImage *)qrCodeImageWithInfo:(NSString *)info  width:(CGFloat)width;
 +(void)mySort:(NSMutableArray*)mutArray andInterger:(NSInteger)interger;
-
++(void)setUpTabbarController;
 @end

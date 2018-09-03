@@ -17,4 +17,5 @@ target 'TPAPP' do
     pod 'SVProgressHUD'
     pod 'MJRefresh'
     pod 'IQKeyboardManager'
+    pod 'RTRootNavigationController'
 end

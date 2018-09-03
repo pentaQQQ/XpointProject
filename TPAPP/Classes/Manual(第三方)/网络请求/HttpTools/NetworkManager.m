@@ -32,36 +32,6 @@
 }
 
 
--(void)getCityData:(NSString *)api Success:(void (^)(id json))success Failure:(void (^)(NSError *error))failure
-{
-
- 
-    [self.httpTool ms_postWithURL:api params:nil success:^(id json) {
-        
-        if (success) {
-            success(json);
-        }
-    } failure:^(NSError *error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
-}
-
-
--(void)postCityData:(NSString *)api Success:(void (^)(id json))success Failure:(void (^)(NSError *error))failure
-{
-    [self.httpTool ms_getWithURL:api params:nil success:^(id json) {
-        
-        if (success) {
-            success(json);
-        }
-    } failure:^(NSError *error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
-}
 
 
 
@@ -71,9 +41,11 @@
           failure:(void (^)(NSError *error))failure{
     
     [self.httpTool ms_getWithURL:url params:dic success:^(id json) {
-        if (success) {
-            success(json);
-        }
+        [self WeatherToLoginWithJson:json success:^(id json) {
+            if (success) {
+                success(json);
+            }
+        }];
     } failure:^(NSError *error) {
         if (failure) {
             failure(error);
@@ -91,15 +63,87 @@
            failure:(void (^)(NSError *error))failure{
     
     [self.httpTool ms_postWithURL:url params:dic success:^(id json) {
-        if (success) {
-            success(json);
-        }
+        
+        [self WeatherToLoginWithJson:json success:^(id json) {
+            if (success) {
+                success(json);
+            }
+        }];
+        
+        
     } failure:^(NSError *error) {
         if (failure) {
             failure(error);
         }
     }];
 }
+
+
+
+
+-(void)putWithUrl:(NSString *)url
+             param:(NSDictionary*)dic
+           success:(void (^)(id json))success
+           failure:(void (^)(NSError *error))failure{
+    
+    [self.httpTool ms_putWithURL:url params:dic success:^(id json) {
+        
+        [self WeatherToLoginWithJson:json success:^(id json) {
+            if (success) {
+                success(json);
+            }
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+
+-(void)deleteWithUrl:(NSString *)url
+            param:(NSDictionary*)dic
+          success:(void (^)(id json))success
+          failure:(void (^)(NSError *error))failure{
+    
+    [self.httpTool ms_deleteWithURL:url params:dic success:^(id json) {
+        
+        [self WeatherToLoginWithJson:json success:^(id json) {
+            if (success) {
+                success(json);
+            }
+        }];
+        
+        
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+
+
+
+-(void)WeatherToLoginWithJson:(id)json success:(void(^)(id json))success{
+    
+    NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+    
+    if ([respCode isEqualToString:@"90000"]) {
+        [SVProgressHUD doAnyRemindWithHUDMessage:@"登陆过期，请重新登录" withDuration:1.5];
+        return;
+    }else{
+        
+        success(json);
+    }
+}
+
+
+
+
+
 
 
 

@@ -8,6 +8,8 @@
 
 #import "LoginViewController.h"
 #import "WeChateBoardViewController.h"
+#import "registViewController.h"
+
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UIView *bottomview;
 
@@ -30,23 +32,25 @@
     
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.hidden = YES;
     
     
 }
 
 
+
 - (IBAction)zhanghaobtnClick:(id)sender {
     
-    //    //  来吧旋转动画
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        weakSelf.view.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);  // 当前view，这句代码可以不要。这是我的需求
-        
-    } completion:^(BOOL finished) {
-        WeChateBoardViewController *newVC =[WeChateBoardViewController new];
-        [weakSelf presentViewController:newVC animated:NO completion:nil];
-    }];
+        //    //  来吧旋转动画
+        __weak typeof(self) weakSelf = self;
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            weakSelf.view.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);  // 当前view，这句代码可以不要。这是我的需求
     
+        } completion:^(BOOL finished) {
+            WeChateBoardViewController *newVC =[WeChateBoardViewController new];
+            [weakSelf presentViewController:newVC animated:NO completion:nil];
+        }];
+
 }
 
 
@@ -66,7 +70,7 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:self.phoneNumberField.text forKey:@"phone"];
-    [dic setValue:@"login" forKey:@"method"];
+    [dic setValue:@"register" forKey:@"method"];
     NSString*url = [NSString stringWithFormat:@"%@/%@",getSecurityCode,self.phoneNumberField.text];
     [[NetworkManager sharedManager]getWithUrl:url param:dic success:^(id json) {
         NSLog(@"%@",json);
@@ -85,6 +89,7 @@
     
     
 }
+
 
 
 
@@ -115,14 +120,25 @@
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            
+            NSString *data = [NSString stringWithFormat:@"%@",json[@"data"]];
+            [[NSUserDefaults standardUserDefaults]setValue:data forKey:@"token"];
+
+            [LYTools setUpTabbarController];
+
+        }else if ([respCode isEqualToString:@"99999"]){
+                registViewController *vc = [[registViewController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
         }else{
-            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
         }
     } failure:^(NSError *error) {
         
     }];
 }
+
+
+
+
 
 
 
