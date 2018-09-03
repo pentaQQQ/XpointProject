@@ -39,6 +39,11 @@
         Method xy_reloadData = class_getInstanceMethod(self, @selector(xy_reloadData));
         method_exchangeImplementations(reloadData, xy_reloadData);
         
+       
+        
+        
+        
+       
         Method dealloc       = class_getInstanceMethod(self, NSSelectorFromString(@"dealloc"));
         Method xy_dealloc    = class_getInstanceMethod(self, @selector(xy_dealloc));
         method_exchangeImplementations(dealloc, xy_dealloc);

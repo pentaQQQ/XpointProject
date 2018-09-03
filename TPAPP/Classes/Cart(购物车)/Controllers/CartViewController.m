@@ -17,13 +17,14 @@
 #import "AddressManageController.h"
 #import "XYNoDataView.h"
 #import <objc/runtime.h>
+#import "AppDelegate.h"
 @interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate>
 {
     BOOL allowMultipleSwipe;
 }
 
 @property (nonatomic, strong)UITableView *CartTableView;
-@property (nonatomic, strong)BottomView *AccountView;
+@property (nonatomic, strong)BottomView *accountView;
 @property (nonatomic, strong)UIView *remindView;
 @property (nonatomic, strong)NSMutableArray *dataSource;
 @end
@@ -110,13 +111,13 @@
 /**
  *  底部结账栏
  */
--(void)AccountsView
+-(void)accountsView
 {
-    self.AccountView = [[BottomView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 44 - 44-SafeAreaBottomHeight, SCREEN_WIDTH, 44)];
-    self.AccountView.backgroundColor = [UIColor whiteColor];
-    self.AccountView.AllSelected = YES;
-    self.AccountView.delegate = self;
-    [self.view addSubview:self.AccountView];
+    self.accountView = [[BottomView alloc]initWithFrame:CGRectMake(0, kScreenHeight -44 - 44-SafeAreaBottomHeight, kScreenWidth, 44)];
+    self.accountView.backgroundColor = [UIColor whiteColor];
+    self.accountView.AllSelected = YES;
+    self.accountView.delegate = self;
+    [self.view addSubview:self.accountView];
     
     
 }
@@ -225,8 +226,8 @@
             cell = [[CompileCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompileCellID"];
                 }
             
-            cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]],[MGSwipeButton buttonWithTitle:@"更多" backgroundColor:[UIColor grayColor]]];
-            
+//            cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]],[MGSwipeButton buttonWithTitle:@"更多" backgroundColor:[UIColor grayColor]]];
+             cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]]];
             [cell withData:dict];
             
             cell.delegate = self;
@@ -284,17 +285,18 @@
                 }
                 
                 [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
-                
                 //                //一个section刷新
-                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-                [_CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+//                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
+//                [_CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                _CartTableView.backgroundView = nil;
+                [_CartTableView reloadData];
             }else{
                 [self.dataSource removeObjectAtIndex:indexPath.section];
                 
                 [self postCenter];
                 
-                //                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-                //                [_CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+//                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
+//                [_CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
                 _CartTableView.backgroundView = nil;
                 [_CartTableView reloadData];
             }
@@ -458,11 +460,11 @@
         }
         
         if (sectionChose == YES) {
-            [_AccountView init:@{@"SelectIcon":@"已选中",@"SelectedType":@"YES"} GoodsData:self.dataSource];
+            [self.accountView init:@{@"SelectIcon":@"已选中",@"SelectedType":@"YES"} GoodsData:self.dataSource];
         }
         
     }else{
-        [_AccountView init:@{@"SelectIcon":@"未选中支付",@"SelectedType":@"NO"} GoodsData:self.dataSource];
+        [self.accountView init:@{@"SelectIcon":@"未选中支付",@"SelectedType":@"NO"} GoodsData:self.dataSource];
     }
     
     [self postCenter];
@@ -487,7 +489,7 @@
             [dict setValue:@"0" forKey:@"CheckAll"];
             [arr replaceObjectAtIndex:0 withObject:dict];
             
-            [_AccountView init:@{@"SelectIcon":@"未选中支付",@"SelectedType":@"NO"} GoodsData:self.dataSource];
+            [self.accountView init:@{@"SelectIcon":@"未选中支付",@"SelectedType":@"NO"} GoodsData:self.dataSource];
         }
     }
     
@@ -545,7 +547,7 @@
     }
     
     if (sectionChose == YES) {
-        [_AccountView init:@{@"SelectIcon":@"已选中",@"SelectedType":@"YES"} GoodsData:self.dataSource];
+        [self.accountView init:@{@"SelectIcon":@"已选中",@"SelectedType":@"YES"} GoodsData:self.dataSource];
     }
     
     
@@ -731,8 +733,23 @@
 - (UIView *)xy_noDataView
 {
     if (self.dataSource.count == 1) {
+        if(self.accountView != nil){
+            
+            [self.accountView removeFromSuperview];
+            self.accountView = nil;
+        }
+    }
+    if (self.dataSource.count > 1){
+        if(self.accountView == nil){
+            [self accountsView];
+        }
+    }
+    
+    
+    if (self.dataSource.count == 1) {
         _CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-SafeAreaBottomHeight);
-        [self.AccountView removeFromSuperview];
+        
+        
         //  计算位置, 垂直居中, 图片默认中心偏上.
         CGFloat sW = _CartTableView.bounds.size.width;
         CGFloat cX = sW / 2;
@@ -806,15 +823,19 @@
         [view addObserver:self forKeyPath:kXYNoDataViewObserveKeyPath options:NSKeyValueObservingOptionNew context:nil];
         return view;
     }else{
+        
         _CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-SafeAreaBottomHeight);
-        [self AccountsView];
+        
+        
+        
+        
         //  计算位置, 垂直居中, 图片默认中心偏上.
         CGFloat sW = _CartTableView.size.width;
 //        CGFloat cX = sW / 2;
         CGFloat cY = _CartTableView.contentSize.height+30;
 //        CGFloat iW = 74;
         CGFloat iH = 74;
-        
+         _CartTableView.contentSize = CGSizeMake(kScreenWidth, _CartTableView.contentSize.height+200);
         //  图片
         UIImageView *leftImgView = [[UIImageView alloc] init];
         leftImgView.frame        = CGRectMake(30, cY - iH / 2+15, (kScreenWidth-60)/3-10, 1.5);
@@ -853,14 +874,15 @@
         [guanzhuBtn addTarget:self action:@selector(goGuanzhuAction) forControlEvents:UIControlEventTouchUpInside];
         [guanzhuBtn setTitle:@"去关注" forState:UIControlStateNormal];
         [guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        
         //  视图
+        
         XYNoDataView *view   = [[XYNoDataView alloc] init];
         [view addSubview:leftImgView];
         [view addSubview:btn];
         [view addSubview:rightImgView];
         [view addSubview:remindLabel];
         [view addSubview:guanzhuBtn];
+        [self setExclusiveTouchForButtons:view];
         //  实现跟随 TableView 滚动
         [view addObserver:self forKeyPath:kXYNoDataViewObserveKeyPath options:NSKeyValueObservingOptionNew context:nil];
         return view;
@@ -868,9 +890,22 @@
     
     
 }
+   - (void)setExclusiveTouchForButtons:(UIView *)myView
+    {
+        for (UIView * button in [myView subviews]) {
+            if([button isKindOfClass:[UIButton class]])
+            {
+                [((UIButton *)button) setExclusiveTouch:YES];
+            }
+            else if ([button isKindOfClass:[UIView class]])
+            {
+                [self setExclusiveTouchForButtons:button];
+            }
+        }
+    }
 - (void)goGuanzhuAction
 {
-    
+   self.tabBarController.selectedIndex = 0;
 }
 - (void)guanzhuAction
 {
