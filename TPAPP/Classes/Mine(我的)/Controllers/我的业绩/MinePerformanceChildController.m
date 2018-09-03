@@ -29,6 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.listDataArr = [NSMutableArray arrayWithObjects:@[@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"], nil];
     if (self.firstCtrl == 0 ) {
         [self createTopView];

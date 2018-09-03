@@ -48,7 +48,7 @@
         .topSpaceToView(self.view, 0)
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
-        .bottomEqualToView(self.view);
+        .bottomSpaceToView(self.view, SafeAreaBottomHeight);
         if ([self.listTableView respondsToSelector:@selector(setSeparatorInset:)]) {
             [self.listTableView setSeparatorInset:UIEdgeInsetsZero];
         }

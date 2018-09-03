@@ -26,9 +26,12 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.listDataArr = [NSMutableArray arrayWithObjects:@[@"Alan",@"18721488888",@"上海宝山区",@"沪太路3100号A座",@1],@[@"黄石",@"172156348548",@"上海黄浦区",@"四川中路181号234",@0],@[@"张三",@"15612739826",@"上海徐汇区",@"锦绣中路1200号",@0], nil];
-//    [self createItems];
     [self listTableView];
-    
+    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+    //自动更改透明度
+ self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+    //进入刷新状态
+    [self.listTableView.mj_header beginRefreshing];
     
     
     self.addBtn = [[UIButton alloc] init];
@@ -68,6 +71,27 @@
     AddAddressController *addCtrl = [[AddAddressController alloc] init];
     [self.navigationController pushViewController:addCtrl animated:YES];
 }
+
+#pragma mark - 下拉刷新数据
+- (void)loadNewTopic
+{
+    [[NetworkManager sharedManager] getWithUrl:getAddressList param:@{@"id":@"123",@"userId":@"34"} success:^(id json) {
+        NSLog(@"%@",json);
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            [self.listTableView.mj_header endRefreshing];
+          
+                
+               
+            [self.listTableView reloadData];
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+
+
 #pragma mark - 懒加载
 -(NSMutableArray *)listDataArr
 {

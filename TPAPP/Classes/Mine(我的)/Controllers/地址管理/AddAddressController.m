@@ -26,11 +26,33 @@
     self.title = @"新建地址";
 //    [self createItems];
     [self listTableView];
+//    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+//    //自动更改透明度
+//    self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+//    //进入刷新状态
+//    [self.listTableView.mj_header beginRefreshing];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"收货人:",@"请输入收货人名字",@0],@[@"电    话:",@"请输入收货人电话",@0]],@[@[@"省 市 区",@"",@1],@[@"请输入详细地址",@"",@2],@[@"身份证号码:",@"请输入身份证号码",@0],@[@"是否设置为默认地址",@"",@3]], nil];
     
     
 }
+
+
+#pragma mark - 下拉刷新数据
+- (void)loadNewTopic
+{
+    [[NetworkManager sharedManager] getWithUrl:saveAddress param:@{@"id":@"123",@"userId":@"34"} success:^(id json) {
+        NSLog(@"%@",json);
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+
 #pragma mark -自定义导航栏返回按钮
 - (void)createItems
 {

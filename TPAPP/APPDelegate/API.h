@@ -38,9 +38,15 @@
 //微信登陆
 #define getweChatelogin [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/wxlogin"]
 
+//删除地址
+#define deleteAddress [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/address/delete"]
+//获取地址列表
+#define getAddressList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/address/list"]
+//新增地址
+#define saveAddress [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/address/save"]
 
-
-
+//修改地址
+#define updateAddress [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/address/update"]
 
 
 
