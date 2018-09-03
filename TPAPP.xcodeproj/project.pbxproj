@@ -2958,10 +2958,6 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
-<<<<<<< HEAD
-=======
-						DevelopmentTeam = 9MHQLQBTW8;
->>>>>>> c5f9328cfebd07269c399a2cfba49c8ac1c2efbd
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -3585,11 +3581,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-<<<<<<< HEAD
 				DEVELOPMENT_TEAM = "";
-=======
-				DEVELOPMENT_TEAM = 9MHQLQBTW8;
->>>>>>> c5f9328cfebd07269c399a2cfba49c8ac1c2efbd
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3639,11 +3631,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-<<<<<<< HEAD
 				DEVELOPMENT_TEAM = "";
-=======
-				DEVELOPMENT_TEAM = 9MHQLQBTW8;
->>>>>>> c5f9328cfebd07269c399a2cfba49c8ac1c2efbd
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
