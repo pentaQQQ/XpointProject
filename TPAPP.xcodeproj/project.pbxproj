@@ -279,6 +279,9 @@
 		8E3E6D5E2138D76F007B3306 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D5A2138D76F007B3306 /* LoginViewController.xib */; };
 		8E3E6D632138D79B007B3306 /* UIButton+LYCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D5F2138D79A007B3306 /* UIButton+LYCountDownButton.m */; };
 		8E3E6D642138D79B007B3306 /* SVProgressHUD+DoAnythingAfter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D602138D79A007B3306 /* SVProgressHUD+DoAnythingAfter.m */; };
+		8E3E6D84213D067B007B3306 /* registViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D82213D067B007B3306 /* registViewController.m */; };
+		8E3E6D85213D067B007B3306 /* registViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D83213D067B007B3306 /* registViewController.xib */; };
+		8E3E6D88213D37AE007B3306 /* LYAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D86213D37AD007B3306 /* LYAccount.m */; };
 		8E78BDF52135343A000A9EA4 /* zhuanfasetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */; };
 		8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */; };
 		8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDF22135343A000A9EA4 /* tupiansetview.xib */; };
@@ -866,6 +869,11 @@
 		8E3E6D792139098D007B3306 /* TransportationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransportationCell.xib; sourceTree = "<group>"; };
 		8E3E6D7D21390A55007B3306 /* TransportationSeationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportationSeationView.m; sourceTree = "<group>"; };
 		8E3E6D7F21390A60007B3306 /* TransportationSeationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransportationSeationView.xib; sourceTree = "<group>"; };
+		8E3E6D81213D067B007B3306 /* registViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = registViewController.h; sourceTree = "<group>"; };
+		8E3E6D82213D067B007B3306 /* registViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = registViewController.m; sourceTree = "<group>"; };
+		8E3E6D83213D067B007B3306 /* registViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = registViewController.xib; sourceTree = "<group>"; };
+		8E3E6D86213D37AD007B3306 /* LYAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYAccount.m; sourceTree = "<group>"; };
+		8E3E6D87213D37AD007B3306 /* LYAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYAccount.h; sourceTree = "<group>"; };
 		8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = zhuanfasetViewController.xib; sourceTree = "<group>"; };
 		8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhuanfasetViewController.m; sourceTree = "<group>"; };
 		8E78BDF02135343A000A9EA4 /* zhuanfasetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhuanfasetViewController.h; sourceTree = "<group>"; };
@@ -1886,6 +1894,8 @@
 		547C489E1F1DBB8200178B67 /* APPDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				8E3E6D87213D37AD007B3306 /* LYAccount.h */,
+				8E3E6D86213D37AD007B3306 /* LYAccount.m */,
 				547C49AF1F1DCF5300178B67 /* Common.h */,
 				547C49AE1F1DBD3F00178B67 /* Prefix.pch */,
 				547C486E1F1DA8AF00178B67 /* AppDelegate.h */,
@@ -2705,6 +2715,9 @@
 				8E3E6D592138D76F007B3306 /* WeChateBoardViewController.h */,
 				8E3E6D582138D76F007B3306 /* WeChateBoardViewController.m */,
 				8E3E6D562138D76E007B3306 /* WeChateBoardViewController.xib */,
+				8E3E6D81213D067B007B3306 /* registViewController.h */,
+				8E3E6D82213D067B007B3306 /* registViewController.m */,
+				8E3E6D83213D067B007B3306 /* registViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2945,6 +2958,10 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
+<<<<<<< HEAD
+=======
+						DevelopmentTeam = 9MHQLQBTW8;
+>>>>>>> c5f9328cfebd07269c399a2cfba49c8ac1c2efbd
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -3048,6 +3065,7 @@
 				547C49A71F1DBB8200178B67 /* tab_index_nor@3x.png in Resources */,
 				547C48781F1DA8AF00178B67 /* Assets.xcassets in Resources */,
 				019AEE7921382B0B00EB3405 /* comment_bg@2x.png in Resources */,
+				8E3E6D85213D067B007B3306 /* registViewController.xib in Resources */,
 				019AEE8821382B0B00EB3405 /* moment_operate@3x.png in Resources */,
 				8E78BE0C213547C3000A9EA4 /* zhuanfashuView.xib in Resources */,
 				8E3E6D382138D4BE007B3306 /* README.txt in Resources */,
@@ -3130,6 +3148,7 @@
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/RTRootNavigationController/RTRootNavigationController.framework",
 				"${BUILT_PRODUCTS_DIR}/SDCycleScrollView/SDCycleScrollView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
@@ -3147,6 +3166,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RTRootNavigationController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDCycleScrollView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
@@ -3181,6 +3201,7 @@
 				8EA9531A212BBC080057AC78 /* SideViewController.m in Sources */,
 				547C497D1F1DBB8200178B67 /* SGDatePicker.m in Sources */,
 				01120EEA21338F9C0071AC5F /* IndentControl.m in Sources */,
+				8E3E6D88213D37AE007B3306 /* LYAccount.m in Sources */,
 				547C49801F1DBB8200178B67 /* SGDatePickerSheetView.m in Sources */,
 				01120FF6213392FD0071AC5F /* NSObject+YYModel.m in Sources */,
 				01120EF421338F9C0071AC5F /* VIPViewController.m in Sources */,
@@ -3324,6 +3345,7 @@
 				8EA952FA212BAA930057AC78 /* ZLPhotoRect.m in Sources */,
 				8E78BE13213643B3000A9EA4 /* releaseActivitiesModel.m in Sources */,
 				8EA9530A212BAA930057AC78 /* ZLPhotoPickerViewController.m in Sources */,
+				8E3E6D84213D067B007B3306 /* registViewController.m in Sources */,
 				8EA952FF212BAA930057AC78 /* ZLPhotoPickerCustomToolBarView.m in Sources */,
 				8E78BE2721366E88000A9EA4 /* SimilarProductModel.m in Sources */,
 				01F1E000213C0944009A925A /* AddressModel.m in Sources */,
@@ -3563,7 +3585,11 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+<<<<<<< HEAD
 				DEVELOPMENT_TEAM = "";
+=======
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
+>>>>>>> c5f9328cfebd07269c399a2cfba49c8ac1c2efbd
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3613,7 +3639,11 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+<<<<<<< HEAD
 				DEVELOPMENT_TEAM = "";
+=======
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
+>>>>>>> c5f9328cfebd07269c399a2cfba49c8ac1c2efbd
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

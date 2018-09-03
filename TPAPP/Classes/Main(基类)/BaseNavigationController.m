@@ -26,6 +26,8 @@
     [navBar setShadowImage:[UIImage new]];
 }
 
+
+
 //hide  tabbar
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     

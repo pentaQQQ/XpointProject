@@ -159,6 +159,9 @@
                                                 <state key="normal" title="批量转发">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="zhuanfaBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="FMk-4t-4XD"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBa-vP-nbL">
                                                 <rect key="frame" x="0.0" y="52" width="80" height="30"/>
@@ -167,6 +170,9 @@
                                                 <state key="normal" title="去抢购">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="qianggouBtnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="z0e-9t-7ZY"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

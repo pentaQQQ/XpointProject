@@ -37,4 +37,8 @@
 
 @property(nonatomic,strong)releaseActivitiesModel*model;
 
+@property(nonatomic,copy)void(^qianggouBlock)(releaseActivitiesModel*model);
+
+
+
 @end
