@@ -36,8 +36,7 @@
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
-    self.gradientBgView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height-100);
-    
+    self.gradientBgView.frame = CGRectMake(0, -500, self.frame.size.width, 660);
     CGFloat x1 = 0, y1 = self.gradientBgView.frame.size.height - 44, x2 = CGRectGetMidX(self.gradientBgView.frame), y2 = CGRectGetMaxY(self.gradientBgView.frame), x3 = rect.size.width, y3 = y1;
     CGPoint p0 = CGPointMake(x1, x1);
     CGPoint p1 = CGPointMake(x1, y1);
@@ -72,7 +71,7 @@
     self.sLayer.frame = self.gradientBgView.bounds;
     self.gradientBgView.layer.mask = self.sLayer;
     
-    self.headerBgView.frame = CGRectMake(20, 500, self.frame.size.width-40, 240);
+    self.headerBgView.frame = CGRectMake(20, 0, self.frame.size.width-40, 240);
     self.headerBgView.layer.cornerRadius = 4.0;
     self.headerBgView.layer.shadowColor = [UIColor grayColor].CGColor;//阴影颜色
     self.headerBgView.layer.shadowOffset = CGSizeMake(0, 1);//阴影偏移量

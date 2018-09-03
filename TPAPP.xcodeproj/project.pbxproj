@@ -123,6 +123,9 @@
 		012997CA2139267200ADE72B /* TransportationSeationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 012997BD2139267100ADE72B /* TransportationSeationView.xib */; };
 		012997CB2139267200ADE72B /* GoodLogisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997C02139267200ADE72B /* GoodLogisticsModel.m */; };
 		017888A521359FD400C17F07 /* CustomerReCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 017888A421359FD400C17F07 /* CustomerReCell.m */; };
+		01944F7D213CE4BA00831504 /* XYNoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01944F77213CE4B900831504 /* XYNoDataView.m */; };
+		01944F7E213CE4BA00831504 /* UICollectionView+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 01944F7A213CE4B900831504 /* UICollectionView+XY.m */; };
+		01944F7F213CE4BA00831504 /* UITableView+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 01944F7B213CE4BA00831504 /* UITableView+XY.m */; };
 		019AA51821343CFC0018A832 /* BuyGoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51721343CFC0018A832 /* BuyGoodsListController.m */; };
 		019AA51C21343F600018A832 /* SystemInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51B21343F600018A832 /* SystemInformationController.m */; };
 		019AA51F213440AF0018A832 /* SystemInformationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AA51E213440AF0018A832 /* SystemInformationCell.m */; };
@@ -598,6 +601,12 @@
 		012997C02139267200ADE72B /* GoodLogisticsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsModel.m; sourceTree = "<group>"; };
 		017888A321359FD400C17F07 /* CustomerReCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerReCell.h; sourceTree = "<group>"; };
 		017888A421359FD400C17F07 /* CustomerReCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerReCell.m; sourceTree = "<group>"; };
+		01944F77213CE4B900831504 /* XYNoDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYNoDataView.m; sourceTree = "<group>"; };
+		01944F78213CE4B900831504 /* UITableView+XY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+XY.h"; sourceTree = "<group>"; };
+		01944F79213CE4B900831504 /* UICollectionView+XY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+XY.h"; sourceTree = "<group>"; };
+		01944F7A213CE4B900831504 /* UICollectionView+XY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+XY.m"; sourceTree = "<group>"; };
+		01944F7B213CE4BA00831504 /* UITableView+XY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+XY.m"; sourceTree = "<group>"; };
+		01944F7C213CE4BA00831504 /* XYNoDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYNoDataView.h; sourceTree = "<group>"; };
 		019AA51621343CFC0018A832 /* BuyGoodsListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyGoodsListController.h; sourceTree = "<group>"; };
 		019AA51721343CFC0018A832 /* BuyGoodsListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuyGoodsListController.m; sourceTree = "<group>"; };
 		019AA51A21343F600018A832 /* SystemInformationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemInformationController.h; sourceTree = "<group>"; };
@@ -1644,6 +1653,19 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		01944F76213CE49400831504 /* 无数据时提示 */ = {
+			isa = PBXGroup;
+			children = (
+				01944F79213CE4B900831504 /* UICollectionView+XY.h */,
+				01944F7A213CE4B900831504 /* UICollectionView+XY.m */,
+				01944F78213CE4B900831504 /* UITableView+XY.h */,
+				01944F7B213CE4BA00831504 /* UITableView+XY.m */,
+				01944F7C213CE4BA00831504 /* XYNoDataView.h */,
+				01944F77213CE4B900831504 /* XYNoDataView.m */,
+			);
+			path = "无数据时提示";
+			sourceTree = "<group>";
+		};
 		019AA51921343EFA0018A832 /* 系统信息 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1809,6 +1831,7 @@
 				012997842139212B00ADE72B /* Recovered References */,
 			);
 			sourceTree = "<group>";
+			wrapsLines = 0;
 		};
 		547C48691F1DA8AF00178B67 /* Products */ = {
 			isa = PBXGroup;
@@ -1974,6 +1997,7 @@
 		547C48C31F1DBB8200178B67 /* Manual(第三方) */ = {
 			isa = PBXGroup;
 			children = (
+				01944F76213CE49400831504 /* 无数据时提示 */,
 				01F1DFF7213ACFD5009A925A /* MBProgressHUD */,
 				8E3E6D322138D4BD007B3306 /* WechatSDK1.8.2 */,
 				019AEE1A21382A5C00EB3405 /* MLLabel */,
@@ -2921,7 +2945,6 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 4K4B647X6V;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -3231,6 +3254,7 @@
 				547C49651F1DBB8200178B67 /* LKBubbleView.m in Sources */,
 				01120FF5213392FD0071AC5F /* BRStringPickerView.m in Sources */,
 				8EA95317212BBB810057AC78 /* UIViewController+XYSideCategory.m in Sources */,
+				01944F7E213CE4BA00831504 /* UICollectionView+XY.m in Sources */,
 				547C498C1F1DBB8200178B67 /* UIAlertController+Extension.m in Sources */,
 				547C49921F1DBB8200178B67 /* NSData+CommonCrypto.m in Sources */,
 				0112100B213392FD0071AC5F /* JXCategoryTitleCell.m in Sources */,
@@ -3309,6 +3333,7 @@
 				01121012213392FD0071AC5F /* MGSwipeButton.m in Sources */,
 				8E3E6D632138D79B007B3306 /* UIButton+LYCountDownButton.m in Sources */,
 				547C497E1F1DBB8200178B67 /* SGDatePickerCenterView.m in Sources */,
+				01944F7F213CE4BA00831504 /* UITableView+XY.m in Sources */,
 				01120FFD213392FD0071AC5F /* JXCategoryBaseCell.m in Sources */,
 				8EA952F7212BAA930057AC78 /* ZLCamera.m in Sources */,
 				01120EFE21338F9C0071AC5F /* MineBaseController.m in Sources */,
@@ -3372,6 +3397,7 @@
 				01121005213392FD0071AC5F /* JXCategoryLineStyleCell.m in Sources */,
 				012997C72139267200ADE72B /* TransportationCell.m in Sources */,
 				019AEE3C21382A5C00EB3405 /* MLLabelLayoutManager.m in Sources */,
+				01944F7D213CE4BA00831504 /* XYNoDataView.m in Sources */,
 				547C486D1F1DA8AF00178B67 /* main.m in Sources */,
 				012997C92139267200ADE72B /* TransportationSeationView.m in Sources */,
 				01120F0121338F9C0071AC5F /* ApplyGoodsServiceController.m in Sources */,
@@ -3537,7 +3563,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4K4B647X6V;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3587,7 +3613,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4K4B647X6V;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
