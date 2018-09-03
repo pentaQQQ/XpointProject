@@ -50,7 +50,7 @@
     .bottomSpaceToView(self.view, 0)
     .leftSpaceToView(self.view, 0)
     .widthIs(kScreenWidth)
-    .heightIs(50);
+    .heightIs(50+SafeAreaBottomHeight);
     self.priceLabel = [[UILabel alloc] init];
     self.priceLabel.text = @"合计:";
     self.priceLabel.textAlignment = NSTextAlignmentLeft;

@@ -47,10 +47,10 @@
     self.bottomView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.bottomView];
     self.bottomView.sd_layout
-    .bottomSpaceToView(self.view, 0)
+    .bottomSpaceToView(self.view,0)
     .leftSpaceToView(self.view, 0)
     .widthIs(kScreenWidth)
-    .heightIs(50);
+    .heightIs(50+SafeAreaBottomHeight);
     self.priceLabel = [[UILabel alloc] init];
     self.priceLabel.text = @"合计:";
     self.priceLabel.textAlignment = NSTextAlignmentLeft;
@@ -89,8 +89,9 @@
     
     self.buyButton = [[UIButton alloc] init];
     self.buyButton.backgroundColor = colorWithRGB(0xFF6B24);
-    [self.buyButton setTitle:@"结算" forState:UIControlStateNormal];
+    [self.buyButton setTitle:@"提交订单" forState:UIControlStateNormal];
     [self.buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.buyButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.buyButton addTarget:self action:@selector(buyButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.bottomView addSubview:self.buyButton];
     self.buyButton.sd_layout

@@ -175,6 +175,10 @@
 		019AEE9B21382B0B00EB3405 /* MMImagePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7321382B0B00EB3405 /* MMImagePreviewView.m */; };
 		019AEE9C21382B0B00EB3405 /* MMOperateMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7521382B0B00EB3405 /* MMOperateMenuView.m */; };
 		019AEE9D21382B0B00EB3405 /* MomentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7721382B0B00EB3405 /* MomentCell.m */; };
+		01F1DFF6213A7CF6009A925A /* MineIndentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1DFF5213A7CF6009A925A /* MineIndentListCell.m */; };
+		01F1DFFC213ACFD5009A925A /* MBProgressHUD+NJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1DFF9213ACFD5009A925A /* MBProgressHUD+NJ.m */; };
+		01F1DFFD213ACFD5009A925A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1DFFB213ACFD5009A925A /* MBProgressHUD.m */; };
+		01F1E000213C0944009A925A /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1DFFF213C0944009A925A /* AddressModel.m */; };
 		20908A7E4AD0D5620F537756 /* Pods_TPAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DEB8D54F546355CB17A5807 /* Pods_TPAPP.framework */; };
 		547C486D1F1DA8AF00178B67 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C486C1F1DA8AF00178B67 /* main.m */; };
 		547C48701F1DA8AF00178B67 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C486F1F1DA8AF00178B67 /* AppDelegate.m */; };
@@ -673,6 +677,14 @@
 		019AEE7621382B0B00EB3405 /* MomentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentCell.h; sourceTree = "<group>"; };
 		019AEE7721382B0B00EB3405 /* MomentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentCell.m; sourceTree = "<group>"; };
 		019AEE7821382B0B00EB3405 /* MomentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentKit.h; sourceTree = "<group>"; };
+		01F1DFF4213A7CF6009A925A /* MineIndentListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineIndentListCell.h; sourceTree = "<group>"; };
+		01F1DFF5213A7CF6009A925A /* MineIndentListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineIndentListCell.m; sourceTree = "<group>"; };
+		01F1DFF8213ACFD5009A925A /* MBProgressHUD+NJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+NJ.h"; sourceTree = "<group>"; };
+		01F1DFF9213ACFD5009A925A /* MBProgressHUD+NJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+NJ.m"; sourceTree = "<group>"; };
+		01F1DFFA213ACFD5009A925A /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		01F1DFFB213ACFD5009A925A /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		01F1DFFE213C0944009A925A /* AddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
+		01F1DFFF213C0944009A925A /* AddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		3DEB8D54F546355CB17A5807 /* Pods_TPAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TPAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		547C48681F1DA8AF00178B67 /* TPAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TPAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		547C486C1F1DA8AF00178B67 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1109,6 +1121,8 @@
 				01120EB121338F9C0071AC5F /* AddressManageController.m */,
 				01120EB221338F9C0071AC5F /* EditAddressController.h */,
 				01120EB321338F9C0071AC5F /* EditAddressController.m */,
+				01F1DFFE213C0944009A925A /* AddressModel.h */,
+				01F1DFFF213C0944009A925A /* AddressModel.m */,
 			);
 			path = "地址管理";
 			sourceTree = "<group>";
@@ -1162,6 +1176,8 @@
 				01120EC721338F9C0071AC5F /* MineIndentChildController.m */,
 				01120EC821338F9C0071AC5F /* MineIndentViewController.h */,
 				01120EC921338F9C0071AC5F /* MineIndentViewController.m */,
+				01F1DFF4213A7CF6009A925A /* MineIndentListCell.h */,
+				01F1DFF5213A7CF6009A925A /* MineIndentListCell.m */,
 			);
 			path = "我的订单";
 			sourceTree = "<group>";
@@ -1761,6 +1777,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		01F1DFF7213ACFD5009A925A /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				01F1DFF8213ACFD5009A925A /* MBProgressHUD+NJ.h */,
+				01F1DFF9213ACFD5009A925A /* MBProgressHUD+NJ.m */,
+				01F1DFFA213ACFD5009A925A /* MBProgressHUD.h */,
+				01F1DFFB213ACFD5009A925A /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		138A493607932299C6FEF726 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1947,6 +1974,7 @@
 		547C48C31F1DBB8200178B67 /* Manual(第三方) */ = {
 			isa = PBXGroup;
 			children = (
+				01F1DFF7213ACFD5009A925A /* MBProgressHUD */,
 				8E3E6D322138D4BD007B3306 /* WechatSDK1.8.2 */,
 				019AEE1A21382A5C00EB3405 /* MLLabel */,
 				019AEE0E21382A5B00EB3405 /* MMWebView */,
@@ -2893,6 +2921,7 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 4K4B647X6V;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -3258,6 +3287,7 @@
 				8EA95305212BAA930057AC78 /* ZLPhotoAssets.m in Sources */,
 				019AEE9521382B0B00EB3405 /* Comment.m in Sources */,
 				019AEE9A21382B0B00EB3405 /* MMImageListView.m in Sources */,
+				01F1DFFC213ACFD5009A925A /* MBProgressHUD+NJ.m in Sources */,
 				01120F0221338F9C0071AC5F /* ApplyTXViewController.m in Sources */,
 				547C49881F1DBB8200178B67 /* ShareView.m in Sources */,
 				8E78BE2421366E4C000A9EA4 /* GoodsDetailViewController.m in Sources */,
@@ -3272,6 +3302,7 @@
 				8EA9530A212BAA930057AC78 /* ZLPhotoPickerViewController.m in Sources */,
 				8EA952FF212BAA930057AC78 /* ZLPhotoPickerCustomToolBarView.m in Sources */,
 				8E78BE2721366E88000A9EA4 /* SimilarProductModel.m in Sources */,
+				01F1E000213C0944009A925A /* AddressModel.m in Sources */,
 				8ED5B4BB212A6AC100B5983B /* SGPageContentCollectionView.m in Sources */,
 				8EA95356212E62480057AC78 /* zhuanfaCell.m in Sources */,
 				8E78BE0021353B23000A9EA4 /* jiajiaView.m in Sources */,
@@ -3293,6 +3324,7 @@
 				019AEE4321382A5C00EB3405 /* NSString+MLLabel.m in Sources */,
 				547C499B1F1DBB8200178B67 /* UIBarButtonItem+Create.m in Sources */,
 				8EA9534D212E4C550057AC78 /* zhuanfaViewController.m in Sources */,
+				01F1DFF6213A7CF6009A925A /* MineIndentListCell.m in Sources */,
 				0112101A213392FD0071AC5F /* YSStaticTableViewCell.m in Sources */,
 				8EA95332212BE1C20057AC78 /* pingpaiCell.m in Sources */,
 				547C495E1F1DBB8200178B67 /* NewsViewController.m in Sources */,
@@ -3313,6 +3345,7 @@
 				019AA51C21343F600018A832 /* SystemInformationController.m in Sources */,
 				8EA9532C212BE0D70057AC78 /* HeaderTabView.m in Sources */,
 				01120EF721338F9C0071AC5F /* EditAddressController.m in Sources */,
+				01F1DFFD213ACFD5009A925A /* MBProgressHUD.m in Sources */,
 				547C49981F1DBB8200178B67 /* GHWalkThroughView.m in Sources */,
 				01120F0321338F9C0071AC5F /* BankCardViewController.m in Sources */,
 				019AEE3521382A5C00EB3405 /* MMWebView.m in Sources */,
@@ -3504,7 +3537,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4K4B647X6V;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3554,7 +3587,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4K4B647X6V;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

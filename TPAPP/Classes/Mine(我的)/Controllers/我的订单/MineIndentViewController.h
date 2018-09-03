@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "MineBaseController.h"
 #import "BaseViewController.h"
+@protocol SelecteNumberDelegate <NSObject>
+- (void)selecteNumber:(NSInteger)index;
+@end
+
 @interface MineIndentViewController : BaseViewController
 @property (nonatomic, assign)NSInteger selectIndex;
+// 在这里定义一个属性，注意这里的修饰词要用weak
+@property(nonatomic,weak)id<SelecteNumberDelegate>selecteDelegate;
 @end
