@@ -630,9 +630,20 @@
       
       {
           
-          NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-          
-          success(dic);
+          if (!error) {
+              if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                  // 请求成功数据处理
+                  
+                  NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                  
+                  success(dic);
+                  
+              } else {
+                  
+              }
+          } else {
+              NSLog(@"请求失败error=%@", error);
+          }
           
       }] resume];
     
