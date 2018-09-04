@@ -87,7 +87,7 @@
         pageTitleViewY = 88;
     }
     
-
+    
     SGPageTitleViewConfigure *configure = [SGPageTitleViewConfigure pageTitleViewConfigure];
     configure.indicatorAdditionalWidth = 10; // 说明：指示器额外增加的宽度，不设置，指示器宽度为标题文字宽度；若设置无限大，则指示器宽度为按钮宽度
     configure.showBottomSeparator = NO;
@@ -113,8 +113,8 @@
     /// pageTitleView
     self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(44, pageTitleViewY, self.view.frame.size.width-88, 44) delegate:self titleNames:self.titleArr configure:configure];
     [self.view addSubview:_pageTitleView];
-//    [_pageTitleView addBadgeForIndex:1];
-//    [_pageTitleView addBadgeForIndex:5];
+    //    [_pageTitleView addBadgeForIndex:1];
+    //    [_pageTitleView addBadgeForIndex:5];
     
     NSMutableArray *childArr = [NSMutableArray array];
     for (int i=0; i<self.titleArr.count; i++) {
@@ -161,12 +161,12 @@
 
 
 //网络请求实列
-- (void)lodaDataSuccess:(void(^)(id respons))success
-{[[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
+- (void)lodaDataSuccess:(void(^)(id respons))success{
+  
+    [[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
         
         NSLog(@"%@",json);
-        
-        
+
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             
@@ -177,7 +177,7 @@
                 [self.dataArr addObject:model];
             }
             success(self.titleArr);
-         
+            
         }
         
     } failure:^(NSError *error) {
@@ -190,10 +190,10 @@
 -(void)setUpDrageBtn{
     LXFloaintButton *button = [LXFloaintButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0, kScreenHeight-80-SafeAreaBottomHeight-49, 80,80);
-    [button setTitle:@"拖动" forState:UIControlStateNormal];
-    button.backgroundColor =[UIColor blueColor];
+    [button setTitle:@"开始转发" forState:UIControlStateNormal];
+    button.backgroundColor =[UIColor lightGrayColor];
     ViewBorderRadius(button, 40, 0, [UIColor clearColor]);
-    
+    button.titleLabel.font = [UIFont systemFontOfSize:12];
     button.safeInsets = UIEdgeInsetsMake(0, 0, SafeAreaBottomHeight, 0);
     [self.view addSubview:button];
     
@@ -206,9 +206,9 @@
 
 -(void)buttonClick{
     zhuanfaViewController *vc = [[zhuanfaViewController alloc]init];
-//    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-//
-//    [self presentViewController:nav animated:YES completion:nil];
+    //    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    //
+    //    [self presentViewController:nav animated:YES completion:nil];
     
     
     [self.navigationController pushViewController:vc animated:YES];

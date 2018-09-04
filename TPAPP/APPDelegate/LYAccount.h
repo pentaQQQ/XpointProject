@@ -10,6 +10,7 @@
 
 @interface LYAccount : NSObject
 + (instancetype)shareAccount;
+
 @property (nonatomic, copy) NSString *buyNo;
 @property (nonatomic, copy) NSString *createBy;
 @property (nonatomic, copy) NSString *createDataTime;
