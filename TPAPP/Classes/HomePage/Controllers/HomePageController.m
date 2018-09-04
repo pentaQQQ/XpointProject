@@ -190,10 +190,10 @@
 -(void)setUpDrageBtn{
     LXFloaintButton *button = [LXFloaintButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0, kScreenHeight-80-SafeAreaBottomHeight-49, 80,80);
-    [button setTitle:@"拖动" forState:UIControlStateNormal];
-    button.backgroundColor =[UIColor blueColor];
+    [button setTitle:@"开始转发" forState:UIControlStateNormal];
+    button.backgroundColor =[UIColor lightGrayColor];
     ViewBorderRadius(button, 40, 0, [UIColor clearColor]);
-    
+    button.titleLabel.font = [UIFont systemFontOfSize:12];
     button.safeInsets = UIEdgeInsetsMake(0, 0, SafeAreaBottomHeight, 0);
     [self.view addSubview:button];
     

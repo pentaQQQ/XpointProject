@@ -69,4 +69,11 @@
 +(void)mySort:(NSMutableArray*)mutArray andInterger:(NSInteger)interger;
 +(void)setUpTabbarController;
 +(void)ToLogin;
++(void)postBossDemoWithUrl:(NSString*)url
+
+                     param:(NSString*)param
+
+                   success:(void(^)(NSDictionary *dict))success
+
+                      fail:(void (^)(NSError *error))fail;
 @end

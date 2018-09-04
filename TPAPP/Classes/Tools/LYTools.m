@@ -588,8 +588,57 @@
     LoginViewController*vc = [[LoginViewController alloc]init];
     RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
     rootVC.rt_disableInteractivePop = YES ;
-     [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+    [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
 }
+
+
+
+
+
+
+
++(void)postBossDemoWithUrl:(NSString*)url
+
+                     param:(NSString*)param
+
+                   success:(void(^)(NSDictionary *dict))success
+
+                      fail:(void (^)(NSError *error))fail
+
+{
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];//不设置会报-1016或者会有编码问题
+    
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer]; //不设置会报-1016或者会有编码问题
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer]; //不设置会报 error 3840
+    
+    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json",@"text/json", @"text/javascript",@"text/html",@"text/plain",nil]];
+    
+    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:url parameters:nil error:nil];
+    [request addValue:@"application/json"forHTTPHeaderField:@"Content-Type"];
+    
+    NSData *body  =[param dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [request setHTTPBody:body];
+    
+    //发起请求
+    
+    [[manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *_Nonnull response, id _Nullable responseObject,NSError * _Nullable error)
+      
+      {
+          
+          NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+          
+          success(dic);
+          
+      }] resume];
+    
+}
+
+
 
 
 @end

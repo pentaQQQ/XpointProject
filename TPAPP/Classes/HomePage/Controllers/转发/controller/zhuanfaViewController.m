@@ -42,7 +42,7 @@
 }
 
 -(void)leftitemClick{
-     [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 -(void)rightitemClick{
     zhuanfasetViewController *vc = [[zhuanfasetViewController alloc]init];
@@ -58,8 +58,8 @@
     tableview.delegate = self;
     tableview.dataSource = self;
     
- 
-
+    
+    
     zhuanfaHeaderView*headerview = [[NSBundle mainBundle]loadNibNamed:@"zhuanfaHeaderView" owner:self options:nil].lastObject;
     self.headerview = headerview;
     
