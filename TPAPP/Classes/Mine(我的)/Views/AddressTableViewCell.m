@@ -7,7 +7,7 @@
 //
 
 #import "AddressTableViewCell.h"
-
+#import "AddressModel.h"
 @implementation AddressTableViewCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -50,14 +50,14 @@
     self.statusImageView = [[UIImageView alloc] init];
     [self.contentView addSubview:self.statusImageView];
     self.statusImageView.sd_layout
-    .topSpaceToView(self.contentView, 27.5)
+    .topSpaceToView(self.contentView, 17.5)
     .rightSpaceToView(self.contentView, 20)
     .widthIs(15)
     .heightIs(15);
     
     
     self.addressLabel = [[UILabel alloc] init];
-    self.addressLabel.font = [UIFont systemFontOfSize:15];
+    self.addressLabel.font = [UIFont systemFontOfSize:14];
     self.addressLabel.textColor = [UIColor lightGrayColor];
     [self.contentView addSubview:self.addressLabel];
     self.addressLabel.sd_layout
@@ -72,8 +72,8 @@
     [self.contentView addSubview:self.detailAddressLabel];
     self.detailAddressLabel.sd_layout
     .topSpaceToView(self.userNameLabel, 0)
-    .leftSpaceToView(self.contentView, 130+10+25)
-    .widthIs(120)
+    .leftSpaceToView(self.addressLabel, 10)
+    .rightSpaceToView(self.contentView, 20)
     .heightIs(20);
     
     self.lineView = [[UIView alloc] init];
@@ -126,41 +126,43 @@
 }
 -(void)editBtnAction:(UIButton *)btn
 {
-    self.selectBlcok(0);
+    self.selectBlcok(0,self.addressModel);
 }
-- (void)configWithModel:(NSMutableArray *)arr
+- (void)configWithModel:(AddressModel *)model
 {
+    self.addressModel = model;
     self.userNameLabel.sd_layout
     .topSpaceToView(self.contentView, 10)
     .leftSpaceToView(self.contentView, 45)
-    .widthIs([self widthLabelWithModel:arr[0] withFont:17])
+    .widthIs([self widthLabelWithModel:model.recNickName withFont:17])
     .heightIs(25);
-    self.userNameLabel.text = arr[0];
+    self.userNameLabel.text = model.recNickName;
     self.userNameLabel.adjustsFontSizeToFitWidth = YES;
     
     self.iphoneLabel.sd_layout
     .topSpaceToView(self.contentView, 10)
     .leftSpaceToView(self.userNameLabel, 10)
-    .widthIs([self widthLabelWithModel:arr[1] withFont:17])
+    .widthIs([self widthLabelWithModel:model.recPhone withFont:17])
     .heightIs(25);
-    self.iphoneLabel.text = arr[1];
+    self.iphoneLabel.text = model.recPhone;
     self.iphoneLabel.adjustsFontSizeToFitWidth = YES;
+    
     self.addressLabel.sd_layout
     .topSpaceToView(self.userNameLabel, 0)
     .leftSpaceToView(self.contentView, 45)
-    .widthIs([self widthLabelWithModel:arr[2] withFont:15])
+    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"%@ %@ %@",model.recProv,model.recCity,model.recArea] withFont:14])
     .heightIs(20);
-    self.addressLabel.text = arr[2];
-    self.addressLabel.adjustsFontSizeToFitWidth = YES;
+    self.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@",model.recProv,model.recCity,model.recArea];
+//    self.addressLabel.adjustsFontSizeToFitWidth = YES;
     
     self.detailAddressLabel.sd_layout
     .topSpaceToView(self.userNameLabel, 0)
-    .leftSpaceToView(self.contentView, [self widthLabelWithModel:arr[2] withFont:15]+10+15+25)
-    .widthIs([self widthLabelWithModel:arr[3] withFont:14])
+    .leftSpaceToView(self.addressLabel,10)
+    .rightSpaceToView(self.contentView, 20)
     .heightIs(20);
-    self.detailAddressLabel.text = arr[3];
-    self.detailAddressLabel.adjustsFontSizeToFitWidth = YES;
-    if ([arr[4] intValue] == 1) {
+    self.detailAddressLabel.text = model.recAddress;
+//    self.detailAddressLabel.adjustsFontSizeToFitWidth = YES;
+    if ([model.isDefault intValue] == 1) {
        self.statusImageView.image = [UIImage imageNamed:@"已选中"];
         self.defaultImageView.image = [UIImage imageNamed:@"icon_open"];
     }else{

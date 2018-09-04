@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import "AddressModel.h"
 @interface EditAddressController : BaseViewController
-
+@property (nonatomic, strong)AddressModel *addressModel;
 @end

@@ -71,7 +71,7 @@
 +(void)ToLogin;
 +(void)postBossDemoWithUrl:(NSString*)url
 
-                     param:(NSString*)param
+                     param:(NSDictionary*)param
 
                    success:(void(^)(NSDictionary *dict))success
 

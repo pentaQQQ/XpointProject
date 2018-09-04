@@ -15,5 +15,5 @@
 @property (nonatomic,strong)UITextView *myTextView;
 @property (nonatomic,strong)UISwitch *defaultSwitch;
 @property (nonatomic, strong)void(^myBlock)(NSDictionary*);
-- (void)configWithModel:(NSMutableArray *)arr;
+- (void)configWithModel:(NSMutableArray *)arr withModelData:(NSMutableArray *)modelArr;
 @end
