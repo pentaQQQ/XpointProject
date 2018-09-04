@@ -21,4 +21,12 @@
     // Configure the view for the selected state
 }
 
+-(void)setModel:(shanghuModel *)model{
+    
+    _model = model;
+    self.title.text = model.merchantName;
+    
+    
+}
+
 @end

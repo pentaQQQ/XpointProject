@@ -284,6 +284,8 @@
 		8E3E6D84213D067B007B3306 /* registViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D82213D067B007B3306 /* registViewController.m */; };
 		8E3E6D85213D067B007B3306 /* registViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D83213D067B007B3306 /* registViewController.xib */; };
 		8E3E6D88213D37AE007B3306 /* LYAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D86213D37AD007B3306 /* LYAccount.m */; };
+		8E3E6D8B213E764C007B3306 /* shanghuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D8A213E764C007B3306 /* shanghuModel.m */; };
+		8E3E6D8E213E8697007B3306 /* MerchanDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D8D213E8697007B3306 /* MerchanDetailViewController.m */; };
 		8E78BDF52135343A000A9EA4 /* zhuanfasetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */; };
 		8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */; };
 		8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDF22135343A000A9EA4 /* tupiansetview.xib */; };
@@ -879,6 +881,10 @@
 		8E3E6D83213D067B007B3306 /* registViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = registViewController.xib; sourceTree = "<group>"; };
 		8E3E6D86213D37AD007B3306 /* LYAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYAccount.m; sourceTree = "<group>"; };
 		8E3E6D87213D37AD007B3306 /* LYAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYAccount.h; sourceTree = "<group>"; };
+		8E3E6D89213E764C007B3306 /* shanghuModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shanghuModel.h; sourceTree = "<group>"; };
+		8E3E6D8A213E764C007B3306 /* shanghuModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = shanghuModel.m; sourceTree = "<group>"; };
+		8E3E6D8C213E8697007B3306 /* MerchanDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MerchanDetailViewController.h; sourceTree = "<group>"; };
+		8E3E6D8D213E8697007B3306 /* MerchanDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MerchanDetailViewController.m; sourceTree = "<group>"; };
 		8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = zhuanfasetViewController.xib; sourceTree = "<group>"; };
 		8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhuanfasetViewController.m; sourceTree = "<group>"; };
 		8E78BDF02135343A000A9EA4 /* zhuanfasetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhuanfasetViewController.h; sourceTree = "<group>"; };
@@ -2415,6 +2421,8 @@
 			children = (
 				8E78BE2021366E4C000A9EA4 /* GoodsDetailViewController.h */,
 				8E78BE2121366E4C000A9EA4 /* GoodsDetailViewController.m */,
+				8E3E6D8C213E8697007B3306 /* MerchanDetailViewController.h */,
+				8E3E6D8D213E8697007B3306 /* MerchanDetailViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2449,6 +2457,8 @@
 				8E78BE12213643B3000A9EA4 /* releaseActivitiesModel.m */,
 				8E78BE142136447D000A9EA4 /* imagesListModel.h */,
 				8E78BE152136447D000A9EA4 /* imagesListModel.m */,
+				8E3E6D89213E764C007B3306 /* shanghuModel.h */,
+				8E3E6D8A213E764C007B3306 /* shanghuModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3214,6 +3224,7 @@
 				8EA952FC212BAA930057AC78 /* ZLPhotoPickerBrowserViewController.m in Sources */,
 				8E78BDF82135343A000A9EA4 /* tupiansetview.m in Sources */,
 				01120EE621338F9C0071AC5F /* AddressTextView.m in Sources */,
+				8E3E6D8B213E764C007B3306 /* shanghuModel.m in Sources */,
 				01120F1A21338FB70071AC5F /* GoodsModel.m in Sources */,
 				9ABCEEA01FFCA6BB00DF4380 /* MSHttpTool.m in Sources */,
 				8E78BE05213541E5000A9EA4 /* zidingyijineView.m in Sources */,
@@ -3238,6 +3249,7 @@
 				547C49631F1DBB8200178B67 /* BaseViewController.m in Sources */,
 				01120FFC213392FD0071AC5F /* JXCategoryBackgroundImageView.m in Sources */,
 				547C495D1F1DBB8200178B67 /* UIView+Extension.m in Sources */,
+				8E3E6D8E213E8697007B3306 /* MerchanDetailViewController.m in Sources */,
 				01120F0821338F9C0071AC5F /* GoodsChildViewController.m in Sources */,
 				01121019213392FD0071AC5F /* YSStaticSectionModel.m in Sources */,
 				01120F1B21338FB70071AC5F /* BottomView.m in Sources */,

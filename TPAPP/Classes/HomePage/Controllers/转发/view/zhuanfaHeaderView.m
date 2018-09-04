@@ -112,4 +112,56 @@
 
 
 
+
+
+-(void)setModel:(SimilarProductModel *)model{
+    
+    _model = model;
+
+    NSString *str = @"";
+    for (int i=0; i<model.specs.count; i++) {
+        specsModel*spmodel =model.specs[i];
+        if (i== 0) {
+            str = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+        }else{
+            
+            NSString *tempstr = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+            str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
+        }
+    }
+    
+    
+    
+    self.xinghaoLab.text = model.merchantName;
+    self.kuanshiLab.text = [NSString stringWithFormat:@"尺码 %@",str];
+    self.kuanhaoLab.text = [NSString stringWithFormat:@"款式 %@",model.design];
+
+    
+     [self setImagewithArray:model.imagesList];
+    
+    
+    
+    
+}
+
+
+-(void)setImagewithArray:(NSArray*)array{
+  
+    imagesListModel *model1 =array[0];
+    imagesListModel *model2 =array[1];
+    
+     [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+     [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+}
+
+
+
+
+
+
+
+
+
+
+
 @end

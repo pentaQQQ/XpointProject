@@ -15,6 +15,7 @@
 @property(nonatomic,copy)NSString *discountAmount;
 @property(nonatomic,copy)NSString *id;
 @property(nonatomic,strong)NSArray *imagesList;
+@property(nonatomic,copy)NSString *logisticsFee;
 @property(nonatomic,copy)NSString *marketAmount;
 @property(nonatomic,copy)NSString *merchantCode;
 @property(nonatomic,copy)NSString *merchantId;

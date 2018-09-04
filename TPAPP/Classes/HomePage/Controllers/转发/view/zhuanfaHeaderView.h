@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SimilarProductModel.h"
+#import "specsModel.h"
+#import "imagesListModel.h"
 @interface zhuanfaHeaderView : UIView
 
 
@@ -40,5 +42,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *numberBtn;
 @property (weak, nonatomic) IBOutlet UIButton *zhuanfaBtn;
 
-
+@property(nonatomic,strong)SimilarProductModel*model;
 @end

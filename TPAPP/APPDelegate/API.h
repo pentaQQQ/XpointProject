@@ -47,9 +47,11 @@
 //获取用户转发配置
 #define getUserForwardConfi [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/getUserForwardConfi"]
 
+//获取商户列表
+#define getMerchantList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/main/getMerchantList"]
 
-
-
+//根据商户查询商品信息,返回所有已上架商品
+#define getProductByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getProductByMerchantId"]
 
 
 
