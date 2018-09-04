@@ -12,6 +12,7 @@
 #import "VIPViewController.h"
 #import "IdentificationController.h"
 #import "AddressManageController.h"
+#import "ZLNoAuthorityViewController.h"
 @interface AccountSetController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, readwrite, strong) UITableView *tableView;
 
@@ -156,12 +157,14 @@
             IdentificationController *idCtrl = [[IdentificationController alloc] init];
             [self.navigationController pushViewController:idCtrl animated:YES];
         }
-    }else{
+    }else if (indexPath.section ==2){
         if (indexPath.row == 0) {
             
         }else{
             
         }
+    }else{
+        
     }
     
 }
@@ -233,8 +236,14 @@
     model8.title = @"关于我们";
     
     YSStaticSectionModel *sm2 = [YSStaticSectionModel sectionWithItemArray:@[model7, model8]];
+    YSStaticDefaultModel *model9 = [[YSStaticDefaultModel alloc] init];
+    model9.title = @"退出登录";
+    model9.cellType = YSStaticCellTypeButton;
     
-    self.sectionModelArray = @[sm0, sm1, sm2];
+    YSStaticSectionModel *sm3 = [YSStaticSectionModel sectionWithItemArray:@[model9]];
+    
+    
+    self.sectionModelArray = @[sm0, sm1, sm2,sm3];
 }
 #pragma mark - 拍摄按钮的事件
 - (void)cameraBtnAction
@@ -244,24 +253,31 @@
     if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied)
         
     {
+        //无相册访问权限
+        ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
+        nvc.titleString = @"相机";
+        nvc.remindlString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许田洋仓访问你的相机";;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:nvc];
+        nav.modalTransitionStyle=UIModalTransitionStyleCoverVertical;
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
         //无权限
         //获取当前语言
-        NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-        NSArray *languages = [defs objectForKey:@"AppleLanguages"];
-        NSString *preferredLang = [languages objectAtIndex:0];
-        if ([preferredLang isEqualToString:@"en-CN"]||[preferredLang isEqualToString:@"en-IN"]||[preferredLang isEqualToString:@"en-US"]||[preferredLang isEqualToString:@"en-UK"]) {
-            //无相册访问权限
-            //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
-            //            nvc.titleString = @"相机";
-            //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相机";
-            //            [self presentVC:nvc];
-        }else{
-            //无相册访问权限
-            //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
-            //            nvc.titleString = @"相机";
-            //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相机";
-            //            [self presentVC:nvc];
-        }
+//        NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+//        NSArray *languages = [defs objectForKey:@"AppleLanguages"];
+//        NSString *preferredLang = [languages objectAtIndex:0];
+//        if ([preferredLang isEqualToString:@"en-CN"]||[preferredLang isEqualToString:@"en-IN"]||[preferredLang isEqualToString:@"en-US"]||[preferredLang isEqualToString:@"en-UK"]) {
+//            //无相册访问权限
+//            //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
+//            //            nvc.titleString = @"相机";
+//            //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相机";
+//            //            [self presentVC:nvc];
+//        }else{
+//            //无相册访问权限
+//            //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
+//            //            nvc.titleString = @"相机";
+//            //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相机";
+//            //            [self presentVC:nvc];
+//        }
     }else{
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
         //            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
@@ -276,28 +292,40 @@
     PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
     if (status == PHAuthorizationStatusRestricted ||
         status == PHAuthorizationStatusDenied) {
+        //无相册访问权限
+        ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
+        nvc.titleString = @"照片";
+        nvc.remindlString = @"请在iPhone的\"设置-隐私-照片\"选项中，允许田洋仓访问你的手机相册";;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:nvc];
+        nav.modalTransitionStyle=UIModalTransitionStyleCoverVertical;
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
         //获取当前语言
-        NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-        NSArray *languages = [defs objectForKey:@"AppleLanguages"];
-        NSString *preferredLang = [languages objectAtIndex:0];
-        if ([preferredLang isEqualToString:@"en-CN"]||[preferredLang isEqualToString:@"en-IN"]||[preferredLang isEqualToString:@"en-US"]||[preferredLang isEqualToString:@"en-UK"]) {
+//        NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+//        NSArray *languages = [defs objectForKey:@"AppleLanguages"];
+//        NSString *preferredLang = [languages objectAtIndex:0];
+//        if ([preferredLang isEqualToString:@"en-CN"]||[preferredLang isEqualToString:@"en-IN"]||[preferredLang isEqualToString:@"en-US"]||[preferredLang isEqualToString:@"en-UK"]) {
             //无相册访问权限
             //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
             //            nvc.titleString = @"相册";
             //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相册";
             //            [self presentVC:nvc];
-        }else{
+//        }else{
             //无相册访问权限
             //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
             //            nvc.titleString = @"相册";
             //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相册";
             //            [self presentVC:nvc];
+//        }
+        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        if ([[UIApplication sharedApplication] canOpenURL:url]) {
+            [[UIApplication sharedApplication] openURL:url];
         }
     }else{
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
         //            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
         controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         controller.delegate = self;
+        controller.allowsEditing = YES;
         [self presentViewController:controller animated:YES completion:nil];
     }
     

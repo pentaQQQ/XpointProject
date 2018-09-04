@@ -9,7 +9,7 @@
 #import "AddAddressCell.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
-@interface AddAddressCell ()<UITextViewDelegate>
+@interface AddAddressCell ()<UITextViewDelegate,UITextFieldDelegate>
 @end
 @implementation AddAddressCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -22,12 +22,13 @@
 
 - (void)createUI
 {
-    [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     
 }
 
 - (void)configWithModel:(NSMutableArray *)arr
 {
+    [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     if ([arr[2] intValue] == 0) {
         [self.contentView addSubview:self.titleLabel];
         self.titleLabel.text = arr[0];
@@ -38,14 +39,13 @@
         .heightIs(20);
         
         [self.contentView addSubview:self.myTextField];
+        self.myTextField.delegate = self;
         self.myTextField.font = [UIFont systemFontOfSize:15];
-//        self.myTextField.placeholder = arr[1];
         self.myTextField.sd_layout
         .topSpaceToView(self.contentView, 15)
         .rightSpaceToView(self.contentView, 15)
         .leftSpaceToView(self.titleLabel, 30)
         .heightIs(20);
-        //    self.roomNameTextField.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         self.myTextField.textAlignment = NSTextAlignmentRight;
         NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
         style.alignment = NSTextAlignmentRight;
@@ -78,19 +78,16 @@
         placeHolderLabel.textColor = [UIColor lightGrayColor];
         [placeHolderLabel sizeToFit];
         [self.myTextView addSubview:placeHolderLabel];
-        
+        self.myTextView.delegate = self;
         // same font
         self.myTextView.font = [UIFont systemFontOfSize:14.f];
         placeHolderLabel.font = [UIFont systemFontOfSize:14.f];
         [self.myTextView setValue:placeHolderLabel forKey:@"_placeholderLabel"];
-//        self.myTextView.text = arr[0];
         self.myTextView.sd_layout
         .topSpaceToView(self.contentView, 0)
         .leftSpaceToView(self.contentView, 10)
         .widthIs(kScreenWidth-20)
         .heightIs(50);
-        
-       
         
     }else if ([arr[2] intValue] == 3){
         [self.contentView addSubview:self.titleLabel];
@@ -102,6 +99,7 @@
         .heightIs(20);
         
         [self.contentView addSubview:self.defaultSwitch];
+        self.myBlock(@{@"isDefault":[NSString stringWithFormat:@"%d",[self.defaultSwitch isOn]]});
         self.defaultSwitch.sd_layout
         .topSpaceToView(self.contentView, 15)
         .rightSpaceToView(self.contentView, 10)
@@ -113,10 +111,32 @@
 {
     UISwitch *switchButton = (UISwitch*)sender;
     BOOL isButtonOn = [switchButton isOn];
+    self.myBlock(@{@"isDefault":[NSString stringWithFormat:@"%d",isButtonOn]});
     if (isButtonOn) {
     }else {
     }
 }
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+     NSLog(@"textField12 ________%@",textField.text);
+    if ([self.titleLabel.text isEqualToString:@"收货人:"]) {
+        self.myBlock(@{@"recNickName":self.myTextField.text});
+    }else if ([self.titleLabel.text isEqualToString:@"电    话:"]){
+         self.myBlock(@{@"recPhone":self.myTextField.text});
+    }else if ([self.titleLabel.text isEqualToString:@"身份证号码:"]){
+         self.myBlock(@{@"recIdentityCardNo":self.myTextField.text});
+    }
+}
+
+
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    NSLog(@"textView1 ==%@",textView.text);
+    self.myBlock(@{@"recAddress":self.myTextView.text});
+}
+
+
+
 #pragma mark-字体宽度自适应
 - (CGFloat)widthLabelWithModel:(NSString *)titleString withFont:(NSInteger)font
 {
@@ -162,23 +182,7 @@
 -(UITextView *)myTextView
 {
     if (_myTextView == nil) {
-        // 通过运行时，发现UITextView有一个叫做“_placeHolderLabel”的私有变量
-//        unsigned int count = 0;
-//        Ivar *ivars = class_copyIvarList([UITextView class], &count);
-//
-//        for (int i = 0; i < count; i++) {
-//            Ivar ivar = ivars[i];
-//            const char *name = ivar_getName(ivar);
-//            NSString *objcName = [NSString stringWithUTF8String:name];
-//            NSLog(@"%d : %@",i,objcName);
-//        }
         _myTextView = [[UITextView alloc] init];
-//        _myTextView.font = [UIFont systemFontOfSize:14];
-        // _placeholderLabel
-       
-//        _myTextView.zw_placeHolder = @"请输入详细地址";
-//        _myTextView.zw_limitCount = 30;
-//        _myTextView.zw_placeHolderColor = [UIColor lightGrayColor];
     }
     return _myTextView;
 }

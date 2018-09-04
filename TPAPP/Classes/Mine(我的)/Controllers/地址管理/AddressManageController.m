@@ -25,7 +25,7 @@
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
-    self.listDataArr = [NSMutableArray arrayWithObjects:@[@"Alan",@"18721488888",@"上海宝山区",@"沪太路3100号A座",@1],@[@"黄石",@"172156348548",@"上海黄浦区",@"四川中路181号234",@0],@[@"张三",@"15612739826",@"上海徐汇区",@"锦绣中路1200号",@0], nil];
+//    self.listDataArr = [NSMutableArray arrayWithObjects:@[@"Alan",@"18721488888",@"上海宝山区",@"沪太路3100号A座",@1],@[@"黄石",@"172156348548",@"上海黄浦区",@"四川中路181号234",@0],@[@"张三",@"15612739826",@"上海徐汇区",@"锦绣中路1200号",@0], nil];
     [self listTableView];
     self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     //自动更改透明度
@@ -75,13 +75,13 @@
 #pragma mark - 下拉刷新数据
 - (void)loadNewTopic
 {
-    [[NetworkManager sharedManager] getWithUrl:getAddressList param:@{@"id":@"123",@"userId":@"34"} success:^(id json) {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:[LYAccount shareAccount].id forKey:@"userId"];
+    [[NetworkManager sharedManager] getWithUrl:getAddressList param:dic success:^(id json) {
+        [self.listTableView.mj_header endRefreshing];
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            [self.listTableView.mj_header endRefreshing];
-          
-                
                
             [self.listTableView reloadData];
         }
@@ -193,6 +193,12 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+- (NSString *)xy_noDataViewMessage
+{
+    return @"暂无地址";
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

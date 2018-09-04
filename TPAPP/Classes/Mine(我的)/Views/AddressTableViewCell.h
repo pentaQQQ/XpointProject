@@ -19,7 +19,7 @@
 @property (nonatomic,strong)UIView *lineView;
 @property (nonatomic,strong)UIButton *editBtn;
 @property (nonatomic,strong)UILabel *defaultLabel;
-@property (nonatomic,strong)UISwitch *defaultSwitch;
+@property (nonatomic,strong)UIImageView *defaultImageView;
 @property (nonatomic,strong)void(^selectBlcok)(NSInteger);
 - (void)configWithModel:(NSMutableArray *)arr;
 @end

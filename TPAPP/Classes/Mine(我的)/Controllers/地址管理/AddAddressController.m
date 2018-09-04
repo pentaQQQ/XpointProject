@@ -15,11 +15,18 @@
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
 @property (nonatomic, strong)UIButton *addBtn;
+@property (nonatomic, strong)NSMutableDictionary *dataDict;
 //@property (nonatomic, strong) SHPlacePickerView *shplacePicker;
 @end
 
 @implementation AddAddressController
-
+-(NSMutableDictionary *)dataDict
+{
+    if (_dataDict == nil) {
+        _dataDict = [NSMutableDictionary dictionary];
+    }
+    return _dataDict;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -38,19 +45,19 @@
 }
 
 
-#pragma mark - 下拉刷新数据
-- (void)loadNewTopic
-{
-    [[NetworkManager sharedManager] getWithUrl:saveAddress param:@{@"id":@"123",@"userId":@"34"} success:^(id json) {
-        NSLog(@"%@",json);
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            
-        }
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
-}
+//#pragma mark - 下拉刷新数据
+//- (void)loadNewTopic
+//{
+//    [[NetworkManager sharedManager] getWithUrl:saveAddress param:@{@"id":@"123",@"userId":@"34"} success:^(id json) {
+//        NSLog(@"%@",json);
+//        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+//        if ([respCode isEqualToString:@"00000"]) {
+//
+//        }
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//    }];
+//}
 
 
 #pragma mark -自定义导航栏返回按钮
@@ -69,11 +76,78 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+-(NSArray *)cellsForTableView:(UITableView *)tableView
+{
+    NSInteger sections = tableView.numberOfSections;
+    NSMutableArray *cells = [[NSMutableArray alloc]  init];
+    for (int section = 0; section < sections; section++) {
+        NSInteger rows =  [tableView numberOfRowsInSection:section];
+        for (int row = 0; row < rows; row++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+            [cells addObject:[tableView cellForRowAtIndexPath:indexPath]];
+        }
+    }
+    return cells;
+}
 - (void)addBtnAction
 {
-//    AddAddressController *addCtrl = [[AddAddressController alloc] init];
-//    [self.navigationController pushViewController:addCtrl animated:YES];
+    if ([self.dataDict[@"recNickName"] length] == 0) {
+        
+    }else{
+        if ([self.dataDict[@"recPhone"] length] == 0) {
+            
+        }else{
+            if ([self.dataDict[@"recProv"] length] == 0) {
+                
+            }else{
+                if ([self.dataDict[@"recAddress"] length] == 0) {
+                    
+                }else{
+                    if ([self.dataDict[@"recIdentityCardNo"] length] == 0) {
+                        
+                    }else{
+                        
+                        [self.dataDict addEntriesFromDictionary:@{@"userId":[LYAccount shareAccount].id}];
+                        [self.dataDict addEntriesFromDictionary:@{@"isGeneration":@"0"}];
+                        // 请求头
+                        NSString *accessPath = saveAddress;
+                        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                        NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:accessPath parameters:self.dataDict error:nil];
+                        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+                        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                            NSLog(@"-----responseObject===%@+++++",responseObject);
+                            if (!error) {
+                                if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                                    // 请求成功数据处理
+                                } else {
+                                    
+                                }
+                            } else {
+                                NSLog(@"请求失败error=%@", error);
+                            }
+                        }];
+                        [task resume];
+//                        [[NetworkManager sharedManager] postWithUrl:saveAddress param:self.dataDict success:^(id json) {
+//                            NSLog(@"%@",json);
+//                            NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+//                            if ([respCode isEqualToString:@"00000"]) {
+//
+//                            }
+//                        } failure:^(NSError *error) {
+//                            NSLog(@"%@",error);
+//                        }];
+                    }
+                }
+            }
+        }
+    }
+    
+    
 }
+
+
+
 #pragma mark - 懒加载
 -(NSMutableArray *)listDataArr
 {
@@ -172,6 +246,9 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setMyBlock:^(NSDictionary *dict) {
+            [self.dataDict addEntriesFromDictionary:dict];
+        }];
         [cell configWithModel:self.listDataArr[indexPath.section][indexPath.row]];
         return cell;
     }
@@ -192,14 +269,24 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 15;
+    if (section == 0) {
+        return 15;
+    }else{
+        return 0;
+    }
+    
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 15)];
-    view.backgroundColor = colorWithRGB(0xEEEEEE);
-    
-    return view;
+    if (section == 0) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 15)];
+        view.backgroundColor = [UIColor clearColor];
+        
+        return view;
+    }else{
+        return nil;
+    }
+   
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -221,12 +308,11 @@
     if (indexPath.section == 1 && indexPath.row == 0) {
         [BRAddressPickerView showAddressPickerWithDefaultSelected:@[@10, @0, @3] isAutoSelect:YES resultBlock:^(NSArray *selectAddressArr) {
             cell.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@", selectAddressArr[0], selectAddressArr[1], selectAddressArr[2]];
+            [self.dataDict addEntriesFromDictionary:@{@"recProv":selectAddressArr[0]}];
+            [self.dataDict addEntriesFromDictionary:@{@"recCity":selectAddressArr[1]}];
+            [self.dataDict addEntriesFromDictionary:@{@"recArea":selectAddressArr[2]}];
         }];
-//        self.shplacePicker = [[SHPlacePickerView alloc] initWithIsRecordLocation:YES SendPlaceArray:^(NSArray *placeArray) {
-//            NSLog(@"省:%@ 市:%@ 区:%@",placeArray[0],placeArray[1],placeArray[2]);
-//            cell.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@",placeArray[0],placeArray[1],placeArray[2]];
-//        }];
-//        [self.view addSubview:self.shplacePicker];
+
     }
 }
 - (void)didReceiveMemoryWarning {

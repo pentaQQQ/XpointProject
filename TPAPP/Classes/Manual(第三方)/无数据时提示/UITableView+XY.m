@@ -62,19 +62,19 @@
         [self setIsInitFinish:YES];
         return ;
     }
-    if ([self.dataSource isKindOfClass:[CartViewController class]]) {
-        //  刷新完成之后检测数据量
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSInteger numberOfSections = [self numberOfSections];
-            BOOL havingData = NO;
-            if (numberOfSections >= 1) {
-                havingData = NO;
-            }else{
-                havingData = YES;
-            }
-            [self xy_havingData:havingData];
-        });
-    }else{
+//    if ([self.dataSource isKindOfClass:[CartViewController class]]) {
+//        //  刷新完成之后检测数据量
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSInteger numberOfSections = [self numberOfSections];
+//            BOOL havingData = NO;
+//            if (numberOfSections >= 1) {
+//                havingData = NO;
+//            }else{
+//                havingData = YES;
+//            }
+//            [self xy_havingData:havingData];
+//        });
+//    }else{
         //  刷新完成之后检测数据量
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -89,7 +89,7 @@
             
             [self xy_havingData:havingData];
         });
-    }
+//    }
 
 }
 /**
