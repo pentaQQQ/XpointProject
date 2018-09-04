@@ -599,53 +599,32 @@
 
 +(void)postBossDemoWithUrl:(NSString*)url
 
-                     param:(NSString*)param
+                     param:(NSDictionary*)param
 
                    success:(void(^)(NSDictionary *dict))success
 
                       fail:(void (^)(NSError *error))fail
 
 {
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];//不设置会报-1016或者会有编码问题
-    
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer]; //不设置会报-1016或者会有编码问题
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer]; //不设置会报 error 3840
-    
-    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json",@"text/json", @"text/javascript",@"text/html",@"text/plain",nil]];
-    
-    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:url parameters:nil error:nil];
-    [request addValue:@"application/json"forHTTPHeaderField:@"Content-Type"];
-    
-    NSData *body  =[param dataUsingEncoding:NSUTF8StringEncoding];
-    
-    [request setHTTPBody:body];
-    
-    //发起请求
-    
-    [[manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *_Nonnull response, id _Nullable responseObject,NSError * _Nullable error)
-      
-      {
-          
-          if (!error) {
-              if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                  // 请求成功数据处理
-                  
-                  NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-                  
-                  success(dic);
-                  
-              } else {
-                  
-              }
-          } else {
-              NSLog(@"请求失败error=%@", error);
-          }
-          
-      }] resume];
+    NSString *accessPath = url;
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:accessPath parameters:param error:nil];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    NSURLSessionDataTask *task = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        NSLog(@"-----responseObject===%@+++++",responseObject);
+        if (!error) {
+            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                // 请求成功数据处理
+                success(responseObject);
+            } else {
+                
+            }
+        } else {
+            NSLog(@"请求失败error=%@", error);
+        }
+    }];
+    [task resume];
     
 }
 

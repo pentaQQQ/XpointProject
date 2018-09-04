@@ -9,6 +9,7 @@
 #import "AddAddressCell.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
+#import "AddressModel.h"
 @interface AddAddressCell ()<UITextViewDelegate,UITextFieldDelegate>
 @end
 @implementation AddAddressCell
@@ -26,7 +27,7 @@
     
 }
 
-- (void)configWithModel:(NSMutableArray *)arr
+- (void)configWithModel:(NSMutableArray *)arr withModelData:(NSMutableArray *)modelArr
 {
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     if ([arr[2] intValue] == 0) {
@@ -105,6 +106,32 @@
         .rightSpaceToView(self.contentView, 10)
         .widthIs(40)
         .heightIs(20);
+    }
+    if (modelArr.count != 0) {
+        if ([arr[2] intValue] == 0) {
+            self.myTextField.text = modelArr[0];
+//            if ([self.titleLabel.text isEqualToString:@"收货人:"]) {
+//                self.myBlock(@{@"recNickName":self.myTextField.text});
+//            }else if ([self.titleLabel.text isEqualToString:@"电    话:"]){
+//                self.myBlock(@{@"recPhone":self.myTextField.text});
+//            }else if ([self.titleLabel.text isEqualToString:@"身份证号码:"]){
+//                self.myBlock(@{@"recIdentityCardNo":self.myTextField.text});
+//            }
+        }else if ([arr[2] intValue] == 1){
+            self.addressLabel.text =modelArr[0];
+        }else if ([arr[2] intValue] == 2){
+            self.myTextView.text = modelArr[0];
+//            NSArray *addArr = [modelArr[0] componentsSeparatedByString:@" "];
+            
+//            self.myBlock(@{@"recAddress":self.myTextView.text});
+        }else if ([arr[2] intValue] == 3){
+            if ([modelArr[0] intValue] == 0) {
+                [self.defaultSwitch setOn:NO animated:YES];
+            }else{
+                [self.defaultSwitch setOn:YES animated:YES];
+            }
+            self.myBlock(@{@"isDefault":[NSString stringWithFormat:@"%d",[self.defaultSwitch isOn]]});
+        }
     }
 }
 - (void)switchAction:(id)sender

@@ -76,19 +76,6 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
--(NSArray *)cellsForTableView:(UITableView *)tableView
-{
-    NSInteger sections = tableView.numberOfSections;
-    NSMutableArray *cells = [[NSMutableArray alloc]  init];
-    for (int section = 0; section < sections; section++) {
-        NSInteger rows =  [tableView numberOfRowsInSection:section];
-        for (int row = 0; row < rows; row++) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
-            [cells addObject:[tableView cellForRowAtIndexPath:indexPath]];
-        }
-    }
-    return cells;
-}
 - (void)addBtnAction
 {
     if ([self.dataDict[@"recNickName"] length] == 0) {
@@ -108,45 +95,15 @@
                     }else{
                         [self.dataDict addEntriesFromDictionary:@{@"userId":[LYAccount shareAccount].id}];
                         [self.dataDict addEntriesFromDictionary:@{@"isGeneration":@"0"}];
-                        NSError *error;
-                        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.dataDict options:NSJSONWritingPrettyPrinted error:&error];
-                        NSString*jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
-                        
-
-                        [LYTools postBossDemoWithUrl:saveAddress param:jsonString success:^(NSDictionary *dict) {
-                            
+                        [LYTools postBossDemoWithUrl:saveAddress param:self.dataDict success:^(NSDictionary *dict) {
+                            NSLog(@"%@",dict);
+                            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                            if ([respCode isEqualToString:@"00000"]) {
+                                [SVProgressHUD showSuccessWithStatus:@"新建成功"];
+                            }
                         } fail:^(NSError *error) {
-                            
+
                         }];
-                        
-                        // 请求头
-//                        NSString *accessPath = saveAddress;
-//                        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-//                        NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:accessPath parameters:self.dataDict error:nil];
-//                        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//                        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//                        NSURLSessionDataTask *task = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-//                            NSLog(@"-----responseObject===%@+++++",responseObject);
-//                            if (!error) {
-//                                if ([responseObject isKindOfClass:[NSDictionary class]]) {
-//                                    // 请求成功数据处理
-//                                } else {
-//
-//                                }
-//                            } else {
-//                                NSLog(@"请求失败error=%@", error);
-//                            }
-//                        }];
-//                        [task resume];
-//                        [[NetworkManager sharedManager] postWithUrl:saveAddress param:self.dataDict success:^(id json) {
-//                            NSLog(@"%@",json);
-//                            NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-//                            if ([respCode isEqualToString:@"00000"]) {
-//
-//                            }
-//                        } failure:^(NSError *error) {
-//                            NSLog(@"%@",error);
-//                        }];
                     }
                 }
             }
@@ -259,7 +216,7 @@
         [cell setMyBlock:^(NSDictionary *dict) {
             [self.dataDict addEntriesFromDictionary:dict];
         }];
-        [cell configWithModel:self.listDataArr[indexPath.section][indexPath.row]];
+        [cell configWithModel:self.listDataArr[indexPath.section][indexPath.row] withModelData:nil];
         return cell;
     }
     

@@ -10,10 +10,11 @@
 #import "AddAddressController.h"
 #import "AddressTableViewCell.h"
 #import "EditAddressController.h"
+#import "AddressModel.h"
 @interface AddressManageController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
-@property (nonatomic, strong)UILabel *remindLabel;
+
 @property (nonatomic, strong)UIButton *addBtn;
 @end
 
@@ -29,9 +30,8 @@
     [self listTableView];
     self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     //自动更改透明度
- self.listTableView.mj_header.automaticallyChangeAlpha = YES;
-    //进入刷新状态
-    [self.listTableView.mj_header beginRefreshing];
+    self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+    
     
     
     self.addBtn = [[UIButton alloc] init];
@@ -49,6 +49,17 @@
     self.addBtn.layer.masksToBounds = YES;
 
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (![self.listTableView.mj_header isRefreshing]) {
+        //进入刷新状态
+        [self.listTableView.mj_header beginRefreshing];
+    }
+    
+}
+
 #pragma mark -自定义导航栏返回按钮
 - (void)createItems
 {
@@ -82,7 +93,11 @@
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-               
+            [self.listDataArr removeAllObjects];
+            for (NSDictionary *dict in json[@"data"]) {
+                AddressModel *model = [AddressModel statusWithDict:dict];
+                [self.listDataArr addObject:model];
+            }
             [self.listTableView reloadData];
         }
     } failure:^(NSError *error) {
@@ -116,26 +131,11 @@
         .topSpaceToView(self.view, 0)
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
-        .bottomSpaceToView(self.view, 80);
+        .bottomSpaceToView(self.view, 100);
     }
     return _listTableView;
 }
--(UILabel *)remindLabel
-{
-    if (_remindLabel == nil) {
-        _remindLabel = [[UILabel alloc] init];
-        _remindLabel.text = @"暂无数据";
-        _remindLabel.font = [UIFont systemFontOfSize:15];
-        _remindLabel.textColor = [UIColor lightGrayColor];
-        [self.view addSubview:_remindLabel];
-        _remindLabel.sd_layout
-        .centerYEqualToView(self.view)
-        .centerYEqualToView(self.view)
-        .widthIs(80)
-        .heightIs(30);
-    }
-    return _remindLabel;
-}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.listDataArr.count;
@@ -154,8 +154,9 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell configWithModel:self.listDataArr[indexPath.section]];
-    [cell setSelectBlcok:^(NSInteger num) {
+    [cell setSelectBlcok:^(NSInteger num,AddressModel *model) {
         EditAddressController *addCtrl = [[EditAddressController alloc] init];
+        addCtrl.addressModel = model;
         [self.navigationController pushViewController:addCtrl animated:YES];
     }];
     return cell;

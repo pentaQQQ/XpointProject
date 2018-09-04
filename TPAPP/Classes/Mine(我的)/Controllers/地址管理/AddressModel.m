@@ -11,4 +11,13 @@
 @implementation AddressModel
 MJCodingImplementation
 
++ (instancetype)statusWithDict:(NSDictionary *)dict
+{
+    AddressModel *status = [[self alloc] init];
+    
+    [status setValuesForKeysWithDictionary:dict];
+    
+    return status;
+}
+
 @end

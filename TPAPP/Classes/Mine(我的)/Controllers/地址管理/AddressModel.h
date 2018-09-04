@@ -119,4 +119,6 @@
  用户ID
  */
 @property (nonatomic, copy)NSString *userId;
+
++ (instancetype)statusWithDict:(NSDictionary *)dict;
 @end

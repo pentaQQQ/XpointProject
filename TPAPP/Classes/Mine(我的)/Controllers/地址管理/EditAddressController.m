@@ -16,11 +16,19 @@
 @property (nonatomic, strong)NSMutableArray *listDataArr;
 @property (nonatomic, strong)UIButton *saveBtn;
 @property (nonatomic, strong)UIButton *deleteBtn;
+@property (nonatomic, strong)NSMutableDictionary *dataDict;
+@property (nonatomic, strong)NSMutableArray *modelDataArr;
 //@property (nonatomic, strong) SHPlacePickerView *shplacePicker;
 @end
 
 @implementation EditAddressController
-
+-(NSMutableDictionary *)dataDict
+{
+    if (_dataDict == nil) {
+        _dataDict = [NSMutableDictionary dictionary];
+    }
+    return _dataDict;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -29,9 +37,26 @@
     [self listTableView];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"收货人:",@"请输入收货人名字",@0],@[@"电    话:",@"请输入收货人电话",@0]],@[@[@"省 市 区",@"",@1],@[@"请输入详细地址",@"",@2],@[@"身份证号码:",@"请输入身份证号码",@0],@[@"是否设置为默认地址",@"",@3]], nil];
+    self.modelDataArr = [NSMutableArray arrayWithObjects:@[@[self.addressModel.recNickName],@[self.addressModel.recPhone]],@[@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.recProv,self.addressModel.recCity,self.addressModel.recArea]],@[self.addressModel.recAddress],@[self.addressModel.recIdentityCardNo],@[self.addressModel.isDefault]], nil];
     
     
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.dataDict addEntriesFromDictionary:@{@"userId":self.addressModel.userId}];
+    [self.dataDict addEntriesFromDictionary:@{@"recNickName":self.addressModel.recNickName}];
+    [self.dataDict addEntriesFromDictionary:@{@"recPhone":self.addressModel.recPhone}];
+    [self.dataDict addEntriesFromDictionary:@{@"isGeneration":self.addressModel.isGeneration}];
+    [self.dataDict addEntriesFromDictionary:@{@"recIdentityCardNo":self.addressModel.recIdentityCardNo}];
+    [self.dataDict addEntriesFromDictionary:@{@"recAddress":self.addressModel.recAddress}];
+    [self.dataDict addEntriesFromDictionary:@{@"isDefault":self.addressModel.isDefault}];
+    [self.dataDict addEntriesFromDictionary:@{@"recProv":self.addressModel.recProv}];
+    [self.dataDict addEntriesFromDictionary:@{@"recCity":self.addressModel.recCity}];
+    [self.dataDict addEntriesFromDictionary:@{@"recArea":self.addressModel.recArea}];
+}
+
 #pragma mark -自定义导航栏返回按钮
 - (void)createItems
 {
@@ -50,12 +75,65 @@
 }
 - (void)saveBtnAction
 {
-//    AddAddressController *addCtrl = [[AddAddressController alloc] init];
-//    [self.navigationController pushViewController:addCtrl animated:YES];
+    if ([self.dataDict[@"recNickName"] length] == 0) {
+        
+    }else{
+        if ([self.dataDict[@"recPhone"] length] == 0) {
+            
+        }else{
+            if ([self.dataDict[@"recProv"] length] == 0) {
+                
+            }else{
+                if ([self.dataDict[@"recAddress"] length] == 0) {
+                    
+                }else{
+                    if ([self.dataDict[@"recIdentityCardNo"] length] == 0) {
+                        
+                    }else{
+                        [LYTools postBossDemoWithUrl:updateAddress param:self.dataDict success:^(NSDictionary *dict) {
+                            NSLog(@"%@",dict);
+                            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                            if ([respCode isEqualToString:@"00000"]) {
+                                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"编辑成功" withDuration:1.5];
+                                [self.navigationController popViewControllerAnimated:YES];
+                            }else{
+                                 [SVProgressHUD doAnyRemindWithHUDMessage:dict[@"msg"] withDuration:1.5];
+                            }
+                        } fail:^(NSError *error) {
+                            
+                        }];
+                    }
+                }
+            }
+        }
+    }
 }
 - (void)deleteBtnAction
 {
-    
+    [[NetworkManager sharedManager]postWithUrl:deleteAddress param:@{@"id":self.addressModel.id} success:^(id json) {
+        NSLog(@"%@",json);
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"删除成功" withDuration:1.5];
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            
+        }else{
+            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"msg"] withDuration:1.5];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+//    [LYTools postBossDemoWithUrl:deleteAddress param:@{@"id":self.addressModel.id} success:^(NSDictionary *dict) {
+//        NSLog(@"%@",dict);
+//        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+//        if ([respCode isEqualToString:@"00000"]) {
+//            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
+//            [self.navigationController popViewControllerAnimated:YES];
+//        }
+//    } fail:^(NSError *error) {
+//
+//    }];
 }
 #pragma mark - 懒加载
 -(NSMutableArray *)listDataArr
@@ -170,7 +248,10 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell configWithModel:self.listDataArr[indexPath.section][indexPath.row]];
+        [cell setMyBlock:^(NSDictionary *dict) {
+            [self.dataDict addEntriesFromDictionary:dict];
+        }];
+        [cell configWithModel:self.listDataArr[indexPath.section][indexPath.row] withModelData:self.modelDataArr[indexPath.section][indexPath.row]];
         return cell;
     }
     
@@ -190,14 +271,24 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 15;
+    if (section == 0) {
+        return 15;
+    }else{
+        return 0;
+    }
+    
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 15)];
-    view.backgroundColor = colorWithRGB(0xEEEEEE);
+    if (section == 0) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 15)];
+        view.backgroundColor = colorWithRGB(0xEEEEEE);
+        
+        return view;
+    }else{
+        return nil;
+    }
     
-    return view;
     
 }
 
@@ -219,9 +310,14 @@
     AddAddressCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.section == 1 && indexPath.row == 0) {
         [BRAddressPickerView showAddressPickerWithDefaultSelected:@[@10, @0, @3] isAutoSelect:YES resultBlock:^(NSArray *selectAddressArr) {
+           
             cell.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@", selectAddressArr[0], selectAddressArr[1], selectAddressArr[2]];
+            [self.dataDict addEntriesFromDictionary:@{@"recProv":selectAddressArr[0]}];
+            [self.dataDict addEntriesFromDictionary:@{@"recCity":selectAddressArr[1]}];
+            [self.dataDict addEntriesFromDictionary:@{@"recArea":selectAddressArr[2]}];
         }];
        
+        
 //        //        __weak __typeof(self)weakSelf = self;
 //        self.shplacePicker = [[SHPlacePickerView alloc] initWithIsRecordLocation:YES SendPlaceArray:^(NSArray *placeArray) {
 //            NSLog(@"省:%@ 市:%@ 区:%@",placeArray[0],placeArray[1],placeArray[2]);
