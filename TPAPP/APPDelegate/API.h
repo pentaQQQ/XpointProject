@@ -72,7 +72,6 @@
 #define getAddressList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/address/list"]
 //新增地址
 #define saveAddress [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/address/save"]
-
 //修改地址
 #define updateAddress [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/address/update"]
 

@@ -159,7 +159,24 @@ blue:((float)(rgbValue & 0xFF)) / 255.0 alpha:1.0]
 #define SafeAreaBottomHeight (kScreenHeight == 812.0 ? 34 : 0)
 
 
-
+static inline CGFloat GetMatchValue(NSString *text, CGFloat fontSize, BOOL isHeightFixed, CGFloat fixedValue) {
+    CGSize size;
+    if (isHeightFixed) {
+        size = CGSizeMake(MAXFLOAT, fixedValue);
+    } else {
+        size = CGSizeMake(fixedValue, MAXFLOAT);
+    }
+    CGSize resultSize;
+    if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 7.0) {
+        //返回计算出的size
+        resultSize = [text boundingRectWithSize:size options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:fontSize]} context:nil].size;
+    }
+    if (isHeightFixed) {
+        return resultSize.width;
+    } else {
+        return resultSize.height;
+    }
+}
 
 
 

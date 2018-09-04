@@ -19,7 +19,7 @@
 /**
  地址id,新增时不传入
  */
-@property (nonatomic, copy)NSString *address_id;
+@property (nonatomic, copy)NSString *id;
 
 /**
  默认收货地址 0-不是默认 1-默认

@@ -82,10 +82,13 @@
         if ([respCode isEqualToString:@"00000"]) {
             
            [self CartData];
+           
+            
+
             [_CartTableView reloadData];
         }else if([json[@"code"]longValue] == 500){
             
-            [_CartTableView reloadData];
+//            [_CartTableView reloadData];
         }
         
         
@@ -126,6 +129,7 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+
     if (section !=0) {
 #warning notice ---  我只把信息放在了第一个row中  这里不想改  但是原理一样
         NSArray *arr = self.dataSource[section];
@@ -152,6 +156,155 @@
         return 40;
     }
     
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (self.dataSource.count == 1) {
+        if(self.accountView != nil){
+            [self.accountView removeFromSuperview];
+            self.accountView = nil;
+        }
+        _CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-SafeAreaBottomHeight);
+        return 330;
+    }else{
+        if(self.accountView == nil){
+            [self accountsView];
+        }
+        _CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-SafeAreaBottomHeight);
+        if (section == self.dataSource.count - 1) {
+            return 200;
+        }else{
+            return 10;
+        }
+    }
+    
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (self.dataSource.count == 1) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 330)];
+        view.backgroundColor = colorWithRGB(0xEEEEEE);
+        //  计算位置, 垂直居中, 图片默认中心偏上.
+        CGFloat sW = _CartTableView.bounds.size.width;
+        CGFloat iW = 74;
+        CGFloat iH = 74;
+        
+        //  图片
+        UIImageView *imgView = [[UIImageView alloc] init];
+        imgView.frame        = CGRectMake((kScreenWidth - iW) / 2, 30, iW, iH);
+        imgView.image        = [UIImage imageNamed:@"购物车"];
+        
+        //  文字
+        UILabel *label       = [[UILabel alloc] init];
+        label.font           = [UIFont systemFontOfSize:15];
+        label.textColor      = colorWithRGB(0xC7C7C7);
+        
+        label.text           = @"购物车为空";
+        label.textAlignment  = NSTextAlignmentCenter;
+        label.frame          = CGRectMake(0, CGRectGetMaxY(imgView.frame) + 14, sW, label.font.lineHeight);
+        //  图片
+        UIImageView *leftImgView = [[UIImageView alloc] init];
+        leftImgView.frame        = CGRectMake(30, CGRectGetMaxY(label.frame) + 35, (kScreenWidth-60)/3-10, 1.5);
+        leftImgView.image        = [UIImage imageNamed:@"我的订单_line"];
+        
+        //  图片
+        UIImageView *rightImgView = [[UIImageView alloc] init];
+        rightImgView.frame        = CGRectMake(30+(kScreenWidth-60)/3*2+10, CGRectGetMaxY(label.frame) + 35, (kScreenWidth-60)/3-10, 1.5);
+        rightImgView.image        = [UIImage imageNamed:@"我的订单_line"];
+        
+        
+        UIButton *btn = [[UIButton alloc] init];
+        btn.frame        = CGRectMake(30+(kScreenWidth-60)/3-10, CGRectGetMaxY(label.frame) + 20, (kScreenWidth-60)/3+20, 30);
+        [btn setImage:[UIImage imageNamed:@"icon_mine_sqsh"] forState:UIControlStateNormal];
+        btn.imageEdgeInsets = UIEdgeInsetsMake(5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+10, 5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+((kScreenWidth-60)/3+20-20)-10-10);
+        [btn addTarget:self action:@selector(guanzhuAction) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitle:@"关注商品" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        btn.titleEdgeInsets = UIEdgeInsetsMake(5, -((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2, 5, 0);
+        //  文字
+        UILabel *remindLabel       = [[UILabel alloc] init];
+        remindLabel.font           = [UIFont systemFontOfSize:15];
+        remindLabel.textColor      = colorWithRGB(0xC7C7C7);
+        remindLabel.text           = @"你还没有关注的商品";
+        remindLabel.textAlignment  = NSTextAlignmentCenter;
+        remindLabel.frame          = CGRectMake(0, CGRectGetMaxY(btn.frame) + 30, sW, remindLabel.font.lineHeight);
+        
+        UIButton *guanzhuBtn = [[UIButton alloc] init];
+        guanzhuBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
+        guanzhuBtn.frame        = CGRectMake((kScreenWidth-((kScreenWidth-60)/3+30))/2, CGRectGetMaxY(remindLabel.frame)+20, (kScreenWidth-60)/3+30, 30);
+        guanzhuBtn.layer.cornerRadius = 5;
+        guanzhuBtn.layer.masksToBounds = YES;
+        [guanzhuBtn addTarget:self action:@selector(goGuanzhuAction) forControlEvents:UIControlEventTouchUpInside];
+        [guanzhuBtn setTitle:@"去关注" forState:UIControlStateNormal];
+        [guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        guanzhuBtn.userInteractionEnabled = YES;
+        guanzhuBtn.exclusiveTouch = YES;
+        guanzhuBtn.enabled = YES;
+        [view addSubview:imgView];
+        [view addSubview:label];
+        [view addSubview:leftImgView];
+        [view addSubview:rightImgView];
+        [view addSubview:btn];
+        [view addSubview:remindLabel];
+        [view addSubview:guanzhuBtn];
+        return view;
+    }else{
+        if (section == self.dataSource.count - 1) {
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200)];
+            view.backgroundColor = colorWithRGB(0xEEEEEE);
+            //  计算位置, 垂直居中, 图片默认中心偏上.
+            CGFloat sW = _CartTableView.size.width;
+            //  图片
+            UIImageView *leftImgView = [[UIImageView alloc] init];
+            leftImgView.frame        = CGRectMake(30, 35, (kScreenWidth-60)/3-10, 1.5);
+            leftImgView.image        = [UIImage imageNamed:@"我的订单_line"];
+            
+            //  图片
+            UIImageView *rightImgView = [[UIImageView alloc] init];
+            rightImgView.frame        = CGRectMake(30+(kScreenWidth-60)/3*2+10, 35, (kScreenWidth-60)/3-10, 1.5);
+            rightImgView.image        = [UIImage imageNamed:@"我的订单_line"];
+            
+            
+            UIButton *btn = [[UIButton alloc] init];
+            btn.frame        = CGRectMake(30+(kScreenWidth-60)/3-10, 20, (kScreenWidth-60)/3+20, 30);
+            [btn setImage:[UIImage imageNamed:@"icon_mine_sqsh"] forState:UIControlStateNormal];
+            btn.imageEdgeInsets = UIEdgeInsetsMake(5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+10, 5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+((kScreenWidth-60)/3+20-20)-10-10);
+            [btn addTarget:self action:@selector(guanzhuAction) forControlEvents:UIControlEventTouchUpInside];
+            [btn setTitle:@"关注商品" forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            btn.titleEdgeInsets = UIEdgeInsetsMake(5, -((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2, 5, 0);
+            //  文字
+            UILabel *remindLabel       = [[UILabel alloc] init];
+            remindLabel.font           = [UIFont systemFontOfSize:15];
+            remindLabel.textColor      = colorWithRGB(0xC7C7C7);
+            remindLabel.text           = @"你还没有关注的商品";
+            remindLabel.textAlignment  = NSTextAlignmentCenter;
+            remindLabel.frame          = CGRectMake(0, CGRectGetMaxY(btn.frame) + 30, sW, remindLabel.font.lineHeight);
+            
+            UIButton *guanzhuBtn = [[UIButton alloc] init];
+            guanzhuBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
+            guanzhuBtn.frame        = CGRectMake((kScreenWidth-((kScreenWidth-60)/3+30))/2, CGRectGetMaxY(remindLabel.frame)+20, (kScreenWidth-60)/3+30, 30);
+            guanzhuBtn.layer.cornerRadius = 5;
+            guanzhuBtn.layer.masksToBounds = YES;
+            [guanzhuBtn addTarget:self action:@selector(goGuanzhuAction) forControlEvents:UIControlEventTouchUpInside];
+            [guanzhuBtn setTitle:@"去关注" forState:UIControlStateNormal];
+            [guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            guanzhuBtn.userInteractionEnabled = YES;
+            guanzhuBtn.exclusiveTouch = YES;
+            guanzhuBtn.enabled = YES;
+            [view addSubview:leftImgView];
+            [view addSubview:rightImgView];
+            [view addSubview:btn];
+            [view addSubview:remindLabel];
+            [view addSubview:guanzhuBtn];
+            return view;
+        }else{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 10)];
+            view.backgroundColor = colorWithRGB(0xEEEEEE);
+            return view;
+        }
+    }
 }
 //cell高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -216,31 +369,33 @@
         }];
         return cell;
     }else{
-        NSArray *ListArr = self.dataSource[indexPath.section];
-        NSDictionary *dict = ListArr[indexPath.row];
-        
-        if ([dict[@"Edit"] isEqualToString:@"0"]) {
-            CompileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompileCellID"];
+
+            NSArray *ListArr = self.dataSource[indexPath.section];
+            NSDictionary *dict = ListArr[indexPath.row];
             
+            if ([dict[@"Edit"] isEqualToString:@"0"]) {
+                CompileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompileCellID"];
+                
                 if (cell==nil) {
-            cell = [[CompileCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompileCellID"];
+                    cell = [[CompileCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompileCellID"];
                 }
-            
-//            cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]],[MGSwipeButton buttonWithTitle:@"更多" backgroundColor:[UIColor grayColor]]];
-             cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]]];
-            [cell withData:dict];
-            
-            cell.delegate = self;
-            cell.SelectedDelegate = self;
-            
-            cell.allowsMultipleSwipe = allowMultipleSwipe;
-            
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-        }else{
-            return nil;
+                
+                //            cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]],[MGSwipeButton buttonWithTitle:@"更多" backgroundColor:[UIColor grayColor]]];
+                cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]]];
+                [cell withData:dict];
+                
+                cell.delegate = self;
+                cell.SelectedDelegate = self;
+                
+                cell.allowsMultipleSwipe = allowMultipleSwipe;
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
+            }else{
+                return nil;
+            }
         }
-    }
+       
     
 }
 /**
@@ -316,33 +471,41 @@
  */
 -(void)SelectedConfirmCell:(UITableViewCell *)cell
 {
-    NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
-    [dict setValue:@"已选中" forKey:@"SelectedType"];
-    [dict setValue:@"1" forKey:@"Type"];
-    [arr replaceObjectAtIndex:indexPath.row withObject:dict];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
+        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
+        [dict setValue:@"已选中" forKey:@"SelectedType"];
+        [dict setValue:@"1" forKey:@"Type"];
+        [arr replaceObjectAtIndex:indexPath.row withObject:dict];
+        
+        [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+        
+        [self didChangeValueForSectionAllRow:indexPath.section];
+        [_CartTableView reloadData];
+    });
     
-    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
-    
-    [self didChangeValueForSectionAllRow:indexPath.section];
 }
 /**
  *  取消选中商品
  */
 -(void)SelectedCancelCell:(UITableViewCell *)cell
 {
-    NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
-    [dict setValue:@"未选中支付" forKey:@"SelectedType"];
-    [dict setValue:@"0" forKey:@"Type"];
-    [arr replaceObjectAtIndex:indexPath.row withObject:dict];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
+        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
+        [dict setValue:@"未选中支付" forKey:@"SelectedType"];
+        [dict setValue:@"0" forKey:@"Type"];
+        [arr replaceObjectAtIndex:indexPath.row withObject:dict];
+        
+        [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+        
+        //判断是否把section的全选按钮取消
+        [self didChangeValueForSectionRow:indexPath.section];
+        [_CartTableView reloadData];
+    });
     
-    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
-    
-    //判断是否把section的全选按钮取消
-    [self didChangeValueForSectionRow:indexPath.section];
 }
 
 /**
@@ -395,6 +558,7 @@
     
     
     [self didChangeValueForSection:section SectionSelectedTyep:YES];
+    [_CartTableView reloadData];
 }
 /**
  *  取消选中哪个section
@@ -410,7 +574,7 @@
     [self.dataSource replaceObjectAtIndex:section withObject:arr];
     
     [self didChangeValueForSection:section SectionSelectedTyep:NO];
-    
+    [_CartTableView reloadData];
     
 }
 /******************************************
@@ -574,44 +738,50 @@
 
 -(void)DidSelectedAllGoods
 {
-    for (NSInteger i = 0; i < self.dataSource.count; i ++) {
-        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[i]];
-        for (NSInteger j = 0; j < arr.count; j ++) {
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[j]];
-            if (j == 0) {
-                [dict setValue:@"1" forKey:@"CheckAll"];
-                [arr replaceObjectAtIndex:0 withObject:dict];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        for (NSInteger i = 0; i < self.dataSource.count; i ++) {
+            NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[i]];
+            for (NSInteger j = 0; j < arr.count; j ++) {
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[j]];
+                if (j == 0) {
+                    [dict setValue:@"1" forKey:@"CheckAll"];
+                    [arr replaceObjectAtIndex:0 withObject:dict];
+                }
+                [dict setValue:@"已选中" forKey:@"SelectedType"];
+                [dict setValue:@"1" forKey:@"Type"];
+                [arr replaceObjectAtIndex:j withObject:dict];
             }
-            [dict setValue:@"已选中" forKey:@"SelectedType"];
-            [dict setValue:@"1" forKey:@"Type"];
-            [arr replaceObjectAtIndex:j withObject:dict];
+            [self.dataSource replaceObjectAtIndex:i withObject:arr];
         }
-        [self.dataSource replaceObjectAtIndex:i withObject:arr];
-    }
-    [self postCenter];
-
-    [_CartTableView reloadData];
+        [self postCenter];
+        
+        [_CartTableView reloadData];
+    });
+   
 }
 
 -(void)NoDidSelectedAllGoods
 {
-    for (NSInteger i = 0; i < self.dataSource.count; i ++) {
-        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[i]];
-        for (NSInteger j = 0; j < arr.count; j ++) {
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[j]];
-            if (j == 0) {
-                [dict setValue:@"0" forKey:@"CheckAll"];
-                [arr replaceObjectAtIndex:0 withObject:dict];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        for (NSInteger i = 0; i < self.dataSource.count; i ++) {
+            NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[i]];
+            for (NSInteger j = 0; j < arr.count; j ++) {
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[j]];
+                if (j == 0) {
+                    [dict setValue:@"0" forKey:@"CheckAll"];
+                    [arr replaceObjectAtIndex:0 withObject:dict];
+                }
+                [dict setValue:@"未选中支付" forKey:@"SelectedType"];
+                [dict setValue:@"0" forKey:@"Type"];
+                [arr replaceObjectAtIndex:j withObject:dict];
             }
-            [dict setValue:@"未选中支付" forKey:@"SelectedType"];
-            [dict setValue:@"0" forKey:@"Type"];
-            [arr replaceObjectAtIndex:j withObject:dict];
+            [self.dataSource replaceObjectAtIndex:i withObject:arr];
         }
-        [self.dataSource replaceObjectAtIndex:i withObject:arr];
-    }
-    [self postCenter];
+        [self postCenter];
+        
+        [_CartTableView reloadData];
+    });
     
-    [_CartTableView reloadData];
 }
 
 /**
@@ -718,191 +888,7 @@
     }];
     
 }
-#pragma mark - TableView 占位图
-- (UIImage *)xy_noDataViewImage {
-    return [UIImage imageNamed:@"购物车"];
-}
 
-- (NSString *)xy_noDataViewMessage {
-    return @"购物车为空";
-}
-
-- (UIColor *)xy_noDataViewMessageColor {
-    return colorWithRGB(0xC7C7C7);
-}
-- (UIView *)xy_noDataView
-{
-    if (self.dataSource.count == 1) {
-        if(self.accountView != nil){
-            
-            [self.accountView removeFromSuperview];
-            self.accountView = nil;
-        }
-    }
-    if (self.dataSource.count > 1){
-        if(self.accountView == nil){
-            [self accountsView];
-        }
-    }
-    
-    
-    if (self.dataSource.count == 1) {
-        _CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-SafeAreaBottomHeight);
-        
-        
-        //  计算位置, 垂直居中, 图片默认中心偏上.
-        CGFloat sW = _CartTableView.bounds.size.width;
-        CGFloat cX = sW / 2;
-        CGFloat cY = _CartTableView.contentSize.height+30;
-        CGFloat iW = 74;
-        CGFloat iH = 74;
-        
-        //  图片
-        UIImageView *imgView = [[UIImageView alloc] init];
-        imgView.frame        = CGRectMake(cX - iW / 2, cY - iH / 2, iW, iH);
-        imgView.image        = [UIImage imageNamed:@"购物车"];
-        
-        //  文字
-        UILabel *label       = [[UILabel alloc] init];
-        label.font           = [UIFont systemFontOfSize:15];
-        label.textColor      = colorWithRGB(0xC7C7C7);
-        
-        label.text           = @"购物车为空";
-        label.textAlignment  = NSTextAlignmentCenter;
-        label.frame          = CGRectMake(0, CGRectGetMaxY(imgView.frame) + 14, sW, label.font.lineHeight);
-        
-        //  图片
-        UIImageView *leftImgView = [[UIImageView alloc] init];
-        leftImgView.frame        = CGRectMake(30, CGRectGetMaxY(label.frame)+45, (kScreenWidth-60)/3-10, 1.5);
-        leftImgView.image        = [UIImage imageNamed:@"我的订单_line"];
-        
-        //  图片
-        UIImageView *rightImgView = [[UIImageView alloc] init];
-        rightImgView.frame        = CGRectMake(30+(kScreenWidth-60)/3*2+10, CGRectGetMaxY(label.frame)+45, (kScreenWidth-60)/3-10, 1.5);
-        rightImgView.image        = [UIImage imageNamed:@"我的订单_line"];
-        
-        
-        UIButton *btn = [[UIButton alloc] init];
-        btn.frame        = CGRectMake(30+(kScreenWidth-60)/3-10, CGRectGetMaxY(label.frame)+30, (kScreenWidth-60)/3+20, 30);
-        [btn setImage:[UIImage imageNamed:@"icon_mine_sqsh"] forState:UIControlStateNormal];
-        btn.imageEdgeInsets = UIEdgeInsetsMake(5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+10, 5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+((kScreenWidth-60)/3+20-20)-10-10);
-        
-        [btn addTarget:self action:@selector(guanzhuAction) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitle:@"关注商品" forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        btn.titleEdgeInsets = UIEdgeInsetsMake(5, -((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2, 5, 0);
-        
-        //  文字
-        UILabel *remindLabel       = [[UILabel alloc] init];
-        remindLabel.font           = [UIFont systemFontOfSize:15];
-        remindLabel.textColor      = colorWithRGB(0xC7C7C7);
-        
-        remindLabel.text           = @"你还没有关注的商品";
-        remindLabel.textAlignment  = NSTextAlignmentCenter;
-        remindLabel.frame          = CGRectMake(0, CGRectGetMaxY(btn.frame) + 30, sW, label.font.lineHeight);
-        
-        UIButton *guanzhuBtn = [[UIButton alloc] init];
-        guanzhuBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
-        guanzhuBtn.frame        = CGRectMake((kScreenWidth-((kScreenWidth-60)/3+30))/2, CGRectGetMaxY(remindLabel.frame)+20, (kScreenWidth-60)/3+30, 30);
-        guanzhuBtn.layer.cornerRadius = 5;
-        guanzhuBtn.layer.masksToBounds = YES;
-        [guanzhuBtn addTarget:self action:@selector(goGuanzhuAction) forControlEvents:UIControlEventTouchUpInside];
-        [guanzhuBtn setTitle:@"去关注" forState:UIControlStateNormal];
-        [guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        
-        //  视图
-        XYNoDataView *view   = [[XYNoDataView alloc] init];
-        [view addSubview:imgView];
-        [view addSubview:label];
-        [view addSubview:leftImgView];
-        [view addSubview:btn];
-        [view addSubview:rightImgView];
-        [view addSubview:remindLabel];
-        [view addSubview:guanzhuBtn];
-        //  实现跟随 TableView 滚动
-        [view addObserver:self forKeyPath:kXYNoDataViewObserveKeyPath options:NSKeyValueObservingOptionNew context:nil];
-        return view;
-    }else{
-        
-        _CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-SafeAreaBottomHeight);
-        
-        
-        
-        
-        //  计算位置, 垂直居中, 图片默认中心偏上.
-        CGFloat sW = _CartTableView.size.width;
-//        CGFloat cX = sW / 2;
-        CGFloat cY = _CartTableView.contentSize.height+30;
-//        CGFloat iW = 74;
-        CGFloat iH = 74;
-         _CartTableView.contentSize = CGSizeMake(kScreenWidth, _CartTableView.contentSize.height+200);
-        //  图片
-        UIImageView *leftImgView = [[UIImageView alloc] init];
-        leftImgView.frame        = CGRectMake(30, cY - iH / 2+15, (kScreenWidth-60)/3-10, 1.5);
-        leftImgView.image        = [UIImage imageNamed:@"我的订单_line"];
-        
-        //  图片
-        UIImageView *rightImgView = [[UIImageView alloc] init];
-        rightImgView.frame        = CGRectMake(30+(kScreenWidth-60)/3*2+10, cY - iH / 2+15, (kScreenWidth-60)/3-10, 1.5);
-        rightImgView.image        = [UIImage imageNamed:@"我的订单_line"];
-        
-        
-        UIButton *btn = [[UIButton alloc] init];
-        btn.frame        = CGRectMake(30+(kScreenWidth-60)/3-10, cY - iH / 2, (kScreenWidth-60)/3+20, 30);
-        [btn setImage:[UIImage imageNamed:@"icon_mine_sqsh"] forState:UIControlStateNormal];
-        btn.imageEdgeInsets = UIEdgeInsetsMake(5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+10, 5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+((kScreenWidth-60)/3+20-20)-10-10);
-        
-        [btn addTarget:self action:@selector(guanzhuAction) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitle:@"关注商品" forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        btn.titleEdgeInsets = UIEdgeInsetsMake(5, -((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2, 5, 0);
-        
-        //  文字
-        UILabel *remindLabel       = [[UILabel alloc] init];
-        remindLabel.font           = [UIFont systemFontOfSize:15];
-        remindLabel.textColor      = colorWithRGB(0xC7C7C7);
-        
-        remindLabel.text           = @"你还没有关注的商品";
-        remindLabel.textAlignment  = NSTextAlignmentCenter;
-        remindLabel.frame          = CGRectMake(0, CGRectGetMaxY(btn.frame) + 30, sW, remindLabel.font.lineHeight);
-        
-        UIButton *guanzhuBtn = [[UIButton alloc] init];
-        guanzhuBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
-        guanzhuBtn.frame        = CGRectMake((kScreenWidth-((kScreenWidth-60)/3+30))/2, CGRectGetMaxY(remindLabel.frame)+20, (kScreenWidth-60)/3+30, 30);
-        guanzhuBtn.layer.cornerRadius = 5;
-        guanzhuBtn.layer.masksToBounds = YES;
-        [guanzhuBtn addTarget:self action:@selector(goGuanzhuAction) forControlEvents:UIControlEventTouchUpInside];
-        [guanzhuBtn setTitle:@"去关注" forState:UIControlStateNormal];
-        [guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        //  视图
-        
-        XYNoDataView *view   = [[XYNoDataView alloc] init];
-        [view addSubview:leftImgView];
-        [view addSubview:btn];
-        [view addSubview:rightImgView];
-        [view addSubview:remindLabel];
-        [view addSubview:guanzhuBtn];
-        [self setExclusiveTouchForButtons:view];
-        //  实现跟随 TableView 滚动
-        [view addObserver:self forKeyPath:kXYNoDataViewObserveKeyPath options:NSKeyValueObservingOptionNew context:nil];
-        return view;
-    }
-    
-    
-}
-   - (void)setExclusiveTouchForButtons:(UIView *)myView
-    {
-        for (UIView * button in [myView subviews]) {
-            if([button isKindOfClass:[UIButton class]])
-            {
-                [((UIButton *)button) setExclusiveTouch:YES];
-            }
-            else if ([button isKindOfClass:[UIView class]])
-            {
-                [self setExclusiveTouchForButtons:button];
-            }
-        }
-    }
 - (void)goGuanzhuAction
 {
    self.tabBarController.selectedIndex = 0;
@@ -912,40 +898,6 @@
     
 }
 
-/**
- 监听
- */
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:kXYNoDataViewObserveKeyPath]) {
-        
-        /**
-         在 TableView 滚动 ContentOffset 改变时, 会同步改变 backgroundView 的 frame.origin.y
-         可以实现, backgroundView 位置相对于 TableView 不动, 但是我们希望
-         backgroundView 跟随 TableView 的滚动而滚动, 只能强制设置 frame.origin.y 永远为 0
-         兼容 MJRefresh
-         */
-        CGRect frame = [[change objectForKey:NSKeyValueChangeNewKey] CGRectValue];
-        if (frame.origin.y != 0) {
-            frame.origin.y  = 0;
-            _CartTableView.backgroundView.frame = frame;
-        }
-    }
-}
-
-/**
- 移除 KVO 监听
- */
-- (void)freeNoDataViewIfNeeded {
-    
-    if ([_CartTableView.backgroundView isKindOfClass:[XYNoDataView class]]) {
-        [_CartTableView.backgroundView removeObserver:self forKeyPath:kXYNoDataViewObserveKeyPath context:nil];
-    }
-}
-
-- (void)dealloc {
-    [self freeNoDataViewIfNeeded];
-    NSLog(@"TableView + XY 视图正常销毁");
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

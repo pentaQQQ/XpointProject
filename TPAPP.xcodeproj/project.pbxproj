@@ -112,6 +112,8 @@
 		0112108D213664020071AC5F /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112108C213664020071AC5F /* OrderDetailViewController.m */; };
 		01121091213690A30071AC5F /* TuYeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 01121090213690A20071AC5F /* TuYeTextField.m */; };
 		0112109421369FB20071AC5F /* FindSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112109321369FB20071AC5F /* FindSearchViewController.m */; };
+		011F47F3213E379D0070ABA2 /* ZLNoAuthorityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F47F1213E379C0070ABA2 /* ZLNoAuthorityViewController.m */; };
+		011F47F5213E37AA0070ABA2 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 011F47F4213E37AA0070ABA2 /* lock.png */; };
 		012997C22139267200ADE72B /* messageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997AE2139267100ADE72B /* messageHeaderView.m */; };
 		012997C32139267200ADE72B /* messageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 012997AF2139267100ADE72B /* messageHeaderView.xib */; };
 		012997C42139267200ADE72B /* TPMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997B12139267100ADE72B /* TPMessageCell.m */; };
@@ -583,6 +585,9 @@
 		01121090213690A20071AC5F /* TuYeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuYeTextField.m; sourceTree = "<group>"; };
 		0112109221369FB20071AC5F /* FindSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindSearchViewController.h; sourceTree = "<group>"; };
 		0112109321369FB20071AC5F /* FindSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindSearchViewController.m; sourceTree = "<group>"; };
+		011F47F1213E379C0070ABA2 /* ZLNoAuthorityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLNoAuthorityViewController.m; sourceTree = "<group>"; };
+		011F47F2213E379C0070ABA2 /* ZLNoAuthorityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLNoAuthorityViewController.h; sourceTree = "<group>"; };
+		011F47F4213E37AA0070ABA2 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
 		012997792139120400ADE72B /* GoodLogisticsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsHeaderView.m; sourceTree = "<group>"; };
 		0129977C2139173200ADE72B /* GoodLogisticsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsModel.m; sourceTree = "<group>"; };
 		0129977F213919DB00ADE72B /* LogisticsListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsListTableViewCell.m; sourceTree = "<group>"; };
@@ -1238,6 +1243,9 @@
 				01120ED621338F9C0071AC5F /* AccountSetController.m */,
 				01120ED721338F9C0071AC5F /* EditNicknameController.h */,
 				01120ED821338F9C0071AC5F /* EditNicknameController.m */,
+				011F47F2213E379C0070ABA2 /* ZLNoAuthorityViewController.h */,
+				011F47F1213E379C0070ABA2 /* ZLNoAuthorityViewController.m */,
+				011F47F4213E37AA0070ABA2 /* lock.png */,
 			);
 			path = "账号设置";
 			sourceTree = "<group>";
@@ -3007,6 +3015,7 @@
 				8EA95333212BE1C20057AC78 /* pingpaiCell.xib in Resources */,
 				547C49A41F1DBB8200178B67 /* tab_edu_nor@2x.png in Resources */,
 				547C49A51F1DBB8200178B67 /* tab_edu_nor@3x.png in Resources */,
+				011F47F5213E37AA0070ABA2 /* lock.png in Resources */,
 				019AEE7B21382B0B00EB3405 /* moment_camera@2x.png in Resources */,
 				019AEE7F21382B0B00EB3405 /* moment_comment_hl@2x.png in Resources */,
 				019AEE7D21382B0B00EB3405 /* moment_comment@2x.png in Resources */,
@@ -3328,6 +3337,7 @@
 				8EA95305212BAA930057AC78 /* ZLPhotoAssets.m in Sources */,
 				019AEE9521382B0B00EB3405 /* Comment.m in Sources */,
 				019AEE9A21382B0B00EB3405 /* MMImageListView.m in Sources */,
+				011F47F3213E379D0070ABA2 /* ZLNoAuthorityViewController.m in Sources */,
 				01F1DFFC213ACFD5009A925A /* MBProgressHUD+NJ.m in Sources */,
 				01120F0221338F9C0071AC5F /* ApplyTXViewController.m in Sources */,
 				547C49881F1DBB8200178B67 /* ShareView.m in Sources */,

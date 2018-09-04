@@ -86,17 +86,14 @@
     .rightSpaceToView(self.contentView, 0)
     .heightIs(1);
     
-    self.defaultSwitch = [[UISwitch alloc] init];
-    [self.defaultSwitch setOn:NO];
-    self.defaultSwitch.onTintColor = colorWithRGB(0xFF6B24);
-    self.defaultSwitch.transform = CGAffineTransformMakeScale(.8, .8);
-    self.defaultSwitch.layer.anchorPoint = CGPointMake(0, 0);
-    [self.defaultSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
-    [self.contentView addSubview:self.defaultSwitch];
-    self.defaultSwitch.sd_layout
-    .topSpaceToView(self.lineView, 7)
-    .rightSpaceToView(self.contentView, 10)
-    .widthIs(40)
+    self.defaultImageView = [[UIImageView alloc] init];
+    UIImage *image1 = [UIImage imageNamed:@"icon_close"];
+    self.defaultImageView.image = image1;
+    [self.contentView addSubview:self.defaultImageView];
+    self.defaultImageView.sd_layout
+    .topSpaceToView(self.lineView, 10)
+    .rightSpaceToView(self.contentView, 20)
+    .widthIs(20*(image1.size.width/image1.size.height))
     .heightIs(20);
    
     self.defaultLabel = [[UILabel alloc] init];
@@ -107,7 +104,7 @@
     [self.contentView addSubview:self.defaultLabel];
     self.defaultLabel.sd_layout
     .topSpaceToView(self.lineView, 10)
-    .rightSpaceToView(self.defaultSwitch, 5)
+    .rightSpaceToView(self.defaultImageView, 5)
     .widthIs(40)
     .heightIs(20);
     
@@ -130,14 +127,6 @@
 -(void)editBtnAction:(UIButton *)btn
 {
     self.selectBlcok(0);
-}
-- (void)switchAction:(id)sender
-{
-    UISwitch *switchButton = (UISwitch*)sender;
-    BOOL isButtonOn = [switchButton isOn];
-    if (isButtonOn) {
-    }else {
-    }
 }
 - (void)configWithModel:(NSMutableArray *)arr
 {
@@ -173,8 +162,10 @@
     self.detailAddressLabel.adjustsFontSizeToFitWidth = YES;
     if ([arr[4] intValue] == 1) {
        self.statusImageView.image = [UIImage imageNamed:@"已选中"];
+        self.defaultImageView.image = [UIImage imageNamed:@"icon_open"];
     }else{
         self.statusImageView.image = [UIImage imageNamed:@"未选中"];
+        self.defaultImageView.image = [UIImage imageNamed:@"icon_close"];
     }
 }
 

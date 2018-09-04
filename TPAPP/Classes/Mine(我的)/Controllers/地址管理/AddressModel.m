@@ -10,4 +10,5 @@
 
 @implementation AddressModel
 MJCodingImplementation
+
 @end

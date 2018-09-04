@@ -159,7 +159,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MSHttpTool)
     return task;
 }
 
-
+- (NSURLSessionDataTask *)postBodyWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+    
+    NSURLSessionDataTask * task = [self.manager POST:url parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (success) {
+            success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+    
+    
+    return task;
+}
 
 - (NSURLSessionDataTask *)putWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
     
