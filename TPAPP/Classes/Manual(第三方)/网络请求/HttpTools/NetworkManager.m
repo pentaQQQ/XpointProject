@@ -13,6 +13,7 @@
 
 @end
 
+
 @implementation NetworkManager
 
 -(MSHttpTool *)httpTool{
@@ -133,6 +134,7 @@
     
     if ([respCode isEqualToString:@"90000"]) {
         [SVProgressHUD doAnyRemindWithHUDMessage:@"登陆过期，请重新登录" withDuration:1.5];
+        [LYTools ToLogin];
         return;
     }else{
         
