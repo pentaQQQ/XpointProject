@@ -44,8 +44,8 @@
 //获取用户信息
 #define getinfomation [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/"]
 
-
-
+//获取用户转发配置
+#define getUserForwardConfi [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/getUserForwardConfi"]
 
 
 

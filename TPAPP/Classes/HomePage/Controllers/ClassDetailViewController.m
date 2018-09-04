@@ -47,11 +47,6 @@
 //    self.scrollview.imageURLStringsGroup = [NSArray array];
     self.tableview.tableFooterView = [UIView new];
     
-    
-
-    
-    
-    
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     

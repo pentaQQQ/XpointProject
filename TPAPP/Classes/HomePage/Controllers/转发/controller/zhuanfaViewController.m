@@ -25,16 +25,12 @@
     
     [self setItems];
     [self setUpHeaderview];
+    [self getThePeopleZhuanfaPeizhi];
 }
 
 
 
 -(void)setItems{
-    
-
-//    UIBarButtonItem *leftitem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftitemClick)];
-//    
-//    self.navigationItem.leftBarButtonItem = leftitem;
     
     
     UIBarButtonItem *rightitem = [[UIBarButtonItem alloc]initWithTitle:@"转发设置" style:UIBarButtonItemStylePlain target:self action:@selector(rightitemClick)];
@@ -99,8 +95,27 @@
 
 
 
-
-
+//获取用户转发配置
+-(void)getThePeopleZhuanfaPeizhi{
+    
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    NSString*userid = [NSString stringWithFormat:@"%@",[LYAccount shareAccount].id];
+    [dic setValue:userid forKey:@"userId"];
+    
+    [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+    
+    
+}
 
 
 
