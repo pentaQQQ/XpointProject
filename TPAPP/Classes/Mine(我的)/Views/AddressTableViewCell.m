@@ -73,7 +73,7 @@
     self.detailAddressLabel.sd_layout
     .topSpaceToView(self.userNameLabel, 0)
     .leftSpaceToView(self.addressLabel, 10)
-    .rightSpaceToView(self.contentView, 20)
+    .rightSpaceToView(self.contentView, 35)
     .heightIs(20);
     
     self.lineView = [[UIView alloc] init];
@@ -158,7 +158,7 @@
     self.detailAddressLabel.sd_layout
     .topSpaceToView(self.userNameLabel, 0)
     .leftSpaceToView(self.addressLabel,10)
-    .rightSpaceToView(self.contentView, 20)
+    .rightSpaceToView(self.contentView, 35)
     .heightIs(20);
     self.detailAddressLabel.text = model.recAddress;
 //    self.detailAddressLabel.adjustsFontSizeToFitWidth = YES;

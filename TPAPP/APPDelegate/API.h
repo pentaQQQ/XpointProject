@@ -67,7 +67,7 @@
 
 
 
-
+//地址管理接口
 //删除地址
 #define deleteAddress [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/address/delete"]
 //获取地址列表
@@ -76,6 +76,13 @@
 #define saveAddress [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/address/save"]
 //修改地址
 #define updateAddress [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/address/update"]
+
+//邀请码接口
+//注册邀请码
+#define inviteAdd [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/invite/add"]
+
+//获取邀请码列表
+#define inviteList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/invite/list"]
 
 
 

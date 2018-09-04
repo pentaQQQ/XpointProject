@@ -67,6 +67,37 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]],@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]], nil];
     [self listTableView];
+    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+    //自动更改透明度
+    self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+ 
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (![self.listTableView.mj_header isRefreshing]) {
+        //进入刷新状态
+        [self.listTableView.mj_header beginRefreshing];
+    }
+    
+}
+#pragma mark - 下拉刷新数据
+- (void)loadNewTopic
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:[LYAccount shareAccount].token forKey:@"token"];
+    [LYTools postBossDemoWithUrl:inviteList param:dic success:^(NSDictionary *dict) {
+        NSLog(@"%@",dict);
+        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"编辑成功" withDuration:1.5];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [SVProgressHUD doAnyRemindWithHUDMessage:dict[@"msg"] withDuration:1.5];
+        }
+    } fail:^(NSError *error) {
+        
+    }];
 }
 #pragma mark - tableview代理
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
