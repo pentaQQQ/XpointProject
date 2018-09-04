@@ -584,7 +584,12 @@
     [UIApplication sharedApplication].keyWindow.rootViewController = rootViewController;
 }
 
-
++(void)ToLogin{
+    LoginViewController*vc = [[LoginViewController alloc]init];
+    RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+    rootVC.rt_disableInteractivePop = YES ;
+     [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+}
 
 
 @end
