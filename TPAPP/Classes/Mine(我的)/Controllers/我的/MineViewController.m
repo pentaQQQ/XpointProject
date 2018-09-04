@@ -39,7 +39,7 @@
 @property (nonatomic, strong)UILabel *firstLabel;
 @property (nonatomic, strong)UILabel *secondLabel;
 @property (nonatomic, strong)UIButton *attentionBtn;
-
+@property (nonatomic, strong)MJRefreshNormalHeader *mjHeader;
 @end
 
 @implementation MineViewController
@@ -56,21 +56,36 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.titleView = nil;
+    
+    self.automaticallyAdjustsScrollViewInsets=NO;
     [self createItems];
     [self listTableView];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    self.mjHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+   
+    // 隐藏时间
+    self.mjHeader.lastUpdatedTimeLabel.hidden = YES;
+    self.mjHeader.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    // 隐藏状态
+    self.mjHeader.stateLabel.hidden = YES;
+    self.listTableView.mj_header = self.mjHeader;
+    self.mjHeader.hidden = YES;
+    
     CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
     CGRect navRect = self.navigationController.navigationBar.frame;
     _view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, statusRect.size.height+navRect.size.height)];
     _view1.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
     [self.view addSubview:_view1];
 }
-
+#pragma mark - 刷新数据
+- (void)loadNewData
+{
+    [self.listTableView.mj_header endRefreshing];
+}
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    //    NSLog(@"==== %f",scrollView.contentOffset.y);
     CGFloat offsetY = scrollView.contentOffset.y;
-    
+    NSLog(@"%f",offsetY);
     if (offsetY<0 && offsetY>-64) {
         [self.navigationController.navigationBar setShadowImage:nil];
         [self.leftBtn setImage:[UIImage imageNamed:@"消息_black"] forState:UIControlStateNormal];
@@ -79,8 +94,13 @@
         [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
         [self.leftBtn setImage:[UIImage imageNamed:@"消息_white"] forState:UIControlStateNormal];
         [self.rightBtn setImage:[UIImage imageNamed:@"设置_white"] forState:UIControlStateNormal];
+        
     }
-    
+    if (offsetY < -64) {
+        self.mjHeader.hidden = NO;
+    }else if (offsetY >= -64){
+        self.mjHeader.hidden = YES;
+    }
     if (SafeAreaTopHeight == 88) {
         if (offsetY < 64)
         {
@@ -92,10 +112,6 @@
             _view1.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent: offsetY/64];
         }
     }
-        
-    
-    
-    
 }
 #pragma mark - iOS 设置导航栏全透明
 - (void)viewWillAppear:(BOOL)animated{
@@ -104,6 +120,14 @@
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     //去掉透明后导航栏下边的黑边
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.font = [UIFont boldSystemFontOfSize:20];
+    titleLabel.textColor = [UIColor clearColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text = @"我的";
+    self.navigationItem.titleView= titleLabel;
+    
 }
 - (void)viewWillDisappear:(BOOL)animated{
     //如果不想让其他页面的导航栏变为透明 需要重置
@@ -114,7 +138,7 @@
 -(UITableView *)listTableView
 {
     if (_listTableView == nil) {
-        _listTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _listTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _listTableView.backgroundColor = colorWithRGB(0xEEEEEE);
         _listTableView.delegate = self;
         _listTableView.dataSource = self;
@@ -123,7 +147,7 @@
         _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:_listTableView];
         _listTableView.sd_layout
-        .topSpaceToView(self.view, -500)
+        .topSpaceToView(self.view, 0)
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .bottomEqualToView(self.view);
@@ -571,23 +595,29 @@
     CGRect rect = [titleString boundingRectWithSize:size options:NSStringDrawingUsesFontLeading|NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14]} context:nil];
     return rect.size.width+10;
 }
-//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-//{
-//    if (section == 4) {
-//        return 0;
-//    }
-//    return 20;
-//}
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-//{
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 20)];
-//    view.backgroundColor = colorWithRGB(0xEEEEEE);
-//    return view;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (section == 4) {
+        return 40;
+    }else{
+      return 0;
+    }
+    
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (section == 4) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
+        view.backgroundColor = colorWithRGB(0xEEEEEE);
+        return view;
+    }else{
+        return nil;
+    }
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==0) {
-        return 740+20;
+        return 240+20;
     }else if (indexPath.section == 4){
 //        return 185;
         return 100;

@@ -8,6 +8,7 @@
 
 #import "SystemInformationController.h"
 #import "SystemInformationCell.h"
+#import "SVProgressHUD+DoAnythingAfter.h"
 @interface SystemInformationController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong)UITableView *listTableView;
@@ -84,10 +85,10 @@
         
         if ([respCode isEqualToString:@"00000"]) {
              self.listTableView.mj_footer.state = MJRefreshStateNoMoreData;
+
+        }else if ([json[@"code"] longValue] == 500){
             [self.listTableView.mj_footer endRefreshing];
-            //            for (NSDictionary *dic in json[@"data"]) {
-            //
-            //            }
+            [SVProgressHUD showInfoWithStatus:json[@"msg"]];
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
@@ -97,16 +98,20 @@
 - (void)loadNewTopic
 {
     [[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
+        [self.listTableView.mj_header endRefreshing];
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            [self.listTableView.mj_header endRefreshing];
+            
 //            for (NSDictionary *dic in json[@"data"]) {
 //            
 //            }
+        }else if ([json[@"code"] longValue] == 500){
+            [SVProgressHUD showInfoWithStatus:json[@"msg"]];
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
+        [self.listTableView.mj_header endRefreshing];
     }];
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

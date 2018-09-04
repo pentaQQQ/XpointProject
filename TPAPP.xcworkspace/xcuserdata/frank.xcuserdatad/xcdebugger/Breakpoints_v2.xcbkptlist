@@ -10,60 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Controllers/CartViewController.m"
-            timestampString = "557583272.183969"
+            timestampString = "557679814.108368"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
-            landmarkName = "-SelectedConfirmCell:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Controllers/CartViewController.m"
-            timestampString = "557583272.184092"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
-            landmarkName = "-SelectedCancelCell:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Controllers/CartViewController.m"
-            timestampString = "557583272.184164"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
-            landmarkName = "-SelectedSectionCancel:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Controllers/CartViewController.m"
-            timestampString = "557583272.184243"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "388"
-            endingLineNumber = "388"
-            landmarkName = "-didChangeValueForSection:SectionSelectedTyep:"
+            startingLineNumber = "390"
+            endingLineNumber = "390"
+            landmarkName = "-SelectedSection:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,22 +74,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/MineIndentChildController.m"
-            timestampString = "557581972.36659"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "-loadNewTopic"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/MineIndentChildController.m"
             timestampString = "557581972.3666559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -159,23 +95,23 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "233"
             endingLineNumber = "233"
-            landmarkName = "-selecteNumber:"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;/MineViewController.m"
-            timestampString = "557583272.18458"
+            filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Controllers/CartViewController.m"
+            timestampString = "557679814.108946"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "-scrollViewDidScroll:"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
+            landmarkName = "-swipeTableCell:tappedButtonAtIndex:direction:fromExpansion:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
