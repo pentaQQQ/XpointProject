@@ -47,6 +47,9 @@
 //获取用户转发配置
 #define getUserForwardConfi [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/getUserForwardConfi"]
 
+//修改转发配置
+#define updateUserForwardConfi [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/updateUserForwardConfi"]
+
 //获取商户列表
 #define getMerchantList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/main/getMerchantList"]
 

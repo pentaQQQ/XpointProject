@@ -162,8 +162,6 @@
             weakSelf.TupianviewBlock(@"合成图（新版四图组合+描述）", @"新版四张商品图片和描述文字合成一张图片再转发");
         }
         
-        [[NSUserDefaults standardUserDefaults]setObject:@"合成图（新版四图组合+描述）" forKey:@"title"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"新版四张商品图片和描述文字合成一张图片再转发" forKey:@"detailTitle"];
         
     }];
 }
@@ -190,8 +188,7 @@
         if (weakSelf.TupianviewBlock) {
             weakSelf.TupianviewBlock(@"单张图（商品首图+描述）", @"商品第一张图和描述文字合成一张图片再转发");
         }
-        [[NSUserDefaults standardUserDefaults]setObject:@"单张图（商品首图+描述）" forKey:@"title"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"商品第一张图和描述文字合成一张图片再转发" forKey:@"detailTitle"];
+       
     }];
 }
 
@@ -218,9 +215,6 @@
         }
         
         
-        [[NSUserDefaults standardUserDefaults]setObject:@"四张图（描述默认复制）" forKey:@"title"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"仅转发商品图片，描述文字需手动复制粘贴" forKey:@"detailTitle"];
-        
     }];
     
 }
@@ -246,8 +240,6 @@
         if (weakSelf.TupianviewBlock) {
             weakSelf.TupianviewBlock(@"合成图（四图组合+描述）", @"旧版四张商品图片和描述文字合成一张图片再转发");
         }
-        [[NSUserDefaults standardUserDefaults]setObject:@"合成图（四图组合+描述）" forKey:@"title"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"旧版四张商品图片和描述文字合成一张图片再转发" forKey:@"detailTitle"];
     }];
     
 }

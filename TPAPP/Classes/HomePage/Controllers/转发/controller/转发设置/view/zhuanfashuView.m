@@ -70,8 +70,6 @@
             weakSelf.zhuanfashuBlock(@"4件", @"批量转发自定义4件");
         }
         
-        [[NSUserDefaults standardUserDefaults]setObject:@"4件" forKey:@"zhuanfasgu"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"所有商品以平台播货价格转发" forKey:@"detailzhuanfasgu"];
         
     }];
 }
@@ -89,8 +87,7 @@
         if (weakSelf.zhuanfashuBlock) {
             weakSelf.zhuanfashuBlock(@"6件", @"批量转发自定义6件");
         }
-        [[NSUserDefaults standardUserDefaults]setObject:@"6件" forKey:@"zhuanfasgu"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"所有商品在平台播货价基础上+5元转发" forKey:@"detailzhuanfasgu"];
+       
     }];
 }
 
@@ -108,10 +105,7 @@
             weakSelf.zhuanfashuBlock(@"9件", @"批量转发自定义9件");
         }
         
-        
-        [[NSUserDefaults standardUserDefaults]setObject:@"9件" forKey:@"zhuanfasgu"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"所有商品在平台播货价基础上+10元转发" forKey:@"detailzhuanfasgu"];
-        
+      
     }];
     
 }

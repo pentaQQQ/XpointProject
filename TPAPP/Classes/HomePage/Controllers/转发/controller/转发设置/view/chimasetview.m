@@ -162,8 +162,7 @@
             weakSelf.chimaBlock(@"不转发", @"不转发缺货尺码");
         }
         
-        [[NSUserDefaults standardUserDefaults]setObject:@"不转发" forKey:@"chima"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"不转发缺货尺码" forKey:@"detailChima"];
+     
         
     }];
 }
@@ -190,8 +189,7 @@
         if (weakSelf.chimaBlock) {
             weakSelf.chimaBlock(@"始终转发", @"始终转发缺货尺码");
         }
-        [[NSUserDefaults standardUserDefaults]setObject:@"始终转发" forKey:@"chima"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"始终转发缺货尺码" forKey:@"detailChima"];
+       
     }];
 }
 
@@ -218,9 +216,7 @@
         }
         
         
-        [[NSUserDefaults standardUserDefaults]setObject:@"活动1小时内转发" forKey:@"chima"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"活动开始1小时内 转发缺货尺码" forKey:@"detailChima"];
-        
+     
     }];
     
 }
@@ -246,8 +242,7 @@
         if (weakSelf.chimaBlock) {
             weakSelf.chimaBlock(@"活动2小时内", @"活动开始2小时内 转发缺货尺码");
         }
-        [[NSUserDefaults standardUserDefaults]setObject:@"活动2小时内转发" forKey:@"chima"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"活动开始2小时内 转发缺货尺码" forKey:@"detailChima"];
+      
     }];
     
 }

@@ -12,7 +12,7 @@
 #import "jiajiaView.h"
 #import "zidingyijineView.h"
 #import "zhuanfashuView.h"
-
+#import "zhuanfaModel.h"
 
 @interface zhuanfasetViewController ()
 
@@ -46,6 +46,14 @@
 @property(nonatomic,strong)jiajiaView*jiajiaview;
 @property(nonatomic,strong)zidingyijineView*jineview;
 @property(nonatomic,strong)zhuanfashuView*zhuanfashuview;
+
+
+@property(nonatomic,copy)NSString*first;
+@property(nonatomic,copy)NSString*second;
+@property(nonatomic,copy)NSString*third;
+@property(nonatomic,copy)NSString*fourth;
+@property(nonatomic,strong)zhuanfaModel*model;
+
 @end
 
 @implementation zhuanfasetViewController
@@ -75,28 +83,13 @@
     }];
     
     
-    NSString *tupian = [[NSUserDefaults standardUserDefaults]objectForKey:@"title"];
-    NSString *tupiandetail = [[NSUserDefaults standardUserDefaults]objectForKey:@"detailTitle"];
-    NSString *chima = [[NSUserDefaults standardUserDefaults]objectForKey:@"chima"];
-    NSString *chimadetail = [[NSUserDefaults standardUserDefaults]objectForKey:@"detailChima"];
-    NSString *jiajia = [[NSUserDefaults standardUserDefaults]objectForKey:@"jiajia"];
-    NSString *jiajiadetail = [[NSUserDefaults standardUserDefaults]objectForKey:@"detailjiajia"];
-    NSString *zhuanfashu = [[NSUserDefaults standardUserDefaults]objectForKey:@"zhuanfasgu"];
-    NSString *zhuanfashudetail = [[NSUserDefaults standardUserDefaults]objectForKey:@"detailzhuanfasgu"];
     
+    [self getTheUserForwardConfiSuccess:^(zhuanfaModel *model) {
+        self.model = model;
+        [self setDadaWithModel:model];
+        
+    }];
     
-    
-    self.miaoshuLab.text = tupian;
-    self.miaoshuDetailLab.text = tupiandetail;
-    
-    self.timelab.text = chima;
-    self.timeDetailLab.text =chimadetail;
-    
-    self.jiajiaLab.text = jiajia;
-    self.jiajiaDetailLab.text = jiajiadetail;
-    
-    self.jianshuLab.text = zhuanfashu;
-    self.jianshuDetailLab.text = zhuanfashudetail;
 }
 
 
@@ -127,6 +120,22 @@
         [weakSelf.mengbanView removeFromSuperview];
         weakSelf.miaoshuLab.text =title;
         weakSelf.miaoshuDetailLab.text =detailTitle;
+        
+        
+        if ([title isEqualToString:@"单张图（商品首图+描述）"]) {
+            weakSelf.first = @"0";
+            [weakSelf setZhuanfaData];
+        }else if ([title isEqualToString:@"四张图（描述默认复制）"]){
+            weakSelf.first = @"1";
+            [weakSelf setZhuanfaData];
+        }else if ([title isEqualToString:@"合成图（四图组合+描述）"]){
+            weakSelf.first = @"2";
+            [weakSelf setZhuanfaData];
+        }else{
+            weakSelf.first = @"3";
+            [weakSelf setZhuanfaData];
+        }
+        
         
     };
     tupianview.removeBlock = ^{
@@ -166,7 +175,23 @@
         weakSelf.timelab.text =title;
         weakSelf.timeDetailLab.text =detailTitle;
         
+        
+        if ([title isEqualToString:@"不转发"]) {
+            weakSelf.second = @"0";
+            [weakSelf setZhuanfaData];
+        }else if ([title isEqualToString:@"始终转发"]){
+            weakSelf.second = @"1";
+            [weakSelf setZhuanfaData];
+        }else if ([title isEqualToString:@"活动1小时内转发"]){
+            weakSelf.second = @"2";
+            [weakSelf setZhuanfaData];
+        }else{
+            weakSelf.second = @"3";
+            [weakSelf setZhuanfaData];
+        }
+        
     };
+    
     chimaview.removeBlock = ^{
         [weakSelf.mengbanView removeFromSuperview];
     };
@@ -208,14 +233,25 @@
             
             weakSelf.jiajiaLab.text =title;
             weakSelf.jiajiaDetailLab.text =detailTitle;
+            
+            if ([title isEqualToString:@"不加价"]) {
+                weakSelf.third = @"0";
+                [weakSelf setZhuanfaData];
+            }else if ([title isEqualToString:@"+5元"]){
+                weakSelf.third = @"5";
+                [weakSelf setZhuanfaData];
+            }else if ([title isEqualToString:@"+10元"]){
+                weakSelf.third = @"10";
+                [weakSelf setZhuanfaData];
+            }
+            
+            
         }else{
             
             
             [weakSelf setUpZidingyijineView];
         }
-        
-        
-        
+
     };
     jiajiaview.removeBlock = ^{
         [weakSelf.mengbanView removeFromSuperview];
@@ -261,12 +297,11 @@
         NSString *jine = [NSString stringWithFormat:@"+%@元",jineview.textField.text];
         NSString *detailjine = [NSString stringWithFormat:@"所有商品在平台播货价基础上+%@元转发",jineview.textField.text];
         
-        [[NSUserDefaults standardUserDefaults]setObject:jine forKey:@"jiajia"];
-        [[NSUserDefaults standardUserDefaults]setObject:detailjine forKey:@"detailjiajia"];
+        weakSelf.third =jineview.textField.text;
         
         weakSelf.jiajiaLab.text =jine;
         weakSelf.jiajiaDetailLab.text = detailjine;
-        
+        [weakSelf setZhuanfaData];
         [weakSelf.mengbanView removeFromSuperview];
         [weakSelf.jineview removeFromSuperview];
         [self.view endEditing:YES];
@@ -306,13 +341,22 @@
             
             weakSelf.jianshuLab.text =title;
             weakSelf.jianshuDetailLab.text =detailTitle;
-        }else{
             
+            if ([title isEqualToString:@"4件"]) {
+                weakSelf.fourth = @"4";
+                [weakSelf setZhuanfaData];
+            }else if ([title isEqualToString:@"6件"]){
+                weakSelf.fourth = @"6";
+                [weakSelf setZhuanfaData];
+            }else if ([title isEqualToString:@"9件"]){
+                weakSelf.fourth = @"9";
+                [weakSelf setZhuanfaData];
+            }
+            
+        }else{
             
             [weakSelf setUpZidingyijianshuView];
         }
-        
-        
         
     };
     zhuanfashuview.removeBlock = ^{
@@ -364,12 +408,11 @@
         NSString *jine = [NSString stringWithFormat:@"%@件",jineview.textField.text];
         NSString *detailjine = [NSString stringWithFormat:@"批量转发自定义%@件",jineview.textField.text];
         
-        [[NSUserDefaults standardUserDefaults]setObject:jine forKey:@"zhuanfasgu"];
-        [[NSUserDefaults standardUserDefaults]setObject:detailjine forKey:@"detailzhuanfasgu"];
+        weakSelf.fourth =jineview.textField.text;
         
         weakSelf.jianshuLab.text =jine;
         weakSelf.jianshuDetailLab.text = detailjine;
-        
+        [weakSelf setZhuanfaData];
         [weakSelf.mengbanView removeFromSuperview];
         [weakSelf.jineview removeFromSuperview];
         [self.view endEditing:YES];
@@ -392,4 +435,141 @@
     
     
 }
+
+
+
+
+
+-(void)getTheUserForwardConfiSuccess:(void(^)(zhuanfaModel*model))success{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    NSString *userId = [NSString stringWithFormat:@"%@",[LYAccount shareAccount].id];
+    [dic setValue:userId forKey:@"userId"];
+    
+    [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]){
+            zhuanfaModel*model = [zhuanfaModel mj_objectWithKeyValues:json[@"data"]];
+            success(model);
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+    
+    
+}
+
+
+
+
+-(void)setDadaWithModel:(zhuanfaModel*)model{
+    
+    
+    if ([model.defaultImg isEqualToString:@"0"]) {
+        self.miaoshuLab.text = @"单张图（商品首图+描述）";
+        self.miaoshuDetailLab.text = @"商品第一张图和描述文字合成一张图片再转发";
+        
+    }else if ([model.defaultImg isEqualToString:@"1"]){
+        self.miaoshuLab.text = @"四张图（描述默认复制）";
+        self.miaoshuDetailLab.text = @"仅转发商品图片，描述文字需手动复制粘贴";
+        
+    }else if ([model.defaultImg isEqualToString:@"2"]){
+        self.miaoshuLab.text = @"合成图（四图组合+描述）";
+        self.miaoshuDetailLab.text = @"旧版四张商品图片和描述文字合成一张图片再转发";
+        
+    }else{
+        self.miaoshuLab.text = @"合成图（新版四图组合+描述）";
+        self.miaoshuDetailLab.text = @"新版四张商品图片和描述文字合成一张图片再转发";
+        
+    }
+    
+    
+    
+    if ([model.lackSize isEqualToString:@"0"]) {
+        self.timelab.text = @"不转发";
+        self.timeDetailLab.text =@"不转发缺货尺码";
+        
+    }else if ([model.lackSize isEqualToString:@"1"]){
+        self.timelab.text = @"始终转发";
+        self.timeDetailLab.text =@"始终转发缺货尺码";
+        
+    }else if ([model.lackSize isEqualToString:@"2"]){
+        self.timelab.text = @"活动1小时内转发";
+        self.timeDetailLab.text =@"活动开始1小时内 转发缺货尺码";
+        
+    }else{
+        self.timelab.text = @"活动2小时内转发";
+        self.timeDetailLab.text = @"活动开始2小时内 转发缺货尺码";
+        
+    }
+    
+    
+    if ([model.price isEqualToString:@"0"]) {
+        self.jiajiaLab.text = @"不加价";
+        self.jiajiaDetailLab.text = @"所有商品以平台播货价格转发";
+        
+    }else{
+        
+        self.jiajiaLab.text = [NSString stringWithFormat:@"+%@元",model.price];
+        self.jiajiaDetailLab.text = [NSString stringWithFormat:@"所有商品在平台播货价基础上+%@元转发",model.price];
+        
+    }
+    
+    
+    
+    self.jianshuLab.text = [NSString stringWithFormat:@"%@件",model.num];
+    self.jianshuDetailLab.text =  [NSString stringWithFormat:@"批量转发自定义%@件",model.num];
+    
+    
+    self.first = model.defaultImg;
+    self.second = model.lackSize;
+    self.third = model.price;
+    self.fourth =model.num;
+    
+    
+}
+
+
+
+
+
+-(void)setZhuanfaData{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:self.first forKey:@"defaultImg"];
+    [dic setValue:self.model.id forKey:@"id"];
+    [dic setValue:self.second forKey:@"lackSize"];
+    [dic setValue:self.fourth forKey:@"num"];
+    [dic setValue:self.third forKey:@"price"];
+    [dic setValue:[LYAccount shareAccount].id forKey:@"userId"];
+    
+    
+    [LYTools postBossDemoWithUrl:updateUserForwardConfi param:dic success:^(NSDictionary *dict) {
+        
+        NSLog(@"%@",dict);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+       
+        if ([respCode isEqualToString:@"00000"]){
+            [self getTheUserForwardConfiSuccess:^(zhuanfaModel *model) {
+                self.model = model;
+                [self setDadaWithModel:model];
+                
+            }];
+        }
+        
+        
+    } fail:^(NSError *error) {
+        
+        
+    }];
+
+}
+
+
+
+
 @end

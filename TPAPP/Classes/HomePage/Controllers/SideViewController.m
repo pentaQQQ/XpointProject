@@ -94,9 +94,10 @@
 {
     
     if (!_rootTableView) {
-        _rootTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        _rootTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth/4*3, kScreenHeight) style:UITableViewStylePlain];
         _rootTableView.delegate = self;
         _rootTableView.dataSource = self;
+        _rootTableView.tableFooterView = [UIView new];
         
     }
     return _rootTableView;
