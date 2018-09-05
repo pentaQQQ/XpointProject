@@ -145,22 +145,15 @@
 }
 //获取用户信息
 -(void)getPeopleInfomation{
-
     
     [[NetworkManager sharedManager]getWithUrl:getinfomation param:nil success:^(id json) {
         NSLog(@"%@",json);
-        
-        
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]){
-            
             // 单例赋值
             [LYAccount mj_objectWithKeyValues:json[@"data"]];
-            
         }
     } failure:^(NSError *error) {
-
-        
     }];
     
 }

@@ -36,10 +36,10 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ymd-ab-D1p">
-                        <rect key="frame" x="317" y="41.5" width="30" height="30"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="已选中" translatesAutoresizingMaskIntoConstraints="NO" id="ymd-ab-D1p">
+                        <rect key="frame" x="327" y="46.5" width="20" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="30" id="NXd-1u-Hct"/>
+                            <constraint firstAttribute="width" constant="20" id="NXd-1u-Hct"/>
                             <constraint firstAttribute="width" secondItem="ymd-ab-D1p" secondAttribute="height" multiplier="1:1" id="OFx-bP-o3k"/>
                         </constraints>
                     </imageView>
@@ -62,4 +62,7 @@
             <point key="canvasLocation" x="57.5" y="88.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="已选中" width="14" height="14"/>
+    </resources>
 </document>

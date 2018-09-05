@@ -7,7 +7,7 @@
 //
 
 #import "InviteAwardCell.h"
-
+#import "InviteCodeModel.h"
 @implementation InviteAwardCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -56,10 +56,10 @@
     
 }
 
-- (void)configWithModel:(NSMutableArray *)arr
+- (void)configWithModel:(InviteCodeModel *)model
 {
-    self.codeLabel.text = arr[0];
-    if ([arr[1] intValue] == 1) {
+    self.codeLabel.text = model.inviteCode;
+    if ([model.isEnable intValue] == 1) {
         self.registeLabel.text = @"已注册";
         self.registeLabel.sd_layout
         .topSpaceToView(self.contentView, 10)

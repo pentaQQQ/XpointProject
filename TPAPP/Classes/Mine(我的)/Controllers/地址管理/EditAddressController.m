@@ -98,7 +98,7 @@
                                 [SVProgressHUD doAnythingSuccessWithHUDMessage:@"编辑成功" withDuration:1.5];
                                 [self.navigationController popViewControllerAnimated:YES];
                             }else{
-                                 [SVProgressHUD doAnyRemindWithHUDMessage:dict[@"msg"] withDuration:1.5];
+                                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
                             }
                         } fail:^(NSError *error) {
                             
@@ -111,17 +111,16 @@
 }
 - (void)deleteBtnAction
 {
-    [LYTools postBossDemoWithUrl:deleteAddress param:@{@"id":self.addressModel.id} success:^(NSDictionary *dict) {
-        NSLog(@"%@",dict);
-        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+    [[NetworkManager sharedManager] postWithUrl:deleteAddress param:@{@"id":self.addressModel.id} success:^(id json) {
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             [SVProgressHUD doAnythingSuccessWithHUDMessage:@"删除成功" withDuration:1.5];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
-            [SVProgressHUD doAnythingSuccessWithHUDMessage:dict[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"msg"] withDuration:1.5];
         }
-    } fail:^(NSError *error) {
-
+    } failure:^(NSError *error) {
+        
     }];
 }
 #pragma mark - 懒加载

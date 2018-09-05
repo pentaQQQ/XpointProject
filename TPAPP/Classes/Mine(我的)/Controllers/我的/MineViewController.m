@@ -430,6 +430,11 @@
         //记录本地标识，等待完成后取到相册中的图片对象
         [imageIds addObject:req.placeholderForCreatedAsset.localIdentifier];
     } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        if (success) {
+            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"保存成功" withDuration:1.0];
+        }else{
+            [SVProgressHUD doAnythingFailedWithHUDMessage:@"保存失败" withDuration:1.0];
+        }
         //        NSLog(@"success = %d, error = %@", success, error);
     }];
 }

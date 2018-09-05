@@ -76,4 +76,12 @@
                    success:(void(^)(NSDictionary *dict))success
 
                       fail:(void (^)(NSError *error))fail;
+
++(void)getBossDemoWithUrl:(NSString*)url
+
+                     param:(NSDictionary*)param
+
+                   success:(void(^)(NSDictionary *dict))success
+
+                      fail:(void (^)(NSError *error))fail;
 @end

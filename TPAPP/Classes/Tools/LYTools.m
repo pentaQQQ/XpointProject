@@ -628,6 +628,36 @@
     
 }
 
++(void)getBossDemoWithUrl:(NSString*)url
+
+                     param:(NSDictionary*)param
+
+                   success:(void(^)(NSDictionary *dict))success
+
+                      fail:(void (^)(NSError *error))fail
+
+{
+    NSString *accessPath = url;
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"GET" URLString:accessPath parameters:param error:nil];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    NSURLSessionDataTask *task = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        NSLog(@"-----responseObject===%@+++++",responseObject);
+        if (!error) {
+            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                // 请求成功数据处理
+                success(responseObject);
+            } else {
+                
+            }
+        } else {
+            NSLog(@"请求失败error=%@", error);
+        }
+    }];
+    [task resume];
+    
+}
 
 
 

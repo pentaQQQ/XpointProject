@@ -99,7 +99,9 @@
                             NSLog(@"%@",dict);
                             NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
                             if ([respCode isEqualToString:@"00000"]) {
-                                [SVProgressHUD showSuccessWithStatus:@"新建成功"];
+                                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"新建成功" withDuration:1.5];
+                            }else{
+                                [SVProgressHUD doAnythingSuccessWithHUDMessage:dict[@"msg"] withDuration:1.5];
                             }
                         } fail:^(NSError *error) {
 

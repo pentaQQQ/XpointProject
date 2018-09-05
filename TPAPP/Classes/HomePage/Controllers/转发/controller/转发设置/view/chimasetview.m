@@ -7,7 +7,7 @@
 //
 
 #import "chimasetview.h"
-
+#import "zhuanfaModel.h"
 @implementation chimasetview
 
 
@@ -18,9 +18,12 @@
     {
         [self layoutAllSubviews];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self setData];
-        });
+        [self getTheUserForwardConfiSuccess:^(zhuanfaModel *zhuanfamodel) {
+            
+            [self setBtnStateWithzhuanfaModel:zhuanfamodel];
+            
+        }];
+        
         
     }
     return self;
@@ -42,13 +45,11 @@
 
 
 
--(void)setData{
-    
-    NSString *title = [[NSUserDefaults standardUserDefaults]objectForKey:@"chima"];
-    NSString *detailTitle = [[NSUserDefaults standardUserDefaults]objectForKey:@"detailChima"];
+-(void)setBtnStateWithzhuanfaModel:(zhuanfaModel*)model{
     
     
-    if ([title isEqualToString:@"不转发"]) {
+    
+    if ([model.lackSize isEqualToString:@"0"]) {
         
         self.firstImage.hidden = NO;
         self.secondImage.hidden = YES;
@@ -60,7 +61,7 @@
         self.thirdContentLab.textColor = [UIColor darkGrayColor];
         self.fourthContentLab.textColor = [UIColor darkGrayColor];
         
-    }else if ([title isEqualToString:@"始终转发"]){
+    }else if ([model.lackSize isEqualToString:@"1"]){
         self.firstImage.hidden = YES;
         self.secondImage.hidden = NO;
         self.thirdImage.hidden = YES;
@@ -70,7 +71,7 @@
         self.secondContentLab.textColor = [UIColor redColor];
         self.thirdContentLab.textColor = [UIColor darkGrayColor];
         self.fourthContentLab.textColor = [UIColor darkGrayColor];
-    }else if ([title isEqualToString:@"活动1小时内转发"]){
+    }else if ([model.lackSize isEqualToString:@"2"]){
         self.firstImage.hidden = YES;
         self.secondImage.hidden = YES;
         self.thirdImage.hidden = NO;
@@ -81,7 +82,7 @@
         self.thirdContentLab.textColor = [UIColor redColor];
         self.fourthContentLab.textColor = [UIColor darkGrayColor];
         
-    }else if ([title isEqualToString:@"活动2小时内转发"]){
+    }else if ([model.lackSize isEqualToString:@"3"]){
         
         self.firstImage.hidden = YES;
         self.secondImage.hidden = YES;
@@ -162,8 +163,7 @@
             weakSelf.chimaBlock(@"不转发", @"不转发缺货尺码");
         }
         
-        [[NSUserDefaults standardUserDefaults]setObject:@"不转发" forKey:@"chima"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"不转发缺货尺码" forKey:@"detailChima"];
+     
         
     }];
 }
@@ -190,8 +190,7 @@
         if (weakSelf.chimaBlock) {
             weakSelf.chimaBlock(@"始终转发", @"始终转发缺货尺码");
         }
-        [[NSUserDefaults standardUserDefaults]setObject:@"始终转发" forKey:@"chima"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"始终转发缺货尺码" forKey:@"detailChima"];
+       
     }];
 }
 
@@ -218,9 +217,7 @@
         }
         
         
-        [[NSUserDefaults standardUserDefaults]setObject:@"活动1小时内转发" forKey:@"chima"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"活动开始1小时内 转发缺货尺码" forKey:@"detailChima"];
-        
+     
     }];
     
 }
@@ -246,8 +243,7 @@
         if (weakSelf.chimaBlock) {
             weakSelf.chimaBlock(@"活动2小时内", @"活动开始2小时内 转发缺货尺码");
         }
-        [[NSUserDefaults standardUserDefaults]setObject:@"活动2小时内转发" forKey:@"chima"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"活动开始2小时内 转发缺货尺码" forKey:@"detailChima"];
+      
     }];
     
 }
@@ -257,6 +253,27 @@
 - (IBAction)cancelBtnClick:(id)sender {
     [self removeView];
     [self removeMengbanBlock];
+}
+
+//获取配置设置
+-(void)getTheUserForwardConfiSuccess:(void(^)(zhuanfaModel*model))success{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    NSString *userId = [NSString stringWithFormat:@"%@",[LYAccount shareAccount].id];
+    [dic setValue:userId forKey:@"userId"];
+    
+    [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]){
+            zhuanfaModel*model = [zhuanfaModel mj_objectWithKeyValues:json[@"data"]];
+            success(model);
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
 }
 
 

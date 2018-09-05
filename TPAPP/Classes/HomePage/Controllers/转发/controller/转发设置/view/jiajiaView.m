@@ -16,8 +16,7 @@
     if(self)
     {
         [self layoutAllSubviews];
-        
-       
+
     }
     return self;
 }
@@ -70,8 +69,7 @@
             weakSelf.jiajiaBlock(@"不加价", @"所有商品以平台播货价格转发");
         }
         
-        [[NSUserDefaults standardUserDefaults]setObject:@"不加价" forKey:@"jiajia"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"所有商品以平台播货价格转发" forKey:@"detailjiajia"];
+      
         
     }];
 }
@@ -89,8 +87,7 @@
         if (weakSelf.jiajiaBlock) {
             weakSelf.jiajiaBlock(@"+5元", @"所有商品在平台播货价基础上+5元转发");
         }
-        [[NSUserDefaults standardUserDefaults]setObject:@"+5元" forKey:@"jiajia"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"所有商品在平台播货价基础上+5元转发" forKey:@"detailjiajia"];
+       
     }];
 }
 
@@ -107,10 +104,6 @@
         if (weakSelf.jiajiaBlock) {
             weakSelf.jiajiaBlock(@"+10元", @"所有商品在平台播货价基础上+10元转发");
         }
-        
-        
-        [[NSUserDefaults standardUserDefaults]setObject:@"+10元" forKey:@"jiajia"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"所有商品在平台播货价基础上+10元转发" forKey:@"detailjiajia"];
         
     }];
     

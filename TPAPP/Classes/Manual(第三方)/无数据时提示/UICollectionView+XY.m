@@ -208,7 +208,7 @@
 - (void)xy_dealloc {
     [self freeNoDataViewIfNeeded];
     [self xy_dealloc];
-    NSLog(@"CollectionView + XY 视图正常销毁");
+//    NSLog(@"CollectionView + XY 视图正常销毁");
 }
 
 @end

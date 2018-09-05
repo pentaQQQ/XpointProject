@@ -58,8 +58,9 @@
         _RemarksLabel = [[UILabel alloc]init];
         _RemarksLabel.text = @"备注:";
         _RemarksLabel.textColor = colorWithRGB(0xFF6B24);
-        _RemarksLabel.font = [UIFont systemFontOfSize:14];
-        
+        _RemarksLabel.font = [UIFont systemFontOfSize:13];
+        CGSize size = [_RemarksLabel sizeThatFits:CGSizeMake(_RemarksLabel.frame.size.width, MAXFLOAT)];
+        _RemarksLabel.frame = CGRectMake(_RemarksLabel.frame.origin.x, _RemarksLabel.frame.origin.y, _RemarksLabel.frame.size.width,size.height);
         _Remarks_button = [UIButton buttonWithType:UIButtonTypeCustom];
         _Remarks_button.titleLabel.font = [UIFont systemFontOfSize:13];
         _Remarks_button.backgroundColor = colorWithRGB(0xFF6B24);
@@ -138,7 +139,7 @@
             make.height.equalTo(@(20));
             
         }];
-        _Remarks_button.layer.cornerRadius = 5;
+        _Remarks_button.layer.cornerRadius = 2;
         _Remarks_button.layer.masksToBounds = YES;
         
     }

@@ -61,6 +61,7 @@
     [self.collectionView setPagingEnabled:YES];
     [self addSubview:_collectionView];
     
+    
     [self buildFooterView];
 
 }

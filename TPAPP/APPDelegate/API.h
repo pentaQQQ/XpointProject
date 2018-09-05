@@ -47,6 +47,9 @@
 //获取用户转发配置
 #define getUserForwardConfi [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/getUserForwardConfi"]
 
+//修改转发配置
+#define updateUserForwardConfi [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/updateUserForwardConfi"]
+
 //获取商户列表
 #define getMerchantList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/main/getMerchantList"]
 
@@ -54,6 +57,24 @@
 #define getProductByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getProductByMerchantId"]
 
 
+
+
+
+
+
+
+
+
+
+
+
+//申请售后的接口
+//提交售后申请
+#define orderReturnsApply [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/orderReturns/applyReturns"]
+//取消售后
+#define cancelOrderReturnsApply [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/orderReturns/cancelReturns"]
+//获取售后列表
+#define getOrderReturnsList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/orderReturns/list"]
 
 
 

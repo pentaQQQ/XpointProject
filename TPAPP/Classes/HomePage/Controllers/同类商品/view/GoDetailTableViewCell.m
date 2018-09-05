@@ -11,10 +11,13 @@
 #import "ZLPhotoPickerBrowserViewController.h"
 #import "imagesListModel.h"
 #import "UIButton+WebCache.h"
+#import "ZhuanfaOtherView.h"
 
 @interface GoDetailTableViewCell()
 @property(nonatomic,strong)NSMutableArray*dataArr;
 @property(nonatomic,strong)NSMutableArray*btnArr;
+@property(nonatomic,weak)UIView *mengbanView;
+@property(nonatomic,strong)ZhuanfaOtherView *zhuanfaotherview;
 @end
 
 
@@ -45,12 +48,25 @@
 -(void)setZhuanfaBtn:(UIButton *)zhuanfaBtn{
     _zhuanfaBtn = zhuanfaBtn;
     ViewBorderRadius(zhuanfaBtn, 5, 1, [UIColor clearColor]);
+    
+    [zhuanfaBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        [self setUpZidingyijianshuView];
+    }];
 }
 -(void)setShoppingcartBtn:(UIButton *)shoppingcartBtn{
     _shoppingcartBtn = shoppingcartBtn;
     ViewBorderRadius(shoppingcartBtn, 5, 1, [UIColor clearColor]);
     shoppingcartBtn.userInteractionEnabled = NO;
 }
+
+
+
+
+
+
+
+
+
 
 -(void)setModel:(SimilarProductModel *)model{
     
@@ -282,6 +298,69 @@
     
     
 }
+
+
+
+
+
+
+
+-(void)setUpZidingyijianshuView{
+    
+    
+    UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
+    UIView *mengbanView = [[UIView alloc]init];
+    self.mengbanView = mengbanView;
+    self.mengbanView.frame = keyWindow.bounds;
+    [keyWindow addSubview:self.mengbanView];
+    mengbanView.alpha = 0.5;
+    mengbanView.backgroundColor=[UIColor blackColor];
+    
+    ZhuanfaOtherView *zhuanfaotherview = [[NSBundle mainBundle]loadNibNamed:@"ZhuanfaOtherView" owner:self options:nil].lastObject;
+    ViewBorderRadius(zhuanfaotherview, 5, 1, [UIColor clearColor]);
+    self.zhuanfaotherview = zhuanfaotherview;
+    zhuanfaotherview.frame = CGRectMake(20, (kScreenHeight-283)/2, kScreenWidth-40, 283);
+    
+    [keyWindow addSubview:zhuanfaotherview];
+    
+    UITapGestureRecognizer*tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
+    [mengbanView addGestureRecognizer:tap];
+    
+   
+
+    __weak __typeof(self) weakSelf = self;
+    
+    [zhuanfaotherview.cancelBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        [weakSelf.mengbanView removeFromSuperview];
+        [weakSelf.zhuanfaotherview removeFromSuperview];
+        [self endEditing:YES];
+    }];
+    
+    [zhuanfaotherview.sureBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+  
+        [weakSelf.mengbanView removeFromSuperview];
+        [weakSelf.zhuanfaotherview removeFromSuperview];
+        [self endEditing:YES];
+    }];
+    
+}
+
+
+
+
+
+-(void)tap{
+    
+    [self.zhuanfaotherview removeFromSuperview];
+    [self.mengbanView removeFromSuperview];
+    
+}
+
+
+
+
+
+
 
 
 
