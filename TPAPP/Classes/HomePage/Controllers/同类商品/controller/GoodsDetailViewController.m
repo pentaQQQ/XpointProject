@@ -10,6 +10,10 @@
 #import "SimilarProductModel.h"
 #import "GoDetailTableViewCell.h"
 #import "specsModel.h"
+
+
+
+
 @interface GoodsDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)UITableView*tableview;

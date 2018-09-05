@@ -47,12 +47,9 @@
 
 -(void)setItems{
     
-    
     UIBarButtonItem *rightitem = [[UIBarButtonItem alloc]initWithTitle:@"转发设置" style:UIBarButtonItemStylePlain target:self action:@selector(rightitemClick)];
     
     self.navigationItem.rightBarButtonItem = rightitem;
-    
-    
     
 }
 
@@ -118,14 +115,22 @@
     
     if (indexPath.row == self.currentIndex) {
         self.headerview.merchanid = model.merchantId;
-        
+        cell.seletimageview.hidden = NO;
+    }else{
+        cell.seletimageview.hidden = YES;
     }
     
     return cell;
     
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    self.currentIndex = (int)indexPath.row;
+    
+    [self.tableview reloadData];
+    
+}
 
 
 //获取商户列表
@@ -139,6 +144,7 @@
             
             for (NSDictionary *dic in json[@"data"]) {
                 shanghuModel *model = [shanghuModel mj_objectWithKeyValues:dic];
+                [self.titleArray addObject:model];
                 [self.titleArray addObject:model];
             }
             [self.tableview reloadData];

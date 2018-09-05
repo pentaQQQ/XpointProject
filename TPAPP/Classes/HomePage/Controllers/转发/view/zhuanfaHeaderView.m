@@ -198,7 +198,7 @@
         [self setDadaWithModel:self.MerchanArray[self.count]];
     }else{
         
-        
+        [SVProgressHUD doAnyRemindWithHUDMessage:@"该活动已经转发完，开始转发下一场活动" withDuration:1.5];
         if (self.ToNextMerchanBlock) {
             self.ToNextMerchanBlock();
         }
@@ -234,6 +234,8 @@
 
 -(void)setMerchanid:(NSString *)merchanid{
     _merchanid = merchanid;
+    
+    
     self.count = 0;
     [self getTheMerchanWitnTheMerchanId:merchanid];
     
@@ -358,7 +360,7 @@
         
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]){
-            
+            [self.MerchanArray removeAllObjects];
             for (NSDictionary *dic in json[@"data"]) {
                 
                 SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
