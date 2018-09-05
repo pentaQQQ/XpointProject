@@ -36,6 +36,10 @@
     return _btnArr;
 }
 
+- (IBAction)goShoppingAction:(id)sender {
+    specsModel *model = self.dataArr[0];
+    self.goShoppingBlock(model);
+}
 
 -(void)setImageview:(UIImageView *)imageview{
     _imageview = imageview;

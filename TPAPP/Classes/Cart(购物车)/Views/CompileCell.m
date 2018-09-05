@@ -59,8 +59,8 @@
         _RemarksLabel.text = @"备注:";
         _RemarksLabel.textColor = colorWithRGB(0xFF6B24);
         _RemarksLabel.font = [UIFont systemFontOfSize:13];
-        CGSize size = [_RemarksLabel sizeThatFits:CGSizeMake(_RemarksLabel.frame.size.width, MAXFLOAT)];
-        _RemarksLabel.frame = CGRectMake(_RemarksLabel.frame.origin.x, _RemarksLabel.frame.origin.y, _RemarksLabel.frame.size.width,size.height);
+//        CGSize size = [_RemarksLabel sizeThatFits:CGSizeMake(_RemarksLabel.frame.size.width, MAXFLOAT)];
+//        _RemarksLabel.frame = CGRectMake(_RemarksLabel.frame.origin.x, _RemarksLabel.frame.origin.y, _RemarksLabel.frame.size.width,size.height);
         _Remarks_button = [UIButton buttonWithType:UIButtonTypeCustom];
         _Remarks_button.titleLabel.font = [UIFont systemFontOfSize:13];
         _Remarks_button.backgroundColor = colorWithRGB(0xFF6B24);
@@ -113,6 +113,10 @@
         }];
         
         [_RemarksLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+
+            
+            
             make.left.equalTo(_Goods_Icon.mas_right).offset(8);
             make.bottom.equalTo(_Goods_Icon.mas_bottom).offset(0);
             make.right.equalTo(self).offset(-60);
