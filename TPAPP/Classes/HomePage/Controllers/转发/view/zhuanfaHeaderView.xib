@@ -117,7 +117,7 @@
                             <rect key="frame" x="10" y="0.0" width="285" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="商品首图+描述文字" image="已选中">
+                            <state key="normal" title="合成图（新版四图组合+描述）" image="已选中">
                                 <color key="titleColor" red="1" green="0.21960784310000001" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
                             <connections>
@@ -155,7 +155,7 @@
                             <rect key="frame" x="10" y="0.0" width="285" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="朋友圈  (六张图)" image="icon_未选择">
+                            <state key="normal" title="单张图  (商品首图+描述)" image="icon_未选择">
                                 <color key="titleColor" red="1" green="0.21960784310000001" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
                             <connections>
@@ -193,7 +193,7 @@
                             <rect key="frame" x="10" y="0.0" width="285" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="微信群（合并一张图）" image="icon_未选择">
+                            <state key="normal" title="四张图（描述默认复制）" image="icon_未选择">
                                 <color key="titleColor" red="1" green="0.21960784310000001" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
                             <connections>
@@ -231,7 +231,7 @@
                             <rect key="frame" x="10" y="0.0" width="285" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="微信群（五张图）" image="icon_未选择">
+                            <state key="normal" title="合成图（四图组合+描述）" image="icon_未选择">
                                 <color key="titleColor" red="1" green="0.21960784310000001" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
                             <connections>
@@ -260,9 +260,12 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="上一页" image="back.png">
+                            <state key="normal" title="上一件" image="back.png">
                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="previousPageBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="glU-m5-92d"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mbh-QF-HzI">
                             <rect key="frame" x="125" y="0.0" width="124.5" height="40"/>
@@ -270,6 +273,9 @@
                             <state key="normal" title="第001号">
                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="numberBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="4Wv-Ye-LcJ"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wv-Gr-d02">
                             <rect key="frame" x="250.5" y="0.0" width="124.5" height="40"/>
@@ -277,9 +283,12 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="40" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="80" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="下一页" image="icon_shezhi_arrow">
+                            <state key="normal" title="下一件" image="icon_shezhi_arrow">
                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="nextBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="BCj-XP-Fdt"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -308,6 +317,9 @@
                     <state key="normal" title="转发">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="zhuanfaBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="zPR-QG-j73"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KkB-MY-yhz">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
