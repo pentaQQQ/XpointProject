@@ -18,7 +18,8 @@
 #import "XYNoDataView.h"
 #import <objc/runtime.h>
 #import "AppDelegate.h"
-@interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate>
+#import "DeclareAbnormalAlertView.h"
+@interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate,DeclareAbnormalAlertViewDelegate>
 {
     BOOL allowMultipleSwipe;
 }
@@ -57,8 +58,6 @@
     //自动更改透明度
     _CartTableView.mj_header.automaticallyChangeAlpha = YES;
     
-    
-   
 }
 
 
@@ -70,6 +69,7 @@
     }
     //进入刷新状态
     [_CartTableView.mj_header beginRefreshing];
+    
 }
 #pragma mark - 下拉刷新数据
 - (void)loadNewTopic
@@ -88,7 +88,6 @@
             [_CartTableView reloadData];
         }else if([json[@"code"]longValue] == 500){
             
-//            [_CartTableView reloadData];
         }
         
         
@@ -509,37 +508,29 @@
 }
 
 /**
- *  取消选中商品
+ *  添加备注
  */
 -(void)SelectedRemarkCell:(CompileCell *)cell
 {
-    UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"修改昵称" message: nil preferredStyle:UIAlertControllerStyleAlert];
-    [alertCtrl  addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-    
-         textField.text = cell.RemarksLabel.text;
-         textField.borderStyle = UITextBorderStyleNone;
-         textField.textColor = [UIColor blackColor];
-         textField.clearButtonMode = UITextFieldViewModeAlways;
-    }];
-    [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    }]];
-    [alertCtrl  addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-         NSArray * textfields = alertCtrl.textFields;
-         UITextField * namefield = textfields[0];
-        cell.RemarksLabel.text = namefield.text;
-    }]];
-    [self presentViewController:alertCtrl animated:YES completion:nil];
-//    NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
-//    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
-//    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
-//    [dict setValue:@"未选中支付" forKey:@"SelectedType"];
-//    [dict setValue:@"0" forKey:@"Type"];
-//    [arr replaceObjectAtIndex:indexPath.row withObject:dict];
+//    UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"修改昵称" message: nil preferredStyle:UIAlertControllerStyleAlert];
+//    [alertCtrl  addTextFieldWithConfigurationHandler:^(UITextField *textField) {
 //
-//    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+//         textField.text = cell.RemarksLabel.text;
+//         textField.borderStyle = UITextBorderStyleNone;
+//         textField.textColor = [UIColor blackColor];
+//         textField.clearButtonMode = UITextFieldViewModeAlways;
+//    }];
 //
-//    //判断是否把section的全选按钮取消
-//    [self didChangeValueForSectionRow:indexPath.section];
+//    [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//    }]];
+//    [alertCtrl  addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//         NSArray * textfields = alertCtrl.textFields;
+//         UITextField * namefield = textfields[0];
+//        cell.RemarksLabel.text = namefield.text;
+//    }]];
+//    [self presentViewController:alertCtrl animated:YES completion:nil];
+    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"添加商品备注" message:@"请输入备注信息" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comCell:cell];
+    [alertView show];
 }
 
 
@@ -897,7 +888,15 @@
 {
     
 }
-
+#pragma mark - Delegate - 带输入框的弹窗
+// 输入框弹窗的button点击时回调
+- (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectCell:(CompileCell *)cell{
+    if (buttonIndex == AlertButtonLeft) {
+        
+    }else{
+         cell.RemarksLabel.text = alertView.textView.text;
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -228,7 +228,7 @@
 - (void)xy_dealloc {
     [self freeNoDataViewIfNeeded];
     [self xy_dealloc];
-    NSLog(@"TableView + XY 视图正常销毁");
+//    NSLog(@"TableView + XY 视图正常销毁");
 }
 
 @end

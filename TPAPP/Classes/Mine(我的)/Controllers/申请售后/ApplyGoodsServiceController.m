@@ -53,10 +53,38 @@
     self.title =@"申请售后";
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
-//    self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]],@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]], nil];
     [self listTableView];
+    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+    //自动更改透明度
+    self.listTableView.mj_header.automaticallyChangeAlpha = YES;
 }
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ([self.listTableView.mj_header isRefreshing]) {
+        [self.listTableView.mj_header endRefreshing];
+        [self.listTableView.mj_header beginRefreshing];
+    }else{
+        [self.listTableView.mj_header beginRefreshing];
+    }
+}
+#pragma mark - 获取数据列表
+- (void)loadNewTopic
+{
+    [[NetworkManager sharedManager] getWithUrl:[NSString stringWithFormat:@"%@/%@",getOrderReturnsList,[LYAccount shareAccount].id] param:nil success:^(id json) {
+        NSLog(@"%@",json);
+        [self.listTableView.mj_header endRefreshing];
+        if ([json[@"respCode"] isEqualToString:@"00000"]) {
+            
+            
+        }else if ([json[@"code"] longValue] == 500){
+            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"msg"] withDuration:1.5];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+  
+}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 6;

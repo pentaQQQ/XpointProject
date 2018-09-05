@@ -115,6 +115,10 @@
 		011F47F3213E379D0070ABA2 /* ZLNoAuthorityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F47F1213E379C0070ABA2 /* ZLNoAuthorityViewController.m */; };
 		011F47F5213E37AA0070ABA2 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 011F47F4213E37AA0070ABA2 /* lock.png */; };
 		011F47F8213F71C90070ABA2 /* InviteCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F47F7213F71C90070ABA2 /* InviteCodeModel.m */; };
+		011F47FC213FC3090070ABA2 /* DeclareAbnormalAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F47FB213FC3090070ABA2 /* DeclareAbnormalAlertView.m */; };
+		011F47FF213FC3D10070ABA2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 011F47FE213FC3D10070ABA2 /* QuartzCore.framework */; };
+		011F4821213FD9A80070ABA2 /* UIView+frameAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F481F213FD9A70070ABA2 /* UIView+frameAdjust.m */; };
+		011F4822213FD9A80070ABA2 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F4820213FD9A80070ABA2 /* UIColor+Util.m */; };
 		012997C22139267200ADE72B /* messageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997AE2139267100ADE72B /* messageHeaderView.m */; };
 		012997C32139267200ADE72B /* messageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 012997AF2139267100ADE72B /* messageHeaderView.xib */; };
 		012997C42139267200ADE72B /* TPMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997B12139267100ADE72B /* TPMessageCell.m */; };
@@ -594,6 +598,13 @@
 		011F47F4213E37AA0070ABA2 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
 		011F47F6213F71C90070ABA2 /* InviteCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InviteCodeModel.h; sourceTree = "<group>"; };
 		011F47F7213F71C90070ABA2 /* InviteCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InviteCodeModel.m; sourceTree = "<group>"; };
+		011F47FA213FC3090070ABA2 /* DeclareAbnormalAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeclareAbnormalAlertView.h; sourceTree = "<group>"; };
+		011F47FB213FC3090070ABA2 /* DeclareAbnormalAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeclareAbnormalAlertView.m; sourceTree = "<group>"; };
+		011F47FE213FC3D10070ABA2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		011F481D213FD9A60070ABA2 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Util.h"; sourceTree = "<group>"; };
+		011F481E213FD9A70070ABA2 /* UIView+frameAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+frameAdjust.h"; sourceTree = "<group>"; };
+		011F481F213FD9A70070ABA2 /* UIView+frameAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+frameAdjust.m"; sourceTree = "<group>"; };
+		011F4820213FD9A80070ABA2 /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Util.m"; sourceTree = "<group>"; };
 		012997792139120400ADE72B /* GoodLogisticsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsHeaderView.m; sourceTree = "<group>"; };
 		0129977C2139173200ADE72B /* GoodLogisticsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsModel.m; sourceTree = "<group>"; };
 		0129977F213919DB00ADE72B /* LogisticsListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsListTableViewCell.m; sourceTree = "<group>"; };
@@ -1049,6 +1060,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				011F47FF213FC3D10070ABA2 /* QuartzCore.framework in Frameworks */,
 				8E3E6D472138D52F007B3306 /* libc++.tbd in Frameworks */,
 				8E3E6D452138D526007B3306 /* SystemConfiguration.framework in Frameworks */,
 				8E3E6D432138D51F007B3306 /* libz.tbd in Frameworks */,
@@ -1611,6 +1623,19 @@
 			path = TuYeTextField;
 			sourceTree = "<group>";
 		};
+		011F47F9213FC2ED0070ABA2 /* 自定义弹出输入框 */ = {
+			isa = PBXGroup;
+			children = (
+				011F481D213FD9A60070ABA2 /* UIColor+Util.h */,
+				011F4820213FD9A80070ABA2 /* UIColor+Util.m */,
+				011F481E213FD9A70070ABA2 /* UIView+frameAdjust.h */,
+				011F481F213FD9A70070ABA2 /* UIView+frameAdjust.m */,
+				011F47FA213FC3090070ABA2 /* DeclareAbnormalAlertView.h */,
+				011F47FB213FC3090070ABA2 /* DeclareAbnormalAlertView.m */,
+			);
+			path = "自定义弹出输入框";
+			sourceTree = "<group>";
+		};
 		012997842139212B00ADE72B /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -2029,6 +2054,7 @@
 		547C48C31F1DBB8200178B67 /* Manual(第三方) */ = {
 			isa = PBXGroup;
 			children = (
+				011F47F9213FC2ED0070ABA2 /* 自定义弹出输入框 */,
 				01944F76213CE49400831504 /* 无数据时提示 */,
 				01F1DFF7213ACFD5009A925A /* MBProgressHUD */,
 				8E3E6D322138D4BD007B3306 /* WechatSDK1.8.2 */,
@@ -2911,6 +2937,7 @@
 		D63B1E6C203BBED43C75CC97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				011F47FE213FC3D10070ABA2 /* QuartzCore.framework */,
 				8E3E6D462138D52F007B3306 /* libc++.tbd */,
 				8E3E6D442138D526007B3306 /* SystemConfiguration.framework */,
 				8E3E6D422138D51F007B3306 /* libz.tbd */,
@@ -2994,7 +3021,6 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -3340,6 +3366,7 @@
 				8EA95307212BAA930057AC78 /* ZLPhotoPickerGroupViewController.m in Sources */,
 				01120EEC21338F9C0071AC5F /* MarketCell.m in Sources */,
 				8E78BE10213640B8000A9EA4 /* homePageHeaderModel.m in Sources */,
+				011F4821213FD9A80070ABA2 /* UIView+frameAdjust.m in Sources */,
 				0112100A213392FD0071AC5F /* JXCategoryNumberView.m in Sources */,
 				0112109421369FB20071AC5F /* FindSearchViewController.m in Sources */,
 				01120FFA213392FD0071AC5F /* JXCategoryBackgroundImageCell.m in Sources */,
@@ -3431,6 +3458,7 @@
 				8EA9532C212BE0D70057AC78 /* HeaderTabView.m in Sources */,
 				01120EF721338F9C0071AC5F /* EditAddressController.m in Sources */,
 				01F1DFFD213ACFD5009A925A /* MBProgressHUD.m in Sources */,
+				011F47FC213FC3090070ABA2 /* DeclareAbnormalAlertView.m in Sources */,
 				547C49981F1DBB8200178B67 /* GHWalkThroughView.m in Sources */,
 				01120F0321338F9C0071AC5F /* BankCardViewController.m in Sources */,
 				019AEE3521382A5C00EB3405 /* MMWebView.m in Sources */,
@@ -3458,6 +3486,7 @@
 				01121005213392FD0071AC5F /* JXCategoryLineStyleCell.m in Sources */,
 				012997C72139267200ADE72B /* TransportationCell.m in Sources */,
 				019AEE3C21382A5C00EB3405 /* MLLabelLayoutManager.m in Sources */,
+				011F4822213FD9A80070ABA2 /* UIColor+Util.m in Sources */,
 				01944F7D213CE4BA00831504 /* XYNoDataView.m in Sources */,
 				547C486D1F1DA8AF00178B67 /* main.m in Sources */,
 				012997C92139267200ADE72B /* TransportationSeationView.m in Sources */,
@@ -3624,7 +3653,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9MHQLQBTW8;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3674,7 +3703,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9MHQLQBTW8;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

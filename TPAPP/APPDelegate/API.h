@@ -68,6 +68,24 @@
 
 
 
+//申请售后的接口
+//提交售后申请
+#define orderReturnsApply [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/orderReturns/applyReturns"]
+//取消售后
+#define cancelOrderReturnsApply [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/orderReturns/cancelReturns"]
+//获取售后列表
+#define getOrderReturnsList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/orderReturns/list"]
+
+
+
+
+
+
+
+
+
+
+
 
 
 //地址管理接口

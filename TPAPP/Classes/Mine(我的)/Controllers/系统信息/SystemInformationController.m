@@ -82,13 +82,11 @@
     [[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        
         if ([respCode isEqualToString:@"00000"]) {
              self.listTableView.mj_footer.state = MJRefreshStateNoMoreData;
-
         }else if ([json[@"code"] longValue] == 500){
             [self.listTableView.mj_footer endRefreshing];
-            [SVProgressHUD showInfoWithStatus:json[@"msg"]];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"msg"] withDuration:1.5];
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);

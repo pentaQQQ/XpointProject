@@ -11,7 +11,7 @@
 #import "DeclareAbnormalAlertView.h"
 #import "UIColor+Util.h"
 #import "UIView+frameAdjust.h"
-
+#import "CompileCell.h"
 @interface DeclareAbnormalAlertView ()<UITextViewDelegate>
 
 /** 弹窗主内容view */
@@ -26,7 +26,7 @@
 @property (nonatomic,copy)   NSString *leftButtonTitle;
 /** 右边按钮title */
 @property (nonatomic,copy)   NSString *rightButtonTitle;
-
+@property (nonatomic,strong) CompileCell *compileCell;
 @end
 
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
@@ -47,14 +47,14 @@
  @param rightButtonTitle 右边按钮的title
  @return 一个申报异常的弹窗
  */
-- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle{
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle comCell:(CompileCell *)cell{
     if (self = [super init]) {
         self.title = title;
         self.message = message;
         self.delegate = delegate;
         self.leftButtonTitle = leftButtonTitle;
         self.rightButtonTitle = rightButtonTitle;
-        
+        self.compileCell = cell;
         // 接收键盘显示隐藏的通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
@@ -111,27 +111,28 @@
     topView.backgroundColor = [UIColor colorWithHexString:@"e0e0e0"];
     [self.contentView addSubview:topView];
     
-    // 左侧按钮
-    UIButton *abnormalButton = [[UIButton alloc]initWithFrame:CGRectMake(0, topView.maxY, (self.contentView.width-1)/2, self.contentView.height-topView.maxY)];
-    [self.contentView addSubview:abnormalButton];
-    [abnormalButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [abnormalButton setTitle:self.leftButtonTitle forState:UIControlStateNormal];
-    [abnormalButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
-    abnormalButton.layer.cornerRadius = 6;
-    [abnormalButton addTarget:self action:@selector(abnormalButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *middleView = [[UIView alloc] initWithFrame:CGRectMake((self.contentView.width-1)/2, topView.maxY, 1, self.contentView.height-topView.maxY)];
-    middleView.backgroundColor = [UIColor colorWithHexString:@"e0e0e0"];
-    [self.contentView addSubview:middleView];
-    
     // 取消按钮
-    UIButton *cancelButton = [[UIButton alloc]initWithFrame:CGRectMake((self.contentView.width-1)/2+1, abnormalButton.minY, (self.contentView.width-1)/2, self.contentView.height-topView.maxY)];
+    UIButton *cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(0, topView.maxY, (self.contentView.width-1)/2, self.contentView.height-topView.maxY)];
     [self.contentView addSubview:cancelButton];
-    [cancelButton setTitle:self.rightButtonTitle forState:UIControlStateNormal];
+    [cancelButton setTitle:self.leftButtonTitle forState:UIControlStateNormal];
     [cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [cancelButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
     cancelButton.layer.cornerRadius = 6;
     [cancelButton addTarget:self action:@selector(cancelButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UIView *middleView = [[UIView alloc] initWithFrame:CGRectMake((self.contentView.width-1)/2, topView.maxY, 1, self.contentView.height-topView.maxY)];
+    middleView.backgroundColor = [UIColor colorWithHexString:@"e0e0e0"];
+    [self.contentView addSubview:middleView];
+    // 确定按钮
+    UIButton *abnormalButton = [[UIButton alloc]initWithFrame:CGRectMake((self.contentView.width-1)/2+1, cancelButton.minY, (self.contentView.width-1)/2, self.contentView.height-topView.maxY)];
+    [self.contentView addSubview:abnormalButton];
+    [abnormalButton setTitleColor:[UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [abnormalButton setTitle:self.rightButtonTitle forState:UIControlStateNormal];
+    [abnormalButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
+    abnormalButton.layer.cornerRadius = 6;
+    [abnormalButton addTarget:self action:@selector(abnormalButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+   
     
     //------- 调整弹窗高度和中心 -------//
 //    self.contentView.height = cancelButton.maxY + 10;
@@ -155,8 +156,8 @@
 #pragma mark - 申报异常按钮点击
 /** 申报异常按钮点击 */
 - (void)abnormalButtonClicked{
-    if ([self.delegate respondsToSelector:@selector(declareAbnormalAlertView:clickedButtonAtIndex:)]) {
-        [self.delegate declareAbnormalAlertView:self clickedButtonAtIndex:AlertButtonLeft];
+    if ([self.delegate respondsToSelector:@selector(declareAbnormalAlertView:clickedButtonAtIndex:selectCell:)]) {
+        [self.delegate declareAbnormalAlertView:self clickedButtonAtIndex:AlertButtonRight selectCell:self.compileCell];
     }
     [self dismiss];
 }
@@ -164,8 +165,8 @@
 #pragma mark - 取消按钮点击
 /** 取消按钮点击 */
 - (void)cancelButtonClicked{
-    if ([self.delegate respondsToSelector:@selector(declareAbnormalAlertView:clickedButtonAtIndex:)]) {
-        [self.delegate declareAbnormalAlertView:self clickedButtonAtIndex:AlertButtonRight];
+    if ([self.delegate respondsToSelector:@selector(declareAbnormalAlertView:clickedButtonAtIndex:selectCell:)]) {
+        [self.delegate declareAbnormalAlertView:self clickedButtonAtIndex:AlertButtonLeft selectCell:self.compileCell];
     }
     [self dismiss];
 }
