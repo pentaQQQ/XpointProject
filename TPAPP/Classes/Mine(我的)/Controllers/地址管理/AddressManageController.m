@@ -99,6 +99,8 @@
                 [self.listDataArr addObject:model];
             }
             [self.listTableView reloadData];
+        }else{
+            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"msg"] withDuration:1.5];
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);

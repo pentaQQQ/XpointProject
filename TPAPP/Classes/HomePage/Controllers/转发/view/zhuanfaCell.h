@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "shanghuModel.h"
 @interface zhuanfaCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UIImageView *imageview;
+@property (weak, nonatomic) IBOutlet UILabel *title;
+@property (weak, nonatomic) IBOutlet UIImageView *seletimageview;
+@property(nonatomic,strong)shanghuModel*model;
 @end

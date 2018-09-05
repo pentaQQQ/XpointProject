@@ -10,12 +10,30 @@
 #import "zhuanfaHeaderView.h"
 #import "zhuanfaCell.h"
 #import "zhuanfasetViewController.h"
+#import "shanghuModel.h"
+#import "SimilarProductModel.h"
+
 @interface zhuanfaViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)zhuanfaHeaderView*headerview;
 @property(nonatomic,strong)UITableView*tableview;
+@property (nonatomic, strong) NSMutableArray *titleArray;
+@property (nonatomic, strong) NSMutableArray *MerchanArray;
+
 @end
 
 @implementation zhuanfaViewController
+-(NSMutableArray*)titleArray{
+    if (_titleArray == nil) {
+        _titleArray = [NSMutableArray array];
+    }
+    return _titleArray;
+}
+-(NSMutableArray*)MerchanArray{
+    if (_MerchanArray == nil) {
+        _MerchanArray = [NSMutableArray array];
+    }
+    return _MerchanArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,7 +43,8 @@
     
     [self setItems];
     [self setUpHeaderview];
-    [self getThePeopleZhuanfaPeizhi];
+//    [self getThePeopleZhuanfaPeizhi];
+    [self getdata];
 }
 
 
@@ -58,13 +77,12 @@
     tableview.delegate = self;
     tableview.dataSource = self;
     
+    tableview.tableFooterView = [UIView new];
     
-    
+  
     zhuanfaHeaderView*headerview = [[NSBundle mainBundle]loadNibNamed:@"zhuanfaHeaderView" owner:self options:nil].lastObject;
     self.headerview = headerview;
-    
     headerview.frame = CGRectMake(0, CGRectGetMaxY(tableview.frame), kScreenWidth,380);
-    
     [self.view addSubview:headerview];
     
 }
@@ -75,7 +93,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 20;
+    return self.titleArray.count;
 }
 
 
@@ -88,6 +106,15 @@
     if (cell == nil) {
         cell =  [[NSBundle mainBundle]loadNibNamed:@"zhuanfaCell" owner:self options:nil].lastObject;
     }
+    shanghuModel *model = self.titleArray[indexPath.row];
+   
+    cell.model = model;
+    
+    
+    if (indexPath.row == 0) {
+        [self getTheMerchanWitnTheMerchanId:model.merchantId];
+    }
+    
     return cell;
     
 }
@@ -95,29 +122,58 @@
 
 
 
-//获取用户转发配置
--(void)getThePeopleZhuanfaPeizhi{
+
+//获取商户列表
+-(void)getdata{
     
-    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    NSString*userid = [NSString stringWithFormat:@"%@",[LYAccount shareAccount].id];
-    [dic setValue:userid forKey:@"userId"];
-    
-    [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
+    [[NetworkManager sharedManager]getWithUrl:getMerchantList param:nil success:^(id json) {
         NSLog(@"%@",json);
         
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
+        if ([respCode isEqualToString:@"00000"]){
             
+            for (NSDictionary *dic in json[@"data"]) {
+                shanghuModel *model = [shanghuModel mj_objectWithKeyValues:dic];
+                [self.titleArray addObject:model];
+            }
+            [self.tableview reloadData];
         }
+        
     } failure:^(NSError *error) {
+        
+        
+    }];
+}
+
+//根据商户id拿到对应的全部商品
+-(void)getTheMerchanWitnTheMerchanId:(NSString*)merchanid{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:merchanid forKey:@"id"];
+    
+    
+    [[NetworkManager sharedManager]getWithUrl:getProductByMerchantId param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]){
+            
+            for (NSDictionary *dic in json[@"data"]) {
+                SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
+                [self.MerchanArray addObject:model];
+                
+            }
+            self.headerview.model =self.MerchanArray[0];
+         
+        }
+        
+    } failure:^(NSError *error) {
+        
         
     }];
     
     
+    
 }
-
-
-
 
 @end

@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "InviteCodeModel.h"
 @interface InviteAwardCell : UITableViewCell
 @property (nonatomic,strong)UILabel *inviteCodeLabel;
 @property (nonatomic,strong)UILabel *codeLabel;
 @property (nonatomic,strong)UILabel *registeLabel;
-- (void)configWithModel:(NSMutableArray *)arr;
+- (void)configWithModel:(InviteCodeModel *)model;
 @end

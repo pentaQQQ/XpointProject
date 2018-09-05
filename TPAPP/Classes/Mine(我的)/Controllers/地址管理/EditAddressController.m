@@ -55,6 +55,7 @@
     [self.dataDict addEntriesFromDictionary:@{@"recProv":self.addressModel.recProv}];
     [self.dataDict addEntriesFromDictionary:@{@"recCity":self.addressModel.recCity}];
     [self.dataDict addEntriesFromDictionary:@{@"recArea":self.addressModel.recArea}];
+    [self.dataDict addEntriesFromDictionary:@{@"id":self.addressModel.id}];
 }
 
 #pragma mark -自定义导航栏返回按钮
@@ -97,7 +98,7 @@
                                 [SVProgressHUD doAnythingSuccessWithHUDMessage:@"编辑成功" withDuration:1.5];
                                 [self.navigationController popViewControllerAnimated:YES];
                             }else{
-                                 [SVProgressHUD doAnyRemindWithHUDMessage:dict[@"msg"] withDuration:1.5];
+                                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
                             }
                         } fail:^(NSError *error) {
                             
@@ -110,30 +111,17 @@
 }
 - (void)deleteBtnAction
 {
-    [[NetworkManager sharedManager]postWithUrl:deleteAddress param:@{@"id":self.addressModel.id} success:^(id json) {
-        NSLog(@"%@",json);
+    [[NetworkManager sharedManager] postWithUrl:deleteAddress param:@{@"id":self.addressModel.id} success:^(id json) {
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             [SVProgressHUD doAnythingSuccessWithHUDMessage:@"删除成功" withDuration:1.5];
             [self.navigationController popViewControllerAnimated:YES];
-            
-            
         }else{
-            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"msg"] withDuration:1.5];
         }
     } failure:^(NSError *error) {
         
     }];
-//    [LYTools postBossDemoWithUrl:deleteAddress param:@{@"id":self.addressModel.id} success:^(NSDictionary *dict) {
-//        NSLog(@"%@",dict);
-//        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-//        if ([respCode isEqualToString:@"00000"]) {
-//            [SVProgressHUD showSuccessWithStatus:@"删除成功"];
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }
-//    } fail:^(NSError *error) {
-//
-//    }];
 }
 #pragma mark - 懒加载
 -(NSMutableArray *)listDataArr
