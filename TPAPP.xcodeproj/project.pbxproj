@@ -114,6 +114,7 @@
 		0112109421369FB20071AC5F /* FindSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0112109321369FB20071AC5F /* FindSearchViewController.m */; };
 		011F47F3213E379D0070ABA2 /* ZLNoAuthorityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F47F1213E379C0070ABA2 /* ZLNoAuthorityViewController.m */; };
 		011F47F5213E37AA0070ABA2 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 011F47F4213E37AA0070ABA2 /* lock.png */; };
+		011F47F8213F71C90070ABA2 /* InviteCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F47F7213F71C90070ABA2 /* InviteCodeModel.m */; };
 		012997C22139267200ADE72B /* messageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997AE2139267100ADE72B /* messageHeaderView.m */; };
 		012997C32139267200ADE72B /* messageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 012997AF2139267100ADE72B /* messageHeaderView.xib */; };
 		012997C42139267200ADE72B /* TPMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997B12139267100ADE72B /* TPMessageCell.m */; };
@@ -591,6 +592,8 @@
 		011F47F1213E379C0070ABA2 /* ZLNoAuthorityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLNoAuthorityViewController.m; sourceTree = "<group>"; };
 		011F47F2213E379C0070ABA2 /* ZLNoAuthorityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLNoAuthorityViewController.h; sourceTree = "<group>"; };
 		011F47F4213E37AA0070ABA2 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
+		011F47F6213F71C90070ABA2 /* InviteCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InviteCodeModel.h; sourceTree = "<group>"; };
+		011F47F7213F71C90070ABA2 /* InviteCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InviteCodeModel.m; sourceTree = "<group>"; };
 		012997792139120400ADE72B /* GoodLogisticsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsHeaderView.m; sourceTree = "<group>"; };
 		0129977C2139173200ADE72B /* GoodLogisticsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsModel.m; sourceTree = "<group>"; };
 		0129977F213919DB00ADE72B /* LogisticsListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsListTableViewCell.m; sourceTree = "<group>"; };
@@ -1284,6 +1287,8 @@
 			children = (
 				01120EE221338F9C0071AC5F /* InviteAwardController.h */,
 				01120EE321338F9C0071AC5F /* InviteAwardController.m */,
+				011F47F6213F71C90070ABA2 /* InviteCodeModel.h */,
+				011F47F7213F71C90070ABA2 /* InviteCodeModel.m */,
 			);
 			path = "邀请有奖";
 			sourceTree = "<group>";
@@ -3448,6 +3453,7 @@
 				019AEE9821382B0B00EB3405 /* UIView+Geometry.m in Sources */,
 				01120EFC21338F9C0071AC5F /* MinePerformanceController.m in Sources */,
 				01120FF4213392FD0071AC5F /* BRDatePickerView.m in Sources */,
+				011F47F8213F71C90070ABA2 /* InviteCodeModel.m in Sources */,
 				012997C62139267200ADE72B /* TransportationMessageViewController.m in Sources */,
 				01121005213392FD0071AC5F /* JXCategoryLineStyleCell.m in Sources */,
 				012997C72139267200ADE72B /* TransportationCell.m in Sources */,

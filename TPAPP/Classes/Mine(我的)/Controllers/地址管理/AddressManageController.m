@@ -88,7 +88,7 @@
 {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:[LYAccount shareAccount].id forKey:@"userId"];
-    [[NetworkManager sharedManager] postWithUrl:getAddressList param:dic success:^(id json) {
+    [[NetworkManager sharedManager] getWithUrl:getAddressList param:dic success:^(id json) {
         [self.listTableView.mj_header endRefreshing];
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
@@ -100,7 +100,7 @@
             }
             [self.listTableView reloadData];
         }else{
-            [SVProgressHUD doAnythingSuccessWithHUDMessage:json[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"msg"] withDuration:1.5];
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);

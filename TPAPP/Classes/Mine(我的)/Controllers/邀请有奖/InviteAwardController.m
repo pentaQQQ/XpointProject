@@ -8,6 +8,7 @@
 
 #import "InviteAwardController.h"
 #import "InviteAwardCell.h"
+#import "InviteCodeModel.h"
 @interface InviteAwardController ()<UITableViewDelegate, UITableViewDataSource,UIDocumentInteractionControllerDelegate>
 
 @property (nonatomic, retain) UIDocumentInteractionController *docuController;
@@ -15,6 +16,7 @@
 @property (nonatomic, strong)NSMutableArray *listDataArr;
 @property (nonatomic, strong)UIView *myQRBgview;
 @property (nonatomic, strong)UIView *myQRView;
+@property (nonatomic, strong)UIView *myQRBottomView;
 @property (nonatomic, strong)UIImageView *qrImageView;
 @property (nonatomic, strong)UIView *bgview;
 @property (nonatomic, strong)UILabel *codeLabel;
@@ -24,14 +26,20 @@
 @end
 
 @implementation InviteAwardController
-#pragma mark - 懒加载
--(NSMutableArray *)listDataArr
 {
-    if (_listDataArr == nil) {
-        _listDataArr = [NSMutableArray array];
-    }
-    return _listDataArr;
+    NSMutableArray * timeArr;
+    NSArray  * dateSectionArr;
+    NSString * _savedImagePath;
+    InviteCodeModel *_inviteCodeModel;
 }
+#pragma mark - 懒加载
+//-(NSMutableArray *)listDataArr
+//{
+//    if (_listDataArr == nil) {
+//        _listDataArr = [NSMutableArray array];
+//    }
+//    return _listDataArr;
+//}
 #pragma mark - 创建tableview
 -(UITableView *)listTableView
 {
@@ -65,7 +73,7 @@
     self.title = @"邀请有奖";
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]],@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]], nil];
+//    self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]],@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]], nil];
     [self listTableView];
     self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     //自动更改透明度
@@ -84,20 +92,66 @@
 #pragma mark - 下拉刷新数据
 - (void)loadNewTopic
 {
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:[LYAccount shareAccount].token forKey:@"token"];
-    [LYTools postBossDemoWithUrl:inviteList param:dic success:^(NSDictionary *dict) {
-        NSLog(@"%@",dict);
-        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+    self.listDataArr = [NSMutableArray array];
+    [[NetworkManager sharedManager] postWithUrl:inviteList param:nil success:^(id json) {
+        NSLog(@"%@",json);
+        [self.listTableView.mj_header endRefreshing];
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"编辑成功" withDuration:1.5];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.listDataArr removeAllObjects];
+            NSMutableArray *allTimeArr = [NSMutableArray array];
+            for (NSDictionary *dict in json[@"data"]) {
+                //1.取出所有出现得时间
+                [allTimeArr addObject:[dict[@"createDataTime"] substringToIndex:10]];
+            }
+            dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
+            NSLog(@"%@",dateSectionArr);
+            for (NSString *nowTim in dateSectionArr) {
+                NSMutableArray *arr = [[NSMutableArray alloc] init];
+                for (NSDictionary *ordersDicTwo in json[@"data"]) {
+                    NSString *twoTim = [ordersDicTwo[@"createDataTime"] substringToIndex:10];
+                    if([twoTim isEqualToString:nowTim]){
+                        //2.将每个字典保存在模型数组中
+                       InviteCodeModel *model = [InviteCodeModel statusWithDict:ordersDicTwo];
+                        [arr addObject:model];
+                    }
+                }
+                
+                [self.listDataArr addObject:arr];
+            }
+            [self.listTableView reloadData];
+            
         }else{
-            [SVProgressHUD doAnyRemindWithHUDMessage:dict[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"msg"] withDuration:1.5];
         }
-    } fail:^(NSError *error) {
+    } failure:^(NSError *error) {
         
     }];
+//    [LYTools postBossDemoWithUrl:inviteList param:nil success:^(NSDictionary *dict) {
+//        NSLog(@"%@",dict);
+//        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+//        if ([respCode isEqualToString:@"00000"]) {
+//            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"编辑成功" withDuration:1.5];
+//            [self.navigationController popViewControllerAnimated:YES];
+//        }else{
+//            [SVProgressHUD doAnyRemindWithHUDMessage:dict[@"msg"] withDuration:1.5];
+//        }
+//    } fail:^(NSError *error) {
+//
+//    }];
+}
+//去除数组中重复的
+-(NSArray *)arrayWithMemberIsOnly:(NSArray *)array
+{
+    NSMutableArray *categoryArray =[[NSMutableArray alloc] init];
+    for (unsigned i = 0; i < [array count]; i++) {
+        @autoreleasepool {
+            if ([categoryArray containsObject:[array objectAtIndex:i]]==NO) {
+                [categoryArray addObject:[array objectAtIndex:i]];
+            }
+        }
+    }
+    return categoryArray;
 }
 #pragma mark - tableview代理
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,7 +173,9 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.listDataArr[section] count];
+    NSArray *arr = self.listDataArr[section];
+    
+    return  arr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -127,12 +183,14 @@
     if (!headerCell) {
         headerCell = [[InviteAwardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"InviteAwardCellID"];
     }
-    NSArray *arr = self.listDataArr[indexPath.section][indexPath.row];
-    if ([arr[1] intValue] == 0) {
+    InviteCodeModel *codeModel = self.listDataArr[indexPath.section][indexPath.row];
+    if ([codeModel.isEnable intValue] == 0) {
         headerCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }else{
+        headerCell.selectionStyle =UITableViewCellSelectionStyleNone;
     }
-//    headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [headerCell configWithModel:self.listDataArr[indexPath.section][indexPath.row]];
+    InviteCodeModel *cellModel = self.listDataArr[indexPath.section][indexPath.row];
+    [headerCell configWithModel:cellModel];
     return headerCell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -143,7 +201,6 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
 
-        NSArray *listArr = @[@"2018-07-23",@"2018-06-23"];
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
         view.backgroundColor = colorWithRGB(0xEEEEEE);
 
@@ -164,7 +221,7 @@
         .widthIs(150)
         .heightIs(20);
         listLabel.font = [UIFont systemFontOfSize:15];
-        listLabel.text = listArr[section];
+        listLabel.text = dateSectionArr[section];
         
         return view;
 }
@@ -184,68 +241,76 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-     NSArray *arr = self.listDataArr[indexPath.section][indexPath.row];
-    self.myQRBgview = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, kScreenHeight/2.0, 0, 0)];
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(qrTapAction)];
-//    [self.myQRBgview addGestureRecognizer:tap];
-    self.myQRBgview.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:self.myQRBgview];
+     InviteCodeModel *codeModel = self.listDataArr[indexPath.section][indexPath.row];
+    _inviteCodeModel = codeModel;
+    if ([codeModel.isEnable intValue] == 0) {
+        self.myQRBgview = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, kScreenHeight/2.0, 0, 0)];
+        self.myQRBgview.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [window addSubview:self.myQRBgview];
+        
+        
+        [UIView animateWithDuration:.5 animations:^{
+            self.myQRBgview.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+        } completion:^(BOOL finished) {
+            self.myQRView = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth-260)/2.0, (kScreenHeight-350)/2.0, 260, 350)];
+            self.myQRView.backgroundColor = [UIColor whiteColor];
+            [self.myQRBgview addSubview:self.myQRView];
+            self.myQRView.layer.cornerRadius = 8;
+            self.myQRView.layer.masksToBounds = YES;
+            
+            self.myQRBottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 260, 280)];
+            self.myQRBottomView.backgroundColor = [UIColor whiteColor];
+            [self.myQRView addSubview:self.myQRBottomView];
+            
+            self.bgview = [[UIView alloc] initWithFrame:CGRectMake(30, 30, 200, 200)];
+            self.bgview.backgroundColor = colorWithRGB(0xFF5760);
+            [self.myQRBottomView addSubview:self.bgview];
+            
+            self.qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 190, 190)];
+            self.qrImageView.image = [self createQRImageWithString:@"1234" size:CGSizeMake(190, 190)];
+            [self.bgview addSubview:self.qrImageView];
+            
+            
+            self.codeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.bgview.frame)+10, 260, 20)];
+            self.codeLabel.text = [NSString stringWithFormat:@"邀请码: %@",codeModel.inviteCode];
+            self.codeLabel.textAlignment = NSTextAlignmentCenter;
+            self.codeLabel.font = [UIFont systemFontOfSize:15];
+            self.codeLabel.textColor = [UIColor blackColor];
+            [self.myQRBottomView addSubview:self.codeLabel];
+            
+           
+            
+            
+            self.lineview = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.codeLabel.frame)+19.5, 240, 1)];
+            self.lineview.backgroundColor = colorWithRGB(0xEEEEEE);
+            [self.myQRView addSubview:self.lineview];
+            
+            
+            self.cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.codeLabel.frame)+40, 100, 30)];
+            [self.cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+            self.cancelBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+            [self.cancelBtn setTitleColor:colorWithRGB(0xFF5760) forState:UIControlStateNormal];
+            [self.cancelBtn addTarget:self action:@selector(cancelBtnAction) forControlEvents:UIControlEventTouchUpInside];
+            [self.myQRView addSubview:self.cancelBtn];
+            self.cancelBtn.layer.cornerRadius = 6;
+            self.cancelBtn.layer.masksToBounds = YES;
+            self.cancelBtn.layer.borderWidth = 1;
+            self.cancelBtn.layer.borderColor = colorWithRGB(0xFF5760).CGColor;
+            
+            self.sendBtn = [[UIButton alloc] initWithFrame:CGRectMake(40+100, CGRectGetMaxY(self.codeLabel.frame)+40, 100, 30)];
+            self.sendBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+            self.sendBtn.backgroundColor = colorWithRGB(0xFF5760);
+            [self.sendBtn setTitle:@"发送给朋友" forState:UIControlStateNormal];
+            [self.sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self.sendBtn addTarget:self action:@selector(sendBtnAction) forControlEvents:UIControlEventTouchUpInside];
+            [self.myQRView addSubview:self.sendBtn];
+            self.sendBtn.layer.cornerRadius = 6;
+            self.sendBtn.layer.masksToBounds = YES;
+            
+        }];
+    }
     
-    
-    [UIView animateWithDuration:.5 animations:^{
-        self.myQRBgview.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
-    } completion:^(BOOL finished) {
-        self.myQRView = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth-260)/2.0, (kScreenHeight-350)/2.0, 260, 350)];
-        self.myQRView.backgroundColor = [UIColor whiteColor];
-        [self.myQRBgview addSubview:self.myQRView];
-        self.myQRView.layer.cornerRadius = 8;
-        self.myQRView.layer.masksToBounds = YES;
-        
-        
-        self.bgview = [[UIView alloc] initWithFrame:CGRectMake(30, 30, 200, 200)];
-        self.bgview.backgroundColor = colorWithRGB(0xFF5760);
-        [self.myQRView addSubview:self.bgview];
-        
-        self.qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 190, 190)];
-        self.qrImageView.image = [self createQRImageWithString:@"1234" size:CGSizeMake(190, 190)];
-        [self.bgview addSubview:self.qrImageView];
-        
-        
-        self.codeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.bgview.frame)+10, 260, 20)];
-        self.codeLabel.text = [NSString stringWithFormat:@"邀请码: %@",arr[0]];
-        self.codeLabel.textAlignment = NSTextAlignmentCenter;
-        self.codeLabel.font = [UIFont systemFontOfSize:15];
-        self.codeLabel.textColor = [UIColor blackColor];
-        [self.myQRView addSubview:self.codeLabel];
-        
-        self.lineview = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.codeLabel.frame)+19.5, 240, 1)];
-        self.lineview.backgroundColor = colorWithRGB(0xEEEEEE);
-        [self.myQRView addSubview:self.lineview];
-        
-        
-        self.cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.codeLabel.frame)+40, 100, 30)];
-        [self.cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-        self.cancelBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [self.cancelBtn setTitleColor:colorWithRGB(0xFF5760) forState:UIControlStateNormal];
-        [self.cancelBtn addTarget:self action:@selector(cancelBtnAction) forControlEvents:UIControlEventTouchUpInside];
-        [self.myQRView addSubview:self.cancelBtn];
-        self.cancelBtn.layer.cornerRadius = 6;
-        self.cancelBtn.layer.masksToBounds = YES;
-        self.cancelBtn.layer.borderWidth = 1;
-        self.cancelBtn.layer.borderColor = colorWithRGB(0xFF5760).CGColor;
-        
-        self.sendBtn = [[UIButton alloc] initWithFrame:CGRectMake(40+100, CGRectGetMaxY(self.codeLabel.frame)+40, 100, 30)];
-         self.sendBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        self.sendBtn.backgroundColor = colorWithRGB(0xFF5760);
-        [self.sendBtn setTitle:@"发送给朋友" forState:UIControlStateNormal];
-        [self.sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.sendBtn addTarget:self action:@selector(sendBtnAction) forControlEvents:UIControlEventTouchUpInside];
-        [self.myQRView addSubview:self.sendBtn];
-        self.sendBtn.layer.cornerRadius = 6;
-        self.sendBtn.layer.masksToBounds = YES;
-        
-    }];
     
 }
 - (void)cancelBtnAction
@@ -254,6 +319,7 @@
         self.myQRBgview.backgroundColor = [UIColor colorWithWhite:0 alpha:0.0];
         self.myQRBgview.frame = CGRectMake(kScreenWidth/2, kScreenHeight/2, 0, 0);
         self.myQRView.frame = CGRectZero;
+        self.myQRBottomView.frame = CGRectZero;
         self.bgview.frame = CGRectZero;
         self.qrImageView.frame = CGRectZero;
         self.codeLabel.frame = CGRectZero;
@@ -262,6 +328,7 @@
         self.sendBtn.frame = CGRectZero;
         
         [self.codeLabel removeFromSuperview];
+        [self.myQRBottomView removeFromSuperview];
         [self.bgview removeFromSuperview];
         [self.lineview removeFromSuperview];
         [self.cancelBtn removeFromSuperview];
@@ -276,11 +343,44 @@
 
 - (void)sendBtnAction
 {
-    _docuController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"测试头像" ofType:@"jpeg"]]];
+    NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.myQRBottomView], 1.0f);
+    
+    NSArray*paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    
+    NSString *documentsDirectory=[paths objectAtIndex:0];
+    
+    _savedImagePath = [documentsDirectory stringByAppendingPathComponent:@"saveFore.png"];
+    
+    [imagedata writeToFile:_savedImagePath atomically:YES];
+    
+    _docuController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:_savedImagePath]];
     _docuController.delegate = self;
     [_docuController presentOpenInMenuFromRect:CGRectZero inView:self.view animated:YES];
     [self cancelBtnAction];
+    
 }
+
+- (void)documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller
+{
+    NSFileManager *manager = [NSFileManager defaultManager];
+     [manager removeItemAtPath:_savedImagePath error:nil];
+}
+
+
+#pragma mark - 截取某视图的内容
+- (UIImage *)snapshotScreenInView:(UIView *)view
+{
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]){
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, [UIScreen mainScreen].scale);
+    } else {
+        UIGraphicsBeginImageContext(view.bounds.size);
+    }
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
 #pragma mark - 生成制定大小的黑白二维码
 - (UIImage *)createQRImageWithString:(NSString *)string size:(CGSize)size
 {
