@@ -469,12 +469,10 @@
 
 
 -(void)tap{
-    
-    
+
     [self.jineview removeFromSuperview];
     [self.mengbanView removeFromSuperview];
-    
-    
+ 
 }
 
 

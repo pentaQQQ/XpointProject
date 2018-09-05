@@ -182,7 +182,7 @@
         }else if ([title isEqualToString:@"始终转发"]){
             weakSelf.second = @"1";
             [weakSelf setZhuanfaData];
-        }else if ([title isEqualToString:@"活动1小时内转发"]){
+        }else if ([title isEqualToString:@"活动1小时内"]){
             weakSelf.second = @"2";
             [weakSelf setZhuanfaData];
         }else{
@@ -497,11 +497,11 @@
         self.timeDetailLab.text =@"始终转发缺货尺码";
         
     }else if ([model.lackSize isEqualToString:@"2"]){
-        self.timelab.text = @"活动1小时内转发";
+        self.timelab.text = @"活动1小时内";
         self.timeDetailLab.text =@"活动开始1小时内 转发缺货尺码";
         
     }else{
-        self.timelab.text = @"活动2小时内转发";
+        self.timelab.text = @"活动2小时内";
         self.timeDetailLab.text = @"活动开始2小时内 转发缺货尺码";
         
     }

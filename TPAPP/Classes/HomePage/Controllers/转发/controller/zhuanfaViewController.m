@@ -40,7 +40,6 @@
     
     [self setItems];
     [self setUpHeaderview];
-    //    [self getThePeopleZhuanfaPeizhi];
     [self getdata];
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import "tupiansetview.h"
-
+#import "zhuanfaModel.h"
 @implementation tupiansetview
 
 
@@ -18,9 +18,12 @@
     {
         [self layoutAllSubviews];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self setData];
-        });
+        [self getTheUserForwardConfiSuccess:^(zhuanfaModel *zhuanfamodel) {
+            
+            [self setBtnStateWithzhuanfaModel:zhuanfamodel];
+            
+        }];
+        
         
     }
     return self;
@@ -42,13 +45,11 @@
 
 
 
--(void)setData{
+-(void)setBtnStateWithzhuanfaModel:(zhuanfaModel*)model{
     
-    NSString *title = [[NSUserDefaults standardUserDefaults]objectForKey:@"title"];
-    NSString *detailTitle = [[NSUserDefaults standardUserDefaults]objectForKey:@"detailTitle"];
+   
     
-    
-    if ([title isEqualToString:@"合成图（新版四图组合+描述）"]) {
+    if ([model.defaultImg isEqualToString:@"3"]) {
         
         self.firstImage.hidden = NO;
         self.secondImage.hidden = YES;
@@ -60,7 +61,7 @@
         self.thirdContentLab.textColor = [UIColor darkGrayColor];
         self.fourthContentLab.textColor = [UIColor darkGrayColor];
         
-    }else if ([title isEqualToString:@"单张图（商品首图+描述）"]){
+    }else if ([model.defaultImg isEqualToString:@"0"]){
         self.firstImage.hidden = YES;
         self.secondImage.hidden = NO;
         self.thirdImage.hidden = YES;
@@ -70,7 +71,7 @@
         self.secondContentLab.textColor = [UIColor redColor];
         self.thirdContentLab.textColor = [UIColor darkGrayColor];
         self.fourthContentLab.textColor = [UIColor darkGrayColor];
-    }else if ([title isEqualToString:@"四张图（描述默认复制）"]){
+    }else if ([model.defaultImg isEqualToString:@"1"]){
         self.firstImage.hidden = YES;
         self.secondImage.hidden = YES;
         self.thirdImage.hidden = NO;
@@ -81,7 +82,7 @@
         self.thirdContentLab.textColor = [UIColor redColor];
         self.fourthContentLab.textColor = [UIColor darkGrayColor];
         
-    }else if ([title isEqualToString:@"合成图（四图组合+描述）"]){
+    }else if ([model.defaultImg isEqualToString:@"2"]){
         
         self.firstImage.hidden = YES;
         self.secondImage.hidden = YES;
@@ -188,7 +189,7 @@
         if (weakSelf.TupianviewBlock) {
             weakSelf.TupianviewBlock(@"单张图（商品首图+描述）", @"商品第一张图和描述文字合成一张图片再转发");
         }
-       
+        
     }];
 }
 
@@ -251,6 +252,26 @@
     [self removeMengbanBlock];
 }
 
+//获取配置设置
+-(void)getTheUserForwardConfiSuccess:(void(^)(zhuanfaModel*model))success{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    NSString *userId = [NSString stringWithFormat:@"%@",[LYAccount shareAccount].id];
+    [dic setValue:userId forKey:@"userId"];
+    
+    [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]){
+            zhuanfaModel*model = [zhuanfaModel mj_objectWithKeyValues:json[@"data"]];
+            success(model);
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+}
 
 
 @end
