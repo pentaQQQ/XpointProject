@@ -17,7 +17,8 @@
 @property(nonatomic,strong)zhuanfaHeaderView*headerview;
 @property(nonatomic,strong)UITableView*tableview;
 @property (nonatomic, strong) NSMutableArray *titleArray;
-@property (nonatomic, strong) NSMutableArray *MerchanArray;
+
+@property(nonatomic,assign)int currentIndex;
 
 @end
 
@@ -28,22 +29,17 @@
     }
     return _titleArray;
 }
--(NSMutableArray*)MerchanArray{
-    if (_MerchanArray == nil) {
-        _MerchanArray = [NSMutableArray array];
-    }
-    return _MerchanArray;
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.title = @"选择品牌转发";
+    self.currentIndex = 0;
     
     [self setItems];
     [self setUpHeaderview];
-//    [self getThePeopleZhuanfaPeizhi];
     [self getdata];
 }
 
@@ -51,12 +47,9 @@
 
 -(void)setItems{
     
-    
     UIBarButtonItem *rightitem = [[UIBarButtonItem alloc]initWithTitle:@"转发设置" style:UIBarButtonItemStylePlain target:self action:@selector(rightitemClick)];
     
     self.navigationItem.rightBarButtonItem = rightitem;
-    
-    
     
 }
 
@@ -79,16 +72,25 @@
     
     tableview.tableFooterView = [UIView new];
     
-  
+    
     zhuanfaHeaderView*headerview = [[NSBundle mainBundle]loadNibNamed:@"zhuanfaHeaderView" owner:self options:nil].lastObject;
     self.headerview = headerview;
     headerview.frame = CGRectMake(0, CGRectGetMaxY(tableview.frame), kScreenWidth,380);
     [self.view addSubview:headerview];
     
+    
+    headerview.ToNextMerchanBlock = ^{
+        
+        self.currentIndex++;
+        if (self.currentIndex<self.titleArray.count) {
+            
+            [self.tableview reloadData];
+        }else{
+            [SVProgressHUD doAnyRemindWithHUDMessage:@"该活动已转发完" withDuration:1.5];
+        }
+    };
+    
 }
-
-
-
 
 
 
@@ -107,20 +109,28 @@
         cell =  [[NSBundle mainBundle]loadNibNamed:@"zhuanfaCell" owner:self options:nil].lastObject;
     }
     shanghuModel *model = self.titleArray[indexPath.row];
-   
+    
     cell.model = model;
     
     
-    if (indexPath.row == 0) {
-        [self getTheMerchanWitnTheMerchanId:model.merchantId];
+    if (indexPath.row == self.currentIndex) {
+        self.headerview.merchanid = model.merchantId;
+        cell.seletimageview.hidden = NO;
+    }else{
+        cell.seletimageview.hidden = YES;
     }
     
     return cell;
     
 }
 
-
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    self.currentIndex = (int)indexPath.row;
+    
+    [self.tableview reloadData];
+    
+}
 
 
 //获取商户列表
@@ -135,6 +145,7 @@
             for (NSDictionary *dic in json[@"data"]) {
                 shanghuModel *model = [shanghuModel mj_objectWithKeyValues:dic];
                 [self.titleArray addObject:model];
+                [self.titleArray addObject:model];
             }
             [self.tableview reloadData];
         }
@@ -145,35 +156,9 @@
     }];
 }
 
-//根据商户id拿到对应的全部商品
--(void)getTheMerchanWitnTheMerchanId:(NSString*)merchanid{
-    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:merchanid forKey:@"id"];
-    
-    
-    [[NetworkManager sharedManager]getWithUrl:getProductByMerchantId param:dic success:^(id json) {
-        NSLog(@"%@",json);
-        
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]){
-            
-            for (NSDictionary *dic in json[@"data"]) {
-                SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
-                [self.MerchanArray addObject:model];
-                
-            }
-            self.headerview.model =self.MerchanArray[0];
-         
-        }
-        
-    } failure:^(NSError *error) {
-        
-        
-    }];
-    
-    
-    
-}
+
+
+
+
 
 @end

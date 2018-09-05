@@ -10,6 +10,8 @@
 #import "SimilarProductModel.h"
 #import "specsModel.h"
 #import "imagesListModel.h"
+#import "zhuanfaModel.h"
+
 @interface zhuanfaHeaderView : UIView
 
 
@@ -42,5 +44,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *numberBtn;
 @property (weak, nonatomic) IBOutlet UIButton *zhuanfaBtn;
 
-@property(nonatomic,strong)SimilarProductModel*model;
+
+
+@property(nonatomic,copy)NSString * merchanid;
+
+
+@property(nonatomic,copy)void(^ToNextMerchanBlock)(void);
+
+
 @end

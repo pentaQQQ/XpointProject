@@ -292,6 +292,8 @@
 		8E3E6D8B213E764C007B3306 /* shanghuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D8A213E764C007B3306 /* shanghuModel.m */; };
 		8E3E6D8E213E8697007B3306 /* MerchanDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D8D213E8697007B3306 /* MerchanDetailViewController.m */; };
 		8E3E6D92213F7048007B3306 /* zhuanfaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D91213F7048007B3306 /* zhuanfaModel.m */; };
+		8E3E6D95213FD61E007B3306 /* ZhuanfaOtherView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D94213FD61E007B3306 /* ZhuanfaOtherView.m */; };
+		8E3E6D97213FD628007B3306 /* ZhuanfaOtherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D96213FD628007B3306 /* ZhuanfaOtherView.xib */; };
 		8E78BDF52135343A000A9EA4 /* zhuanfasetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */; };
 		8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */; };
 		8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDF22135343A000A9EA4 /* tupiansetview.xib */; };
@@ -902,6 +904,9 @@
 		8E3E6D8D213E8697007B3306 /* MerchanDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MerchanDetailViewController.m; sourceTree = "<group>"; };
 		8E3E6D90213F7048007B3306 /* zhuanfaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaModel.h; sourceTree = "<group>"; };
 		8E3E6D91213F7048007B3306 /* zhuanfaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaModel.m; sourceTree = "<group>"; };
+		8E3E6D93213FD61E007B3306 /* ZhuanfaOtherView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZhuanfaOtherView.h; sourceTree = "<group>"; };
+		8E3E6D94213FD61E007B3306 /* ZhuanfaOtherView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZhuanfaOtherView.m; sourceTree = "<group>"; };
+		8E3E6D96213FD628007B3306 /* ZhuanfaOtherView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZhuanfaOtherView.xib; sourceTree = "<group>"; };
 		8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = zhuanfasetViewController.xib; sourceTree = "<group>"; };
 		8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhuanfasetViewController.m; sourceTree = "<group>"; };
 		8E78BDF02135343A000A9EA4 /* zhuanfasetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhuanfasetViewController.h; sourceTree = "<group>"; };
@@ -2488,6 +2493,9 @@
 				8E78BE3021367AE5000A9EA4 /* GoDetailTableViewCell.h */,
 				8E78BE3121367AE5000A9EA4 /* GoDetailTableViewCell.m */,
 				8E78BE3221367AE5000A9EA4 /* GoDetailTableViewCell.xib */,
+				8E3E6D93213FD61E007B3306 /* ZhuanfaOtherView.h */,
+				8E3E6D94213FD61E007B3306 /* ZhuanfaOtherView.m */,
+				8E3E6D96213FD628007B3306 /* ZhuanfaOtherView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3085,6 +3093,7 @@
 				019AEE8221382B0B00EB3405 /* moment_head@2x.png in Resources */,
 				8E78BE0221353B2E000A9EA4 /* jiajiaView.xib in Resources */,
 				019AEE8521382B0B00EB3405 /* moment_like_hl@2x.png in Resources */,
+				8E3E6D97213FD628007B3306 /* ZhuanfaOtherView.xib in Resources */,
 				547C49671F1DBB8200178B67 /* lkbubble1.jpg in Resources */,
 				547C49811F1DBB8200178B67 /* SGDatePickerSheetView.xib in Resources */,
 				547C49731F1DBB8200178B67 /* LICENSE in Resources */,
@@ -3251,6 +3260,7 @@
 				01121008213392FD0071AC5F /* JXCategoryNumberCell.m in Sources */,
 				012997C22139267200ADE72B /* messageHeaderView.m in Sources */,
 				8ED5B4B9212A6AC100B5983B /* UIView+SGPagingView.m in Sources */,
+				8E3E6D95213FD61E007B3306 /* ZhuanfaOtherView.m in Sources */,
 				012997C42139267200ADE72B /* TPMessageCell.m in Sources */,
 				01120F0421338F9C0071AC5F /* TXRecordViewController.m in Sources */,
 				01120EFA21338F9C0071AC5F /* MinePerformanceCell.m in Sources */,

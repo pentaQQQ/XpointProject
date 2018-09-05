@@ -10,6 +10,10 @@
 #import "SimilarProductModel.h"
 #import "GoDetailTableViewCell.h"
 #import "specsModel.h"
+
+
+
+
 @interface GoodsDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)UITableView*tableview;
@@ -160,5 +164,8 @@
     
     return high1+high2+high3+high4+high5+high6+160;
 }
+
+
+
 
 @end

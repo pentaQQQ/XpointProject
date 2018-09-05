@@ -16,8 +16,7 @@
     if(self)
     {
         [self layoutAllSubviews];
-        
-       
+
     }
     return self;
 }
