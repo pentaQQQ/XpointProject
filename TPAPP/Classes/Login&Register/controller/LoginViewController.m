@@ -41,16 +41,16 @@
 
 - (IBAction)zhanghaobtnClick:(id)sender {
     
-        //    //  来吧旋转动画
-        __weak typeof(self) weakSelf = self;
-        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            weakSelf.view.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);  // 当前view，这句代码可以不要。这是我的需求
+    //    //  来吧旋转动画
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        weakSelf.view.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);  // 当前view，这句代码可以不要。这是我的需求
+        
+    } completion:^(BOOL finished) {
+        WeChateBoardViewController *newVC =[WeChateBoardViewController new];
+        [weakSelf presentViewController:newVC animated:NO completion:nil];
+    }];
     
-        } completion:^(BOOL finished) {
-            WeChateBoardViewController *newVC =[WeChateBoardViewController new];
-            [weakSelf presentViewController:newVC animated:NO completion:nil];
-        }];
-
 }
 
 
@@ -122,12 +122,11 @@
         if ([respCode isEqualToString:@"00000"]) {
             NSString *data = [NSString stringWithFormat:@"%@",json[@"data"]];
             [[NSUserDefaults standardUserDefaults]setValue:data forKey:@"token"];
-
             [LYTools setUpTabbarController];
-
+            [self getPeopleInfomation];
         }else if ([respCode isEqualToString:@"99999"]){
-                registViewController *vc = [[registViewController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
+            registViewController *vc = [[registViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }else{
             [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
         }
@@ -139,6 +138,27 @@
 
 
 
+//获取用户信息
+-(void)getPeopleInfomation{
+    
+    
+    [[NetworkManager sharedManager]getWithUrl:getinfomation param:nil success:^(id json) {
+        NSLog(@"%@",json);
+        
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]){
+            
+            // 单例赋值
+            [LYAccount mj_objectWithKeyValues:json[@"data"]];
+            
+        }
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
+}
 
 
 

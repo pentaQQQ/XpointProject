@@ -286,6 +286,7 @@
 		8E3E6D88213D37AE007B3306 /* LYAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D86213D37AD007B3306 /* LYAccount.m */; };
 		8E3E6D8B213E764C007B3306 /* shanghuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D8A213E764C007B3306 /* shanghuModel.m */; };
 		8E3E6D8E213E8697007B3306 /* MerchanDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D8D213E8697007B3306 /* MerchanDetailViewController.m */; };
+		8E3E6D92213F7048007B3306 /* zhuanfaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D91213F7048007B3306 /* zhuanfaModel.m */; };
 		8E78BDF52135343A000A9EA4 /* zhuanfasetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */; };
 		8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */; };
 		8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDF22135343A000A9EA4 /* tupiansetview.xib */; };
@@ -885,6 +886,8 @@
 		8E3E6D8A213E764C007B3306 /* shanghuModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = shanghuModel.m; sourceTree = "<group>"; };
 		8E3E6D8C213E8697007B3306 /* MerchanDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MerchanDetailViewController.h; sourceTree = "<group>"; };
 		8E3E6D8D213E8697007B3306 /* MerchanDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MerchanDetailViewController.m; sourceTree = "<group>"; };
+		8E3E6D90213F7048007B3306 /* zhuanfaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaModel.h; sourceTree = "<group>"; };
+		8E3E6D91213F7048007B3306 /* zhuanfaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaModel.m; sourceTree = "<group>"; };
 		8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = zhuanfasetViewController.xib; sourceTree = "<group>"; };
 		8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhuanfasetViewController.m; sourceTree = "<group>"; };
 		8E78BDF02135343A000A9EA4 /* zhuanfasetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhuanfasetViewController.h; sourceTree = "<group>"; };
@@ -1870,9 +1873,9 @@
 			children = (
 				547C489E1F1DBB8200178B67 /* APPDelegate */,
 				547C489F1F1DBB8200178B67 /* Classes */,
-				547C48741F1DA8AF00178B67 /* Main.storyboard */,
 				547C48771F1DA8AF00178B67 /* Assets.xcassets */,
 				547C48791F1DA8AF00178B67 /* LaunchScreen.storyboard */,
+				547C48741F1DA8AF00178B67 /* Main.storyboard */,
 				547C487C1F1DA8AF00178B67 /* Info.plist */,
 				547C486B1F1DA8AF00178B67 /* Supporting Files */,
 			);
@@ -2355,9 +2358,19 @@
 			path = wechate;
 			sourceTree = "<group>";
 		};
+		8E3E6D8F213F7031007B3306 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				8E3E6D90213F7048007B3306 /* zhuanfaModel.h */,
+				8E3E6D91213F7048007B3306 /* zhuanfaModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		8E78BDEC2135343A000A9EA4 /* 转发设置 */ = {
 			isa = PBXGroup;
 			children = (
+				8E3E6D8F213F7031007B3306 /* model */,
 				8E78BDED2135343A000A9EA4 /* controller */,
 				8E78BDF12135343A000A9EA4 /* view */,
 			);
@@ -2976,6 +2989,7 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -3369,6 +3383,7 @@
 				01F1E000213C0944009A925A /* AddressModel.m in Sources */,
 				8ED5B4BB212A6AC100B5983B /* SGPageContentCollectionView.m in Sources */,
 				8EA95356212E62480057AC78 /* zhuanfaCell.m in Sources */,
+				8E3E6D92213F7048007B3306 /* zhuanfaModel.m in Sources */,
 				8E78BE0021353B23000A9EA4 /* jiajiaView.m in Sources */,
 				01121012213392FD0071AC5F /* MGSwipeButton.m in Sources */,
 				8E3E6D632138D79B007B3306 /* UIButton+LYCountDownButton.m in Sources */,
@@ -3603,7 +3618,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3653,7 +3668,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
