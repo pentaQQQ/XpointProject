@@ -15,7 +15,7 @@
 @property(nonatomic,strong)zidingyijineView*jineview;
 
 @property(nonatomic,assign)int currentDEX;
-
+@property(nonatomic,strong)zhuanfaModel *zhuanfamodel;
 @end
 
 @implementation zhuanfaHeaderView
@@ -74,11 +74,24 @@
 -(void)setFirstSaveBtn:(UIButton *)firstSaveBtn{
     _firstSaveBtn = firstSaveBtn;
     ViewBorderRadius(firstSaveBtn, 5, 1, [UIColor clearColor]);
+    
+    
+    [firstSaveBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        NSString *str = [NSString stringWithFormat:@"%d",self.currentDEX];
+        [self setZhuanfaDataWithdefaultImg:str];
+    }];
+    
+    
 }
 
 -(void)setSecondSaveBtn:(UIButton *)secondSaveBtn{
     _secondSaveBtn = secondSaveBtn;
     ViewBorderRadius(secondSaveBtn, 5, 1, [UIColor clearColor]);
+    [secondSaveBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        NSString *str = [NSString stringWithFormat:@"%d",self.currentDEX];
+        [self setZhuanfaDataWithdefaultImg:str];
+    }];
+    
 }
 
 -(void)setThirdSaveBtn:(UIButton *)thirdSaveBtn{
@@ -89,6 +102,10 @@
 -(void)setFourthSaveBtn:(UIButton *)fourthSaveBtn{
     _fourthSaveBtn = fourthSaveBtn;
     ViewBorderRadius(fourthSaveBtn, 5, 1, [UIColor clearColor]);
+    [fourthSaveBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        NSString *str = [NSString stringWithFormat:@"%d",self.currentDEX];
+        [self setZhuanfaDataWithdefaultImg:str];
+    }];
 }
 
 
@@ -338,6 +355,7 @@
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]){
             zhuanfaModel*model = [zhuanfaModel mj_objectWithKeyValues:json[@"data"]];
+            self.zhuanfamodel = model;
             success(model);
         }
     } failure:^(NSError *error) {
@@ -534,6 +552,51 @@
     
     [self.jineview removeFromSuperview];
     [self.mengbanView removeFromSuperview];
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-(void)setZhuanfaDataWithdefaultImg:(NSString*)defaultImg{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
+    
+    
+    [dic setValue:defaultImg forKey:@"defaultImg"];
+    [dic setValue:self.zhuanfamodel.id forKey:@"id"];
+    [dic setValue:self.zhuanfamodel.lackSize forKey:@"lackSize"];
+    [dic setValue:self.zhuanfamodel.num forKey:@"num"];
+    [dic setValue:self.zhuanfamodel.price forKey:@"price"];
+    [dic setValue:[LYAccount shareAccount].id forKey:@"userId"];
+    
+    
+    [LYTools postBossDemoWithUrl:updateUserForwardConfi param:dic success:^(NSDictionary *dict) {
+        
+        NSLog(@"%@",dict);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+        
+        if ([respCode isEqualToString:@"00000"]){
+            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"保存成功" withDuration:1.5];
+        }
+        
+        
+    } fail:^(NSError *error) {
+        
+        
+    }];
     
 }
 
