@@ -29,5 +29,5 @@
 
 @property (nonatomic, weak)id<SelectedSectionDelegate> delegate;
 
-
+-(void)InfMerchantNameData:(NSString *)merchantName;
 @end

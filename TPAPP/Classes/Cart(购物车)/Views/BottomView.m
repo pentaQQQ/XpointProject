@@ -7,6 +7,7 @@
 //
 
 #import "BottomView.h"
+#import "GoodsCartModel.h"
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define Image(name) [UIImage imageNamed:name]
@@ -16,7 +17,7 @@
 @interface BottomView ()
 {
     UIButton *SelectedAll;
-    
+    UILabel *label2;
     UILabel *AllPrice;
 }
 @end
@@ -49,17 +50,17 @@
         UIButton *BalanceAccount = [UIButton buttonWithType:UIButtonTypeCustom];
         [BalanceAccount setTitle:@"结算" forState:UIControlStateNormal];
         [BalanceAccount setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        BalanceAccount.backgroundColor = [UIColor orangeColor];
+        BalanceAccount.backgroundColor = colorWithRGB(0xFF6B24);
         BalanceAccount.frame = CGRectMake(self.frame.size.width/3 * 2 + 10, 0, self.frame.size.width/3 - 10, 44);
         BalanceAccount.titleLabel.font = [UIFont systemFontOfSize:15];
         [BalanceAccount addTarget:self action:@selector(BalanceAccountAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:BalanceAccount];
         
         
-        UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(BalanceAccount.frame) - 50, 12, 50, 20)];
-        label2.text = @"不含运费";
+        label2 = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(BalanceAccount.frame) - 50, 12, 50, 20)];
+        label2.text = @"共(0)件";
         label2.font = [UIFont systemFontOfSize:10];
-        label2.textColor = [UIColor grayColor];
+        label2.textColor = colorWithRGB(0xFF6B24);
         [self addSubview:label2];
         
         //合计商品价格
@@ -109,12 +110,13 @@
         NSArray *arr = data[i];
         for (NSInteger j = 0 ; j < arr.count; j ++) {
             index1 ++;
-            NSDictionary *goodsDict = arr[j];
-            if ([goodsDict[@"Type"] isEqualToString:@"1"]) {
+//            NSDictionary *goodsDict = arr[j];
+            CartDetailsModel *model = arr[j];
+            if ([model.Type isEqualToString:@"1"]) {
                 index2 ++;
                 double product;
-                double Price = [goodsDict[@"GoodsPrice"] doubleValue];
-                NSInteger goodsNum = [goodsDict[@"GoodsNumber"] integerValue];
+                double Price = [model.amount doubleValue];
+                NSInteger goodsNum = model.number;
                 
                 product = Price * goodsNum;
                 
@@ -124,7 +126,7 @@
     }
     
     NSString *String  = [NSString stringWithFormat:@"合计: ￥%.2f",goodsSum];
-    
+    label2.text = [NSString stringWithFormat:@"共(%d)件",index2];
     AllPrice.attributedText = [self String:String RangeString:[NSString stringWithFormat:@"￥%.2f",goodsSum]];
     if (index2 == index1 ) {
         [SelectedAll setImage:Image(@"已选中") forState:UIControlStateNormal];
@@ -152,7 +154,7 @@
     NSMutableAttributedString *hintString=[[NSMutableAttributedString alloc]initWithString:String];
     //获取要调整颜色的文字位置,调整颜色
     NSRange range1=[[hintString string]rangeOfString:RangeString];
-    [hintString addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:range1];
+    [hintString addAttribute:NSForegroundColorAttributeName value:colorWithRGB(0xFF6B24) range:range1];
     
     return hintString;
 }

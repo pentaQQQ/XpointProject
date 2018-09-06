@@ -7,13 +7,14 @@
 //
 
 #import "MGSwipeTableCell.h"
+#import "GoodsCartModel.h"
 @class CompileCell;
 @protocol ShoppingSelectedDelegate <NSObject>
 
 -(void)SelectedConfirmCell:(UITableViewCell *)cell;
 -(void)SelectedCancelCell:(UITableViewCell *)cell;
 -(void)SelectedRemarkCell:(CompileCell *)cell;
-
+-(void)SelectedLookImageListCell:(CompileCell *)cell;
 
 @end
 
@@ -55,8 +56,8 @@
  * 备注按钮
  */
 @property (nonatomic, retain)UIButton *Remarks_button;
-
--(void)withData:(NSDictionary *)info;
+@property (nonatomic,strong)CartDetailsModel *detailModel;
+-(void)withData:(CartDetailsModel *)info;
 
 @property (nonatomic, weak)id<ShoppingSelectedDelegate> SelectedDelegate;
 

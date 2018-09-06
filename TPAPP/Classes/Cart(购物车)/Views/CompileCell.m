@@ -7,6 +7,8 @@
 //
 
 #import "CompileCell.h"
+#import "GoodsCartModel.h"
+#import "MLLabel.h"
 #define Image(name) [UIImage imageNamed:name]
 
 
@@ -59,6 +61,7 @@
         _RemarksLabel.text = @"备注:";
         _RemarksLabel.textColor = colorWithRGB(0xFF6B24);
         _RemarksLabel.font = [UIFont systemFontOfSize:13];
+        _RemarksLabel.numberOfLines = 2;
 //        CGSize size = [_RemarksLabel sizeThatFits:CGSizeMake(_RemarksLabel.frame.size.width, MAXFLOAT)];
 //        _RemarksLabel.frame = CGRectMake(_RemarksLabel.frame.origin.x, _RemarksLabel.frame.origin.y, _RemarksLabel.frame.size.width,size.height);
         _Remarks_button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -105,7 +108,7 @@
         }];
         
         [_Goods_Price mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_Goods_Name.mas_right).offset(8);
+            make.left.equalTo(_Goods_Name.mas_right).offset(1);
             make.top.equalTo(self).offset(15);
             make.right.equalTo(self).offset(-10);
             make.height.equalTo(@(20));
@@ -113,14 +116,10 @@
         }];
         
         [_RemarksLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-
-            
-            
             make.left.equalTo(_Goods_Icon.mas_right).offset(8);
-            make.bottom.equalTo(_Goods_Icon.mas_bottom).offset(0);
+            make.top.equalTo(_Goods_Icon.mas_top).offset(70);
             make.right.equalTo(self).offset(-60);
-            make.height.equalTo(@(20));
+//            make.height.equalTo(@(40));
         }];
         
         
@@ -156,24 +155,35 @@
 {
     [self.SelectedDelegate SelectedRemarkCell:self];
 }
-
--(void)withData:(NSDictionary *)info
+- (void)lookImageListDetail
 {
-    [_Goods_Circle setImage:Image(info[@"SelectedType"]) forState:UIControlStateNormal];
+    [self.SelectedDelegate SelectedLookImageListCell:self];
+}
+-(void)withData:(CartDetailsModel *)info
+{
+    self.detailModel = info;
+    [_Goods_Circle setImage:Image(info.SelectedType) forState:UIControlStateNormal];
     
-    [_Goods_Icon sd_setImageWithURL:[NSURL URLWithString:info[@"GoodsIcon"]] placeholderImage:Image(@"share_sina")];
-    _Goods_Name.text = info[@"GoodsName"];
-    _Goods_Desc.text = info[@"GoodsDesc"];
-    _Goods_Price.text = [NSString stringWithFormat:@"￥%@",info[@"GoodsPrice"]];
+    [_Goods_Icon sd_setImageWithURL:[NSURL URLWithString:info.productImg] placeholderImage:Image(@"share_sina")];
+    _Goods_Name.text = info.productName;
+    _Goods_Desc.text = [NSString stringWithFormat:@"规格: %@",info.size];
+    _Goods_Price.text = [NSString stringWithFormat:@"￥%@",info.amount];
     
     //中划线
     NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
-    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:info[@"GoodsOldPrice"] attributes:attribtDic];
+    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:@"" attributes:attribtDic];
     // 赋值
     _Goods_OldPrice.attributedText = attribtStr;
-    _Goods_Number.text = [NSString stringWithFormat:@"x%@",info[@"GoodsNumber"]];
+    _Goods_Number.text = [NSString stringWithFormat:@"x%ld",(long)info.number];
     
-    Selected = info[@"Type"];
+    Selected = info.Type;
+    
+    if (info.remark.length == 0) {
+        _RemarksLabel.text = @"备注:";
+    }else{
+    _RemarksLabel.text = [NSString stringWithFormat:@"备注:%@",info.remark];
+    }
+
 }
 
 -(void)Selected

@@ -33,13 +33,13 @@
     InviteCodeModel *_inviteCodeModel;
 }
 #pragma mark - 懒加载
-//-(NSMutableArray *)listDataArr
-//{
-//    if (_listDataArr == nil) {
-//        _listDataArr = [NSMutableArray array];
-//    }
-//    return _listDataArr;
-//}
+-(NSMutableArray *)listDataArr
+{
+    if (_listDataArr == nil) {
+        _listDataArr = [NSMutableArray array];
+    }
+    return _listDataArr;
+}
 #pragma mark - 创建tableview
 -(UITableView *)listTableView
 {
@@ -92,7 +92,6 @@
 #pragma mark - 下拉刷新数据
 - (void)loadNewTopic
 {
-    self.listDataArr = [NSMutableArray array];
     [[NetworkManager sharedManager] postWithUrl:inviteList param:nil success:^(id json) {
         NSLog(@"%@",json);
         [self.listTableView.mj_header endRefreshing];

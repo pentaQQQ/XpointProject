@@ -48,7 +48,6 @@
 		01120F0821338F9C0071AC5F /* GoodsChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01120EDE21338F9C0071AC5F /* GoodsChildViewController.m */; };
 		01120F0921338F9C0071AC5F /* ReturnGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01120EE021338F9C0071AC5F /* ReturnGoodsViewController.m */; };
 		01120F0A21338F9C0071AC5F /* InviteAwardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01120EE321338F9C0071AC5F /* InviteAwardController.m */; };
-		01120F1A21338FB70071AC5F /* GoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01120F0D21338FB60071AC5F /* GoodsModel.m */; };
 		01120F1B21338FB70071AC5F /* BottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01120F1021338FB60071AC5F /* BottomView.m */; };
 		01120F1C21338FB70071AC5F /* CartHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01120F1221338FB60071AC5F /* CartHeaderCell.m */; };
 		01120F1D21338FB70071AC5F /* CompileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01120F1421338FB60071AC5F /* CompileCell.m */; };
@@ -473,8 +472,6 @@
 		01120EE021338F9C0071AC5F /* ReturnGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnGoodsViewController.m; sourceTree = "<group>"; };
 		01120EE221338F9C0071AC5F /* InviteAwardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteAwardController.h; sourceTree = "<group>"; };
 		01120EE321338F9C0071AC5F /* InviteAwardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteAwardController.m; sourceTree = "<group>"; };
-		01120F0C21338FB60071AC5F /* GoodsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsModel.h; sourceTree = "<group>"; };
-		01120F0D21338FB60071AC5F /* GoodsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsModel.m; sourceTree = "<group>"; };
 		01120F0F21338FB60071AC5F /* BottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomView.h; sourceTree = "<group>"; };
 		01120F1021338FB60071AC5F /* BottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomView.m; sourceTree = "<group>"; };
 		01120F1121338FB60071AC5F /* CartHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartHeaderCell.h; sourceTree = "<group>"; };
@@ -1316,8 +1313,6 @@
 		01120F0B21338FB60071AC5F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				01120F0C21338FB60071AC5F /* GoodsModel.h */,
-				01120F0D21338FB60071AC5F /* GoodsModel.m */,
 				015A411921402135008EC232 /* GoodsCartModel.h */,
 				015A411A21402135008EC232 /* GoodsCartModel.m */,
 			);
@@ -3284,7 +3279,6 @@
 				8E78BDF82135343A000A9EA4 /* tupiansetview.m in Sources */,
 				01120EE621338F9C0071AC5F /* AddressTextView.m in Sources */,
 				8E3E6D8B213E764C007B3306 /* shanghuModel.m in Sources */,
-				01120F1A21338FB70071AC5F /* GoodsModel.m in Sources */,
 				9ABCEEA01FFCA6BB00DF4380 /* MSHttpTool.m in Sources */,
 				8E78BE05213541E5000A9EA4 /* zidingyijineView.m in Sources */,
 				8EA95327212BDD060057AC78 /* SearchHeaderView.m in Sources */,
