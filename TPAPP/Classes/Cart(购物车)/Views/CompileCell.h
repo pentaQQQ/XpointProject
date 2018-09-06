@@ -15,7 +15,6 @@
 -(void)SelectedCancelCell:(UITableViewCell *)cell;
 -(void)SelectedRemarkCell:(CompileCell *)cell;
 -(void)SelectedLookImageListCell:(CompileCell *)cell;
-
 @end
 
 @interface CompileCell : MGSwipeTableCell
@@ -31,7 +30,7 @@
 /**
  *  商品的图片
  */
-@property (nonatomic, retain)UIImageView *Goods_Icon;
+@property (nonatomic, retain)UIButton *Goods_Icon;
 /**
  *  出售时价格
  */

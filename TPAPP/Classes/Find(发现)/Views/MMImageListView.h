@@ -16,8 +16,9 @@
 @property (strong,nonatomic) UIActionSheet *sheet;
 // 动态
 @property (nonatomic,strong) Moment *moment;
-@property (nonatomic, strong)NSMutableArray *imagesListArray;
+//-(void)configImageListArr:(NSArray *)arr;
 @end
+
 
 //### 单个小图显示视图
 @interface MMImageView : UIImageView
