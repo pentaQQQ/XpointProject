@@ -129,6 +129,7 @@
 		012997C92139267200ADE72B /* TransportationSeationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997BC2139267100ADE72B /* TransportationSeationView.m */; };
 		012997CA2139267200ADE72B /* TransportationSeationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 012997BD2139267100ADE72B /* TransportationSeationView.xib */; };
 		012997CB2139267200ADE72B /* GoodLogisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997C02139267200ADE72B /* GoodLogisticsModel.m */; };
+		015A411B21402135008EC232 /* GoodsCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A411A21402135008EC232 /* GoodsCartModel.m */; };
 		017888A521359FD400C17F07 /* CustomerReCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 017888A421359FD400C17F07 /* CustomerReCell.m */; };
 		01944F7D213CE4BA00831504 /* XYNoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01944F77213CE4B900831504 /* XYNoDataView.m */; };
 		01944F7E213CE4BA00831504 /* UICollectionView+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 01944F7A213CE4B900831504 /* UICollectionView+XY.m */; };
@@ -626,6 +627,8 @@
 		012997BD2139267100ADE72B /* TransportationSeationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransportationSeationView.xib; sourceTree = "<group>"; };
 		012997BF2139267200ADE72B /* GoodLogisticsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodLogisticsModel.h; sourceTree = "<group>"; };
 		012997C02139267200ADE72B /* GoodLogisticsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsModel.m; sourceTree = "<group>"; };
+		015A411921402135008EC232 /* GoodsCartModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodsCartModel.h; sourceTree = "<group>"; };
+		015A411A21402135008EC232 /* GoodsCartModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodsCartModel.m; sourceTree = "<group>"; };
 		017888A321359FD400C17F07 /* CustomerReCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerReCell.h; sourceTree = "<group>"; };
 		017888A421359FD400C17F07 /* CustomerReCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerReCell.m; sourceTree = "<group>"; };
 		01944F77213CE4B900831504 /* XYNoDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYNoDataView.m; sourceTree = "<group>"; };
@@ -1315,6 +1318,8 @@
 			children = (
 				01120F0C21338FB60071AC5F /* GoodsModel.h */,
 				01120F0D21338FB60071AC5F /* GoodsModel.m */,
+				015A411921402135008EC232 /* GoodsCartModel.h */,
+				015A411A21402135008EC232 /* GoodsCartModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3365,6 +3370,7 @@
 				01121002213392FD0071AC5F /* JXCategoryComponentCell.m in Sources */,
 				8EA952FD212BAA930057AC78 /* ZLPhotoPickerBrowserPhotoImageView.m in Sources */,
 				012997CB2139267200ADE72B /* GoodLogisticsModel.m in Sources */,
+				015A411B21402135008EC232 /* GoodsCartModel.m in Sources */,
 				547C49781F1DBB8200178B67 /* SGActionSheet.m in Sources */,
 				8E78BE0A213547B8000A9EA4 /* zhuanfashuView.m in Sources */,
 				8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */,

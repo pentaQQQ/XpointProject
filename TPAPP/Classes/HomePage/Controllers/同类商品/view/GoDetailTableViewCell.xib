@@ -214,6 +214,9 @@
                                         <state key="normal" title="加购物车">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="goShoppingAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="AHe-z0-idV"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>

@@ -19,6 +19,8 @@
 #import <objc/runtime.h>
 #import "AppDelegate.h"
 #import "DeclareAbnormalAlertView.h"
+#import "GoodsCartModel.h"
+#import "SimilarProductModel.h"
 @interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate,DeclareAbnormalAlertViewDelegate>
 {
     BOOL allowMultipleSwipe;
@@ -74,26 +76,48 @@
 #pragma mark - 下拉刷新数据
 - (void)loadNewTopic
 {
-    [[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
-        NSLog(@"%@",json);
-        _CartTableView.backgroundView = nil;
+    [LYTools postBossDemoWithUrl:cartList param:@{@"userId":[LYAccount shareAccount].id} success:^(NSDictionary *dict) {
+        NSLog(@"%@",dict);
         [_CartTableView.mj_header endRefreshing];
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        [self.dataSource removeAllObjects];
+        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            
-           [self CartData];
+            for (NSDictionary *dic in dict[@"data"][@"cartDetails"]) {
+                 CartDetailsModel *model = [CartDetailsModel mj_objectWithKeyValues:dic];
+                SimilarProductModel *sModel = [SimilarProductModel mj_objectWithKeyValues:dic[@"productForm"]];
+                model.productForm = sModel;
+                [self.dataSource addObject:model];
+            }
            
             
-
-            [_CartTableView reloadData];
-        }else if([json[@"code"]longValue] == 500){
+            
+            NSLog(@"%@",self.dataSource);
+        }else if([dict[@"code"]longValue] == 500){
             
         }
+    } fail:^(NSError *error) {
         
-        
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
     }];
+//    [[NetworkManager sharedManager] postWithUrl:cartList param:nil success:^(id json) {
+//        NSLog(@"%@",json);
+//        _CartTableView.backgroundView = nil;
+//        [_CartTableView.mj_header endRefreshing];
+//        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+//        if ([respCode isEqualToString:@"00000"]) {
+//
+//           [self CartData];
+//
+//
+//
+//            [_CartTableView reloadData];
+//        }else if([json[@"code"]longValue] == 500){
+//
+//        }
+//
+//
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//    }];
 }
 
 

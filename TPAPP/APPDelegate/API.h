@@ -80,6 +80,21 @@
 
 
 
+//购物车管理接口
+//新增关注
+#define cartAddLike [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/cart/addLike"]
+//添加商品到购物车
+#define cartAddProduct [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/cart/addProduct"]
+//取消关注
+#define cartCancelLike [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/cart/cancelLike"]
+//删除购物车商品
+#define cartDelProduct [NSString stringWithFormat:@"%@%@",kBaseUrl,@"POST /api/cart/delProduct"]
+//获取所有购物车信息,包含购物车信息，关注信息 回收列表
+#define cartList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/cart/list"]
+//重新下单
+#define cartReAddProduct [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/cart/reAddProduct"]
+//备注
+#define cartRemark [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/cart/remark"]
 
 
 

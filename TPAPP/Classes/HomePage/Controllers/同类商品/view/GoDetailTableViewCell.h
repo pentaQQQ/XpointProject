@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SimilarProductModel.h"
+#import "specsModel.h"
 @interface GoDetailTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageview;//商户头像
@@ -52,5 +53,5 @@
 
 
 @property(nonatomic,strong)SimilarProductModel*model;
-
+@property(nonatomic,copy)void(^goShoppingBlock)(specsModel*model);
 @end
