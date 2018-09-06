@@ -294,6 +294,13 @@
 		8E3E6D92213F7048007B3306 /* zhuanfaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D91213F7048007B3306 /* zhuanfaModel.m */; };
 		8E3E6D95213FD61E007B3306 /* ZhuanfaOtherView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D94213FD61E007B3306 /* ZhuanfaOtherView.m */; };
 		8E3E6D97213FD628007B3306 /* ZhuanfaOtherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D96213FD628007B3306 /* ZhuanfaOtherView.xib */; };
+		8E3E6D9A2140C039007B3306 /* XinHeChengTuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D992140C039007B3306 /* XinHeChengTuView.m */; };
+		8E3E6D9C2140C045007B3306 /* XinHeChengTuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D9B2140C045007B3306 /* XinHeChengTuView.xib */; };
+		8E3E6D9F2140CF67007B3306 /* danshouView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6D9E2140CF67007B3306 /* danshouView.m */; };
+		8E3E6DA12140CF74007B3306 /* danshouView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6DA02140CF74007B3306 /* danshouView.xib */; };
+		8E3E6DA42140F1AD007B3306 /* ShareItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6DA32140F1AD007B3306 /* ShareItem.m */; };
+		8E3E6DA72140FF9D007B3306 /* oldhechengView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6DA62140FF9D007B3306 /* oldhechengView.m */; };
+		8E3E6DA92140FFA9007B3306 /* oldhechengView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6DA82140FFA9007B3306 /* oldhechengView.xib */; };
 		8E78BDF52135343A000A9EA4 /* zhuanfasetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */; };
 		8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */; };
 		8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDF22135343A000A9EA4 /* tupiansetview.xib */; };
@@ -907,6 +914,17 @@
 		8E3E6D93213FD61E007B3306 /* ZhuanfaOtherView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZhuanfaOtherView.h; sourceTree = "<group>"; };
 		8E3E6D94213FD61E007B3306 /* ZhuanfaOtherView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZhuanfaOtherView.m; sourceTree = "<group>"; };
 		8E3E6D96213FD628007B3306 /* ZhuanfaOtherView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZhuanfaOtherView.xib; sourceTree = "<group>"; };
+		8E3E6D982140C039007B3306 /* XinHeChengTuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XinHeChengTuView.h; sourceTree = "<group>"; };
+		8E3E6D992140C039007B3306 /* XinHeChengTuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XinHeChengTuView.m; sourceTree = "<group>"; };
+		8E3E6D9B2140C045007B3306 /* XinHeChengTuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XinHeChengTuView.xib; sourceTree = "<group>"; };
+		8E3E6D9D2140CF67007B3306 /* danshouView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = danshouView.h; sourceTree = "<group>"; };
+		8E3E6D9E2140CF67007B3306 /* danshouView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = danshouView.m; sourceTree = "<group>"; };
+		8E3E6DA02140CF74007B3306 /* danshouView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = danshouView.xib; sourceTree = "<group>"; };
+		8E3E6DA22140F1AD007B3306 /* ShareItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareItem.h; sourceTree = "<group>"; };
+		8E3E6DA32140F1AD007B3306 /* ShareItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareItem.m; sourceTree = "<group>"; };
+		8E3E6DA52140FF9D007B3306 /* oldhechengView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = oldhechengView.h; sourceTree = "<group>"; };
+		8E3E6DA62140FF9D007B3306 /* oldhechengView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = oldhechengView.m; sourceTree = "<group>"; };
+		8E3E6DA82140FFA9007B3306 /* oldhechengView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = oldhechengView.xib; sourceTree = "<group>"; };
 		8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = zhuanfasetViewController.xib; sourceTree = "<group>"; };
 		8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhuanfasetViewController.m; sourceTree = "<group>"; };
 		8E78BDF02135343A000A9EA4 /* zhuanfasetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhuanfasetViewController.h; sourceTree = "<group>"; };
@@ -2845,12 +2863,23 @@
 		8EA9534A212E4BEA0057AC78 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				8E3E6DA22140F1AD007B3306 /* ShareItem.h */,
+				8E3E6DA32140F1AD007B3306 /* ShareItem.m */,
 				8EA9534E212E545A0057AC78 /* zhuanfaHeaderView.h */,
 				8EA9534F212E545A0057AC78 /* zhuanfaHeaderView.m */,
 				8EA95351212E54650057AC78 /* zhuanfaHeaderView.xib */,
 				8EA95353212E62480057AC78 /* zhuanfaCell.h */,
 				8EA95354212E62480057AC78 /* zhuanfaCell.m */,
 				8EA95355212E62480057AC78 /* zhuanfaCell.xib */,
+				8E3E6D982140C039007B3306 /* XinHeChengTuView.h */,
+				8E3E6D992140C039007B3306 /* XinHeChengTuView.m */,
+				8E3E6D9B2140C045007B3306 /* XinHeChengTuView.xib */,
+				8E3E6D9D2140CF67007B3306 /* danshouView.h */,
+				8E3E6D9E2140CF67007B3306 /* danshouView.m */,
+				8E3E6DA02140CF74007B3306 /* danshouView.xib */,
+				8E3E6DA52140FF9D007B3306 /* oldhechengView.h */,
+				8E3E6DA62140FF9D007B3306 /* oldhechengView.m */,
+				8E3E6DA82140FFA9007B3306 /* oldhechengView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3029,6 +3058,7 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -3082,6 +3112,7 @@
 				019AEE7B21382B0B00EB3405 /* moment_camera@2x.png in Resources */,
 				019AEE7F21382B0B00EB3405 /* moment_comment_hl@2x.png in Resources */,
 				019AEE7D21382B0B00EB3405 /* moment_comment@2x.png in Resources */,
+				8E3E6D9C2140C045007B3306 /* XinHeChengTuView.xib in Resources */,
 				012997CA2139267200ADE72B /* TransportationSeationView.xib in Resources */,
 				012997C82139267200ADE72B /* TransportationCell.xib in Resources */,
 				011210772133FD790071AC5F /* delete_image.png in Resources */,
@@ -3104,6 +3135,7 @@
 				019AEE8721382B0B00EB3405 /* moment_operate@2x.png in Resources */,
 				01120EF021338F9C0071AC5F /* vip_icon.png in Resources */,
 				019AEE7A21382B0B00EB3405 /* comment_bg@3x.png in Resources */,
+				8E3E6DA12140CF74007B3306 /* danshouView.xib in Resources */,
 				019AEE9421382B0B00EB3405 /* moment_refresh@2x.png in Resources */,
 				547C496F1F1DBB8200178B67 /* lkbubble_warning.png in Resources */,
 				547C496D1F1DBB8200178B67 /* lkbubble7.jpg in Resources */,
@@ -3147,6 +3179,7 @@
 				8EA95310212BAA930057AC78 /* ZLPhotoLib.bundle in Resources */,
 				0112108521363CF00071AC5F /* 编辑.png in Resources */,
 				019AEE7C21382B0B00EB3405 /* moment_camera@3x.png in Resources */,
+				8E3E6DA92140FFA9007B3306 /* oldhechengView.xib in Resources */,
 				547C49A21F1DBB8200178B67 /* back@2x.png in Resources */,
 				8E3E6D5C2138D76F007B3306 /* WeChateBoardViewController.xib in Resources */,
 				547C49A61F1DBB8200178B67 /* tab_index_nor@2x.png in Resources */,
@@ -3371,6 +3404,7 @@
 				547C49701F1DBB8200178B67 /* LKNotificationBar.m in Sources */,
 				0112100E213392FD0071AC5F /* JXCategoryTitleImageCell.m in Sources */,
 				019AEE3921382A5C00EB3405 /* UUButton.m in Sources */,
+				8E3E6D9A2140C039007B3306 /* XinHeChengTuView.m in Sources */,
 				547C49601F1DBB8200178B67 /* BaseNavigationController.m in Sources */,
 				01121018213392FD0071AC5F /* YSStaticCellModel.m in Sources */,
 				8EA95307212BAA930057AC78 /* ZLPhotoPickerGroupViewController.m in Sources */,
@@ -3446,9 +3480,11 @@
 				019AEE4321382A5C00EB3405 /* NSString+MLLabel.m in Sources */,
 				547C499B1F1DBB8200178B67 /* UIBarButtonItem+Create.m in Sources */,
 				8EA9534D212E4C550057AC78 /* zhuanfaViewController.m in Sources */,
+				8E3E6DA72140FF9D007B3306 /* oldhechengView.m in Sources */,
 				01F1DFF6213A7CF6009A925A /* MineIndentListCell.m in Sources */,
 				0112101A213392FD0071AC5F /* YSStaticTableViewCell.m in Sources */,
 				8EA95332212BE1C20057AC78 /* pingpaiCell.m in Sources */,
+				8E3E6D9F2140CF67007B3306 /* danshouView.m in Sources */,
 				547C495E1F1DBB8200178B67 /* NewsViewController.m in Sources */,
 				9ABCEEA11FFCA6BB00DF4380 /* NetworkManager.m in Sources */,
 				01120EEE21338F9C0071AC5F /* MineHeaderViewCell.m in Sources */,
@@ -3483,6 +3519,7 @@
 				547C48701F1DA8AF00178B67 /* AppDelegate.m in Sources */,
 				547C49841F1DBB8200178B67 /* SGLocationPickerSheetView.m in Sources */,
 				547C49B21F1DD82500178B67 /* GoodsViewController.m in Sources */,
+				8E3E6DA42140F1AD007B3306 /* ShareItem.m in Sources */,
 				8E78BE162136447D000A9EA4 /* imagesListModel.m in Sources */,
 				01120EFB21338F9C0071AC5F /* MinePerformanceChildController.m in Sources */,
 				8E78BE2A21366F2E000A9EA4 /* specsModel.m in Sources */,
@@ -3663,7 +3700,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3713,7 +3750,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

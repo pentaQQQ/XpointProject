@@ -10,9 +10,27 @@
 #import "SimilarProductModel.h"
 #import "GoDetailTableViewCell.h"
 #import "specsModel.h"
-@interface MerchanDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+#import "imagesListModel.h"
+#import "XinHeChengTuView.h"
+#import "danshouView.h"
+#import "ShareItem.h"
+#import "oldhechengView.h"
+
+@interface MerchanDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIDocumentInteractionControllerDelegate>
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)UITableView*tableview;
+
+@property(nonatomic,copy)NSString * savedImagePath;
+
+@property(nonatomic,strong)XinHeChengTuView*xinheview;
+@property(nonatomic,strong)danshouView*danshouview;
+@property(nonatomic,strong)oldhechengView*oldheview;
+@property(nonatomic,strong)UIImageView*imageview;
+
+@property (nonatomic, retain) UIDocumentInteractionController *docuController;
+
+
 
 @end
 
@@ -55,6 +73,31 @@
     
     [self.view addSubview:tableview];
     
+    XinHeChengTuView *xinheview = [[NSBundle mainBundle]loadNibNamed:@"XinHeChengTuView" owner:self options:nil].lastObject;
+    self.xinheview = xinheview;
+    xinheview.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    [self.view insertSubview:xinheview belowSubview:tableview];
+    
+    
+    
+    danshouView*danshouview = [[NSBundle mainBundle]loadNibNamed:@"danshouView" owner:self options:nil].lastObject;
+    self.danshouview = danshouview;
+    danshouview.frame =  CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    [self.view insertSubview:danshouview belowSubview:xinheview];
+    
+    
+    
+    UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    self.imageview = imageview;
+    [self.view insertSubview:imageview belowSubview:tableview];
+    
+    
+    
+    
+    oldhechengView*oldheview= [[NSBundle mainBundle]loadNibNamed:@"oldhechengView" owner:self options:nil].lastObject;
+    self.oldheview = oldheview;
+    oldheview.frame =  CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    [self.view insertSubview:oldheview belowSubview:tableview];
 }
 
 
@@ -102,24 +145,44 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     SimilarProductModel*model = self.dataArr[indexPath.row];
     cell.model = model;
-    [cell setGoShoppingBlock:^(specsModel *model) {
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setValue:model.productId forKey:@"productId"];
-        [dic setValue:model.size forKey:@"size"];
-        [dic setValue:[LYAccount shareAccount].id forKey:@"userId"];
-        [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
-            NSLog(@"%@",dict);
-            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-            if ([respCode isEqualToString:@"00000"]) {
-                
-            }else{
-                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
-            }
-        } fail:^(NSError *error) {
-            
-        }];
+    
+    cell.ToZhuanfaBlock = ^(SimilarProductModel *model, int currentDEX) {
         
-    }];
+        
+        if (currentDEX == 0) {
+            self.danshouview.model = model;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.danshouview], 1.0f);
+                [self sharePictureWithImageData:imagedata];
+            });
+            
+            
+        }else if (currentDEX == 1){
+            
+            
+            [self shareMangPictureWithModel:model];
+            
+        }else if (currentDEX == 2){
+            
+            self.oldheview.model = model;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSData *imagedata= UIImageJPEGRepresentation([self captureScrollView:self.oldheview.scrollview], 1.0f);
+                [self sharePictureWithImageData:imagedata];
+            });
+            
+            
+        }else{
+            self.xinheview.model = model;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.xinheview], 1.0f);
+                [self sharePictureWithImageData:imagedata];
+            });
+        }
+        
+    };
+    
+    
+    
     return cell;
     
 }
@@ -178,6 +241,146 @@
     
     return high1+high2+high3+high4+high5+high6+160;
 }
+-(void)sharePictureWithImageData:(NSData*)imagedata{
+    
+    //            NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.xinheview], 1.0f);
+    
+    NSArray*paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    
+    NSString *documentsDirectory=[paths objectAtIndex:0];
+    
+    _savedImagePath = [documentsDirectory stringByAppendingPathComponent:@"hecheng.png"];
+    
+    [imagedata writeToFile:_savedImagePath atomically:YES];
+    
+    _docuController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:_savedImagePath]];
+    _docuController.delegate = self;
+    [_docuController presentOpenInMenuFromRect:CGRectZero inView:self.view animated:YES];
+    
+    
+}
+
+
+- (void)documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller
+{
+    NSFileManager *manager = [NSFileManager defaultManager];
+    [manager removeItemAtPath:_savedImagePath error:nil];
+}
+
+
+
+
+//分享多张图片
+-(void)shareMangPictureWithModel:(SimilarProductModel*)model{
+    
+    NSMutableArray *activityItems = [NSMutableArray array];
+    for (imagesListModel *imaModel in model.imagesList) {
+        [activityItems addObject:imaModel.imgUrl];
+    }
+    
+    NSMutableArray *items = [NSMutableArray array];
+    NSString *docPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
+    for (int i = 0; i < activityItems.count; i++) {
+        //取出地址
+        NSString *URL = [activityItems[i] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        //把图片转成NSData类型
+        NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:URL]];
+        //写入图片中
+        UIImage *imagerang = [UIImage imageWithData:data];
+        //图片缓存的地址，自己进行替换
+        NSString *imagePath = [docPath stringByAppendingString:[NSString stringWithFormat:@"/SharePic%d.jpg",i]];
+        //把图片写进缓存，一定要先写入本地，不然会分享出错
+        [UIImageJPEGRepresentation(imagerang, .5) writeToFile:imagePath atomically:YES];
+        //把缓存图片的地址转成NSUrl格式
+        NSURL *shareobj = [NSURL fileURLWithPath:imagePath];
+        //这个部分是自定义ActivitySource
+        ShareItem *item = [[ShareItem alloc] initWithData: imagerang andFile:shareobj];
+        //分享的数组
+        [items addObject:item];
+    }
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
+    
+    //去除特定的分享功能
+    activityVC.excludedActivityTypes = @[UIActivityTypePostToFacebook,UIActivityTypePostToTwitter, UIActivityTypePostToWeibo,UIActivityTypeMessage,UIActivityTypeMail,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeAssignToContact,UIActivityTypeSaveToCameraRoll,UIActivityTypeAddToReadingList,UIActivityTypePostToFlickr,UIActivityTypePostToVimeo,UIActivityTypePostToTencentWeibo,UIActivityTypeAirDrop,UIActivityTypeOpenInIBooks];
+    
+    [self presentViewController: activityVC animated:YES completion:nil];
+    
+    
+    
+    //初始化Block回调方法,此回调方法是在iOS8之后出的，代替了之前的方法
+    UIActivityViewControllerCompletionWithItemsHandler myBlock = ^(NSString *activityType,BOOL completed,NSArray *returnedItems,NSError *activityError)
+    {
+        NSLog(@"activityType :%@", activityType);
+        if (completed)
+        {
+            NSLog(@"completed");
+            
+            for (int i = 0; i < activityItems.count; i++){
+                NSString *imagePath = [docPath stringByAppendingString:[NSString stringWithFormat:@"/SharePic%d.jpg",i]];
+                NSFileManager *manager = [NSFileManager defaultManager];
+                [manager removeItemAtPath:imagePath error:nil];
+            }
+            
+        }
+        else
+        {
+            NSLog(@"cancel");
+        }
+        
+    };
+    
+    // 初始化completionHandler，当post结束之后（无论是done还是cancell）该blog都会被调用
+    activityVC.completionWithItemsHandler = myBlock;
+    
+    
+    
+}
+
+
+
+
+
+#pragma mark - 截取某视图的内容
+- (UIImage *)snapshotScreenInView:(UIView *)view
+{
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]){
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, [UIScreen mainScreen].scale*2);
+    } else {
+        UIGraphicsBeginImageContext(view.bounds.size);
+    }
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+    
+}
+
+
+//截取长图
+- (UIImage *)captureScrollView:(UIScrollView *)scrollView {
+    UIImage *image = nil;
+    UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, NO, 0.0);
+    {
+        CGPoint savedContentOffset = scrollView.contentOffset;
+        CGRect savedFrame = scrollView.frame;
+        scrollView.frame = CGRectMake(0 , 0, scrollView.contentSize.width, scrollView.contentSize.height);
+        
+        [scrollView.layer renderInContext:UIGraphicsGetCurrentContext()];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        scrollView.contentOffset = savedContentOffset;
+        scrollView.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    
+    if (image != nil) {
+        return image;
+    }
+    return nil;
+}
+
+
 
 
 @end
