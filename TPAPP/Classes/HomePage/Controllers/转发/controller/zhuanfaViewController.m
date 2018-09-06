@@ -333,6 +333,13 @@
         if (completed)
         {
             NSLog(@"completed");
+            
+            for (int i = 0; i < activityItems.count; i++){
+                 NSString *imagePath = [docPath stringByAppendingString:[NSString stringWithFormat:@"/SharePic%d.jpg",i]];
+                NSFileManager *manager = [NSFileManager defaultManager];
+                [manager removeItemAtPath:imagePath error:nil];
+            }
+            
         }
         else
         {
@@ -366,6 +373,7 @@
     return image;
     
 }
+
 
 //截取长图
 - (UIImage *)captureScrollView:(UIScrollView *)scrollView {

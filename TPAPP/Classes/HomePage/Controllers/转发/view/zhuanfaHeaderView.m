@@ -49,23 +49,23 @@
 
 - (void)setFirstImageview:(UIImageView *)firstImageview{
     _firstImageview = firstImageview;
-    [firstImageview sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571326962&di=8f502445613592dc9dd19dde4032c6ec&imgtype=0&src=http%3A%2F%2Fimg009.hc360.cn%2Fm6%2FM0A%2F98%2F05%2FwKhQoVVat96Ee_nyAAAAANCKIXo389.jpg"]];
+    //    [firstImageview sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571326962&di=8f502445613592dc9dd19dde4032c6ec&imgtype=0&src=http%3A%2F%2Fimg009.hc360.cn%2Fm6%2FM0A%2F98%2F05%2FwKhQoVVat96Ee_nyAAAAANCKIXo389.jpg"]];
 }
 
 
 -(void)setSecondImageview:(UIImageView *)secondImageview{
     _secondImageview = secondImageview;
-    [secondImageview sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571328758&di=0f9dafd5ef73a3eff0a125ae310174ac&imgtype=0&src=http%3A%2F%2Fpic36.nipic.com%2F20131205%2F12477111_155227608129_2.jpg"]];
+    //    [secondImageview sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571328758&di=0f9dafd5ef73a3eff0a125ae310174ac&imgtype=0&src=http%3A%2F%2Fpic36.nipic.com%2F20131205%2F12477111_155227608129_2.jpg"]];
 }
 
 -(void)setThirdImageview:(UIImageView *)thirdImageview{
     _thirdImageview = thirdImageview;
-    [thirdImageview sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571383364&di=3aea37c3e86ada28783624a5475d27cf&imgtype=0&src=http%3A%2F%2Fimg.shushi100.com%2F2017%2F02%2F15%2F1487169103-2682884336966288.jpg"]];
+    //    [thirdImageview sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571383364&di=3aea37c3e86ada28783624a5475d27cf&imgtype=0&src=http%3A%2F%2Fimg.shushi100.com%2F2017%2F02%2F15%2F1487169103-2682884336966288.jpg"]];
 }
 
 -(void)setFourthImageview:(UIImageView *)fourthImageview{
     _fourthImageview = fourthImageview;
-    [fourthImageview sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571404170&di=93c67271812592cb3483b4e88d633e2c&imgtype=0&src=http%3A%2F%2Fpic16.nipic.com%2F20110911%2F3059559_103205656510_2.png"]];
+    //    [fourthImageview sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571404170&di=93c67271812592cb3483b4e88d633e2c&imgtype=0&src=http%3A%2F%2Fpic16.nipic.com%2F20110911%2F3059559_103205656510_2.png"]];
 }
 
 
@@ -95,7 +95,7 @@
 
 
 - (IBAction)firstBtnClick:(id)sender {
-     self.currentDEX = 3;
+    self.currentDEX = 3;
     [self.firstBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
     [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -111,7 +111,7 @@
 }
 
 - (IBAction)secondBtnClick:(id)sender {
-     self.currentDEX = 0;
+    self.currentDEX = 0;
     [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.secondBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
     [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -124,7 +124,7 @@
 }
 
 - (IBAction)thirdBtnClick:(id)sender {
-     self.currentDEX = 1;
+    self.currentDEX = 1;
     [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.thirdBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
@@ -137,7 +137,7 @@
 }
 
 - (IBAction)fourthBtnClick:(id)sender {
-     self.currentDEX = 2;
+    self.currentDEX = 2;
     [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -272,11 +272,53 @@
 
 -(void)setImagewithArray:(NSArray*)array{
     
-    imagesListModel *model1 =array[0];
-    imagesListModel *model2 =array[1];
     
-    [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
-    [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+    
+    if (array.count == 1) {
+        imagesListModel *model1 =array[0];
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        
+        
+        
+    }else if (array.count == 2){
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+    }else if (array.count == 3){
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        imagesListModel *model3 =array[2];
+        
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        
+    }else if (array.count == 4){
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        imagesListModel *model3 =array[2];
+        imagesListModel *model4 =array[3];
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
+        
+    }
+    
+    
+    
+    
 }
 
 
@@ -323,7 +365,7 @@
         self.fourthSaveBtn.hidden = YES;
         
     }else if ([model.defaultImg isEqualToString:@"1"]){
-         self.currentDEX = 1;
+        self.currentDEX = 1;
         [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.thirdBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
@@ -335,7 +377,7 @@
         self.fourthSaveBtn.hidden = YES;
         
     }else if ([model.defaultImg isEqualToString:@"2"]){
-         self.currentDEX = 2;
+        self.currentDEX = 2;
         [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -347,7 +389,7 @@
         self.fourthSaveBtn.hidden = NO;
         
     }else if ([model.defaultImg isEqualToString:@"3"]){
-         self.currentDEX = 3;
+        self.currentDEX = 3;
         [self.firstBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
         [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -484,8 +526,6 @@
     }];
     
 }
-
-
 
 
 
