@@ -67,6 +67,12 @@
 @property (nonatomic, copy)NSString *status;//是否回收 0正常 1回收 ,
 @property (nonatomic, copy)NSString *userId;//用户id
 
+
+@property (nonatomic, copy)NSString *SelectedType;//未选中或已选中图标
+@property (nonatomic, copy)NSString *Type;
+@property (nonatomic, copy)NSString *CheckAll;
+@property (nonatomic, copy)NSString *Edit;
+@property (nonatomic, copy)NSString *EditBtn;
 @end
               
 

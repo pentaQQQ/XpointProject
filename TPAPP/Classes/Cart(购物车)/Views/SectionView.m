@@ -19,6 +19,7 @@
     UIButton *SelectedCircelBtn;
     
     NSString *SelectType;
+    UIButton *SelectedStoreBtn;
 }
 
 @end
@@ -48,7 +49,7 @@
 //        StoreIcon.image = Image(@"RecomLB_TotalRank_Norecm_icon");
 //        [self addSubview:StoreIcon];
         
-        UIButton *SelectedStoreBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(SelectedCircelBtn.frame) + 5, 12.5, 200, 15)];
+        SelectedStoreBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(SelectedCircelBtn.frame) + 5, 12.5, 200, 15)];
         [SelectedStoreBtn setTitle:[NSString stringWithFormat:@"韩SHOW潮流男装%ld >",_Section] forState:UIControlStateNormal];
         [SelectedStoreBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         SelectedStoreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -79,6 +80,12 @@
     
     [SelectedCircelBtn setImage:Image(ImageString) forState:UIControlStateNormal];
 
+}
+
+-(void)InfMerchantNameData:(NSString *)merchantName
+{
+    [SelectedStoreBtn setTitle:[NSString stringWithFormat:@"%@%ld >",merchantName,_Section] forState:UIControlStateNormal];
+    
 }
 //是否选中 当前section中的所有row
 -(void)SlelctedAll

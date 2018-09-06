@@ -33,7 +33,10 @@
 @end
 
 @implementation CartViewController
-
+{
+    NSMutableArray * timeArr;
+    NSArray  * dateSectionArr;
+}
 -(NSMutableArray *)dataSource
 {
     if (_dataSource == nil) {
@@ -80,17 +83,54 @@
         NSLog(@"%@",dict);
         [_CartTableView.mj_header endRefreshing];
         [self.dataSource removeAllObjects];
+        [self.dataSource addObject:@[]];
         NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
+            
+            NSMutableArray *allTimeArr = [NSMutableArray array];
             for (NSDictionary *dic in dict[@"data"][@"cartDetails"]) {
-                 CartDetailsModel *model = [CartDetailsModel mj_objectWithKeyValues:dic];
-                SimilarProductModel *sModel = [SimilarProductModel mj_objectWithKeyValues:dic[@"productForm"]];
-                model.productForm = sModel;
-                [self.dataSource addObject:model];
+                
+                //1.取出所有出现得时间
+                [allTimeArr addObject:dic[@"productForm"][@"merchantId"]];
             }
-           
+            dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
+            NSLog(@"%@",dateSectionArr);
+            for (NSString *nowTim in dateSectionArr) {
+                NSMutableArray *arr = [[NSMutableArray alloc] init];
+                for (NSDictionary *ordersDicTwo in dict[@"data"][@"cartDetails"]) {
+                    NSString *twoTim = ordersDicTwo[@"productForm"][@"merchantId"];
+                    if([twoTim isEqualToString:nowTim]){
+                        //2.将每个字典保存在模型数组中
+                        CartDetailsModel *model = [CartDetailsModel mj_objectWithKeyValues:ordersDicTwo];
+                        model.SelectedType = @"已选中";
+                        model.Type = @"1";
+                        model.CheckAll = @"1";
+                        model.Edit= @"0";
+                        model.EditBtn = @"0";
+                        SimilarProductModel *sModel = [SimilarProductModel mj_objectWithKeyValues:ordersDicTwo[@"productForm"]];
+                        model.productForm = sModel;
+                        [arr addObject:model];
+                    }
+                }
+
+                [self.dataSource addObject:arr];
+            }
             
+//            for (NSDictionary *dic in dict[@"data"][@"cartDetails"]) {
+//                NSMutableArray *arr = [NSMutableArray array];
+//                 CartDetailsModel *model = [CartDetailsModel mj_objectWithKeyValues:dic];
+//                model.SelectedType = @"已选中";
+//                model.Type = @"0";
+//                model.CheckAll = @"1";
+//                model.Edit= @"0";
+//                model.EditBtn = @"0";
+//                SimilarProductModel *sModel = [SimilarProductModel mj_objectWithKeyValues:dic[@"productForm"]];
+//                model.productForm = sModel;
+//                [arr addObject:model];
+//                [self.dataSource addObject:arr];
+//            }
             
+            [_CartTableView reloadData];
             NSLog(@"%@",self.dataSource);
         }else if([dict[@"code"]longValue] == 500){
             
@@ -98,41 +138,33 @@
     } fail:^(NSError *error) {
         
     }];
-//    [[NetworkManager sharedManager] postWithUrl:cartList param:nil success:^(id json) {
-//        NSLog(@"%@",json);
-//        _CartTableView.backgroundView = nil;
-//        [_CartTableView.mj_header endRefreshing];
-//        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-//        if ([respCode isEqualToString:@"00000"]) {
-//
-//           [self CartData];
-//
-//
-//
-//            [_CartTableView reloadData];
-//        }else if([json[@"code"]longValue] == 500){
-//
-//        }
-//
-//
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//    }];
 }
-
-
--( NSMutableArray *)CartData
+//去除数组中重复的
+-(NSArray *)arrayWithMemberIsOnly:(NSArray *)array
 {
-    
-    [self.dataSource removeAllObjects];
-    
-        NSArray *data = @[@[],@[@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571326962&di=8f502445613592dc9dd19dde4032c6ec&imgtype=0&src=http%3A%2F%2Fimg009.hc360.cn%2Fm6%2FM0A%2F98%2F05%2FwKhQoVVat96Ee_nyAAAAANCKIXo389.jpg",@"GoodsName":@"秋冬季毛呢显瘦直筒西装裤韩版高腰哈伦裤女小脚裤休闲裤宽松裤子",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"15",@"GoodsOldPrice":@"￥235",@"GoodsNumber":@"3",@"SelectedType":@"未选中支付",@"Type":@"0",@"CheckAll":@"0",@"Edit":@"0",@"EditBtn":@"0"},@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571328758&di=0f9dafd5ef73a3eff0a125ae310174ac&imgtype=0&src=http%3A%2F%2Fpic36.nipic.com%2F20131205%2F12477111_155227608129_2.jpg",@"GoodsName":@"秋冬加绒卫裤2016韩版松紧腰系带金丝绒哈伦裤男女情侣休闲裤保暖",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"7",@"GoodsOldPrice":@"￥353",@"GoodsNumber":@"2",@"SelectedType":@"未选中支付",@"Type":@"0",@"Edit":@"0"}],
-                          @[@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571383364&di=3aea37c3e86ada28783624a5475d27cf&imgtype=0&src=http%3A%2F%2Fimg.shushi100.com%2F2017%2F02%2F15%2F1487169103-2682884336966288.jpg",@"GoodsName":@"简易牛津布大号双人无纺布艺衣柜收纳加固加厚钢架衣橱衣柜挂衣柜",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"5",@"GoodsOldPrice":@"￥3533",@"GoodsNumber":@"4",@"SelectedType":@"未选中支付",@"Type":@"0",@"CheckAll":@"0",@"Edit":@"0",@"EditBtn":@"0"}],
-                          @[@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571404170&di=93c67271812592cb3483b4e88d633e2c&imgtype=0&src=http%3A%2F%2Fpic16.nipic.com%2F20110911%2F3059559_103205656510_2.png",@"GoodsName":@"运动裤女长裤春秋卫裤纯棉宽松学生三道杠哈伦裤小脚运动裤男收口",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"15",@"GoodsOldPrice":@"￥125",@"GoodsNumber":@"2",@"SelectedType":@"未选中支付",@"Type":@"0",@"CheckAll":@"0",@"Edit":@"0",@"EditBtn":@"0"},@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571451068&di=33fa6647e96d7213edb8773522775191&imgtype=0&src=http%3A%2F%2Fd10.yihaodianimg.com%2FN10%2FM04%2FD7%2FD6%2FChEi3FYbPAqALUz-AAIG6KjEa9c87800_320x320.jpg",@"GoodsName":@"春季李易峰鹿晗纯棉同款条纹长袖T恤打底衫男女卫衣学生情侣衣服",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"13",@"GoodsOldPrice":@"￥3225",@"GoodsNumber":@"1",@"SelectedType":@"未选中支付",@"Type":@"0",@"Edit":@"0"},@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571466593&di=2814d8170a2e17baf9b4de1bd9b9a930&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D25193392%2C2952556956%26fm%3D214%26gp%3D0.jpg",@"GoodsName":@"gd权志龙同款卫衣长袖男女bigbang演唱会欧美潮牌衣服嘻哈街舞潮",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"25",@"GoodsOldPrice":@"￥3523",@"GoodsNumber":@"2",@"SelectedType":@"未选中支付",@"Type":@"0",@"Edit":@"0"}]];
-        [self.dataSource addObjectsFromArray:data];
-        
-    return self.dataSource;
+    NSMutableArray *categoryArray =[[NSMutableArray alloc] init];
+    for (unsigned i = 0; i < [array count]; i++) {
+        @autoreleasepool {
+            if ([categoryArray containsObject:[array objectAtIndex:i]]==NO) {
+                [categoryArray addObject:[array objectAtIndex:i]];
+            }
+        }
+    }
+    return categoryArray;
 }
+
+//-( NSMutableArray *)CartData
+//{
+//
+//    [self.dataSource removeAllObjects];
+//
+//        NSArray *data = @[@[],@[@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571326962&di=8f502445613592dc9dd19dde4032c6ec&imgtype=0&src=http%3A%2F%2Fimg009.hc360.cn%2Fm6%2FM0A%2F98%2F05%2FwKhQoVVat96Ee_nyAAAAANCKIXo389.jpg",@"GoodsName":@"秋冬季毛呢显瘦直筒西装裤韩版高腰哈伦裤女小脚裤休闲裤宽松裤子",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"15",@"GoodsOldPrice":@"￥235",@"GoodsNumber":@"3",@"SelectedType":@"未选中支付",@"Type":@"0",@"CheckAll":@"0",@"Edit":@"0",@"EditBtn":@"0"},@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571328758&di=0f9dafd5ef73a3eff0a125ae310174ac&imgtype=0&src=http%3A%2F%2Fpic36.nipic.com%2F20131205%2F12477111_155227608129_2.jpg",@"GoodsName":@"秋冬加绒卫裤2016韩版松紧腰系带金丝绒哈伦裤男女情侣休闲裤保暖",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"7",@"GoodsOldPrice":@"￥353",@"GoodsNumber":@"2",@"SelectedType":@"未选中支付",@"Type":@"0",@"Edit":@"0"}],
+//                          @[@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571383364&di=3aea37c3e86ada28783624a5475d27cf&imgtype=0&src=http%3A%2F%2Fimg.shushi100.com%2F2017%2F02%2F15%2F1487169103-2682884336966288.jpg",@"GoodsName":@"简易牛津布大号双人无纺布艺衣柜收纳加固加厚钢架衣橱衣柜挂衣柜",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"5",@"GoodsOldPrice":@"￥3533",@"GoodsNumber":@"4",@"SelectedType":@"未选中支付",@"Type":@"0",@"CheckAll":@"0",@"Edit":@"0",@"EditBtn":@"0"}],
+//                          @[@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571404170&di=93c67271812592cb3483b4e88d633e2c&imgtype=0&src=http%3A%2F%2Fpic16.nipic.com%2F20110911%2F3059559_103205656510_2.png",@"GoodsName":@"运动裤女长裤春秋卫裤纯棉宽松学生三道杠哈伦裤小脚运动裤男收口",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"15",@"GoodsOldPrice":@"￥125",@"GoodsNumber":@"2",@"SelectedType":@"未选中支付",@"Type":@"0",@"CheckAll":@"0",@"Edit":@"0",@"EditBtn":@"0"},@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571451068&di=33fa6647e96d7213edb8773522775191&imgtype=0&src=http%3A%2F%2Fd10.yihaodianimg.com%2FN10%2FM04%2FD7%2FD6%2FChEi3FYbPAqALUz-AAIG6KjEa9c87800_320x320.jpg",@"GoodsName":@"春季李易峰鹿晗纯棉同款条纹长袖T恤打底衫男女卫衣学生情侣衣服",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"13",@"GoodsOldPrice":@"￥3225",@"GoodsNumber":@"1",@"SelectedType":@"未选中支付",@"Type":@"0",@"Edit":@"0"},@{@"GoodsIcon":@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487571466593&di=2814d8170a2e17baf9b4de1bd9b9a930&imgtype=jpg&src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D25193392%2C2952556956%26fm%3D214%26gp%3D0.jpg",@"GoodsName":@"gd权志龙同款卫衣长袖男女bigbang演唱会欧美潮牌衣服嘻哈街舞潮",@"GoodsDesc":@"颜色:米白色;尺寸:170/85A[M 120斤内]",@"GoodsPrice":@"25",@"GoodsOldPrice":@"￥3523",@"GoodsNumber":@"2",@"SelectedType":@"未选中支付",@"Type":@"0",@"Edit":@"0"}]];
+//        [self.dataSource addObjectsFromArray:data];
+//
+//    return self.dataSource;
+//}
 
 /**
  *  底部结账栏
@@ -156,15 +188,15 @@
     if (section !=0) {
 #warning notice ---  我只把信息放在了第一个row中  这里不想改  但是原理一样
         NSArray *arr = self.dataSource[section];
-        NSDictionary *dict = arr[0];
-        
+//        NSDictionary *dict = arr[0];
+        CartDetailsModel *model = arr[0];
         //自定义一个View
         SectionView *SectionHeadView = [[SectionView alloc]initWithFrame:tableView.tableHeaderView.bounds];
         SectionHeadView.delegate = self;
         SectionHeadView.backgroundColor = [UIColor whiteColor];
         SectionHeadView.Section = section;
-        [SectionHeadView InfuseData:dict[@"CheckAll"]];
-        
+        [SectionHeadView InfuseData:model.CheckAll];
+        [SectionHeadView InfMerchantNameData:model.productForm.merchantName];
         return SectionHeadView;
     }else{
         return nil;
@@ -193,7 +225,9 @@
     }else{
         if(self.accountView == nil){
             [self accountsView];
+            
         }
+        [self postCenter];
         _CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-SafeAreaBottomHeight);
         if (section == self.dataSource.count - 1) {
             return 200;
@@ -352,6 +386,8 @@
     }else{
         NSArray *ListArr = self.dataSource[section];
         return ListArr.count;
+//        NSArray *ListArr = self.dataSource[section];
+//        return 1;
     }
     
 }
@@ -394,9 +430,9 @@
     }else{
 
             NSArray *ListArr = self.dataSource[indexPath.section];
-            NSDictionary *dict = ListArr[indexPath.row];
-            
-            if ([dict[@"Edit"] isEqualToString:@"0"]) {
+//            NSDictionary *dict = ListArr[indexPath.row];
+            CartDetailsModel *model = ListArr[indexPath.row];
+            if ([model.Edit isEqualToString:@"0"]) {
                 CompileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompileCellID"];
                 
                 if (cell==nil) {
@@ -405,7 +441,7 @@
                 
                 //            cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]],[MGSwipeButton buttonWithTitle:@"更多" backgroundColor:[UIColor grayColor]]];
                 cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]]];
-                [cell withData:dict];
+                [cell withData:model];
                 
                 cell.delegate = self;
                 cell.SelectedDelegate = self;
@@ -421,6 +457,29 @@
        
     
 }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
+    CartDetailsModel *model = arr[indexPath.row];
+    if ([model.Type isEqualToString:@"1"]) {
+        model.SelectedType = @"未选中支付";
+        model.Type = @"0";
+        [arr replaceObjectAtIndex:indexPath.row withObject:model];
+        [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+        //判断是否把section的全选按钮取消
+        [self didChangeValueForSectionRow:indexPath.section];
+    }else{
+        model.SelectedType = @"已选中";
+        model.Type = @"1";
+        [arr replaceObjectAtIndex:indexPath.row withObject:model];
+        
+        [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+        
+        [self didChangeValueForSectionAllRow:indexPath.section];
+    }
+
+   
+}
 /**
  *  侧滑后的动作  删除   +   更多
  */
@@ -433,60 +492,60 @@
           direction == MGSwipeDirectionLeftToRight ? @"left" : @"right", (int)index, fromExpansion ? @"YES" : @"NO");
     //删除
     if (index == 0) {
-        
         [Helper ShowAlertWithTitle:@"是否删除该商品" prompt:@"" cancel:@"取消" defaultLb:@"确定" ViewController:self alertOkClick:^{
-            
-            [arr removeObjectAtIndex:indexPath.row];
-            if (arr.count > 0) {
-                [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
-                
-                [self postCenter];
-                
-                
-                
-                //                [_CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
-                
-                NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
-                NSInteger index = 0; //判读section下的row是否全部勾选
-                for (NSInteger i = 0; i < arr.count; i++) {
-                    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[i]];
-                    if ([dict[@"Type"] isEqualToString:@"1"]) {
-                        index ++;
+            NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+            CartDetailsModel *model = arr[indexPath.row];
+            [dict1 setValue:model.id forKey:@"cartDetailId"];
+            [LYTools postBossDemoWithUrl:cartDelProduct param:dict1 success:^(NSDictionary *dict) {
+                NSLog(@"%@",dict);
+                NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                if ([respCode isEqualToString:@"00000"]) {
+                    [arr removeObjectAtIndex:indexPath.row];
+                    if (arr.count > 0) {
+                        [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+                        [self postCenter];
+                        //[_CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
+                        NSInteger index = 0; //判读section下的row是否全部勾选
+                        for (NSInteger i = 0; i < arr.count; i++) {
+                            CartDetailsModel *model = arr[i];
+                            //NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[i]];
+                            if ([model.Type isEqualToString:@"1"]) {
+                                index ++;
+                            }
+                        }
+                        //如果全部row的状态都为选中状态 则改变section的按钮状态
+                        if (index == arr.count) {
+                            CartDetailsModel *model = arr[0];
+                            //NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
+                            //[dict setValue:@"1" forKey:@"CheckAll"];
+                            model.CheckAll = @"1";
+                            [arr replaceObjectAtIndex:0 withObject:model];
+                        }
+                        [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+                        //一个section刷新
+                        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
+                        [_CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+//                        _CartTableView.backgroundView = nil;
+//                        [_CartTableView reloadData];
+                    }else{
+                        [self.dataSource removeObjectAtIndex:indexPath.section];
+                        [self postCenter];
+//                        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
+//                        [_CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+//                        _CartTableView.backgroundView = nil;
+                        [_CartTableView reloadData];
                     }
+                }else if([dict[@"code"]longValue] == 500){
+                    [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
                 }
-                
-                //如果全部row的状态都为选中状态   则改变section的按钮状态
-                if (index == arr.count) {
-                    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
-                    [dict setValue:@"1" forKey:@"CheckAll"];
-                    [arr replaceObjectAtIndex:0 withObject:dict];
-                }
-                
-                [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
-                //                //一个section刷新
-//                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-//                [_CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-                _CartTableView.backgroundView = nil;
-                [_CartTableView reloadData];
-            }else{
-                [self.dataSource removeObjectAtIndex:indexPath.section];
-                
-                [self postCenter];
-                
-//                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-//                [_CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-                _CartTableView.backgroundView = nil;
-                [_CartTableView reloadData];
-            }
-            
-            
+            } fail:^(NSError *error) {
+
+            }];
             
         } alertNoClick:^{
-            
         }];
-        
     }
-    
     return YES;
 }
 /**
@@ -494,19 +553,22 @@
  */
 -(void)SelectedConfirmCell:(UITableViewCell *)cell
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
         NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
         NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
-        [dict setValue:@"已选中" forKey:@"SelectedType"];
-        [dict setValue:@"1" forKey:@"Type"];
-        [arr replaceObjectAtIndex:indexPath.row withObject:dict];
+//        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
+        CartDetailsModel *model = arr[indexPath.row];
+        model.SelectedType = @"已选中";
+        model.Type = @"1";
+//        [dict setValue:@"已选中" forKey:@"SelectedType"];
+//        [dict setValue:@"1" forKey:@"Type"];
+        [arr replaceObjectAtIndex:indexPath.row withObject:model];
         
         [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
         
         [self didChangeValueForSectionAllRow:indexPath.section];
-        [_CartTableView reloadData];
-    });
+//        [_CartTableView reloadData];
+//    });
     
 }
 /**
@@ -514,20 +576,22 @@
  */
 -(void)SelectedCancelCell:(UITableViewCell *)cell
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
         NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
         NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
-        [dict setValue:@"未选中支付" forKey:@"SelectedType"];
-        [dict setValue:@"0" forKey:@"Type"];
-        [arr replaceObjectAtIndex:indexPath.row withObject:dict];
+//        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
+        CartDetailsModel *model = arr[indexPath.row];
+        model.SelectedType = @"未选中支付";
+        model.Type = @"0";
+//        [dict setValue:@"未选中支付" forKey:@"SelectedType"];
+//        [dict setValue:@"0" forKey:@"Type"];
+        [arr replaceObjectAtIndex:indexPath.row withObject:model];
         
         [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
-        
         //判断是否把section的全选按钮取消
         [self didChangeValueForSectionRow:indexPath.section];
-        [_CartTableView reloadData];
-    });
+//        [_CartTableView reloadData];
+//    });
     
 }
 
@@ -536,27 +600,16 @@
  */
 -(void)SelectedRemarkCell:(CompileCell *)cell
 {
-//    UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"修改昵称" message: nil preferredStyle:UIAlertControllerStyleAlert];
-//    [alertCtrl  addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-//
-//         textField.text = cell.RemarksLabel.text;
-//         textField.borderStyle = UITextBorderStyleNone;
-//         textField.textColor = [UIColor blackColor];
-//         textField.clearButtonMode = UITextFieldViewModeAlways;
-//    }];
-//
-//    [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//    }]];
-//    [alertCtrl  addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//         NSArray * textfields = alertCtrl.textFields;
-//         UITextField * namefield = textfields[0];
-//        cell.RemarksLabel.text = namefield.text;
-//    }]];
-//    [self presentViewController:alertCtrl animated:YES completion:nil];
     DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"添加商品备注" message:@"请输入备注信息" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comCell:cell];
     [alertView show];
 }
-
+/**
+ *  查看商品图片列表
+ */
+-(void)SelectedLookImageListCell:(CompileCell *)cell
+{
+   
+}
 
 /**
  *  选中了哪一section
@@ -565,15 +618,17 @@
 {
     //修改section的选中状态
     NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[section]];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
-    [dict setValue:@"1" forKey:@"CheckAll"];
-    [arr replaceObjectAtIndex:0 withObject:dict];
+//    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
+    CartDetailsModel *model = arr[0];
+    model.CheckAll = @"1";
+//    [dict setValue:@"1" forKey:@"CheckAll"];
+    [arr replaceObjectAtIndex:0 withObject:model];
     
     [self.dataSource replaceObjectAtIndex:section withObject:arr];
     
     
     [self didChangeValueForSection:section SectionSelectedTyep:YES];
-    [_CartTableView reloadData];
+//    [_CartTableView reloadData];
 }
 /**
  *  取消选中哪个section
@@ -582,14 +637,16 @@
 {
     //修改section的选中状态
     NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[section]];
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
-    [dict setValue:@"0" forKey:@"CheckAll"];
-    [arr replaceObjectAtIndex:0 withObject:dict];
+//    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
+    CartDetailsModel *model = arr[0];
+    model.CheckAll = @"0";
+//    [dict setValue:@"0" forKey:@"CheckAll"];
+    [arr replaceObjectAtIndex:0 withObject:model];
     
     [self.dataSource replaceObjectAtIndex:section withObject:arr];
     
     [self didChangeValueForSection:section SectionSelectedTyep:NO];
-    [_CartTableView reloadData];
+//    [_CartTableView reloadData];
     
 }
 /******************************************
@@ -604,16 +661,21 @@
     NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[section]];
     
     for (NSInteger i = 0; i < arr.count; i++) {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[i]];
+        CartDetailsModel *model = arr[i];
+//        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[i]];
         if (Check) {
-            [dict setValue:@"已选中" forKey:@"SelectedType"];
-            [dict setValue:@"1" forKey:@"Type"];
+            model.SelectedType = @"已选中";
+            model.Type = @"1";
+//            [dict setValue:@"已选中" forKey:@"SelectedType"];
+//            [dict setValue:@"1" forKey:@"Type"];
         }else{
-            [dict setValue:@"未选中支付" forKey:@"SelectedType"];
-            [dict setValue:@"0" forKey:@"Type"];
+            model.SelectedType = @"未选中支付";
+            model.Type = @"0";
+//            [dict setValue:@"未选中支付" forKey:@"SelectedType"];
+//            [dict setValue:@"0" forKey:@"Type"];
         }
         
-        [arr replaceObjectAtIndex:i withObject:dict];
+        [arr replaceObjectAtIndex:i withObject:model];
     }
     [self.dataSource replaceObjectAtIndex:section withObject:arr];
     
@@ -626,8 +688,9 @@
             
             NSArray *arr = self.dataSource[i];
             if (arr.count != 0) {
-                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
-                if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
+                CartDetailsModel *model = arr[0];
+//                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
+                if ([model.CheckAll isEqualToString:@"1"]) {
                     sectionChose = YES;
                 }else{
                     sectionChose = NO;
@@ -663,10 +726,13 @@
 {
     NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[section]];
     for (NSInteger i = 0; i < arr.count; i++) {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
-        if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
-            [dict setValue:@"0" forKey:@"CheckAll"];
-            [arr replaceObjectAtIndex:0 withObject:dict];
+//        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
+        CartDetailsModel *model = arr[0];
+        
+        if ([model.CheckAll isEqualToString:@"1"]) {
+            model.CheckAll = @"0";
+//            [dict setValue:@"0" forKey:@"CheckAll"];
+            [arr replaceObjectAtIndex:0 withObject:model];
             
             [self.accountView init:@{@"SelectIcon":@"未选中支付",@"SelectedType":@"NO"} GoodsData:self.dataSource];
         }
@@ -693,17 +759,21 @@
     NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[section]];
     NSInteger index = 0; //判读section下的row是否全部勾选
     for (NSInteger i = 0; i < arr.count; i++) {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[i]];
-        if ([dict[@"Type"] isEqualToString:@"1"]) {
+//        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[i]];
+        CartDetailsModel *model = arr[i];
+
+        if ([model.Type isEqualToString:@"1"]) {
             index ++;
         }
     }
     
     //如果全部row的状态都为选中状态   则改变section的按钮状态
     if (index == arr.count) {
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
-        [dict setValue:@"1" forKey:@"CheckAll"];
-        [arr replaceObjectAtIndex:0 withObject:dict];
+//        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
+        CartDetailsModel *model = arr[0];
+        model.CheckAll = @"1";
+//        [dict setValue:@"1" forKey:@"CheckAll"];
+        [arr replaceObjectAtIndex:0 withObject:model];
     }
     
     [self.dataSource replaceObjectAtIndex:section withObject:arr];
@@ -713,8 +783,9 @@
     for (NSInteger i = 0; i < self.dataSource.count; i++) {
         NSArray *arr = self.dataSource[i];
         if (arr.count != 0) {
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
-            if ([dict[@"CheckAll"] isEqualToString:@"1"]) {
+//            NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[0]];
+            CartDetailsModel *model = arr[0];
+            if ([model.CheckAll isEqualToString:@"1"]) {
                 sectionChose = YES;
             }else{
                 sectionChose = NO;
@@ -753,25 +824,30 @@
 
 -(void)DidSelectedAllGoods
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
         for (NSInteger i = 0; i < self.dataSource.count; i ++) {
             NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[i]];
             for (NSInteger j = 0; j < arr.count; j ++) {
-                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[j]];
+//                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[j]];
+                CartDetailsModel *model = arr[j];
+                
                 if (j == 0) {
-                    [dict setValue:@"1" forKey:@"CheckAll"];
-                    [arr replaceObjectAtIndex:0 withObject:dict];
+                    model.CheckAll = @"1";
+//                    [dict setValue:@"1" forKey:@"CheckAll"];
+                    [arr replaceObjectAtIndex:0 withObject:model];
                 }
-                [dict setValue:@"已选中" forKey:@"SelectedType"];
-                [dict setValue:@"1" forKey:@"Type"];
-                [arr replaceObjectAtIndex:j withObject:dict];
+                model.SelectedType = @"已选中";
+                model.Type = @"1";
+//                [dict setValue:@"已选中" forKey:@"SelectedType"];
+//                [dict setValue:@"1" forKey:@"Type"];
+                [arr replaceObjectAtIndex:j withObject:model];
             }
             [self.dataSource replaceObjectAtIndex:i withObject:arr];
         }
         [self postCenter];
         
         [_CartTableView reloadData];
-    });
+//    });
    
 }
 
@@ -781,14 +857,19 @@
         for (NSInteger i = 0; i < self.dataSource.count; i ++) {
             NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[i]];
             for (NSInteger j = 0; j < arr.count; j ++) {
-                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[j]];
+//                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[j]];
+                CartDetailsModel *model = arr[j];
+
                 if (j == 0) {
-                    [dict setValue:@"0" forKey:@"CheckAll"];
-                    [arr replaceObjectAtIndex:0 withObject:dict];
+                    model.CheckAll = @"0";
+//                    [dict setValue:@"0" forKey:@"CheckAll"];
+                    [arr replaceObjectAtIndex:0 withObject:model];
                 }
-                [dict setValue:@"未选中支付" forKey:@"SelectedType"];
-                [dict setValue:@"0" forKey:@"Type"];
-                [arr replaceObjectAtIndex:j withObject:dict];
+                model.SelectedType = @"未选中支付";
+                model.Type = @"0";
+//                [dict setValue:@"未选中支付" forKey:@"SelectedType"];
+//                [dict setValue:@"0" forKey:@"Type"];
+                [arr replaceObjectAtIndex:j withObject:model];
             }
             [self.dataSource replaceObjectAtIndex:i withObject:arr];
         }
@@ -918,7 +999,24 @@
     if (buttonIndex == AlertButtonLeft) {
         
     }else{
-         cell.RemarksLabel.text = alertView.textView.text;
+            NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+            CartDetailsModel *model =cell.detailModel;
+            [dict1 setValue:model.id forKey:@"cartDetailId"];
+            [dict1 setValue:alertView.textView.text forKey:@"remark"];
+            [LYTools postBossDemoWithUrl:cartRemark param:dict1 success:^(NSDictionary *dict) {
+                NSLog(@"%@",dict);
+                NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                if ([respCode isEqualToString:@"00000"]) {
+                     cell.RemarksLabel.text = [NSString stringWithFormat:@"备注:%@",alertView.textView.text];
+                }else if([dict[@"code"]longValue] == 500){
+                    [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
+                }
+            } fail:^(NSError *error) {
+                
+            }];
+            
+        
+        
     }
 }
 

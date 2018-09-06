@@ -68,6 +68,9 @@
 
 
 
+
+
+
 //申请售后的接口
 //提交售后申请
 #define orderReturnsApply [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/orderReturns/applyReturns"]
@@ -88,7 +91,7 @@
 //取消关注
 #define cartCancelLike [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/cart/cancelLike"]
 //删除购物车商品
-#define cartDelProduct [NSString stringWithFormat:@"%@%@",kBaseUrl,@"POST /api/cart/delProduct"]
+#define cartDelProduct [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/cart/delProduct"]
 //获取所有购物车信息,包含购物车信息，关注信息 回收列表
 #define cartList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/cart/list"]
 //重新下单

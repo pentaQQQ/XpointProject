@@ -8,6 +8,13 @@
 
 #import "ZhuanfaOtherView.h"
 
+
+@interface ZhuanfaOtherView()
+@property(nonatomic,assign)int currentDEX;
+@end
+
+
+
 @implementation ZhuanfaOtherView
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
@@ -50,7 +57,7 @@
     
     
     if ([model.defaultImg isEqualToString:@"0"]) {
-        
+        self.currentDEX = 0;
         [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.secondBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
         [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -59,7 +66,7 @@
         
         
     }else if ([model.defaultImg isEqualToString:@"1"]){
-        
+        self.currentDEX = 1;
         [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.thirdBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
@@ -68,7 +75,7 @@
         
         
     }else if ([model.defaultImg isEqualToString:@"2"]){
-        
+        self.currentDEX = 2;
         [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -76,7 +83,7 @@
         
         
     }else if ([model.defaultImg isEqualToString:@"3"]){
-        
+        self.currentDEX = 3;
         [self.firstBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
         [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -85,9 +92,17 @@
     }
     
     
-}
-- (IBAction)firstBtnClick:(id)sender {
+    NSString *title = [NSString stringWithFormat:@"转发(+%@)",model.price];
+    [self.sureBtn setTitle:title forState:UIControlStateNormal];
     
+    
+    
+}
+
+
+
+- (IBAction)firstBtnClick:(id)sender {
+     self.currentDEX = 3;
     [self.firstBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
     [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -96,6 +111,7 @@
 }
 
 - (IBAction)secondBtnClick:(id)sender {
+    self.currentDEX = 0;
     [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.secondBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
     [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -104,7 +120,7 @@
 }
 
 - (IBAction)thirdBtnClick:(id)sender {
-    
+     self.currentDEX = 1;
     [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.thirdBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
@@ -115,7 +131,7 @@
 
 
 - (IBAction)fourthBtnClick:(id)sender {
-    
+     self.currentDEX = 2;
     [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -123,5 +139,17 @@
     
     
 }
+
+- (IBAction)sureBtnClick:(id)sender {
+    
+    if (self.zhuanfaBlock) {
+        self.zhuanfaBlock(self.currentDEX);
+    }
+    
+}
+
+
+
+
 
 @end

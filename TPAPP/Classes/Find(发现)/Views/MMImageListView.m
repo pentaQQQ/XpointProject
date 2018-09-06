@@ -86,6 +86,7 @@
         imageView = [self viewWithTag:1000+i];
         imageView.hidden = NO;
         imageView.frame = frame;
+        
         imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"moment_pic_%d",(int)i]];
     }
     self.width = kTextWidth;
@@ -172,15 +173,23 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(long)buttonIndex{
     if (buttonIndex == 0){
         if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
-            NSMutableArray *imageIds = [NSMutableArray array];
-            [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-                //写入图片到相册
-                PHAssetChangeRequest *req = [PHAssetChangeRequest creationRequestForAssetFromImage:self.selectImage.image];
-                //记录本地标识，等待完成后取到相册中的图片对象
-                [imageIds addObject:req.placeholderForCreatedAsset.localIdentifier];
-            } completionHandler:^(BOOL success, NSError * _Nullable error) {
-                //        NSLog(@"success = %d, error = %@", success, error);
-            }];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSMutableArray *imageIds = [NSMutableArray array];
+                [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+                    //写入图片到相册
+                    PHAssetChangeRequest *req = [PHAssetChangeRequest creationRequestForAssetFromImage:self.selectImage.image];
+                    //记录本地标识，等待完成后取到相册中的图片对象
+                    [imageIds addObject:req.placeholderForCreatedAsset.localIdentifier];
+                } completionHandler:^(BOOL success, NSError * _Nullable error) {
+                    if (success) {
+                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"保存成功" withDuration:1.0];
+                    }else{
+                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"保存失败" withDuration:1.0];
+                    }
+                    //        NSLog(@"success = %d, error = %@", success, error);
+                }];
+            });
+           
         }else{
             
         }

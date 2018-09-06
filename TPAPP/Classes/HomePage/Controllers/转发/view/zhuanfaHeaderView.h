@@ -52,4 +52,7 @@
 @property(nonatomic,copy)void(^ToNextMerchanBlock)(void);
 
 
+@property(nonatomic,copy)void(^zhuanfaBlock)(SimilarProductModel*model,int currentDEX);
+
+
 @end
