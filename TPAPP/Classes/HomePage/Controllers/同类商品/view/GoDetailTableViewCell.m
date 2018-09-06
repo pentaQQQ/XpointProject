@@ -37,9 +37,11 @@
 }
 
 - (IBAction)goShoppingAction:(id)sender {
-    specsModel *model = self.dataArr[0];
-    self.goShoppingBlock(model);
+
+    [self AddTheMerchanToShoppingCart];
 }
+
+
 
 -(void)setImageview:(UIImageView *)imageview{
     _imageview = imageview;
@@ -330,8 +332,8 @@
     UITapGestureRecognizer*tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
     [mengbanView addGestureRecognizer:tap];
     
-   
-
+    
+    
     __weak __typeof(self) weakSelf = self;
     
     [zhuanfaotherview.cancelBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
@@ -341,7 +343,7 @@
     }];
     
     [zhuanfaotherview.sureBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
-  
+        
         [weakSelf.mengbanView removeFromSuperview];
         [weakSelf.zhuanfaotherview removeFromSuperview];
         [self endEditing:YES];
@@ -360,8 +362,27 @@
     
 }
 
-
-
+//加入购物车
+-(void)AddTheMerchanToShoppingCart{
+ 
+    specsModel *model = self.dataArr[0];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:model.productId forKey:@"productId"];
+    [dic setValue:model.size forKey:@"size"];
+    [dic setValue:[LYAccount shareAccount].id forKey:@"userId"];
+    [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
+        NSLog(@"%@",dict);
+        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"成功加入购物车" withDuration:1.5];
+        }else{
+            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
+        }
+    } fail:^(NSError *error) {
+        
+    }];
+    
+}
 
 
 

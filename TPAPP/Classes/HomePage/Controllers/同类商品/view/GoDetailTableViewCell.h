@@ -53,5 +53,5 @@
 
 
 @property(nonatomic,strong)SimilarProductModel*model;
-@property(nonatomic,copy)void(^goShoppingBlock)(specsModel*model);
+
 @end

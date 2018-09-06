@@ -13,9 +13,13 @@
 @property(nonatomic,assign)int count;
 @property(nonatomic,weak)UIView *mengbanView;
 @property(nonatomic,strong)zidingyijineView*jineview;
+
+@property(nonatomic,assign)int currentDEX;
+
 @end
 
 @implementation zhuanfaHeaderView
+
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
@@ -91,7 +95,7 @@
 
 
 - (IBAction)firstBtnClick:(id)sender {
-    
+     self.currentDEX = 3;
     [self.firstBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
     [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -107,6 +111,7 @@
 }
 
 - (IBAction)secondBtnClick:(id)sender {
+     self.currentDEX = 0;
     [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.secondBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
     [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -119,6 +124,7 @@
 }
 
 - (IBAction)thirdBtnClick:(id)sender {
+     self.currentDEX = 1;
     [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.thirdBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
@@ -131,6 +137,7 @@
 }
 
 - (IBAction)fourthBtnClick:(id)sender {
+     self.currentDEX = 2;
     [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
     [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -223,10 +230,19 @@
 }
 
 
+
+
 - (IBAction)zhuanfaBtnClick:(id)sender {
     
+    SimilarProductModel *model = self.MerchanArray[self.count];
     
+    if (self.zhuanfaBlock) {
+        self.zhuanfaBlock(model,self.currentDEX);
+    }
 }
+
+
+
 
 
 
@@ -295,7 +311,7 @@
     
     
     if ([model.defaultImg isEqualToString:@"0"]) {
-        
+        self.currentDEX = 0;
         [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.secondBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
         [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -307,7 +323,7 @@
         self.fourthSaveBtn.hidden = YES;
         
     }else if ([model.defaultImg isEqualToString:@"1"]){
-        
+         self.currentDEX = 1;
         [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.thirdBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
@@ -319,7 +335,7 @@
         self.fourthSaveBtn.hidden = YES;
         
     }else if ([model.defaultImg isEqualToString:@"2"]){
-        
+         self.currentDEX = 2;
         [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -331,7 +347,7 @@
         self.fourthSaveBtn.hidden = NO;
         
     }else if ([model.defaultImg isEqualToString:@"3"]){
-        
+         self.currentDEX = 3;
         [self.firstBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
         [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
         [self.thirdBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
@@ -377,6 +393,9 @@
     }];
     
 }
+
+
+
 
 
 //设置相应的数据
@@ -471,10 +490,10 @@
 
 
 -(void)tap{
-
+    
     [self.jineview removeFromSuperview];
     [self.mengbanView removeFromSuperview];
- 
+    
 }
 
 

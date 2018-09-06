@@ -106,24 +106,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     SimilarProductModel*model = self.dataArr[indexPath.row];
     cell.model = model;
-    [cell setGoShoppingBlock:^(specsModel *model) {
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setValue:model.productId forKey:@"productId"];
-        [dic setValue:model.size forKey:@"size"];
-        [dic setValue:[LYAccount shareAccount].id forKey:@"userId"];
-        [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
-            NSLog(@"%@",dict);
-            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-            if ([respCode isEqualToString:@"00000"]) {
-                
-            }else{
-                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
-            }
-        } fail:^(NSError *error) {
-            
-        }];
-        
-    }];
+
     return cell;
     
 }
