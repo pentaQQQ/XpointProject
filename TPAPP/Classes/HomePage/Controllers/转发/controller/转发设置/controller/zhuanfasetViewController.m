@@ -276,7 +276,7 @@
     zidingyijineView *jineview = [[NSBundle mainBundle]loadNibNamed:@"zidingyijineView" owner:self options:nil].lastObject;
     ViewBorderRadius(jineview, 5, 1, [UIColor clearColor]);
     self.jineview = jineview;
-    jineview.frame = CGRectMake(20, 150, kScreenWidth-40, 135);
+    jineview.frame = CGRectMake(20, (kScreenHeight-135)/2, kScreenWidth-40, 135);
     
     [keyWindow addSubview:jineview];
     
@@ -381,7 +381,7 @@
     zidingyijineView *jineview = [[NSBundle mainBundle]loadNibNamed:@"zidingyijineView" owner:self options:nil].lastObject;
     ViewBorderRadius(jineview, 5, 1, [UIColor clearColor]);
     self.jineview = jineview;
-    jineview.frame = CGRectMake(20, 150, kScreenWidth-40, 135);
+    jineview.frame = CGRectMake(20, (kScreenHeight-135)/2, kScreenWidth-40, 135);
     
     [keyWindow addSubview:jineview];
     

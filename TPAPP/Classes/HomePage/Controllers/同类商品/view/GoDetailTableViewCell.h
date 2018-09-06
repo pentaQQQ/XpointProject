@@ -54,4 +54,8 @@
 
 @property(nonatomic,strong)SimilarProductModel*model;
 
+@property(nonatomic,copy)void(^ToZhuanfaBlock)(SimilarProductModel*model,int currentDEX);
+
+
+
 @end

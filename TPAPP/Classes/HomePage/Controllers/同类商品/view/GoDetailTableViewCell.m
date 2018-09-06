@@ -339,16 +339,21 @@
     [zhuanfaotherview.cancelBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         [weakSelf.mengbanView removeFromSuperview];
         [weakSelf.zhuanfaotherview removeFromSuperview];
-        [self endEditing:YES];
+        
     }];
     
-    [zhuanfaotherview.sureBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
-        
+    
+    zhuanfaotherview.zhuanfaBlock = ^(int currentDEX) {
         [weakSelf.mengbanView removeFromSuperview];
         [weakSelf.zhuanfaotherview removeFromSuperview];
-        [self endEditing:YES];
-    }];
-    
+       
+        
+        if (self.ToZhuanfaBlock) {
+            self.ToZhuanfaBlock(self.model, currentDEX);
+        }
+        
+    };
+      
 }
 
 

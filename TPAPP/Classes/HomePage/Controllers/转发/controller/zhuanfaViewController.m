@@ -36,7 +36,6 @@
 
 @property (nonatomic, retain) UIDocumentInteractionController *docuController;
 
-@property (nonatomic, retain) UIActivityViewController *activityViewController;
 
 @end
 
@@ -147,10 +146,6 @@
     };
     
     
-    
-    
-    
-    
     XinHeChengTuView *xinheview = [[NSBundle mainBundle]loadNibNamed:@"XinHeChengTuView" owner:self options:nil].lastObject;
     self.xinheview = xinheview;
     xinheview.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
@@ -182,13 +177,6 @@
     
 }
 
-
-
-- (void)documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller
-{
-    NSFileManager *manager = [NSFileManager defaultManager];
-    [manager removeItemAtPath:_savedImagePath error:nil];
-}
 
 
 
@@ -282,6 +270,14 @@
 }
 
 
+- (void)documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller
+{
+    NSFileManager *manager = [NSFileManager defaultManager];
+    [manager removeItemAtPath:_savedImagePath error:nil];
+}
+
+
+
 
 //分享多张图片
 -(void)shareMangPictureWithModel:(SimilarProductModel*)model{
@@ -296,11 +292,6 @@
     for (int i = 0; i < activityItems.count; i++) {
         //取出地址
         NSString *URL = [activityItems[i] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        
-        //        NSString*URL = [activityItems[i] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-        
-        
         //把图片转成NSData类型
         NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:URL]];
         //写入图片中

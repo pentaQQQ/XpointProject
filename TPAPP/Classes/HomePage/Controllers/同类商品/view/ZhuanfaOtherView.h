@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "zhuanfaModel.h"
+
 @interface ZhuanfaOtherView : UIView
 
 
@@ -23,5 +24,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *sureBtn;
+
+
+
+@property(nonatomic,copy)void(^zhuanfaBlock)(int currentDEX);
+
 
 @end
