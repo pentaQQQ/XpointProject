@@ -21,6 +21,10 @@
 #import "DeclareAbnormalAlertView.h"
 #import "GoodsCartModel.h"
 #import "SimilarProductModel.h"
+#import "MMImageListView.h"
+#import "MMImagePreviewView.h"
+#import "imagesListModel.h"
+#define Image(name) [UIImage imageNamed:name]
 @interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate,DeclareAbnormalAlertViewDelegate>
 {
     BOOL allowMultipleSwipe;
@@ -30,12 +34,15 @@
 @property (nonatomic, strong)BottomView *accountView;
 @property (nonatomic, strong)UIView *remindView;
 @property (nonatomic, strong)NSMutableArray *dataSource;
+
 @end
 
 @implementation CartViewController
 {
     NSMutableArray * timeArr;
     NSArray  * dateSectionArr;
+    MMImagePreviewView *_previewView;
+    MMImageView *selectImage;
 }
 -(NSMutableArray *)dataSource
 {
@@ -210,7 +217,6 @@
     }else{
         return 40;
     }
-    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -395,22 +401,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-//        CartHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CartHeaderCellID"];
-//        if (cell==nil) {
-//            cell = [[CartHeaderCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CartHeaderCellID"];
-//        }
-//        cell.backgroundColor = [UIColor whiteColor];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        [cell setSelectBlock:^(NSInteger num) {
-//            if (num == 1) {
-//                AddressManageController *addressMaCtrl = [[AddressManageController alloc] init];
-//                [self.navigationController pushViewController:addressMaCtrl animated:YES];
-//            }else{
-//
-//            }
-//        }];
-//        return cell;
-//
+
         CartHeaderAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CartHeaderAddressCellID"];
         if (cell==nil) {
           cell = [[CartHeaderAddressCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CartHeaderAddressCellID"];
@@ -434,11 +425,9 @@
             CartDetailsModel *model = ListArr[indexPath.row];
             if ([model.Edit isEqualToString:@"0"]) {
                 CompileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CompileCellID"];
-                
                 if (cell==nil) {
                     cell = [[CompileCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CompileCellID"];
                 }
-                
                 //            cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]],[MGSwipeButton buttonWithTitle:@"更多" backgroundColor:[UIColor grayColor]]];
                 cell.rightButtons = @[[MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor]]];
                 [cell withData:model];
@@ -608,7 +597,15 @@
  */
 -(void)SelectedLookImageListCell:(CompileCell *)cell
 {
-   
+//    dispatch_async(dispatch_get_main_queue(), ^{
+        _previewView = [[MMImagePreviewView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        // 更新视图数据
+        NSInteger count = cell.detailModel.productForm.imagesList.count;
+        _previewView.pageNum = count;
+        _previewView.scrollView.contentSize = CGSizeMake(_previewView.width*count, _previewView.height);
+        [self singleTapSmallViewCallback:cell];
+//    });
+    
 }
 
 /**
@@ -1019,6 +1016,129 @@
         
     }
 }
+
+
+
+#pragma mark - 小图单击
+- (void)singleTapSmallViewCallback:(CompileCell *)cell
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIWindow *window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+        // 解除隐藏
+        [window addSubview:_previewView];
+        [window bringSubviewToFront:_previewView];
+        // 清空
+        [_previewView.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        // 添加子视图
+        NSInteger index = 0;
+        NSInteger count = cell.detailModel.productForm.imagesList.count;
+        CGRect convertRect;
+        if (count == 1) {
+            [_previewView.pageControl removeFromSuperview];
+        }
+        for (NSInteger i = 0; i < count; i ++)
+        {
+            imagesListModel *model = cell.detailModel.productForm.imagesList[i];
+            
+            CGRect rect1 = [cell.Goods_Icon convertRect:cell.Goods_Icon.frame fromView:cell.contentView];//获取button在contentView的位置
+            
+            CGRect rect2 = [cell.Goods_Icon convertRect:rect1 toView:window];
+            // 转换Frame
+            MMImageView *pImageView = [[MMImageView alloc] initWithFrame:rect2];;
+            convertRect = rect2;
+            // 添加
+            MMScrollView *scrollView = [[MMScrollView alloc] initWithFrame:CGRectMake(i*_previewView.width, 0, _previewView.width, _previewView.height)];
+            scrollView.tag = 100+i;
+            scrollView.maximumZoomScale = 2.0;
+            // 根据图片的url下载图片数据
+//            dispatch_queue_t xrQueue = dispatch_queue_create("loadImage", NULL); // 创建GCD线程队列
+//            dispatch_async(xrQueue, ^{
+//                // 异步下载图片
+//                UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.imgUrl]]];
+//                // 主线程刷新UI
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    scrollView.image = img;
+//                });
+//
+//            });
+            [pImageView sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:Image(@"share_sina")];
+            scrollView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.imgUrl]]];
+//            [scrollView.imageView sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:Image(@"share_sina")];
+            scrollView.contentRect = convertRect;
+            // 单击
+            [scrollView setTapBigView:^(MMScrollView *scrollView){
+                [self singleTapBigViewCallback:scrollView];
+            }];
+            // 长按
+            [scrollView setLongPressBigView:^(MMScrollView *scrollView){
+                [self longPresssBigViewCallback:scrollView.imageView];
+            }];
+            [_previewView.scrollView addSubview:scrollView];
+            if (i == index) {
+                [UIView animateWithDuration:0.3 animations:^{
+                    _previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0];
+                    _previewView.pageControl.hidden = NO;
+                    [scrollView updateOriginRect];
+                }];
+            } else {
+                [scrollView updateOriginRect];
+            }
+        }
+        // 更新offset
+        CGPoint offset = _previewView.scrollView.contentOffset;
+        offset.x = index * k_screen_width;
+        _previewView.scrollView.contentOffset = offset;
+    });
+    
+}
+
+#pragma mark - 大图单击||长按
+- (void)singleTapBigViewCallback:(MMScrollView *)scrollView
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        _previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+        _previewView.pageControl.hidden = YES;
+        scrollView.contentRect = scrollView.contentRect;
+        scrollView.zoomScale = 1.0;
+    } completion:^(BOOL finished) {
+        [_previewView removeFromSuperview];
+    }];
+}
+
+- (void)longPresssBigViewCallback:(UIImageView *)scrollView
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+            
+                NSMutableArray *imageIds = [NSMutableArray array];
+                [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+//
+                        //写入图片到相册
+                        PHAssetChangeRequest *req = [PHAssetChangeRequest creationRequestForAssetFromImage:scrollView.image];
+                        //记录本地标识，等待完成后取到相册中的图片对象
+                        [imageIds addObject:req.placeholderForCreatedAsset.localIdentifier];
+//
+                    
+                } completionHandler:^(BOOL success, NSError * _Nullable error) {
+                    if (success) {
+                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"保存成功" withDuration:1.0];
+                    }else{
+                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"保存失败" withDuration:1.0];
+                    }
+                    //        NSLog(@"success = %d, error = %@", success, error);
+                }];
+            
+        }
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+    });
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

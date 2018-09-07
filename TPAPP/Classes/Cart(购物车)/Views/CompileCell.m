@@ -33,7 +33,13 @@
         _Goods_Circle = [UIButton buttonWithType:UIButtonTypeCustom];
         [_Goods_Circle addTarget:self action:@selector(Selected) forControlEvents:UIControlEventTouchUpInside];
         
-        _Goods_Icon = [[UIImageView alloc]init];
+        _Goods_Icon = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _Goods_Icon.titleLabel.font = [UIFont systemFontOfSize:13];
+//        _Goods_Icon.backgroundColor = colorWithRGB(0xFF6B24);
+//        [_Goods_Icon setTitle:@"备注" forState:UIControlStateNormal];
+//        [_Goods_Icon setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_Goods_Icon addTarget:self action:@selector(goodsIconAction) forControlEvents:UIControlEventTouchUpInside];
+//        _Goods_Icon = [[UIImageView alloc]init];
         
         _Goods_Name = [[UILabel alloc]init];
         _Goods_Name.numberOfLines = 2;
@@ -155,16 +161,25 @@
 {
     [self.SelectedDelegate SelectedRemarkCell:self];
 }
-- (void)lookImageListDetail
-{
-    [self.SelectedDelegate SelectedLookImageListCell:self];
-}
+
 -(void)withData:(CartDetailsModel *)info
 {
     self.detailModel = info;
     [_Goods_Circle setImage:Image(info.SelectedType) forState:UIControlStateNormal];
-    
-    [_Goods_Icon sd_setImageWithURL:[NSURL URLWithString:info.productImg] placeholderImage:Image(@"share_sina")];
+    NSURL * url = [NSURL URLWithString:info.productImg];
+    // 根据图片的url下载图片数据
+    dispatch_queue_t xrQueue = dispatch_queue_create("loadImage", NULL); // 创建GCD线程队列
+    dispatch_async(xrQueue, ^{
+        // 异步下载图片
+        UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        // 主线程刷新UI
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_Goods_Icon setImage:img forState:UIControlStateNormal];
+        });
+
+    });
+//    [_Goods_Icon setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:info.productImg]]] forState:UIControlStateNormal];
+//    [_Goods_Icon sd_setImageWithURL:[NSURL URLWithString:info.productImg] placeholderImage:Image(@"share_sina")];
     _Goods_Name.text = info.productName;
     _Goods_Desc.text = [NSString stringWithFormat:@"规格: %@",info.size];
     _Goods_Price.text = [NSString stringWithFormat:@"￥%@",info.amount];
@@ -184,6 +199,11 @@
     _RemarksLabel.text = [NSString stringWithFormat:@"备注:%@",info.remark];
     }
 
+}
+
+- (void)goodsIconAction
+{
+    [self.SelectedDelegate SelectedLookImageListCell:self];
 }
 
 -(void)Selected
