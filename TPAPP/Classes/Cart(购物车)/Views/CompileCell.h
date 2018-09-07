@@ -27,6 +27,11 @@
  *  商品介绍
  */
 @property (nonatomic, retain)UILabel *Goods_Desc;
+
+/**
+ *  商品款号
+ */
+@property (nonatomic, retain)UILabel *Goods_DescNum;
 /**
  *  商品的图片
  */
@@ -35,6 +40,10 @@
  *  出售时价格
  */
 @property (nonatomic, retain)UILabel *Goods_Price;
+/**
+ *  商品尺码
+ */
+@property (nonatomic, retain)UILabel *Goods_Size;
 /**
  *  原始价格
  */

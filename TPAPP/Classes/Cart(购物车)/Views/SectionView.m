@@ -84,8 +84,8 @@
 
 -(void)InfMerchantNameData:(NSString *)merchantName
 {
-    [SelectedStoreBtn setTitle:[NSString stringWithFormat:@"%@%ld >",merchantName,_Section] forState:UIControlStateNormal];
-    
+//    [SelectedStoreBtn setTitle:[NSString stringWithFormat:@"%@%ld >",merchantName,_Section] forState:UIControlStateNormal];
+    [SelectedStoreBtn setTitle:[NSString stringWithFormat:@"%@",merchantName] forState:UIControlStateNormal];
 }
 //是否选中 当前section中的所有row
 -(void)SlelctedAll

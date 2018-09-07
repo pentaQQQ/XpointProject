@@ -73,6 +73,8 @@
 @property (nonatomic, copy)NSString *CheckAll;
 @property (nonatomic, copy)NSString *Edit;
 @property (nonatomic, copy)NSString *EditBtn;
+// model对应cell高度
+@property (nonatomic,assign) CGFloat rowHeight;
 @end
               
 

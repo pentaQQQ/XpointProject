@@ -155,14 +155,14 @@
     [allTXbBtn setTitle:@"全部提现" forState:UIControlStateNormal];
     [allTXbBtn setTitleColor:colorWithRGB(0xFF6B24) forState:UIControlStateNormal];
     [allTXbBtn addTarget:self action:@selector(allTXbBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    allTXbBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    allTXbBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [self.topView addSubview:allTXbBtn];
     allTXbBtn.sd_layout
-    .topSpaceToView(lineView, 20)
+    .topSpaceToView(lineView, 22.5)
     .rightSpaceToView(self.topView, 15)
     .widthIs(70)
-    .heightIs(30);
-    allTXbBtn.layer.cornerRadius = 15;
+    .heightIs(25);
+    allTXbBtn.layer.cornerRadius = 7;
     allTXbBtn.layer.masksToBounds = YES;
     allTXbBtn.layer.borderWidth = .5;
     allTXbBtn.layer.borderColor = colorWithRGB(0xFF6B24).CGColor;

@@ -379,7 +379,7 @@
         NSLog(@"%@",dict);
         NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"成功加入购物车" withDuration:1.5];
+            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
         }else{
             [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
         }
