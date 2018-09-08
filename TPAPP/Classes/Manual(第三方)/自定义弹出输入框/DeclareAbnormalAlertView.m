@@ -120,7 +120,6 @@
     cancelButton.layer.cornerRadius = 6;
     [cancelButton addTarget:self action:@selector(cancelButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
-    
     UIView *middleView = [[UIView alloc] initWithFrame:CGRectMake((self.contentView.width-1)/2, topView.maxY, 1, self.contentView.height-topView.maxY)];
     middleView.backgroundColor = [UIColor colorWithHexString:@"e0e0e0"];
     [self.contentView addSubview:middleView];
@@ -132,12 +131,8 @@
     [abnormalButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
     abnormalButton.layer.cornerRadius = 6;
     [abnormalButton addTarget:self action:@selector(abnormalButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-   
-    
     //------- 调整弹窗高度和中心 -------//
-//    self.contentView.height = cancelButton.maxY + 10;
     self.contentView.center = self.center;
-    
 }
 
 #pragma mark - 弹出此弹窗

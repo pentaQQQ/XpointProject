@@ -174,6 +174,7 @@
     .rightSpaceToView(self.contentView, 15)
     .widthIs([self widthLabelWithModel:@"回收清单" withFont:14]+30)
     .heightIs(20);
+    
     self.retureList.layer.cornerRadius = 10;
     self.retureList.layer.masksToBounds = YES;
     self.retureList.layer.borderWidth = .5;
@@ -272,12 +273,12 @@
 
 - (void)retureListClickAction
 {
-    self.selectBlock(0);
+    self.selectButtonBlock(0);
 }
 
 - (void)chooseAddressAction
 {
-    self.selectBlock(1);
+    self.selectButtonBlock(1);
 }
 #pragma mark - 懒加载
 - (UIImageView *)localImageView {

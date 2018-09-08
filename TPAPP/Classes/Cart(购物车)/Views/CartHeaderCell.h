@@ -87,5 +87,5 @@
  */
 @property (nonatomic, retain)UIControl *chooseAddress;
 
-@property (nonatomic, strong)void(^selectBlock)(NSInteger);
+@property (nonatomic, strong)void(^selectButtonBlock)(NSInteger);
 @end

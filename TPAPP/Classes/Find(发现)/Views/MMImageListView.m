@@ -93,51 +93,6 @@
     self.width = kTextWidth;
     self.height = imageView.bottom;
 }
-#pragma mark - Setter
-//- (void)configImageListArr:(NSArray *)arr{
-//    for (MMImageView *imageView in _imageViewsArray) {
-//        imageView.hidden = YES;
-//    }
-//    // 图片区
-//    NSInteger count = arr.count;
-//    if (count == 0) {
-//        self.size = CGSizeZero;
-//        return;
-//    }
-//    // 更新视图数据
-//    _previewView.pageNum = count;
-//    _previewView.scrollView.contentSize = CGSizeMake(_previewView.width*count, _previewView.height);
-//    // 添加图片
-//    MMImageView *imageView = nil;
-//    for (NSInteger i = 0; i < count; i++)
-//    {
-//        if (i > 8) {
-//            break;
-//        }
-//        NSInteger rowNum = i/3;
-//        NSInteger colNum = i%3;
-//        if(count == 4) {
-//            rowNum = i/2;
-//            colNum = i%2;
-//        }
-//
-//        CGFloat imageX = colNum * (kImageWidth + kImagePadding);
-//        CGFloat imageY = rowNum * (kImageWidth + kImagePadding);
-//        CGRect frame = CGRectMake(imageX, imageY, kImageWidth, kImageWidth);
-//        imagesListModel *model = arr[i];
-//        //单张图片需计算实际显示size
-//        if (count == 1) {
-//            CGSize singleSize = [Utility getSingleSize:CGSizeMake(500,315)];
-//            frame = CGRectMake(0, 0, singleSize.width, singleSize.height);
-//        }
-//        imageView = [self viewWithTag:1000+i];
-//        imageView.hidden = NO;
-//        imageView.frame = frame;
-//        [imageView sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:Image(@"share_sina")];
-//    }
-//    self.width = kTextWidth;
-//    self.height = imageView.bottom;
-//}
 #pragma mark - 小图单击
 - (void)singleTapSmallViewCallback:(MMImageView *)imageView
 {
