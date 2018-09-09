@@ -26,8 +26,8 @@
 @property (nonatomic, assign)BOOL oppositeIDIsOK;
 @property (nonatomic, assign)NSInteger selecTakeType;
 
-@property (nonatomic, strong)UIImageView *FacadeIDImageView;
-@property (nonatomic, strong)UIImageView *oppositeIDImageView;
+@property (nonatomic, strong)UIImage *FacadeIDImage;
+@property (nonatomic, strong)UIImage *oppositeIDImage;
 
 //创建内部变量
 //内部变量
@@ -281,7 +281,7 @@
         [fileManager createFileAtPath:path contents:nil attributes:nil];
     }
     NSData *data = [[NSData alloc] init];
-    data = UIImageJPEGRepresentation(self.FacadeIDImageView.image,0.5);
+    data = UIImageJPEGRepresentation(self.FacadeIDImage,0.5);
     [data writeToFile:path atomically:YES];
     _facadeImageFilePath = path;
     [SVProgressHUD showWithStatus:@"身份证照片上传中..."];
@@ -297,11 +297,11 @@
     UIImage * image = [info valueForKey:UIImagePickerControllerEditedImage];
     if (_selectImageNum == 1) {
         self.facadeIDIsOK = YES;
-        self.FacadeIDImageView.image = image;
+        self.FacadeIDImage = image;
         [self.idZMBtn setBackgroundImage:image forState:UIControlStateNormal];
     }else{
        self.oppositeIDIsOK = YES;
-        self.oppositeIDImageView.image = image;
+        self.oppositeIDImage = image;
        [self.idFMBtn setBackgroundImage:image forState:UIControlStateNormal];
     }
     
@@ -410,16 +410,15 @@
     CFWriteStreamRef ftpStream;
     
     //获得输入
-    
-    NSString *urlStr = [NSString stringWithFormat:@"ftp://175.41.24.2"];
+    NSString *urlStr = [NSString stringWithFormat:@"ftp://47.92.193.30"];
     url = [NSURL URLWithString:urlStr];
     //获得输入
     filePath = imagePath;
-    account = @"gangge";
-    password = @"gangge";
+    account = @"root";
+    password = @"yb0820@!8";
     CFReadStreamRef readRef;
-    UInt32 port = 21;
-    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)@"ftp://175.41.24.2", port, &readRef, &ftpStream);
+    UInt32 port = 22;
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)@"ftp://47.92.193.30", port, &readRef, &ftpStream);
     self.fileStream = (__bridge NSInputStream *)readRef;
     //添加后缀（文件名称）
     url=CFBridgingRelease(CFURLCreateCopyAppendingPathComponent(NULL, (CFURLRef)url, (CFStringRef)[filePath lastPathComponent], false));
@@ -456,7 +455,7 @@
         } break;
         case NSStreamEventHasBytesAvailable: {
             //            NSLog(@"NSStreamEventHasBytesAvailable");
-            assert(NO);     // 在上传的时候不会调用
+//            assert(NO);     // 在上传的时候不会调用
         } break;
         case NSStreamEventHasSpaceAvailable: {
             //            NSLog(@"NSStreamEventHasSpaceAvailable");
@@ -481,7 +480,7 @@
                 //写入数据
                 NSInteger bytesWritten;//bytesWritten为成功写入的数据
                 bytesWritten = [self.networkStream write:&self.buffer[self.bufferOffset] maxLength:self.bufferLimit - self.bufferOffset];
-                assert(bytesWritten != 0);
+//                assert(bytesWritten != 0);
                 if (bytesWritten == -1) {
                     [self stopSendWithStatus:@"网络写入错误"];
                 } else {
@@ -491,13 +490,13 @@
         } break;
         case NSStreamEventErrorOccurred: {
             [self stopSendWithStatus:@"Stream打开错误"];
-            assert(NO);
+//            assert(NO);
         } break;
         case NSStreamEventEndEncountered: {
             // 忽略
         } break;
         default: {
-            assert(NO);
+//            assert(NO);
         } break;
     }
 }
@@ -542,7 +541,7 @@
                 [fileManager createFileAtPath:path contents:nil attributes:nil];
             }
             NSData *data = [[NSData alloc] init];
-            data = UIImageJPEGRepresentation(self.idFMBtn.imageView.image,0.5);
+            data = UIImageJPEGRepresentation(self.FacadeIDImage,0.5);
             [data writeToFile:path atomically:YES];
             _oppositeImageFilePath = path;
 //            vip.cardReverseImg = [NSString stringWithFormat:@"http://175.41.24.2/images/%@",[_oppositeImageFilePath lastPathComponent]];
