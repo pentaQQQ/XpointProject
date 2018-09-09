@@ -443,7 +443,8 @@
 -(void)getTheUserForwardConfiSuccess:(void(^)(zhuanfaModel*model))success{
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    NSString *userId = [NSString stringWithFormat:@"%@",[LYAccount shareAccount].id];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    NSString *userId = [NSString stringWithFormat:@"%@",lyAccount.id];
     [dic setValue:userId forKey:@"userId"];
     
     [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
@@ -544,7 +545,8 @@
     [dic setValue:self.second forKey:@"lackSize"];
     [dic setValue:self.fourth forKey:@"num"];
     [dic setValue:self.third forKey:@"price"];
-    [dic setValue:[LYAccount shareAccount].id forKey:@"userId"];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    [dic setValue:lyAccount.id forKey:@"userId"];
     
     
     [LYTools postBossDemoWithUrl:updateUserForwardConfi param:dic success:^(NSDictionary *dict) {

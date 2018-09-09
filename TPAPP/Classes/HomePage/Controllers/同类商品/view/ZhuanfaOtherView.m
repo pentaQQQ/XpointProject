@@ -36,7 +36,8 @@
 -(void)getTheUserForwardConfiSuccess:(void(^)(zhuanfaModel*model))success{
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    NSString *userId = [NSString stringWithFormat:@"%@",[LYAccount shareAccount].id];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    NSString *userId = [NSString stringWithFormat:@"%@",lyAccount.id];
     [dic setValue:userId forKey:@"userId"];
     
     [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {

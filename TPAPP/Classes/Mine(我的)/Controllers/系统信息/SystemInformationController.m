@@ -86,7 +86,7 @@
              self.listTableView.mj_footer.state = MJRefreshStateNoMoreData;
         }else if ([json[@"code"] longValue] == 500){
             [self.listTableView.mj_footer endRefreshing];
-            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
@@ -105,7 +105,7 @@
 //            
 //            }
         }else if ([json[@"code"] longValue] == 500){
-            [SVProgressHUD showInfoWithStatus:json[@"msg"]];
+            [SVProgressHUD showInfoWithStatus:json[@"respMessage"]];
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);

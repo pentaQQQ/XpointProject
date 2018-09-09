@@ -8,6 +8,12 @@
 
 #import "IdentificationController.h"
 #import <Photos/Photos.h>
+#import <Foundation/Foundation.h>
+#import <CoreFoundation/CoreFoundation.h>
+#import <CFNetwork/CFNetwork.h>
+#import <Foundation/NSObjCRuntime.h>
+#include <CoreFoundation/CFBase.h>
+#include <stddef.h>
 @interface IdentificationController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
@@ -16,11 +22,28 @@
 @property (nonatomic, strong)UIButton *nextBtn;
 @property (nonatomic, strong)UITextField *nameTextField;
 @property (nonatomic, strong)UITextField *idNumberTextField;
+@property (nonatomic, assign)BOOL facadeIDIsOK;
+@property (nonatomic, assign)BOOL oppositeIDIsOK;
+@property (nonatomic, assign)NSInteger selecTakeType;
+
+@property (nonatomic, strong)UIImageView *FacadeIDImageView;
+@property (nonatomic, strong)UIImageView *oppositeIDImageView;
+
+//创建内部变量
+//内部变量
+@property (nonatomic, readonly)BOOL isSending;
+@property (nonatomic, strong)NSOutputStream *networkStream;
+@property (nonatomic, strong)NSInputStream *fileStream;
+@property (nonatomic, readonly)uint8_t *buffer;
+@property (nonatomic, assign)size_t bufferOffset;
+@property (nonatomic, assign)size_t bufferLimit;
 @end
 
 @implementation IdentificationController
 {
     NSInteger _selectImageNum;
+    NSString *_facadeImageFilePath;
+    NSString *_oppositeImageFilePath;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,6 +62,10 @@
         _listDataArr = [NSMutableArray array];
     }
     return _listDataArr;
+}
+- (uint8_t *)buffer
+{
+    return self->_buffer;
 }
 #pragma mark - 创建tableview
 -(UITableView *)listTableView
@@ -235,7 +262,30 @@
 
 - (void)nextBtnAction
 {
-    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmssSSS";
+    NSString *str = [formatter stringFromDate:[NSDate date]];
+    NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
+    // 创建文件管理器
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    //获取路径
+    //参数NSDocumentDirectory要获取那种路径
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *documenDirectory = [paths objectAtIndex:0];//去处需要的路径
+    NSString *path = [documenDirectory stringByAppendingPathComponent:imageName];
+    BOOL isEXsit = [fileManager fileExistsAtPath:path];
+    if (isEXsit) {
+        [fileManager removeItemAtPath:path error:nil];
+        [fileManager createFileAtPath:path contents:nil attributes:nil];
+    }else {
+        [fileManager createFileAtPath:path contents:nil attributes:nil];
+    }
+    NSData *data = [[NSData alloc] init];
+    data = UIImageJPEGRepresentation(self.FacadeIDImageView.image,0.5);
+    [data writeToFile:path atomically:YES];
+    _facadeImageFilePath = path;
+    [SVProgressHUD showWithStatus:@"身份证照片上传中..."];
+    [self uploadFacePicturesImage:_facadeImageFilePath];
 
 }
 #pragma mark - imagePickerController delegate
@@ -246,8 +296,12 @@
     //获取到的图片
     UIImage * image = [info valueForKey:UIImagePickerControllerEditedImage];
     if (_selectImageNum == 1) {
+        self.facadeIDIsOK = YES;
+        self.FacadeIDImageView.image = image;
         [self.idZMBtn setBackgroundImage:image forState:UIControlStateNormal];
     }else{
+       self.oppositeIDIsOK = YES;
+        self.oppositeIDImageView.image = image;
        [self.idFMBtn setBackgroundImage:image forState:UIControlStateNormal];
     }
     
@@ -256,6 +310,7 @@
 - (void)idZMBtnAction
 {
     _selectImageNum = 1;
+    
     //创建UIImagePickerController对象，并设置代理和可编辑
     UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.editing = YES;
@@ -346,7 +401,171 @@
 //    //弹出sheet提示框
 //    [self presentViewController:alert animated:YES completion:nil];
 }
-
+- (void)uploadFacePicturesImage:(NSString *)imagePath{
+    
+    NSURL *url;//ftp服务器地址
+    NSString *filePath;//图片地址
+    NSString *account;//账号
+    NSString *password;//密码
+    CFWriteStreamRef ftpStream;
+    
+    //获得输入
+    
+    NSString *urlStr = [NSString stringWithFormat:@"ftp://175.41.24.2"];
+    url = [NSURL URLWithString:urlStr];
+    //获得输入
+    filePath = imagePath;
+    account = @"gangge";
+    password = @"gangge";
+    CFReadStreamRef readRef;
+    UInt32 port = 21;
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)@"ftp://175.41.24.2", port, &readRef, &ftpStream);
+    self.fileStream = (__bridge NSInputStream *)readRef;
+    //添加后缀（文件名称）
+    url=CFBridgingRelease(CFURLCreateCopyAppendingPathComponent(NULL, (CFURLRef)url, (CFStringRef)[filePath lastPathComponent], false));
+    
+    //读取文件，转化为输入流
+    self.fileStream = [NSInputStream inputStreamWithFileAtPath:filePath];
+    [self.fileStream open];
+    
+    //为url开启CFFTPStream输出流
+    ftpStream = CFWriteStreamCreateWithFTPURL(NULL, (__bridge CFURLRef) url);
+    self.networkStream = (__bridge NSOutputStream *) ftpStream;
+    
+    //设置ftp账号密码
+    [self.networkStream setProperty:account forKey:(id)kCFStreamPropertyFTPUserName];
+    [self.networkStream setProperty:password forKey:(id)kCFStreamPropertyFTPPassword];
+    
+    //设置networkStream流的代理，任何关于networkStream的事件发生都会调用代理方法
+    self.networkStream.delegate = self;
+    
+    //设置runloop
+    [self.fileStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.networkStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.networkStream open];
+    
+    //完成释放链接
+    //    CFRelease(ftpStream);
+}
+- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
+{
+    //aStream 即为设置为代理的networkStream
+    switch (eventCode) {
+        case NSStreamEventOpenCompleted: {
+            //            NSLog(@"NSStreamEventOpenCompleted");
+        } break;
+        case NSStreamEventHasBytesAvailable: {
+            //            NSLog(@"NSStreamEventHasBytesAvailable");
+            assert(NO);     // 在上传的时候不会调用
+        } break;
+        case NSStreamEventHasSpaceAvailable: {
+            //            NSLog(@"NSStreamEventHasSpaceAvailable");
+            //            NSLog(@"bufferOffset is %zd",self.bufferOffset);
+            //            NSLog(@"bufferLimit is %zu",self.bufferLimit);
+            if (self.bufferOffset == self.bufferLimit) {
+                NSInteger   bytesRead;
+                bytesRead = [self.fileStream read:self.buffer maxLength:kSendBufferSize];
+                if (bytesRead == -1) {
+                    //读取文件错误
+                    [self stopSendWithStatus:@"读取文件错误"];
+                } else if (bytesRead == 0) {
+                    //                    NSLog(@"UpLoad Success");
+                    //文件读取完成 上传完成
+                    [self stopSendWithStatus:nil];
+                } else {
+                    self.bufferOffset = 0;
+                    self.bufferLimit  = bytesRead;
+                }
+            }
+            if (self.bufferOffset != self.bufferLimit) {
+                //写入数据
+                NSInteger bytesWritten;//bytesWritten为成功写入的数据
+                bytesWritten = [self.networkStream write:&self.buffer[self.bufferOffset] maxLength:self.bufferLimit - self.bufferOffset];
+                assert(bytesWritten != 0);
+                if (bytesWritten == -1) {
+                    [self stopSendWithStatus:@"网络写入错误"];
+                } else {
+                    self.bufferOffset += bytesWritten;
+                }
+            }
+        } break;
+        case NSStreamEventErrorOccurred: {
+            [self stopSendWithStatus:@"Stream打开错误"];
+            assert(NO);
+        } break;
+        case NSStreamEventEndEncountered: {
+            // 忽略
+        } break;
+        default: {
+            assert(NO);
+        } break;
+    }
+}
+- (void)stopSendWithStatus:(NSString *)statusString
+{
+    if (self.networkStream != nil) {
+        [self.networkStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        self.networkStream.delegate = nil;
+        [self.networkStream close];
+        self.networkStream = nil;
+    }
+    if (self.fileStream != nil) {
+        [self.fileStream close];
+        self.fileStream = nil;
+    }
+    [self sendDidStopWithStatus:statusString];
+}
+-(void)sendDidStopWithStatus:(NSString *)statusString
+{
+    if (statusString == nil) {
+        if (_facadeImageFilePath.length != 0 && _oppositeImageFilePath.length == 0) {
+            // 删除保存的图片
+            [[NSFileManager defaultManager] removeItemAtPath:_facadeImageFilePath error:nil];
+            [self performSelector:@selector(repeatDelay) withObject:nil afterDelay:0.5f];
+//            VipVo *vip = KGetVip;
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyyMMddHHmmssSSS";
+            NSString *str = [formatter stringFromDate:[NSDate date]];
+            NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
+            // 创建文件管理器
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            //获取路径
+            //参数NSDocumentDirectory要获取那种路径
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+            NSString *documenDirectory = [paths objectAtIndex:0];//去处需要的路径
+            NSString *path = [documenDirectory stringByAppendingPathComponent:imageName];
+            BOOL isEXsit = [fileManager fileExistsAtPath:path];
+            if (isEXsit) {
+                [fileManager removeItemAtPath:path error:nil];
+                [fileManager createFileAtPath:path contents:nil attributes:nil];
+            }else {
+                [fileManager createFileAtPath:path contents:nil attributes:nil];
+            }
+            NSData *data = [[NSData alloc] init];
+            data = UIImageJPEGRepresentation(self.idFMBtn.imageView.image,0.5);
+            [data writeToFile:path atomically:YES];
+            _oppositeImageFilePath = path;
+//            vip.cardReverseImg = [NSString stringWithFormat:@"http://175.41.24.2/images/%@",[_oppositeImageFilePath lastPathComponent]];
+            [self uploadFacePicturesImage:_oppositeImageFilePath];
+//            KSavePath(vip);
+        }else if (_facadeImageFilePath.length != 0 && _oppositeImageFilePath.length != 0){
+            // 删除保存的图片
+            [[NSFileManager defaultManager] removeItemAtPath:_oppositeImageFilePath error:nil];
+            [SVProgressHUD showSuccessWithStatus:@"身份证照片上传成功！"];
+            _oppositeImageFilePath = nil;
+            _facadeImageFilePath = nil;
+//            VipVo *vip = KGetVip;
+//            LoanDetailViewController *loanVc = [[LoanDetailViewController alloc] init];
+//            loanVc.vip = vip;
+//            loanVc.bankNo = self.bankCardTextField.text;
+//            loanVc.bankName = [[BankTypeManager shareManager] bankType:[[self.bankCardTextField.text componentsSeparatedByString:@" "] componentsJoinedByString:@""]];
+//            [self.navigationController pushViewController:loanVc animated:YES];
+        }
+    }
+}
+- (void)repeatDelay
+{
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if (section == 0) {

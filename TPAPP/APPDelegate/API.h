@@ -55,8 +55,8 @@
 
 //根据商户查询商品信息,返回所有已上架商品
 #define getProductByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getProductByMerchantId"]
-
-
+//上传身份证信息
+#define uploadIdeniti [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/ideniti"]
 
 
 
