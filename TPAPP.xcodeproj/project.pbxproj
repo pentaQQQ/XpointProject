@@ -118,6 +118,8 @@
 		011F47FF213FC3D10070ABA2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 011F47FE213FC3D10070ABA2 /* QuartzCore.framework */; };
 		011F4821213FD9A80070ABA2 /* UIView+frameAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F481F213FD9A70070ABA2 /* UIView+frameAdjust.m */; };
 		011F4822213FD9A80070ABA2 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F4820213FD9A80070ABA2 /* UIColor+Util.m */; };
+		011F484E21421BF20070ABA2 /* DeleteGoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F484D21421BF20070ABA2 /* DeleteGoodsListController.m */; };
+		011F4851214221050070ABA2 /* DeleteGoodsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F4850214221050070ABA2 /* DeleteGoodsListCell.m */; };
 		012997C22139267200ADE72B /* messageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997AE2139267100ADE72B /* messageHeaderView.m */; };
 		012997C32139267200ADE72B /* messageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 012997AF2139267100ADE72B /* messageHeaderView.xib */; };
 		012997C42139267200ADE72B /* TPMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997B12139267100ADE72B /* TPMessageCell.m */; };
@@ -616,6 +618,10 @@
 		011F481E213FD9A70070ABA2 /* UIView+frameAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+frameAdjust.h"; sourceTree = "<group>"; };
 		011F481F213FD9A70070ABA2 /* UIView+frameAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+frameAdjust.m"; sourceTree = "<group>"; };
 		011F4820213FD9A80070ABA2 /* UIColor+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Util.m"; sourceTree = "<group>"; };
+		011F484C21421BF20070ABA2 /* DeleteGoodsListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeleteGoodsListController.h; sourceTree = "<group>"; };
+		011F484D21421BF20070ABA2 /* DeleteGoodsListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeleteGoodsListController.m; sourceTree = "<group>"; };
+		011F484F214221050070ABA2 /* DeleteGoodsListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeleteGoodsListCell.h; sourceTree = "<group>"; };
+		011F4850214221050070ABA2 /* DeleteGoodsListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeleteGoodsListCell.m; sourceTree = "<group>"; };
 		012997792139120400ADE72B /* GoodLogisticsHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsHeaderView.m; sourceTree = "<group>"; };
 		0129977C2139173200ADE72B /* GoodLogisticsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsModel.m; sourceTree = "<group>"; };
 		0129977F213919DB00ADE72B /* LogisticsListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticsListTableViewCell.m; sourceTree = "<group>"; };
@@ -1370,6 +1376,7 @@
 		01120F1921338FB70071AC5F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				011F484B21421BC10070ABA2 /* 回收清单 */,
 				01121087213663660071AC5F /* 订单详情 */,
 				011210862136635B0071AC5F /* 付款订单 */,
 				01120F2021338FC40071AC5F /* CartViewController.h */,
@@ -1667,6 +1674,17 @@
 				011F47FB213FC3090070ABA2 /* DeclareAbnormalAlertView.m */,
 			);
 			path = "自定义弹出输入框";
+			sourceTree = "<group>";
+		};
+		011F484B21421BC10070ABA2 /* 回收清单 */ = {
+			isa = PBXGroup;
+			children = (
+				011F484C21421BF20070ABA2 /* DeleteGoodsListController.h */,
+				011F484D21421BF20070ABA2 /* DeleteGoodsListController.m */,
+				011F484F214221050070ABA2 /* DeleteGoodsListCell.h */,
+				011F4850214221050070ABA2 /* DeleteGoodsListCell.m */,
+			);
+			path = "回收清单";
 			sourceTree = "<group>";
 		};
 		012997842139212B00ADE72B /* Recovered References */ = {
@@ -3372,6 +3390,7 @@
 				01120F1C21338FB70071AC5F /* CartHeaderCell.m in Sources */,
 				547C49621F1DBB8200178B67 /* BaseTabBarController.m in Sources */,
 				547C49A01F1DBB8200178B67 /* Validate.m in Sources */,
+				011F4851214221050070ABA2 /* DeleteGoodsListCell.m in Sources */,
 				547C49901F1DBB8200178B67 /* AESTools.m in Sources */,
 				8EA95300212BAA930057AC78 /* ZLPhotoPickerBrowserPhotoScrollView.m in Sources */,
 				8EA95350212E545A0057AC78 /* zhuanfaHeaderView.m in Sources */,
@@ -3543,6 +3562,7 @@
 				01120FFB213392FD0071AC5F /* JXCategoryBackgroundImageCellModel.m in Sources */,
 				8E78BE1A21366708000A9EA4 /* LYTools.m in Sources */,
 				547C49871F1DBB8200178B67 /* SGPickerView.m in Sources */,
+				011F484E21421BF20070ABA2 /* DeleteGoodsListController.m in Sources */,
 				8EA952F8212BAA930057AC78 /* ZLCameraView.m in Sources */,
 				01121010213392FD0071AC5F /* JXCategoryTitleImageView.m in Sources */,
 				547C49791F1DBB8200178B67 /* SGActionSheetCell.m in Sources */,

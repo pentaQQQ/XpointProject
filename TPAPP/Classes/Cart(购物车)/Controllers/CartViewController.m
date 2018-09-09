@@ -24,17 +24,19 @@
 #import "MMImageListView.h"
 #import "MMImagePreviewView.h"
 #import "imagesListModel.h"
+#import "DeleteGoodsListController.h"
 #define Image(name) [UIImage imageNamed:name]
 @interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate,DeclareAbnormalAlertViewDelegate>
 {
     BOOL allowMultipleSwipe;
+    
 }
 
 @property (nonatomic, strong)UITableView *CartTableView;
 @property (nonatomic, strong)BottomView *accountView;
 @property (nonatomic, strong)UIView *remindView;
 @property (nonatomic, strong)NSMutableArray *dataSource;
-
+@property (nonatomic, strong)GoodsCartModel *goodsCartModel;
 @end
 
 @implementation CartViewController
@@ -86,18 +88,20 @@
 #pragma mark - 下拉刷新数据
 - (void)loadNewTopic
 {
-    [LYTools postBossDemoWithUrl:cartList param:@{@"userId":[LYAccount shareAccount].id} success:^(NSDictionary *dict) {
-        NSLog(@"%@",dict);
+    NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
+    [dataDict setValue:[LYAccount shareAccount].id forKey:@"userId"];
+    [dataDict setValue:@"0" forKey:@"status"];
+    [LYTools postBossDemoWithUrl:cartList param:dataDict success:^(NSDictionary *dict) {
+//        NSLog(@"%@",dict);
         [_CartTableView.mj_header endRefreshing];
         [self.dataSource removeAllObjects];
         [self.dataSource addObject:@[]];
         NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            
+            self.goodsCartModel = [GoodsCartModel mj_objectWithKeyValues:dict[@"data"]];
             NSMutableArray *allTimeArr = [NSMutableArray array];
             for (NSDictionary *dic in dict[@"data"][@"cartDetails"]) {
-                
-                //1.取出所有出现得时间
+                //1.取出所有的商户id
                 [allTimeArr addObject:dic[@"productForm"][@"merchantId"]];
             }
             dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
@@ -140,7 +144,7 @@
             [_CartTableView reloadData];
             NSLog(@"%@",self.dataSource);
         }else if([dict[@"code"]longValue] == 500){
-            
+            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
         }
     } fail:^(NSError *error) {
         
@@ -376,7 +380,7 @@
         return 155;
 //        return 120;
     }else{
-      return 120;
+      return 175;
     }
 }
 //有多少section
@@ -408,13 +412,16 @@
         }
         cell.backgroundColor = [UIColor whiteColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell setSelectBlock:^(NSInteger num) {
+        [cell setSelectButtonBlock:^(NSInteger num) {
             if (num == 1) {
                 AddressManageController *addressMaCtrl = [[AddressManageController alloc] init];
                 addressMaCtrl.title = @"选择地址";
                 [self.navigationController pushViewController:addressMaCtrl animated:YES];
             }else{
-
+                DeleteGoodsListController *deleteGoodsCtrl = [[DeleteGoodsListController alloc] init];
+                deleteGoodsCtrl.title = @"回收清单";
+                [self.navigationController pushViewController:deleteGoodsCtrl animated:YES];
+                
             }
         }];
         return cell;
@@ -448,24 +455,27 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
-    CartDetailsModel *model = arr[indexPath.row];
-    if ([model.Type isEqualToString:@"1"]) {
-        model.SelectedType = @"未选中支付";
-        model.Type = @"0";
-        [arr replaceObjectAtIndex:indexPath.row withObject:model];
-        [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
-        //判断是否把section的全选按钮取消
-        [self didChangeValueForSectionRow:indexPath.section];
-    }else{
-        model.SelectedType = @"已选中";
-        model.Type = @"1";
-        [arr replaceObjectAtIndex:indexPath.row withObject:model];
-        
-        [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
-        
-        [self didChangeValueForSectionAllRow:indexPath.section];
+    if (indexPath.section != 0) {
+        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
+        CartDetailsModel *model = arr[indexPath.row];
+        if ([model.Type isEqualToString:@"1"]) {
+            model.SelectedType = @"未选中支付";
+            model.Type = @"0";
+            [arr replaceObjectAtIndex:indexPath.row withObject:model];
+            [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+            //判断是否把section的全选按钮取消
+            [self didChangeValueForSectionRow:indexPath.section];
+        }else{
+            model.SelectedType = @"已选中";
+            model.Type = @"1";
+            [arr replaceObjectAtIndex:indexPath.row withObject:model];
+            
+            [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+            
+            [self didChangeValueForSectionAllRow:indexPath.section];
+        }
     }
+   
 
    
 }
@@ -1004,7 +1014,8 @@
                 NSLog(@"%@",dict);
                 NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
                 if ([respCode isEqualToString:@"00000"]) {
-                     cell.RemarksLabel.text = [NSString stringWithFormat:@"备注:%@",alertView.textView.text];
+                    cell.RemarksLabel.text = [NSString stringWithFormat:@"备注:%@",alertView.textView.text];
+                   [SVProgressHUD doAnythingSuccessWithHUDMessage:@"成功添加备注" withDuration:1.5];
                 }else if([dict[@"code"]longValue] == 500){
                     [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
                 }
@@ -1051,38 +1062,37 @@
             scrollView.tag = 100+i;
             scrollView.maximumZoomScale = 2.0;
             // 根据图片的url下载图片数据
-//            dispatch_queue_t xrQueue = dispatch_queue_create("loadImage", NULL); // 创建GCD线程队列
-//            dispatch_async(xrQueue, ^{
-//                // 异步下载图片
-//                UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.imgUrl]]];
-//                // 主线程刷新UI
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    scrollView.image = img;
-//                });
-//
-//            });
-            [pImageView sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:Image(@"share_sina")];
-            scrollView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.imgUrl]]];
-//            [scrollView.imageView sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:Image(@"share_sina")];
-            scrollView.contentRect = convertRect;
-            // 单击
-            [scrollView setTapBigView:^(MMScrollView *scrollView){
-                [self singleTapBigViewCallback:scrollView];
-            }];
-            // 长按
-            [scrollView setLongPressBigView:^(MMScrollView *scrollView){
-                [self longPresssBigViewCallback:scrollView.imageView];
-            }];
-            [_previewView.scrollView addSubview:scrollView];
-            if (i == index) {
-                [UIView animateWithDuration:0.3 animations:^{
-                    _previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0];
-                    _previewView.pageControl.hidden = NO;
-                    [scrollView updateOriginRect];
-                }];
-            } else {
-                [scrollView updateOriginRect];
-            }
+            dispatch_queue_t xrQueue = dispatch_queue_create("loadImage", NULL); // 创建GCD线程队列
+            dispatch_async(xrQueue, ^{
+                // 异步下载图片
+                UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.imgUrl]]];
+                // 主线程刷新UI
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    scrollView.image = img;
+//                    [pImageView sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:Image(@"share_sina")];
+                    scrollView.contentRect = convertRect;
+                    // 单击
+                    [scrollView setTapBigView:^(MMScrollView *scrollView){
+                        [self singleTapBigViewCallback:scrollView];
+                    }];
+                    // 长按
+                    [scrollView setLongPressBigView:^(MMScrollView *scrollView){
+                        [self longPresssBigViewCallback:scrollView.imageView];
+                    }];
+                    [_previewView.scrollView addSubview:scrollView];
+                    if (i == index) {
+                        [UIView animateWithDuration:0.3 animations:^{
+                            _previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0];
+                            _previewView.pageControl.hidden = NO;
+                            [scrollView updateOriginRect];
+                        }];
+                    } else {
+                        [scrollView updateOriginRect];
+                    }
+                });
+
+            });
+            
         }
         // 更新offset
         CGPoint offset = _previewView.scrollView.contentOffset;
