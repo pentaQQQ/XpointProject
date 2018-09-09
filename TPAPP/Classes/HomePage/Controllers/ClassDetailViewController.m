@@ -11,6 +11,7 @@
 #import "goodsDetailCell.h"
 #import "releaseActivitiesModel.h"
 #import "GoodsDetailViewController.h"
+#import "PiliangzhuanfaViewController.h"
 
 @interface ClassDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView*tableview;
@@ -89,6 +90,15 @@
         vc.ID = model.id;
         [self.navigationController pushViewController:vc animated:YES];
     };
+    
+    
+    cell.zhuanfaBlock = ^(releaseActivitiesModel *model) {
+        PiliangzhuanfaViewController *vc = [[PiliangzhuanfaViewController alloc]init];
+        vc.ID = model.id;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    };
+    
     
     
     

@@ -120,8 +120,7 @@
             
             
         }else if (curretDEX == 1){
-            
-            
+
             [self shareMangPictureWithModel:model];
             
         }else if (curretDEX == 2){

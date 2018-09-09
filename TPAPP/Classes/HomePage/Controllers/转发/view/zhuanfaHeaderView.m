@@ -546,8 +546,6 @@
 }
 
 
-
-
 -(void)tap{
     
     [self.jineview removeFromSuperview];
@@ -557,17 +555,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+//存储转发设置
 -(void)setZhuanfaDataWithdefaultImg:(NSString*)defaultImg{
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -594,6 +582,7 @@
         
         
     } fail:^(NSError *error) {
+        
         
         
     }];
