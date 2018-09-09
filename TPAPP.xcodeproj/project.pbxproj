@@ -305,6 +305,12 @@
 		8E3E6DA42140F1AD007B3306 /* ShareItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6DA32140F1AD007B3306 /* ShareItem.m */; };
 		8E3E6DA72140FF9D007B3306 /* oldhechengView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6DA62140FF9D007B3306 /* oldhechengView.m */; };
 		8E3E6DA92140FFA9007B3306 /* oldhechengView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6DA82140FFA9007B3306 /* oldhechengView.xib */; };
+		8E3E6DB12142140C007B3306 /* PiliangzhuanfaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6DAF2142140C007B3306 /* PiliangzhuanfaViewController.m */; };
+		8E3E6DB22142140C007B3306 /* PiliangzhuanfaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6DB02142140C007B3306 /* PiliangzhuanfaViewController.xib */; };
+		8E3E6DB621421CD1007B3306 /* PiLiangzhuanfaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6DB421421CD1007B3306 /* PiLiangzhuanfaCell.m */; };
+		8E3E6DB721421CD1007B3306 /* PiLiangzhuanfaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6DB521421CD1007B3306 /* PiLiangzhuanfaCell.xib */; };
+		8E3E6DBB21451FB0007B3306 /* HuoDongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6DB921451FB0007B3306 /* HuoDongCell.m */; };
+		8E3E6DBC21451FB0007B3306 /* HuoDongCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6DBA21451FB0007B3306 /* HuoDongCell.xib */; };
 		8E78BDF52135343A000A9EA4 /* zhuanfasetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */; };
 		8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */; };
 		8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDF22135343A000A9EA4 /* tupiansetview.xib */; };
@@ -935,6 +941,15 @@
 		8E3E6DA52140FF9D007B3306 /* oldhechengView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = oldhechengView.h; sourceTree = "<group>"; };
 		8E3E6DA62140FF9D007B3306 /* oldhechengView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = oldhechengView.m; sourceTree = "<group>"; };
 		8E3E6DA82140FFA9007B3306 /* oldhechengView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = oldhechengView.xib; sourceTree = "<group>"; };
+		8E3E6DAE2142140C007B3306 /* PiliangzhuanfaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiliangzhuanfaViewController.h; sourceTree = "<group>"; };
+		8E3E6DAF2142140C007B3306 /* PiliangzhuanfaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiliangzhuanfaViewController.m; sourceTree = "<group>"; };
+		8E3E6DB02142140C007B3306 /* PiliangzhuanfaViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PiliangzhuanfaViewController.xib; sourceTree = "<group>"; };
+		8E3E6DB321421CD1007B3306 /* PiLiangzhuanfaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiLiangzhuanfaCell.h; sourceTree = "<group>"; };
+		8E3E6DB421421CD1007B3306 /* PiLiangzhuanfaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiLiangzhuanfaCell.m; sourceTree = "<group>"; };
+		8E3E6DB521421CD1007B3306 /* PiLiangzhuanfaCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PiLiangzhuanfaCell.xib; sourceTree = "<group>"; };
+		8E3E6DB821451FB0007B3306 /* HuoDongCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HuoDongCell.h; sourceTree = "<group>"; };
+		8E3E6DB921451FB0007B3306 /* HuoDongCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HuoDongCell.m; sourceTree = "<group>"; };
+		8E3E6DBA21451FB0007B3306 /* HuoDongCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HuoDongCell.xib; sourceTree = "<group>"; };
 		8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = zhuanfasetViewController.xib; sourceTree = "<group>"; };
 		8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhuanfasetViewController.m; sourceTree = "<group>"; };
 		8E78BDF02135343A000A9EA4 /* zhuanfasetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhuanfasetViewController.h; sourceTree = "<group>"; };
@@ -2445,6 +2460,43 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		8E3E6DAA214213E6007B3306 /* 批量转发 */ = {
+			isa = PBXGroup;
+			children = (
+				8E3E6DAB214213E6007B3306 /* controller */,
+				8E3E6DAC214213E6007B3306 /* model */,
+				8E3E6DAD214213E6007B3306 /* view */,
+			);
+			path = "批量转发";
+			sourceTree = "<group>";
+		};
+		8E3E6DAB214213E6007B3306 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				8E3E6DAE2142140C007B3306 /* PiliangzhuanfaViewController.h */,
+				8E3E6DAF2142140C007B3306 /* PiliangzhuanfaViewController.m */,
+				8E3E6DB02142140C007B3306 /* PiliangzhuanfaViewController.xib */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		8E3E6DAC214213E6007B3306 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		8E3E6DAD214213E6007B3306 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				8E3E6DB321421CD1007B3306 /* PiLiangzhuanfaCell.h */,
+				8E3E6DB421421CD1007B3306 /* PiLiangzhuanfaCell.m */,
+				8E3E6DB521421CD1007B3306 /* PiLiangzhuanfaCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		8E78BDEC2135343A000A9EA4 /* 转发设置 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2538,6 +2590,9 @@
 				8E3E6D93213FD61E007B3306 /* ZhuanfaOtherView.h */,
 				8E3E6D94213FD61E007B3306 /* ZhuanfaOtherView.m */,
 				8E3E6D96213FD628007B3306 /* ZhuanfaOtherView.xib */,
+				8E3E6DB821451FB0007B3306 /* HuoDongCell.h */,
+				8E3E6DB921451FB0007B3306 /* HuoDongCell.m */,
+				8E3E6DBA21451FB0007B3306 /* HuoDongCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2870,6 +2925,7 @@
 		8EA95348212E4BEA0057AC78 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				8E3E6DAA214213E6007B3306 /* 批量转发 */,
 				8E78BDEC2135343A000A9EA4 /* 转发设置 */,
 				8EA9534B212E4C550057AC78 /* zhuanfaViewController.h */,
 				8EA9534C212E4C550057AC78 /* zhuanfaViewController.m */,
@@ -3084,6 +3140,7 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -3137,6 +3194,7 @@
 				019AEE7B21382B0B00EB3405 /* moment_camera@2x.png in Resources */,
 				019AEE7F21382B0B00EB3405 /* moment_comment_hl@2x.png in Resources */,
 				019AEE7D21382B0B00EB3405 /* moment_comment@2x.png in Resources */,
+				8E3E6DB721421CD1007B3306 /* PiLiangzhuanfaCell.xib in Resources */,
 				8E3E6D9C2140C045007B3306 /* XinHeChengTuView.xib in Resources */,
 				012997CA2139267200ADE72B /* TransportationSeationView.xib in Resources */,
 				012997C82139267200ADE72B /* TransportationCell.xib in Resources */,
@@ -3202,6 +3260,7 @@
 				019AEE8321382B0B00EB3405 /* moment_like@2x.png in Resources */,
 				547C49851F1DBB8200178B67 /* SGLocationPickerSheetView.xib in Resources */,
 				8EA95310212BAA930057AC78 /* ZLPhotoLib.bundle in Resources */,
+				8E3E6DBC21451FB0007B3306 /* HuoDongCell.xib in Resources */,
 				0112108521363CF00071AC5F /* 编辑.png in Resources */,
 				019AEE7C21382B0B00EB3405 /* moment_camera@3x.png in Resources */,
 				8E3E6DA92140FFA9007B3306 /* oldhechengView.xib in Resources */,
@@ -3210,6 +3269,7 @@
 				547C49A61F1DBB8200178B67 /* tab_index_nor@2x.png in Resources */,
 				547C48761F1DA8AF00178B67 /* Main.storyboard in Resources */,
 				8E3E6D5E2138D76F007B3306 /* LoginViewController.xib in Resources */,
+				8E3E6DB22142140C007B3306 /* PiliangzhuanfaViewController.xib in Resources */,
 				547C49A81F1DBB8200178B67 /* tab_job_nor@2x.png in Resources */,
 				019AEE8921382B0B00EB3405 /* moment_operate_hl@2x.png in Resources */,
 				547C496C1F1DBB8200178B67 /* lkbubble6.jpg in Resources */,
@@ -3359,6 +3419,7 @@
 				01120EE521338F9C0071AC5F /* AddressTableViewCell.m in Sources */,
 				01120EE421338F9C0071AC5F /* AddAddressCell.m in Sources */,
 				547C49631F1DBB8200178B67 /* BaseViewController.m in Sources */,
+				8E3E6DB621421CD1007B3306 /* PiLiangzhuanfaCell.m in Sources */,
 				01120FFC213392FD0071AC5F /* JXCategoryBackgroundImageView.m in Sources */,
 				547C495D1F1DBB8200178B67 /* UIView+Extension.m in Sources */,
 				8E3E6D8E213E8697007B3306 /* MerchanDetailViewController.m in Sources */,
@@ -3481,6 +3542,7 @@
 				8EA9530A212BAA930057AC78 /* ZLPhotoPickerViewController.m in Sources */,
 				8E3E6D84213D067B007B3306 /* registViewController.m in Sources */,
 				8EA952FF212BAA930057AC78 /* ZLPhotoPickerCustomToolBarView.m in Sources */,
+				8E3E6DB12142140C007B3306 /* PiliangzhuanfaViewController.m in Sources */,
 				8E78BE2721366E88000A9EA4 /* SimilarProductModel.m in Sources */,
 				01F1E000213C0944009A925A /* AddressModel.m in Sources */,
 				8ED5B4BB212A6AC100B5983B /* SGPageContentCollectionView.m in Sources */,
@@ -3506,6 +3568,7 @@
 				019AEE4321382A5C00EB3405 /* NSString+MLLabel.m in Sources */,
 				547C499B1F1DBB8200178B67 /* UIBarButtonItem+Create.m in Sources */,
 				8EA9534D212E4C550057AC78 /* zhuanfaViewController.m in Sources */,
+				8E3E6DBB21451FB0007B3306 /* HuoDongCell.m in Sources */,
 				8E3E6DA72140FF9D007B3306 /* oldhechengView.m in Sources */,
 				01F1DFF6213A7CF6009A925A /* MineIndentListCell.m in Sources */,
 				0112101A213392FD0071AC5F /* YSStaticTableViewCell.m in Sources */,
@@ -3727,7 +3790,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3777,7 +3840,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

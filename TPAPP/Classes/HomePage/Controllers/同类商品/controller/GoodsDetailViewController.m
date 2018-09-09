@@ -16,7 +16,7 @@
 #import "danshouView.h"
 #import "ShareItem.h"
 #import "oldhechengView.h"
-
+#import "HuoDongCell.h"
 
 
 @interface GoodsDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIDocumentInteractionControllerDelegate>
@@ -57,6 +57,7 @@
     
     
     [self lodaData];
+    [self lodaHuodongData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -141,6 +142,42 @@
 
 
 
+- (void)lodaHuodongData
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:self.ID forKey:@"id"];
+    [[NetworkManager sharedManager] getWithUrl:getActivityByMerchantId param:dic success:^(id json) {
+        
+        NSLog(@"%@",json);
+        
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            
+            for (NSDictionary *dic in json[@"data"]) {
+                SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
+                [self.dataArr addObject:model];
+            }
+            //            [self.tableview reloadData];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+}
+
+
+
+
+
+
+
+
+
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataArr.count;
 }
@@ -149,55 +186,82 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
-    static NSString*reuesId = @"GoDetailTableViewCell";
-    GoDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuesId];
-    if (cell == nil) {
-        cell = [[NSBundle mainBundle]loadNibNamed:@"GoDetailTableViewCell" owner:self options:nil].lastObject;
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     SimilarProductModel*model = self.dataArr[indexPath.row];
-    cell.model = model;
-
     
-    cell.ToZhuanfaBlock = ^(SimilarProductModel *model, int currentDEX) {
-        
-        
-        if (currentDEX == 0) {
-            self.danshouview.model = model;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.danshouview], 1.0f);
-                [self sharePictureWithImageData:imagedata];
-            });
-            
-            
-        }else if (currentDEX == 1){
-            
-            
-            [self shareMangPictureWithModel:model];
-            
-        }else if (currentDEX == 2){
-            
-            self.oldheview.model = model;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                NSData *imagedata= UIImageJPEGRepresentation([self captureScrollView:self.oldheview.scrollview], 1.0f);
-                [self sharePictureWithImageData:imagedata];
-            });
-            
-            
-        }else{
-            self.xinheview.model = model;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.xinheview], 1.0f);
-                [self sharePictureWithImageData:imagedata];
-            });
+    if (!([model.typeac isEqualToString:@"0"]||[model.typeac isEqualToString:@"1"])) {
+        static NSString*reuesId = @"GoDetailTableViewCell";
+        GoDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuesId];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle]loadNibNamed:@"GoDetailTableViewCell" owner:self options:nil].lastObject;
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-    };
+        cell.model = model;
+        
+        
+        cell.ToZhuanfaBlock = ^(SimilarProductModel *model, int currentDEX) {
+            
+            
+            if (currentDEX == 0) {
+                self.danshouview.model = model;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.danshouview], 1.0f);
+                    [self sharePictureWithImageData:imagedata];
+                });
+                
+                
+            }else if (currentDEX == 1){
+                
+                
+                [self shareMangPictureWithModel:model];
+                
+            }else if (currentDEX == 2){
+                
+                self.oldheview.model = model;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    NSData *imagedata= UIImageJPEGRepresentation([self captureScrollView:self.oldheview.scrollview], 1.0f);
+                    [self sharePictureWithImageData:imagedata];
+                });
+                
+                
+            }else{
+                self.xinheview.model = model;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.xinheview], 1.0f);
+                    [self sharePictureWithImageData:imagedata];
+                });
+            }
+            
+        };
+        
+        return cell;
+    }else{
+        
+        
+        static NSString *reuesId = @"HuoDongCell";
+        HuoDongCell *cell = [tableView dequeueReusableCellWithIdentifier:reuesId];
+        if (cell == nil) {
+            cell = [[NSBundle mainBundle]loadNibNamed:@"HuoDongCell" owner:self options:nil].lastObject;
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.model = model;
+        
+        cell.model = model;
+        
+        
+        
+        return cell;
+        
+        
+        
+        
+    }
     
     
     
     
-    return cell;
+    
+    
     
 }
 
@@ -206,55 +270,80 @@
     
     SimilarProductModel*model = self.dataArr[indexPath.row];
     
-    NSString *str = @"";
-    for (int i=0; i<model.specs.count; i++) {
-        specsModel*spmodel =model.specs[i];
-        if (i== 0) {
-            str = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
-        }else{
-            
-            NSString *tempstr = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
-            str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
+    
+    if (!([model.typeac isEqualToString:@"0"]||[model.typeac isEqualToString:@"1"])) {
+        
+        NSString *str = @"";
+        for (int i=0; i<model.specs.count; i++) {
+            specsModel*spmodel =model.specs[i];
+            if (i== 0) {
+                str = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+            }else{
+                
+                NSString *tempstr = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+                str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
+            }
         }
+        
+        
+        NSString *chima = [NSString stringWithFormat:@"尺码 %@",str];
+        NSString *kuanshi = [NSString stringWithFormat:@"款式 %@",model.design];
+        NSString *kuanhao= [NSString stringWithFormat:@"款号 %@",model.designCode];
+        
+        
+        
+        
+        CGFloat high1 = [LYTools getHeighWithTitle: model.productName font:[UIFont systemFontOfSize:14] width:kScreenWidth-70]+10;
+        
+        CGFloat high2 = [LYTools getHeighWithTitle:  chima font:[UIFont systemFontOfSize:14] width:kScreenWidth-70]+10;
+        
+        CGFloat high3= [LYTools getHeighWithTitle: kuanshi font:[UIFont systemFontOfSize:14] width:kScreenWidth-70]+10;
+        
+        CGFloat high4 =[LYTools getHeighWithTitle: kuanhao font:[UIFont systemFontOfSize:14] width:kScreenWidth-70]+10;
+        
+        
+        
+        int tmp = model.imagesList.count % 3;
+        int row = (int)model.imagesList.count / 3;
+        CGFloat width = (kScreenWidth-70-10)/3.0;
+        row += tmp == 0 ? 0:1;
+        CGFloat high5 = (width+5)*row;
+        
+        
+        
+        
+        int tm = model.specs.count % 2;
+        int rows = (int)model.specs.count / 2;
+        CGFloat high = 20;
+        rows += tm == 0 ? 0:1;
+        CGFloat high6 = (high+10)*rows+50;
+        
+        
+        
+        return high1+high2+high3+high4+high5+high6+160;
+    }else{
+        
+        CGFloat width = (kScreenWidth-70-10)/3.0;
+        
+        //content的高度
+        CGFloat high = [LYTools getHeighWithTitle:model.context font:[UIFont systemFontOfSize:14] width:kScreenWidth-70];
+        
+        int tmp = model.imagesList.count % 3;
+        int row = (int)model.imagesList.count / 3;
+        row += tmp == 0 ? 0:1;
+        return (width+5)*row+163+high;
     }
-
-    
-    NSString *chima = [NSString stringWithFormat:@"尺码 %@",str];
-    NSString *kuanshi = [NSString stringWithFormat:@"款式 %@",model.design];
-    NSString *kuanhao= [NSString stringWithFormat:@"款号 %@",model.designCode];
     
     
     
-    
-    CGFloat high1 = [LYTools getHeighWithTitle: model.productName font:[UIFont systemFontOfSize:14] width:kScreenWidth-70]+10;
-    
-    CGFloat high2 = [LYTools getHeighWithTitle:  chima font:[UIFont systemFontOfSize:14] width:kScreenWidth-70]+10;
-    
-    CGFloat high3= [LYTools getHeighWithTitle: kuanshi font:[UIFont systemFontOfSize:14] width:kScreenWidth-70]+10;
-    
-    CGFloat high4 =[LYTools getHeighWithTitle: kuanhao font:[UIFont systemFontOfSize:14] width:kScreenWidth-70]+10;
-    
-    
-    
-    int tmp = model.imagesList.count % 3;
-    int row = (int)model.imagesList.count / 3;
-    CGFloat width = (kScreenWidth-70-10)/3.0;
-    row += tmp == 0 ? 0:1;
-    CGFloat high5 = (width+5)*row;
-    
-    
-    
-    
-    int tm = model.specs.count % 2;
-    int rows = (int)model.specs.count / 2;
-    CGFloat high = 20;
-    rows += tm == 0 ? 0:1;
-    CGFloat high6 = (high+10)*rows+50;
-    
-    
-    
-    return high1+high2+high3+high4+high5+high6+160;
+   
 }
+
+
+
+
+
+
 
 
 -(void)sharePictureWithImageData:(NSData*)imagedata{

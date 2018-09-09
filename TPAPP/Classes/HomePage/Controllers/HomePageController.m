@@ -113,8 +113,7 @@
     /// pageTitleView
     self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(44, pageTitleViewY, self.view.frame.size.width-88, 44) delegate:self titleNames:self.titleArr configure:configure];
     [self.view addSubview:_pageTitleView];
-    //    [_pageTitleView addBadgeForIndex:1];
-    //    [_pageTitleView addBadgeForIndex:5];
+   
     
     NSMutableArray *childArr = [NSMutableArray array];
     for (int i=0; i<self.titleArr.count; i++) {

@@ -7,14 +7,15 @@
 //
 
 #import "homePageHeaderModel.h"
-#import "releaseActivitiesModel.h"
+//#import "releaseActivitiesModel.h"
+#import "SimilarProductModel.h"
 @implementation homePageHeaderModel
 
 
 
 +(NSDictionary*)mj_objectClassInArray{
     
-    return @{@"releaseActivities":[releaseActivitiesModel class]};
+    return @{@"releaseActivities":[SimilarProductModel class]};
 }
 
 @end

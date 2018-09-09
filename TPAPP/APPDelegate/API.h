@@ -55,8 +55,15 @@
 
 //根据商户查询商品信息,返回所有已上架商品
 #define getProductByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getProductByMerchantId"]
+<<<<<<< HEAD
 //上传身份证信息
 #define uploadIdeniti [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/ideniti"]
+=======
+
+//根据商户查询活动信息,前端拿到数据需判断活动结束时间
+#define getActivityByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getActivityByMerchantId"]
+
+>>>>>>> a440277c99c2ec24dd0ea88d5406b3f4448b3f83
 
 
 
