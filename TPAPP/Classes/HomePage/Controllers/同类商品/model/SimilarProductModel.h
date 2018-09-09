@@ -27,4 +27,16 @@
 @property(nonatomic,strong)NSArray *specs;
 @property(nonatomic,copy)NSString *status;
 
+
+
+
+
+@property(nonatomic,copy)NSString *beginTime;
+@property(nonatomic,copy)NSString *context;
+@property(nonatomic,copy)NSString *endTime;
+@property(nonatomic,copy)NSString *merchantUrL;
+@property(nonatomic,copy)NSString *typeac;
+
+
+
 @end
