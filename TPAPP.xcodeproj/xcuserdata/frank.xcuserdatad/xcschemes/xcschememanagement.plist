@@ -7,11 +7,7 @@
 		<key>TPAPP.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-<<<<<<< HEAD
-			<integer>0</integer>
-=======
-			<integer>16</integer>
->>>>>>> a66a5c6bf2e066cdfa2c4a737f7a5d86b937c57c
+			<integer>1</integer>
 		</dict>
 	</dict>
 </dict>
