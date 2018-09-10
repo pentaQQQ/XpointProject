@@ -85,10 +85,10 @@
     for (int i=0; i<model.specs.count; i++) {
         specsModel*spmodel =model.specs[i];
         if (i== 0) {
-            str = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+            str = [NSString stringWithFormat:@"%@(%@)",spmodel.size,spmodel.stock];
         }else{
             
-            NSString *tempstr = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+            NSString *tempstr = [NSString stringWithFormat:@"%@(%@)",spmodel.size,spmodel.stock];
             str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
         }
     }
@@ -143,7 +143,7 @@
 
 
 
-
+//增加图片
 -(void)setImagewithArray:(NSArray*)array{
     
     int tmp = array.count % 3;
@@ -224,7 +224,7 @@
 
 
 
-
+//增加尺码按钮
 -(void)setxianghaoBtnithArray:(NSArray*)array{
     
     int tmp = array.count % 2;
@@ -244,7 +244,7 @@
             if (k<array.count) {
                 
                 specsModel *model =array[k];
-                NSString *title = [NSString stringWithFormat:@"%@(%@)",model.stock,model.size];
+                NSString *title = [NSString stringWithFormat:@"%@(%@)",model.size,model.stock];
                 
                 CGFloat widt = [LYTools widthForString:title fontSize:12 andHeight:20]+40;
                 
@@ -290,16 +290,12 @@
                 [btn addTarget:self action:@selector(chimabtnClick:) forControlEvents:UIControlEventTouchUpInside];
                 
                 
-                
             }
         }
     }
     
     
 }
-
-
-
 
 
 
@@ -425,7 +421,7 @@
         self.shoppingcartBtn.userInteractionEnabled = NO;
     }
     
-
+    
 }
 
 
