@@ -17,7 +17,7 @@
 #import "ShareItem.h"
 #import "oldhechengView.h"
 #import "HuoDongCell.h"
-
+#import "PiliangzhuanfaViewController.h"
 
 @interface GoodsDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIDocumentInteractionControllerDelegate>
 @property(nonatomic,strong)NSMutableArray *dataArr;
@@ -249,6 +249,19 @@
         cell.model = model;
         
         
+        cell.zhuanfaBlock = ^(SimilarProductModel*model) {
+            
+            if ([model.typeac isEqualToString:@"0"]) {//批量转发
+                PiliangzhuanfaViewController *vc = [[PiliangzhuanfaViewController alloc]init];
+                vc.ID = model.id;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }else{//转发
+                
+            }
+        };
+        
+        
         
         return cell;
         
@@ -336,7 +349,7 @@
     
     
     
-   
+    
 }
 
 
@@ -460,6 +473,7 @@
     return image;
     
 }
+
 
 
 //截取长图

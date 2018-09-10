@@ -176,14 +176,14 @@
 //
 //
 //
-//- (IBAction)zhuanfaBtnClick:(id)sender {
-//
-//    if (self.zhuanfaBlock) {
-//        self.zhuanfaBlock(self.model);
-//    }
-//
-//
-//}
+- (IBAction)zhuanfaBtnClick:(id)sender {
+
+    if (self.zhuanfaBlock) {
+        self.zhuanfaBlock(self.model);
+    }
+
+
+}
 
 
 

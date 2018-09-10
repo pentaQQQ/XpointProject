@@ -125,24 +125,24 @@
         }else if (indexPath.row == 1){
             EditNicknameController *idCtrl = [[EditNicknameController alloc] init];
             [self.navigationController pushViewController:idCtrl animated:YES];
-//                        dispatch_async(dispatch_get_main_queue(), ^{
-//                            UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"修改昵称" message: nil preferredStyle:UIAlertControllerStyleAlert];
-//                            [alertCtrl  addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-//            
-//                                textField.text = cellModel.indicatorTitle;
-//                                textField.borderStyle = UITextBorderStyleNone;
-//                                textField.textColor = [UIColor blackColor];
-//                                textField.clearButtonMode = UITextFieldViewModeAlways;
-//                            }];
-//                            [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//                            }]];
-//                            [alertCtrl  addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                                NSArray * textfields = alertCtrl.textFields;
-//                                UITextField * namefield = textfields[0];
-//                                NSLog(@"%@",namefield.text);
-//                            }]];
-//                            [self presentViewController:alertCtrl animated:YES completion:nil];
-//                        });
+            //                        dispatch_async(dispatch_get_main_queue(), ^{
+            //                            UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"修改昵称" message: nil preferredStyle:UIAlertControllerStyleAlert];
+            //                            [alertCtrl  addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            //
+            //                                textField.text = cellModel.indicatorTitle;
+            //                                textField.borderStyle = UITextBorderStyleNone;
+            //                                textField.textColor = [UIColor blackColor];
+            //                                textField.clearButtonMode = UITextFieldViewModeAlways;
+            //                            }];
+            //                            [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            //                            }]];
+            //                            [alertCtrl  addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //                                NSArray * textfields = alertCtrl.textFields;
+            //                                UITextField * namefield = textfields[0];
+            //                                NSLog(@"%@",namefield.text);
+            //                            }]];
+            //                            [self presentViewController:alertCtrl animated:YES completion:nil];
+            //                        });
             
         }
     }else if (indexPath.section == 1){
@@ -165,7 +165,7 @@
         }
     }else{
         //退出登录在此处理
-        
+        [self existBoard];
     }
     
 }
@@ -263,22 +263,22 @@
         [self.navigationController presentViewController:nav animated:YES completion:nil];
         //无权限
         //获取当前语言
-//        NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-//        NSArray *languages = [defs objectForKey:@"AppleLanguages"];
-//        NSString *preferredLang = [languages objectAtIndex:0];
-//        if ([preferredLang isEqualToString:@"en-CN"]||[preferredLang isEqualToString:@"en-IN"]||[preferredLang isEqualToString:@"en-US"]||[preferredLang isEqualToString:@"en-UK"]) {
-//            //无相册访问权限
-//            //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
-//            //            nvc.titleString = @"相机";
-//            //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相机";
-//            //            [self presentVC:nvc];
-//        }else{
-//            //无相册访问权限
-//            //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
-//            //            nvc.titleString = @"相机";
-//            //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相机";
-//            //            [self presentVC:nvc];
-//        }
+        //        NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+        //        NSArray *languages = [defs objectForKey:@"AppleLanguages"];
+        //        NSString *preferredLang = [languages objectAtIndex:0];
+        //        if ([preferredLang isEqualToString:@"en-CN"]||[preferredLang isEqualToString:@"en-IN"]||[preferredLang isEqualToString:@"en-US"]||[preferredLang isEqualToString:@"en-UK"]) {
+        //            //无相册访问权限
+        //            //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
+        //            //            nvc.titleString = @"相机";
+        //            //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相机";
+        //            //            [self presentVC:nvc];
+        //        }else{
+        //            //无相册访问权限
+        //            //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
+        //            //            nvc.titleString = @"相机";
+        //            //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相机";
+        //            //            [self presentVC:nvc];
+        //        }
     }else{
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
         //            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
@@ -301,22 +301,22 @@
         nav.modalTransitionStyle=UIModalTransitionStyleCoverVertical;
         [self.navigationController presentViewController:nav animated:YES completion:nil];
         //获取当前语言
-//        NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-//        NSArray *languages = [defs objectForKey:@"AppleLanguages"];
-//        NSString *preferredLang = [languages objectAtIndex:0];
-//        if ([preferredLang isEqualToString:@"en-CN"]||[preferredLang isEqualToString:@"en-IN"]||[preferredLang isEqualToString:@"en-US"]||[preferredLang isEqualToString:@"en-UK"]) {
-            //无相册访问权限
-            //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
-            //            nvc.titleString = @"相册";
-            //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相册";
-            //            [self presentVC:nvc];
-//        }else{
-            //无相册访问权限
-            //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
-            //            nvc.titleString = @"相册";
-            //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相册";
-            //            [self presentVC:nvc];
-//        }
+        //        NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+        //        NSArray *languages = [defs objectForKey:@"AppleLanguages"];
+        //        NSString *preferredLang = [languages objectAtIndex:0];
+        //        if ([preferredLang isEqualToString:@"en-CN"]||[preferredLang isEqualToString:@"en-IN"]||[preferredLang isEqualToString:@"en-US"]||[preferredLang isEqualToString:@"en-UK"]) {
+        //无相册访问权限
+        //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
+        //            nvc.titleString = @"相册";
+        //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相册";
+        //            [self presentVC:nvc];
+        //        }else{
+        //无相册访问权限
+        //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
+        //            nvc.titleString = @"相册";
+        //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相册";
+        //            [self presentVC:nvc];
+        //        }
         NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
         if ([[UIApplication sharedApplication] canOpenURL:url]) {
             [[UIApplication sharedApplication] openURL:url];
@@ -346,19 +346,38 @@
         //        self.selectImageView.image = image;
     }];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+-(void)existBoard{
+    
+    
+    [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+    LoginViewController*vc = [[LoginViewController alloc]init];
+    RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+    rootVC.rt_disableInteractivePop = YES ;
+    [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+    
+    
+//    [[NetworkManager sharedManager] getWithUrl:getexit param:nil success:^(id json) {
+//
+//        NSLog(@"%@",json);
+//
+//        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+//        if ([respCode isEqualToString:@"00000"]) {
+//
+//            [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+//            LoginViewController*vc = [[LoginViewController alloc]init];
+//            RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+//            rootVC.rt_disableInteractivePop = YES ;
+//            [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+//
+//        }
+//
+//    } failure:^(NSError *error) {
+//
+//
+//    }];
+    
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

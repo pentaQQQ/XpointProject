@@ -65,6 +65,10 @@
 
 
 
+//app退出登陆
+#define getexit [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/exit"]
+
+
 
 
 
