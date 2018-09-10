@@ -22,6 +22,7 @@ PODS:
   - Masonry (1.0.2)
   - MJExtension (3.0.15)
   - MJRefresh (3.1.15.3)
+  - NMSSH (2.2.9)
   - RTRootNavigationController (0.6.7):
     - RTRootNavigationController/Core (= 0.6.7)
   - RTRootNavigationController/Core (0.6.7)
@@ -44,6 +45,7 @@ DEPENDENCIES:
   - Masonry
   - MJExtension
   - MJRefresh
+  - NMSSH
   - RTRootNavigationController
   - SDCycleScrollView
   - SDWebImage
@@ -62,6 +64,7 @@ SPEC REPOS:
     - Masonry
     - MJExtension
     - MJRefresh
+    - NMSSH
     - RTRootNavigationController
     - SDCycleScrollView
     - SDWebImage
@@ -79,6 +82,7 @@ SPEC CHECKSUMS:
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJExtension: 3f039575db1b135a20699ad298713b26acec1528
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
+  NMSSH: eb4a63d52631d3ffe348181793bb19434b01c32a
   RTRootNavigationController: d6aa6cbb78a3eaecea4f6e4df63f15dd887836b8
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
@@ -86,6 +90,6 @@ SPEC CHECKSUMS:
   TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
   XRCarouselView: 52529f924d26ee4787f9bd958150800b73e60922
 
-PODFILE CHECKSUM: 8bc9a55eb3682c4f762244048140a6da35ad7a19
+PODFILE CHECKSUM: 17f3b9def8ab9323f5b75cc30602ad804ed08a2d
 
 COCOAPODS: 1.5.3

@@ -18,4 +18,5 @@ target 'TPAPP' do
     pod 'MJRefresh'
     pod 'IQKeyboardManager'
     pod 'RTRootNavigationController'
+    pod 'NMSSH'
 end

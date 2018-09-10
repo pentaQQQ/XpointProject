@@ -351,6 +351,7 @@
     
     
     [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+    
     LoginViewController*vc = [[LoginViewController alloc]init];
     RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
     rootVC.rt_disableInteractivePop = YES ;
