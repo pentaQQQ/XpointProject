@@ -410,7 +410,7 @@
     CFWriteStreamRef ftpStream;
     
     //获得输入
-    NSString *urlStr = [NSString stringWithFormat:@"ftp://47.92.193.30"];
+    NSString *urlStr = [NSString stringWithFormat:@"sftp://47.92.193.30"];
     url = [NSURL URLWithString:urlStr];
     //获得输入
     filePath = imagePath;
@@ -418,7 +418,7 @@
     password = @"yb0820@!8";
     CFReadStreamRef readRef;
     UInt32 port = 22;
-    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)@"ftp://47.92.193.30", port, &readRef, &ftpStream);
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)@"sftp://47.92.193.30", port, &readRef, &ftpStream);
     self.fileStream = (__bridge NSInputStream *)readRef;
     //添加后缀（文件名称）
     url=CFBridgingRelease(CFURLCreateCopyAppendingPathComponent(NULL, (CFURLRef)url, (CFStringRef)[filePath lastPathComponent], false));
