@@ -259,6 +259,7 @@ static NSString *_cellIdentifier = @"collectionViewCell";
         mainView.hidden = NO;
         mainView.alpha = 1.0;
         CGRect originalFrame = CGRectZero;
+//        weakSelf.selectImagesClick(@"1");
         [weakSelf dismissViewControllerAnimated:NO completion:nil];
         
         // 缩放动画
@@ -350,7 +351,7 @@ static NSString *_cellIdentifier = @"collectionViewCell";
             imageView.alpha = 1.0;
             [mainView removeFromSuperview];
             [mainBgView removeFromSuperview];
-            
+//            weakSelf.selectImagesClick(@"1");
             [[NSNotificationCenter defaultCenter] removeObserver:weakSelf];
             [weakSelf dismissViewControllerAnimated:NO completion:nil];
         }];
@@ -665,8 +666,10 @@ static NSString *_cellIdentifier = @"collectionViewCell";
         {
             [[NSNotificationCenter defaultCenter] removeObserver:self];
             if (self.isPush) {
+                self.selectImagesClick(@"1");
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
+                self.selectImagesClick(@"1");
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
             [[UIApplication sharedApplication] setStatusBarHidden:NO];
@@ -721,12 +724,13 @@ static NSString *_cellIdentifier = @"collectionViewCell";
 #pragma mark - <PickerPhotoScrollViewDelegate>
 - (void)pickerPhotoScrollViewDidSingleClick:(ZLPhotoPickerBrowserPhotoScrollView *)photoScrollView{
     if (self.disMissBlock) {
-        
+        self.selectImagesClick(@"1");
         if (self.photos.count == 1) {
             self.currentPage = 0;
         }
         self.disMissBlock(self.currentPage);
     }else{
+        self.selectImagesClick(@"1");
         [[NSNotificationCenter defaultCenter] removeObserver:self];
         [self dismissViewControllerAnimated:YES completion:nil];
     }

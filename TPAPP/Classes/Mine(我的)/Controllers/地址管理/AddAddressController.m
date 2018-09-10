@@ -101,6 +101,7 @@
                             NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
                             if ([respCode isEqualToString:@"00000"]) {
                                 [SVProgressHUD doAnythingSuccessWithHUDMessage:@"新建成功" withDuration:1.5];
+                                [self.navigationController popViewControllerAnimated:YES];
                             }else{
                                 [SVProgressHUD doAnythingSuccessWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                             }

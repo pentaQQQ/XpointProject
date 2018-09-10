@@ -102,17 +102,18 @@
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView progress:(CGFloat)progress originalIndex:(NSInteger)originalIndex targetIndex:(NSInteger)targetIndex {
    
     [self.pageTitleView setPageTitleViewWithProgress:progress originalIndex:originalIndex targetIndex:targetIndex];
-    if (self.selecteDelegate && [self.selecteDelegate respondsToSelector:@selector(selecteNumber:)])
-    {
-        // 调用代理方法
-        [self.selecteDelegate selecteNumber:targetIndex];
-    }
+    
 }
 
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView index:(NSInteger)index {
     
     if (index == 1 || index == 5) {
         [_pageTitleView removeBadgeForIndex:index];
+    }
+    if (self.selecteDelegate && [self.selecteDelegate respondsToSelector:@selector(selecteNumber:)])
+    {
+        // 调用代理方法
+        [self.selecteDelegate selecteNumber:index];
     }
 }
 

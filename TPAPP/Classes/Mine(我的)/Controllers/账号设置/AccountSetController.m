@@ -72,7 +72,7 @@
     cell.selectionStyle = cellModel.didSelectCellBlock ? UITableViewCellSelectionStyleDefault : UITableViewCellSelectionStyleNone;
     
     [cell configureTableViewCellWithModel:cellModel];
-    
+
     return cell;
 }
 
@@ -154,28 +154,29 @@
             idCtrl.title = @"地址管理";
             [self.navigationController pushViewController:idCtrl animated:YES];
         }else{
-            IdentificationController *idCtrl = [[IdentificationController alloc] init];
-            [self.navigationController pushViewController:idCtrl animated:YES];
+                LYAccount *account = [LYAccount shareAccount];
+                if ([account.realName isEqualToString:@"0"]) {
+                    IdentificationController *idCtrl = [[IdentificationController alloc] init];
+                    [self.navigationController pushViewController:idCtrl animated:YES];
+                }else{
+                    
+                }
+           
         }
     }else if (indexPath.section ==2){
         if (indexPath.row == 0) {
-            
         }else{
-            
         }
     }else{
         //退出登录在此处理
         [self existBoard];
     }
-    
 }
-
 #pragma mark - Setter && Getter
 - (void)setSectionModelArray:(NSArray *)sectionModelArray {
     _sectionModelArray = sectionModelArray;
     [self.tableView reloadData];
 }
-
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
@@ -204,7 +205,6 @@
     model1.title = @"昵称";
     model1.indicatorTitle = @"kyson";
     
-    
     YSStaticDefaultModel *model2 = [[YSStaticDefaultModel alloc] init];
     model2.title = @"手机号";
     model2.indicatorTitle = @"18601605699";
@@ -227,7 +227,13 @@
     
     YSStaticDefaultModel *model6 = [[YSStaticDefaultModel alloc] init];
     model6.title = @"实名认证";
-    model6.indicatorTitle = @"未认证";
+    LYAccount *account = [LYAccount shareAccount];
+    if ([account.realName isEqualToString:@"0"]) {
+        model6.indicatorTitle = @"未认证";
+    }else{
+       model6.indicatorTitle = @"已认证";
+    }
+    
     
     YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model4, model5,model6]];
     
@@ -338,6 +344,7 @@
     //标题栏
     [picker dismissViewControllerAnimated:YES completion:^{
         UIImage *image = info[UIImagePickerControllerOriginalImage];
+        NSLog(@"%@",image);
         //        self.selectImageView.sd_layout
         //        .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
         //        .centerXEqualToView(self.view)

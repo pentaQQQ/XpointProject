@@ -14,7 +14,7 @@
 @interface AddressManageController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
-
+@property (nonatomic, strong)NSMutableDictionary *dataDict;
 @property (nonatomic, strong)UIButton *addBtn;
 @end
 
@@ -158,9 +158,42 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell configWithModel:self.listDataArr[indexPath.section]];
     [cell setSelectBlcok:^(NSInteger num,AddressModel *model) {
-        EditAddressController *addCtrl = [[EditAddressController alloc] init];
-        addCtrl.addressModel = model;
-        [self.navigationController pushViewController:addCtrl animated:YES];
+        if (num == 0) {
+            EditAddressController *addCtrl = [[EditAddressController alloc] init];
+            addCtrl.addressModel = model;
+            [self.navigationController pushViewController:addCtrl animated:YES];
+        }else{
+            if ([model.isDefault isEqualToString:@"0"]) {
+//                self.dataDict = [NSMutableDictionary dictionary];
+//                [self.dataDict addEntriesFromDictionary:@{@"recProv":model.recProv}];
+//                [self.dataDict addEntriesFromDictionary:@{@"recCity":model.recCity}];
+//                [self.dataDict addEntriesFromDictionary:@{@"recArea":model.recArea}];
+//                [self.dataDict addEntriesFromDictionary:@{@"userId":model.userId}];
+//                [self.dataDict addEntriesFromDictionary:@{@"recNickName":model.recNickName}];
+//                [self.dataDict addEntriesFromDictionary:@{@"recPhone":model.recPhone}];
+//                [self.dataDict addEntriesFromDictionary:@{@"isGeneration":model.isGeneration}];
+//                [self.dataDict addEntriesFromDictionary:@{@"recIdentityCardNo":model.recIdentityCardNo}];
+//                [self.dataDict addEntriesFromDictionary:@{@"recAddress":model.recAddress}];
+//                [self.dataDict addEntriesFromDictionary:@{@"isDefault":@"1"}];
+//                [self.dataDict addEntriesFromDictionary:@{@"recProv":model.recProv}];
+//                [self.dataDict addEntriesFromDictionary:@{@"recCity":model.recCity}];
+//                [self.dataDict addEntriesFromDictionary:@{@"recArea":model.recArea}];
+//                [self.dataDict addEntriesFromDictionary:@{@"id":model.id}];
+//                [LYTools postBossDemoWithUrl:updateAddress param:self.dataDict success:^(NSDictionary *dict) {
+//                    NSLog(@"%@",dict);
+//                    NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+//                    if ([respCode isEqualToString:@"00000"]) {
+//                        [self loadNewTopic];
+//                    }else{
+//                        [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+//                    }
+//                } fail:^(NSError *error) {
+//                    
+//                }];
+            }
+            
+        }
+        
     }];
     return cell;
 }

@@ -11,8 +11,6 @@
 #import "goodsDetailCell.h"
 #import "releaseActivitiesModel.h"
 #import "GoodsDetailViewController.h"
-
-
 @interface ClassDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView*tableview;
 @property(nonatomic,strong)NSMutableArray*dataArr;
@@ -82,7 +80,6 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     releaseActivitiesModel *model = self.arr[indexPath.row];
-    
     cell.model = model;
     
     cell.qianggouBlock = ^(releaseActivitiesModel *model) {
@@ -91,19 +88,14 @@
         [self.navigationController pushViewController:vc animated:YES];
     };
     
-    
     cell.zhuanfaBlock = ^(releaseActivitiesModel *model) {
 //        PiliangzhuanfaViewController *vc = [[PiliangzhuanfaViewController alloc]init];
 //        vc.ID = model.id;
 //        [self.navigationController pushViewController:vc animated:YES];
-        
     };
     
-    
-
     return cell;
 }
-
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -131,9 +123,6 @@
     [self.navigationController pushViewController:vc animated:YES];
     
 }
-
-
-
 
 
 @end

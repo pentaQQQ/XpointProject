@@ -18,7 +18,8 @@
 
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
-
+@property (nonatomic, strong)NSMutableArray *urlArr;
+@property (nonatomic, strong)NSString *urlString;
 @end
 
 @implementation MineIndentChildController
@@ -73,57 +74,66 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     self.listDataArr = [NSMutableArray array];
     // Do any additional setup after loading the view.
     self.title =@"我的订单";
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
 //    [self dsads:self.selectCtrl];
+//    if (self.selectCtrl == 0) {
+    self.urlString = getOrderListInfo;
+//    }
     [self setUpUI];
     self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     //自动更改透明度
     self.listTableView.mj_header.automaticallyChangeAlpha = YES;
     //进入刷新状态
-    [self.listTableView.mj_header beginRefreshing];
-
+//    [self.listTableView.mj_header beginRefreshing];
+//    [SVProgressHUD doAnythingWithHUDMessage:nil];
+    [self loadNewTopic];
 }
 
 #pragma mark - 下拉刷新数据
 - (void)loadNewTopic
 {
-//    [self.listTableView.mj_header beginRefreshing];
-    [[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
-        NSLog(@"%@",json);
+    LYAccount *account = [LYAccount shareAccount];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:account.id forKey:@"userId"];
+    [LYTools postBossDemoWithUrl:self.urlString param:dic success:^(NSDictionary *dict) {
+        NSLog(@"%@",dict);
+        [SVProgressHUD dismiss];
+        [SVProgressHUD dismiss];
         if ([self.listTableView.mj_header isRefreshing]) {
             [self.listTableView.mj_header endRefreshing];
         }
-        UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
-        [MBProgressHUD hideHUDForView:keyWindow];
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            
-                    // 这里是你点击了cell里的某个按钮后要做的操作
-                    if (self.selectCtrl == 0) {
-            
-                        self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]},@{@"goodName":@"耐克旗舰店",@"listArr":@[@[@"icon",@"NIKE男士运动板鞋",@"40码",@"1",@"355678",@"1",@"420",@"商家已接单",@"3"]]},@{@"goodName":@"阿迪达斯舰店",@"listArr":@[@[@"icon",@"阿迪达斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"],@[@"icon",@"阿迪达斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]},@{@"goodName":@"安踏旗舰店",@"listArr":@[@[@"icon",@"安踏旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]}, nil];
-                    }else if (self.selectCtrl == 1){
-                        self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"等待付款",@"1"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"]]}, nil];
-                    }else if (self.selectCtrl == 2){
-                        self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]}, nil];
-                    }else if (self.selectCtrl == 3){
-                        self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"]]}, nil];
-                    }else if (self.selectCtrl == 4){
-                        self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]}, nil];
-                    }else{
-                        self.listDataArr = [NSMutableArray array];
-//                        self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]}, nil];
-                    }
-                    [self.listTableView reloadData];
-        }else if([json[@"code"]longValue] == 500){
-            
-            [self.listTableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 这里是你点击了cell里的某个按钮后要做的操作
+                if (self.selectCtrl == 0) {
+                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]},@{@"goodName":@"耐克旗舰店",@"listArr":@[@[@"icon",@"NIKE男士运动板鞋",@"40码",@"1",@"355678",@"1",@"420",@"商家已接单",@"3"]]},@{@"goodName":@"阿迪达斯舰店",@"listArr":@[@[@"icon",@"阿迪达斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"],@[@"icon",@"阿迪达斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]},@{@"goodName":@"安踏旗舰店",@"listArr":@[@[@"icon",@"安踏旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]}, nil];
+                }else if (self.selectCtrl == 1){
+                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"等待付款",@"1"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"]]}, nil];
+                }else if (self.selectCtrl == 2){
+                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]}, nil];
+                }else if (self.selectCtrl == 3){
+                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"]]}, nil];
+                }else if (self.selectCtrl == 4){
+                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]}, nil];
+                }else{
+                    self.listDataArr = [NSMutableArray array];
+                    //self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]}, nil];
+                }
+                [self.listTableView reloadData];
+            });
+        }else if([dict[@"code"]longValue] == 500){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                [self.listTableView reloadData];
+            });
         }
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
+    } fail:^(NSError *error) {
+        
     }];
 }
 
@@ -235,25 +245,17 @@
 #pragma mark --------------- LeftBodyCellDelegate
 - (void)selecteNumber:(NSInteger)index
 {
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         self.selectCtrl = index;
         //进入刷新状态
         if (self.listTableView == nil) {
             [self setUpUI];
             self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
-             [self.listTableView.mj_header beginRefreshing];
         }else{
-           [self.listTableView.mj_header beginRefreshing];
         }
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
-//            [MBProgressHUD showMessage:nil toView:keyWindow];
-//            [self loadNewTopic];
-//        });
-        
+        [SVProgressHUD doAnythingWithHUDMessage:nil];
+        [self loadNewTopic];
     });
-    
 }
 
 #pragma mark - TableView 占位图

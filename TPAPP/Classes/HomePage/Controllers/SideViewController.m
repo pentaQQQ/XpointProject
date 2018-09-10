@@ -81,6 +81,7 @@
     MerchanDetailViewController *otherVC = [[MerchanDetailViewController alloc] init];
     otherVC.ID = model.merchantId;
     [self XYSidePushViewController:otherVC animated:YES];
+    
 }
 
 
