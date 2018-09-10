@@ -25,11 +25,12 @@
 #import "MMImagePreviewView.h"
 #import "imagesListModel.h"
 #import "DeleteGoodsListController.h"
+#import "ZLPhotoPickerBrowserViewController.h"
 #define Image(name) [UIImage imageNamed:name]
 @interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate,DeclareAbnormalAlertViewDelegate>
 {
     BOOL allowMultipleSwipe;
-    
+    BOOL isPreview;
 }
 
 @property (nonatomic, strong)UITableView *CartTableView;
@@ -71,18 +72,24 @@
     _CartTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     //自动更改透明度
     _CartTableView.mj_header.automaticallyChangeAlpha = YES;
-    
+    //进入刷新状态
+//    [_CartTableView.mj_header beginRefreshing];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if ([_CartTableView.mj_header isRefreshing]) {
-        [_CartTableView.mj_header endRefreshing];
+    if (isPreview) {
+        isPreview = NO;
+    }else{
+        if ([_CartTableView.mj_header isRefreshing]) {
+            [_CartTableView.mj_header endRefreshing];
+        }
+        //进入刷新状态
+        [_CartTableView.mj_header beginRefreshing];
     }
-    //进入刷新状态
-    [_CartTableView.mj_header beginRefreshing];
+    
     
 }
 #pragma mark - 下拉刷新数据
@@ -106,7 +113,7 @@
                 [allTimeArr addObject:dic[@"productForm"][@"merchantId"]];
             }
             dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
-            NSLog(@"%@",dateSectionArr);
+//            NSLog(@"%@",dateSectionArr);
             for (NSString *nowTim in dateSectionArr) {
                 NSMutableArray *arr = [[NSMutableArray alloc] init];
                 for (NSDictionary *ordersDicTwo in dict[@"data"][@"cartDetails"]) {
@@ -143,7 +150,7 @@
 //            }
             
             [_CartTableView reloadData];
-            NSLog(@"%@",self.dataSource);
+//            NSLog(@"%@",self.dataSource);
         }else if([dict[@"code"]longValue] == 500){
             [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
         }
@@ -497,7 +504,7 @@
             CartDetailsModel *model = arr[indexPath.row];
             [dict1 setValue:model.id forKey:@"cartDetailId"];
             [LYTools postBossDemoWithUrl:cartDelProduct param:dict1 success:^(NSDictionary *dict) {
-                NSLog(@"%@",dict);
+//                NSLog(@"%@",dict);
                 NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
                 if ([respCode isEqualToString:@"00000"]) {
                     [arr removeObjectAtIndex:indexPath.row];
@@ -609,14 +616,39 @@
 -(void)SelectedLookImageListCell:(CompileCell *)cell
 {
 //    dispatch_async(dispatch_get_main_queue(), ^{
-        _previewView = [[MMImagePreviewView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        // 更新视图数据
-        NSInteger count = cell.detailModel.productForm.imagesList.count;
-        _previewView.pageNum = count;
-        _previewView.scrollView.contentSize = CGSizeMake(_previewView.width*count, _previewView.height);
-        [self singleTapSmallViewCallback:cell];
+//        _previewView = [[MMImagePreviewView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//        // 更新视图数据
+//        NSInteger count = cell.detailModel.productForm.imagesList.count;
+//        _previewView.pageNum = count;
+//        _previewView.scrollView.contentSize = CGSizeMake(_previewView.width*count, _previewView.height);
+//        [self singleTapSmallViewCallback:cell];
 //    });
     
+    
+    // 图片游览器
+    ZLPhotoPickerBrowserViewController *pickerBrowser = [[ZLPhotoPickerBrowserViewController alloc] init];
+    // 数据源/delegate
+    NSMutableArray * ZLPhotosArry = [NSMutableArray array];
+    int imagecount = (int)cell.detailModel.productForm.imagesList.count;
+    for (int i = 0; i<imagecount; i++) {
+        imagesListModel*model = cell.detailModel.productForm.imagesList[i];
+        ZLPhotoPickerBrowserPhoto *photo1 = [[ZLPhotoPickerBrowserPhoto alloc] init];
+        photo1.photoURL = [NSURL URLWithString:model.imgUrl];;
+        [ZLPhotosArry addObject:photo1];
+    }
+    // 数据源可以不传，传photos数组 photos<里面是ZLPhotoPickerBrowserPhoto>
+    pickerBrowser.photos = ZLPhotosArry;
+    //    pickerBrowser.dataSource = self;
+    // 是否可以删除照片
+    //    pickerBrowser.editing = YES;
+    // 当前选中的值
+    pickerBrowser.currentIndex = 0;
+    pickerBrowser.status = UIViewAnimationAnimationStatusZoom;
+    // 展示控制器
+    [pickerBrowser showPickerVc:[UIApplication sharedApplication].keyWindow.rootViewController];
+    [pickerBrowser setSelectImagesClick:^(NSString *selectString) {
+        isPreview = YES;
+    }];
 }
 
 /**

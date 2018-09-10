@@ -84,10 +84,10 @@
     NSString *str = @"";
     for (int i=0; i<model.specs.count; i++) {
         specsModel*spmodel =model.specs[i];
+
         if (i== 0) {
             str = [NSString stringWithFormat:@"%@(%@)",spmodel.size,spmodel.stock];
         }else{
-            
             NSString *tempstr = [NSString stringWithFormat:@"%@(%@)",spmodel.size,spmodel.stock];
             str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
         }
@@ -219,7 +219,9 @@
     pickerBrowser.status = UIViewAnimationAnimationStatusFade;
     // 展示控制器
     [pickerBrowser showPickerVc:[UIApplication sharedApplication].keyWindow.rootViewController];
-    
+    [pickerBrowser setSelectImagesClick:^(NSString *num) {
+        
+    }];
 }
 
 
@@ -244,6 +246,7 @@
             if (k<array.count) {
                 
                 specsModel *model =array[k];
+              
                 NSString *title = [NSString stringWithFormat:@"%@(%@)",model.size,model.stock];
                 
                 CGFloat widt = [LYTools widthForString:title fontSize:12 andHeight:20]+40;
@@ -254,6 +257,7 @@
                 for (int m=0; m<=j; m++) {
                     
                     specsModel *model =array[k-j+m];
+                  
                     NSString *title = [NSString stringWithFormat:@"%@(%@)",model.stock,model.size];
                     
                     CGFloat widt = [LYTools widthForString:title fontSize:12 andHeight:20]+40;

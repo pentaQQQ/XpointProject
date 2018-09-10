@@ -41,7 +41,8 @@
     //自动更改透明度
     self.listTableView.mj_header.automaticallyChangeAlpha = YES;
     //进入刷新状态
-    [self.listTableView.mj_header beginRefreshing];
+//    [self.listTableView.mj_header beginRefreshing];
+    [self loadNewTopic];
 }
 - (void)setUpUI:(CGFloat)height_top
 {
@@ -156,14 +157,19 @@
     [[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
         NSLog(@"%@",json);
         [self.listTableView.mj_header endRefreshing];
+        [SVProgressHUD dismiss];
+        [SVProgressHUD dismiss];
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            
-              self.listDataArr = [NSMutableArray arrayWithObjects:@[@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"], nil];
-            [self.listTableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.listDataArr = [NSMutableArray arrayWithObjects:@[@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"], nil];
+                [self.listTableView reloadData];
+            });
         }else if([json[@"code"]longValue] == 500){
-            
-            [self.listTableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                [self.listTableView reloadData];
+            });
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
@@ -173,17 +179,28 @@
 #pragma mark --------------- LeftBodyCellDelegate
 - (void)selecteNumber:(NSInteger)index
 {
-    // 这里是你点击了cell里的某个按钮后要做的操作
-    if (index == 0) {
-        self.secondCtrl = 0;
-    }else{
-        self.secondCtrl = 1;
-    }
-//    if ([self.listTableView.mj_header isRefreshing]) {
-//        [self.listTableView.mj_header endRefreshing];
-//    }else{
-        [self.listTableView.mj_header beginRefreshing];
-//    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 这里是你点击了cell里的某个按钮后要做的操作
+        if (index == 0) {
+            self.secondCtrl = 0;
+        }else{
+            self.secondCtrl = 1;
+        }
+        //进入刷新状态
+        if (self.listTableView == nil) {
+            if (self.secondCtrl == 0 ) {
+                [self createTopView];
+                [self setUpUI:50];
+            }else{
+                [self setUpUI:0];
+            }
+            self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+        }else{
+        }
+        [SVProgressHUD doAnythingWithHUDMessage:nil];
+        [self loadNewTopic];
+    });
+   
     
 }
 - (void)createTopView

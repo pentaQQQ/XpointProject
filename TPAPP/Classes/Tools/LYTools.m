@@ -617,8 +617,11 @@
         NSLog(@"-----responseObject===%@+++++",responseObject);
         if (!error) {
             if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                // 请求成功数据处理
-                success(responseObject);
+                [self weatherToLoginWithJson:responseObject success:^(id responseObject) {
+                    // 请求成功数据处理
+                    success(responseObject);
+                }];
+                
             } else {
                 
             }
@@ -648,8 +651,10 @@
         NSLog(@"-----responseObject===%@+++++",responseObject);
         if (!error) {
             if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                // 请求成功数据处理
-                success(responseObject);
+                [self weatherToLoginWithJson:responseObject success:^(id responseObject) {
+                    // 请求成功数据处理
+                    success(responseObject);
+                }];
             } else {
                 
             }
@@ -660,7 +665,19 @@
     [task resume];
     
 }
-
++(void)weatherToLoginWithJson:(id)responseObject success:(void(^)(id responseObject))success{
+    
+    NSString *respCode = [NSString stringWithFormat:@"%@",responseObject[@"respCode"]];
+    
+    if ([respCode isEqualToString:@"90000"]) {
+        [SVProgressHUD doAnyRemindWithHUDMessage:@"登陆过期，请重新登录" withDuration:1.5];
+        [LYTools ToLogin];
+        return;
+    }else{
+        
+        success(responseObject);
+    }
+}
 
 
 @end

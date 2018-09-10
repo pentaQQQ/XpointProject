@@ -16,6 +16,7 @@
 //编辑
 -(void)SelectedEdit:(NSInteger)section;
 //点击店铺
+-(void)SelectedShop:(NSInteger)section;
 
 @end
 

@@ -27,9 +27,9 @@
 
 @implementation InviteAwardController
 {
-    NSMutableArray * timeArr;
-    NSArray  * dateSectionArr;
-    NSString * _savedImagePath;
+    NSMutableArray *timeArr;
+    NSArray  *dateSectionArr;
+    NSString *_savedImagePath;
     InviteCodeModel *_inviteCodeModel;
 }
 #pragma mark - 懒加载
@@ -50,7 +50,6 @@
         _listTableView.dataSource = self;
         _listTableView.showsVerticalScrollIndicator = NO;
         _listTableView.showsHorizontalScrollIndicator = NO;
-//        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:_listTableView];
         _listTableView.sd_layout
         .topSpaceToView(self.view, 0)
@@ -73,12 +72,10 @@
     self.title = @"邀请有奖";
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
-//    self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]],@[@[@"36654",@0],@[@"38554",@0],@[@"69885",@1],@[@"25669",@1]], nil];
     [self listTableView];
     self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     //自动更改透明度
     self.listTableView.mj_header.automaticallyChangeAlpha = YES;
- 
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -87,7 +84,6 @@
         //进入刷新状态
         [self.listTableView.mj_header beginRefreshing];
     }
-    
 }
 #pragma mark - 下拉刷新数据
 - (void)loadNewTopic
@@ -112,32 +108,18 @@
                     if([twoTim isEqualToString:nowTim]){
                         //2.将每个字典保存在模型数组中
                        InviteCodeModel *model = [InviteCodeModel statusWithDict:ordersDicTwo];
-                        [arr addObject:model];
+                       [arr addObject:model];
                     }
                 }
-                
                 [self.listDataArr addObject:arr];
             }
             [self.listTableView reloadData];
-            
         }else{
             [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
         }
     } failure:^(NSError *error) {
         
     }];
-//    [LYTools postBossDemoWithUrl:inviteList param:nil success:^(NSDictionary *dict) {
-//        NSLog(@"%@",dict);
-//        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-//        if ([respCode isEqualToString:@"00000"]) {
-//            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"编辑成功" withDuration:1.5];
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }else{
-//            [SVProgressHUD doAnyRemindWithHUDMessage:dict[@"msg"] withDuration:1.5];
-//        }
-//    } fail:^(NSError *error) {
-//
-//    }];
 }
 //去除数组中重复的
 -(NSArray *)arrayWithMemberIsOnly:(NSArray *)array
@@ -173,8 +155,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSArray *arr = self.listDataArr[section];
-    
-    return  arr.count;
+    return arr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -199,7 +180,6 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
         view.backgroundColor = colorWithRGB(0xEEEEEE);
 
@@ -221,13 +201,11 @@
         .heightIs(20);
         listLabel.font = [UIFont systemFontOfSize:15];
         listLabel.text = dateSectionArr[section];
-        
         return view;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 50;
-    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -247,8 +225,6 @@
         self.myQRBgview.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         [window addSubview:self.myQRBgview];
-        
-        
         [UIView animateWithDuration:.5 animations:^{
             self.myQRBgview.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         } completion:^(BOOL finished) {
@@ -270,7 +246,6 @@
             self.qrImageView.image = [self createQRImageWithString:@"1234" size:CGSizeMake(190, 190)];
             [self.bgview addSubview:self.qrImageView];
             
-            
             self.codeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.bgview.frame)+10, 260, 20)];
             self.codeLabel.text = [NSString stringWithFormat:@"邀请码: %@",codeModel.inviteCode];
             self.codeLabel.textAlignment = NSTextAlignmentCenter;
@@ -278,13 +253,9 @@
             self.codeLabel.textColor = [UIColor blackColor];
             [self.myQRBottomView addSubview:self.codeLabel];
             
-           
-            
-            
             self.lineview = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.codeLabel.frame)+19.5, 240, 1)];
             self.lineview.backgroundColor = colorWithRGB(0xEEEEEE);
             [self.myQRView addSubview:self.lineview];
-            
             
             self.cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.codeLabel.frame)+40, 100, 30)];
             [self.cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
@@ -306,11 +277,8 @@
             [self.myQRView addSubview:self.sendBtn];
             self.sendBtn.layer.cornerRadius = 6;
             self.sendBtn.layer.masksToBounds = YES;
-            
         }];
     }
-    
-    
 }
 - (void)cancelBtnAction
 {
@@ -333,9 +301,8 @@
         [self.cancelBtn removeFromSuperview];
         [self.sendBtn removeFromSuperview];
         [self.qrImageView removeFromSuperview];
-        
     } completion:^(BOOL finished) {
-        [ self.myQRBgview removeFromSuperview];
+        [self.myQRBgview removeFromSuperview];
         [self.myQRView removeFromSuperview];
     }];
 }
@@ -343,28 +310,21 @@
 - (void)sendBtnAction
 {
     NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.myQRBottomView], 1.0f);
-    
     NSArray*paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-    
     NSString *documentsDirectory=[paths objectAtIndex:0];
-    
     _savedImagePath = [documentsDirectory stringByAppendingPathComponent:@"saveFore.png"];
-    
     [imagedata writeToFile:_savedImagePath atomically:YES];
-    
     _docuController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:_savedImagePath]];
     _docuController.delegate = self;
     [_docuController presentOpenInMenuFromRect:CGRectZero inView:self.view animated:YES];
     [self cancelBtnAction];
-    
 }
 
 - (void)documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller
 {
     NSFileManager *manager = [NSFileManager defaultManager];
-     [manager removeItemAtPath:_savedImagePath error:nil];
+    [manager removeItemAtPath:_savedImagePath error:nil];
 }
-
 
 #pragma mark - 截取某视图的内容
 - (UIImage *)snapshotScreenInView:(UIView *)view

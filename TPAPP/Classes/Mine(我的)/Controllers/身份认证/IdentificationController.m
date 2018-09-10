@@ -13,7 +13,7 @@
 #import <CFNetwork/CFNetwork.h>
 #import <Foundation/NSObjCRuntime.h>
 #include <CoreFoundation/CFBase.h>
-#include <stddef.h>
+#import <NMSSH/NMSSH.h>
 @interface IdentificationController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
@@ -29,14 +29,6 @@
 @property (nonatomic, strong)UIImage *FacadeIDImage;
 @property (nonatomic, strong)UIImage *oppositeIDImage;
 
-//创建内部变量
-//内部变量
-@property (nonatomic, readonly)BOOL isSending;
-@property (nonatomic, strong)NSOutputStream *networkStream;
-@property (nonatomic, strong)NSInputStream *fileStream;
-@property (nonatomic, readonly)uint8_t *buffer;
-@property (nonatomic, assign)size_t bufferOffset;
-@property (nonatomic, assign)size_t bufferLimit;
 @end
 
 @implementation IdentificationController
@@ -44,6 +36,8 @@
     NSInteger _selectImageNum;
     NSString *_facadeImageFilePath;
     NSString *_oppositeImageFilePath;
+    NSString *_facadeImageName;
+    NSMutableArray *imageNameArr;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,9 +45,6 @@
     self.title = @"实名认证";
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     [self listTableView];
-    
-    
-    
 }
 #pragma mark - 懒加载
 -(NSMutableArray *)listDataArr
@@ -62,10 +53,6 @@
         _listDataArr = [NSMutableArray array];
     }
     return _listDataArr;
-}
-- (uint8_t *)buffer
-{
-    return self->_buffer;
 }
 #pragma mark - 创建tableview
 -(UITableView *)listTableView
@@ -112,6 +99,7 @@
         }
         headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [headerCell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+       
         UILabel *remindLabel = [[UILabel alloc] init];
         remindLabel.textColor = colorWithRGB(0xFF6B24);
         [headerCell.contentView addSubview:remindLabel];
@@ -177,6 +165,7 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        
         NSArray *listArr = @[@"真实姓名",@"身份证号"];
         UILabel *remindLabel = [[UILabel alloc] init];
         remindLabel.textColor = [UIColor blackColor];
@@ -189,7 +178,6 @@
         remindLabel.textAlignment = NSTextAlignmentLeft;
         remindLabel.font = [UIFont systemFontOfSize:16];
         remindLabel.text = listArr[indexPath.row];
-        
         if (indexPath.row == 0) {
             self.nameTextField = [[UITextField alloc] init];
             self.nameTextField.delegate = self;
@@ -212,7 +200,6 @@
             .rightEqualToView(cell.contentView)
             .bottomSpaceToView(cell.contentView, 0);
         }
-        
         return cell;
     }else{
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewThirdCell"];
@@ -222,6 +209,7 @@
         cell.contentView.backgroundColor = colorWithRGB(0xFF6B24);
         [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         self.nextBtn = [[UIButton alloc] init];
         self.nextBtn.backgroundColor = colorWithRGB(0xFF6B24);
         [self.nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -235,10 +223,9 @@
         .heightIs(50);
         self.nextBtn.layer.cornerRadius = 6;
         self.nextBtn.layer.masksToBounds = YES;
+        
         return cell;
     }
-    
-    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -248,7 +235,6 @@
     }else{
         [self.idNumberTextField becomeFirstResponder];
     }
-    
     return YES;
 }
 
@@ -262,270 +248,15 @@
 
 - (void)nextBtnAction
 {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyyMMddHHmmssSSS";
-    NSString *str = [formatter stringFromDate:[NSDate date]];
-    NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
-    // 创建文件管理器
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    //获取路径
-    //参数NSDocumentDirectory要获取那种路径
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-    NSString *documenDirectory = [paths objectAtIndex:0];//去处需要的路径
-    NSString *path = [documenDirectory stringByAppendingPathComponent:imageName];
-    BOOL isEXsit = [fileManager fileExistsAtPath:path];
-    if (isEXsit) {
-        [fileManager removeItemAtPath:path error:nil];
-        [fileManager createFileAtPath:path contents:nil attributes:nil];
-    }else {
-        [fileManager createFileAtPath:path contents:nil attributes:nil];
-    }
-    NSData *data = [[NSData alloc] init];
-    data = UIImageJPEGRepresentation(self.FacadeIDImage,0.5);
-    [data writeToFile:path atomically:YES];
-    _facadeImageFilePath = path;
-    [SVProgressHUD showWithStatus:@"身份证照片上传中..."];
-    [self uploadFacePicturesImage:_facadeImageFilePath];
-
-}
-#pragma mark - imagePickerController delegate
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    //获取到的图片
-    UIImage * image = [info valueForKey:UIImagePickerControllerEditedImage];
-    if (_selectImageNum == 1) {
-        self.facadeIDIsOK = YES;
-        self.FacadeIDImage = image;
-        [self.idZMBtn setBackgroundImage:image forState:UIControlStateNormal];
-    }else{
-       self.oppositeIDIsOK = YES;
-        self.oppositeIDImage = image;
-       [self.idFMBtn setBackgroundImage:image forState:UIControlStateNormal];
-    }
-    
-}
-
-- (void)idZMBtnAction
-{
-    _selectImageNum = 1;
-    
-    //创建UIImagePickerController对象，并设置代理和可编辑
-    UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.editing = YES;
-    imagePicker.delegate = self;
-    imagePicker.allowsEditing = YES;
-    //创建sheet提示框，提示选择相机还是相册
-//    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"请选择打开方式" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-//    //相机选项
-//    UIAlertAction * camera = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//
-//        //选择相机时，设置UIImagePickerController对象相关属性
-//        imagePicker.sourceType =  UIImagePickerControllerSourceTypeCamera;
-//        imagePicker.modalPresentationStyle = UIModalPresentationFullScreen;
-//        imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-//        imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-//        //跳转到UIImagePickerController控制器弹出相机
-//        [self presentViewController:imagePicker animated:YES completion:nil];
-//    }];
-    
-    //相册选项
-//    UIAlertAction * photo = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    
-        //选择相册时，设置UIImagePickerController对象相关属性
-        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        //跳转到UIImagePickerController控制器弹出相册
-        [self presentViewController:imagePicker animated:YES completion:nil];
-//    }];
-    
-    //取消按钮
-//    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    
-//        [self dismissViewControllerAnimated:YES completion:nil];
-//    }];
-    
-    //添加各个按钮事件
-//    [alert addAction:camera];
-//    [alert addAction:photo];
-//    [alert addAction:cancel];
-    
-    //弹出sheet提示框
-//    [self presentViewController:alert animated:YES completion:nil];
-}
-- (void)idFMBtnAction
-{
-    _selectImageNum = 2;
-    //创建UIImagePickerController对象，并设置代理和可编辑
-    UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.editing = YES;
-    imagePicker.delegate = self;
-    imagePicker.allowsEditing = YES;
-    
-    //创建sheet提示框，提示选择相机还是相册
-//    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"请选择打开方式" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    //相机选项
-//    UIAlertAction * camera = [UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    
-        //选择相机时，设置UIImagePickerController对象相关属性
-//        imagePicker.sourceType =  UIImagePickerControllerSourceTypeCamera;
-//        imagePicker.modalPresentationStyle = UIModalPresentationFullScreen;
-//        imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-//        imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-//        //跳转到UIImagePickerController控制器弹出相机
-//        [self presentViewController:imagePicker animated:YES completion:nil];
-//    }];
-    
-    //相册选项
-//    UIAlertAction * photo = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    
-        //选择相册时，设置UIImagePickerController对象相关属性
-        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        //跳转到UIImagePickerController控制器弹出相册
-        [self presentViewController:imagePicker animated:YES completion:nil];
-//    }];
-    
-    //取消按钮
-//    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    
-//        [self dismissViewControllerAnimated:YES completion:nil];
-//    }];
-    
-    //添加各个按钮事件
-//    [alert addAction:camera];
-//    [alert addAction:photo];
-//    [alert addAction:cancel];
-//
-//    //弹出sheet提示框
-//    [self presentViewController:alert animated:YES completion:nil];
-}
-- (void)uploadFacePicturesImage:(NSString *)imagePath{
-    
-    NSURL *url;//ftp服务器地址
-    NSString *filePath;//图片地址
-    NSString *account;//账号
-    NSString *password;//密码
-    CFWriteStreamRef ftpStream;
-    
-    //获得输入
-    NSString *urlStr = [NSString stringWithFormat:@"sftp://47.92.193.30"];
-    url = [NSURL URLWithString:urlStr];
-    //获得输入
-    filePath = imagePath;
-    account = @"root";
-    password = @"yb0820@!8";
-    CFReadStreamRef readRef;
-    UInt32 port = 22;
-    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)@"sftp://47.92.193.30", port, &readRef, &ftpStream);
-    self.fileStream = (__bridge NSInputStream *)readRef;
-    //添加后缀（文件名称）
-    url=CFBridgingRelease(CFURLCreateCopyAppendingPathComponent(NULL, (CFURLRef)url, (CFStringRef)[filePath lastPathComponent], false));
-    
-    //读取文件，转化为输入流
-    self.fileStream = [NSInputStream inputStreamWithFileAtPath:filePath];
-    [self.fileStream open];
-    
-    //为url开启CFFTPStream输出流
-    ftpStream = CFWriteStreamCreateWithFTPURL(NULL, (__bridge CFURLRef) url);
-    self.networkStream = (__bridge NSOutputStream *) ftpStream;
-    
-    //设置ftp账号密码
-    [self.networkStream setProperty:account forKey:(id)kCFStreamPropertyFTPUserName];
-    [self.networkStream setProperty:password forKey:(id)kCFStreamPropertyFTPPassword];
-    
-    //设置networkStream流的代理，任何关于networkStream的事件发生都会调用代理方法
-    self.networkStream.delegate = self;
-    
-    //设置runloop
-    [self.fileStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    [self.networkStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    [self.networkStream open];
-    
-    //完成释放链接
-    //    CFRelease(ftpStream);
-}
-- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
-{
-    //aStream 即为设置为代理的networkStream
-    switch (eventCode) {
-        case NSStreamEventOpenCompleted: {
-            //            NSLog(@"NSStreamEventOpenCompleted");
-        } break;
-        case NSStreamEventHasBytesAvailable: {
-            //            NSLog(@"NSStreamEventHasBytesAvailable");
-//            assert(NO);     // 在上传的时候不会调用
-        } break;
-        case NSStreamEventHasSpaceAvailable: {
-            //            NSLog(@"NSStreamEventHasSpaceAvailable");
-            //            NSLog(@"bufferOffset is %zd",self.bufferOffset);
-            //            NSLog(@"bufferLimit is %zu",self.bufferLimit);
-            if (self.bufferOffset == self.bufferLimit) {
-                NSInteger   bytesRead;
-                bytesRead = [self.fileStream read:self.buffer maxLength:kSendBufferSize];
-                if (bytesRead == -1) {
-                    //读取文件错误
-                    [self stopSendWithStatus:@"读取文件错误"];
-                } else if (bytesRead == 0) {
-                    //                    NSLog(@"UpLoad Success");
-                    //文件读取完成 上传完成
-                    [self stopSendWithStatus:nil];
-                } else {
-                    self.bufferOffset = 0;
-                    self.bufferLimit  = bytesRead;
-                }
-            }
-            if (self.bufferOffset != self.bufferLimit) {
-                //写入数据
-                NSInteger bytesWritten;//bytesWritten为成功写入的数据
-                bytesWritten = [self.networkStream write:&self.buffer[self.bufferOffset] maxLength:self.bufferLimit - self.bufferOffset];
-//                assert(bytesWritten != 0);
-                if (bytesWritten == -1) {
-                    [self stopSendWithStatus:@"网络写入错误"];
-                } else {
-                    self.bufferOffset += bytesWritten;
-                }
-            }
-        } break;
-        case NSStreamEventErrorOccurred: {
-            [self stopSendWithStatus:@"Stream打开错误"];
-//            assert(NO);
-        } break;
-        case NSStreamEventEndEncountered: {
-            // 忽略
-        } break;
-        default: {
-//            assert(NO);
-        } break;
-    }
-}
-- (void)stopSendWithStatus:(NSString *)statusString
-{
-    if (self.networkStream != nil) {
-        [self.networkStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-        self.networkStream.delegate = nil;
-        [self.networkStream close];
-        self.networkStream = nil;
-    }
-    if (self.fileStream != nil) {
-        [self.fileStream close];
-        self.fileStream = nil;
-    }
-    [self sendDidStopWithStatus:statusString];
-}
--(void)sendDidStopWithStatus:(NSString *)statusString
-{
-    if (statusString == nil) {
-        if (_facadeImageFilePath.length != 0 && _oppositeImageFilePath.length == 0) {
-            // 删除保存的图片
-            [[NSFileManager defaultManager] removeItemAtPath:_facadeImageFilePath error:nil];
-            [self performSelector:@selector(repeatDelay) withObject:nil afterDelay:0.5f];
-//            VipVo *vip = KGetVip;
+    if (_facadeIDIsOK && _oppositeIDIsOK&&self.nameTextField.text.length > 0 && self.idNumberTextField.text.length > 0) {
+        imageNameArr = [NSMutableArray array];
+        NSArray *fileArr = @[self.FacadeIDImage,self.oppositeIDImage];
+        for (UIImage *image in fileArr) {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyyMMddHHmmssSSS";
             NSString *str = [formatter stringFromDate:[NSDate date]];
             NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
+            [imageNameArr addObject:[NSString stringWithFormat:@"http://47.92.193.30/images/%@",imageName]];
             // 创建文件管理器
             NSFileManager *fileManager = [NSFileManager defaultManager];
             //获取路径
@@ -541,29 +272,97 @@
                 [fileManager createFileAtPath:path contents:nil attributes:nil];
             }
             NSData *data = [[NSData alloc] init];
-            data = UIImageJPEGRepresentation(self.FacadeIDImage,0.5);
+            data = UIImageJPEGRepresentation(image,0.5);
             [data writeToFile:path atomically:YES];
-            _oppositeImageFilePath = path;
-//            vip.cardReverseImg = [NSString stringWithFormat:@"http://175.41.24.2/images/%@",[_oppositeImageFilePath lastPathComponent]];
-            [self uploadFacePicturesImage:_oppositeImageFilePath];
-//            KSavePath(vip);
-        }else if (_facadeImageFilePath.length != 0 && _oppositeImageFilePath.length != 0){
-            // 删除保存的图片
-            [[NSFileManager defaultManager] removeItemAtPath:_oppositeImageFilePath error:nil];
-            [SVProgressHUD showSuccessWithStatus:@"身份证照片上传成功！"];
-            _oppositeImageFilePath = nil;
-            _facadeImageFilePath = nil;
-//            VipVo *vip = KGetVip;
-//            LoanDetailViewController *loanVc = [[LoanDetailViewController alloc] init];
-//            loanVc.vip = vip;
-//            loanVc.bankNo = self.bankCardTextField.text;
-//            loanVc.bankName = [[BankTypeManager shareManager] bankType:[[self.bankCardTextField.text componentsSeparatedByString:@" "] componentsJoinedByString:@""]];
-//            [self.navigationController pushViewController:loanVc animated:YES];
+            _facadeImageFilePath = path;
+            
+            NMSSHSession *session = [NMSSHSession connectToHost:@"47.92.193.30" port:22 withUsername:@"root"];
+            if (session.isConnected) {
+                [session authenticateByPassword:@"yb0820@!8"];
+                if (session.isAuthorized) {
+                    NSLog(@"Authentication succeeded");
+                }
+            }
+            NSError *error = nil;
+            NSString *response = [session.channel execute:@"ls -l /usr/local/files/" error:&error];
+            NSLog(@"List of my sites: %@", response);
+            BOOL success = [session.channel uploadFile:_facadeImageFilePath to:@"/usr/local/files/images/"];
+            if (success) {
+                NSLog(@"上传成功");
+                if (_facadeImageFilePath.length > 0) {
+                    [fileManager removeItemAtPath:_facadeImageFilePath error:nil];
+                }else if (_oppositeImageFilePath.length > 0){
+                    [fileManager removeItemAtPath:_oppositeImageFilePath error:nil];
+                }
+                if (imageNameArr.count == 2) {
+                    LYAccount *account = [LYAccount shareAccount];
+                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+                    [dic setValue:account.id forKey:@"id"];
+                    [dic setValue:@"1" forKey:@"realName"];
+                    [dic setValue:self.nameTextField.text forKey:@"trueName"];
+                    [dic setValue:self.idNumberTextField.text forKey:@"identit"];
+                    [dic setValue:imageNameArr[0] forKey:@"identitPicZ"];
+                    [dic setValue:imageNameArr[1] forKey:@"identitPicF"];
+                    [[NetworkManager sharedManager]postWithUrl:uploadIdeniti param:dic success:^(id json) {
+                        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+                        if ([respCode isEqualToString:@"00000"]) {
+                            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"身份证信息上传成功" withDuration:1.5];
+                        }else{
+                            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                        }
+                    } failure:^(NSError *error) {
+                        
+                    }];
+                }
+            }else{
+                NSLog(@"上传失败");
+            }
+            [session disconnect];
         }
     }
 }
-- (void)repeatDelay
+#pragma mark - imagePickerController delegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    //获取到的图片
+    UIImage * image = [info valueForKey:UIImagePickerControllerEditedImage];
+    if (_selectImageNum == 1) {
+        self.facadeIDIsOK = YES;
+        self.FacadeIDImage = image;
+        [self.idZMBtn setBackgroundImage:image forState:UIControlStateNormal];
+    }else{
+       self.oppositeIDIsOK = YES;
+        self.oppositeIDImage = image;
+       [self.idFMBtn setBackgroundImage:image forState:UIControlStateNormal];
+    }
+}
+
+- (void)idZMBtnAction
 {
+    _selectImageNum = 1;
+    //创建UIImagePickerController对象，并设置代理和可编辑
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.editing = YES;
+    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    //选择相册时，设置UIImagePickerController对象相关属性
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    //跳转到UIImagePickerController控制器弹出相册
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+- (void)idFMBtnAction
+{
+    _selectImageNum = 2;
+    //创建UIImagePickerController对象，并设置代理和可编辑
+    UIImagePickerController * imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.editing = YES;
+    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    //选择相册时，设置UIImagePickerController对象相关属性
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    //跳转到UIImagePickerController控制器弹出相册
+    [self presentViewController:imagePicker animated:YES completion:nil];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -580,12 +379,10 @@
     if (section == 0) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 15)];
         view.backgroundColor = colorWithRGB(0xEEEEEE);
-        
         return view;
     }else if (section == 1){
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
         view.backgroundColor = colorWithRGB(0xEEEEEE);
-        
         return view;
     }else{
         return nil;
@@ -598,13 +395,13 @@
     }else{
         return 0;
     }
-    
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section == 1) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
         view.backgroundColor = [UIColor whiteColor];
+        
         UIView *lineView = [[UIView alloc] init];
         [view addSubview:lineView];
         lineView.backgroundColor = colorWithRGB(0xbfbfbf);
@@ -633,7 +430,6 @@
         listLabel.font = [UIFont systemFontOfSize:15];
         listLabel.text = @"确认身份证信息";
         return view;
-        
     }else {
        return nil;
     }
@@ -646,7 +442,6 @@
     }else{
         return 50;
     }
-    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

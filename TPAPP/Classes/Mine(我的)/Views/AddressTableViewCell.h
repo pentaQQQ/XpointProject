@@ -19,7 +19,7 @@
 @property (nonatomic,strong)UIView *lineView;
 @property (nonatomic,strong)UIButton *editBtn;
 @property (nonatomic,strong)UILabel *defaultLabel;
-@property (nonatomic,strong)UIImageView *defaultImageView;
+@property (nonatomic,strong)UIButton *defaultImageView;
 @property (nonatomic,strong)void(^selectBlcok)(NSInteger, AddressModel *);
 @property (nonatomic,strong)AddressModel *addressModel;
 - (void)configWithModel:(AddressModel *)model;

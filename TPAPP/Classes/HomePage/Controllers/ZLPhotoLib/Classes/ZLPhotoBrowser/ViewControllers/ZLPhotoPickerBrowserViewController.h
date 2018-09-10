@@ -79,7 +79,8 @@
 - (void)showHeadPortrait:(UIImageView *)toImageView;
 // 放大缩小一张图片的情况下（查看头像）/ 缩略图是toImageView.image 原图URL
 - (void)showHeadPortrait:(UIImageView *)toImageView originUrl:(NSString *)originUrl;
-
+// 单击时执行销毁的block
+@property (nonatomic , copy) void(^selectImagesClick)(NSString *);
 // @function
 // 展示控制器
 - (void)showPickerVc:(UIViewController *)vc;

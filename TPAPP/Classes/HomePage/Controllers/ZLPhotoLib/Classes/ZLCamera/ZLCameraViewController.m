@@ -338,6 +338,9 @@ static CGFloat BOTTOM_HEIGHT = 60;
     browserVc.delegate = self;
     browserVc.currentIndex = indexPath.item;
     [self presentViewController:browserVc animated:NO completion:nil];
+    [browserVc setSelectImagesClick:^(NSString *num) {
+        
+    }];
 }
 
 - (void)deleteImageView:(ZLCameraImageView *)imageView{

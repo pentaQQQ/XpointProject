@@ -13,6 +13,7 @@
 #import "MMImagePreviewView.h"
 #import "imagesListModel.h"
 #import "specsModel.h"
+#import "ZLPhotoPickerBrowserViewController.h"
 @interface DeleteGoodsListController ()<UITableViewDelegate,UITableViewDataSource,SelectedReBuyDelegate>
 @property (nonatomic, strong)UITableView *cartTableView;
 @property (nonatomic, strong)NSMutableArray *dataSource;
@@ -25,6 +26,7 @@
 {
     MMImagePreviewView *_previewView;
     MMImageView *selectImage;
+    BOOL isPreview;
 }
 #pragma mark - 懒加载
 -(NSMutableArray *)dataSource
@@ -56,11 +58,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if ([self.cartTableView.mj_header isRefreshing]) {
-        [self.cartTableView.mj_header endRefreshing];
+    if (isPreview) {
+        isPreview = NO;
+    }else{
+        if ([self.cartTableView.mj_header isRefreshing]) {
+            [self.cartTableView.mj_header endRefreshing];
+        }
+        //进入刷新状态
+        [self.cartTableView.mj_header beginRefreshing];
     }
-    //进入刷新状态
-    [self.cartTableView.mj_header beginRefreshing];
     
 }
 - (void)loadData
@@ -156,12 +162,36 @@
 }
 -(void)SelectedLookImageListCell:(DeleteGoodsListCell *)cell
 {
-    _previewView = [[MMImagePreviewView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // 更新视图数据
-    NSInteger count = cell.detailModel.productForm.imagesList.count;
-    _previewView.pageNum = count;
-    _previewView.scrollView.contentSize = CGSizeMake(_previewView.width*count, _previewView.height);
-    [self singleTapSmallViewCallback:cell];
+//    _previewView = [[MMImagePreviewView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    // 更新视图数据
+//    NSInteger count = cell.detailModel.productForm.imagesList.count;
+//    _previewView.pageNum = count;
+//    _previewView.scrollView.contentSize = CGSizeMake(_previewView.width*count, _previewView.height);
+//    [self singleTapSmallViewCallback:cell];
+    // 图片游览器
+    ZLPhotoPickerBrowserViewController *pickerBrowser = [[ZLPhotoPickerBrowserViewController alloc] init];
+    // 数据源/delegate
+    NSMutableArray * ZLPhotosArry = [NSMutableArray array];
+    int imagecount = (int)cell.detailModel.productForm.imagesList.count;
+    for (int i = 0; i<imagecount; i++) {
+        imagesListModel*model = cell.detailModel.productForm.imagesList[i];
+        ZLPhotoPickerBrowserPhoto *photo1 = [[ZLPhotoPickerBrowserPhoto alloc] init];
+        photo1.photoURL = [NSURL URLWithString:model.imgUrl];;
+        [ZLPhotosArry addObject:photo1];
+    }
+    // 数据源可以不传，传photos数组 photos<里面是ZLPhotoPickerBrowserPhoto>
+    pickerBrowser.photos = ZLPhotosArry;
+    //    pickerBrowser.dataSource = self;
+    // 是否可以删除照片
+    //    pickerBrowser.editing = YES;
+    // 当前选中的值
+    pickerBrowser.currentIndex = 0;
+    pickerBrowser.status = UIViewAnimationAnimationStatusZoom;
+    // 展示控制器
+    [pickerBrowser showPickerVc:[UIApplication sharedApplication].keyWindow.rootViewController];
+    [pickerBrowser setSelectImagesClick:^(NSString *selectString) {
+        isPreview = YES;
+    }];
 }
 #pragma mark - 小图单击
 - (void)singleTapSmallViewCallback:(DeleteGoodsListCell *)cell

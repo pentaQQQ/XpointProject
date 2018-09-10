@@ -55,7 +55,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUpTableview];
     
-    
     [self lodaData];
     [self lodaHuodongData];
 }

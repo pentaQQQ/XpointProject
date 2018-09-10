@@ -52,6 +52,7 @@
         SelectedStoreBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(SelectedCircelBtn.frame) + 5, 12.5, 200, 15)];
         [SelectedStoreBtn setTitle:[NSString stringWithFormat:@"韩SHOW潮流男装%ld >",_Section] forState:UIControlStateNormal];
         [SelectedStoreBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [SelectedStoreBtn addTarget:self action:@selector(SlelctedAll) forControlEvents:UIControlEventTouchUpInside];
         SelectedStoreBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         SelectedStoreBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
         SelectedStoreBtn.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -65,6 +66,8 @@
 //        EditBtn.titleLabel.font = [UIFont systemFontOfSize:13];
 //        [self addSubview:EditBtn];
 //
+        UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(SlelctedAll)];
+        [self addGestureRecognizer:tapGes];
     }
     return self;
 }
