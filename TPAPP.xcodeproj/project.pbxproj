@@ -132,6 +132,8 @@
 		012997CB2139267200ADE72B /* GoodLogisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997C02139267200ADE72B /* GoodLogisticsModel.m */; };
 		015A411B21402135008EC232 /* GoodsCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A411A21402135008EC232 /* GoodsCartModel.m */; };
 		017888A521359FD400C17F07 /* CustomerReCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 017888A421359FD400C17F07 /* CustomerReCell.m */; };
+		0189891C21453B81003F9DD0 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0189891B21453B80003F9DD0 /* CoreFoundation.framework */; };
+		0189891E21453B91003F9DD0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0189891D21453B91003F9DD0 /* Foundation.framework */; };
 		01944F7D213CE4BA00831504 /* XYNoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01944F77213CE4B900831504 /* XYNoDataView.m */; };
 		01944F7E213CE4BA00831504 /* UICollectionView+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 01944F7A213CE4B900831504 /* UICollectionView+XY.m */; };
 		01944F7F213CE4BA00831504 /* UITableView+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 01944F7B213CE4BA00831504 /* UITableView+XY.m */; };
@@ -647,6 +649,8 @@
 		015A411A21402135008EC232 /* GoodsCartModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodsCartModel.m; sourceTree = "<group>"; };
 		017888A321359FD400C17F07 /* CustomerReCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerReCell.h; sourceTree = "<group>"; };
 		017888A421359FD400C17F07 /* CustomerReCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerReCell.m; sourceTree = "<group>"; };
+		0189891B21453B80003F9DD0 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		0189891D21453B91003F9DD0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		01944F77213CE4B900831504 /* XYNoDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYNoDataView.m; sourceTree = "<group>"; };
 		01944F78213CE4B900831504 /* UITableView+XY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+XY.h"; sourceTree = "<group>"; };
 		01944F79213CE4B900831504 /* UICollectionView+XY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+XY.h"; sourceTree = "<group>"; };
@@ -1104,6 +1108,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0189891E21453B91003F9DD0 /* Foundation.framework in Frameworks */,
+				0189891C21453B81003F9DD0 /* CoreFoundation.framework in Frameworks */,
 				011F47FF213FC3D10070ABA2 /* QuartzCore.framework in Frameworks */,
 				8E3E6D472138D52F007B3306 /* libc++.tbd in Frameworks */,
 				8E3E6D452138D526007B3306 /* SystemConfiguration.framework in Frameworks */,
@@ -3048,6 +3054,8 @@
 		D63B1E6C203BBED43C75CC97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0189891D21453B91003F9DD0 /* Foundation.framework */,
+				0189891B21453B80003F9DD0 /* CoreFoundation.framework */,
 				011F47FE213FC3D10070ABA2 /* QuartzCore.framework */,
 				8E3E6D462138D52F007B3306 /* libc++.tbd */,
 				8E3E6D442138D526007B3306 /* SystemConfiguration.framework */,
@@ -3132,7 +3140,6 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -3782,7 +3789,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9MHQLQBTW8;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3832,7 +3839,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9MHQLQBTW8;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

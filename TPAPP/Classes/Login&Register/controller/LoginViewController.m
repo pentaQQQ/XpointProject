@@ -81,7 +81,7 @@
             
             
         }else{
-            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
         }
     } failure:^(NSError *error) {
         

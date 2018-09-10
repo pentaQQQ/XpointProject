@@ -71,14 +71,15 @@
 #pragma mark - 获取数据列表
 - (void)loadNewTopic
 {
-    [[NetworkManager sharedManager] getWithUrl:[NSString stringWithFormat:@"%@/%@",getOrderReturnsList,[LYAccount shareAccount].id] param:nil success:^(id json) {
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    [[NetworkManager sharedManager] getWithUrl:[NSString stringWithFormat:@"%@/%@",getOrderReturnsList,lyAccount.id] param:nil success:^(id json) {
         NSLog(@"%@",json);
         [self.listTableView.mj_header endRefreshing];
         if ([json[@"respCode"] isEqualToString:@"00000"]) {
             
             
         }else if ([json[@"code"] longValue] == 500){
-            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
         }
     } failure:^(NSError *error) {
         

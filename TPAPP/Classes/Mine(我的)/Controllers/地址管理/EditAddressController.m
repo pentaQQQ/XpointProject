@@ -98,7 +98,7 @@
                                 [SVProgressHUD doAnythingSuccessWithHUDMessage:@"编辑成功" withDuration:1.5];
                                 [self.navigationController popViewControllerAnimated:YES];
                             }else{
-                                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
+                                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                             }
                         } fail:^(NSError *error) {
                             
@@ -117,7 +117,7 @@
             [SVProgressHUD doAnythingSuccessWithHUDMessage:@"删除成功" withDuration:1.5];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
-            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
         }
     } failure:^(NSError *error) {
         

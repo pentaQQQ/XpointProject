@@ -67,7 +67,8 @@
 {
     [self.dataSource removeAllObjects];
     NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
-    [dataDict setValue:[LYAccount shareAccount].id forKey:@"userId"];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    [dataDict setValue:lyAccount.id forKey:@"userId"];
     [dataDict setValue:@"1" forKey:@"status"];
     [LYTools postBossDemoWithUrl:cartList param:dataDict success:^(NSDictionary *dict) {
         [self.cartTableView.mj_header endRefreshing];
@@ -77,7 +78,7 @@
             [self.dataSource addObjectsFromArray:self.goodsCartModel.cartDetails];
             [self.cartTableView reloadData];
         }else if([dict[@"code"]longValue] == 500){
-            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
         }
     } fail:^(NSError *error) {
         
@@ -139,14 +140,15 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:cell.detailModel.productId forKey:@"productId"];
     [dic setValue:cell.detailModel.size forKey:@"size"];
-    [dic setValue:[LYAccount shareAccount].id forKey:@"userId"];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    [dic setValue:lyAccount.id forKey:@"userId"];
     [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
         NSLog(@"%@",dict);
         NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
         }else{
-            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
         }
     } fail:^(NSError *error) {
 

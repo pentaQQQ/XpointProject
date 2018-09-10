@@ -93,7 +93,8 @@
                     if ([self.dataDict[@"recIdentityCardNo"] length] == 0) {
                         
                     }else{
-                        [self.dataDict addEntriesFromDictionary:@{@"userId":[LYAccount shareAccount].id}];
+                        LYAccount *lyAccount = [LYAccount shareAccount];
+                        [self.dataDict addEntriesFromDictionary:@{@"userId":lyAccount.id}];
                         [self.dataDict addEntriesFromDictionary:@{@"isGeneration":@"0"}];
                         [LYTools postBossDemoWithUrl:saveAddress param:self.dataDict success:^(NSDictionary *dict) {
                             NSLog(@"%@",dict);
@@ -101,7 +102,7 @@
                             if ([respCode isEqualToString:@"00000"]) {
                                 [SVProgressHUD doAnythingSuccessWithHUDMessage:@"新建成功" withDuration:1.5];
                             }else{
-                                [SVProgressHUD doAnythingSuccessWithHUDMessage:dict[@"msg"] withDuration:1.5];
+                                [SVProgressHUD doAnythingSuccessWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                             }
                         } fail:^(NSError *error) {
 
