@@ -349,7 +349,6 @@
 
 -(void)existBoard{
     
-    
     [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
     LoginViewController*vc = [[LoginViewController alloc]init];
     RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
