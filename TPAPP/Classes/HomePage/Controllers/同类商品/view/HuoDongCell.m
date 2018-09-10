@@ -1,16 +1,18 @@
 //
-//  goodsDetailCell.m
+//  HuoDongCell.m
 //  TPAPP
 //
-//  Created by 崔文龙 on 2018/8/20.
+//  Created by 崔文龙 on 2018/9/9.
 //  Copyright © 2018年 cbl－　点硕. All rights reserved.
 //
 
-#import "goodsDetailCell.h"
+#import "HuoDongCell.h"
+
 #import "ZLPhotoPickerBrowserViewController.h"
 #import "imagesListModel.h"
 #import "UIButton+WebCache.h"
-@implementation goodsDetailCell
+
+@implementation HuoDongCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -19,9 +21,12 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    
+
     // Configure the view for the selected state
 }
+
+
+
 -(void)setImageview:(UIImageView *)imageview{
     _imageview = imageview;
     ViewBorderRadius(imageview, 5, 1, [UIColor lightGrayColor]);
@@ -45,29 +50,24 @@
 }
 
 
--(void)setModel:(releaseActivitiesModel *)model{
+-(void)setModel:(SimilarProductModel *)model{
     _model = model;
     
     [self.imageview sd_setImageWithURL:[NSURL URLWithString:model.merchantUrL]];
     
     self.title.text = model.merchantName;
     self.content.text = model.context;
-//    self.beginTime.text = model.beginTime;
+    //    self.beginTime.text = model.beginTime;
     self.endtime.text = model.endTime;
     
     
-    [self setImagewithArray:model.imagesList];
+  
     
     if ([model.typeac isEqualToString:@"0"]) {
-        [self.zhuanfaBtn setTitle:@"分享整场活动" forState:UIControlStateNormal];
+        [self.zhuanfaBtn setTitle:@"批量转发" forState:UIControlStateNormal];
     }else{
-         [self.zhuanfaBtn setTitle:@"转发" forState:UIControlStateNormal];
+        [self.zhuanfaBtn setTitle:@"转发" forState:UIControlStateNormal];
     }
-    
-    
-    
-    
-    
     
     
     int tmp = self.model.imagesList.count % 3;
@@ -76,7 +76,7 @@
     row += tmp == 0 ? 0:1;
     self.pictureViewHigh.constant = (width+5)*row;
     
-    
+    [self setImagewithArray:model.imagesList];
     
     
     CGFloat high = [LYTools getHeighWithTitle:model.context font:[UIFont systemFontOfSize:14] width:kScreenWidth-70];
@@ -108,7 +108,7 @@
                 UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake((width+5)*j, (5+high)*i,  width, high)];
                 
                 [self.pictureView addSubview:btn];
-              
+                
                 
                 btn.tag = k;
                 
@@ -117,7 +117,9 @@
                 imagesListModel *model =array[k];
                 
                 [btn sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] forState:UIControlStateNormal];
-    
+                
+           
+                
             }
         }
     }
@@ -166,23 +168,22 @@
 
 
 
-- (IBAction)qianggouBtnClick:(id)sender {
-    if (self.qianggouBlock) {
-        self.qianggouBlock(self.model);
-    }
-}
-
-
-
-- (IBAction)zhuanfaBtnClick:(id)sender {
-    
-    if (self.zhuanfaBlock) {
-        self.zhuanfaBlock(self.model);
-    }
-    
-    
-}
-
+//- (IBAction)qianggouBtnClick:(id)sender {
+//    if (self.qianggouBlock) {
+//        self.qianggouBlock(self.model);
+//    }
+//}
+//
+//
+//
+//- (IBAction)zhuanfaBtnClick:(id)sender {
+//
+//    if (self.zhuanfaBlock) {
+//        self.zhuanfaBlock(self.model);
+//    }
+//
+//
+//}
 
 
 

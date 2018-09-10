@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface releaseActivitiesModel : NSObject<MJKeyValue>
+
 @property(nonatomic,copy)NSString *beginTime;
 @property(nonatomic,copy)NSString *context;
 @property(nonatomic,copy)NSString *endTime;

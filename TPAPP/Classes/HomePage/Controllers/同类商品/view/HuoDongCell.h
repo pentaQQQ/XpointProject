@@ -1,15 +1,14 @@
 //
-//  goodsDetailCell.h
+//  HuoDongCell.h
 //  TPAPP
 //
-//  Created by 崔文龙 on 2018/8/20.
+//  Created by 崔文龙 on 2018/9/9.
 //  Copyright © 2018年 cbl－　点硕. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "releaseActivitiesModel.h"
-
-@interface goodsDetailCell : UITableViewCell
+#import "SimilarProductModel.h"
+@interface HuoDongCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageview;
 
 @property (weak, nonatomic) IBOutlet UILabel *title;
@@ -35,10 +34,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHigh;
 
 
-@property(nonatomic,strong)releaseActivitiesModel*model;
+@property(nonatomic,strong)SimilarProductModel*model;
 
-@property(nonatomic,copy)void(^qianggouBlock)(releaseActivitiesModel*model);
+//@property(nonatomic,copy)void(^qianggouBlock)(releaseActivitiesModel*model);
 
-@property(nonatomic,copy)void(^zhuanfaBlock)(releaseActivitiesModel*model);
+//@property(nonatomic,copy)void(^zhuanfaBlock)(releaseActivitiesModel*model);
 
 @end

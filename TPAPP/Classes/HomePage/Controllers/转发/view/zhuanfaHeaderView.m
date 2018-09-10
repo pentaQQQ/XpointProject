@@ -331,6 +331,17 @@
         [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
         [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
         
+    }else{
+        
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        imagesListModel *model3 =array[2];
+        imagesListModel *model4 =array[3];
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
     }
     
     
@@ -346,7 +357,8 @@
 -(void)getTheUserForwardConfiSuccess:(void(^)(zhuanfaModel*model))success{
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    NSString *userId = [NSString stringWithFormat:@"%@",[LYAccount shareAccount].id];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    NSString *userId = [NSString stringWithFormat:@"%@",lyAccount.id];
     [dic setValue:userId forKey:@"userId"];
     
     [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
@@ -546,8 +558,6 @@
 }
 
 
-
-
 -(void)tap{
     
     [self.jineview removeFromSuperview];
@@ -557,17 +567,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+//存储转发设置
 -(void)setZhuanfaDataWithdefaultImg:(NSString*)defaultImg{
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -579,7 +579,8 @@
     [dic setValue:self.zhuanfamodel.lackSize forKey:@"lackSize"];
     [dic setValue:self.zhuanfamodel.num forKey:@"num"];
     [dic setValue:self.zhuanfamodel.price forKey:@"price"];
-    [dic setValue:[LYAccount shareAccount].id forKey:@"userId"];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    [dic setValue:lyAccount.id forKey:@"userId"];
     
     
     [LYTools postBossDemoWithUrl:updateUserForwardConfi param:dic success:^(NSDictionary *dict) {
@@ -594,6 +595,7 @@
         
         
     } fail:^(NSError *error) {
+        
         
         
     }];

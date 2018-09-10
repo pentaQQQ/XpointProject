@@ -374,14 +374,15 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:model.productId forKey:@"productId"];
     [dic setValue:model.size forKey:@"size"];
-    [dic setValue:[LYAccount shareAccount].id forKey:@"userId"];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    [dic setValue:lyAccount.id forKey:@"userId"];
     [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
         NSLog(@"%@",dict);
         NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
         }else{
-            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
         }
     } fail:^(NSError *error) {
         

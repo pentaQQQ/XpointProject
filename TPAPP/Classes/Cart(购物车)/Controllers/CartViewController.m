@@ -89,7 +89,8 @@
 - (void)loadNewTopic
 {
     NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
-    [dataDict setValue:[LYAccount shareAccount].id forKey:@"userId"];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    [dataDict setValue:lyAccount.id forKey:@"userId"];
     [dataDict setValue:@"0" forKey:@"status"];
     [LYTools postBossDemoWithUrl:cartList param:dataDict success:^(NSDictionary *dict) {
 //        NSLog(@"%@",dict);
@@ -144,7 +145,7 @@
             [_CartTableView reloadData];
             NSLog(@"%@",self.dataSource);
         }else if([dict[@"code"]longValue] == 500){
-            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
         }
     } fail:^(NSError *error) {
         
@@ -380,7 +381,7 @@
         return 155;
 //        return 120;
     }else{
-      return 175;
+      return 160;
     }
 }
 //有多少section
@@ -536,7 +537,7 @@
                         [_CartTableView reloadData];
                     }
                 }else if([dict[@"code"]longValue] == 500){
-                    [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
+                    [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                 }
             } fail:^(NSError *error) {
 
@@ -1017,7 +1018,7 @@
                     cell.RemarksLabel.text = [NSString stringWithFormat:@"备注:%@",alertView.textView.text];
                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"成功添加备注" withDuration:1.5];
                 }else if([dict[@"code"]longValue] == 500){
-                    [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"msg"] withDuration:1.5];
+                    [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                 }
             } fail:^(NSError *error) {
                 
