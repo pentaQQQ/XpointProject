@@ -36,8 +36,7 @@
 
 @property(nonatomic,strong)SimilarProductModel*model;
 
-//@property(nonatomic,copy)void(^qianggouBlock)(releaseActivitiesModel*model);
 
-//@property(nonatomic,copy)void(^zhuanfaBlock)(releaseActivitiesModel*model);
+@property(nonatomic,copy)void(^zhuanfaBlock)(SimilarProductModel*model);
 
 @end

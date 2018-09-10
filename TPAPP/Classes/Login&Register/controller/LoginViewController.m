@@ -138,6 +138,7 @@
 
 
 
+
 //获取用户信息
 -(void)getPeopleInfomation{
     
