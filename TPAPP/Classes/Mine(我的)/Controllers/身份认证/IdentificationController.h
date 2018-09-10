@@ -8,14 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
-#import <CFNetwork/CFNetwork.h>
-#import <Foundation/Foundation.h>
-enum {
-    kSendBufferSize = 32768
-};
+@interface IdentificationController : BaseViewController
 
-@interface IdentificationController : BaseViewController<NSStreamDelegate>
-{
-    uint8_t _buffer[kSendBufferSize];
-}
 @end

@@ -86,15 +86,26 @@
     .rightSpaceToView(self.contentView, 0)
     .heightIs(1);
     
-    self.defaultImageView = [[UIImageView alloc] init];
-    UIImage *image1 = [UIImage imageNamed:@"icon_close"];
-    self.defaultImageView.image = image1;
+    self.defaultImageView = [[UIButton alloc] init];
+    [self.defaultImageView addTarget:self action:@selector(defaultImageViewAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.defaultImageView setImage:[UIImage imageNamed:@"icon_close"] forState:UIControlStateNormal];
     [self.contentView addSubview:self.defaultImageView];
+    UIImage *image1 = [UIImage imageNamed:@"icon_close"];
     self.defaultImageView.sd_layout
     .topSpaceToView(self.lineView, 10)
     .rightSpaceToView(self.contentView, 20)
     .widthIs(20*(image1.size.width/image1.size.height))
     .heightIs(20);
+    
+//    self.defaultImageView = [[UIImageView alloc] init];
+//    UIImage *image1 = [UIImage imageNamed:@"icon_close"];
+//    self.defaultImageView.image = image1;
+//    [self.contentView addSubview:self.defaultImageView];
+//    self.defaultImageView.sd_layout
+//    .topSpaceToView(self.lineView, 10)
+//    .rightSpaceToView(self.contentView, 20)
+//    .widthIs(20*(image1.size.width/image1.size.height))
+//    .heightIs(20);
    
     self.defaultLabel = [[UILabel alloc] init];
     self.defaultLabel.text = @"默认";
@@ -123,6 +134,10 @@
     self.editBtn.layer.cornerRadius = 3;
     self.editBtn.layer.masksToBounds = YES;
     
+}
+- (void)defaultImageViewAction:(UIButton *)btn
+{
+    self.selectBlcok(1,self.addressModel);
 }
 -(void)editBtnAction:(UIButton *)btn
 {
@@ -164,10 +179,12 @@
 //    self.detailAddressLabel.adjustsFontSizeToFitWidth = YES;
     if ([model.isDefault intValue] == 1) {
        self.statusImageView.image = [UIImage imageNamed:@"已选中"];
-        self.defaultImageView.image = [UIImage imageNamed:@"icon_open"];
+//        self.defaultImageView.image = [UIImage imageNamed:@"icon_open"];
+        [self.defaultImageView setImage:[UIImage imageNamed:@"icon_open"] forState:UIControlStateNormal];
     }else{
         self.statusImageView.image = [UIImage imageNamed:@"未选中"];
-        self.defaultImageView.image = [UIImage imageNamed:@"icon_close"];
+//        self.defaultImageView.image = [UIImage imageNamed:@"icon_close"];
+        [self.defaultImageView setImage:[UIImage imageNamed:@"icon_close"] forState:UIControlStateNormal];
     }
 }
 

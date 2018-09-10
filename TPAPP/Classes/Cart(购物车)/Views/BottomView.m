@@ -19,6 +19,7 @@
     UIButton *SelectedAll;
     UILabel *label2;
     UILabel *AllPrice;
+    UIButton *BalanceAccount;
 }
 @end
 
@@ -47,7 +48,7 @@
         [self addSubview:label1];
         
         //结算
-        UIButton *BalanceAccount = [UIButton buttonWithType:UIButtonTypeCustom];
+        BalanceAccount = [UIButton buttonWithType:UIButtonTypeCustom];
         [BalanceAccount setTitle:@"结算" forState:UIControlStateNormal];
         [BalanceAccount setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         BalanceAccount.backgroundColor = colorWithRGB(0xFF6B24);
@@ -131,6 +132,13 @@
     if (index2 == index1 ) {
         [SelectedAll setImage:Image(@"已选中") forState:UIControlStateNormal];
     }
+    if (index2 > 0) {
+        BalanceAccount.backgroundColor = colorWithRGB(0xFF6B24);
+        BalanceAccount.userInteractionEnabled = YES;
+    }else{
+        BalanceAccount.backgroundColor = [UIColor lightGrayColor];
+        BalanceAccount.userInteractionEnabled = YES;
+    }
 }
 
 //计算总价
@@ -140,9 +148,13 @@
     if (_AllSelected) {
         [self.delegate DidSelectedAllGoods];
         [SelectedAll setImage:Image(@"已选中") forState:UIControlStateNormal];
+        BalanceAccount.backgroundColor = colorWithRGB(0xFF6B24);
+        BalanceAccount.userInteractionEnabled = YES;
     }else{
         [self.delegate NoDidSelectedAllGoods];
         [SelectedAll setImage:Image(@"未选中支付") forState:UIControlStateNormal];
+        BalanceAccount.backgroundColor = [UIColor lightGrayColor];
+        BalanceAccount.userInteractionEnabled = YES;
     }
     
     _AllSelected = !_AllSelected;

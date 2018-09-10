@@ -37,7 +37,7 @@
 }
 
 - (IBAction)goShoppingAction:(id)sender {
-
+    
     [self AddTheMerchanToShoppingCart];
 }
 
@@ -84,11 +84,11 @@
     NSString *str = @"";
     for (int i=0; i<model.specs.count; i++) {
         specsModel*spmodel =model.specs[i];
+
         if (i== 0) {
-            str = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+            str = [NSString stringWithFormat:@"%@(%@)",spmodel.size,spmodel.stock];
         }else{
-            
-            NSString *tempstr = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+            NSString *tempstr = [NSString stringWithFormat:@"%@(%@)",spmodel.size,spmodel.stock];
             str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
         }
     }
@@ -143,7 +143,7 @@
 
 
 
-
+//增加图片
 -(void)setImagewithArray:(NSArray*)array{
     
     int tmp = array.count % 3;
@@ -219,12 +219,14 @@
     pickerBrowser.status = UIViewAnimationAnimationStatusFade;
     // 展示控制器
     [pickerBrowser showPickerVc:[UIApplication sharedApplication].keyWindow.rootViewController];
-    
+    [pickerBrowser setSelectImagesClick:^(NSString *num) {
+        
+    }];
 }
 
 
 
-
+//增加尺码按钮
 -(void)setxianghaoBtnithArray:(NSArray*)array{
     
     int tmp = array.count % 2;
@@ -244,11 +246,38 @@
             if (k<array.count) {
                 
                 specsModel *model =array[k];
-                NSString *title = [NSString stringWithFormat:@"%@(%@)",model.stock,model.size];
+              
+                NSString *title = [NSString stringWithFormat:@"%@(%@)",model.size,model.stock];
                 
                 CGFloat widt = [LYTools widthForString:title fontSize:12 andHeight:20]+40;
                 
-                UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake((widt+10)*j+10, (10+high)*i+10,  widt, high)];
+                
+                CGFloat x = 0;
+                
+                for (int m=0; m<=j; m++) {
+                    
+                    specsModel *model =array[k-j+m];
+                  
+                    NSString *title = [NSString stringWithFormat:@"%@(%@)",model.stock,model.size];
+                    
+                    CGFloat widt = [LYTools widthForString:title fontSize:12 andHeight:20]+40;
+                    
+                    if (m==0) {
+                        x = widt+10;
+                        
+                    }else{
+                        x+= widt+10;
+                    }
+                }
+                
+                
+                
+                UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(x-widt, (10+high)*i+10,  widt, high)];
+                if (!model.stock) {
+                    btn.userInteractionEnabled = NO;
+                }else{
+                    btn.userInteractionEnabled = YES;
+                }
                 ViewBorderRadius(btn, 5, 1, [UIColor clearColor]);
                 [self.xinghaoView addSubview:btn];
                 btn.backgroundColor = [UIColor lightGrayColor];
@@ -260,53 +289,17 @@
                 
                 [self.btnArr addObject:btn];
                 
-                __weak __typeof(btn) weakSelfbtn = btn;
-                __weak __typeof(self) weakSelf = self;
-                [weakSelfbtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
-                    
-                    
-                    
-                    for (UIButton *bt in weakSelf.btnArr) {
-                        specsModel*spmodel = weakSelf.model.specs[bt.tag];
-                        if (bt.tag == weakSelfbtn.tag) {
-                            
-                            if (bt.selected == NO) {
-                                bt.selected = YES;
-                                bt.backgroundColor = [UIColor redColor];
-                                [weakSelf.dataArr addObject:spmodel];
-                            }else{
-                                bt.selected = NO;
-                                bt.backgroundColor = [UIColor lightGrayColor];
-                                [weakSelf.dataArr removeObject:spmodel];
-                            }
-                            
-                        }else{
-                            [weakSelf.dataArr removeObject:spmodel];
-                            bt.selected = NO;
-                            bt.backgroundColor = [UIColor lightGrayColor];
-                        }
-                    }
-                    
-                    
-                    if (weakSelf.dataArr.count) {
-                        weakSelf.shoppingcartBtn.backgroundColor = [UIColor redColor];
-                        weakSelf.shoppingcartBtn.userInteractionEnabled = YES;
-                    }else{
-                        
-                        weakSelf.shoppingcartBtn.backgroundColor = [UIColor lightGrayColor];
-                        weakSelf.shoppingcartBtn.userInteractionEnabled = NO;
-                    }
-                    
-                }];
+                
+                
+                [btn addTarget:self action:@selector(chimabtnClick:) forControlEvents:UIControlEventTouchUpInside];
+                
+                
             }
         }
     }
     
     
 }
-
-
-
 
 
 
@@ -346,14 +339,14 @@
     zhuanfaotherview.zhuanfaBlock = ^(int currentDEX) {
         [weakSelf.mengbanView removeFromSuperview];
         [weakSelf.zhuanfaotherview removeFromSuperview];
-       
+        
         
         if (self.ToZhuanfaBlock) {
             self.ToZhuanfaBlock(self.model, currentDEX);
         }
         
     };
-      
+    
 }
 
 
@@ -369,7 +362,7 @@
 
 //加入购物车
 -(void)AddTheMerchanToShoppingCart{
- 
+    
     specsModel *model = self.dataArr[0];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:model.productId forKey:@"productId"];
@@ -393,6 +386,47 @@
 
 
 
+-(void)chimabtnClick:(UIButton*)btn{
+    
+    for (UIButton *bt in self.btnArr) {
+        specsModel*spmodel = self.model.specs[bt.tag];
+        if (bt.tag == btn.tag) {
+            
+            if (bt.selected == NO) {
+                
+                if (!spmodel.stock) {
+                    
+                }else{
+                    bt.selected = YES;
+                    bt.backgroundColor = [UIColor redColor];
+                    [self.dataArr addObject:spmodel];
+                }
+                
+            }else{
+                bt.selected = NO;
+                bt.backgroundColor = [UIColor lightGrayColor];
+                [self.dataArr removeObject:spmodel];
+            }
+            
+        }else{
+            [self.dataArr removeObject:spmodel];
+            bt.selected = NO;
+            bt.backgroundColor = [UIColor lightGrayColor];
+        }
+    }
+    
+    
+    if (self.dataArr.count) {
+        self.shoppingcartBtn.backgroundColor = [UIColor redColor];
+        self.shoppingcartBtn.userInteractionEnabled = YES;
+    }else{
+        
+        self.shoppingcartBtn.backgroundColor = [UIColor lightGrayColor];
+        self.shoppingcartBtn.userInteractionEnabled = NO;
+    }
+    
+    
+}
 
 
 

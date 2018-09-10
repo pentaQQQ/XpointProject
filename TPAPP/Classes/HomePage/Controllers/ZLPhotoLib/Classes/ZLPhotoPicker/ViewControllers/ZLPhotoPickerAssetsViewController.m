@@ -467,6 +467,9 @@ static NSString *const _identifier = @"toolBarThumbCollectionViewCell";
     browserVc.delegate = self;
     browserVc.currentIndex = indexPath.row;
     [browserVc showPickerVc:self];
+    [browserVc setSelectImagesClick:^(NSString *num) {
+        
+    }];
 }
 
 - (void)photoBrowser:(ZLPhotoPickerBrowserViewController *)photoBrowser removePhotoAtIndexPath:(NSIndexPath *)indexPath{

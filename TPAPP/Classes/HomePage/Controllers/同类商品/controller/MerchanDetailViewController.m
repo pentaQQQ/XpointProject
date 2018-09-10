@@ -20,6 +20,7 @@
 #import "ShareItem.h"
 #import "oldhechengView.h"
 #import "HuoDongCell.h"
+#import "PiliangzhuanfaViewController.h"
 @interface MerchanDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIDocumentInteractionControllerDelegate>
 @property(nonatomic,strong)NSMutableArray *dataArr;\
 @property(nonatomic,strong)NSMutableArray *HuoDongdataArr;
@@ -181,8 +182,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
-   
     SimilarProductModel*model = self.dataArr[indexPath.row];
     
     if (!([model.typeac isEqualToString:@"0"]||[model.typeac isEqualToString:@"1"])) {
@@ -245,7 +244,17 @@
         
         cell.model = model;
         
-        
+        cell.zhuanfaBlock = ^(SimilarProductModel*model) {
+            
+            if ([model.typeac isEqualToString:@"0"]) {//批量转发
+                PiliangzhuanfaViewController *vc = [[PiliangzhuanfaViewController alloc]init];
+                vc.ID = model.id;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+            }else{//转发
+                
+            }
+        };
         
         return cell;
         
@@ -271,6 +280,7 @@
         NSString *str = @"";
         for (int i=0; i<model.specs.count; i++) {
             specsModel*spmodel =model.specs[i];
+
             if (i== 0) {
                 str = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
             }else{

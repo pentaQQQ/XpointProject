@@ -65,7 +65,42 @@
 
 
 
+//app退出登陆
+#define getexit [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/exit"]
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//订单接口
+//快递查询，传入物流公司代码，快递单号进行查询
+#define getLogisticsInfo [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/LogisticsInfo"]
+//取消订单 传入用户id，订单id
+#define cancelOrderInfo [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/cancel"]
+//确认收货 传入用户id 订单id
+#define confirmReceipt [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/confirmReceipt"]
+//获取订单详情，可通过订单id(必传)，用户id(必传)等查询
+#define getOrderDetailInfo [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/detail"]
+//获取所有订单信息，可通过用户id(必传字段)，订单号等查询
+#define getOrderListInfo [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/list"]
+//下单 基本数据必传
+#define makeOrder [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/makeOrder"]
+//订单支付 传入订单id 用户id 支付渠道(若为第三方支付，则传入第三方支付流水)
+#define orderPayInfo [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/pay"]
 
 
 

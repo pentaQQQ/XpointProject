@@ -21,6 +21,7 @@
     NSString *str = @"";
     for (int i=0; i<model.specs.count; i++) {
         specsModel*spmodel =model.specs[i];
+        
         if (i== 0) {
             str = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
         }else{

@@ -163,7 +163,9 @@
     pickerBrowser.status = UIViewAnimationAnimationStatusFade;
     // 展示控制器
     [pickerBrowser showPickerVc:[UIApplication sharedApplication].keyWindow.rootViewController];
-    
+    [pickerBrowser setSelectImagesClick:^(NSString *num) {
+        
+    }];
 }
 
 
@@ -176,14 +178,14 @@
 //
 //
 //
-//- (IBAction)zhuanfaBtnClick:(id)sender {
-//
-//    if (self.zhuanfaBlock) {
-//        self.zhuanfaBlock(self.model);
-//    }
-//
-//
-//}
+- (IBAction)zhuanfaBtnClick:(id)sender {
+
+    if (self.zhuanfaBlock) {
+        self.zhuanfaBlock(self.model);
+    }
+
+
+}
 
 
 
