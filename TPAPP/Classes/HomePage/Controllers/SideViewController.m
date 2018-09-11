@@ -80,6 +80,7 @@
     shanghuModel *model = self.titleArray[indexPath.row];
     MerchanDetailViewController *otherVC = [[MerchanDetailViewController alloc] init];
     otherVC.ID = model.merchantId;
+    otherVC.title = model.merchantName;
     [self XYSidePushViewController:otherVC animated:YES];
     
 }

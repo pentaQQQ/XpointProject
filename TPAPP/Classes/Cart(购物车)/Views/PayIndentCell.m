@@ -375,16 +375,12 @@
     self.changeAddressImageView.image = [UIImage imageNamed:@"icon_qiehuan"];
     [self addSubview:self.changeAddressImageView];
     
-    
     self.changeAddressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.changeAddressImageView.frame), 40, 20)];
     self.changeAddressLabel.font = [UIFont systemFontOfSize:12];
     self.changeAddressLabel.textColor = [UIColor lightGrayColor];
     self.changeAddressLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.changeAddressLabel];
     self.changeAddressLabel.text = @"切换";
-   
-    
-    
 }
 
 @end

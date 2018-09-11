@@ -236,7 +236,7 @@
         [cell setMyBlock:^(NSDictionary *dict) {
             [self.dataDict addEntriesFromDictionary:dict];
         }];
-        [cell configWithModel:self.listDataArr[indexPath.section][indexPath.row] withModelData:self.modelDataArr[indexPath.section][indexPath.row]];
+        [cell configWithModel:self.listDataArr[indexPath.section][indexPath.row] withModelData:self.modelDataArr[indexPath.section][indexPath.row] withNumber:12];
         return cell;
     }
     

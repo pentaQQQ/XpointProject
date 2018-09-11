@@ -143,16 +143,20 @@
 
 -(void)SelectedReBuyCell:(DeleteGoodsListCell *)cell
 {
+    NSIndexPath *indexPath = [self.cartTableView indexPathForCell:cell];
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:cell.detailModel.productId forKey:@"productId"];
-    [dic setValue:cell.detailModel.size forKey:@"size"];
+    [dic setValue:cell.detailModel.id forKey:@"cartDetailId"];
     LYAccount *lyAccount = [LYAccount shareAccount];
     [dic setValue:lyAccount.id forKey:@"userId"];
-    [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
+    [LYTools postBossDemoWithUrl:cartReAddProduct param:dic success:^(NSDictionary *dict) {
         NSLog(@"%@",dict);
         NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+            cell.detailModel.delNum= cell.detailModel.delNum+1;
+            [self.dataSource replaceObjectAtIndex:indexPath.row withObject:cell.detailModel];
+            [self.cartTableView reloadData];
         }else{
             [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
         }

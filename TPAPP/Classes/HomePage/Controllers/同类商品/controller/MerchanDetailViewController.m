@@ -194,9 +194,27 @@
         
         cell.model = model;
         
+        [cell setAddGoodsGoCartBlock:^(specsModel *model) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setValue:model.productId forKey:@"productId"];
+            [dic setValue:model.size forKey:@"size"];
+            LYAccount *lyAccount = [LYAccount shareAccount];
+            [dic setValue:lyAccount.id forKey:@"userId"];
+            [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
+                NSLog(@"%@",dict);
+                NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                if ([respCode isEqualToString:@"00000"]) {
+                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+                    [self.navigationController.tabBarController.viewControllers[3].tabBarItem setBadgeValue:@"5"];
+                }else{
+                    [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                }
+            } fail:^(NSError *error) {
+                
+            }];
+        }];
         
         cell.ToZhuanfaBlock = ^(SimilarProductModel *model, int currentDEX) {
-            
             
             if (currentDEX == 0) {
                 self.danshouview.model = model;

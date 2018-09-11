@@ -65,6 +65,7 @@
    
     // 隐藏时间
     self.mjHeader.lastUpdatedTimeLabel.hidden = YES;
+    self.mjHeader.arrowView.image = [UIImage imageNamed:@"上箭头@2x"];
     self.mjHeader.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
     // 隐藏状态
     self.mjHeader.stateLabel.hidden = YES;

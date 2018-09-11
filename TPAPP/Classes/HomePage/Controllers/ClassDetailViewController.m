@@ -119,6 +119,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     releaseActivitiesModel*model = self.arr[indexPath.row];
     GoodsDetailViewController *vc = [[GoodsDetailViewController alloc]init];
+    vc.title = model.merchantName;
     vc.ID = model.id;
     [self.navigationController pushViewController:vc animated:YES];
     

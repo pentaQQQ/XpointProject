@@ -125,25 +125,6 @@
         }else if (indexPath.row == 1){
             EditNicknameController *idCtrl = [[EditNicknameController alloc] init];
             [self.navigationController pushViewController:idCtrl animated:YES];
-            //                        dispatch_async(dispatch_get_main_queue(), ^{
-            //                            UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"修改昵称" message: nil preferredStyle:UIAlertControllerStyleAlert];
-            //                            [alertCtrl  addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-            //
-            //                                textField.text = cellModel.indicatorTitle;
-            //                                textField.borderStyle = UITextBorderStyleNone;
-            //                                textField.textColor = [UIColor blackColor];
-            //                                textField.clearButtonMode = UITextFieldViewModeAlways;
-            //                            }];
-            //                            [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            //                            }]];
-            //                            [alertCtrl  addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //                                NSArray * textfields = alertCtrl.textFields;
-            //                                UITextField * namefield = textfields[0];
-            //                                NSLog(@"%@",namefield.text);
-            //                            }]];
-            //                            [self presentViewController:alertCtrl animated:YES completion:nil];
-            //                        });
-            
         }
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
@@ -159,9 +140,7 @@
                     IdentificationController *idCtrl = [[IdentificationController alloc] init];
                     [self.navigationController pushViewController:idCtrl animated:YES];
                 }else{
-                    
                 }
-           
         }
     }else if (indexPath.section ==2){
         if (indexPath.row == 0) {
@@ -356,34 +335,26 @@
 
 -(void)existBoard{
     
-    [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+//    [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+//
+//    LoginViewController*vc = [[LoginViewController alloc]init];
+//    RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+//    rootVC.rt_disableInteractivePop = YES ;
+//    [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+//
     
-    LoginViewController*vc = [[LoginViewController alloc]init];
-    RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
-    rootVC.rt_disableInteractivePop = YES ;
-    [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
-    
-    
-//    [[NetworkManager sharedManager] getWithUrl:getexit param:nil success:^(id json) {
-//
-//        NSLog(@"%@",json);
-//
-//        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-//        if ([respCode isEqualToString:@"00000"]) {
-//
-//            [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
-//            LoginViewController*vc = [[LoginViewController alloc]init];
-//            RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
-//            rootVC.rt_disableInteractivePop = YES ;
-//            [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
-//
-//        }
-//
-//    } failure:^(NSError *error) {
-//
-//
-//    }];
-    
+    [[NetworkManager sharedManager] getWithUrl:getexit param:nil success:^(id json) {
+        NSLog(@"%@",json);
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+            LoginViewController*vc = [[LoginViewController alloc]init];
+            RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+            rootVC.rt_disableInteractivePop = YES ;
+            [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+        }
+    } failure:^(NSError *error) {
+    }];
 }
 
 

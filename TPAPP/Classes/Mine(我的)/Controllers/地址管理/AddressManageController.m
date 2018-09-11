@@ -80,6 +80,7 @@
 - (void)addBtnAction
 {
     AddAddressController *addCtrl = [[AddAddressController alloc] init];
+    addCtrl.dataNull = self.listDataArr.count;
     [self.navigationController pushViewController:addCtrl animated:YES];
 }
 
@@ -91,13 +92,16 @@
     [dic setValue:lyAccount.id forKey:@"userId"];
     [[NetworkManager sharedManager] getWithUrl:getAddressList param:dic success:^(id json) {
         [self.listTableView.mj_header endRefreshing];
-        NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             [self.listDataArr removeAllObjects];
             for (NSDictionary *dict in json[@"data"]) {
                 AddressModel *model = [AddressModel statusWithDict:dict];
-                [self.listDataArr addObject:model];
+                if ([model.isDefault isEqualToString:@"1"]) {
+                    [self.listDataArr insertObject:model atIndex:0];
+                }else{
+                   [self.listDataArr addObject:model];
+                }
             }
             [self.listTableView reloadData];
         }else{
@@ -164,32 +168,32 @@
             [self.navigationController pushViewController:addCtrl animated:YES];
         }else{
             if ([model.isDefault isEqualToString:@"0"]) {
-//                self.dataDict = [NSMutableDictionary dictionary];
-//                [self.dataDict addEntriesFromDictionary:@{@"recProv":model.recProv}];
-//                [self.dataDict addEntriesFromDictionary:@{@"recCity":model.recCity}];
-//                [self.dataDict addEntriesFromDictionary:@{@"recArea":model.recArea}];
-//                [self.dataDict addEntriesFromDictionary:@{@"userId":model.userId}];
-//                [self.dataDict addEntriesFromDictionary:@{@"recNickName":model.recNickName}];
-//                [self.dataDict addEntriesFromDictionary:@{@"recPhone":model.recPhone}];
-//                [self.dataDict addEntriesFromDictionary:@{@"isGeneration":model.isGeneration}];
-//                [self.dataDict addEntriesFromDictionary:@{@"recIdentityCardNo":model.recIdentityCardNo}];
-//                [self.dataDict addEntriesFromDictionary:@{@"recAddress":model.recAddress}];
-//                [self.dataDict addEntriesFromDictionary:@{@"isDefault":@"1"}];
-//                [self.dataDict addEntriesFromDictionary:@{@"recProv":model.recProv}];
-//                [self.dataDict addEntriesFromDictionary:@{@"recCity":model.recCity}];
-//                [self.dataDict addEntriesFromDictionary:@{@"recArea":model.recArea}];
-//                [self.dataDict addEntriesFromDictionary:@{@"id":model.id}];
-//                [LYTools postBossDemoWithUrl:updateAddress param:self.dataDict success:^(NSDictionary *dict) {
+                self.dataDict = [NSMutableDictionary dictionary];
+                [self.dataDict addEntriesFromDictionary:@{@"recProv":model.recProv}];
+                [self.dataDict addEntriesFromDictionary:@{@"recCity":model.recCity}];
+                [self.dataDict addEntriesFromDictionary:@{@"recArea":model.recArea}];
+                [self.dataDict addEntriesFromDictionary:@{@"userId":model.userId}];
+                [self.dataDict addEntriesFromDictionary:@{@"recNickName":model.recNickName}];
+                [self.dataDict addEntriesFromDictionary:@{@"recPhone":model.recPhone}];
+                [self.dataDict addEntriesFromDictionary:@{@"isGeneration":model.isGeneration}];
+                [self.dataDict addEntriesFromDictionary:@{@"recIdentityCardNo":model.recIdentityCardNo}];
+                [self.dataDict addEntriesFromDictionary:@{@"recAddress":model.recAddress}];
+                [self.dataDict addEntriesFromDictionary:@{@"isDefault":@"1"}];
+                [self.dataDict addEntriesFromDictionary:@{@"recProv":model.recProv}];
+                [self.dataDict addEntriesFromDictionary:@{@"recCity":model.recCity}];
+                [self.dataDict addEntriesFromDictionary:@{@"recArea":model.recArea}];
+                [self.dataDict addEntriesFromDictionary:@{@"id":model.id}];
+                [LYTools postBossDemoWithUrl:updateAddress param:self.dataDict success:^(NSDictionary *dict) {
 //                    NSLog(@"%@",dict);
-//                    NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-//                    if ([respCode isEqualToString:@"00000"]) {
-//                        [self loadNewTopic];
-//                    }else{
-//                        [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
-//                    }
-//                } fail:^(NSError *error) {
-//                    
-//                }];
+                    NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                    if ([respCode isEqualToString:@"00000"]) {
+                        [self loadNewTopic];
+                    }else{
+                        [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                    }
+                } fail:^(NSError *error) {
+                    
+                }];
             }
             
         }

@@ -179,28 +179,39 @@
     }else{
         _RemarksLabel.text = [NSString stringWithFormat:@"备注:%@",info.remark];
     }
-    
-    for (specsModel *model in self.detailModel.productForm.specs) {
-        if ([model.size isEqualToString:self.detailModel.size]) {
-            if ([model.stock intValue] == 0) {
-                UIImageView *imageView = [[UIImageView alloc] init];
-                [_Goods_Icon addSubview:imageView];
-                imageView.image = Image(@"已售磐");
-                [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(_Goods_Icon.mas_left).offset(15);
-                    make.top.equalTo(_Goods_Icon.mas_top).offset(15);
-                    make.height.equalTo(@(60));
-                    make.width.equalTo(@(60));
-                }];
-                _ReBuy_button.backgroundColor = [UIColor grayColor];
-                _Goods_Icon.userInteractionEnabled = NO;
-                _Goods_Icon.alpha=0.4;
-                _ReBuy_button.userInteractionEnabled = NO;
-            }else{
-                break;
+    if (info.delNum < 2) {
+        _ReBuy_button.userInteractionEnabled = YES;
+        _ReBuy_button.backgroundColor = colorWithRGB(0xFF6B24);
+        [_ReBuy_button setTitle:@"重新购买" forState:UIControlStateNormal];
+        [_ReBuy_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        for (specsModel *model in self.detailModel.productForm.specs) {
+            if ([model.size isEqualToString:self.detailModel.size]) {
+                if ([model.stock intValue] == 0) {
+                    UIImageView *imageView = [[UIImageView alloc] init];
+                    [_Goods_Icon addSubview:imageView];
+                    imageView.image = Image(@"已售磐");
+                    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(_Goods_Icon.mas_left).offset(15);
+                        make.top.equalTo(_Goods_Icon.mas_top).offset(15);
+                        make.height.equalTo(@(60));
+                        make.width.equalTo(@(60));
+                    }];
+                    _ReBuy_button.backgroundColor = [UIColor grayColor];
+                    _Goods_Icon.userInteractionEnabled = NO;
+                    _Goods_Icon.alpha=0.4;
+                    _ReBuy_button.userInteractionEnabled = NO;
+                }else{
+                    break;
+                }
             }
         }
+    }else{
+        _ReBuy_button.userInteractionEnabled = NO;
+        _ReBuy_button.backgroundColor = [UIColor whiteColor];
+        [_ReBuy_button setTitle:@"已重新购买" forState:UIControlStateNormal];
+        [_ReBuy_button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
+    
 }
 
 - (void)awakeFromNib {

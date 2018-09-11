@@ -220,7 +220,7 @@
         [cell setMyBlock:^(NSDictionary *dict) {
             [self.dataDict addEntriesFromDictionary:dict];
         }];
-        [cell configWithModel:self.listDataArr[indexPath.section][indexPath.row] withModelData:nil];
+        [cell configWithModel:self.listDataArr[indexPath.section][indexPath.row] withModelData:nil withNumber:self.dataNull];
         return cell;
     }
     

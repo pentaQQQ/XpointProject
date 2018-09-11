@@ -9,7 +9,7 @@
 #import "BaseTabBarController.h"
 
 @interface BaseTabBarController ()
-
+@property (nonatomic, assign)NSInteger goodListNum;
 @end
 
 @implementation BaseTabBarController
@@ -18,9 +18,31 @@
     [super viewDidLoad];
     [self makeUI];
     self.tabBar.tintColor = colorWithRGB(0x1D99D4);
+    
+     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getShopCarNumberAction:)name:@"getShopCarNumber"object:nil];
 }
+-(void)dealloc
+{
+    [NSNotificationCenter removeObserver:self forKeyPath:@"getShopCarNumber"];
+}
+#pragma mark - 获取购物车的值
 
+-(void)getShopCarNumberAction:(NSNotification *)noti
 
+{
+    [self loadNewTopic];
+//    NSDictionary * dic = [noti userInfo];
+    
+}
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    
+    if ([item.title isEqualToString:@"购物车"]) {
+        [item setBadgeValue:nil];
+    }else{
+       [self loadNewTopic];
+    }
+}
 - (void)makeUI {
     HomePageController *firstViewController = [[HomePageController alloc] init];
     firstViewController.title=@"首页";
@@ -68,6 +90,8 @@
                                  ];
     
     self.viewControllers = viewControllers;
+    [self loadNewTopic];
+    
 }
 
 /**
@@ -97,7 +121,38 @@
    
 }
 
-
+#pragma mark - 数据
+- (void)loadNewTopic
+{
+    NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    [dataDict setValue:lyAccount.id forKey:@"userId"];
+    [dataDict setValue:@"0" forKey:@"status"];
+    [LYTools postBossDemoWithUrl:cartList param:dataDict success:^(NSDictionary *dict) {
+        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            self.goodListNum =  [dict[@"data"][@"cartDetails"] count];
+            if (self.goodListNum == 0) {
+                CartViewController *cartCtrl = self.viewControllers[3];
+                [cartCtrl.tabBarItem setBadgeValue:nil];
+            }else{
+                CartViewController *cartCtrl = self.viewControllers[3];
+                [cartCtrl.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%ld",self.goodListNum]];
+            }
+            
+        }else if([dict[@"code"]longValue] == 500){
+            self.goodListNum = 0;
+            CartViewController *cartCtrl = self.viewControllers[3];
+            [cartCtrl.tabBarItem setBadgeValue:nil];
+           
+        }
+    } fail:^(NSError *error) {
+        self.goodListNum = 0;
+        CartViewController *cartCtrl = self.viewControllers[3];
+        [cartCtrl.tabBarItem setBadgeValue:nil];
+        
+    }];
+}
 
 
 @end

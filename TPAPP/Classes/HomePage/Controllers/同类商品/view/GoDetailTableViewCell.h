@@ -54,6 +54,8 @@
 
 @property(nonatomic,strong)SimilarProductModel*model;
 
+@property(nonatomic,copy)void(^addGoodsGoCartBlock)(specsModel*model);
+
 @property(nonatomic,copy)void(^ToZhuanfaBlock)(SimilarProductModel*model,int currentDEX);
 
 

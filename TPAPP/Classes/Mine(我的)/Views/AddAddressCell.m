@@ -27,7 +27,10 @@
     
 }
 
-- (void)configWithModel:(NSMutableArray *)arr withModelData:(NSMutableArray *)modelArr
+
+
+
+- (void)configWithModel:(NSMutableArray *)arr withModelData:(NSMutableArray *)modelArr withNumber:(NSInteger)num
 {
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     if ([arr[2] intValue] == 0) {
@@ -47,6 +50,11 @@
         .rightSpaceToView(self.contentView, 15)
         .leftSpaceToView(self.titleLabel, 30)
         .heightIs(20);
+        if ([self.titleLabel.text isEqualToString:@"电    话:"]) {
+            self.myTextField.keyboardType = UIKeyboardTypeNumberPad;
+        }else{
+            self.myTextField.keyboardType = UIKeyboardTypeDefault;
+        }
         self.myTextField.textAlignment = NSTextAlignmentRight;
         NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
         style.alignment = NSTextAlignmentRight;
@@ -107,6 +115,12 @@
         .widthIs(40)
         .heightIs(20);
     }
+    if (num == 0) {
+        self.defaultSwitch.userInteractionEnabled = NO;
+        self.defaultSwitch.alpha = 0.4;
+        [self.defaultSwitch setOn:YES animated:YES];
+    }
+    
     if (modelArr.count != 0) {
         if ([arr[2] intValue] == 0) {
             self.myTextField.text = modelArr[0];
@@ -118,6 +132,8 @@
             if ([modelArr[0] intValue] == 0) {
                 [self.defaultSwitch setOn:NO animated:YES];
             }else{
+                self.defaultSwitch.userInteractionEnabled = NO;
+                self.defaultSwitch.alpha = 0.4;
                 [self.defaultSwitch setOn:YES animated:YES];
             }
             self.myBlock(@{@"isDefault":[NSString stringWithFormat:@"%d",[self.defaultSwitch isOn]]});
