@@ -100,7 +100,6 @@
     [dataDict setValue:lyAccount.id forKey:@"userId"];
     [dataDict setValue:@"0" forKey:@"status"];
     [LYTools postBossDemoWithUrl:cartList param:dataDict success:^(NSDictionary *dict) {
-//        NSLog(@"%@",dict);
         [_CartTableView.mj_header endRefreshing];
         [self.dataSource removeAllObjects];
         [self.dataSource addObject:@[]];
@@ -113,7 +112,6 @@
                 [allTimeArr addObject:dic[@"productForm"][@"merchantId"]];
             }
             dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
-//            NSLog(@"%@",dateSectionArr);
             for (NSString *nowTim in dateSectionArr) {
                 NSMutableArray *arr = [[NSMutableArray alloc] init];
                 for (NSDictionary *ordersDicTwo in dict[@"data"][@"cartDetails"]) {
@@ -134,28 +132,16 @@
 
                 [self.dataSource addObject:arr];
             }
-            
-//            for (NSDictionary *dic in dict[@"data"][@"cartDetails"]) {
-//                NSMutableArray *arr = [NSMutableArray array];
-//                 CartDetailsModel *model = [CartDetailsModel mj_objectWithKeyValues:dic];
-//                model.SelectedType = @"已选中";
-//                model.Type = @"0";
-//                model.CheckAll = @"1";
-//                model.Edit= @"0";
-//                model.EditBtn = @"0";
-//                SimilarProductModel *sModel = [SimilarProductModel mj_objectWithKeyValues:dic[@"productForm"]];
-//                model.productForm = sModel;
-//                [arr addObject:model];
-//                [self.dataSource addObject:arr];
-//            }
-            
             [_CartTableView reloadData];
-//            NSLog(@"%@",self.dataSource);
         }else if([dict[@"code"]longValue] == 500){
             [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
         }
     } fail:^(NSError *error) {
-        
+        [self.dataSource removeAllObjects];
+        [SVProgressHUD doAnythingFailedWithHUDMessage:@"[Error]\n似乎已断开与互联网的连接" withDuration:1.5];
+        [self.CartTableView.mj_header endRefreshing];
+        [self.dataSource addObject:@[]];
+        [self.CartTableView reloadData];
     }];
 }
 //去除数组中重复的

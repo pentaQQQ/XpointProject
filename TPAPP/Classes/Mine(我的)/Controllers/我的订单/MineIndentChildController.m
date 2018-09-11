@@ -166,7 +166,6 @@
     if (!headerCell) {
         headerCell = [[MineIndentListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MineIndentListCellID"];
     }
-    
     headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSDictionary *dict = self.listDataArr[indexPath.section];
     NSArray *arr = dict[@"listArr"];

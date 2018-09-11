@@ -14,6 +14,9 @@
 @property (nonatomic,strong)UITextField *myTextField;
 @property (nonatomic,strong)UITextView *myTextView;
 @property (nonatomic,strong)UISwitch *defaultSwitch;
-@property (nonatomic, strong)void(^myBlock)(NSDictionary*);
-- (void)configWithModel:(NSMutableArray *)arr withModelData:(NSMutableArray *)modelArr;
+@property (nonatomic,strong)void(^myBlock)(NSDictionary*);
+
+@property (nonatomic,assign)NSInteger defaultNumber;
+
+- (void)configWithModel:(NSMutableArray *)arr withModelData:(NSMutableArray *)modelArr withNumber:(NSInteger)num;
 @end

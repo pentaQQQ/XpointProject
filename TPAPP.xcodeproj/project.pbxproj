@@ -190,6 +190,8 @@
 		019AEE9B21382B0B00EB3405 /* MMImagePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7321382B0B00EB3405 /* MMImagePreviewView.m */; };
 		019AEE9C21382B0B00EB3405 /* MMOperateMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7521382B0B00EB3405 /* MMOperateMenuView.m */; };
 		019AEE9D21382B0B00EB3405 /* MomentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7721382B0B00EB3405 /* MomentCell.m */; };
+		01BC59A72147ADA7000FF81F /* MineIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BC59A62147ADA7000FF81F /* MineIndentModel.m */; };
+		01BC59AD2147B409000FF81F /* 上箭头@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01BC59AC2147B409000FF81F /* 上箭头@2x.png */; };
 		01F1DFF6213A7CF6009A925A /* MineIndentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1DFF5213A7CF6009A925A /* MineIndentListCell.m */; };
 		01F1DFFC213ACFD5009A925A /* MBProgressHUD+NJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1DFF9213ACFD5009A925A /* MBProgressHUD+NJ.m */; };
 		01F1DFFD213ACFD5009A925A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1DFFB213ACFD5009A925A /* MBProgressHUD.m */; };
@@ -738,6 +740,9 @@
 		019AEE7621382B0B00EB3405 /* MomentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentCell.h; sourceTree = "<group>"; };
 		019AEE7721382B0B00EB3405 /* MomentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentCell.m; sourceTree = "<group>"; };
 		019AEE7821382B0B00EB3405 /* MomentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentKit.h; sourceTree = "<group>"; };
+		01BC59A52147ADA7000FF81F /* MineIndentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineIndentModel.h; sourceTree = "<group>"; };
+		01BC59A62147ADA7000FF81F /* MineIndentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineIndentModel.m; sourceTree = "<group>"; };
+		01BC59AC2147B409000FF81F /* 上箭头@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上箭头@2x.png"; sourceTree = "<group>"; };
 		01F1DFF4213A7CF6009A925A /* MineIndentListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineIndentListCell.h; sourceTree = "<group>"; };
 		01F1DFF5213A7CF6009A925A /* MineIndentListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineIndentListCell.m; sourceTree = "<group>"; };
 		01F1DFF8213ACFD5009A925A /* MBProgressHUD+NJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+NJ.h"; sourceTree = "<group>"; };
@@ -1245,6 +1250,7 @@
 		01120EB721338F9C0071AC5F /* 我的 */ = {
 			isa = PBXGroup;
 			children = (
+				01BC59AC2147B409000FF81F /* 上箭头@2x.png */,
 				01120EB821338F9C0071AC5F /* MineViewController.h */,
 				01120EB921338F9C0071AC5F /* MineViewController.m */,
 			);
@@ -1277,6 +1283,8 @@
 				01120EC921338F9C0071AC5F /* MineIndentViewController.m */,
 				01F1DFF4213A7CF6009A925A /* MineIndentListCell.h */,
 				01F1DFF5213A7CF6009A925A /* MineIndentListCell.m */,
+				01BC59A52147ADA7000FF81F /* MineIndentModel.h */,
+				01BC59A62147ADA7000FF81F /* MineIndentModel.m */,
 			);
 			path = "我的订单";
 			sourceTree = "<group>";
@@ -3190,6 +3198,7 @@
 				547C49A91F1DBB8200178B67 /* tab_job_nor@3x.png in Resources */,
 				8EA9532E212BE0E20057AC78 /* HeaderTabView.xib in Resources */,
 				547C496E1F1DBB8200178B67 /* lkbubble8.jpg in Resources */,
+				01BC59AD2147B409000FF81F /* 上箭头@2x.png in Resources */,
 				8EA95333212BE1C20057AC78 /* pingpaiCell.xib in Resources */,
 				547C49A41F1DBB8200178B67 /* tab_edu_nor@2x.png in Resources */,
 				547C49A51F1DBB8200178B67 /* tab_edu_nor@3x.png in Resources */,
@@ -3637,6 +3646,7 @@
 				019AEE3E21382A5C00EB3405 /* MLTextAttachment.m in Sources */,
 				8E78BE3321367AE5000A9EA4 /* GoDetailTableViewCell.m in Sources */,
 				8EA95346212E49BC0057AC78 /* LXFloaintButton.m in Sources */,
+				01BC59A72147ADA7000FF81F /* MineIndentModel.m in Sources */,
 				547C49661F1DBB8200178B67 /* UIResponder+LKBubble.m in Sources */,
 				547C49931F1DBB8200178B67 /* NSString+Base64.m in Sources */,
 				547C497A1F1DBB8200178B67 /* SGAlertView.m in Sources */,

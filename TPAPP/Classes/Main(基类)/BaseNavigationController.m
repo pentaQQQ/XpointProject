@@ -7,7 +7,8 @@
 //
 
 #import "BaseNavigationController.h"
-
+#import "GoodsDetailViewController.h"
+#import "MerchanDetailViewController.h"
 @interface BaseNavigationController ()
 
 @end
@@ -32,7 +33,12 @@
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
     if (self.viewControllers.count > 0) {
-        viewController.hidesBottomBarWhenPushed = YES;
+        if ([viewController isKindOfClass:[GoodsDetailViewController class]] || [viewController isKindOfClass:[MerchanDetailViewController class]]) {
+            viewController.hidesBottomBarWhenPushed = NO;
+        }else{
+            viewController.hidesBottomBarWhenPushed = YES;
+        }
+        
     }
     [super pushViewController:viewController animated:animated];
 }
