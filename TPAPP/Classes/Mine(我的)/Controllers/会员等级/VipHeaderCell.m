@@ -22,9 +22,9 @@
 
 -(void)createHeaderBgViewChilds
 {
-    
+    LYAccount *lyAccount = [LYAccount shareAccount];
     self.headerImageView = [[UIImageView alloc] init];
-    self.headerImageView.backgroundColor = [UIColor grayColor];
+    [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:lyAccount.headUrl]];
     [self.contentView addSubview:self.headerImageView];
     self.headerImageView.sd_layout
     .topSpaceToView(self.contentView, 20)
@@ -44,7 +44,7 @@
     .heightIs(30);
     [self.vipBtn setBackgroundImage:[UIImage imageNamed:@"icon_mine_vip"] forState:UIControlStateNormal];
     [self.vipBtn addTarget:self action:@selector(vipAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.vipBtn setTitle:@"VIP1" forState:UIControlStateNormal];
+    [self.vipBtn setTitle:[NSString stringWithFormat:@"VIP%@",lyAccount.level] forState:UIControlStateNormal];
     [self.vipBtn setTitleColor:colorWithRGB(0xFF6B24) forState:UIControlStateNormal];
     self.vipBtn.titleLabel.font = [UIFont systemFontOfSize:10];
     self.vipBtn.contentEdgeInsets = UIEdgeInsetsMake(0,0, 0, 10);
@@ -62,7 +62,7 @@
     .heightIs(30);
     self.userNameLabel.textAlignment = NSTextAlignmentCenter;
     self.userNameLabel.textColor = [UIColor blackColor];
-    self.userNameLabel.text = @"Alan";
+    self.userNameLabel.text = lyAccount.nickName;
     self.userNameLabel.font = [UIFont systemFontOfSize:19];
     
     self.moneyBgView = [[UIView alloc] init];

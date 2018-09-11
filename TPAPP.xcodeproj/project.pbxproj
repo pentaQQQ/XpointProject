@@ -190,6 +190,7 @@
 		019AEE9B21382B0B00EB3405 /* MMImagePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7321382B0B00EB3405 /* MMImagePreviewView.m */; };
 		019AEE9C21382B0B00EB3405 /* MMOperateMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7521382B0B00EB3405 /* MMOperateMenuView.m */; };
 		019AEE9D21382B0B00EB3405 /* MomentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7721382B0B00EB3405 /* MomentCell.m */; };
+		01AD1A532148000200348238 /* DefaultAddressMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD1A522148000200348238 /* DefaultAddressMessage.m */; };
 		01BC59A72147ADA7000FF81F /* MineIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BC59A62147ADA7000FF81F /* MineIndentModel.m */; };
 		01BC59AD2147B409000FF81F /* 上箭头@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01BC59AC2147B409000FF81F /* 上箭头@2x.png */; };
 		01F1DFF6213A7CF6009A925A /* MineIndentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1DFF5213A7CF6009A925A /* MineIndentListCell.m */; };
@@ -740,6 +741,8 @@
 		019AEE7621382B0B00EB3405 /* MomentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentCell.h; sourceTree = "<group>"; };
 		019AEE7721382B0B00EB3405 /* MomentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentCell.m; sourceTree = "<group>"; };
 		019AEE7821382B0B00EB3405 /* MomentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentKit.h; sourceTree = "<group>"; };
+		01AD1A512148000200348238 /* DefaultAddressMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultAddressMessage.h; sourceTree = "<group>"; };
+		01AD1A522148000200348238 /* DefaultAddressMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DefaultAddressMessage.m; sourceTree = "<group>"; };
 		01BC59A52147ADA7000FF81F /* MineIndentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineIndentModel.h; sourceTree = "<group>"; };
 		01BC59A62147ADA7000FF81F /* MineIndentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineIndentModel.m; sourceTree = "<group>"; };
 		01BC59AC2147B409000FF81F /* 上箭头@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上箭头@2x.png"; sourceTree = "<group>"; };
@@ -1227,6 +1230,8 @@
 				01120EB321338F9C0071AC5F /* EditAddressController.m */,
 				01F1DFFE213C0944009A925A /* AddressModel.h */,
 				01F1DFFF213C0944009A925A /* AddressModel.m */,
+				01AD1A512148000200348238 /* DefaultAddressMessage.h */,
+				01AD1A522148000200348238 /* DefaultAddressMessage.m */,
 			);
 			path = "地址管理";
 			sourceTree = "<group>";
@@ -3488,6 +3493,7 @@
 				01120F0521338F9C0071AC5F /* AccountSetController.m in Sources */,
 				8ED5B4B8212A6AC100B5983B /* UIButton+SGPagingView.m in Sources */,
 				8EA95308212BAA930057AC78 /* ZLPhotoPickerAssetsViewController.m in Sources */,
+				01AD1A532148000200348238 /* DefaultAddressMessage.m in Sources */,
 				8EA952F4212BAA930057AC78 /* DACircularProgressView.m in Sources */,
 				019AEE3F21382A5C00EB3405 /* NSAttributedString+MLExpression.m in Sources */,
 				547C497B1F1DBB8200178B67 /* UIView+SGExtension.m in Sources */,

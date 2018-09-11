@@ -129,6 +129,8 @@
         } else { // 只展示Image
             self.indicatorImageView.frame = CGRectMake(endX - self.cellModel.indicatorImageSize.width, (self.cellModel.cellHeight - self.cellModel.indicatorImageSize.height)/2, self.cellModel.indicatorImageSize.width, self.cellModel.indicatorImageSize.height);
         }
+        self.indicatorImageView.layer.cornerRadius = 3;
+        self.indicatorImageView.layer.masksToBounds = YES;
     } else if (self.cellModel.indicatorTitleSize.width > 0)  {
         // 只展示Title
         [self.contentView addSubview:self.indicatorLabel];

@@ -21,9 +21,11 @@
     
      [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getShopCarNumberAction:)name:@"getShopCarNumber"object:nil];
 }
+
+
 -(void)dealloc
 {
-    [NSNotificationCenter removeObserver:self forKeyPath:@"getShopCarNumber"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getShopCarNumber" object:nil];
 }
 #pragma mark - 获取购物车的值
 

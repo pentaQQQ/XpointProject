@@ -122,6 +122,7 @@
 
  -(void)createHeaderBgViewChilds
 {
+    LYAccount *lyAccount = [LYAccount shareAccount];
     self.headerBtn = [[UIButton alloc] init];
     [self.headerBgView addSubview:self.headerBtn];
     self.headerBtn.sd_layout
@@ -133,7 +134,9 @@
     self.headerBtn.backgroundColor = colorWithRGB(0xbfbfbf);
     self.headerBtn.layer.cornerRadius = 40;
     self.headerBtn.layer.masksToBounds = YES;
-    [self.headerBtn setImage:[UIImage imageNamed:@"测试头像.jpeg"] forState:UIControlStateNormal];
+    [self.headerBtn sd_setImageWithURL:[NSURL URLWithString:lyAccount.headUrl]
+                           forState:UIControlStateNormal
+                      placeholderImage:[UIImage imageNamed:@"share_sina"]];
     
     self.authenticationBtn = [[UIButton alloc] init];
     [self.headerBgView addSubview:self.authenticationBtn];
@@ -176,13 +179,11 @@
     self.vipBtn.layer.borderWidth = 1.0;
     self.vipBtn.layer.borderColor = colorWithRGB(0xFF6B24).CGColor;
     [self.vipBtn setBackgroundImage:[UIImage imageNamed:@"icon_mine_vip"] forState:UIControlStateNormal];
-//    [self.vipBtn setImage:[UIImage imageNamed:@"vip_icon"] forState:UIControlStateNormal];
-//    self.vipBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, [self widthLabelWithModel:@"VIP1"]+5);
     [self.vipBtn addTarget:self action:@selector(vipAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.vipBtn setTitle:@"VIP1" forState:UIControlStateNormal];
+    [self.vipBtn setTitle:[NSString stringWithFormat:@"VIP%@",lyAccount.level] forState:UIControlStateNormal];
     [self.vipBtn setTitleColor:colorWithRGB(0xFF6B24) forState:UIControlStateNormal];
     self.vipBtn.titleLabel.font = [UIFont systemFontOfSize:10];
-      self.vipBtn.contentEdgeInsets = UIEdgeInsetsMake(0,0, 0, 10); self.vipBtn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentRight ;
+    self.vipBtn.contentEdgeInsets = UIEdgeInsetsMake(0,0, 0, 5); self.vipBtn.contentHorizontalAlignment=UIControlContentHorizontalAlignmentRight ;
 
     
     self.accountBtn = [[UIButton alloc] init];
@@ -193,7 +194,7 @@
     .widthIs(100)
     .heightIs(20);
     [self.accountBtn addTarget:self action:@selector(accountAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.accountBtn setTitle:@"Alan" forState:UIControlStateNormal];
+    [self.accountBtn setTitle:lyAccount.nickName forState:UIControlStateNormal];
     [self.accountBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
     self.numberLabel = [[UILabel alloc] init];
@@ -205,7 +206,7 @@
     .heightIs(15);
     self.numberLabel.textAlignment = NSTextAlignmentCenter;
     self.numberLabel.textColor = [UIColor lightGrayColor];
-    self.numberLabel.text = @"代购编号:90949";
+    self.numberLabel.text = [NSString stringWithFormat:@"代购编号:%@",lyAccount.buyNo];
     self.numberLabel.font = [UIFont systemFontOfSize:14];
     
     self.moneyBgView = [[UIView alloc] init];
