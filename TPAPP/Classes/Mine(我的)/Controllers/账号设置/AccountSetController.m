@@ -13,6 +13,7 @@
 #import "IdentificationController.h"
 #import "AddressManageController.h"
 #import "ZLNoAuthorityViewController.h"
+#import <NMSSH/NMSSH.h>
 @interface AccountSetController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, readwrite, strong) UITableView *tableView;
 
@@ -173,36 +174,43 @@
     return _tableView;
 }
 - (void)prepareData {
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
     YSStaticDefaultModel *model0 = [[YSStaticDefaultModel alloc] init];
     model0.cellHeight = 80;
     model0.title = @"头像";
-    model0.indicatorImageName = @"测试头像.jpeg";
-    //    model0.indicatorImageUrl = @"https://img3.duitang.com/uploads/item/201508/07/20150807082213_AcdWu.jpeg";
+//    model0.indicatorImageName = @"测试头像.jpeg";
+    model0.indicatorImageUrl = lyAccount.headUrl;
     model0.indicatorImageSize = CGSizeMake(60, 60);
     
     YSStaticDefaultModel *model1 = [[YSStaticDefaultModel alloc] init];
     model1.title = @"昵称";
-    model1.indicatorTitle = @"kyson";
+    model1.indicatorTitle = lyAccount.nickName;
     
     YSStaticDefaultModel *model2 = [[YSStaticDefaultModel alloc] init];
     model2.title = @"手机号";
-    model2.indicatorTitle = @"18601605699";
+    model2.indicatorTitle = lyAccount.phone;
     model2.cellType = YSStaticCellTypeAccessoryNone;
     
     YSStaticDefaultModel *model3 = [[YSStaticDefaultModel alloc] init];
     model3.title = @"代购编号";
-    model3.indicatorTitle = @"336854";
+    model3.indicatorTitle = lyAccount.buyNo;
     model3.cellType = YSStaticCellTypeAccessoryNone;
     
     YSStaticSectionModel *sm0 = [YSStaticSectionModel sectionWithItemArray:@[model0, model1, model2, model3]];
     
     YSStaticDefaultModel *model4 = [[YSStaticDefaultModel alloc] init];
     model4.title = @"会员等级";
-    model4.indicatorTitle = @"VIP2";
+    model4.indicatorTitle = [NSString stringWithFormat:@"VIP%@",lyAccount.level];
     
     YSStaticDefaultModel *model5 = [[YSStaticDefaultModel alloc] init];
     model5.title = @"地址管理";
-    model5.indicatorTitle = @"上海市沪太路3100号";
+    if ([addressMes.id length] == 0) {
+        
+    }else{
+        model5.indicatorTitle = addressMes.recAddress;
+    }
+    
     
     YSStaticDefaultModel *model6 = [[YSStaticDefaultModel alloc] init];
     model6.title = @"实名认证";
@@ -212,7 +220,12 @@
     }else{
        model6.indicatorTitle = @"已认证";
     }
-    
+//    YSStaticDefaultModel *model10 = [[YSStaticDefaultModel alloc] init];
+//    model10.title = @"下单备注开关";
+//    model10.cellType = YSStaticCellTypeAccessorySwitch;
+//    [model10 setSwitchValueDidChangeBlock:^(BOOL isOn) {
+//
+//    }];
     
     YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model4, model5,model6]];
     
@@ -246,27 +259,8 @@
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:nvc];
         nav.modalTransitionStyle=UIModalTransitionStyleCoverVertical;
         [self.navigationController presentViewController:nav animated:YES completion:nil];
-        //无权限
-        //获取当前语言
-        //        NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-        //        NSArray *languages = [defs objectForKey:@"AppleLanguages"];
-        //        NSString *preferredLang = [languages objectAtIndex:0];
-        //        if ([preferredLang isEqualToString:@"en-CN"]||[preferredLang isEqualToString:@"en-IN"]||[preferredLang isEqualToString:@"en-US"]||[preferredLang isEqualToString:@"en-UK"]) {
-        //            //无相册访问权限
-        //            //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
-        //            //            nvc.titleString = @"相机";
-        //            //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相机";
-        //            //            [self presentVC:nvc];
-        //        }else{
-        //            //无相册访问权限
-        //            //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
-        //            //            nvc.titleString = @"相机";
-        //            //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相机";
-        //            //            [self presentVC:nvc];
-        //        }
     }else{
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-        //            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
         controller.sourceType = UIImagePickerControllerSourceTypeCamera;
         controller.delegate = self;
         [self presentViewController:controller animated:YES completion:nil];
@@ -285,37 +279,17 @@
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:nvc];
         nav.modalTransitionStyle=UIModalTransitionStyleCoverVertical;
         [self.navigationController presentViewController:nav animated:YES completion:nil];
-        //获取当前语言
-        //        NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-        //        NSArray *languages = [defs objectForKey:@"AppleLanguages"];
-        //        NSString *preferredLang = [languages objectAtIndex:0];
-        //        if ([preferredLang isEqualToString:@"en-CN"]||[preferredLang isEqualToString:@"en-IN"]||[preferredLang isEqualToString:@"en-US"]||[preferredLang isEqualToString:@"en-UK"]) {
-        //无相册访问权限
-        //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
-        //            nvc.titleString = @"相册";
-        //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相册";
-        //            [self presentVC:nvc];
-        //        }else{
-        //无相册访问权限
-        //            ZLNoAuthorityViewController *nvc = [[ZLNoAuthorityViewController alloc] init];
-        //            nvc.titleString = @"相册";
-        //            nvc.remindString = @"请在iPhone的\"设置-隐私-相机\"选项中，允许%@访问你的相册";
-        //            [self presentVC:nvc];
-        //        }
         NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
         if ([[UIApplication sharedApplication] canOpenURL:url]) {
             [[UIApplication sharedApplication] openURL:url];
         }
     }else{
         UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-        //            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
         controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         controller.delegate = self;
         controller.allowsEditing = YES;
         [self presentViewController:controller animated:YES completion:nil];
     }
-    
-    
 }
 #pragma mark - UIImagePickerControllrDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
@@ -324,12 +298,64 @@
     [picker dismissViewControllerAnimated:YES completion:^{
         UIImage *image = info[UIImagePickerControllerOriginalImage];
         NSLog(@"%@",image);
-        //        self.selectImageView.sd_layout
-        //        .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
-        //        .centerXEqualToView(self.view)
-        //        .widthIs(KScreenWidth-190)
-        //        .heightIs((KScreenWidth-190)*(image.size.height)/image.size.width);
-        //        self.selectImageView.image = image;
+//        [SVProgressHUD doAnythingWithHUDMessage:nil];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyyMMddHHmmssSSS";
+        NSString *str = [formatter stringFromDate:[NSDate date]];
+        NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
+        NSString *headUrl = [NSString stringWithFormat:@"http://47.92.193.30/images/%@",imageName];
+        // 创建文件管理器
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        //获取路径
+        //参数NSDocumentDirectory要获取那种路径
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *documenDirectory = [paths objectAtIndex:0];//去处需要的路径
+        NSString *path = [documenDirectory stringByAppendingPathComponent:imageName];
+        BOOL isEXsit = [fileManager fileExistsAtPath:path];
+        if (isEXsit) {
+            [fileManager removeItemAtPath:path error:nil];
+            [fileManager createFileAtPath:path contents:nil attributes:nil];
+        }else {
+            [fileManager createFileAtPath:path contents:nil attributes:nil];
+        }
+        NSData *data = [[NSData alloc] init];
+        data = UIImageJPEGRepresentation(image,0.5);
+        [data writeToFile:path atomically:YES];
+        
+        NMSSHSession *session = [NMSSHSession connectToHost:@"47.92.193.30" port:22 withUsername:@"root"];
+        if (session.isConnected) {
+            [session authenticateByPassword:@"yb0820@!8"];
+            if (session.isAuthorized) {
+                NSLog(@"Authentication succeeded");
+            }
+        }
+        NSError *error = nil;
+        NSString *response = [session.channel execute:@"ls -l /usr/local/files/" error:&error];
+        NSLog(@"List of my sites: %@", response);
+        BOOL success = [session.channel uploadFile:path to:@"/usr/local/files/images/"];
+        if (success) {
+            NSLog(@"上传成功");
+            [fileManager removeItemAtPath:path error:nil];
+            [[NetworkManager sharedManager] postWithUrl:editUserMessage param:@{@"headUrl":headUrl} success:^(id json) {
+//                [SVProgressHUD dismiss];
+                NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+                if ([respCode isEqualToString:@"00000"]) {
+                    [LYAccount mj_objectWithKeyValues:json[@"data"]];
+                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"昵称头像成功" withDuration:1.5];
+                    [self prepareData];
+                    [self.tableView reloadData];
+                }else{
+                    [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                }
+            } failure:^(NSError *error) {
+                
+            }];
+        }else{
+            NSLog(@"上传失败");
+        }
+         [session disconnect];
+        
+        
     }];
 }
 

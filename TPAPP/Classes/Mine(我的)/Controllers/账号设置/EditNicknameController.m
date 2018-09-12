@@ -89,7 +89,20 @@
 }
 - (void)submitBtnAction
 {
-    
+    if (self.nickNameTextField.text.length != 0) {
+        [[NetworkManager sharedManager] postWithUrl:editUserMessage param:@{@"nickName":self.nickNameTextField.text} success:^(id json) {
+            NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+            if ([respCode isEqualToString:@"00000"]) {
+                [LYAccount mj_objectWithKeyValues:json[@"data"]];
+                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"昵称修改成功" withDuration:1.5];
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

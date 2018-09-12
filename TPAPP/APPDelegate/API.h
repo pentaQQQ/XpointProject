@@ -69,7 +69,7 @@
 #define getexit [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/exit"]
 
 
-
+#define editUserMessage [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/edit"]
 
 
 

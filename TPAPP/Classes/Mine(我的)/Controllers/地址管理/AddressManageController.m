@@ -99,6 +99,7 @@
                 AddressModel *model = [AddressModel statusWithDict:dict];
                 if ([model.isDefault isEqualToString:@"1"]) {
                     [self.listDataArr insertObject:model atIndex:0];
+                    [DefaultAddressMessage mj_objectWithKeyValues:dict];
                 }else{
                    [self.listDataArr addObject:model];
                 }

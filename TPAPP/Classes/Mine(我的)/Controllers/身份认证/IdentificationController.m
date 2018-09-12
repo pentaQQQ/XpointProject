@@ -306,6 +306,8 @@
                     [[NetworkManager sharedManager]postWithUrl:uploadIdeniti param:dic success:^(id json) {
                         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
                         if ([respCode isEqualToString:@"00000"]) {
+                            // 单例赋值
+                            [LYAccount mj_objectWithKeyValues:json[@"data"]];
                             [SVProgressHUD doAnythingSuccessWithHUDMessage:@"身份证信息上传成功" withDuration:1.5];
                         }else{
                             [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];

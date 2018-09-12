@@ -128,6 +128,10 @@
 }
 - (void)createUI
 {
+    
+    
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     self.lineImageView = [[UIImageView alloc] init];
@@ -151,18 +155,6 @@
     .widthIs([self widthLabelWithModel:@"代购编号:" withFont:15])
     .heightIs(20);
     
-    self.buy_number = [[UILabel alloc] init];
-    self.buy_number.text = @"6496";
-    self.buy_number.textColor = [UIColor blackColor];
-    self.buy_number.font = [UIFont systemFontOfSize:15];
-    [self.contentView addSubview:self.buy_number];
-    self.buy_number.sd_layout
-    .topSpaceToView(self.contentView, 20)
-    .leftSpaceToView(self.buyLabel, 5)
-    .widthIs(100)
-    .heightIs(20);
-    
-    
     self.retureList = [[UIButton alloc] init];
     self.retureList.titleLabel.font = [UIFont systemFontOfSize:14];
     [self.retureList setTitle:@"回收清单" forState:UIControlStateNormal];
@@ -175,6 +167,20 @@
     .widthIs([self widthLabelWithModel:@"回收清单" withFont:14]+30)
     .heightIs(20);
     
+    self.buy_number = [[UILabel alloc] init];
+    self.buy_number.text = lyAccount.buyNo;
+    self.buy_number.textColor = [UIColor blackColor];
+    self.buy_number.font = [UIFont systemFontOfSize:15];
+    [self.contentView addSubview:self.buy_number];
+    self.buy_number.sd_layout
+    .topSpaceToView(self.contentView, 20)
+    .leftSpaceToView(self.buyLabel, 5)
+    .rightSpaceToView(self.retureList, 5)
+    .heightIs(20);
+    
+    
+   
+    
     self.retureList.layer.cornerRadius = 10;
     self.retureList.layer.masksToBounds = YES;
     self.retureList.layer.borderWidth = .5;
@@ -182,92 +188,144 @@
     
     
     
-    [self.contentView addSubview:self.localImageView];
-    UIImage *image = [UIImage imageNamed:@"icon_addres"];
-    self.localImageView.image = image;
-    self.localImageView.sd_layout
-    .topSpaceToView(self.buy_number, 28)
-    .leftSpaceToView(self.contentView, 15)
-    .widthIs(15)
-    .heightIs(15*image.size.height/image.size.width);
+    DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
+    if ([addressMes.id length] == 0) {
+        [self.contentView addSubview:self.lineView];
+        self.lineView.sd_layout
+        .topSpaceToView(self.retureList, 20)
+        .leftSpaceToView(self.contentView, 0)
+        .rightSpaceToView(self.contentView, 0)
+        .heightIs(1);
+        
+        [self.contentView addSubview:self.getAddess];
+        self.getAddess.text = @"收货地址";
+        self.getAddess.sd_layout
+        .topSpaceToView(self.lineView, 10)
+        .leftSpaceToView(self.contentView, 15)
+        .widthIs([self widthLabelWithModel:@"收货地址" withFont:15])
+        .heightIs(20);
+        
+        self.chooseAddress = [[UIControl alloc] init];
+        [self.contentView addSubview:self.chooseAddress];
+        [self.chooseAddress addTarget:self action:@selector(chooseAddressAction) forControlEvents:UIControlEventTouchUpInside];
+        self.chooseAddress.sd_layout
+        .topSpaceToView(self.lineView, 10)
+        .rightSpaceToView(self.contentView, 15)
+        .widthIs(55)
+        .heightIs(20);
+        
+        UIImageView *myImageview = [[UIImageView alloc] init];
+        myImageview.image = [UIImage imageNamed:@"编辑"];
+        [self.chooseAddress addSubview:myImageview];
+        myImageview.sd_layout
+        .topEqualToView(self.chooseAddress)
+        .leftEqualToView(self.chooseAddress)
+        .heightIs(20)
+        .widthIs(20);
+        
+        UILabel *chooseLabel = [[UILabel alloc] init];
+        chooseLabel.text = @"选择";
+        [self.chooseAddress addSubview:chooseLabel];
+        chooseLabel.font = [UIFont systemFontOfSize:14];
+        chooseLabel.textColor = [UIColor lightGrayColor];
+        chooseLabel.textAlignment = NSTextAlignmentRight;
+        chooseLabel.sd_layout
+        .topEqualToView(self.chooseAddress)
+        .rightEqualToView(self.chooseAddress)
+        .heightIs(20)
+        .widthIs(35);
+    }else{
+        [self.contentView addSubview:self.localImageView];
+        UIImage *image = [UIImage imageNamed:@"icon_addres"];
+        self.localImageView.image = image;
+        self.localImageView.sd_layout
+        .topSpaceToView(self.buy_number, 28)
+        .leftSpaceToView(self.contentView, 15)
+        .widthIs(15)
+        .heightIs(15*image.size.height/image.size.width);
+        
+        
+        [self.contentView addSubview:self.buyUserName];
+        self.buyUserName.text = addressMes.recNickName;
+        self.buyUserName.sd_layout
+        .topSpaceToView(self.buy_number, 20)
+        .leftSpaceToView(self.contentView, 40)
+        .widthIs([self widthLabelWithModel:addressMes.recNickName withFont:15])
+        .heightIs(20);
+        
+        
+        [self.contentView addSubview:self.buyUserTelephone];
+        NSString *str1 = [addressMes.recPhone substringToIndex:3];
+        NSString *str2 = [addressMes.recPhone substringFromIndex:6];
+        self.buyUserTelephone.text = [NSString stringWithFormat:@"%@****%@",str1,str2];
+        self.buyUserTelephone.sd_layout
+        .topSpaceToView(self.buy_number, 20)
+        .leftSpaceToView(self.buyUserName, 30)
+        .widthIs([self widthLabelWithModel:self.buyUserTelephone.text withFont:15])
+        .heightIs(20);
+        
+        [self.contentView addSubview:self.defaultImageView];
+        UIImage *image1 = [UIImage imageNamed:@"tag_moren"];
+        self.defaultImageView.image = image1;
+        self.defaultImageView.sd_layout
+        .topSpaceToView(self.buy_number, 20)
+        .leftSpaceToView(self.buyUserTelephone, 5)
+        .widthIs(50)
+        .heightIs(20);
+        [self.contentView addSubview:self.buyUserAddess];
+        self.buyUserAddess.text = [NSString stringWithFormat:@"%@",addressMes.recAddress];
+        self.buyUserAddess.sd_layout
+        .topSpaceToView(self.buyUserTelephone, 5)
+        .leftSpaceToView(self.contentView, 40)
+        .rightSpaceToView(self.contentView, 40)
+        .heightIs(20);
+        [self.contentView addSubview:self.lineView];
+        self.lineView.sd_layout
+        .topSpaceToView(self.buyUserAddess, 10)
+        .leftSpaceToView(self.contentView, 0)
+        .rightSpaceToView(self.contentView, 0)
+        .heightIs(1);
+        
+        [self.contentView addSubview:self.getAddess];
+        self.getAddess.text = @"收货地址";
+        self.getAddess.sd_layout
+        .topSpaceToView(self.lineView, 10)
+        .leftSpaceToView(self.contentView, 15)
+        .widthIs([self widthLabelWithModel:@"收货地址" withFont:15])
+        .heightIs(20);
+        
+        self.chooseAddress = [[UIControl alloc] init];
+        [self.contentView addSubview:self.chooseAddress];
+        [self.chooseAddress addTarget:self action:@selector(chooseAddressAction) forControlEvents:UIControlEventTouchUpInside];
+        self.chooseAddress.sd_layout
+        .topSpaceToView(self.lineView, 10)
+        .rightSpaceToView(self.contentView, 15)
+        .widthIs(55)
+        .heightIs(20);
+        
+        UIImageView *myImageview = [[UIImageView alloc] init];
+        myImageview.image = [UIImage imageNamed:@"编辑"];
+        [self.chooseAddress addSubview:myImageview];
+        myImageview.sd_layout
+        .topEqualToView(self.chooseAddress)
+        .leftEqualToView(self.chooseAddress)
+        .heightIs(20)
+        .widthIs(20);
+        
+        UILabel *chooseLabel = [[UILabel alloc] init];
+        chooseLabel.text = @"选择";
+        [self.chooseAddress addSubview:chooseLabel];
+        chooseLabel.font = [UIFont systemFontOfSize:14];
+        chooseLabel.textColor = [UIColor lightGrayColor];
+        chooseLabel.textAlignment = NSTextAlignmentRight;
+        chooseLabel.sd_layout
+        .topEqualToView(self.chooseAddress)
+        .rightEqualToView(self.chooseAddress)
+        .heightIs(20)
+        .widthIs(35);
+    }
     
     
-    [self.contentView addSubview:self.buyUserName];
-    self.buyUserName.text = @"Alan";
-    self.buyUserName.sd_layout
-    .topSpaceToView(self.buy_number, 20)
-    .leftSpaceToView(self.contentView, 40)
-    .widthIs([self widthLabelWithModel:@"Alan" withFont:15])
-    .heightIs(20);
-    
-    
-    [self.contentView addSubview:self.buyUserTelephone];
-    self.buyUserTelephone.text = @"185****5966";
-    self.buyUserTelephone.sd_layout
-    .topSpaceToView(self.buy_number, 20)
-    .leftSpaceToView(self.buyUserName, 30)
-    .widthIs([self widthLabelWithModel:@"185****5966" withFont:15])
-    .heightIs(20);
-    
-    [self.contentView addSubview:self.defaultImageView];
-    UIImage *image1 = [UIImage imageNamed:@"tag_moren"];
-    self.defaultImageView.image = image1;
-    self.defaultImageView.sd_layout
-    .topSpaceToView(self.buy_number, 20)
-    .leftSpaceToView(self.buyUserTelephone, 5)
-    .widthIs(50)
-    .heightIs(20);
-    [self.contentView addSubview:self.buyUserAddess];
-    self.buyUserAddess.text = @"上海市宝山区沪太路3100号A座";
-    self.buyUserAddess.sd_layout
-    .topSpaceToView(self.buyUserTelephone, 5)
-    .leftSpaceToView(self.contentView, 40)
-    .rightSpaceToView(self.contentView, 80)
-    .heightIs(20);
-    [self.contentView addSubview:self.lineView];
-    self.lineView.sd_layout
-    .topSpaceToView(self.buyUserAddess, 10)
-    .leftSpaceToView(self.contentView, 0)
-    .rightSpaceToView(self.contentView, 0)
-    .heightIs(1);
-    
-    [self.contentView addSubview:self.getAddess];
-    self.getAddess.text = @"收货地址";
-    self.getAddess.sd_layout
-    .topSpaceToView(self.lineView, 10)
-    .leftSpaceToView(self.contentView, 15)
-    .widthIs([self widthLabelWithModel:@"收货地址" withFont:15])
-    .heightIs(20);
-    
-    self.chooseAddress = [[UIControl alloc] init];
-    [self.contentView addSubview:self.chooseAddress];
-    [self.chooseAddress addTarget:self action:@selector(chooseAddressAction) forControlEvents:UIControlEventTouchUpInside];
-    self.chooseAddress.sd_layout
-    .topSpaceToView(self.lineView, 10)
-    .rightSpaceToView(self.contentView, 15)
-    .widthIs(55)
-    .heightIs(20);
-    
-    UIImageView *myImageview = [[UIImageView alloc] init];
-    myImageview.image = [UIImage imageNamed:@"编辑"];
-    [self.chooseAddress addSubview:myImageview];
-    myImageview.sd_layout
-    .topEqualToView(self.chooseAddress)
-    .leftEqualToView(self.chooseAddress)
-    .heightIs(20)
-    .widthIs(20);
-    
-    UILabel *chooseLabel = [[UILabel alloc] init];
-    chooseLabel.text = @"选择";
-    [self.chooseAddress addSubview:chooseLabel];
-    chooseLabel.font = [UIFont systemFontOfSize:14];
-    chooseLabel.textColor = [UIColor lightGrayColor];
-    chooseLabel.textAlignment = NSTextAlignmentRight;
-    chooseLabel.sd_layout
-    .topEqualToView(self.chooseAddress)
-    .rightEqualToView(self.chooseAddress)
-    .heightIs(20)
-    .widthIs(35);
     
 }
 
