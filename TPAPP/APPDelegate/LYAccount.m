@@ -7,7 +7,7 @@
 //
 
 #import "LYAccount.h"
-
+#import "AddressModel.h"
 @implementation LYAccount
 static id _instance;
 + (instancetype)allocWithZone:(struct _NSZone *)zone
@@ -26,6 +26,8 @@ static id _instance;
     });
     return _instance;
 }
+
+
 - (id)copyWithZone:(NSZone *)zone
 {
     return _instance;

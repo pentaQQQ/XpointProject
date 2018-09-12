@@ -186,13 +186,25 @@
 //        self.defaultImageView.image = [UIImage imageNamed:@"icon_close"];
         [self.defaultImageView setImage:[UIImage imageNamed:@"icon_close"] forState:UIControlStateNormal];
     }
-    if (isCartType) {
-        if ([model.isDefault intValue] == 1) {
-            self.statusImageView.image = [UIImage imageNamed:@"已选中"];
+    DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
+    if ([addressMess.id length] == 0) {
+        if (isCartType) {
+            if ([model.isDefault intValue] == 1) {
+                self.statusImageView.image = [UIImage imageNamed:@"已选中"];
+            }
+        }else{
+            [self.statusImageView removeFromSuperview];
         }
     }else{
-        [self.statusImageView removeFromSuperview];
+        if ([addressMess.id isEqualToString:model.id]) {
+            if (isCartType) {
+                self.statusImageView.image = [UIImage imageNamed:@"已选中"];
+            }else{
+                [self.statusImageView removeFromSuperview];
+            }
+        }
     }
+    
 }
 
 #pragma mark-字体宽度自适应

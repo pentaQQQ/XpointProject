@@ -18,8 +18,8 @@
 #import "oldhechengView.h"
 #import "HuoDongCell.h"
 #import "PiliangzhuanfaViewController.h"
-
-@interface GoodsDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIDocumentInteractionControllerDelegate>
+#import "DeclareAbnormalAlertView.h"
+@interface GoodsDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIDocumentInteractionControllerDelegate,DeclareAbnormalAlertViewDelegate>
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)UITableView*tableview;
 
@@ -198,25 +198,8 @@
         cell.model = model;
         
         [cell setAddGoodsGoCartBlock:^(specsModel *model) {
-            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-            [dic setValue:model.productId forKey:@"productId"];
-            [dic setValue:model.size forKey:@"size"];
-            LYAccount *lyAccount = [LYAccount shareAccount];
-            [dic setValue:lyAccount.id forKey:@"userId"];
-            [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
-                NSLog(@"%@",dict);
-                NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-                if ([respCode isEqualToString:@"00000"]) {
-                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
-//                    [self.navigationController.tabBarController.viewControllers[3].tabBarItem setBadgeColor:colorWithRGB(0xFF6B24)];
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:nil userInfo:@{@"shopCarNumber":@"1"}];
-//                    [self.navigationController.tabBarController.viewControllers[3].tabBarItem setBadgeValue:@"5"];
-                }else{
-                    [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
-                }
-            } fail:^(NSError *error) {
-                
-            }];
+            DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"添加商品备注" message:@"请输入备注信息" delegate:self leftButtonTitle:@"不下单" rightButtonTitle:@"下单" comCell:nil isAddGood:YES spesmodel:model];
+            [alertView show];
         }];
         
         cell.ToZhuanfaBlock = ^(SimilarProductModel *model, int currentDEX) {
@@ -476,7 +459,34 @@
 }
 
 
-
+#pragma mark - Delegate - 带输入框的弹窗
+// 输入框弹窗的button点击时回调
+- (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectCell:(CompileCell *)cell selectSpesModel:(specsModel *)model{
+    if (buttonIndex == AlertButtonLeft) {
+        
+    }else{
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setValue:model.productId forKey:@"productId"];
+        [dic setValue:model.size forKey:@"size"];
+        LYAccount *lyAccount = [LYAccount shareAccount];
+        [dic setValue:lyAccount.id forKey:@"userId"];
+        [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
+            NSLog(@"%@",dict);
+            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+            if ([respCode isEqualToString:@"00000"]) {
+                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+                [self.navigationController.tabBarController.viewControllers[3].tabBarItem setBadgeValue:@"5"];
+            }else{
+                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+            }
+        } fail:^(NSError *error) {
+            
+        }];
+        
+        
+        
+    }
+}
 
 
 #pragma mark - 截取某视图的内容

@@ -14,6 +14,7 @@
  创建时间
  */
 @property (nonatomic, copy)NSString *createDataTime;
+
 @property (nonatomic, copy)NSString *endDate;
 
 /**

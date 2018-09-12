@@ -62,18 +62,18 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     
-    _CartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -SafeAreaBottomHeight) style:UITableViewStyleGrouped];
-    _CartTableView.estimatedRowHeight = 0;
-    _CartTableView.delegate = self;
-    _CartTableView.dataSource = self;
-    _CartTableView.backgroundColor = colorWithRGB(0xEEEEEE);
-    _CartTableView.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:_CartTableView];
-    _CartTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+    self.CartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -SafeAreaBottomHeight) style:UITableViewStyleGrouped];
+    self.CartTableView.estimatedRowHeight = 0;
+    self.CartTableView.delegate = self;
+    self.CartTableView.dataSource = self;
+    self.CartTableView.backgroundColor = colorWithRGB(0xEEEEEE);
+    self.CartTableView.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:self.CartTableView];
+    self.CartTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     //自动更改透明度
-    _CartTableView.mj_header.automaticallyChangeAlpha = YES;
+    self.CartTableView.mj_header.automaticallyChangeAlpha = YES;
     //进入刷新状态
-//    [_CartTableView.mj_header beginRefreshing];
+//    [self.CartTableView.mj_header beginRefreshing];
 }
 
 
@@ -83,11 +83,11 @@
     if (isPreview) {
         isPreview = NO;
     }else{
-        if ([_CartTableView.mj_header isRefreshing]) {
-            [_CartTableView.mj_header endRefreshing];
+        if ([self.CartTableView.mj_header isRefreshing]) {
+            [self.CartTableView.mj_header endRefreshing];
         }
         //进入刷新状态
-        [_CartTableView.mj_header beginRefreshing];
+        [self.CartTableView.mj_header beginRefreshing];
     }
     
     
@@ -100,7 +100,7 @@
     [dataDict setValue:lyAccount.id forKey:@"userId"];
     [dataDict setValue:@"0" forKey:@"status"];
     [LYTools postBossDemoWithUrl:cartList param:dataDict success:^(NSDictionary *dict) {
-        [_CartTableView.mj_header endRefreshing];
+        [self.CartTableView.mj_header endRefreshing];
         [self.dataSource removeAllObjects];
         [self.dataSource addObject:@[]];
         NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
@@ -132,7 +132,7 @@
 
                 [self.dataSource addObject:arr];
             }
-            [_CartTableView reloadData];
+            [self.CartTableView reloadData];
         }else if([dict[@"code"]longValue] == 500){
             [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
         }
@@ -224,7 +224,7 @@
             [self.accountView removeFromSuperview];
             self.accountView = nil;
         }
-        _CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-SafeAreaBottomHeight);
+        self.CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-SafeAreaBottomHeight);
         return 330;
     }else{
         if(self.accountView == nil){
@@ -232,7 +232,7 @@
             
         }
         [self postCenter];
-        _CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-SafeAreaBottomHeight);
+        self.CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-SafeAreaBottomHeight);
         if (section == self.dataSource.count - 1) {
             return 200;
         }else{
@@ -247,7 +247,7 @@
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 330)];
         view.backgroundColor = colorWithRGB(0xEEEEEE);
         //  计算位置, 垂直居中, 图片默认中心偏上.
-        CGFloat sW = _CartTableView.bounds.size.width;
+        CGFloat sW = self.CartTableView.bounds.size.width;
         CGFloat iW = 74;
         CGFloat iH = 74;
         
@@ -315,7 +315,7 @@
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200)];
             view.backgroundColor = colorWithRGB(0xEEEEEE);
             //  计算位置, 垂直居中, 图片默认中心偏上.
-            CGFloat sW = _CartTableView.size.width;
+            CGFloat sW = self.CartTableView.size.width;
             //  图片
             UIImageView *leftImgView = [[UIImageView alloc] init];
             leftImgView.frame        = CGRectMake(30, 35, (kScreenWidth-60)/3-10, 1.5);
@@ -371,8 +371,10 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
-        if (addressMes.id.length == 0) {
+        LYAccount *lyAccount = [LYAccount shareAccount];
+        AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:lyAccount.defaultAddress];
+//        DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
+        if (addressModel.id.length == 0) {
             return 100;
         }else{
           return 155;
@@ -411,6 +413,7 @@
           cell = [[CartHeaderAddressCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CartHeaderAddressCellID"];
         }
         cell.backgroundColor = [UIColor whiteColor];
+        [cell withData:[LYAccount shareAccount]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setSelectButtonBlock:^(NSInteger num) {
             if (num == 1) {
@@ -485,7 +488,7 @@
  */
 -(BOOL) swipeTableCell:(MGSwipeTableCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion
 {
-    NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
+    NSIndexPath *indexPath = [self.CartTableView indexPathForCell:cell];
     NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
     
     NSLog(@"Delegate: button tapped, %@ position, index %d, from Expansion: %@",
@@ -504,7 +507,7 @@
                     if (arr.count > 0) {
                         [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
                         [self postCenter];
-                        //[_CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        //[self.CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
                         NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
                         NSInteger index = 0; //判读section下的row是否全部勾选
                         for (NSInteger i = 0; i < arr.count; i++) {
@@ -525,16 +528,16 @@
                         [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
                         //一个section刷新
                         NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-                        [_CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-//                        _CartTableView.backgroundView = nil;
-//                        [_CartTableView reloadData];
+                        [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+//                        self.CartTableView.backgroundView = nil;
+//                        [self.CartTableView reloadData];
                     }else{
                         [self.dataSource removeObjectAtIndex:indexPath.section];
                         [self postCenter];
 //                        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-//                        [_CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-//                        _CartTableView.backgroundView = nil;
-                        [_CartTableView reloadData];
+//                        [self.CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+//                        self.CartTableView.backgroundView = nil;
+                        [self.CartTableView reloadData];
                     }
                 }else if([dict[@"code"]longValue] == 500){
                     [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
@@ -554,7 +557,7 @@
 -(void)SelectedConfirmCell:(UITableViewCell *)cell
 {
 //    dispatch_async(dispatch_get_main_queue(), ^{
-        NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
+        NSIndexPath *indexPath = [self.CartTableView indexPathForCell:cell];
         NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
 //        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
         CartDetailsModel *model = arr[indexPath.row];
@@ -567,7 +570,7 @@
         [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
         
         [self didChangeValueForSectionAllRow:indexPath.section];
-//        [_CartTableView reloadData];
+//        [self.CartTableView reloadData];
 //    });
     
 }
@@ -577,7 +580,7 @@
 -(void)SelectedCancelCell:(UITableViewCell *)cell
 {
 //    dispatch_async(dispatch_get_main_queue(), ^{
-        NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
+        NSIndexPath *indexPath = [self.CartTableView indexPathForCell:cell];
         NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
 //        NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
         CartDetailsModel *model = arr[indexPath.row];
@@ -590,7 +593,7 @@
         [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
         //判断是否把section的全选按钮取消
         [self didChangeValueForSectionRow:indexPath.section];
-//        [_CartTableView reloadData];
+//        [self.CartTableView reloadData];
 //    });
     
 }
@@ -600,7 +603,7 @@
  */
 -(void)SelectedRemarkCell:(CompileCell *)cell
 {
-    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"添加商品备注" message:@"请输入备注信息" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comCell:cell];
+    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"添加商品备注" message:@"请输入备注信息" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comCell:cell isAddGood:NO spesmodel:nil];
     [alertView show];
 }
 /**
@@ -661,7 +664,7 @@
     
     
     [self didChangeValueForSection:section SectionSelectedTyep:YES];
-//    [_CartTableView reloadData];
+//    [self.CartTableView reloadData];
 }
 /**
  *  取消选中哪个section
@@ -679,7 +682,7 @@
     [self.dataSource replaceObjectAtIndex:section withObject:arr];
     
     [self didChangeValueForSection:section SectionSelectedTyep:NO];
-//    [_CartTableView reloadData];
+//    [self.CartTableView reloadData];
     
 }
 /******************************************
@@ -746,7 +749,7 @@
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    [_CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 /********************************************
@@ -777,7 +780,7 @@
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    [_CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     
 }
 
@@ -839,7 +842,7 @@
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    [_CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     
 }
 
@@ -879,7 +882,7 @@
         }
         [self postCenter];
         
-        [_CartTableView reloadData];
+        [self.CartTableView reloadData];
 //    });
    
 }
@@ -908,7 +911,7 @@
         }
         [self postCenter];
         
-        [_CartTableView reloadData];
+        [self.CartTableView reloadData];
     });
     
 }
@@ -952,7 +955,7 @@
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    [_CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     
     NSLog(@"%ld",section);
 }
@@ -962,7 +965,7 @@
  */
 -(void)ChangeGoodsNumberCell:(UITableViewCell *)cell Number:(NSInteger)num
 {
-    NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
+    NSIndexPath *indexPath = [self.CartTableView indexPathForCell:cell];
     NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:arr[indexPath.row]];
     [dict setValue:[NSString stringWithFormat:@"%ld",num] forKey:@"GoodsNumber"];
@@ -974,7 +977,7 @@
     
     //一个cell刷新
     NSIndexPath *indexPaths=[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
-    [_CartTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPaths,nil] withRowAnimation:UITableViewRowAnimationNone];
+    [self.CartTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPaths,nil] withRowAnimation:UITableViewRowAnimationNone];
     
 }
 /**
@@ -982,7 +985,7 @@
  */
 -(void)DeleteTheGoodsCell:(UITableViewCell *)cell
 {
-    NSIndexPath *indexPath = [_CartTableView indexPathForCell:cell];
+    NSIndexPath *indexPath = [self.CartTableView indexPathForCell:cell];
     NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
     
     [Helper ShowAlertWithTitle:@"是否删除该商品" prompt:@"" cancel:@"取消" defaultLb:@"确定" ViewController:self alertOkClick:^{
@@ -997,9 +1000,9 @@
             
             //                //一个section刷新
             //                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-            //                [_CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            //                [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
             
-            [_CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
             
         }else{
             [self.dataSource removeObjectAtIndex:indexPath.section];
@@ -1007,7 +1010,7 @@
             [self postCenter];
             
             NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-            [_CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
         }
         
         
@@ -1028,7 +1031,7 @@
 }
 #pragma mark - Delegate - 带输入框的弹窗
 // 输入框弹窗的button点击时回调
-- (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectCell:(CompileCell *)cell{
+- (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectCell:(CompileCell *)cell selectSpesModel:(specsModel *)model{
     if (buttonIndex == AlertButtonLeft) {
         
     }else{

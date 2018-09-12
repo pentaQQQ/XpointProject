@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CompileCell.h"
-
+#import "specsModel.h"
 /**
  弹窗上的按钮
 
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, AbnormalButton) {
 
 @protocol DeclareAbnormalAlertViewDelegate <NSObject>
 
-- (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectCell:(CompileCell *)cell;
+- (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectCell:(CompileCell *)cell selectSpesModel:(specsModel *)model;
 
 @end
 
@@ -56,7 +56,7 @@ typedef NS_ENUM(NSUInteger, AbnormalButton) {
  @param rightButtonTitle 右边按钮的title
  @return 一个申报异常的弹窗
  */
-- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle comCell:(CompileCell *)cell;
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle comCell:(CompileCell *)cell isAddGood:(BOOL)isAddGood spesmodel:(specsModel *)model;
 
 /** show出这个弹窗 */
 - (void)show;

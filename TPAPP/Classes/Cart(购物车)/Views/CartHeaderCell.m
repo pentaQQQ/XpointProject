@@ -130,10 +130,17 @@
 {
     
     
-    LYAccount *lyAccount = [LYAccount shareAccount];
+    
+    
+    
+    
+    
+}
+
+-(void)withData:(LYAccount *)info
+{
     
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
     self.lineImageView = [[UIImageView alloc] init];
     self.lineImageView.image = [UIImage imageNamed:@"icon_mine_line"];
     [self.contentView addSubview:self.lineImageView];
@@ -168,7 +175,7 @@
     .heightIs(20);
     
     self.buy_number = [[UILabel alloc] init];
-    self.buy_number.text = lyAccount.buyNo;
+     self.buy_number.text = info.buyNo;
     self.buy_number.textColor = [UIColor blackColor];
     self.buy_number.font = [UIFont systemFontOfSize:15];
     [self.contentView addSubview:self.buy_number];
@@ -179,7 +186,7 @@
     .heightIs(20);
     
     
-   
+    
     
     self.retureList.layer.cornerRadius = 10;
     self.retureList.layer.masksToBounds = YES;
@@ -187,12 +194,11 @@
     self.retureList.layer.borderColor = [UIColor grayColor].CGColor;
     
     
-    
-    DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
-    if ([addressMes.id length] == 0) {
+    AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:info.defaultAddress];
+    if ([addressModel.id length] == 0) {
         [self.contentView addSubview:self.lineView];
         self.lineView.sd_layout
-        .topSpaceToView(self.retureList, 20)
+        .topSpaceToView(self.contentView, 20+40)
         .leftSpaceToView(self.contentView, 0)
         .rightSpaceToView(self.contentView, 0)
         .heightIs(1);
@@ -238,79 +244,39 @@
         [self.contentView addSubview:self.localImageView];
         UIImage *image = [UIImage imageNamed:@"icon_addres"];
         self.localImageView.image = image;
-        self.localImageView.sd_layout
-        .topSpaceToView(self.buy_number, 28)
-        .leftSpaceToView(self.contentView, 15)
-        .widthIs(15)
-        .heightIs(15*image.size.height/image.size.width);
+        
         
         
         [self.contentView addSubview:self.buyUserName];
-        self.buyUserName.text = addressMes.recNickName;
-        self.buyUserName.sd_layout
-        .topSpaceToView(self.buy_number, 20)
-        .leftSpaceToView(self.contentView, 40)
-        .widthIs([self widthLabelWithModel:addressMes.recNickName withFont:15])
-        .heightIs(20);
+        
         
         
         [self.contentView addSubview:self.buyUserTelephone];
-        NSString *str1 = [addressMes.recPhone substringToIndex:3];
-        NSString *str2 = [addressMes.recPhone substringFromIndex:6];
-        self.buyUserTelephone.text = [NSString stringWithFormat:@"%@****%@",str1,str2];
-        self.buyUserTelephone.sd_layout
-        .topSpaceToView(self.buy_number, 20)
-        .leftSpaceToView(self.buyUserName, 30)
-        .widthIs([self widthLabelWithModel:self.buyUserTelephone.text withFont:15])
-        .heightIs(20);
+        
+        
         
         [self.contentView addSubview:self.defaultImageView];
         UIImage *image1 = [UIImage imageNamed:@"tag_moren"];
-        self.defaultImageView.image = image1;
-        self.defaultImageView.sd_layout
-        .topSpaceToView(self.buy_number, 20)
-        .leftSpaceToView(self.buyUserTelephone, 5)
-        .widthIs(50)
-        .heightIs(20);
+        
         [self.contentView addSubview:self.buyUserAddess];
-        self.buyUserAddess.text = [NSString stringWithFormat:@"%@",addressMes.recAddress];
-        self.buyUserAddess.sd_layout
-        .topSpaceToView(self.buyUserTelephone, 5)
-        .leftSpaceToView(self.contentView, 40)
-        .rightSpaceToView(self.contentView, 40)
-        .heightIs(20);
+        
+        
         [self.contentView addSubview:self.lineView];
-        self.lineView.sd_layout
-        .topSpaceToView(self.buyUserAddess, 10)
-        .leftSpaceToView(self.contentView, 0)
-        .rightSpaceToView(self.contentView, 0)
-        .heightIs(1);
+        
         
         [self.contentView addSubview:self.getAddess];
         self.getAddess.text = @"收货地址";
-        self.getAddess.sd_layout
-        .topSpaceToView(self.lineView, 10)
-        .leftSpaceToView(self.contentView, 15)
-        .widthIs([self widthLabelWithModel:@"收货地址" withFont:15])
-        .heightIs(20);
+        
         
         self.chooseAddress = [[UIControl alloc] init];
         [self.contentView addSubview:self.chooseAddress];
         [self.chooseAddress addTarget:self action:@selector(chooseAddressAction) forControlEvents:UIControlEventTouchUpInside];
-        self.chooseAddress.sd_layout
-        .topSpaceToView(self.lineView, 10)
-        .rightSpaceToView(self.contentView, 15)
-        .widthIs(55)
-        .heightIs(20);
+        
         
         UIImageView *myImageview = [[UIImageView alloc] init];
         myImageview.image = [UIImage imageNamed:@"编辑"];
         [self.chooseAddress addSubview:myImageview];
-        myImageview.sd_layout
-        .topEqualToView(self.chooseAddress)
-        .leftEqualToView(self.chooseAddress)
-        .heightIs(20)
-        .widthIs(20);
+        
         
         UILabel *chooseLabel = [[UILabel alloc] init];
         chooseLabel.text = @"选择";
@@ -318,15 +284,79 @@
         chooseLabel.font = [UIFont systemFontOfSize:14];
         chooseLabel.textColor = [UIColor lightGrayColor];
         chooseLabel.textAlignment = NSTextAlignmentRight;
+        
+        DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
+        if ([addressMess.id length] == 0) {
+            self.buyUserName.text = addressModel.recNickName;
+            NSString *str1 = [addressModel.recPhone substringToIndex:3];
+            NSString *str2 = [addressModel.recPhone substringFromIndex:6];
+            self.buyUserTelephone.text = [NSString stringWithFormat:@"%@****%@",str1,str2];
+            self.buyUserAddess.text = [NSString stringWithFormat:@"%@ %@ %@ %@",addressModel.recProv,addressModel.recCity,addressModel.recArea,addressModel.recAddress];
+        }else{
+            self.buyUserName.text = addressMess.recNickName;
+            NSString *str1 = [addressMess.recPhone substringToIndex:3];
+            NSString *str2 = [addressMess.recPhone substringFromIndex:6];
+            self.buyUserTelephone.text = [NSString stringWithFormat:@"%@****%@",str1,str2];
+            self.buyUserAddess.text = [NSString stringWithFormat:@"%@ %@ %@ %@",addressMess.recProv,addressMess.recCity,addressMess.recArea,addressMess.recAddress];
+        }
+        
+        self.localImageView.sd_layout
+        .topSpaceToView(self.contentView, 28+40)
+        .leftSpaceToView(self.contentView, 15)
+        .widthIs(15)
+        .heightIs(15*image.size.height/image.size.width);
+        self.buyUserName.sd_layout
+        .topSpaceToView(self.contentView, 20+40)
+        .leftSpaceToView(self.contentView, 40)
+        .widthIs([self widthLabelWithModel:self.buyUserName.text withFont:15])
+        .heightIs(20);
+        
+        self.buyUserTelephone.sd_layout
+        .topSpaceToView(self.contentView, 20+40)
+        .leftSpaceToView(self.buyUserName, 30)
+        .widthIs([self widthLabelWithModel:self.buyUserTelephone.text withFont:15])
+        .heightIs(20);
+        self.defaultImageView.image = image1;
+        self.defaultImageView.sd_layout
+        .topSpaceToView(self.contentView, 20+40)
+        .leftSpaceToView(self.buyUserTelephone, 5)
+        .widthIs(50)
+        .heightIs(20);
+        self.buyUserAddess.sd_layout
+        .topSpaceToView(self.buyUserTelephone, 5)
+        .leftSpaceToView(self.contentView, 40)
+        .rightSpaceToView(self.contentView, 40)
+        .heightIs(20);
+        self.lineView.sd_layout
+        .topSpaceToView(self.buyUserAddess, 10)
+        .leftSpaceToView(self.contentView, 0)
+        .rightSpaceToView(self.contentView, 0)
+        .heightIs(1);
+        self.getAddess.sd_layout
+        .topSpaceToView(self.lineView, 10)
+        .leftSpaceToView(self.contentView, 15)
+        .widthIs([self widthLabelWithModel:@"收货地址" withFont:15])
+        .heightIs(20);
+        self.chooseAddress.sd_layout
+        .topSpaceToView(self.lineView, 10)
+        .rightSpaceToView(self.contentView, 15)
+        .widthIs(55)
+        .heightIs(20);
+        myImageview.sd_layout
+        .topEqualToView(self.chooseAddress)
+        .leftEqualToView(self.chooseAddress)
+        .heightIs(20)
+        .widthIs(20);
         chooseLabel.sd_layout
         .topEqualToView(self.chooseAddress)
         .rightEqualToView(self.chooseAddress)
         .heightIs(20)
         .widthIs(35);
+        
+       
     }
-    
-    
-    
+   
+ 
 }
 
 - (void)retureListClickAction

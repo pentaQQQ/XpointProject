@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-
+#import "AddressModel.h"
 @interface CartHeaderCell : UITableViewCell
 ///**
 // *  左侧标记线
@@ -88,4 +88,6 @@
 @property (nonatomic, retain)UIControl *chooseAddress;
 
 @property (nonatomic, strong)void(^selectButtonBlock)(NSInteger);
+-(void)withData:(LYAccount *)info;
+
 @end
