@@ -22,5 +22,5 @@
 @property (nonatomic,strong)UIButton *defaultImageView;
 @property (nonatomic,strong)void(^selectBlcok)(NSInteger, AddressModel *);
 @property (nonatomic,strong)AddressModel *addressModel;
-- (void)configWithModel:(AddressModel *)model;
+- (void)configWithModel:(AddressModel *)model withBool:(BOOL)isCartType;
 @end

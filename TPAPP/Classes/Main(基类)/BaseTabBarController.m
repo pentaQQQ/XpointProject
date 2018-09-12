@@ -28,7 +28,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getShopCarNumber" object:nil];
 }
 #pragma mark - 获取购物车的值
-
 -(void)getShopCarNumberAction:(NSNotification *)noti
 
 {

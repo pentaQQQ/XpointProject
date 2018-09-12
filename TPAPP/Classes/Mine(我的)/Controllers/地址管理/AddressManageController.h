@@ -10,4 +10,6 @@
 #import "BaseViewController.h"
 @interface AddressManageController : BaseViewController
 
+@property (nonatomic, assign)BOOL isCartCtrlType;
+
 @end

@@ -41,7 +41,7 @@
     .centerYEqualToView(self.contentView)
     .leftSpaceToView(self.headerImageView,10)
     .widthIs(70)
-    .heightIs(30);
+    .heightIs(25);
     [self.vipBtn setBackgroundImage:[UIImage imageNamed:@"icon_mine_vip"] forState:UIControlStateNormal];
     [self.vipBtn addTarget:self action:@selector(vipAction) forControlEvents:UIControlEventTouchUpInside];
     [self.vipBtn setTitle:[NSString stringWithFormat:@"VIP%@",lyAccount.level] forState:UIControlStateNormal];
@@ -56,10 +56,10 @@
     self.userNameLabel = [[UILabel alloc] init];
     [self.contentView addSubview:self.userNameLabel];
     self.userNameLabel.sd_layout
-    .topSpaceToView(self.vipBtn, 5)
+    .topSpaceToView(self.vipBtn, 7.5)
     .leftEqualToView(self.vipBtn)
     .widthIs(self.vipBtn.frame.size.width)
-    .heightIs(30);
+    .heightIs(25);
     self.userNameLabel.textAlignment = NSTextAlignmentCenter;
     self.userNameLabel.textColor = [UIColor blackColor];
     self.userNameLabel.text = lyAccount.nickName;
@@ -72,8 +72,8 @@
     .rightSpaceToView(self.contentView, 15)
     .centerYEqualToView(self.contentView)
     .leftSpaceToView(self.vipBtn, 10)
-    .heightIs(30);
-    self.moneyBgView.layer.cornerRadius = 15;
+    .heightIs(25);
+    self.moneyBgView.layer.cornerRadius = 12.5;
     self.moneyBgView.layer.masksToBounds = YES;
     
     
@@ -84,15 +84,15 @@
     .topSpaceToView(self.moneyBgView, 0)
     .leftSpaceToView(self.moneyBgView, 0)
     .widthIs(100)
-    .heightIs(30);
-    self.moneyView.layer.cornerRadius = 15;
+    .heightIs(25);
+    self.moneyView.layer.cornerRadius = 12.5;
     self.moneyView.layer.masksToBounds = YES;
     
     self.moneyLabel = [[UILabel alloc] init];
     self.moneyLabel.backgroundColor = colorWithRGB(0xFF6B24);
     [self.moneyView addSubview:self.moneyLabel];
     self.moneyLabel.sd_layout
-    .topSpaceToView(self.moneyView, 5)
+    .topSpaceToView(self.moneyView, 2.5)
     .rightSpaceToView(self.moneyView, 10)
     .widthIs(self.moneyView.frame.size.width-10)
     .heightIs(20);
@@ -107,7 +107,7 @@
     self.distanceLabel = [[UILabel alloc] init];
     [self.contentView addSubview:self.distanceLabel];
     self.distanceLabel.sd_layout
-    .topSpaceToView(self.moneyBgView, 5)
+    .topSpaceToView(self.moneyBgView, 7.5)
      .leftSpaceToView(self.vipBtn, 10)
     .rightSpaceToView(self.contentView, 15)
     .heightIs(30);

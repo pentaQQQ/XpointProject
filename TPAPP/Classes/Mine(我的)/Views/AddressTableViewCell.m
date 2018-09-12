@@ -72,7 +72,7 @@
     [self.contentView addSubview:self.detailAddressLabel];
     self.detailAddressLabel.sd_layout
     .topSpaceToView(self.userNameLabel, 0)
-    .leftSpaceToView(self.addressLabel, 10)
+    .leftSpaceToView(self.addressLabel, 5)
     .rightSpaceToView(self.contentView, 35)
     .heightIs(20);
     
@@ -143,7 +143,7 @@
 {
     self.selectBlcok(0,self.addressModel);
 }
-- (void)configWithModel:(AddressModel *)model
+- (void)configWithModel:(AddressModel *)model withBool:(BOOL)isCartType
 {
     self.addressModel = model;
     self.userNameLabel.sd_layout
@@ -172,19 +172,26 @@
     
     self.detailAddressLabel.sd_layout
     .topSpaceToView(self.userNameLabel, 0)
-    .leftSpaceToView(self.addressLabel,10)
+    .leftSpaceToView(self.addressLabel,5)
     .rightSpaceToView(self.contentView, 35)
     .heightIs(20);
     self.detailAddressLabel.text = model.recAddress;
 //    self.detailAddressLabel.adjustsFontSizeToFitWidth = YES;
     if ([model.isDefault intValue] == 1) {
-       self.statusImageView.image = [UIImage imageNamed:@"已选中"];
+//       self.statusImageView.image = [UIImage imageNamed:@"已选中"];
 //        self.defaultImageView.image = [UIImage imageNamed:@"icon_open"];
         [self.defaultImageView setImage:[UIImage imageNamed:@"icon_open"] forState:UIControlStateNormal];
     }else{
-        self.statusImageView.image = [UIImage imageNamed:@"未选中"];
+//        self.statusImageView.image = [UIImage imageNamed:@"未选中"];
 //        self.defaultImageView.image = [UIImage imageNamed:@"icon_close"];
         [self.defaultImageView setImage:[UIImage imageNamed:@"icon_close"] forState:UIControlStateNormal];
+    }
+    if (isCartType) {
+        if ([model.isDefault intValue] == 1) {
+            self.statusImageView.image = [UIImage imageNamed:@"已选中"];
+        }
+    }else{
+        [self.statusImageView removeFromSuperview];
     }
 }
 

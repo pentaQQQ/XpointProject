@@ -371,7 +371,13 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 155;
+        DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
+        if (addressMes.id.length == 0) {
+            return 100;
+        }else{
+          return 155;
+        }
+        
 //        return 120;
     }else{
       return 160;
@@ -410,6 +416,7 @@
             if (num == 1) {
                 AddressManageController *addressMaCtrl = [[AddressManageController alloc] init];
                 addressMaCtrl.title = @"选择地址";
+                addressMaCtrl.isCartCtrlType = YES;
                 [self.navigationController pushViewController:addressMaCtrl animated:YES];
             }else{
                 DeleteGoodsListController *deleteGoodsCtrl = [[DeleteGoodsListController alloc] init];

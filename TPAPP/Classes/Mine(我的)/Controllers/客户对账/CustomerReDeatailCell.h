@@ -7,54 +7,61 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "GoodsCartModel.h"
 @interface CustomerReDeatailCell : UITableViewCell
 /**
- *  左侧位置icon
+ *  商品的图片
  */
-@property (nonatomic, retain)UIImageView *goodImageView;
+@property (nonatomic, retain)UIImageView *Goods_Icon;
 /**
- *  名称
+ *  商品
  */
-@property (nonatomic, retain)UILabel *goodName;
-/**
- *  尺码
- */
-@property (nonatomic, retain)UILabel *goodSize;
+@property (nonatomic, retain)UILabel *Goods_Name;
 /**
  *  款式
  */
-@property (nonatomic, retain)UILabel *goodStyle;
+@property (nonatomic, retain)UILabel *Goods_Desc;
+
 /**
- *  款号
+ *  商品款号
  */
-@property (nonatomic, retain)UILabel *goodStyleNumber;
+@property (nonatomic, retain)UILabel *Goods_DescNum;
+/**
+ *  商品尺码
+ */
+@property (nonatomic, retain)UILabel *Goods_Size;
+
+/**
+ *  出售时价格
+ */
+@property (nonatomic, retain)UILabel *Goods_Price;
+
+
+/**
+ *  下单数量
+ */
+@property (nonatomic, retain)UILabel *Goods_Number;
+
+/**
+ *  交易
+ */
+@property (nonatomic, retain)UILabel *transactionLabel;
+/**
+ *  交易号
+ */
+@property (nonatomic, retain)UILabel *transactionNumLabel;
+
+/**
+ *  支付状态
+ */
+@property (nonatomic, retain)UILabel *paymentStatusLabel;
 /**
  *  条码
  */
-@property (nonatomic, retain)UILabel *goodBarCode;
-/**
- *  大小
- */
-@property (nonatomic, retain)UILabel *buyGoodSize;
-/**
- *  结算价格
- */
-@property (nonatomic, retain)UILabel *buyGoodPrice;
-/**
- *  购买状态
- */
-@property (nonatomic, retain)UILabel *buyGoodStatus;
+@property (nonatomic, retain)UILabel *codeLabel;
 
 
-/**
- *  备注
- */
-@property (nonatomic, retain)UILabel *RemarksLabel;
-/**
- * 备注按钮
- */
-@property (nonatomic, retain)UIButton *Remarks_button;
 
-- (void)configWithModel:(NSMutableArray *)model;
+@property (nonatomic,strong)CartDetailsModel *detailModel;
+-(void)withData:(CartDetailsModel *)info;
 @end

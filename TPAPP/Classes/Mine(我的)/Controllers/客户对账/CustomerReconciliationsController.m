@@ -98,25 +98,22 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        CustomerReCell *headerCell = [tableView dequeueReusableCellWithIdentifier:@"CustomerReCellID"];
-        if (!headerCell) {
-            headerCell = [[CustomerReCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CustomerReCellID"];
-        }
-        
-        headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    CustomerReCell *headerCell = [tableView dequeueReusableCellWithIdentifier:@"CustomerReCellID"];
+    if (!headerCell) {
+        headerCell = [[CustomerReCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CustomerReCellID"];
+    }
+    headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (self.searchList.count != 0) {
         [headerCell configWithModel:self.searchList[indexPath.row]];
     }
     else{
         [headerCell configWithModel:self.listDataArr[indexPath.row]];
     }
-
-        return headerCell;
+    return headerCell;
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-
    return 30+44;
 
 }
@@ -146,7 +143,7 @@
     self.searchField.textColor = [UIColor blackColor];
     self.searchField.font= [UIFont systemFontOfSize:16] ;
     self.searchField.backgroundColor= [UIColor whiteColor] ;
- self.searchField.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
+    self.searchField.contentVerticalAlignment=UIControlContentVerticalAlignmentCenter;
     self.searchField.contentHorizontalAlignment=UIControlContentHorizontalAlignmentLeft;
     [self.searchField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged]; // textField的文本发生变化时相应事件
     [self.searchField setReturnKeyType:UIReturnKeySearch];

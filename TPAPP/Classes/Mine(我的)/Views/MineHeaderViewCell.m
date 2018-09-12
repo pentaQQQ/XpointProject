@@ -170,14 +170,14 @@
     [self.headerBgView addSubview:self.vipBtn];
     self.vipBtn.backgroundColor = [UIColor whiteColor];
     self.vipBtn.sd_layout
-    .topSpaceToView(self.headerBtn, -5)
+    .topSpaceToView(self.headerBtn, -15)
     .centerXEqualToView(self.headerBgView)
     .widthIs([self widthLabelWithModel:@"VIP1"]+20)
     .heightIs(20);
     self.vipBtn.layer.cornerRadius = 10;
     self.vipBtn.layer.masksToBounds = YES;
-    self.vipBtn.layer.borderWidth = 1.0;
-    self.vipBtn.layer.borderColor = colorWithRGB(0xFF6B24).CGColor;
+//    self.vipBtn.layer.borderWidth = 1.0;
+//    self.vipBtn.layer.borderColor = colorWithRGB(0xFF6B24).CGColor;
     [self.vipBtn setBackgroundImage:[UIImage imageNamed:@"icon_mine_vip"] forState:UIControlStateNormal];
     [self.vipBtn addTarget:self action:@selector(vipAction) forControlEvents:UIControlEventTouchUpInside];
     [self.vipBtn setTitle:[NSString stringWithFormat:@"VIP%@",lyAccount.level] forState:UIControlStateNormal];

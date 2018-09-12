@@ -161,7 +161,7 @@
         cell = [[AddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell configWithModel:self.listDataArr[indexPath.section]];
+    [cell configWithModel:self.listDataArr[indexPath.section] withBool:self.isCartCtrlType];
     [cell setSelectBlcok:^(NSInteger num,AddressModel *model) {
         if (num == 0) {
             EditAddressController *addCtrl = [[EditAddressController alloc] init];
@@ -234,6 +234,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (self.isCartCtrlType) {
+        
+    }
 }
 
 - (NSString *)xy_noDataViewMessage

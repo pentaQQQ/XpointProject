@@ -8,6 +8,8 @@
 
 #import "CustomerReDeatailController.h"
 #import "CustomerReDeatailCell.h"
+#import "CustomerReDeatailCell.h"
+//#include "LibXL/libxl.h"
 @interface CustomerReDeatailController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
@@ -78,8 +80,8 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.listDataArr count];
-    
+//    return [self.listDataArr count];
+    return 5;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -88,7 +90,7 @@
         headerCell = [[CustomerReDeatailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CustomerReDeatailCellID"];
     }
     headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [headerCell configWithModel:self.listDataArr[indexPath.row]];
+    [headerCell withData:nil];
     return headerCell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -119,23 +121,23 @@
     .rightEqualToView(view)
     .heightIs(.5);
     
-    UIView *centerLineView = [[UIView alloc] init];
-    [view addSubview:centerLineView];
-    centerLineView.backgroundColor = colorWithRGB(0xbfbfbf);
-    centerLineView.sd_layout
-    .topSpaceToView(view, 50)
-    .centerXEqualToView(view)
-    .heightIs(40)
-    .widthIs(.5);
+//    UIView *centerLineView = [[UIView alloc] init];
+//    [view addSubview:centerLineView];
+//    centerLineView.backgroundColor = colorWithRGB(0xbfbfbf);
+//    centerLineView.sd_layout
+//    .topSpaceToView(view, 50)
+//    .centerXEqualToView(view)
+//    .heightIs(40)
+//    .widthIs(.5);
     
-    UIView *downLineView = [[UIView alloc] init];
-    [view addSubview:downLineView];
-    downLineView.backgroundColor = colorWithRGB(0xbfbfbf);
-    downLineView.sd_layout
-    .topSpaceToView(view, 90.5)
-    .leftEqualToView(view)
-    .rightEqualToView(view)
-    .heightIs(.5);
+//    UIView *downLineView = [[UIView alloc] init];
+//    [view addSubview:downLineView];
+//    downLineView.backgroundColor = colorWithRGB(0xbfbfbf);
+//    downLineView.sd_layout
+//    .topSpaceToView(view, 90.5)
+//    .leftEqualToView(view)
+//    .rightEqualToView(view)
+//    .heightIs(.5);
     
     UIImageView *lineImgeView = [[UIImageView alloc] init];
     lineImgeView.backgroundColor = [UIColor grayColor];
@@ -160,35 +162,38 @@
     
     
     
-    UIButton *applyReButton = [[UIButton alloc] init];
-    applyReButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    [applyReButton setTitle:@"申请对账单" forState:UIControlStateNormal];
-    [applyReButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [applyReButton addTarget:self action:@selector(applyReButtonAction) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:applyReButton];
-    applyReButton.sd_layout
-    .topSpaceToView(view, 50)
-    .leftSpaceToView(view, 0)
-    .widthIs((kScreenWidth-0.5)/2)
-    .heightIs(40);
+//    UIButton *applyReButton = [[UIButton alloc] init];
+//    applyReButton.titleLabel.font = [UIFont systemFontOfSize:15];
+//    [applyReButton setTitle:@"申请对账单" forState:UIControlStateNormal];
+//    [applyReButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+//    [applyReButton addTarget:self action:@selector(applyReButtonAction) forControlEvents:UIControlEventTouchUpInside];
+//    [view addSubview:applyReButton];
+//    applyReButton.sd_layout
+//    .topSpaceToView(view, 50)
+//    .leftSpaceToView(view, 0)
+//    .widthIs((kScreenWidth-0.5)/2)
+//    .heightIs(40);
     
     UIButton *downloadReButton = [[UIButton alloc] init];
+    downloadReButton.backgroundColor = colorWithRGB(0xFF6B24);
     downloadReButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [downloadReButton setTitle:@"下载对账单" forState:UIControlStateNormal];
-    [downloadReButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [downloadReButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [downloadReButton addTarget:self action:@selector(downloadReButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:downloadReButton];
     downloadReButton.sd_layout
-    .topSpaceToView(view, 50)
-    .rightSpaceToView(view, 0)
-    .widthIs((kScreenWidth-0.5)/2)
-    .heightIs(40);
+    .topSpaceToView(view, 55)
+    .leftSpaceToView(view, 10)
+    .widthIs(kScreenWidth/2-20)
+    .heightIs(30);
+    downloadReButton.layer.cornerRadius = 5;
+    downloadReButton.layer.masksToBounds = YES;
     return view;
 }
-- (void)applyReButtonAction
-{
-    
-}
+//- (void)applyReButtonAction
+//{
+//
+//}
 - (void)downloadReButtonAction
 {
     
@@ -196,7 +201,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return 50;
+    return 175;
     
 }
 
