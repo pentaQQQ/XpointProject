@@ -1084,7 +1084,7 @@
 		8EA95344212E49BC0057AC78 /* LXFloaintButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXFloaintButton.h; sourceTree = "<group>"; };
 		8EA95345212E49BC0057AC78 /* LXFloaintButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXFloaintButton.m; sourceTree = "<group>"; };
 		8EA9534B212E4C550057AC78 /* zhuanfaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaViewController.h; sourceTree = "<group>"; };
-		8EA9534C212E4C550057AC78 /* zhuanfaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaViewController.m; sourceTree = "<group>"; };
+		8EA9534C212E4C550057AC78 /* zhuanfaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8EA9534E212E545A0057AC78 /* zhuanfaHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaHeaderView.h; sourceTree = "<group>"; };
 		8EA9534F212E545A0057AC78 /* zhuanfaHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaHeaderView.m; sourceTree = "<group>"; };
 		8EA95351212E54650057AC78 /* zhuanfaHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = zhuanfaHeaderView.xib; sourceTree = "<group>"; };
@@ -1109,7 +1109,7 @@
 		8ED5B4B5212A6AC100B5983B /* SGPageTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPageTitleView.h; sourceTree = "<group>"; };
 		8ED5B4B6212A6AC100B5983B /* SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPagingView.h; sourceTree = "<group>"; };
 		9A8745021FC508CE006E892C /* HomePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageController.h; sourceTree = "<group>"; };
-		9A8745031FC508CE006E892C /* HomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageController.m; sourceTree = "<group>"; };
+		9A8745031FC508CE006E892C /* HomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		9ABCEE9C1FFCA6BB00DF4380 /* MSHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSHttpTool.h; sourceTree = "<group>"; };
 		9ABCEE9D1FFCA6BB00DF4380 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		9ABCEE9E1FFCA6BB00DF4380 /* MSHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSHttpTool.m; sourceTree = "<group>"; };

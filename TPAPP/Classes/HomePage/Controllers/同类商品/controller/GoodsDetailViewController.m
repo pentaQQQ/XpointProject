@@ -67,7 +67,7 @@
 
 
 -(void)setUpTableview{
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, kScreenWidth, kScreenHeight-SafeAreaTopHeight) style:UITableViewStylePlain];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, kScreenWidth, kScreenHeight-SafeAreaTopHeight-40-SafeAreaBottomHeight) style:UITableViewStylePlain];
     self.tableview = tableview;
     
     tableview.delegate = self;
@@ -264,21 +264,12 @@
             }
         };
         
-        
-        
+
         return cell;
-        
-        
-        
-        
+
     }
     
-    
-    
-    
-    
-    
-    
+
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -482,7 +473,7 @@
         } fail:^(NSError *error) {
             
         }];
-   
+        
     }
 }
 

@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toTopHigh;
 
 @property(nonatomic,strong)NSMutableArray *dataArr;
+
 @property(nonatomic,strong)oldhechengView*oldheview;
 
 @property(nonatomic,assign)int currentIndex;//判断转发样式 1 九宫格 2 合成长图 3 分享整场活动
@@ -38,7 +39,7 @@
 @property(nonatomic,strong)zhuanfaModel *zhuanfamodel;
 
 @property(nonatomic,strong)NSMutableArray *pictureArr;//存放分享的图片
-@property(nonatomic,strong)NSMutableArray *indexArr;//存放要分享的图片的index
+@property(nonatomic,strong)NSMutableArray *indexArr;//存放要分享的商品的index
 
 
 @property(nonatomic,strong)UIView*vi;
@@ -310,9 +311,6 @@
 
 
 
-
-
-
 -(void)getThePictureWithModel:(SimilarProductModel *)model Success:(void(^)(UIImage *))success{
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -403,9 +401,7 @@
             }];
             
         });
-        
-        
-        
+
     }
     
 }
@@ -464,9 +460,6 @@
     }];
     
 }
-
-
-
 
 
 

@@ -88,20 +88,73 @@
     
     self.viewHigh.constant = self.contentHigh.constant + self.chimaHigh.constant+  self.kuanshiHigh.constant +  self.kuanhaoHigh.constant+40;
     
+
     
-    
-    imagesListModel *firstmodel = model.imagesList[0];
-    NSString *firsturl =[NSString stringWithFormat:@"%@",firstmodel.imgUrl];
-    [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:firsturl]];
-    
-    
-    imagesListModel *secondmodel = model.imagesList[1];
-    NSString *secondturl =[NSString stringWithFormat:@"%@",secondmodel.imgUrl];
-    [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:secondturl]];
-    
-    
+    [self setImagewithArray:model.imagesList];
     
     self.scrollwidth.constant = kScreenWidth*2;
+    
+    
+}
+
+-(void)setImagewithArray:(NSArray*)array{
+    
+    
+    
+    if (array.count == 1) {
+        imagesListModel *model1 =array[0];
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        
+        
+        
+    }else if (array.count == 2){
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+    }else if (array.count == 3){
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        imagesListModel *model3 =array[2];
+        
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        
+    }else if (array.count == 4){
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        imagesListModel *model3 =array[2];
+        imagesListModel *model4 =array[3];
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
+        
+    }else{
+        
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        imagesListModel *model3 =array[2];
+        imagesListModel *model4 =array[3];
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
+    }
+    
+    
     
     
 }
