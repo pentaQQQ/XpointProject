@@ -52,7 +52,11 @@
 		<key>NMSSH.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>2</integer>
+=======
+			<integer>10</integer>
+>>>>>>> fbc8e82ac38ed5e49008522e34475d4629776f88
 		</dict>
 		<key>Pods-TPAPP.xcscheme</key>
 		<dict>

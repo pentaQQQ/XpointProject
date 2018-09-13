@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "AddressModel.h"
 @interface LYAccount : NSObject
 + (instancetype)shareAccount;
 
@@ -38,5 +38,5 @@
 @property (nonatomic, copy) NSString *trueName;
 @property (nonatomic, copy) NSString *updateBy;
 @property (nonatomic, copy) NSString *updateTime;
-
+@property (nonatomic, copy) NSDictionary *defaultAddress;
 @end

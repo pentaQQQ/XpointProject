@@ -151,36 +151,39 @@
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]){
+//            [DefaultAddressMessage mj_objectWithKeyValues:json[@"data"][@"defaultAddress"]];
             // 单例赋值
             [LYAccount mj_objectWithKeyValues:json[@"data"]];
-            [self getDeaultAddressMessage];
+//            [self getDeaultAddressMessage];
         }
     } failure:^(NSError *error) {
     }];
     
 }
 //获取默认地址信息
-- (void)getDeaultAddressMessage
-{
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    LYAccount *lyAccount = [LYAccount shareAccount];
-    [dic setValue:lyAccount.id forKey:@"userId"];
-    [[NetworkManager sharedManager] getWithUrl:getAddressList param:dic success:^(id json) {
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            for (NSDictionary *dict in json[@"data"]) {
-                AddressModel *model = [AddressModel statusWithDict:dict];
-                if ([model.isDefault isEqualToString:@"1"]) {
-                    [DefaultAddressMessage mj_objectWithKeyValues:dict];
-                }
-            }
-        }else{
-            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
-        }
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
-}
+//- (void)getDeaultAddressMessage
+//{
+//    DefaultAddressMessage *lyerAccount = [DefaultAddressMessage shareDefaultAddressMessage];
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    LYAccount *lyAccount = [LYAccount shareAccount];
+//    AddressModel *model = [AddressModel mj_objectWithKeyValues:lyAccount.defaultAddress];
+//    [dic setValue:lyAccount.id forKey:@"userId"];
+//    [[NetworkManager sharedManager] getWithUrl:getAddressList param:dic success:^(id json) {
+//        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+//        if ([respCode isEqualToString:@"00000"]) {
+//            for (NSDictionary *dict in json[@"data"]) {
+//                AddressModel *model = [AddressModel statusWithDict:dict];
+//                if ([model.isDefault isEqualToString:@"1"]) {
+//                    [DefaultAddressMessage mj_objectWithKeyValues:dict];
+//                }
+//            }
+//        }else{
+//            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+//        }
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//    }];
+//}
 
 
 @end

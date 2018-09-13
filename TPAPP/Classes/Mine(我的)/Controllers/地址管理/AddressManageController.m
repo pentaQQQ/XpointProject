@@ -98,8 +98,11 @@
             for (NSDictionary *dict in json[@"data"]) {
                 AddressModel *model = [AddressModel statusWithDict:dict];
                 if ([model.isDefault isEqualToString:@"1"]) {
+                    NSMutableDictionary *dictt = [[LYAccount shareAccount] mj_keyValues];
+                    dictt[@"defaultAddress"] = [model mj_keyValues];
+                    [LYAccount mj_objectWithKeyValues:dictt];
                     [self.listDataArr insertObject:model atIndex:0];
-                    [DefaultAddressMessage mj_objectWithKeyValues:dict];
+//                    [DefaultAddressMessage mj_objectWithKeyValues:dict];
                 }else{
                    [self.listDataArr addObject:model];
                 }
@@ -234,8 +237,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    AddressTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (self.isCartCtrlType) {
-        
+        [DefaultAddressMessage mj_objectWithKeyValues:[cell.addressModel mj_keyValues]];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

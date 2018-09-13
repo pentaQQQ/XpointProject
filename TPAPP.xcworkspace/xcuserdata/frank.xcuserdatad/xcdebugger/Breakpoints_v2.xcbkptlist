@@ -90,7 +90,7 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Mine(%E6%88%91%E7%9A%84)/Controllers/%E5%9C%B0%E5%9D%80%E7%AE%A1%E7%90%86/EditAddressController.m"
-                  timestampString = "558437704.820973"
+                  timestampString = "558465127.270251"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "91"
@@ -105,7 +105,7 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Mine(%E6%88%91%E7%9A%84)/Controllers/%E5%9C%B0%E5%9D%80%E7%AE%A1%E7%90%86/EditAddressController.m"
-                  timestampString = "558437704.822674"
+                  timestampString = "558465127.2723401"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "92"
@@ -120,7 +120,7 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Mine(%E6%88%91%E7%9A%84)/Controllers/%E5%9C%B0%E5%9D%80%E7%AE%A1%E7%90%86/EditAddressController.m"
-                  timestampString = "558437704.8244129"
+                  timestampString = "558465127.274402"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "91"
@@ -153,7 +153,7 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Mine(%E6%88%91%E7%9A%84)/Controllers/%E7%94%B3%E8%AF%B7%E5%94%AE%E5%90%8E/ApplyGoodsServiceController.m"
-                  timestampString = "558437704.830428"
+                  timestampString = "558465127.281564"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "75"
@@ -168,7 +168,7 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Mine(%E6%88%91%E7%9A%84)/Controllers/%E7%94%B3%E8%AF%B7%E5%94%AE%E5%90%8E/ApplyGoodsServiceController.m"
-                  timestampString = "558437704.832098"
+                  timestampString = "558465127.283695"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "75"
@@ -183,7 +183,7 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Mine(%E6%88%91%E7%9A%84)/Controllers/%E7%94%B3%E8%AF%B7%E5%94%AE%E5%90%8E/ApplyGoodsServiceController.m"
-                  timestampString = "558437704.833743"
+                  timestampString = "558465127.285797"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "75"
@@ -200,11 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Controllers/CartViewController.m"
-            timestampString = "558437700.881999"
+            timestampString = "558463867.519461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1015"
-            endingLineNumber = "1015"
+            startingLineNumber = "1018"
+            endingLineNumber = "1018"
             landmarkName = "-DeleteTheGoodsCell:"
             landmarkType = "7">
             <Locations>
@@ -216,41 +216,41 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Cart(%E8%B4%AD%E7%89%A9%E8%BD%A6)/Controllers/CartViewController.m"
-                  timestampString = "558437704.83909"
+                  timestampString = "558465127.292799"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1015"
-                  endingLineNumber = "1015"
-                  offsetFromSymbolStart = "740">
+                  startingLineNumber = "1018"
+                  endingLineNumber = "1018"
+                  offsetFromSymbolStart = "784">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_.486"
+                  symbolName = "__copy_helper_block_.488"
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Cart(%E8%B4%AD%E7%89%A9%E8%BD%A6)/Controllers/CartViewController.m"
-                  timestampString = "558437704.8407609"
+                  timestampString = "558465127.29553"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "988"
-                  endingLineNumber = "988"
+                  startingLineNumber = "991"
+                  endingLineNumber = "991"
                   offsetFromSymbolStart = "24">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__41-[CartViewController DeleteTheGoodsCell:]_block_invoke.489"
+                  symbolName = "__41-[CartViewController DeleteTheGoodsCell:]_block_invoke.491"
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Cart(%E8%B4%AD%E7%89%A9%E8%BD%A6)/Controllers/CartViewController.m"
-                  timestampString = "558437704.8436069"
+                  timestampString = "558465127.298256"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1017"
-                  endingLineNumber = "1017"
+                  startingLineNumber = "1020"
+                  endingLineNumber = "1020"
                   offsetFromSymbolStart = "12">
                </Location>
             </Locations>
@@ -263,11 +263,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Controllers/CartViewController.m"
-            timestampString = "558437700.8820879"
+            timestampString = "558463867.51954"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "992"
-            endingLineNumber = "992"
+            startingLineNumber = "995"
+            endingLineNumber = "995"
             landmarkName = "-DeleteTheGoodsCell:"
             landmarkType = "7">
          </BreakpointContent>
@@ -279,11 +279,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Controllers/CartViewController.m"
-            timestampString = "558437700.882138"
+            timestampString = "558463867.5196019"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "987"
-            endingLineNumber = "987"
+            startingLineNumber = "990"
+            endingLineNumber = "990"
             landmarkName = "-DeleteTheGoodsCell:"
             landmarkType = "7">
             <Locations>
@@ -295,12 +295,12 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Cart(%E8%B4%AD%E7%89%A9%E8%BD%A6)/Controllers/CartViewController.m"
-                  timestampString = "558437704.853628"
+                  timestampString = "558465127.309536"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "988"
-                  endingLineNumber = "988"
-                  offsetFromSymbolStart = "344">
+                  startingLineNumber = "991"
+                  endingLineNumber = "991"
+                  offsetFromSymbolStart = "368">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -310,26 +310,26 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Cart(%E8%B4%AD%E7%89%A9%E8%BD%A6)/Controllers/CartViewController.m"
-                  timestampString = "558437704.855283"
+                  timestampString = "558465127.311756"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "988"
-                  endingLineNumber = "988"
+                  startingLineNumber = "991"
+                  endingLineNumber = "991"
                   offsetFromSymbolStart = "24">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.487"
+                  symbolName = "__destroy_helper_block_.489"
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Cart(%E8%B4%AD%E7%89%A9%E8%BD%A6)/Controllers/CartViewController.m"
-                  timestampString = "558437704.856868"
+                  timestampString = "558465127.313822"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "988"
-                  endingLineNumber = "988"
+                  startingLineNumber = "991"
+                  endingLineNumber = "991"
                   offsetFromSymbolStart = "20">
                </Location>
             </Locations>
@@ -370,7 +370,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Views/CartHeaderCell.m"
-            timestampString = "558437700.882238"
+            timestampString = "558465127.046674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "112"
@@ -514,7 +514,7 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Mine(%E6%88%91%E7%9A%84)/Controllers/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/IdentificationController.m"
-                  timestampString = "558437704.893733"
+                  timestampString = "558465127.36"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "306"
@@ -529,7 +529,7 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Mine(%E6%88%91%E7%9A%84)/Controllers/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/IdentificationController.m"
-                  timestampString = "558437704.895404"
+                  timestampString = "558465127.362161"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "307"
@@ -568,6 +568,38 @@
             startingLineNumber = "630"
             endingLineNumber = "630"
             landmarkName = "+postBossDemoWithUrl:param:success:fail:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x8d26;&#x53f7;&#x8bbe;&#x7f6e;/AccountSetController.m"
+            timestampString = "558463867.519912"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
+            landmarkName = "-prepareData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Controllers/CartViewController.m"
+            timestampString = "558464753.398816"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1039"
+            endingLineNumber = "1039"
+            landmarkName = "-declareAbnormalAlertView:clickedButtonAtIndex:selectCell:selectSpesModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

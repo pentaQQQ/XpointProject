@@ -175,7 +175,8 @@
 }
 - (void)prepareData {
     LYAccount *lyAccount = [LYAccount shareAccount];
-    DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
+    AddressModel *addresModel = [AddressModel mj_objectWithKeyValues:lyAccount.defaultAddress];
+//    DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
     YSStaticDefaultModel *model0 = [[YSStaticDefaultModel alloc] init];
     model0.cellHeight = 80;
     model0.title = @"头像";
@@ -205,10 +206,10 @@
     
     YSStaticDefaultModel *model5 = [[YSStaticDefaultModel alloc] init];
     model5.title = @"地址管理";
-    if ([addressMes.id length] == 0) {
+    if ([addresModel.id length] == 0) {
         
     }else{
-        model5.indicatorTitle = addressMes.recAddress;
+        model5.indicatorTitle = addresModel.recAddress;
     }
     
     
@@ -220,12 +221,12 @@
     }else{
        model6.indicatorTitle = @"已认证";
     }
-//    YSStaticDefaultModel *model10 = [[YSStaticDefaultModel alloc] init];
-//    model10.title = @"下单备注开关";
-//    model10.cellType = YSStaticCellTypeAccessorySwitch;
-//    [model10 setSwitchValueDidChangeBlock:^(BOOL isOn) {
-//
-//    }];
+    YSStaticDefaultModel *model10 = [[YSStaticDefaultModel alloc] init];
+    model10.title = @"下单备注开关";
+    model10.cellType = YSStaticCellTypeAccessorySwitch;
+    [model10 setSwitchValueDidChangeBlock:^(BOOL isOn) {
+
+    }];
     
     YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model4, model5,model6]];
     
