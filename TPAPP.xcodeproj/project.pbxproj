@@ -938,7 +938,7 @@
 		8E3E6D89213E764C007B3306 /* shanghuModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shanghuModel.h; sourceTree = "<group>"; };
 		8E3E6D8A213E764C007B3306 /* shanghuModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = shanghuModel.m; sourceTree = "<group>"; };
 		8E3E6D8C213E8697007B3306 /* MerchanDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MerchanDetailViewController.h; sourceTree = "<group>"; };
-		8E3E6D8D213E8697007B3306 /* MerchanDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MerchanDetailViewController.m; sourceTree = "<group>"; };
+		8E3E6D8D213E8697007B3306 /* MerchanDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MerchanDetailViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E3E6D90213F7048007B3306 /* zhuanfaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaModel.h; sourceTree = "<group>"; };
 		8E3E6D91213F7048007B3306 /* zhuanfaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaModel.m; sourceTree = "<group>"; };
 		8E3E6D93213FD61E007B3306 /* ZhuanfaOtherView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZhuanfaOtherView.h; sourceTree = "<group>"; };

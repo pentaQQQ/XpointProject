@@ -77,7 +77,7 @@
 
 
 -(void)setUpTableview{
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, kScreenWidth, kScreenHeight-SafeAreaTopHeight-49-SafeAreaBottomHeight) style:UITableViewStylePlain];
     self.tableview = tableview;
     
     tableview.delegate = self;
