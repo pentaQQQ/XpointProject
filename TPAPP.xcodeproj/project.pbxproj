@@ -938,7 +938,7 @@
 		8E3E6D89213E764C007B3306 /* shanghuModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shanghuModel.h; sourceTree = "<group>"; };
 		8E3E6D8A213E764C007B3306 /* shanghuModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = shanghuModel.m; sourceTree = "<group>"; };
 		8E3E6D8C213E8697007B3306 /* MerchanDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MerchanDetailViewController.h; sourceTree = "<group>"; };
-		8E3E6D8D213E8697007B3306 /* MerchanDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MerchanDetailViewController.m; sourceTree = "<group>"; };
+		8E3E6D8D213E8697007B3306 /* MerchanDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MerchanDetailViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E3E6D90213F7048007B3306 /* zhuanfaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaModel.h; sourceTree = "<group>"; };
 		8E3E6D91213F7048007B3306 /* zhuanfaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaModel.m; sourceTree = "<group>"; };
 		8E3E6D93213FD61E007B3306 /* ZhuanfaOtherView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZhuanfaOtherView.h; sourceTree = "<group>"; };
@@ -956,7 +956,7 @@
 		8E3E6DA62140FF9D007B3306 /* oldhechengView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = oldhechengView.m; sourceTree = "<group>"; };
 		8E3E6DA82140FFA9007B3306 /* oldhechengView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = oldhechengView.xib; sourceTree = "<group>"; };
 		8E3E6DAE2142140C007B3306 /* PiliangzhuanfaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiliangzhuanfaViewController.h; sourceTree = "<group>"; };
-		8E3E6DAF2142140C007B3306 /* PiliangzhuanfaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiliangzhuanfaViewController.m; sourceTree = "<group>"; };
+		8E3E6DAF2142140C007B3306 /* PiliangzhuanfaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiliangzhuanfaViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E3E6DB02142140C007B3306 /* PiliangzhuanfaViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PiliangzhuanfaViewController.xib; sourceTree = "<group>"; };
 		8E3E6DB321421CD1007B3306 /* PiLiangzhuanfaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiLiangzhuanfaCell.h; sourceTree = "<group>"; };
 		8E3E6DB421421CD1007B3306 /* PiLiangzhuanfaCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiLiangzhuanfaCell.m; sourceTree = "<group>"; };
@@ -992,7 +992,7 @@
 		8E78BE1821366708000A9EA4 /* LYTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYTools.m; sourceTree = "<group>"; };
 		8E78BE1921366708000A9EA4 /* LYTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYTools.h; sourceTree = "<group>"; };
 		8E78BE2021366E4C000A9EA4 /* GoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailViewController.h; sourceTree = "<group>"; };
-		8E78BE2121366E4C000A9EA4 /* GoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailViewController.m; sourceTree = "<group>"; };
+		8E78BE2121366E4C000A9EA4 /* GoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E78BE2521366E88000A9EA4 /* SimilarProductModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimilarProductModel.h; sourceTree = "<group>"; };
 		8E78BE2621366E88000A9EA4 /* SimilarProductModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimilarProductModel.m; sourceTree = "<group>"; };
 		8E78BE2821366F2E000A9EA4 /* specsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = specsModel.h; sourceTree = "<group>"; };
@@ -1084,7 +1084,7 @@
 		8EA95344212E49BC0057AC78 /* LXFloaintButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXFloaintButton.h; sourceTree = "<group>"; };
 		8EA95345212E49BC0057AC78 /* LXFloaintButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXFloaintButton.m; sourceTree = "<group>"; };
 		8EA9534B212E4C550057AC78 /* zhuanfaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaViewController.h; sourceTree = "<group>"; };
-		8EA9534C212E4C550057AC78 /* zhuanfaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaViewController.m; sourceTree = "<group>"; };
+		8EA9534C212E4C550057AC78 /* zhuanfaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8EA9534E212E545A0057AC78 /* zhuanfaHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zhuanfaHeaderView.h; sourceTree = "<group>"; };
 		8EA9534F212E545A0057AC78 /* zhuanfaHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = zhuanfaHeaderView.m; sourceTree = "<group>"; };
 		8EA95351212E54650057AC78 /* zhuanfaHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = zhuanfaHeaderView.xib; sourceTree = "<group>"; };
@@ -1109,7 +1109,7 @@
 		8ED5B4B5212A6AC100B5983B /* SGPageTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPageTitleView.h; sourceTree = "<group>"; };
 		8ED5B4B6212A6AC100B5983B /* SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPagingView.h; sourceTree = "<group>"; };
 		9A8745021FC508CE006E892C /* HomePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageController.h; sourceTree = "<group>"; };
-		9A8745031FC508CE006E892C /* HomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageController.m; sourceTree = "<group>"; };
+		9A8745031FC508CE006E892C /* HomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		9ABCEE9C1FFCA6BB00DF4380 /* MSHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSHttpTool.h; sourceTree = "<group>"; };
 		9ABCEE9D1FFCA6BB00DF4380 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		9ABCEE9E1FFCA6BB00DF4380 /* MSHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSHttpTool.m; sourceTree = "<group>"; };
@@ -3165,6 +3165,7 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -3819,7 +3820,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
@@ -3870,7 +3871,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;

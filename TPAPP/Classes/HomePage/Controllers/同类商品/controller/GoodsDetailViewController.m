@@ -54,8 +54,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUpTableview];
-    
-    [self lodaData];
     [self lodaHuodongData];
 }
 
@@ -67,7 +65,7 @@
 
 
 -(void)setUpTableview{
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, kScreenWidth, kScreenHeight-SafeAreaTopHeight-49-SafeAreaBottomHeight) style:UITableViewStylePlain];
     self.tableview = tableview;
     
     tableview.delegate = self;
@@ -157,7 +155,9 @@
                 SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
                 [self.dataArr addObject:model];
             }
-            //            [self.tableview reloadData];
+
+            [self lodaData];
+            
             
         }
         
@@ -166,13 +166,6 @@
     }];
     
 }
-
-
-
-
-
-
-
 
 
 
@@ -198,8 +191,30 @@
         cell.model = model;
         
         [cell setAddGoodsGoCartBlock:^(specsModel *model) {
-            DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"添加商品备注" message:@"请输入备注信息" delegate:self leftButtonTitle:@"不下单" rightButtonTitle:@"下单" comCell:nil isAddGood:YES spesmodel:model];
-            [alertView show];
+            LYAccount *lyAccount = [LYAccount shareAccount];
+            if ([lyAccount.isRemark intValue] == 1) {
+                DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"添加商品备注" message:@"请输入备注信息" delegate:self leftButtonTitle:@"不下单" rightButtonTitle:@"下单" comCell:nil isAddGood:YES spesmodel:model];
+                [alertView show];
+            }else{
+                NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+                [dic setValue:model.productId forKey:@"productId"];
+                [dic setValue:model.size forKey:@"size"];
+                [dic setValue:lyAccount.id forKey:@"userId"];
+                [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
+                    NSLog(@"%@",dict);
+                    NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                    if ([respCode isEqualToString:@"00000"]) {
+                        
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
+                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+                    
+                    }else{
+                        [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                    }
+                } fail:^(NSError *error) {
+                    
+                }];
+            }
         }];
         
         cell.ToZhuanfaBlock = ^(SimilarProductModel *model, int currentDEX) {
@@ -265,18 +280,9 @@
         };
         
         
-        
         return cell;
         
-        
-        
-        
     }
-    
-    
-    
-    
-    
     
     
 }
@@ -293,10 +299,10 @@
         for (int i=0; i<model.specs.count; i++) {
             specsModel*spmodel =model.specs[i];
             if (i== 0) {
-                str = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+                str = [NSString stringWithFormat:@"%ld(%@)",[spmodel.stock integerValue],spmodel.size];
             }else{
                 
-                NSString *tempstr = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+                NSString *tempstr = [NSString stringWithFormat:@"%ld(%@)",[spmodel.stock integerValue],spmodel.size];
                 str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
             }
         }
@@ -458,7 +464,24 @@
     
 }
 
-
+#pragma mark - 添加备注
+- (void)addRemarkMessage:(NSString *)mesText  andDetailModel:(CartDetailsModel *)model
+{
+    NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+    [dict1 setValue:model.id forKey:@"cartDetailId"];
+    [dict1 setValue:mesText forKey:@"remark"];
+    [LYTools postBossDemoWithUrl:cartRemark param:dict1 success:^(NSDictionary *dict) {
+        NSLog(@"%@",dict);
+        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            //            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"成功添加备注" withDuration:1.5];
+        }else if([dict[@"code"]longValue] == 500){
+            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+        }
+    } fail:^(NSError *error) {
+        
+    }];
+}
 #pragma mark - Delegate - 带输入框的弹窗
 // 输入框弹窗的button点击时回调
 - (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectCell:(CompileCell *)cell selectSpesModel:(specsModel *)model{
@@ -474,16 +497,16 @@
             NSLog(@"%@",dict);
             NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
             if ([respCode isEqualToString:@"00000"]) {
+                CartDetailsModel *detailModel = [CartDetailsModel mj_objectWithKeyValues:dict[@"data"]];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
                 [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
-                [self.navigationController.tabBarController.viewControllers[3].tabBarItem setBadgeValue:@"5"];
+                [self addRemarkMessage:alertView.textView.text andDetailModel:detailModel];
             }else{
                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
             }
         } fail:^(NSError *error) {
             
         }];
-        
-        
         
     }
 }

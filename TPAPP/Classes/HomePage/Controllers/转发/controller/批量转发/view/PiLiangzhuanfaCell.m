@@ -37,10 +37,10 @@
         specsModel*spmodel =model.specs[i];
         
         if (i== 0) {
-            str = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+            str = [NSString stringWithFormat:@"%ld(%@)",[spmodel.stock integerValue],spmodel.size];
         }else{
             
-            NSString *tempstr = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+            NSString *tempstr = [NSString stringWithFormat:@"%ld(%@)",[spmodel.stock integerValue],spmodel.size];
             str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
         }
     }
@@ -113,6 +113,19 @@
         
         [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
         [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
+        
+    }else{
+        
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        imagesListModel *model3 =array[2];
+        imagesListModel *model4 =array[3];
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
+        
         
     }
     

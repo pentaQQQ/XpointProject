@@ -20,7 +20,12 @@
 }
 - (void)createUI
 {
-   [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+   
+}
+-(void)withAddressModel:(AddressModel *)model
+{
+    self.model = model;
+    [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     [self.contentView addSubview:self.localImageView];
     UIImage *image = [UIImage imageNamed:@"icon_addres"];
@@ -33,20 +38,20 @@
     
     
     [self.contentView addSubview:self.buyUserName];
-    self.buyUserName.text = @"Alan";
+    self.buyUserName.text = model.recNickName;
     self.buyUserName.sd_layout
     .topSpaceToView(self.contentView, 10)
     .leftSpaceToView(self.contentView, 40)
-    .widthIs([self widthLabelWithModel:@"Alan" withFont:15])
+    .widthIs([self widthLabelWithModel:self.buyUserName.text withFont:15])
     .heightIs(30);
     
-   
+    
     [self.contentView addSubview:self.buyUserTelephone];
-    self.buyUserTelephone.text = @"18501605966";
+    self.buyUserTelephone.text = model.recPhone;
     self.buyUserTelephone.sd_layout
     .topSpaceToView(self.contentView, 10)
     .leftSpaceToView(self.buyUserName, 30)
-    .widthIs([self widthLabelWithModel:@"18501605966" withFont:15])
+    .widthIs([self widthLabelWithModel:self.buyUserTelephone.text withFont:15])
     .heightIs(30);
     
     [self.contentView addSubview:self.defaultImageView];
@@ -60,7 +65,7 @@
     
     
     [self.contentView addSubview:self.buyUserAddess];
-    self.buyUserAddess.text = @"上海市宝山区沪太路3100号A座";
+    self.buyUserAddess.text = [NSString stringWithFormat:@"%@ %@ %@ %@",model.recProv,model.recCity,model.recArea,model.recAddress];
     self.buyUserAddess.sd_layout
     .topSpaceToView(self.buyUserTelephone, 0)
     .leftSpaceToView(self.contentView, 40)
@@ -94,17 +99,16 @@
     
     
     [self.contentView addSubview:self.defaultSwitch];
-     [self.defaultSwitch setOn:NO];
-     self.defaultSwitch.onTintColor = colorWithRGB(0xFF6B24);
-     self.defaultSwitch.transform = CGAffineTransformMakeScale(.8, .8);
-     self.defaultSwitch.layer.anchorPoint = CGPointMake(0, 0);
+    [self.defaultSwitch setOn:NO];
+    self.defaultSwitch.onTintColor = colorWithRGB(0xFF6B24);
+    self.defaultSwitch.transform = CGAffineTransformMakeScale(.8, .8);
+    self.defaultSwitch.layer.anchorPoint = CGPointMake(0, 0);
     self.defaultSwitch.sd_layout
     .topSpaceToView(self.lineView, 15)
     .rightSpaceToView(self.contentView, 5)
     .widthIs(40)
     .heightIs(20);
 }
-
 #pragma mark - 懒加载
 - (UIImageView *)localImageView {
     if (!_localImageView) {
@@ -177,7 +181,7 @@
 }
 - (void)changeAddressBtnAction:(UIButton*)btn
 {
-    
+    self.selectBlock(0);
 }
 
 - (UISwitch *)defaultSwitch {

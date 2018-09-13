@@ -56,10 +56,10 @@
         specsModel*spmodel =model.specs[i];
         
         if (i== 0) {
-            str = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+            str = [NSString stringWithFormat:@"%ld(%@)",[spmodel.stock integerValue],spmodel.size];
         }else{
             
-            NSString *tempstr = [NSString stringWithFormat:@"%@(%@)",spmodel.stock,spmodel.size];
+            NSString *tempstr = [NSString stringWithFormat:@"%ld(%@)",[spmodel.stock integerValue],spmodel.size];
             str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
         }
     }
@@ -86,25 +86,75 @@
     
     
     
-    imagesListModel *firstmodel = model.imagesList[0];
-    NSString *firsturl =[NSString stringWithFormat:@"%@",firstmodel.imgUrl];
-    [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:firsturl]];
-    
-    
-    imagesListModel *secondmodel = model.imagesList[1];
-    NSString *secondturl =[NSString stringWithFormat:@"%@",secondmodel.imgUrl];
-    [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:secondturl]];
-    
-    
-    
-    
-    
+
+     [self setImagewithArray:model.imagesList];
     
 }
 
 
 
 
+-(void)setImagewithArray:(NSArray*)array{
+    
+    
+    
+    if (array.count == 1) {
+        imagesListModel *model1 =array[0];
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        
+        
+        
+    }else if (array.count == 2){
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+    }else if (array.count == 3){
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        imagesListModel *model3 =array[2];
+        
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        
+    }else if (array.count == 4){
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        imagesListModel *model3 =array[2];
+        imagesListModel *model4 =array[3];
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
+        
+    }else{
+        
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        imagesListModel *model3 =array[2];
+        imagesListModel *model4 =array[3];
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
+    }
+    
+    
+    
+    
+}
 
 
 
