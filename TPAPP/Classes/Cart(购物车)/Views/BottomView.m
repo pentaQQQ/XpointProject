@@ -21,6 +21,7 @@
     UILabel *AllPrice;
     UIButton *BalanceAccount;
 }
+@property (nonatomic, strong)NSMutableArray *selectedGoodsListArr;
 @end
 
 @implementation BottomView
@@ -82,7 +83,7 @@
 }
 - (void)BalanceAccountAction
 {
-     [self.delegate BalanceSelectedGoods];
+     [self.delegate BalanceSelectedGoods:self.selectedGoodsListArr];
 }
 -(void)init:(NSDictionary *)dict GoodsData:(NSMutableArray *)goods
 {
@@ -102,6 +103,7 @@
 }
 -(void)setMoney:(NSMutableArray *)data
 {
+    self.selectedGoodsListArr = [NSMutableArray array];
     int index1 = 0;
     int index2 = 0;
 
@@ -114,6 +116,7 @@
 //            NSDictionary *goodsDict = arr[j];
             CartDetailsModel *model = arr[j];
             if ([model.Type isEqualToString:@"1"]) {
+                [self.selectedGoodsListArr addObject:model];
                 index2 ++;
                 double product;
                 double Price = [model.amount doubleValue];

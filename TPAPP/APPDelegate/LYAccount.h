@@ -10,7 +10,7 @@
 #import "AddressModel.h"
 @interface LYAccount : NSObject
 + (instancetype)shareAccount;
-
+//+ (void)clear;
 @property (nonatomic, copy) NSString *buyNo;
 @property (nonatomic, copy) NSString *createBy;
 @property (nonatomic, copy) NSString *createDataTime;

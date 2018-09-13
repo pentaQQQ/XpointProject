@@ -15,7 +15,7 @@
 //取消选中所有商品
 -(void)NoDidSelectedAllGoods;
 //商品结算
--(void)BalanceSelectedGoods;
+-(void)BalanceSelectedGoods:(NSMutableArray *)arr;
 @end
 
 

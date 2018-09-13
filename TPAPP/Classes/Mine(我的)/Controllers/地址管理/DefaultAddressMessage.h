@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface DefaultAddressMessage : NSObject
+//+ (void)clear;
 + (instancetype)shareDefaultAddressMessage;
 /**
  创建时间

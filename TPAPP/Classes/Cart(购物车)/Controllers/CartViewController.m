@@ -852,10 +852,17 @@
  
  ***********************************************************/
 
-- (void)BalanceSelectedGoods
+- (void)BalanceSelectedGoods:(NSMutableArray *)arr
 {
-    BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
-    [self.navigationController pushViewController:buyCtrl animated:YES];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    if (lyAccount.defaultAddress == nil) {
+        [SVProgressHUD showInfoWithStatus:@"请先添加收货地址"];
+    }else{
+        BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
+        buyCtrl.goodsListArray = self.dataSource;
+        [self.navigationController pushViewController:buyCtrl animated:YES];
+    }
+    
 }
 
 -(void)DidSelectedAllGoods

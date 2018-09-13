@@ -161,6 +161,12 @@
 - (UISwitch *)indicatorSwitch {
     if (!_indicatorSwitch) {
         _indicatorSwitch = [[UISwitch alloc] init];
+        LYAccount *lyAccount = [LYAccount shareAccount];
+        if ([lyAccount.isRemark intValue] == 1) {
+            [_indicatorSwitch setOn:YES];
+        }else{
+            [_indicatorSwitch setOn:NO];
+        }
         [_indicatorSwitch addTarget:self action:@selector(switchTouched:) forControlEvents:UIControlEventValueChanged];
     }
     return _indicatorSwitch;

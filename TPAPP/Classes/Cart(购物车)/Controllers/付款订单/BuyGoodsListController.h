@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import "AddressModel.h"
 @interface BuyGoodsListController : BaseViewController
-
+@property (nonatomic, strong)NSMutableArray *goodsListArray;
+@property (nonatomic, strong)AddressModel *addressModel;
 @end

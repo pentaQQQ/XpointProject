@@ -8,6 +8,7 @@
 
 #import "BuyGoodsListController.h"
 #import "PayIndentCell.h"
+#import "AddressManageController.h"
 #define defaultTag 1990
 
 @interface BuyGoodsListController ()<UITableViewDelegate,UITableViewDataSource>
@@ -33,6 +34,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
+    if ([addressMess.id length] == 0) {
+        self.addressModel = [AddressModel mj_objectWithKeyValues:[LYAccount shareAccount].defaultAddress];
+    }else{
+        self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
+    }
     self.title = @"支付订单";
     self.btnTag = defaultTag; //self.btnTag = defaultTag+1  表示默认选择第二个，依次类推
 //    self.listDataArr = [NSMutableArray arrayWithObjects:@[@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"], nil];
@@ -40,6 +48,16 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setUpUI];
     [self createBottomView];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
+    if ([addressMess.id length] == 0) {
+        self.addressModel = [AddressModel mj_objectWithKeyValues:[LYAccount shareAccount].defaultAddress];
+    }else{
+        self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
+    }
+    [self.listTableView reloadData];
 }
 - (void)createBottomView
 {
@@ -166,6 +184,15 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
+        [cell withAddressModel:self.addressModel];
+        [cell setSelectBlock:^(NSInteger num) {
+            if (num == 0) {
+                AddressManageController *addressMaCtrl = [[AddressManageController alloc] init];
+                addressMaCtrl.title = @"选择地址";
+                addressMaCtrl.isCartCtrlType = YES;
+                [self.navigationController pushViewController:addressMaCtrl animated:YES];
+            }
+        }];
         return cell;
     }else if (indexPath.section == 1){
         static NSString *cellId = @"PayIndentDefaultCellID";

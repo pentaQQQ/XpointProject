@@ -49,6 +49,9 @@
 @property (nonatomic, retain)UISwitch *defaultSwitch;
 
 @property (nonatomic, strong)void(^selectBlock)(NSInteger);
+@property (nonatomic,strong)AddressModel *model;
+- (void)withAddressModel:(AddressModel *)model;
+
 
 @end
 @interface PayIndentDefaultCell : UITableViewCell

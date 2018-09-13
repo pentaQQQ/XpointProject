@@ -7,7 +7,7 @@
 //
 
 #import "DefaultAddressMessage.h"
-
+//static dispatch_once_t onceToken;
 @implementation DefaultAddressMessage
 static id _instance;
 + (instancetype)allocWithZone:(struct _NSZone *)zone
@@ -34,4 +34,10 @@ static id _instance;
 - (id)mutableCopyWithZone:(NSZone *)zone {
     return _instance;
 }
+
+//+(void)clear
+//{
+//    onceToken = 0;
+//}
+
 @end
