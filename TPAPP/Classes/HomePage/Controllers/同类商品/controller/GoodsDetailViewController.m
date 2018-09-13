@@ -54,8 +54,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUpTableview];
-    
-    [self lodaData];
     [self lodaHuodongData];
 }
 
@@ -67,7 +65,7 @@
 
 
 -(void)setUpTableview{
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, kScreenWidth, kScreenHeight-SafeAreaTopHeight-49-SafeAreaBottomHeight) style:UITableViewStylePlain];
     self.tableview = tableview;
     
     tableview.delegate = self;
@@ -157,7 +155,9 @@
                 SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
                 [self.dataArr addObject:model];
             }
-            //            [self.tableview reloadData];
+
+            [self lodaData];
+            
             
         }
         
@@ -166,13 +166,6 @@
     }];
     
 }
-
-
-
-
-
-
-
 
 
 
@@ -287,18 +280,9 @@
         };
         
         
-        
         return cell;
         
-        
-        
-        
     }
-    
-    
-    
-    
-    
     
     
 }
@@ -523,8 +507,6 @@
         } fail:^(NSError *error) {
             
         }];
-        
-        
         
     }
 }

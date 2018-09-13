@@ -114,6 +114,19 @@
         [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
         [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
         
+    }else{
+        
+        imagesListModel *model1 =array[0];
+        imagesListModel *model2 =array[1];
+        imagesListModel *model3 =array[2];
+        imagesListModel *model4 =array[3];
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+        
+        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
+        
+        
     }
     
     

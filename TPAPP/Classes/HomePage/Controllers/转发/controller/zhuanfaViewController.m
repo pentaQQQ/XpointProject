@@ -81,7 +81,7 @@
 -(void)setUpHeaderview{
     
     
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-380) style:UITableViewStylePlain];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, kScreenWidth, kScreenHeight-380-SafeAreaTopHeight) style:UITableViewStylePlain];
     self.tableview = tableview;
     [self.view addSubview:tableview];
     tableview.delegate = self;
