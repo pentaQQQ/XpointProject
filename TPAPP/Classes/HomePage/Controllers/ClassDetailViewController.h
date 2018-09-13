@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ClassDetailViewController : UIViewController
+@interface ClassDetailViewController : BaseViewController
 @property(nonatomic,strong)NSArray*arr;
 @end

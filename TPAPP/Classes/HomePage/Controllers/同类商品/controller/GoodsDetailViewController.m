@@ -67,7 +67,7 @@
 
 
 -(void)setUpTableview{
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, kScreenWidth, kScreenHeight-SafeAreaTopHeight) style:UITableViewStylePlain];
     self.tableview = tableview;
     
     tableview.delegate = self;
@@ -482,9 +482,7 @@
         } fail:^(NSError *error) {
             
         }];
-        
-        
-        
+   
     }
 }
 

@@ -13,11 +13,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PiliangzhuanfaViewController">
             <connections>
+                <outlet property="bottomView" destination="Mci-v3-TZQ" id="DpV-KY-gZu"/>
                 <outlet property="firstBtn" destination="eQx-JC-XPZ" id="Rh9-z4-QUZ"/>
                 <outlet property="jiajiaBtn" destination="5oo-UK-sjy" id="zxJ-uE-jEu"/>
                 <outlet property="secondBtn" destination="GOP-4R-R6c" id="dCT-ce-lrP"/>
                 <outlet property="tableview" destination="znZ-1J-s19" id="eQv-OC-4Sk"/>
                 <outlet property="thirdBtn" destination="bZf-y9-XEU" id="ocK-oC-PBB"/>
+                <outlet property="toTopHigh" destination="vsb-9b-TVg" id="c6E-3s-hnH"/>
                 <outlet property="topLab" destination="XPd-Lb-3VC" id="5no-OD-pIo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="zhuanfaBtn" destination="7l6-ti-9Ss" id="apB-0G-Vyd"/>
@@ -29,7 +31,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mci-v3-TZQ">
-                    <rect key="frame" x="0.0" y="20" width="375" height="40"/>
+                    <rect key="frame" x="0.0" y="64" width="375" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前已选中5款商品" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XPd-Lb-3VC">
                             <rect key="frame" x="30" y="0.0" width="345" height="40"/>
@@ -47,6 +49,10 @@
                         <constraint firstAttribute="trailing" secondItem="XPd-Lb-3VC" secondAttribute="trailing" id="lbZ-Ng-fo0"/>
                     </constraints>
                 </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="znZ-1J-s19">
+                    <rect key="frame" x="0.0" y="104" width="375" height="443"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PBd-sN-nhj">
                     <rect key="frame" x="0.0" y="547" width="375" height="120"/>
                     <subviews>
@@ -120,6 +126,9 @@
                             <state key="normal" title="批量转发（+15元）">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="zhuanfaClick:" destination="-1" eventType="touchUpInside" id="fJu-jW-FOj"/>
+                            </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1St-Lv-nfu">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -146,10 +155,6 @@
                         <constraint firstAttribute="trailing" secondItem="1St-Lv-nfu" secondAttribute="trailing" id="y1J-Nd-TWa"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="znZ-1J-s19">
-                    <rect key="frame" x="0.0" y="60" width="375" height="487"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -162,7 +167,7 @@
                 <constraint firstItem="PBd-sN-nhj" firstAttribute="top" secondItem="znZ-1J-s19" secondAttribute="bottom" id="OL1-T2-v0W"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="PBd-sN-nhj" secondAttribute="trailing" id="XjP-jH-V3l"/>
                 <constraint firstItem="Mci-v3-TZQ" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="qup-u3-vz8"/>
-                <constraint firstItem="Mci-v3-TZQ" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="zhP-Mq-jBq"/>
+                <constraint firstItem="Mci-v3-TZQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="vsb-9b-TVg"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="31.5" y="-33.5"/>
