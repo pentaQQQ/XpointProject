@@ -10,6 +10,7 @@
 #import "ZLPhotoPickerBrowserViewController.h"
 #import "imagesListModel.h"
 #import "UIButton+WebCache.h"
+#import "customLabel.h"
 @implementation goodsDetailCell
 
 - (void)awakeFromNib {
@@ -52,7 +53,7 @@
     
     self.title.text = model.merchantName;
     self.content.text = model.context;
-//    self.beginTime.text = model.beginTime;
+    //    self.beginTime.text = model.beginTime;
     self.endtime.text = model.endTime;
     
     
@@ -61,7 +62,7 @@
     if ([model.typeac isEqualToString:@"0"]) {
         [self.zhuanfaBtn setTitle:@"分享整场活动" forState:UIControlStateNormal];
     }else{
-         [self.zhuanfaBtn setTitle:@"转发" forState:UIControlStateNormal];
+        [self.zhuanfaBtn setTitle:@"转发" forState:UIControlStateNormal];
     }
     
     
@@ -81,6 +82,45 @@
     
     CGFloat high = [LYTools getHeighWithTitle:model.context font:[UIFont systemFontOfSize:14] width:kScreenWidth-70];
     self.contentHigh.constant = high;
+    
+    
+    NSString *str = [LYTools inputTimeStr:model.endTime];
+    
+    if ([str isEqualToString:@"已结束"]) {
+        self.beginTime.text = str;
+        self.beginDetailTime.hidden = YES;
+        self.tianLab.hidden = YES;
+        self.begintimeWidth.constant = 60;
+    }else if ([str isEqualToString:@"倒计时"]){
+        self.tianLab.hidden = YES;
+        
+        customLabel *lab = [[customLabel alloc]initWithFrame: self.beginTime.bounds];
+        lab.string = [model.endTime substringFromIndex:11];
+        self.beginTime.hidden = YES;
+        
+        
+    }else{
+        self.beginTime.text = str;
+        self.tianLab.hidden = NO;
+        self.begintimeWidth.constant = 30;
+    }
+    
+    
+    NSString *tempStr = [model.endTime substringFromIndex:11];
+    NSString *tempStr1 = [tempStr substringToIndex:2];
+    
+    NSString *tempStr2 = [tempStr substringFromIndex:4];
+    NSString *tempStr3 = [tempStr2 substringToIndex:2];
+   
+    
+    NSLog(@"%@",tempStr1);
+    
+    int tempTime = [tempStr1 intValue];
+    if (tempTime>12) {
+        self.beginDetailTime.text = [NSString stringWithFormat:@"下午%d:%@",tempTime -12,tempStr3];
+    }else{
+        self.beginDetailTime.text = [NSString stringWithFormat:@"上午%@",tempStr2];
+    }
     
 }
 
@@ -108,7 +148,7 @@
                 UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake((width+5)*j, (5+high)*i,  width, high)];
                 
                 [self.pictureView addSubview:btn];
-              
+                
                 
                 btn.tag = k;
                 
@@ -117,7 +157,7 @@
                 imagesListModel *model =array[k];
                 
                 [btn sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] forState:UIControlStateNormal];
-    
+                
             }
         }
     }
@@ -168,11 +208,13 @@
 
 
 
+
 - (IBAction)qianggouBtnClick:(id)sender {
     if (self.qianggouBlock) {
         self.qianggouBlock(self.model);
     }
 }
+
 
 
 
