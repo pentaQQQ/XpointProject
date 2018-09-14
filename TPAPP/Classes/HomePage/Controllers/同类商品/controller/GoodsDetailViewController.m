@@ -105,10 +105,10 @@
     oldheview.frame =  CGRectMake(0, 0, kScreenWidth, kScreenHeight);
     [self.view insertSubview:oldheview belowSubview:tableview];
     
-    
-    
-    
 }
+
+
+
 
 
 - (void)lodaData
@@ -488,6 +488,7 @@
 
 
 
+
 //截取长图
 - (UIImage *)captureScrollView:(UIScrollView *)scrollView {
     UIImage *image = nil;
@@ -510,6 +511,8 @@
     }
     return nil;
 }
+
+
 
 
 @end

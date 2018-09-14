@@ -84,4 +84,7 @@
                    success:(void(^)(NSDictionary *dict))success
 
                       fail:(void (^)(NSError *error))fail;
+
+
++(NSString *)inputTimeStr:(NSString *)timeStr;
 @end

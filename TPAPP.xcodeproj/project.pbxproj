@@ -277,6 +277,7 @@
 		547C49AD1F1DBB8200178B67 /* tab_mine_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 547C495B1F1DBB8200178B67 /* tab_mine_nor@3x.png */; };
 		547C49B21F1DD82500178B67 /* GoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C49B11F1DD82500178B67 /* GoodsViewController.m */; };
 		547C49B51F1DD88500178B67 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C49B41F1DD88500178B67 /* FindViewController.m */; };
+		8E131F0E214B4AF200BE10E5 /* customLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E131F0D214B4AF200BE10E5 /* customLabel.m */; };
 		8E3E6D382138D4BE007B3306 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D352138D4BD007B3306 /* README.txt */; };
 		8E3E6D392138D4BE007B3306 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3E6D372138D4BD007B3306 /* libWeChatSDK.a */; };
 		8E3E6D3B2138D4FA007B3306 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3E6D3A2138D4FA007B3306 /* libsqlite3.0.tbd */; };
@@ -891,6 +892,8 @@
 		547C49B31F1DD88500178B67 /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindViewController.h; sourceTree = "<group>"; };
 		547C49B41F1DD88500178B67 /* FindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindViewController.m; sourceTree = "<group>"; };
 		857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TPAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-TPAPP/Pods-TPAPP.release.xcconfig"; sourceTree = "<group>"; };
+		8E131F0C214B4AF100BE10E5 /* customLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = customLabel.h; sourceTree = "<group>"; };
+		8E131F0D214B4AF200BE10E5 /* customLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = customLabel.m; sourceTree = "<group>"; };
 		8E3E6D332138D4BD007B3306 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		8E3E6D342138D4BD007B3306 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		8E3E6D352138D4BD007B3306 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
@@ -989,7 +992,7 @@
 		8E78BE12213643B3000A9EA4 /* releaseActivitiesModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = releaseActivitiesModel.m; sourceTree = "<group>"; };
 		8E78BE142136447D000A9EA4 /* imagesListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = imagesListModel.h; sourceTree = "<group>"; };
 		8E78BE152136447D000A9EA4 /* imagesListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = imagesListModel.m; sourceTree = "<group>"; };
-		8E78BE1821366708000A9EA4 /* LYTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYTools.m; sourceTree = "<group>"; };
+		8E78BE1821366708000A9EA4 /* LYTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYTools.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E78BE1921366708000A9EA4 /* LYTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYTools.h; sourceTree = "<group>"; };
 		8E78BE2021366E4C000A9EA4 /* GoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailViewController.h; sourceTree = "<group>"; };
 		8E78BE2121366E4C000A9EA4 /* GoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
@@ -2637,6 +2640,8 @@
 		8EA952A0212AC4850057AC78 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				8E131F0C214B4AF100BE10E5 /* customLabel.h */,
+				8E131F0D214B4AF200BE10E5 /* customLabel.m */,
 				8EA952A1212AC4C50057AC78 /* goodsDetailCell.h */,
 				8EA952A2212AC4C50057AC78 /* goodsDetailCell.m */,
 				8EA952A3212AC4C50057AC78 /* goodsDetailCell.xib */,
@@ -3579,6 +3584,7 @@
 				8E3E6D92213F7048007B3306 /* zhuanfaModel.m in Sources */,
 				8E78BE0021353B23000A9EA4 /* jiajiaView.m in Sources */,
 				01121012213392FD0071AC5F /* MGSwipeButton.m in Sources */,
+				8E131F0E214B4AF200BE10E5 /* customLabel.m in Sources */,
 				8E3E6D632138D79B007B3306 /* UIButton+LYCountDownButton.m in Sources */,
 				547C497E1F1DBB8200178B67 /* SGDatePickerCenterView.m in Sources */,
 				01944F7F213CE4BA00831504 /* UITableView+XY.m in Sources */,

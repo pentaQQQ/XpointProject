@@ -637,11 +637,11 @@
 
 +(void)getBossDemoWithUrl:(NSString*)url
 
-                     param:(NSDictionary*)param
+                    param:(NSDictionary*)param
 
-                   success:(void(^)(NSDictionary *dict))success
+                  success:(void(^)(NSDictionary *dict))success
 
-                      fail:(void (^)(NSError *error))fail
+                     fail:(void (^)(NSError *error))fail
 
 {
     NSString *accessPath = url;
@@ -681,5 +681,224 @@
     }
 }
 
+
+
+
+
+
+
+
+
+/*
+ 
+ * 需要传入的时间格式 2017-06-14 14:18:54
+ 
+ */
+
+
+// 和当前时间进行比较  输出字符串为（刚刚几个小时前 几天前 ）
+
++(NSString *)inputTimeStr:(NSString *)timeStr
+
+{
+    
+    NSDate *nowDate = [NSDate date];
+    
+    NSDate *sinceDate = [self becomeDateStr:timeStr];
+    
+    //    int i  = [nowDate timeIntervalSinceDate:sinceDate];
+    
+    int i  = [sinceDate timeIntervalSinceDate:nowDate];
+    
+    NSString  *str  = @"";
+
+    if (i <= 0)
+        
+    {//小于60s
+        
+        str = @"已结束";
+        
+    }else if(i>0 && i<=60*60*24)
+        
+    {//大于60s，小于一小时
+        
+        //倒计时
+          str = @"倒计时";
+        
+    }else if (i>60*60*24)
+        {//
+        
+        int k = i/(3600*24);
+        
+        str = [NSString stringWithFormat:@"%d",k];
+        
+    }
+    
+    return str;
+    
+}
+
+
+
+
+
+
+//把时间字符串转换成NSDate
+
++ (NSDate *)becomeDateStr:(NSString *)dateStr
+
+{
+    
+    NSDateFormatter *formatter2 = [[NSDateFormatter alloc]init];
+    
+    [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSDate *date1 = [formatter2 dateFromString:dateStr];
+    
+    return date1;
+    
+}
+
+
+//把时间转换成星期
+
++ (NSString*)weekdayStringFromDate:(NSDate*)inputDate {
+    
+    
+    
+    NSArray *weekdays = [NSArray arrayWithObjects: [NSNull null], @"周日", @"周一", @"周二", @"周三", @"周四", @"周五", @"周六", nil];
+    
+    
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    
+    
+    
+    //    NSTimeZone *timeZone = [[NSTimeZone alloc] initWithName:@"Asia/Shanghai"];
+    
+    NSTimeZone *timeZone = [[NSTimeZone alloc] initWithName:@"zh-Hans"];
+    
+    
+    
+    [calendar setTimeZone: timeZone];
+    
+    NSCalendarUnit calendarUnit = NSCalendarUnitWeekday;
+    
+    
+    
+    NSDateComponents *theComponents = [calendar components:calendarUnit fromDate:inputDate];
+    
+    
+    
+    return [weekdays objectAtIndex:theComponents.weekday];
+    
+}
+
+//判断是否为昨天
+
++ (BOOL)isYesterdayWithDate:(NSDate *)newDate
+
+{
+    
+    BOOL isYesterday = YES;
+    
+    NSTimeInterval secondsPerDay = 24 * 60 * 60;
+    
+    //
+    
+    NSDate *yearsterDay =  [[NSDate alloc] initWithTimeIntervalSinceNow:-secondsPerDay];
+    
+    
+    
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    
+    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
+    
+    //    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    
+    NSDateComponents* comp1 = [calendar components:unitFlags fromDate:newDate];
+    
+    NSDateComponents* comp2 = [calendar components:unitFlags fromDate:yearsterDay];
+    
+    
+    
+    if ( comp1.year == comp2.year && comp1.month == comp2.month && comp1.day == comp2.day)
+        
+    {
+        
+        isYesterday = YES;
+        
+    }else
+        
+    {
+        
+        isYesterday = NO;
+        
+    }
+    
+    return isYesterday;
+    
+}
+//判断今天是本周的第几天
+
++ (int)getNowDateWeek
+
+{
+    
+    NSDate *nowDate = [NSDate date];
+    
+    NSString *nowWeekStr = [self weekdayStringFromDate:nowDate];
+    
+    int  factWeekDay = 0;
+    
+    
+    
+    if ([nowWeekStr isEqualToString:@"周日"])
+        
+    {
+        
+        factWeekDay = 7;
+        
+    }else if ([nowWeekStr isEqualToString:@"周一"])
+        
+    {
+        
+        factWeekDay = 1;
+        
+    }else if ([nowWeekStr isEqualToString:@"周二"])
+        
+    {
+        
+        factWeekDay = 2;
+        
+    }else if ([nowWeekStr isEqualToString:@"周三"])
+        
+    {
+        
+        factWeekDay = 3;
+        
+    }else if ([nowWeekStr isEqualToString:@"周四"])
+        
+    {
+        
+        factWeekDay = 4;
+        
+    }else if ([nowWeekStr isEqualToString:@"周五"])
+        
+    {
+        
+        factWeekDay = 5;
+        
+    }else if ([nowWeekStr isEqualToString:@"周六"])
+        
+    {
+        
+        factWeekDay = 6;
+        
+    }
+    
+    return  factWeekDay;
+    
+}
 
 @end

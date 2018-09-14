@@ -34,6 +34,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHigh;
 
 
+
+@property (weak, nonatomic) IBOutlet UILabel *tianLab;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *begintimeWidth;
+
+
 @property(nonatomic,strong)SimilarProductModel*model;
 
 
