@@ -22,8 +22,9 @@
     UINavigationBar *navBar = [UINavigationBar appearance];
     //navBar.translucent = NO;
     navBar.barTintColor = colorWithRGB(0x00A9EB);
+//    navBar.barTintColor = colorWithRGB(0xFF6B24);
     navBar.tintColor = [UIColor whiteColor];
-    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont systemFontOfSize:17 weight:UIFontWeightLight]}];
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont systemFontOfSize:17 weight:UIFontWeightBold]}];
     [navBar setShadowImage:[UIImage new]];
 }
 

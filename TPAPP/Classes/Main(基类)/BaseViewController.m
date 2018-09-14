@@ -29,6 +29,12 @@
     self.navigationItem.leftBarButtonItems = @[gap, set];
 }
 
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    [self.view layoutSubviews];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     

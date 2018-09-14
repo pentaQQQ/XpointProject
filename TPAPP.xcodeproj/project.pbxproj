@@ -192,6 +192,8 @@
 		019AEE9B21382B0B00EB3405 /* MMImagePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7321382B0B00EB3405 /* MMImagePreviewView.m */; };
 		019AEE9C21382B0B00EB3405 /* MMOperateMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7521382B0B00EB3405 /* MMOperateMenuView.m */; };
 		019AEE9D21382B0B00EB3405 /* MomentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7721382B0B00EB3405 /* MomentCell.m */; };
+		01ABB01D214BB15A000D616E /* back_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01ABB01B214BB159000D616E /* back_icon@2x.png */; };
+		01ABB01E214BB15A000D616E /* back_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01ABB01C214BB15A000D616E /* back_icon@3x.png */; };
 		01AD1A532148000200348238 /* DefaultAddressMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD1A522148000200348238 /* DefaultAddressMessage.m */; };
 		01BC59A72147ADA7000FF81F /* MineIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BC59A62147ADA7000FF81F /* MineIndentModel.m */; };
 		01BC59AD2147B409000FF81F /* 上箭头@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01BC59AC2147B409000FF81F /* 上箭头@2x.png */; };
@@ -277,6 +279,7 @@
 		547C49AD1F1DBB8200178B67 /* tab_mine_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 547C495B1F1DBB8200178B67 /* tab_mine_nor@3x.png */; };
 		547C49B21F1DD82500178B67 /* GoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C49B11F1DD82500178B67 /* GoodsViewController.m */; };
 		547C49B51F1DD88500178B67 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C49B41F1DD88500178B67 /* FindViewController.m */; };
+		8E131F0E214B4AF200BE10E5 /* customLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E131F0D214B4AF200BE10E5 /* customLabel.m */; };
 		8E3E6D382138D4BE007B3306 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6D352138D4BD007B3306 /* README.txt */; };
 		8E3E6D392138D4BE007B3306 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3E6D372138D4BD007B3306 /* libWeChatSDK.a */; };
 		8E3E6D3B2138D4FA007B3306 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3E6D3A2138D4FA007B3306 /* libsqlite3.0.tbd */; };
@@ -745,6 +748,8 @@
 		019AEE7621382B0B00EB3405 /* MomentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentCell.h; sourceTree = "<group>"; };
 		019AEE7721382B0B00EB3405 /* MomentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentCell.m; sourceTree = "<group>"; };
 		019AEE7821382B0B00EB3405 /* MomentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentKit.h; sourceTree = "<group>"; };
+		01ABB01B214BB159000D616E /* back_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_icon@2x.png"; sourceTree = "<group>"; };
+		01ABB01C214BB15A000D616E /* back_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_icon@3x.png"; sourceTree = "<group>"; };
 		01AD1A512148000200348238 /* DefaultAddressMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultAddressMessage.h; sourceTree = "<group>"; };
 		01AD1A522148000200348238 /* DefaultAddressMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DefaultAddressMessage.m; sourceTree = "<group>"; };
 		01BC59A52147ADA7000FF81F /* MineIndentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineIndentModel.h; sourceTree = "<group>"; };
@@ -891,6 +896,8 @@
 		547C49B31F1DD88500178B67 /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindViewController.h; sourceTree = "<group>"; };
 		547C49B41F1DD88500178B67 /* FindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindViewController.m; sourceTree = "<group>"; };
 		857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TPAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-TPAPP/Pods-TPAPP.release.xcconfig"; sourceTree = "<group>"; };
+		8E131F0C214B4AF100BE10E5 /* customLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = customLabel.h; sourceTree = "<group>"; };
+		8E131F0D214B4AF200BE10E5 /* customLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = customLabel.m; sourceTree = "<group>"; };
 		8E3E6D332138D4BD007B3306 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		8E3E6D342138D4BD007B3306 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		8E3E6D352138D4BD007B3306 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
@@ -989,7 +996,7 @@
 		8E78BE12213643B3000A9EA4 /* releaseActivitiesModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = releaseActivitiesModel.m; sourceTree = "<group>"; };
 		8E78BE142136447D000A9EA4 /* imagesListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = imagesListModel.h; sourceTree = "<group>"; };
 		8E78BE152136447D000A9EA4 /* imagesListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = imagesListModel.m; sourceTree = "<group>"; };
-		8E78BE1821366708000A9EA4 /* LYTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYTools.m; sourceTree = "<group>"; };
+		8E78BE1821366708000A9EA4 /* LYTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYTools.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E78BE1921366708000A9EA4 /* LYTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYTools.h; sourceTree = "<group>"; };
 		8E78BE2021366E4C000A9EA4 /* GoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailViewController.h; sourceTree = "<group>"; };
 		8E78BE2121366E4C000A9EA4 /* GoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
@@ -2422,6 +2429,8 @@
 		547C494E1F1DBB8200178B67 /* Resourse(图片资源) */ = {
 			isa = PBXGroup;
 			children = (
+				01ABB01B214BB159000D616E /* back_icon@2x.png */,
+				01ABB01C214BB15A000D616E /* back_icon@3x.png */,
 				547C494F1F1DBB8200178B67 /* back@2x.png */,
 				547C49501F1DBB8200178B67 /* back@3x.png */,
 				547C49511F1DBB8200178B67 /* tabbar */,
@@ -2637,6 +2646,8 @@
 		8EA952A0212AC4850057AC78 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				8E131F0C214B4AF100BE10E5 /* customLabel.h */,
+				8E131F0D214B4AF200BE10E5 /* customLabel.m */,
 				8EA952A1212AC4C50057AC78 /* goodsDetailCell.h */,
 				8EA952A2212AC4C50057AC78 /* goodsDetailCell.m */,
 				8EA952A3212AC4C50057AC78 /* goodsDetailCell.xib */,
@@ -3165,7 +3176,6 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -3260,6 +3270,7 @@
 				019AEE9221382B0B00EB3405 /* moment_pic_7@2x.png in Resources */,
 				019AEE8021382B0B00EB3405 /* moment_comment_hl@3x.png in Resources */,
 				547C49AC1F1DBB8200178B67 /* tab_mine_nor@2x.png in Resources */,
+				01ABB01E214BB15A000D616E /* back_icon@3x.png in Resources */,
 				019AEE8621382B0B00EB3405 /* moment_like_hl@3x.png in Resources */,
 				01121011213392FD0071AC5F /* LICENSE in Resources */,
 				019AEE8C21382B0B00EB3405 /* moment_pic_1@2x.png in Resources */,
@@ -3296,6 +3307,7 @@
 				547C48761F1DA8AF00178B67 /* Main.storyboard in Resources */,
 				8E3E6D5E2138D76F007B3306 /* LoginViewController.xib in Resources */,
 				8E3E6DB22142140C007B3306 /* PiliangzhuanfaViewController.xib in Resources */,
+				01ABB01D214BB15A000D616E /* back_icon@2x.png in Resources */,
 				547C49A81F1DBB8200178B67 /* tab_job_nor@2x.png in Resources */,
 				019AEE8921382B0B00EB3405 /* moment_operate_hl@2x.png in Resources */,
 				547C496C1F1DBB8200178B67 /* lkbubble6.jpg in Resources */,
@@ -3579,6 +3591,7 @@
 				8E3E6D92213F7048007B3306 /* zhuanfaModel.m in Sources */,
 				8E78BE0021353B23000A9EA4 /* jiajiaView.m in Sources */,
 				01121012213392FD0071AC5F /* MGSwipeButton.m in Sources */,
+				8E131F0E214B4AF200BE10E5 /* customLabel.m in Sources */,
 				8E3E6D632138D79B007B3306 /* UIButton+LYCountDownButton.m in Sources */,
 				547C497E1F1DBB8200178B67 /* SGDatePickerCenterView.m in Sources */,
 				01944F7F213CE4BA00831504 /* UITableView+XY.m in Sources */,
@@ -3820,7 +3833,7 @@
 			baseConfigurationReference = D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9MHQLQBTW8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
@@ -3871,7 +3884,7 @@
 			baseConfigurationReference = 857F1C4BFA70733EE4DB59F4 /* Pods-TPAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9MHQLQBTW8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;

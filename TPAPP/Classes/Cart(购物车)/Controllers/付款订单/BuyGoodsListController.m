@@ -14,6 +14,7 @@
 @interface BuyGoodsListController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
+
 @property (nonatomic, strong)UIView *bottomView;
 @property (nonatomic, strong)UILabel *priceLabel;
 @property (nonatomic, strong)UILabel *allGoodsPriceLabel;
@@ -41,9 +42,10 @@
     }else{
         self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
     }
+    self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%d件)",self.goodsNum],self.goodsPrice],@[@"优惠金额",@"-¥0.00"],@[@"运费",@"+¥50.00"],@[@"应付金额",self.goodsPrice], nil];
+    
     self.title = @"支付订单";
     self.btnTag = defaultTag; //self.btnTag = defaultTag+1  表示默认选择第二个，依次类推
-//    self.listDataArr = [NSMutableArray arrayWithObjects:@[@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"], nil];
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setUpUI];
@@ -200,10 +202,10 @@
         if (!cell) {
             cell = [[PayIndentDefaultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
-        NSMutableArray *arr = [NSMutableArray arrayWithObjects:@[@"商品金额 (1件)",@"¥1000"],@[@"优惠金额",@"¥50"],@[@"运费",@"¥50"],@[@"应付金额",@"¥1000"], nil];
+//        NSMutableArray *arr = [NSMutableArray arrayWithObjects:@[@"商品金额 (1件)",@"¥1000"],@[@"优惠金额",@"¥50"],@[@"运费",@"¥50"],@[@"应付金额",@"¥1000"], nil];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
-        [cell configWithModel:arr[indexPath.row]];
+        [cell configWithModel: self.listDataArr[indexPath.row]];
         return cell;
     }else{
         static NSString *cellId = @"PayIndentButtonCellID";

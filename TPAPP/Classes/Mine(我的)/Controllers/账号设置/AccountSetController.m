@@ -225,7 +225,19 @@
     model10.title = @"下单备注开关";
     model10.cellType = YSStaticCellTypeAccessorySwitch;
     [model10 setSwitchValueDidChangeBlock:^(BOOL isOn) {
-
+        [[NetworkManager sharedManager] postWithUrl:editUserMessage param:@{@"isRemark":[NSString stringWithFormat:@"%d",isOn]} success:^(id json) {
+            NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+            if ([respCode isEqualToString:@"00000"]) {
+                [LYAccount mj_objectWithKeyValues:json[@"data"]];
+                [self prepareData];
+                [self.tableView reloadData];
+            }else{
+                [self.tableView reloadData];
+                [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
     }];
     
     YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model4, model5,model6,model10]];

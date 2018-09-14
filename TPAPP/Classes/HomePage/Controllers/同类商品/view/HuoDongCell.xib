@@ -226,12 +226,14 @@
             <connections>
                 <outlet property="beginDetailTime" destination="EVU-e4-1jn" id="ang-hc-5k9"/>
                 <outlet property="beginTime" destination="jIm-CA-rnB" id="U4i-cc-vXW"/>
+                <outlet property="begintimeWidth" destination="Wog-Pv-O89" id="r9f-Wv-HN3"/>
                 <outlet property="content" destination="hfO-8P-9Uj" id="iNI-Xw-gH7"/>
                 <outlet property="contentHigh" destination="4ee-tC-YsR" id="Qj4-rf-rep"/>
                 <outlet property="endtime" destination="rvd-sg-GLc" id="TLM-z2-43q"/>
                 <outlet property="imageview" destination="wW8-DS-Ysu" id="vVy-0g-AUj"/>
                 <outlet property="pictureView" destination="uZ5-iD-1Ap" id="HqF-Zq-LbF"/>
                 <outlet property="pictureViewHigh" destination="xGZ-JZ-1in" id="CGZ-sv-VNP"/>
+                <outlet property="tianLab" destination="9x3-Nm-GAa" id="wAc-pU-u9f"/>
                 <outlet property="title" destination="zdE-BK-MJU" id="F0c-T5-IU5"/>
                 <outlet property="zhuanfaBtn" destination="56K-pG-zvv" id="lcH-Ah-eD6"/>
             </connections>

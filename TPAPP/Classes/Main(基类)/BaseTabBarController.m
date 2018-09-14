@@ -18,11 +18,15 @@
     [super viewDidLoad];
     [self makeUI];
     self.tabBar.tintColor = colorWithRGB(0x1D99D4);
-    
+    [self customizeTabBarAppearance:self];
      [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getShopCarNumberAction:)name:@"getShopCarNumber"object:nil];
 }
 
-
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    [self.view layoutSubviews];
+}
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getShopCarNumber" object:nil];
@@ -54,22 +58,22 @@
     
     GoodsViewController *c6=[[GoodsViewController alloc]init];
     c6.title=@"客服";
-    c6.tabBarItem.image=[UIImage imageNamed:@"icon_foot_xiaoxi"];
-    c6.tabBarItem.selectedImage =[UIImage imageNamed:@"icon_foot_xiaoxi_press"];
+    c6.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_xiaoxi"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    c6.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_xiaoxi_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //c6.tabBarItem.selectedImage =[[UIImage imageNamed:@"tab_market_nor"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     BaseNavigationController *fourthNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c6];
     
     FindViewController *secondViewController = [[FindViewController alloc] init];
     secondViewController.title=@"发现";
-    secondViewController.tabBarItem.image=[UIImage imageNamed:@"icon_foot_home"];
-    secondViewController.tabBarItem.selectedImage =[UIImage imageNamed:@"icon_foot_home_press"];
+    secondViewController.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_home"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    secondViewController.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_home_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     BaseNavigationController *secondNavigationController = [[BaseNavigationController alloc]
                                                             initWithRootViewController:secondViewController];
     
     CartViewController *c4=[[CartViewController alloc]init];
     c4.title=@"购物车";
-    c4.tabBarItem.image=[UIImage imageNamed:@"icon_foot_buy"];
-    c4.tabBarItem.selectedImage =[UIImage imageNamed:@"icon_foot_buy_press"];
+    c4.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_buy"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    c4.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_buy_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     BaseNavigationController *thirdNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c4];
     
     
@@ -77,8 +81,8 @@
     
     MineViewController *c7=[[MineViewController alloc]init];
     c7.title=@"我的";
-    c7.tabBarItem.image=[UIImage imageNamed:@"icon_foot_mine"];
-    c7.tabBarItem.selectedImage =[UIImage imageNamed:@"icon_foot_mine_press"];
+    c7.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_mine"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    c7.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_mine_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     BaseNavigationController *sevenNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c7];
     
     
@@ -119,7 +123,6 @@
     [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
     [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
     [[UITabBar appearance] setShadowImage:[UIImage imageNamed:@"tapbar_top_line"]];
-   
 }
 
 #pragma mark - 数据
