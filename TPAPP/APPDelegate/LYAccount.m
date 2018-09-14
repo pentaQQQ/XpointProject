@@ -10,7 +10,6 @@
 #import "AddressModel.h"
 
 @implementation LYAccount
-//static dispatch_once_t onceToken;
 static id _instance;
 + (instancetype)allocWithZone:(struct _NSZone *)zone
 {
