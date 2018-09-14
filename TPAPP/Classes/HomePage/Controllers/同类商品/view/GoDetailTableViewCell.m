@@ -86,9 +86,9 @@
         specsModel*spmodel =model.specs[i];
 
         if (i== 0) {
-            str = [NSString stringWithFormat:@"%@(%@)",spmodel.size,spmodel.stock];
+            str = [NSString stringWithFormat:@"%@(%ld)",spmodel.size,[spmodel.stock integerValue]];
         }else{
-            NSString *tempstr = [NSString stringWithFormat:@"%@(%@)",spmodel.size,spmodel.stock];
+            NSString *tempstr = [NSString stringWithFormat:@"%@(%ld)",spmodel.size,[spmodel.stock integerValue]];
             str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
         }
     }
@@ -247,7 +247,7 @@
                 
                 specsModel *model =array[k];
               
-                NSString *title = [NSString stringWithFormat:@"%@(%@)",model.size,model.stock];
+                NSString *title = [NSString stringWithFormat:@"%@(%ld)",model.size,[model.stock integerValue]];
                 
                 CGFloat widt = [LYTools widthForString:title fontSize:12 andHeight:20]+40;
                 
@@ -258,7 +258,7 @@
                     
                     specsModel *model =array[k-j+m];
                   
-                    NSString *title = [NSString stringWithFormat:@"%@(%@)",model.stock,model.size];
+                    NSString *title = [NSString stringWithFormat:@"%@(%ld)",model.size,[model.stock integerValue]];
                     
                     CGFloat widt = [LYTools widthForString:title fontSize:12 andHeight:20]+40;
                     

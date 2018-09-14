@@ -8,7 +8,9 @@
 
 #import "LYAccount.h"
 #import "AddressModel.h"
+
 @implementation LYAccount
+//static dispatch_once_t onceToken;
 static id _instance;
 + (instancetype)allocWithZone:(struct _NSZone *)zone
 {
@@ -36,4 +38,8 @@ static id _instance;
 - (id)mutableCopyWithZone:(NSZone *)zone {
     return _instance;
 }
+//+(void)clear
+//{
+//    onceToken = 0;
+//}
 @end

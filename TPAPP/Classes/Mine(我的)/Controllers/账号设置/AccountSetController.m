@@ -228,7 +228,7 @@
 
     }];
     
-    YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model4, model5,model6]];
+    YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model4, model5,model6,model10]];
     
     YSStaticDefaultModel *model7 = [[YSStaticDefaultModel alloc] init];
     model7.title = @"隐私政策";
@@ -374,6 +374,7 @@
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
+//            [LYAccount clear];
             [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
             LoginViewController*vc = [[LoginViewController alloc]init];
             RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
