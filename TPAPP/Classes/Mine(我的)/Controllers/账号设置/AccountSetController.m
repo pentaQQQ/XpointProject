@@ -226,14 +226,13 @@
     model10.cellType = YSStaticCellTypeAccessorySwitch;
     [model10 setSwitchValueDidChangeBlock:^(BOOL isOn) {
         [[NetworkManager sharedManager] postWithUrl:editUserMessage param:@{@"isRemark":[NSString stringWithFormat:@"%d",isOn]} success:^(id json) {
-            //                [SVProgressHUD dismiss];
             NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
             if ([respCode isEqualToString:@"00000"]) {
                 [LYAccount mj_objectWithKeyValues:json[@"data"]];
-//                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"昵称头像成功" withDuration:1.5];
                 [self prepareData];
                 [self.tableView reloadData];
             }else{
+                [self.tableView reloadData];
                 [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
             }
         } failure:^(NSError *error) {

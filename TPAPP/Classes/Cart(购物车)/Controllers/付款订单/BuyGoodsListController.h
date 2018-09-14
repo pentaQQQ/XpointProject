@@ -12,4 +12,6 @@
 @interface BuyGoodsListController : BaseViewController
 @property (nonatomic, strong)NSMutableArray *goodsListArray;
 @property (nonatomic, strong)AddressModel *addressModel;
+@property (nonatomic, assign)int goodsNum;
+@property (nonatomic, strong)NSString *goodsPrice;
 @end

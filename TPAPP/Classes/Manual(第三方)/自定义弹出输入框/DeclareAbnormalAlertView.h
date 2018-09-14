@@ -32,7 +32,11 @@ typedef NS_ENUM(NSUInteger, AbnormalButton) {
 - (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectCell:(CompileCell *)cell selectSpesModel:(specsModel *)model;
 
 @end
+@protocol DeclareAbnormalAlertViewRemindDelegate <NSObject>
 
+- (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex comGoodList:(NSMutableArray *)goodListArr;
+
+@end
 
 #pragma mark - interface
 
@@ -45,7 +49,7 @@ typedef NS_ENUM(NSUInteger, AbnormalButton) {
 @property (nonatomic,strong) UITextView *textView;
 
 @property (nonatomic,weak) id<DeclareAbnormalAlertViewDelegate> delegate;
-
+@property (nonatomic,weak) id<DeclareAbnormalAlertViewRemindDelegate> remindDelegate;
 /**
  申报异常弹窗的构造方法
 
@@ -57,6 +61,7 @@ typedef NS_ENUM(NSUInteger, AbnormalButton) {
  @return 一个申报异常的弹窗
  */
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle comCell:(CompileCell *)cell isAddGood:(BOOL)isAddGood spesmodel:(specsModel *)model;
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message remind:(NSString *)remind delegate:(id)remindDelegate leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle comGoodList:(NSMutableArray *)goodListArr;
 
 /** show出这个弹窗 */
 - (void)show;

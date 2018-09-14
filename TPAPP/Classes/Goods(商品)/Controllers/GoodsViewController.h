@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GoodsViewController : UIViewController
+@interface GoodsViewController : BaseViewController
 
 @end

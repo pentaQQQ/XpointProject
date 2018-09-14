@@ -83,7 +83,7 @@
 }
 - (void)BalanceAccountAction
 {
-     [self.delegate BalanceSelectedGoods:self.selectedGoodsListArr];
+     [self.delegate BalanceSelectedGoods:self.selectedGoodsListArr goodsNum:self.GoodsNum goodsPrice:self.GoodsPrice];
 }
 -(void)init:(NSDictionary *)dict GoodsData:(NSMutableArray *)goods
 {
@@ -128,9 +128,13 @@
             }
         }
     }
+   
+    self.GoodsNum = index2;
+    self.GoodsPrice = [NSString stringWithFormat:@"￥%.2f",goodsSum];
     
     NSString *String  = [NSString stringWithFormat:@"合计: ￥%.2f",goodsSum];
     label2.text = [NSString stringWithFormat:@"共(%d)件",index2];
+    
     AllPrice.attributedText = [self String:String RangeString:[NSString stringWithFormat:@"￥%.2f",goodsSum]];
     if (index2 == index1 ) {
         [SelectedAll setImage:Image(@"已选中") forState:UIControlStateNormal];

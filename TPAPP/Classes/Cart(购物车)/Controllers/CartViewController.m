@@ -27,7 +27,7 @@
 #import "DeleteGoodsListController.h"
 #import "ZLPhotoPickerBrowserViewController.h"
 #define Image(name) [UIImage imageNamed:name]
-@interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate,DeclareAbnormalAlertViewDelegate>
+@interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate,DeclareAbnormalAlertViewDelegate,DeclareAbnormalAlertViewRemindDelegate>
 {
     BOOL allowMultipleSwipe;
     BOOL isPreview;
@@ -46,6 +46,8 @@
     NSArray  * dateSectionArr;
     MMImagePreviewView *_previewView;
     MMImageView *selectImage;
+    int _goodsNum;
+    NSString *_goodsPrice;
 }
 -(NSMutableArray *)dataSource
 {
@@ -666,6 +668,11 @@
     [self didChangeValueForSection:section SectionSelectedTyep:YES];
 //    [self.CartTableView reloadData];
 }
+- (void)SelectedShop:(NSInteger)section
+{
+    
+}
+
 /**
  *  取消选中哪个section
  */
@@ -852,19 +859,33 @@
  
  ***********************************************************/
 
-- (void)BalanceSelectedGoods:(NSMutableArray *)arr
+- (void)BalanceSelectedGoods:(NSMutableArray *)arr goodsNum:(int)goodsNum goodsPrice:(NSString *)goodsPrice
 {
     LYAccount *lyAccount = [LYAccount shareAccount];
     if (lyAccount.defaultAddress == nil) {
         [SVProgressHUD showInfoWithStatus:@"请先添加收货地址"];
     }else{
-        BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
-        buyCtrl.goodsListArray = self.dataSource;
-        [self.navigationController pushViewController:buyCtrl animated:YES];
+        _goodsNum = goodsNum;
+        _goodsPrice = goodsPrice;
+        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"立即去支付?" message:[NSString stringWithFormat:@"一共%d件 结算金额%@元",goodsNum,goodsPrice] remind:@"(单场活动最多可取消5件商品！)" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"去支付" comGoodList:arr];
+        [alertView show];
+        
+        
     }
     
 }
-
+-(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex comGoodList:(NSMutableArray *)goodListArr
+{
+    if (buttonIndex == AlertButtonLeft) {
+        
+    }else{
+        BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
+        buyCtrl.goodsListArray = goodListArr;
+        buyCtrl.goodsNum = _goodsNum;
+        buyCtrl.goodsPrice = _goodsPrice;
+        [self.navigationController pushViewController:buyCtrl animated:YES];
+    }
+}
 -(void)DidSelectedAllGoods
 {
 //    dispatch_async(dispatch_get_main_queue(), ^{

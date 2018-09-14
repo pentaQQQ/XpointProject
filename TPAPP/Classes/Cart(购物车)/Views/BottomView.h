@@ -15,7 +15,7 @@
 //取消选中所有商品
 -(void)NoDidSelectedAllGoods;
 //商品结算
--(void)BalanceSelectedGoods:(NSMutableArray *)arr;
+-(void)BalanceSelectedGoods:(NSMutableArray *)arr goodsNum:(int)goodsNum goodsPrice:(NSString *)goodsPrice;
 @end
 
 
@@ -27,7 +27,10 @@
 @property (nonatomic, assign)BOOL AllSelected;
 //数据源
 @property (nonatomic, strong)NSMutableArray *GoodsArr;
-
+//结算商品件数
+@property (nonatomic, assign)int GoodsNum;
+//结算商品价格
+@property (nonatomic, strong)NSString *GoodsPrice;
 
 @property (nonatomic, weak)id<BottomViewDelegate> delegate;
 
