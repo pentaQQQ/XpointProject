@@ -82,6 +82,7 @@
         self.title = title;
         self.message = message;
         self.remind = remind;
+        self.goodListArr  = goodListArr;
         self.remindDelegate = remindDelegate;
         self.leftButtonTitle = leftButtonTitle;
         self.rightButtonTitle = rightButtonTitle;
@@ -118,15 +119,15 @@
         // textView里面的占位label
         self.messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, titleLabel.maxY + 10, self.contentView.width - 40, 40)];
         self.messageLabel.text = self.message;
-        self.messageLabel.numberOfLines = 1;
+        self.messageLabel.numberOfLines = 2;
         self.messageLabel.font = [UIFont systemFontOfSize:15];
         self.messageLabel.textColor = [UIColor colorWithHexString:@"484848"];
-        [self.messageLabel sizeToFit];
+//        [self.messageLabel sizeToFit];
         [self.contentView addSubview:self.messageLabel];
     
     
         // 标题
-        self.remindLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, self.messageLabel.maxY + 10, self.contentView.width-40, 30)];
+        self.remindLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, self.messageLabel.maxY + 10, self.contentView.width-40, 20)];
         [self.contentView addSubview:self.remindLabel];
         self.remindLabel.numberOfLines = 0;
         self.remindLabel.font = [UIFont systemFontOfSize:15];
@@ -135,7 +136,7 @@
         self.remindLabel.textAlignment = NSTextAlignmentLeft;
         self.remindLabel.text = self.remind;
         
-        UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.remindLabel.maxY + 20, self.contentView.width, 1)];
+        UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.remindLabel.maxY + 10, self.contentView.width, 1)];
         topView.backgroundColor = [UIColor colorWithHexString:@"e0e0e0"];
         [self.contentView addSubview:topView];
         

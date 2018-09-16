@@ -474,14 +474,15 @@
         [dic setValue:model.size forKey:@"size"];
         LYAccount *lyAccount = [LYAccount shareAccount];
         [dic setValue:lyAccount.id forKey:@"userId"];
+        [dic setValue:alertView.textView.text forKey:@"remark"];
         [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
             NSLog(@"%@",dict);
             NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
             if ([respCode isEqualToString:@"00000"]) {
-                CartDetailsModel *detailModel = [CartDetailsModel mj_objectWithKeyValues:dict[@"data"]];
+//                CartDetailsModel *detailModel = [CartDetailsModel mj_objectWithKeyValues:dict[@"data"]];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
                 [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
-                [self addRemarkMessage:alertView.textView.text andDetailModel:detailModel];
+//                [self addRemarkMessage:alertView.textView.text andDetailModel:detailModel];
             }else{
                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
             }

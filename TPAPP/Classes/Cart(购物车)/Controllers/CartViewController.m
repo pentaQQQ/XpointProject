@@ -1,3 +1,4 @@
+
 //
 //  CartViewController.m
 //  ONLY
@@ -879,11 +880,67 @@
     if (buttonIndex == AlertButtonLeft) {
         
     }else{
-        BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
-        buyCtrl.goodsListArray = goodListArr;
-        buyCtrl.goodsNum = _goodsNum;
-        buyCtrl.goodsPrice = _goodsPrice;
-        [self.navigationController pushViewController:buyCtrl animated:YES];
+        NSString *addressId = nil;
+        DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
+        if ([addressMess.id length] == 0) {
+            addressId = [[AddressModel mj_objectWithKeyValues:[LYAccount shareAccount].defaultAddress] id];
+        }else{
+            addressId = addressMess.id;
+        }
+        NSMutableArray *dataArray = [NSMutableArray array];
+        
+        for (int i =  0; i < goodListArr.count; i++) {
+            NSArray *arr = goodListArr[i];
+            CartDetailsModel *model = arr[0];
+            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+            [dict setValue:addressId forKey:@"addressId"];
+            [dict setValue:model.productForm.merchantId forKey:@"merchantId"];
+            [dict setValue:model.productForm.merchantUrL forKey:@"merchantLogo"];
+            [dict setValue:model.productForm.merchantName forKey:@"merchantName"];
+            [dict setValue:[[LYAccount shareAccount] id]  forKey:@"userId"];
+            NSMutableArray *arr1 = [NSMutableArray array];
+            for (NSInteger j = 0 ; j < arr.count; j ++) {
+                CartDetailsModel *detailModel = arr[j];
+                NSMutableDictionary *goodDict = [NSMutableDictionary dictionary];
+                [goodDict setValue:@([detailModel.productForm.discountAmount longLongValue]) forKey:@"discountAmount"];
+                [goodDict setValue:@(detailModel.number) forKey:@"number"];
+                [goodDict setValue:detailModel.productId forKey:@"productId"];
+                [goodDict setValue:detailModel.remark forKey:@"remark"];
+                [goodDict setValue:detailModel.size forKey:@"size"];
+                [goodDict setValue:detailModel.specId forKey:@"specId"];
+                [goodDict setValue:detailModel.productForm.marketAmount forKey:@"productAmount"];
+                [arr1 addObject:goodDict];
+            }
+            [dict setValue:arr1 forKey:@"orderDetailList"];
+            [dataArray addObject:dict];
+        }
+        
+        
+        [LYTools postBossDemoWithUrl:makeOrder param:dataArray success:^(NSDictionary *dict) {
+            NSLog(@"%@",dict);
+            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+            if ([respCode isEqualToString:@"00000"]) {
+                BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
+                buyCtrl.goodsListArray = goodListArr;
+                buyCtrl.goodsNum = _goodsNum;
+                buyCtrl.goodsPrice = _goodsPrice;
+                [self.navigationController pushViewController:buyCtrl animated:YES];
+            }else if([dict[@"code"]longValue] == 500){
+                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+            }
+        } fail:^(NSError *error) {
+            
+        }];
+        
+//        [[NetworkManager sharedManager] postWithUrl:makeOrder param:dataArray success:^(id json) {
+//
+//            NSLog(@"%@",json);
+//
+//        } failure:^(NSError *error) {
+//
+//        }];
+        
+
     }
 }
 -(void)DidSelectedAllGoods

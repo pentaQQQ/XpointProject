@@ -197,6 +197,12 @@
 		01AD1A532148000200348238 /* DefaultAddressMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD1A522148000200348238 /* DefaultAddressMessage.m */; };
 		01BC59A72147ADA7000FF81F /* MineIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BC59A62147ADA7000FF81F /* MineIndentModel.m */; };
 		01BC59AD2147B409000FF81F /* 上箭头@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01BC59AC2147B409000FF81F /* 上箭头@2x.png */; };
+		01E46FF3214BF57800B88B24 /* AddConsignmentAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FF2214BF57800B88B24 /* AddConsignmentAddressController.m */; };
+		01E46FF6214BF5A700B88B24 /* ConsignmentAddressManageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FF5214BF5A700B88B24 /* ConsignmentAddressManageController.m */; };
+		01E46FF9214BF5BE00B88B24 /* EditConsignmentAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FF8214BF5BE00B88B24 /* EditConsignmentAddressController.m */; };
+		01E46FFC214BF70800B88B24 /* ConsignmentAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FFB214BF70800B88B24 /* ConsignmentAddressCell.m */; };
+		01E46FFF214CD7F000B88B24 /* AddConsignmentAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FFE214CD7F000B88B24 /* AddConsignmentAddressCell.m */; };
+		01E47002214CF34D00B88B24 /* ConsignmentManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E47001214CF34D00B88B24 /* ConsignmentManage.m */; };
 		01F1DFF6213A7CF6009A925A /* MineIndentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1DFF5213A7CF6009A925A /* MineIndentListCell.m */; };
 		01F1DFFC213ACFD5009A925A /* MBProgressHUD+NJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1DFF9213ACFD5009A925A /* MBProgressHUD+NJ.m */; };
 		01F1DFFD213ACFD5009A925A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F1DFFB213ACFD5009A925A /* MBProgressHUD.m */; };
@@ -755,6 +761,18 @@
 		01BC59A52147ADA7000FF81F /* MineIndentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineIndentModel.h; sourceTree = "<group>"; };
 		01BC59A62147ADA7000FF81F /* MineIndentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineIndentModel.m; sourceTree = "<group>"; };
 		01BC59AC2147B409000FF81F /* 上箭头@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上箭头@2x.png"; sourceTree = "<group>"; };
+		01E46FF1214BF57800B88B24 /* AddConsignmentAddressController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddConsignmentAddressController.h; sourceTree = "<group>"; };
+		01E46FF2214BF57800B88B24 /* AddConsignmentAddressController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddConsignmentAddressController.m; sourceTree = "<group>"; };
+		01E46FF4214BF5A700B88B24 /* ConsignmentAddressManageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsignmentAddressManageController.h; sourceTree = "<group>"; };
+		01E46FF5214BF5A700B88B24 /* ConsignmentAddressManageController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConsignmentAddressManageController.m; sourceTree = "<group>"; };
+		01E46FF7214BF5BE00B88B24 /* EditConsignmentAddressController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditConsignmentAddressController.h; sourceTree = "<group>"; };
+		01E46FF8214BF5BE00B88B24 /* EditConsignmentAddressController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditConsignmentAddressController.m; sourceTree = "<group>"; };
+		01E46FFA214BF70800B88B24 /* ConsignmentAddressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsignmentAddressCell.h; sourceTree = "<group>"; };
+		01E46FFB214BF70800B88B24 /* ConsignmentAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConsignmentAddressCell.m; sourceTree = "<group>"; };
+		01E46FFD214CD7F000B88B24 /* AddConsignmentAddressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddConsignmentAddressCell.h; sourceTree = "<group>"; };
+		01E46FFE214CD7F000B88B24 /* AddConsignmentAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddConsignmentAddressCell.m; sourceTree = "<group>"; };
+		01E47000214CF34D00B88B24 /* ConsignmentManage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsignmentManage.h; sourceTree = "<group>"; };
+		01E47001214CF34D00B88B24 /* ConsignmentManage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConsignmentManage.m; sourceTree = "<group>"; };
 		01F1DFF4213A7CF6009A925A /* MineIndentListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineIndentListCell.h; sourceTree = "<group>"; };
 		01F1DFF5213A7CF6009A925A /* MineIndentListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineIndentListCell.m; sourceTree = "<group>"; };
 		01F1DFF8213ACFD5009A925A /* MBProgressHUD+NJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+NJ.h"; sourceTree = "<group>"; };
@@ -1416,6 +1434,7 @@
 		01120F1921338FB70071AC5F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				01E46FF0214BF14D00B88B24 /* 代发货地址管理 */,
 				011F484B21421BC10070ABA2 /* 回收清单 */,
 				01121087213663660071AC5F /* 订单详情 */,
 				011210862136635B0071AC5F /* 付款订单 */,
@@ -1943,6 +1962,25 @@
 				019AEE7821382B0B00EB3405 /* MomentKit.h */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		01E46FF0214BF14D00B88B24 /* 代发货地址管理 */ = {
+			isa = PBXGroup;
+			children = (
+				01E46FF1214BF57800B88B24 /* AddConsignmentAddressController.h */,
+				01E46FF2214BF57800B88B24 /* AddConsignmentAddressController.m */,
+				01E46FF4214BF5A700B88B24 /* ConsignmentAddressManageController.h */,
+				01E46FF5214BF5A700B88B24 /* ConsignmentAddressManageController.m */,
+				01E46FF7214BF5BE00B88B24 /* EditConsignmentAddressController.h */,
+				01E46FF8214BF5BE00B88B24 /* EditConsignmentAddressController.m */,
+				01E46FFA214BF70800B88B24 /* ConsignmentAddressCell.h */,
+				01E46FFB214BF70800B88B24 /* ConsignmentAddressCell.m */,
+				01E46FFD214CD7F000B88B24 /* AddConsignmentAddressCell.h */,
+				01E46FFE214CD7F000B88B24 /* AddConsignmentAddressCell.m */,
+				01E47000214CF34D00B88B24 /* ConsignmentManage.h */,
+				01E47001214CF34D00B88B24 /* ConsignmentManage.m */,
+			);
+			path = "代发货地址管理";
 			sourceTree = "<group>";
 		};
 		01F1DFF7213ACFD5009A925A /* MBProgressHUD */ = {
@@ -3467,6 +3505,7 @@
 				01121019213392FD0071AC5F /* YSStaticSectionModel.m in Sources */,
 				01120F1B21338FB70071AC5F /* BottomView.m in Sources */,
 				01120EF821338F9C0071AC5F /* CustomerReconciliationsController.m in Sources */,
+				01E46FF6214BF5A700B88B24 /* ConsignmentAddressManageController.m in Sources */,
 				01120F0021338F9C0071AC5F /* MineIndentViewController.m in Sources */,
 				01120EE721338F9C0071AC5F /* ElseTableCell.m in Sources */,
 				0112108321362EA90071AC5F /* CustomerReDeatailCell.m in Sources */,
@@ -3483,6 +3522,7 @@
 				8EA95303212BAA930057AC78 /* ZLPhotoPickerDatas.m in Sources */,
 				01121091213690A30071AC5F /* TuYeTextField.m in Sources */,
 				01120EFD21338F9C0071AC5F /* PerformaceHeaderCell.m in Sources */,
+				01E46FF9214BF5BE00B88B24 /* EditConsignmentAddressController.m in Sources */,
 				8EA952F5212BAA930057AC78 /* ZLCameraViewController.m in Sources */,
 				017888A521359FD400C17F07 /* CustomerReCell.m in Sources */,
 				01121016213392FD0071AC5F /* YSAvatarModel.m in Sources */,
@@ -3512,9 +3552,11 @@
 				0112100B213392FD0071AC5F /* JXCategoryTitleCell.m in Sources */,
 				8E3E6D512138D5DB007B3306 /* WXApiRequestHandler.m in Sources */,
 				01120F0521338F9C0071AC5F /* AccountSetController.m in Sources */,
+				01E47002214CF34D00B88B24 /* ConsignmentManage.m in Sources */,
 				8ED5B4B8212A6AC100B5983B /* UIButton+SGPagingView.m in Sources */,
 				8EA95308212BAA930057AC78 /* ZLPhotoPickerAssetsViewController.m in Sources */,
 				01AD1A532148000200348238 /* DefaultAddressMessage.m in Sources */,
+				01E46FF3214BF57800B88B24 /* AddConsignmentAddressController.m in Sources */,
 				8EA952F4212BAA930057AC78 /* DACircularProgressView.m in Sources */,
 				019AEE3F21382A5C00EB3405 /* NSAttributedString+MLExpression.m in Sources */,
 				547C497B1F1DBB8200178B67 /* UIView+SGExtension.m in Sources */,
@@ -3672,6 +3714,7 @@
 				01120F0121338F9C0071AC5F /* ApplyGoodsServiceController.m in Sources */,
 				01120F0921338F9C0071AC5F /* ReturnGoodsViewController.m in Sources */,
 				019AEE3E21382A5C00EB3405 /* MLTextAttachment.m in Sources */,
+				01E46FFF214CD7F000B88B24 /* AddConsignmentAddressCell.m in Sources */,
 				8E78BE3321367AE5000A9EA4 /* GoDetailTableViewCell.m in Sources */,
 				8EA95346212E49BC0057AC78 /* LXFloaintButton.m in Sources */,
 				01BC59A72147ADA7000FF81F /* MineIndentModel.m in Sources */,
@@ -3683,6 +3726,7 @@
 				8EA95316212BBB810057AC78 /* XYSideViewController.m in Sources */,
 				8EA952FE212BAA930057AC78 /* ZLPhotoPickerBrowserPhotoView.m in Sources */,
 				019AA51821343CFC0018A832 /* BuyGoodsListController.m in Sources */,
+				01E46FFC214BF70800B88B24 /* ConsignmentAddressCell.m in Sources */,
 				0112108D213664020071AC5F /* OrderDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

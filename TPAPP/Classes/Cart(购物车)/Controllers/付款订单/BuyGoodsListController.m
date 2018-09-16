@@ -9,9 +9,11 @@
 #import "BuyGoodsListController.h"
 #import "PayIndentCell.h"
 #import "AddressManageController.h"
+#import "ConsignmentAddressManageController.h"
+#import "DeclareAbnormalAlertView.h"
 #define defaultTag 1990
 
-@interface BuyGoodsListController ()<UITableViewDelegate,UITableViewDataSource>
+@interface BuyGoodsListController ()<UITableViewDelegate,UITableViewDataSource,DeclareAbnormalAlertViewRemindDelegate>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
 
@@ -20,7 +22,10 @@
 @property (nonatomic, strong)UILabel *allGoodsPriceLabel;
 @property (nonatomic, strong)UILabel *allGoodsNumberLabel;
 @property (nonatomic, strong)UIButton *buyButton;
-@property (nonatomic, assign) NSInteger btnTag;//默认选中的Tag
+@property (nonatomic, assign)NSInteger btnTag;//默认选中的Tag
+
+@property (nonatomic, assign)BOOL isSender;//判断是否代发货
+
 @end
 
 @implementation BuyGoodsListController
@@ -53,12 +58,17 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
-    if ([addressMess.id length] == 0) {
-        self.addressModel = [AddressModel mj_objectWithKeyValues:[LYAccount shareAccount].defaultAddress];
+    if (self.isSender) {
+        self.addressModel = [AddressModel mj_objectWithKeyValues:[[ConsignmentManage shareDefaultAddressMessage] mj_keyValues]];
     }else{
-        self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
+        DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
+        if ([addressMess.id length] == 0) {
+            self.addressModel = [AddressModel mj_objectWithKeyValues:[LYAccount shareAccount].defaultAddress];
+        }else{
+            self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
+        }
     }
+    
     [self.listTableView reloadData];
 }
 - (void)createBottomView
@@ -84,7 +94,7 @@
     .heightIs(20);
     
     self.allGoodsPriceLabel = [[UILabel alloc] init];
-    self.allGoodsPriceLabel.text = @"¥1000";
+    self.allGoodsPriceLabel.text = self.goodsPrice;
     self.allGoodsPriceLabel.textAlignment = NSTextAlignmentLeft;
     self.allGoodsPriceLabel.textColor = colorWithRGB(0xFF6B24);
     self.allGoodsPriceLabel.font = [UIFont systemFontOfSize:19];
@@ -92,11 +102,11 @@
     self.allGoodsPriceLabel.sd_layout
     .topSpaceToView(self.bottomView,10)
     .leftSpaceToView(self.priceLabel, 5)
-    .widthIs([self widthLabelWithModel:@"¥1000" withFont:19])
+    .widthIs([self widthLabelWithModel:self.goodsPrice withFont:19])
     .heightIs(30);
     
     self.allGoodsNumberLabel = [[UILabel alloc] init];
-    self.allGoodsNumberLabel.text = @"(共1件)";
+    self.allGoodsNumberLabel.text = [NSString stringWithFormat:@"(共%d件)",self.goodsNum];
     self.allGoodsNumberLabel.textAlignment = NSTextAlignmentLeft;
     self.allGoodsNumberLabel.textColor = colorWithRGB(0xFF6B24);
     self.allGoodsNumberLabel.font = [UIFont systemFontOfSize:13];
@@ -104,7 +114,7 @@
     self.allGoodsNumberLabel.sd_layout
     .topSpaceToView(self.bottomView,20)
     .leftSpaceToView(self.allGoodsPriceLabel, 5)
-    .widthIs([self widthLabelWithModel:@"(共1件)" withFont:13])
+    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"(共%d件)",self.goodsNum] withFont:13])
     .heightIs(20);
     
     self.buyButton = [[UIButton alloc] init];
@@ -187,11 +197,32 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
         [cell withAddressModel:self.addressModel];
+        
+        [cell setSelectSenderBlock:^(BOOL isSender) {
+            self.isSender = isSender;
+            if (self.isSender) {
+                self.addressModel = [AddressModel mj_objectWithKeyValues:[[ConsignmentManage shareDefaultAddressMessage] mj_keyValues]];
+            }else{
+                DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
+                if ([addressMess.id length] == 0) {
+                    self.addressModel = [AddressModel mj_objectWithKeyValues:[LYAccount shareAccount].defaultAddress];
+                }else{
+                    self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
+                }
+            }
+            [self.listTableView reloadData];
+        }];
+        
         [cell setSelectBlock:^(NSInteger num) {
             if (num == 0) {
                 AddressManageController *addressMaCtrl = [[AddressManageController alloc] init];
                 addressMaCtrl.title = @"选择地址";
                 addressMaCtrl.isCartCtrlType = YES;
+                [self.navigationController pushViewController:addressMaCtrl animated:YES];
+            }else{
+                ConsignmentAddressManageController *addressMaCtrl = [[ConsignmentAddressManageController alloc] init];
+                addressMaCtrl.title = @"选择地址";
+//                addressMaCtrl.isCartCtrlType = YES;
                 [self.navigationController pushViewController:addressMaCtrl animated:YES];
             }
         }];
@@ -202,10 +233,13 @@
         if (!cell) {
             cell = [[PayIndentDefaultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
-//        NSMutableArray *arr = [NSMutableArray arrayWithObjects:@[@"商品金额 (1件)",@"¥1000"],@[@"优惠金额",@"¥50"],@[@"运费",@"¥50"],@[@"应付金额",@"¥1000"], nil];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
         [cell configWithModel: self.listDataArr[indexPath.row]];
+        [cell setYfBlock:^(NSInteger num) {
+            DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"运费规则" message:@"同一家店铺且同一收获地址的满三件包邮" remind:@"(否则收6元运费)" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"同意" comGoodList:nil];
+            [alertView show];
+        }];
         return cell;
     }else{
         static NSString *cellId = @"PayIndentButtonCellID";
@@ -252,7 +286,16 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 130;
+        if (self.isSender) {
+            if ([self.addressModel.isGeneration isEqualToString:@"1"]) {
+                return 223;
+            }else{
+               return 80;
+            }
+        }else{
+          return 130;
+        }
+        
     }else{
         return 50;
     }
@@ -299,6 +342,19 @@
         }
     }
 }
+-(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex comGoodList:(NSMutableArray *)goodListArr
+{
+    if (buttonIndex == AlertButtonLeft) {
+        
+    }else{
+//        BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
+//        buyCtrl.goodsListArray = goodListArr;
+//        buyCtrl.goodsNum = _goodsNum;
+//        buyCtrl.goodsPrice = _goodsPrice;
+//        [self.navigationController pushViewController:buyCtrl animated:YES];
+    }
+}
+
 #pragma mark-字体宽度自适应
 - (CGFloat)widthLabelWithModel:(NSString *)titleString withFont:(NSInteger)font
 {
