@@ -29,10 +29,7 @@
 /** remind label */
 @property (nonatomic,strong) UILabel  *remindLabel;
 
-/** 左边按钮title */
-@property (nonatomic,copy)   NSString *leftButtonTitle;
-/** 右边按钮title */
-@property (nonatomic,copy)   NSString *rightButtonTitle;
+
 @property (nonatomic,strong) CompileCell *compileCell;
 @property (nonatomic,assign) BOOL isAddGood;
 @property (nonatomic, strong)specsModel *model;

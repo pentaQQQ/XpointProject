@@ -40,7 +40,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIBarButtonItem *set = [[UIBarButtonItem alloc] initWithImage:@"back" complete:^{
+         DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"订单未支付" message:[NSString stringWithFormat:@"订单未支付，确定离开后可以在我的订单中继续完成支付；"] remind:@"超时未支付系统将取消您的订单!" delegate:self leftButtonTitle:@"继续支付" rightButtonTitle:@"确定离开" comGoodList:nil];
+         [alertView show];
+        
+    }];
     
+    self.navigationItem.leftBarButtonItems = @[set];
     DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
     if ([addressMess.id length] == 0) {
         self.addressModel = [AddressModel mj_objectWithKeyValues:[LYAccount shareAccount].defaultAddress];
@@ -345,8 +351,17 @@
 -(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex comGoodList:(NSMutableArray *)goodListArr
 {
     if (buttonIndex == AlertButtonLeft) {
-        
+        if ([alertView.leftButtonTitle isEqualToString:@"继续支付"]) {
+            
+        }else{
+            
+        }
     }else{
+        if ([alertView.rightButtonTitle isEqualToString:@"确定离开"]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            
+        }
 //        BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
 //        buyCtrl.goodsListArray = goodListArr;
 //        buyCtrl.goodsNum = _goodsNum;
