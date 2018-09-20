@@ -47,7 +47,10 @@ typedef NS_ENUM(NSUInteger, AbnormalButton) {
 @property (nonatomic,copy) NSString *orderID;
 /** 用户填写异常情况的textView */
 @property (nonatomic,strong) UITextView *textView;
-
+/** 左边按钮title */
+@property (nonatomic,copy)   NSString *leftButtonTitle;
+/** 右边按钮title */
+@property (nonatomic,copy)   NSString *rightButtonTitle;
 @property (nonatomic,weak) id<DeclareAbnormalAlertViewDelegate> delegate;
 @property (nonatomic,weak) id<DeclareAbnormalAlertViewRemindDelegate> remindDelegate;
 /**
