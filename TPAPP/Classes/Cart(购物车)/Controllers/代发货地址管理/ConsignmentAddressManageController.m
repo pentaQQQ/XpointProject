@@ -1,24 +1,24 @@
 //
-//  AddressManageController.m
+//  ConsignmentAddressManageController.m
 //  TPAPP
 //
-//  Created by Frank on 2018/8/22.
+//  Created by frank on 2018/9/14.
 //  Copyright © 2018年 cbl－　点硕. All rights reserved.
 //
 
-#import "AddressManageController.h"
-#import "AddAddressController.h"
-#import "AddressTableViewCell.h"
-#import "EditAddressController.h"
+#import "ConsignmentAddressManageController.h"
+#import "AddConsignmentAddressController.h"
+#import "ConsignmentAddressCell.h"
+#import "EditConsignmentAddressController.h"
 #import "AddressModel.h"
-@interface AddressManageController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ConsignmentAddressManageController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
 @property (nonatomic, strong)NSMutableDictionary *dataDict;
 @property (nonatomic, strong)UIButton *addBtn;
 @end
 
-@implementation AddressManageController
+@implementation ConsignmentAddressManageController
 
 
 - (void)viewDidLoad {
@@ -26,7 +26,7 @@
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
-//    self.listDataArr = [NSMutableArray arrayWithObjects:@[@"Alan",@"18721488888",@"上海宝山区",@"沪太路3100号A座",@1],@[@"黄石",@"172156348548",@"上海黄浦区",@"四川中路181号234",@0],@[@"张三",@"15612739826",@"上海徐汇区",@"锦绣中路1200号",@0], nil];
+    //    self.listDataArr = [NSMutableArray arrayWithObjects:@[@"Alan",@"18721488888",@"上海宝山区",@"沪太路3100号A座",@1],@[@"黄石",@"172156348548",@"上海黄浦区",@"四川中路181号234",@0],@[@"张三",@"15612739826",@"上海徐汇区",@"锦绣中路1200号",@0], nil];
     [self listTableView];
     self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     //自动更改透明度
@@ -47,7 +47,7 @@
     .heightIs(50);
     self.addBtn.layer.cornerRadius = 10;
     self.addBtn.layer.masksToBounds = YES;
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -79,7 +79,7 @@
 
 - (void)addBtnAction
 {
-    AddAddressController *addCtrl = [[AddAddressController alloc] init];
+    AddConsignmentAddressController *addCtrl = [[AddConsignmentAddressController alloc] init];
     addCtrl.dataNull = self.listDataArr.count;
     [self.navigationController pushViewController:addCtrl animated:YES];
 }
@@ -97,7 +97,7 @@
             [self.listDataArr removeAllObjects];
             for (NSDictionary *dict in json[@"data"]) {
                 AddressModel *model = [AddressModel statusWithDict:dict];
-//                if ([model.isGeneration isEqualToString:@"0"]) {
+                if ([model.isGeneration isEqualToString:@"1"]) {
                     if ([model.isDefault isEqualToString:@"1"]) {
                         NSMutableDictionary *dictt = [[LYAccount shareAccount] mj_keyValues];
                         dictt[@"defaultAddress"] = [model mj_keyValues];
@@ -106,7 +106,7 @@
                     }else{
                         [self.listDataArr addObject:model];
                     }
-//                }
+                }
                 
             }
             [self.listTableView reloadData];
@@ -161,23 +161,20 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellId = @"AddressTableViewCellID";
-    AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    ConsignmentAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
-        cell = [[AddressTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[ConsignmentAddressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell configWithModel:self.listDataArr[indexPath.section] withBool:self.isCartCtrlType];
     [cell setSelectBlcok:^(NSInteger num,AddressModel *model) {
         if (num == 0) {
-            EditAddressController *addCtrl = [[EditAddressController alloc] init];
+            EditConsignmentAddressController *addCtrl = [[EditConsignmentAddressController alloc] init];
             addCtrl.addressModel = model;
             [self.navigationController pushViewController:addCtrl animated:YES];
         }else{
             if ([model.isDefault isEqualToString:@"0"]) {
                 self.dataDict = [NSMutableDictionary dictionary];
-                [self.dataDict addEntriesFromDictionary:@{@"recProv":model.recProv}];
-                [self.dataDict addEntriesFromDictionary:@{@"recCity":model.recCity}];
-                [self.dataDict addEntriesFromDictionary:@{@"recArea":model.recArea}];
                 [self.dataDict addEntriesFromDictionary:@{@"userId":model.userId}];
                 [self.dataDict addEntriesFromDictionary:@{@"recNickName":model.recNickName}];
                 [self.dataDict addEntriesFromDictionary:@{@"recPhone":model.recPhone}];
@@ -188,9 +185,15 @@
                 [self.dataDict addEntriesFromDictionary:@{@"recProv":model.recProv}];
                 [self.dataDict addEntriesFromDictionary:@{@"recCity":model.recCity}];
                 [self.dataDict addEntriesFromDictionary:@{@"recArea":model.recArea}];
+                [self.dataDict addEntriesFromDictionary:@{@"senderAddress":model.senderAddress}];
+                [self.dataDict addEntriesFromDictionary:@{@"senderNickName":model.senderNickName}];
+                [self.dataDict addEntriesFromDictionary:@{@"senderPhone":model.senderPhone}];
+                [self.dataDict addEntriesFromDictionary:@{@"senderIdentityCardNo":model.senderIdentityCardNo}];
+                [self.dataDict addEntriesFromDictionary:@{@"senderProv":model.senderProv}];
+                [self.dataDict addEntriesFromDictionary:@{@"senderCity":model.senderCity}];
+                [self.dataDict addEntriesFromDictionary:@{@"senderArea":model.senderArea}];
                 [self.dataDict addEntriesFromDictionary:@{@"id":model.id}];
                 [LYTools postBossDemoWithUrl:updateAddress param:self.dataDict success:^(NSDictionary *dict) {
-//                    NSLog(@"%@",dict);
                     NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
                     if ([respCode isEqualToString:@"00000"]) {
                         [self loadNewTopic];
@@ -210,7 +213,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 106;
+    return 106+66;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -239,17 +242,29 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    AddressTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (self.isCartCtrlType) {
-        [DefaultAddressMessage mj_objectWithKeyValues:[cell.addressModel mj_keyValues]];
+    ConsignmentAddressCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    if (self.isCartCtrlType) {
+        [ConsignmentManage mj_objectWithKeyValues:[cell.addressModel mj_keyValues]];
         [self.navigationController popViewControllerAnimated:YES];
-    }
+//    }
 }
 
 - (NSString *)xy_noDataViewMessage
 {
     return @"暂无地址";
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

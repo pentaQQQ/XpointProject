@@ -111,12 +111,13 @@
     
     for (NSInteger i = 0; i < data.count; i ++) {
         NSArray *arr = data[i];
+        NSMutableArray *dataArr = [NSMutableArray array];
         for (NSInteger j = 0 ; j < arr.count; j ++) {
             index1 ++;
 //            NSDictionary *goodsDict = arr[j];
             CartDetailsModel *model = arr[j];
             if ([model.Type isEqualToString:@"1"]) {
-                [self.selectedGoodsListArr addObject:model];
+                [dataArr addObject:model];
                 index2 ++;
                 double product;
                 double Price = [model.amount doubleValue];
@@ -127,6 +128,10 @@
                 goodsSum = goodsSum + product;
             }
         }
+        if (dataArr.count !=0) {
+            [self.selectedGoodsListArr addObject:dataArr];
+        }
+        
     }
    
     self.GoodsNum = index2;

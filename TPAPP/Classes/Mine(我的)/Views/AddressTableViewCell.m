@@ -19,6 +19,19 @@
 
 - (void)createUI
 {
+    
+    
+}
+- (void)defaultImageViewAction:(UIButton *)btn
+{
+    self.selectBlcok(1,self.addressModel);
+}
+-(void)editBtnAction:(UIButton *)btn
+{
+    self.selectBlcok(0,self.addressModel);
+}
+- (void)configWithModel:(AddressModel *)model withBool:(BOOL)isCartType
+{
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     self.localImageView = [[UIImageView alloc] init];
@@ -97,16 +110,16 @@
     .widthIs(20*(image1.size.width/image1.size.height))
     .heightIs(20);
     
-//    self.defaultImageView = [[UIImageView alloc] init];
-//    UIImage *image1 = [UIImage imageNamed:@"icon_close"];
-//    self.defaultImageView.image = image1;
-//    [self.contentView addSubview:self.defaultImageView];
-//    self.defaultImageView.sd_layout
-//    .topSpaceToView(self.lineView, 10)
-//    .rightSpaceToView(self.contentView, 20)
-//    .widthIs(20*(image1.size.width/image1.size.height))
-//    .heightIs(20);
-   
+    //    self.defaultImageView = [[UIImageView alloc] init];
+    //    UIImage *image1 = [UIImage imageNamed:@"icon_close"];
+    //    self.defaultImageView.image = image1;
+    //    [self.contentView addSubview:self.defaultImageView];
+    //    self.defaultImageView.sd_layout
+    //    .topSpaceToView(self.lineView, 10)
+    //    .rightSpaceToView(self.contentView, 20)
+    //    .widthIs(20*(image1.size.width/image1.size.height))
+    //    .heightIs(20);
+    
     self.defaultLabel = [[UILabel alloc] init];
     self.defaultLabel.text = @"默认";
     self.defaultLabel.font = [UIFont systemFontOfSize:15];
@@ -134,17 +147,8 @@
     self.editBtn.layer.cornerRadius = 3;
     self.editBtn.layer.masksToBounds = YES;
     
-}
-- (void)defaultImageViewAction:(UIButton *)btn
-{
-    self.selectBlcok(1,self.addressModel);
-}
--(void)editBtnAction:(UIButton *)btn
-{
-    self.selectBlcok(0,self.addressModel);
-}
-- (void)configWithModel:(AddressModel *)model withBool:(BOOL)isCartType
-{
+    
+    
     self.addressModel = model;
     self.userNameLabel.sd_layout
     .topSpaceToView(self.contentView, 10)

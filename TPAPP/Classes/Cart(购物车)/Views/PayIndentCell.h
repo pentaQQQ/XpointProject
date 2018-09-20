@@ -10,6 +10,32 @@
 #import "SGPageTitleView.h"
 @class ChangeAddressButton;
 @interface PayIndentCell : UITableViewCell
+
+@property (nonatomic,strong)UIImageView *recLocalImageView;
+@property (nonatomic,strong)UILabel *recUserNameLabel;
+@property (nonatomic,strong)UILabel *recIphoneLabel;
+@property (nonatomic,strong)UILabel *recAddressLabel;
+@property (nonatomic,strong)UILabel *recDetailAddressLabel;
+@property (nonatomic,strong)UIImageView *recStatusImageView;
+@property (nonatomic,strong)UIView *topLineView;
+
+@property (nonatomic,strong)UIImageView *sendLocalImageView;
+@property (nonatomic,strong)UILabel *sendUserNameLabel;
+@property (nonatomic,strong)UILabel *sendIphoneLabel;
+@property (nonatomic,strong)UILabel *sendAddressLabel;
+@property (nonatomic,strong)UILabel *sendDetailAddressLabel;
+@property (nonatomic,strong)UIImageView *sendStatusImageView;
+@property (nonatomic,strong)UIView *bottomLineView;
+
+/**
+ *  地址
+ */
+@property (nonatomic, retain)UILabel *getAddess;
+
+/**
+ *  选择地址
+ */
+@property (nonatomic, retain)UIControl *chooseAddress;
 /**
  *  左侧位置icon
  */
@@ -48,7 +74,11 @@
  */
 @property (nonatomic, retain)UISwitch *defaultSwitch;
 
+@property (nonatomic, assign)BOOL isSender;
+@property (nonatomic, strong)void(^selectSenderBlock)(BOOL isSender);
+
 @property (nonatomic, strong)void(^selectBlock)(NSInteger);
+
 @property (nonatomic,strong)AddressModel *model;
 - (void)withAddressModel:(AddressModel *)model;
 
@@ -63,6 +93,8 @@
  *  价格
  */
 @property (nonatomic, retain)UILabel *priceLabel;
+
+@property (nonatomic, strong)void(^yfBlock)(NSInteger num);
 
 - (void)configWithModel:(NSMutableArray *)model;
 

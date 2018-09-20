@@ -1,27 +1,27 @@
 //
-//  EditAddressController.m
+//  EditConsignmentAddressController.m
 //  TPAPP
 //
-//  Created by Frank on 2018/8/22.
+//  Created by frank on 2018/9/14.
 //  Copyright © 2018年 cbl－　点硕. All rights reserved.
 //
 
-#import "EditAddressController.h"
+#import "EditConsignmentAddressController.h"
 #import "AddAddressController.h"
 #import "AddAddressCell.h"
 #import "BRPickerView.h"
 #import "NSDate+BRAdd.h"
-@interface EditAddressController ()<UITableViewDelegate,UITableViewDataSource>
+#import "AddConsignmentAddressCell.h"
+@interface EditConsignmentAddressController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
 @property (nonatomic, strong)UIButton *saveBtn;
 @property (nonatomic, strong)UIButton *deleteBtn;
 @property (nonatomic, strong)NSMutableDictionary *dataDict;
 @property (nonatomic, strong)NSMutableArray *modelDataArr;
-//@property (nonatomic, strong) SHPlacePickerView *shplacePicker;
 @end
 
-@implementation EditAddressController
+@implementation EditConsignmentAddressController
 -(NSMutableDictionary *)dataDict
 {
     if (_dataDict == nil) {
@@ -33,10 +33,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"编辑地址";
-    [self listTableView];
+    
+    self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"寄件人:",@"请输入寄件人名字",@0],@[@"电    话:",@"请输入寄件人电话",@0],@[@"省 市 区",@"",@1],@[@"请输入详细地址",@"",@2],@[@"身份证号码:",@"请输入身份证号码",@0]],@[@[@"收件人:",@"请输入收件人名字",@0],@[@"电    话:",@"请输入收件人电话",@0],@[@"省 市 区",@"",@1],@[@"请输入详细地址",@"",@2],@[@"身份证号码:",@"请输入身份证号码",@0]],@[@[@"是否设置为默认地址",@"",@3]], nil];
+    self.modelDataArr = [NSMutableArray arrayWithObjects:@[@[self.addressModel.senderNickName],@[self.addressModel.senderPhone],@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.senderProv,self.addressModel.senderCity,self.addressModel.senderArea]],@[self.addressModel.senderAddress],@[self.addressModel.senderIdentityCardNo]],@[@[self.addressModel.recNickName],@[self.addressModel.recPhone],@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.recProv,self.addressModel.recCity,self.addressModel.recArea]],@[self.addressModel.recAddress],@[self.addressModel.recIdentityCardNo]],@[@[[NSString stringWithFormat:@"%ld",[self.addressModel.isDefault integerValue]]]], nil];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"收货人:",@"请输入收货人名字",@0],@[@"电    话:",@"请输入收货人电话",@0]],@[@[@"省 市 区",@"",@1],@[@"请输入详细地址",@"",@2],@[@"身份证号码:",@"请输入身份证号码",@0],@[@"是否设置为默认地址",@"",@3]], nil];
-    self.modelDataArr = [NSMutableArray arrayWithObjects:@[@[self.addressModel.recNickName],@[self.addressModel.recPhone]],@[@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.recProv,self.addressModel.recCity,self.addressModel.recArea]],@[self.addressModel.recAddress],@[self.addressModel.recIdentityCardNo],@[self.addressModel.isDefault]], nil];
+    [self listTableView];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -48,11 +50,19 @@
     [self.dataDict addEntriesFromDictionary:@{@"isGeneration":self.addressModel.isGeneration}];
     [self.dataDict addEntriesFromDictionary:@{@"recIdentityCardNo":self.addressModel.recIdentityCardNo}];
     [self.dataDict addEntriesFromDictionary:@{@"recAddress":self.addressModel.recAddress}];
-    [self.dataDict addEntriesFromDictionary:@{@"isDefault":self.addressModel.isDefault}];
+    [self.dataDict addEntriesFromDictionary:@{@"isDefault":[NSString stringWithFormat:@"%ld",[self.addressModel.isDefault integerValue]]}];
     [self.dataDict addEntriesFromDictionary:@{@"recProv":self.addressModel.recProv}];
     [self.dataDict addEntriesFromDictionary:@{@"recCity":self.addressModel.recCity}];
     [self.dataDict addEntriesFromDictionary:@{@"recArea":self.addressModel.recArea}];
     [self.dataDict addEntriesFromDictionary:@{@"id":self.addressModel.id}];
+    
+    [self.dataDict addEntriesFromDictionary:@{@"senderNickName":self.addressModel.senderNickName}];
+    [self.dataDict addEntriesFromDictionary:@{@"senderPhone":self.addressModel.senderPhone}];
+    [self.dataDict addEntriesFromDictionary:@{@"senderIdentityCardNo":self.addressModel.senderIdentityCardNo}];
+    [self.dataDict addEntriesFromDictionary:@{@"senderAddress":self.addressModel.senderAddress}];
+    [self.dataDict addEntriesFromDictionary:@{@"senderProv":self.addressModel.senderProv}];
+    [self.dataDict addEntriesFromDictionary:@{@"senderCity":self.addressModel.senderCity}];
+    [self.dataDict addEntriesFromDictionary:@{@"senderArea":self.addressModel.senderArea}];
 }
 
 #pragma mark -自定义导航栏返回按钮
@@ -88,18 +98,40 @@
                     if ([self.dataDict[@"recIdentityCardNo"] length] == 0) {
                         
                     }else{
-                        [LYTools postBossDemoWithUrl:updateAddress param:self.dataDict success:^(NSDictionary *dict) {
-                            NSLog(@"%@",dict);
-                            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-                            if ([respCode isEqualToString:@"00000"]) {
-                                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"编辑成功" withDuration:1.5];
-                                [self.navigationController popViewControllerAnimated:YES];
+                            if ([self.dataDict[@"senderNickName"] length] == 0) {
+                                
                             }else{
-                                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                                if ([self.dataDict[@"senderPhone"] length] == 0) {
+                                    
+                                }else{
+                                    if ([self.dataDict[@"senderProv"] length] == 0) {
+                                        
+                                    }else{
+                                        if ([self.dataDict[@"senderAddress"] length] == 0) {
+                                            
+                                        }else{
+                                            if ([self.dataDict[@"senderIdentityCardNo"] length] == 0) {
+                                                
+                                            }else{
+                                                [LYTools postBossDemoWithUrl:updateAddress param:self.dataDict success:^(NSDictionary *dict) {
+                                                    NSLog(@"%@",dict);
+                                                    NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                                                    if ([respCode isEqualToString:@"00000"]) {
+                                                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"编辑成功" withDuration:1.5];
+                                                        [self.navigationController popViewControllerAnimated:YES];
+                                                    }else{
+                                                        [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                                                    }
+                                                } fail:^(NSError *error) {
+                                                    
+                                                }];
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                        } fail:^(NSError *error) {
-                            
-                        }];
+                        
+                       
                     }
                 }
             }
@@ -149,36 +181,49 @@
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .bottomSpaceToView(self.view, 0);
-        //        if ([self.listTableView respondsToSelector:@selector(setSeparatorInset:)]) {
-        //            [self.listTableView setSeparatorInset:UIEdgeInsetsZero];
-        //        }
-        //        if ([self.listTableView respondsToSelector:@selector(setLayoutMargins:)]) {
-        //            [self.listTableView setLayoutMargins:UIEdgeInsetsZero];
-        //        }
+        if ([self.listTableView respondsToSelector:@selector(setSeparatorInset:)]) {
+            [self.listTableView setSeparatorInset:UIEdgeInsetsZero];
+        }
+        if ([self.listTableView respondsToSelector:@selector(setLayoutMargins:)]) {
+            [self.listTableView setLayoutMargins:UIEdgeInsetsZero];
+        }
         
         
     }
     return _listTableView;
 }
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-//        [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-//    }
-//    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-//        [cell setLayoutMargins:UIEdgeInsetsMake(0, 0, 0, 0)];
-//    }
-//    if([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]){
-//        [cell setPreservesSuperviewLayoutMargins:NO];
-//    }
-//}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 3) {
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        }
+        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+            [cell setLayoutMargins:UIEdgeInsetsMake(0, 0, 0, 0)];
+        }
+        if([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]){
+            [cell setPreservesSuperviewLayoutMargins:NO];
+        }
+    }else{
+        if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+            [cell setSeparatorInset:UIEdgeInsetsMake(0, 10, 0, 10)];
+        }
+        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+            [cell setLayoutMargins:UIEdgeInsetsMake(0, 10, 0, 10)];
+        }
+        if([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]){
+            [cell setPreservesSuperviewLayoutMargins:NO];
+        }
+    }
+    
+}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.listDataArr.count+1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section ==2) {
+    if (section ==3) {
         return 1;
     }else{
         NSArray *arr = self.listDataArr[section];
@@ -189,7 +234,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 2) {
+    if (indexPath.section == 3) {
         static NSString *cellId = @"UITableViewCellID";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
@@ -228,19 +273,44 @@
         
         return cell;
     }else{
-        static NSString *cellId = @"AddAddressCellID";
-        AddAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        static NSString *cellId = @"AddConsignmentAddressCellID";
+        AddConsignmentAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
-            cell = [[AddAddressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell = [[AddConsignmentAddressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
-        if (indexPath.section == 1 && indexPath.row == 0) {
+        if ((indexPath.section == 0 || indexPath.section == 1) && indexPath.row == 2) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell setMyBlock:^(NSDictionary *dict) {
-            [self.dataDict addEntriesFromDictionary:dict];
+        [cell setMyBlock:^(NSString *str) {
+            //            NSIndexPath *inde  = [tableView indexPathForCell:cell];
+            if (indexPath.section == 0) {
+                if (indexPath.row == 0) {
+                    [self.dataDict addEntriesFromDictionary:@{@"senderNickName":str}];
+                }else if(indexPath.row == 1){
+                    [self.dataDict addEntriesFromDictionary:@{@"senderPhone":str}];
+                }else if(indexPath.row == 2){
+                }else if(indexPath.row == 3){
+                    [self.dataDict addEntriesFromDictionary:@{@"senderAddress":str}];
+                }else{
+                    [self.dataDict addEntriesFromDictionary:@{@"senderIdentityCardNo":str}];
+                }
+            }else if (indexPath.section == 1) {
+                if (indexPath.row == 0) {
+                    [self.dataDict addEntriesFromDictionary:@{@"recNickName":str}];
+                }else if(indexPath.row == 1){
+                    [self.dataDict addEntriesFromDictionary:@{@"recPhone":str}];
+                }else if(indexPath.row == 2){
+                }else if(indexPath.row == 3){
+                    [self.dataDict addEntriesFromDictionary:@{@"recAddress":str}];
+                }else{
+                    [self.dataDict addEntriesFromDictionary:@{@"recIdentityCardNo":str}];
+                }
+            }
+            //            [self.dataDict addEntriesFromDictionary:dict];
         }];
-        [cell configWithModel:self.listDataArr[indexPath.section][indexPath.row] withModelData:self.modelDataArr[indexPath.section][indexPath.row] withNumber:12];
+        NSInteger num = 1;
+        [cell configWithModel:self.listDataArr[indexPath.section][indexPath.row] withModelData:self.modelDataArr[indexPath.section][indexPath.row] withNumber:num];
         return cell;
     }
     
@@ -248,34 +318,34 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1 && indexPath.row == 1) {
-        return 70;
-    }else if (indexPath.section == 2){
-        return 80+20+50;
+    if ((indexPath.section == 1 || indexPath.section == 0) && indexPath.row == 3) {
+        return 50;
+    }else if (indexPath.section == 3){
+        return 80+20+50;;
     }
     else{
-        return 50;
+        return 40;
     }
     
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 15;
-    }else{
+    if (section == 2) {
         return 0;
+    }else{
+        return 15;
     }
     
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == 2) {
+        return nil;
+    }else{
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 15)];
         view.backgroundColor = colorWithRGB(0xEEEEEE);
         
         return view;
-    }else{
-        return nil;
     }
     
     
@@ -299,20 +369,20 @@
     AddAddressCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.section == 1 && indexPath.row == 0) {
         [BRAddressPickerView showAddressPickerWithDefaultSelected:@[@10, @0, @3] isAutoSelect:YES resultBlock:^(NSArray *selectAddressArr) {
-           
+            
             cell.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@", selectAddressArr[0], selectAddressArr[1], selectAddressArr[2]];
             [self.dataDict addEntriesFromDictionary:@{@"recProv":selectAddressArr[0]}];
             [self.dataDict addEntriesFromDictionary:@{@"recCity":selectAddressArr[1]}];
             [self.dataDict addEntriesFromDictionary:@{@"recArea":selectAddressArr[2]}];
         }];
-       
         
-//        //        __weak __typeof(self)weakSelf = self;
-//        self.shplacePicker = [[SHPlacePickerView alloc] initWithIsRecordLocation:YES SendPlaceArray:^(NSArray *placeArray) {
-//            NSLog(@"省:%@ 市:%@ 区:%@",placeArray[0],placeArray[1],placeArray[2]);
-//            cell.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@",placeArray[0],placeArray[1],placeArray[2]];
-//        }];
-//        [self.view addSubview:self.shplacePicker];
+        
+        //        //        __weak __typeof(self)weakSelf = self;
+        //        self.shplacePicker = [[SHPlacePickerView alloc] initWithIsRecordLocation:YES SendPlaceArray:^(NSArray *placeArray) {
+        //            NSLog(@"省:%@ 市:%@ 区:%@",placeArray[0],placeArray[1],placeArray[2]);
+        //            cell.addressLabel.text = [NSString stringWithFormat:@"%@ %@ %@",placeArray[0],placeArray[1],placeArray[2]];
+        //        }];
+        //        [self.view addSubview:self.shplacePicker];
     }
 }
 
