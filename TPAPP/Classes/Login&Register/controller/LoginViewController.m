@@ -122,7 +122,7 @@
         if ([respCode isEqualToString:@"00000"]) {
             NSString *data = [NSString stringWithFormat:@"%@",json[@"data"]];
             [[NSUserDefaults standardUserDefaults]setValue:data forKey:@"token"];
-            [LYTools setUpTabbarController];
+            
             [self getPeopleInfomation];
         }else if ([respCode isEqualToString:@"99999"]){
             registViewController *vc = [[registViewController alloc]init];
@@ -152,7 +152,9 @@
             
             // 单例赋值
             [LYAccount mj_objectWithKeyValues:json[@"data"]];
-            
+            [LYTools setUpTabbarController];
+        }else{
+            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
         }
     } failure:^(NSError *error) {
         
