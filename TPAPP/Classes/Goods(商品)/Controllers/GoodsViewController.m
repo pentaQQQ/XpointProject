@@ -75,19 +75,19 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:CUSTOM_LOGIN_ERROR_USER object:nil];
 }
 -(void)setUpUI{
-   
+    
     UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-SafeAreaBottomHeight) style:UITableViewStylePlain];
     self.tableview = tableview;
     [self.view addSubview:tableview];
     
     
- 
+    
     messageHeaderView *header = [[NSBundle mainBundle]loadNibNamed:@"messageHeaderView" owner:self options:nil].lastObject;
     
     header.frame = CGRectMake(0, 0, kScreenWidth, 80);
     self.tableview.tableHeaderView =header;
     __weak __typeof(self) weakSelf = self;
-
+    
     header.messageBlock = ^{
         SystemInformationController*vc = [[SystemInformationController alloc]init];
         [weakSelf.navigationController pushViewController:vc animated:YES];
@@ -102,7 +102,7 @@
     
     
     self.tableview.tableFooterView = [UIView new];
-
+    
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     
@@ -124,7 +124,7 @@
         cell = [[NSBundle mainBundle]loadNibNamed:@"TPMessageCell" owner:self options:nil].lastObject;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-   
+    
     return cell;
 }
 
@@ -138,12 +138,12 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-  
-  
+    
+    
     
     [SVProgressHUD doAnythingWithHUDMessage:@"获取中"];
     
-     [QMConnect registerSDKWithAppKey:@"5f12e670-c334-11e8-b0e0-5f753912b765" userName:@"8001" userId:@"8001_id"];
+    [QMConnect registerSDKWithAppKey:@"5f12e670-c334-11e8-b0e0-5f753912b765" userName:@"8001" userId:@"8001_id"];
     
     
 }
@@ -192,7 +192,7 @@
 - (void)registerFailure:(NSNotification *)sender {
     NSLog(@"注册失败::%@", sender.object);
     self.isConnecting = NO;
-  
+    
     [SVProgressHUD dismiss];
 }
 
@@ -224,7 +224,7 @@
 #pragma mark - 日程管理
 - (void)starSchedule {
     self.isConnecting = NO;
-   
+    
     if ([self.dictionary[@"scheduleId"]  isEqual: @""] || [self.dictionary[@"processId"]  isEqual: @""] || [self.dictionary objectForKey:@"entranceNode"] == nil || [self.dictionary objectForKey:@"leavemsgNodes"] == nil) {
         [QMAlert showMessage:NSLocalizedString(@"title.sorryconfigurationiswrong", nil)];
     }else{
@@ -268,8 +268,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             NSArray *peers = peerArray;
             self.isConnecting = NO;
-           
-          [SVProgressHUD dismiss];
+            
+            [SVProgressHUD dismiss];
             if (peers.count == 1 && peers.count != 0) {
                 [self showChatRoomViewController:[peers.firstObject objectForKey:@"id"] processType:@"" entranceId:@""];
             }else {
@@ -278,13 +278,15 @@
         });
     } failureBlock:^{
         dispatch_async(dispatch_get_main_queue(), ^{
-          
             
-             [SVProgressHUD dismiss];
+            
+            [SVProgressHUD dismiss];
             self.isConnecting = NO;
         });
     }];
 }
+
+
 
 
 
