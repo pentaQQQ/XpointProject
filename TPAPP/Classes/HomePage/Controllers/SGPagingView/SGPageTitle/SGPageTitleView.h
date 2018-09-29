@@ -36,6 +36,10 @@ typedef enum : NSUInteger {
 @end
 
 @interface SGPageTitleView : UIView
+
+@property (nonatomic, strong) UIView *indicatorView;
+
+
 /**
  *  对象方法创建 SGPageTitleView
  *

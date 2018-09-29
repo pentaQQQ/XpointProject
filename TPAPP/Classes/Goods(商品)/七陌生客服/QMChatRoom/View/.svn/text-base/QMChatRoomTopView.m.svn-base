@@ -1,0 +1,38 @@
+//
+//  QMChatRoomTopView.m
+//  IMSDK-OC
+//
+//  Created by HCF on 16/3/9.
+//  Copyright © 2016年 HCF. All rights reserved.
+//
+
+#import "QMChatRoomTopView.h"
+
+@implementation QMChatRoomTopView
+
+-(instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setUI];
+    }
+    return self;
+}
+
+-(void)setUI {
+    self.backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 35)];
+    self.backView.backgroundColor = [UIColor blackColor];
+    self.backView.alpha = 0.3;
+    [self addSubview:self.backView];
+    
+    self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 35)];
+    self.hintLabel.font = [UIFont systemFontOfSize:18];
+    self.hintLabel.textAlignment = NSTextAlignmentCenter;
+    self.hintLabel.textColor = [UIColor whiteColor];
+    [self addSubview:self.hintLabel];
+}
+
+-(void)setTitleLabel:(NSString *)title {
+    self.hintLabel.text = title;
+}
+
+@end

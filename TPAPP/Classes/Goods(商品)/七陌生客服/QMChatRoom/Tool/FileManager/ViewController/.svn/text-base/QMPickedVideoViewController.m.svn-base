@@ -1,0 +1,151 @@
+//
+//  QMPickedVideoViewController.m
+//  IMSDK-OC
+//
+//  Created by HCF on 16/8/10.
+//  Copyright © 2016年 HCF. All rights reserved.
+//
+
+#import "QMPickedVideoViewController.h"
+
+#import <Photos/Photos.h>
+#import "QMVideoTableCell.h"
+#import "QMFileTabbarView.h"
+#import "QMChatRoomViewController.h"
+
+@interface QMPickedVideoViewController () <UITableViewDelegate, UITableViewDataSource> {
+    UITableView *_tableView;
+    PHFetchResult *_photoAssets;
+    PHCachingImageManager *_cacheManager;
+    
+    QMFileTabbarView *_tabbarView;
+}
+
+@property (nonatomic, strong) NSMutableSet *pickedImageSet;
+
+@end
+
+@implementation QMPickedVideoViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    _cacheManager = [[PHCachingImageManager alloc] init];
+    self.pickedImageSet = [[NSMutableSet alloc] init];
+
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-44) style:UITableViewStylePlain];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    [self.view addSubview:_tableView];
+    
+    [_tableView registerClass:[QMVideoTableCell class] forCellReuseIdentifier:NSStringFromClass(QMVideoTableCell.self)];
+    
+    _tabbarView = [[QMFileTabbarView alloc] init];
+    _tabbarView.frame = CGRectMake(0, kScreenHeight-44-64, kScreenWidth, 44);
+    [self.view addSubview:_tabbarView];
+    
+    __weak QMPickedVideoViewController *strongSelf = self;
+    _tabbarView.selectAction = ^{
+        NSLog(@"回调方法");
+        QMChatRoomViewController * tagViewController = nil;
+        for (UIViewController *viewController in strongSelf.navigationController.viewControllers) {
+            NSLog(@"%@", viewController);
+            if ([viewController isKindOfClass:[QMChatRoomViewController class]]) {
+                tagViewController = (QMChatRoomViewController *)viewController;
+                [strongSelf.navigationController popToViewController:tagViewController animated:true];
+                
+                for (PHAsset *asset in strongSelf.pickedImageSet) {
+                    [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+                        NSString *photoPath = [[info objectForKey:@"PHImageFileURLKey"] absoluteString];
+                        NSArray *array = [photoPath componentsSeparatedByString:@"/"];
+                        
+                        NSString *fileSize = [imageData length]<1024*1024 ? [NSString stringWithFormat:@"%d KB", (int)([imageData length]/1024.0)] : [NSString stringWithFormat:@"%d MB", (int)([imageData length]/1024.0/1024)];
+                        
+                        NSString * filePath = [NSString stringWithFormat:@"%@/%@", NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0], array.lastObject];
+                        // 写入sendVideo文件夹
+                        [imageData writeToFile:filePath atomically:YES];
+                        
+                        [tagViewController sendFileMessageWithName:array.lastObject AndSize:fileSize AndPath:array.lastObject];
+                    }];
+                }
+            }
+        }
+    };
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        PHFetchOptions *options = [[PHFetchOptions alloc] init];
+        options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+        _photoAssets = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeVideo options:options];
+        [_tableView reloadData];
+    });
+}
+
+- (void)dealloc {
+    NSLog(@"视频管理控制器释放");
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 80.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _photoAssets ? _photoAssets.count : 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    QMVideoTableCell * cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(QMVideoTableCell.self) forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[QMVideoTableCell class]]) {
+        QMVideoTableCell * displayCell = (QMVideoTableCell *)cell;
+        displayCell.imageManager = _cacheManager;
+        if (_photoAssets) {
+            PHAsset *asset = _photoAssets[indexPath.row];
+            displayCell.imageAsset = asset;
+            displayCell.pickedItemImageView.hidden = ![self.pickedImageSet containsObject:asset];
+        }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (_photoAssets) {
+        PHAsset *asset = _photoAssets[indexPath.row];
+        if ([self.pickedImageSet containsObject:asset]) {
+            [self.pickedImageSet removeObject:asset];
+        }else {
+            if (self.pickedImageSet.count>0) {
+                return;
+            }
+            [self.pickedImageSet addObject:asset];
+        }
+        
+        QMVideoTableCell * cell = (QMVideoTableCell *)[tableView cellForRowAtIndexPath:indexPath];
+        cell.pickedItemImageView.hidden = ![self.pickedImageSet containsObject:asset];
+    }
+    
+    if (self.pickedImageSet.count>0) {
+        _tabbarView.doneButton.selected = YES;
+    }else {
+        _tabbarView.doneButton.selected = NO;
+    }
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+@end

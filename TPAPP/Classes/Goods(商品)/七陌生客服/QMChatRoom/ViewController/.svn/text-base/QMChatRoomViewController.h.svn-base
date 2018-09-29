@@ -1,0 +1,44 @@
+//
+//  QMChatRoomViewController.h
+//  IMSDK-OC
+//
+//  Created by HCF on 16/3/9.
+//  Copyright © 2016年 HCF. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@class QMChatRoomInputView;
+@class TCMessageManagerFaceView;
+@class addBackgroudView;
+@class QMChatRoomTopView;
+@class QMChatRoomMoreView;
+@class QMRecordIndicatorView;
+
+@interface QMChatRoomViewController : UIViewController
+
+@property (nonatomic, strong) UITableView *chatTableView; // 消息列表
+
+@property (nonatomic, strong) QMChatRoomInputView *chatInputView; // 输入工具条
+
+@property (nonatomic, strong) TCMessageManagerFaceView *faceView; // 表情面板
+
+@property (nonatomic, strong) QMChatRoomMoreView *addView; // 扩展面板
+
+@property (nonatomic, strong) QMChatRoomTopView *topView; // 顶部客服状态提示框
+
+@property (nonatomic, strong) QMRecordIndicatorView *indicatorView; // 录音动画
+
+@property (nonatomic, strong) UIButton *manualButotn; // 转人工
+
+@property (nonatomic, strong) UIButton *logoutButton; // 注销
+
+@property (nonatomic, copy) NSString *peerId; // 技能组ID
+
+@property (nonatomic, assign) BOOL isPush;
+
+@property (nonatomic, copy) NSString *callBack;
+
+- (void)sendFileMessageWithName: (NSString *)fileName AndSize: (NSString *)fileSize AndPath: (NSString *)filePath;
+
+@end

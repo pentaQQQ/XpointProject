@@ -1,0 +1,11 @@
+framework module QMChatSDK {
+  umbrella header "QMChatSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module QMChatSDK.Swift {
+    header "QMChatSDK-Swift.h"
+    requires objc
+}

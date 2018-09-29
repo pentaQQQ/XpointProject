@@ -38,7 +38,7 @@
 /// scrollView
 @property (nonatomic, strong) UIScrollView *scrollView;
 /// 指示器
-@property (nonatomic, strong) UIView *indicatorView;
+//@property (nonatomic, strong) UIView *indicatorView;
 /// 底部分割线
 @property (nonatomic, strong) UIView *bottomSeparator;
 /// 保存外界传递过来的标题数组
@@ -187,9 +187,15 @@
         }
         
         _indicatorView.backgroundColor = self.configure.indicatorColor;
+        
+       
+        
     }
     return _indicatorView;
 }
+
+
+
 
 - (UIView *)bottomSeparator {
     if (!_bottomSeparator) {

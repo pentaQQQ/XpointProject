@@ -1,0 +1,219 @@
+//
+//  QMChatRoomVoiceCell.m
+//  IMSDK-OC
+//
+//  Created by HCF on 16/3/10.
+//  Copyright © 2016年 HCF. All rights reserved.
+//
+
+#import "QMChatRoomVoiceCell.h"
+#import <IMSDK/IMSDK.h>
+#import <AVFoundation/AVFoundation.h>
+#import "QMAudioManager.h"
+
+@interface QMChatRoomVoiceCell() <AVAudioPlayerDelegate>
+
+@end
+
+/**
+    语音消息
+ */
+@implementation QMChatRoomVoiceCell
+{
+    UIImageView *_voicePlayImageView;
+    
+    UILabel *_secondsLabel;
+        
+    AVAudioSession *_audioSession;
+    
+    NSString *_messageId;
+}
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self createUI];
+    }
+    return self;
+}
+
+- (void)createUI {    
+    _voicePlayImageView = [[UIImageView alloc] init];
+    _voicePlayImageView.animationDuration = 1.0;
+    [self.chatBackgroudImage addSubview:_voicePlayImageView];
+    
+    _secondsLabel = [[UILabel alloc] init];
+    _secondsLabel.textColor = [UIColor lightGrayColor];
+    _secondsLabel.backgroundColor = kMainCellColor;
+    _secondsLabel.font = [UIFont systemFontOfSize:14];
+    [self.contentView addSubview:_secondsLabel];
+    
+    _audioSession = [AVAudioSession sharedInstance];
+//    _recordTool = [[RecordTool alloc] init];
+    
+    UILongPressGestureRecognizer * longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressTapGesture:)];
+    [_voicePlayImageView addGestureRecognizer:longPressGesture];
+    
+    // 默认为听筒
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+}
+
+- (void)setData:(CustomMessage *)message {
+    _messageId = message._id;
+    self.message = message;
+    
+    if (self.timeLabel.hidden == YES) {
+        self.timeLabel.frame = CGRectZero;
+    }else {
+        self.timeLabel.frame = CGRectMake(0, 10, kScreenWidth, 20);
+    }
+    
+    self.timeLabel.text = [Util showChatTime:message.createdTime];
+    
+    // 重写
+    if ([message.fromType isEqualToString:@"0"]) {
+        //发送
+        self.iconImage.image = [UIImage imageNamed:@"qm_default_icon"];
+        self.iconImage.frame = CGRectMake(kScreenWidth-55, CGRectGetMaxY(self.timeLabel.frame)+10, 41, 41);
+        
+        UIImage *image = [UIImage imageNamed:@"SenderTextNodeBkg"];
+        self.chatBackgroudImage.image = image;
+        self.chatBackgroudImage.image = [self.chatBackgroudImage.image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+    }else {
+        //接收
+//        self.iconImage.image = [UIImage imageNamed:@"qm_default_icon"];
+        if (message.agentIcon) {
+            [self.iconImage sd_setImageWithURL:[NSURL URLWithString:message.agentIcon] placeholderImage:[UIImage imageNamed:@"qm_default_icon"]];
+        }else {
+            self.iconImage.image = [UIImage imageNamed:@"qm_default_icon"];
+        }
+        self.iconImage.frame = CGRectMake(10, CGRectGetMaxY(self.timeLabel.frame)+10, 41, 41);
+        
+        UIImage *image = [UIImage imageNamed:@"ReceiverTextNodeBkg"];
+        self.chatBackgroudImage.image = image;
+        self.chatBackgroudImage.image = [self.chatBackgroudImage.image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+        
+        self.sendStatus.hidden = YES;
+    }
+    
+    
+    if ([message.fromType isEqualToString:@"0"]) {
+        
+        self.chatBackgroudImage.frame = CGRectMake(CGRectGetMinX(self.iconImage.frame)-10-125, CGRectGetMaxY(self.timeLabel.frame)+10, 125, 40);
+        
+        self.sendStatus.frame = CGRectMake(CGRectGetMinX(self.chatBackgroudImage.frame)-25, CGRectGetMaxY(self.chatBackgroudImage.frame)-32, 20, 20);
+        
+        _voicePlayImageView.frame = CGRectMake(125-35, 11, 13, 17);
+        //        QMVoiceAnimation.sharedInstance.setVoiceAnimationPlay(true, imageView: voicePlayImageView)
+        _voicePlayImageView.image = [UIImage imageNamed:@"SenderVoiceNodePlaying"];
+        
+        if ([message.status isEqualToString:@"0"]) {
+            _secondsLabel.frame = CGRectMake(CGRectGetMinX(self.chatBackgroudImage.frame)-40, CGRectGetMaxY(self.chatBackgroudImage.frame)-32, 40, 20);
+            _secondsLabel.text = [NSString stringWithFormat:@"%@''",message.recordSeconds];
+            _secondsLabel.textAlignment = NSTextAlignmentRight;
+            _secondsLabel.hidden = NO;
+        }else {
+            _secondsLabel.hidden = YES;
+        }
+        
+        self.sendStatus.frame = CGRectMake(CGRectGetMinX(self.chatBackgroudImage.frame)-25, CGRectGetMaxY(self.chatBackgroudImage.frame)-25, 20, 20);
+    }else {
+        self.chatBackgroudImage.frame = CGRectMake(CGRectGetMaxX(self.iconImage.frame)+5, CGRectGetMaxY(self.timeLabel.frame)+10, 125, 50);
+        
+        _voicePlayImageView.frame = CGRectMake(15, 11, 12.5, 17);
+        _secondsLabel.frame = CGRectMake(CGRectGetMaxX(self.chatBackgroudImage.frame)+4, CGRectGetMaxY(self.chatBackgroudImage.frame)-22, 40, 20);
+        _secondsLabel.text = [NSString stringWithFormat:@"%@''",message.recordSeconds];
+        _secondsLabel.textAlignment = NSTextAlignmentLeft;
+        //        QMVoiceAnimation.sharedInstance.setVoiceAnimationPlay(false, imageView: voicePlayImageView)
+        _voicePlayImageView.image = [UIImage imageNamed:@"ReceiverVoiceNodePlaying"];
+    }
+    
+    [super setData:message];
+}
+
+- (void)longPressTapGesture:(UILongPressGestureRecognizer *)sender {
+    NSLog(@"录音长按手势");
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        NSLog(@"文本长按手势");
+        [self becomeFirstResponder];
+        UIMenuController *menu = [UIMenuController sharedMenuController];
+        UIMenuItem *reciverMenu = [[UIMenuItem alloc] initWithTitle:@"听筒" action:@selector(reciverMenu:)];
+        UIMenuItem *speakerMenu = [[UIMenuItem alloc] initWithTitle:@"扬声器" action:@selector(speakerMenu:)];
+        UIMenuItem *removeMenu = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(removeMenu:)];
+        [menu setMenuItems:[NSArray arrayWithObjects:reciverMenu,speakerMenu,removeMenu, nil]];
+        [menu setTargetRect:self.chatBackgroudImage.frame inView:self];
+        [menu setMenuVisible:true animated:true];
+        
+        UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+        if ([window isKeyWindow] == NO) {
+            [window becomeKeyWindow];
+            [window makeKeyAndVisible];
+        }
+    }    
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == @selector(reciverMenu:) || action == @selector(speakerMenu:) || action == @selector(removeMenu:)) {
+        return YES;
+    }else {
+        return  NO;
+    }
+}
+
+- (void)reciverMenu:(id)sendr {
+    //听筒
+    NSError *error = nil;
+    if ([[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&error]) {
+        NSLog(@"设置成功");
+    }
+    
+    NSLog(@"%@",error);
+}
+
+- (void)speakerMenu:(id)sender {
+    // 扬声器
+    NSError *error = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
+    NSLog(@"%@",error);
+}
+
+- (void)removeMenu:(id)sender {
+    // 删除语音(只能删除本地数据库消息)
+    // 删除文本消息
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"进行此操作将删除此消息且不能恢复，是否执行删除" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [QMConnect removeDataFromDataBase:_messageId];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CHATMSG_RELOAD object:nil];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:sureAction];
+    
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)tapPressGesture:(id)sender {
+    NSLog(@"点击播放录音");
+    // 目前只能发送语音消息 不能接收
+    [[QMAudioManager sharedInstance] playRecordWithMessage:self.message withDelegate:self];
+}
+
+
+- (void)awakeFromNib {
+    // Initialization code
+    [super awakeFromNib];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

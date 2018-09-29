@@ -1,0 +1,21 @@
+//
+//  QMChatRoomTopView.h
+//  IMSDK-OC
+//
+//  Created by HCF on 16/3/9.
+//  Copyright © 2016年 HCF. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface QMChatRoomTopView : UIView
+
+@property (nonatomic, strong) UIView *backView;
+
+@property (nonatomic, strong) UILabel *hintLabel;
+
+@property (nonatomic, copy) NSString *title;
+
+-(void) setTitleLabel:(NSString *)title;
+
+@end

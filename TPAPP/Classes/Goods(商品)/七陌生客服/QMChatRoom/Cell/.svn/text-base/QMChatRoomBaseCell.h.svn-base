@@ -1,0 +1,33 @@
+//
+//  QMChatRoomBaseCell.h
+//  IMSDK-OC
+//
+//  Created by HCF on 16/3/10.
+//  Copyright © 2016年 HCF. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface QMChatRoomBaseCell : UITableViewCell
+
+@property (nonatomic, strong) UIImageView *iconImage; // 头像
+
+@property (nonatomic, strong) UILabel *timeLabel; // 时间
+
+@property (nonatomic, strong) UIImageView *chatBackgroudImage; // 气泡
+
+@property (nonatomic, strong) UIImageView *sendStatus; // 消息发送状态
+
+@property (nonatomic, strong) CustomMessage *message;
+
+- (void)setData: (CustomMessage *)message;
+
++ (CGFloat)setHeightWithData: (CustomMessage *)message;
+
+- (void)longPressTapGesture: (id)sender;
+
+- (void)tapPressGesture: (id)sender;
+
+- (void)setProgress: (float)progress;
+
+@end
