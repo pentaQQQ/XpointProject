@@ -43,7 +43,7 @@
 @property (nonatomic, copy) NSDictionary * dictionary;
 @property (nonatomic, assign) BOOL isPushed;
 @property (nonatomic, assign) BOOL isConnecting;
-
+//@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @end
 
 @implementation GoodsViewController
@@ -138,7 +138,10 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+  
+  
     
+    [SVProgressHUD doAnythingWithHUDMessage:@"获取中"];
     
      [QMConnect registerSDKWithAppKey:@"5f12e670-c334-11e8-b0e0-5f753912b765" userName:@"8001" userId:@"8001_id"];
     
@@ -189,7 +192,8 @@
 - (void)registerFailure:(NSNotification *)sender {
     NSLog(@"注册失败::%@", sender.object);
     self.isConnecting = NO;
-//    [self.indicatorView stopAnimating];
+  
+    [SVProgressHUD dismiss];
 }
 
 
@@ -264,7 +268,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             NSArray *peers = peerArray;
             self.isConnecting = NO;
-//            [_indicatorView stopAnimating];
+           
+          [SVProgressHUD dismiss];
             if (peers.count == 1 && peers.count != 0) {
                 [self showChatRoomViewController:[peers.firstObject objectForKey:@"id"] processType:@"" entranceId:@""];
             }else {
@@ -273,7 +278,9 @@
         });
     } failureBlock:^{
         dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.indicatorView stopAnimating];
+          
+            
+             [SVProgressHUD dismiss];
             self.isConnecting = NO;
         });
     }];
