@@ -456,6 +456,7 @@
 		8E9A5F86215F14170084C9F1 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9A5F49215F14170084C9F1 /* UIButton+WebCache.m */; };
 		8E9A5F8A215F14230084C9F1 /* QMEmoticon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E9A5F88215F14230084C9F1 /* QMEmoticon.bundle */; };
 		8E9A5F8B215F14230084C9F1 /* expressionImage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E9A5F89215F14230084C9F1 /* expressionImage.plist */; };
+		8E9A5F9C215F22C90084C9F1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E9A5F9E215F22C90084C9F1 /* Localizable.strings */; };
 		8EA952A4212AC4C50057AC78 /* goodsDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA952A2212AC4C50057AC78 /* goodsDetailCell.m */; };
 		8EA952A5212AC4C50057AC78 /* goodsDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA952A3212AC4C50057AC78 /* goodsDetailCell.xib */; };
 		8EA952F3212BAA930057AC78 /* DALabeledCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA952A8212BAA930057AC78 /* DALabeledCircularProgressView.m */; };
@@ -1193,7 +1194,7 @@
 		8E9A5E59215F140D0084C9F1 /* TCMessageManagerFaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCMessageManagerFaceView.h; sourceTree = "<group>"; };
 		8E9A5E5B215F140D0084C9F1 /* QMChatRoomShowRichTextController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMChatRoomShowRichTextController.m; sourceTree = "<group>"; };
 		8E9A5E5C215F140D0084C9F1 /* QMChatRoomGuestBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMChatRoomGuestBookViewController.h; sourceTree = "<group>"; };
-		8E9A5E5D215F140D0084C9F1 /* QMChatRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMChatRoomViewController.m; sourceTree = "<group>"; };
+		8E9A5E5D215F140D0084C9F1 /* QMChatRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMChatRoomViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E9A5E5E215F140D0084C9F1 /* QMChatRoomShowFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMChatRoomShowFileController.m; sourceTree = "<group>"; };
 		8E9A5E5F215F140D0084C9F1 /* QMChatRoomShowImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMChatRoomShowImageController.h; sourceTree = "<group>"; };
 		8E9A5E60215F140D0084C9F1 /* QMChatRoomGuestBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMChatRoomGuestBookViewController.m; sourceTree = "<group>"; };
@@ -1363,6 +1364,10 @@
 		8E9A5F4A215F14170084C9F1 /* UIImage+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GIF.h"; sourceTree = "<group>"; };
 		8E9A5F88215F14230084C9F1 /* QMEmoticon.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = QMEmoticon.bundle; sourceTree = "<group>"; };
 		8E9A5F89215F14230084C9F1 /* expressionImage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = expressionImage.plist; sourceTree = "<group>"; };
+		8E9A5F8C215F1E960084C9F1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		8E9A5F8D215F1E960084C9F1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		8E9A5F9D215F22C90084C9F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8E9A5F9F215F22CD0084C9F1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		8EA952A1212AC4C50057AC78 /* goodsDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = goodsDetailCell.h; sourceTree = "<group>"; };
 		8EA952A2212AC4C50057AC78 /* goodsDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = goodsDetailCell.m; sourceTree = "<group>"; };
 		8EA952A3212AC4C50057AC78 /* goodsDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = goodsDetailCell.xib; sourceTree = "<group>"; };
@@ -2377,6 +2382,7 @@
 				547C48791F1DA8AF00178B67 /* LaunchScreen.storyboard */,
 				547C48741F1DA8AF00178B67 /* Main.storyboard */,
 				547C487C1F1DA8AF00178B67 /* Info.plist */,
+				8E9A5F9E215F22C90084C9F1 /* Localizable.strings */,
 				547C486B1F1DA8AF00178B67 /* Supporting Files */,
 			);
 			path = TPAPP;
@@ -4037,6 +4043,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 547C485F1F1DA8AF00178B67;
 			productRefGroup = 547C48691F1DA8AF00178B67 /* Products */;
@@ -4140,6 +4147,7 @@
 				019AEE7C21382B0B00EB3405 /* moment_camera@3x.png in Resources */,
 				8E3E6DA92140FFA9007B3306 /* oldhechengView.xib in Resources */,
 				547C49A21F1DBB8200178B67 /* back@2x.png in Resources */,
+				8E9A5F9C215F22C90084C9F1 /* Localizable.strings in Resources */,
 				8E3E6D5C2138D76F007B3306 /* WeChateBoardViewController.xib in Resources */,
 				547C49A61F1DBB8200178B67 /* tab_index_nor@2x.png in Resources */,
 				547C48761F1DA8AF00178B67 /* Main.storyboard in Resources */,
@@ -4669,6 +4677,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				547C48751F1DA8AF00178B67 /* Base */,
+				8E9A5F8D215F1E960084C9F1 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -4677,8 +4686,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				547C487A1F1DA8AF00178B67 /* Base */,
+				8E9A5F8C215F1E960084C9F1 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		8E9A5F9E215F22C90084C9F1 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8E9A5F9D215F22C90084C9F1 /* en */,
+				8E9A5F9F215F22CD0084C9F1 /* zh-Hans */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -4688,6 +4707,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -4736,6 +4756,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
