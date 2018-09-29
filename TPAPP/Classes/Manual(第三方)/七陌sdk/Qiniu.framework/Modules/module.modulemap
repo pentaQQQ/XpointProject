@@ -1,0 +1,6 @@
+framework module Qiniu {
+  umbrella header "Qiniu.h"
+
+  export *
+  module * { export * }
+}

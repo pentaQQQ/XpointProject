@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell
+END
+QMChatRoomIframeCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomIframeCell.h
+END
+QMChatRoomVoiceCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomVoiceCell.h
+END
+QMChatRoomCellFactory.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomCellFactory.h
+END
+QMChatRoomIframeCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomIframeCell.m
+END
+QMChatRoomVoiceCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomVoiceCell.m
+END
+QMChatRoomBaseCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomBaseCell.h
+END
+QMChatRoomCellFactory.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomCellFactory.m
+END
+QMChatRoomFileCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomFileCell.h
+END
+QMChatRoomBaseCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomBaseCell.m
+END
+QMChatRoomInvestigateCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomInvestigateCell.h
+END
+QMChatRoomImageCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomImageCell.h
+END
+QMChatRoomTextCell.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomTextCell.h
+END
+QMChatRoomFileCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomFileCell.m
+END
+QMChatRoomInvestigateCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomInvestigateCell.m
+END
+QMChatRoomImageCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomImageCell.m
+END
+QMChatRoomTextCell.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/ios/!svn/ver/565/WorkSpace-IMSDK/IMSDK-OC/Chat/Cell/QMChatRoomTextCell.m
+END

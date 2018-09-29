@@ -14,6 +14,16 @@
 #import "LoginViewController.h"
 #import "WXApiManager.h"
 #import "AddressModel.h"
+
+
+
+#import "QMProfileManager.h"
+#import <UserNotifications/UserNotifications.h>
+#import <QMChatSDK/QMChatSDK.h>
+#import <QMChatSDK/QMChatSDK-Swift.h>
+#import "QMManager.h"
+
+
 @interface AppDelegate ()
 
 @end
@@ -40,6 +50,24 @@
     
     [WXApi registerAppSupportContentFlag:typeFlag];
     
+    
+    
+    
+    
+    
+     [self registerUserNotification];
+    
+    /**
+     创建文件管理类
+     name: 可随便填写
+     password: 可随便填写
+     */
+    QMProfileManager *manger = [QMProfileManager sharedInstance];
+    [manger loadProfile:@"moor" password:@"123456"];
+    
+    if (@available(iOS 11.0, *)){
+        [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+    }
     return YES;
 }
 
@@ -126,7 +154,8 @@
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    
+    //断开连接
+    [QMConnect logout];
 }
 
 
@@ -157,6 +186,87 @@
     }];
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- (void)registerUserNotification {
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionCarPlay) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (!error) {
+                NSLog(@"request authorization succeeded!");
+            }
+        }];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        
+    } else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        
+        UIUserNotificationType types = (UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge);
+        
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        
+    }
+    
+}
+
+// 远程通知注册成功委托
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"注册deviceToken");
+    [QMConnect setServerToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"\n>>>[DeviceToken Error]:%@\n\n", error.description);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@" userinfo ===== %@", userInfo);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    NSString *messageAlert = [[userInfo objectForKey:@"aps"]objectForKey:@"alert"];
+    
+    if (application.applicationState == UIApplicationStateActive) {
+        [application setApplicationIconBadgeNumber:0];
+        //弹框通知
+        UIAlertController * stateAlert = [UIAlertController alertControllerWithTitle:@"客服新消息" message:messageAlert preferredStyle:UIAlertControllerStyleAlert];
+        [stateAlert addAction:[UIAlertAction actionWithTitle:@"前往" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [QMConnect registerSDKWithAppKey:@"" userName:@"" userId:@""];
+        }]];
+        [stateAlert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+        [self.window.rootViewController presentViewController:stateAlert animated:YES completion:nil];
+    }else {
+        [QMConnect registerSDKWithAppKey:@"" userName:@"" userId:@""];
+    }
+    
+    [QMManager defaultManager].selectedPush = YES;
+}
+
 
 
 
