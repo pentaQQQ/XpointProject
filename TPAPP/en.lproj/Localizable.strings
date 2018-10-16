@@ -1,0 +1,141 @@
+/* 
+  Localizable.strings
+  TPAPP
+
+  Created by 崔文龙 on 2018/9/29.
+  Copyright © 2018年 cbl－　点硕. All rights reserved.
+*/
+"button.logout" = "logout";
+
+"button.topeople" = "turn artficial";
+
+"button.chat_img" = "picture";
+
+"button.chat_file" = "file";
+
+"button.chat_music" = "music";
+
+"button.chat_video" = "video";
+
+"button.chat_other" = "other";
+
+"button.chat_evaluate" = "evaluation";
+
+"button.complete" = "finish";
+
+"button.back" = "back";
+
+"button.cancel" = "cancel";
+
+"button.sure" = "Determine";
+
+"button.recorder_normal" = "hold to talk";
+
+"button.recorder_recording" = "Loosening and sending";
+
+"button.recorder_want_cancel" = "release to cancel";
+
+"button.cancelsend" = "release to cancel";
+
+"button.copy" = "copy";
+
+"button.delete" = "delete";
+
+"button.revoke" = "revoke";
+
+"button.send" = "send";
+
+"button.sendAgain" = "Send message again";
+
+"button.receiver" = "receiver";
+
+"button.speaker" = "speaker";
+
+"button.leaveMessage" = "leaveMessage";
+
+"button.signOut" = "Sign Out";
+
+"button.yeshelp" = "helpfulness";
+
+"button.nohelp" = "useless";
+
+"title.thanks" = "Thanks for the encouragement, we will get better and better";
+
+"title.people" = "Customer service";
+
+"title.people_now" = "Customer service online";
+
+"title.people_isleave" = "Customer service end";
+
+"title.people_isline" = "Customer service off-line";
+
+"title.now_robit" = "Robot service";
+
+"title.other_writing" = "typing...";
+
+"title.line_up" = "The current number of queues";
+
+"title.connection" = "Wait for a connection";
+
+"title.type" = "Choose the type or business department you consulted (corresponding skill group)";
+
+"title.prompt" = "Prompt";
+
+"title.savePicture" = "Save the picture";
+
+"title.statement" = "Doing this will delete this message and cannot restore it. Do you want to delete it?";
+
+"title.speakS" = "Talking too short";
+
+"title.voiceL" = "Talking too long";
+
+"title.schedule_faile" = "Other seat mandate failed";
+
+"title.schedule_notonline" = "Exclusive seats are not online";
+
+"title.sorryconfigurationiswrong" = "consult function cant be reached";
+
+"title.schedule_type" = "Select the type of schedule you consult";
+
+"title.message prompts" = "The customer service is now offline, please consult later";
+
+"title.iknow" = "I got it!";
+
+"title.messageBoard" = "Message Board";
+
+"title.pleaseLeave" = "Please leave message ~";
+
+"title.leaving" = "Leaving a message";
+
+"title.messageSuccess" = "Message success";
+
+"title.messageFailure" = "Message failure";
+
+"title.messageContent" = "Please fill in the message";
+
+"title.requireItem" = "For a required item";
+
+"title.uploaded" = "Uploaded";
+
+"title.uploadFailure" = "Upload failure";
+
+"title.uploading" = "Uploading";
+
+"title.downloads" = "Downloads";
+
+"title.notDownloaded" = "Not Downloaded";
+
+"title.downloaded" = "Downloaded";
+
+"title.phoneNumber" = "Phone number";
+
+"title.selection" = "Selection";
+
+"title.required" = "Required";
+
+"title.good_7moor" = "good 7moor with customer service";
+
+"title.introduction" = "contant online customer in time\n video、voice、type、expression、photo、file \n no problem！";
+
+"title.contact_im" = "Let's go";
+

@@ -1,0 +1,254 @@
+//
+//  QMChatRoomFileCell.m
+//  IMSDK-OC
+//
+//  Created by HCF on 16/8/15.
+//  Copyright © 2016年 HCF. All rights reserved.
+//
+
+#import "QMChatRoomFileCell.h"
+#import "QMChatRoomShowFileController.h"
+#import "QMProfileManager.h"
+
+@interface QMChatRoomFileCell () {
+    UIImageView *_fileImageView;
+    UILabel *_fileName;
+    UILabel *_fileSize;
+    UILabel *_status;
+    
+    UIImageView *_trackTintColor;
+    UIImageView *_progressTintColor;
+}
+
+@end
+
+@implementation QMChatRoomFileCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle: style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self createUI];
+    }
+    return self;
+}
+
+- (void)createUI {
+    _fileImageView = [[UIImageView alloc] init];
+    [self.chatBackgroudImage addSubview:_fileImageView];
+    
+    _fileName = [[UILabel alloc] init];
+    _fileName.font = [UIFont systemFontOfSize:14];
+    _fileName.backgroundColor = [UIColor clearColor];
+    _fileName.numberOfLines = 2;
+    [self.chatBackgroudImage addSubview:_fileName];
+    
+    _fileSize = [[UILabel alloc] init];
+    _fileSize.font = [UIFont systemFontOfSize:10];
+    _fileSize.textColor = [UIColor lightGrayColor];
+    [self.chatBackgroudImage addSubview:_fileSize];
+    
+    _status = [[UILabel alloc] init];
+    _status.font = [UIFont systemFontOfSize:10];
+    _status.textColor = [UIColor lightGrayColor];
+    [self.chatBackgroudImage addSubview:_status];
+    
+    _trackTintColor = [[UIImageView alloc] init];
+    _trackTintColor.layer.cornerRadius = 1.5;
+    _trackTintColor.layer.masksToBounds = YES;
+    _trackTintColor.backgroundColor = [UIColor lightGrayColor];
+    [self.chatBackgroudImage addSubview:_trackTintColor];
+    
+    _progressTintColor = [[UIImageView alloc] init];
+    _progressTintColor.layer.cornerRadius = 1.5;
+    _progressTintColor.layer.masksToBounds = YES;
+    _progressTintColor.backgroundColor = [UIColor blueColor];
+    [self.chatBackgroudImage addSubview:_progressTintColor];
+}
+
+- (void)setData:(CustomMessage *)message {
+    self.message = message;
+    
+    if (self.timeLabel.hidden == YES) {
+        self.timeLabel.frame = CGRectZero;
+    }else {
+        self.timeLabel.frame = CGRectMake(0, 10, kScreenWidth, 20);
+    }
+    
+    self.timeLabel.text = [Util showChatTime:message.createdTime];
+    
+    // 重写
+    if ([message.fromType isEqualToString:@"0"]) {
+        //发送
+        self.iconImage.image = [UIImage imageNamed:@"qm_default_icon"];
+        self.iconImage.frame = CGRectMake(kScreenWidth-55, CGRectGetMaxY(self.timeLabel.frame)+10, 41, 41);
+        
+        UIImage *image = [UIImage imageNamed:@"SenderTextNodeBkg"];
+        self.chatBackgroudImage.image = image;
+        self.chatBackgroudImage.image = [self.chatBackgroudImage.image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+        self.chatBackgroudImage.frame = CGRectMake(CGRectGetMinX(self.iconImage.frame)-5-200, CGRectGetMaxY(self.timeLabel.frame)+10, 200, 100);
+        self.sendStatus.frame = CGRectMake(CGRectGetMinX(self.chatBackgroudImage.frame)-25, CGRectGetMaxY(self.chatBackgroudImage.frame)-25, 20, 20);
+        
+        _fileImageView.frame = CGRectMake(5, 10, 80, 80);
+        _fileName.frame = CGRectMake(90, 10, 100, 40);
+        _fileSize.frame = CGRectMake(90, 75, 50, 15);
+        _trackTintColor.frame = CGRectMake(10, 94, 180, 3);
+        _progressTintColor.frame = CGRectMake(10, 94, 0, 3);
+        _status.frame = CGRectMake(140, 75, 50, 15);
+    }else {
+        //接收
+//        self.iconImage.image = [UIImage imageNamed:@"qm_default_icon"];
+        if (message.agentIcon) {
+            [self.iconImage sd_setImageWithURL:[NSURL URLWithString:message.agentIcon] placeholderImage:[UIImage imageNamed:@"qm_default_icon"]];
+        }else {
+            self.iconImage.image = [UIImage imageNamed:@"qm_default_icon"];
+        }
+        self.iconImage.frame = CGRectMake(10, CGRectGetMaxY(self.timeLabel.frame)+10, 41, 41);
+        
+        UIImage *image = [UIImage imageNamed:@"ReceiverTextNodeBkg"];
+        self.chatBackgroudImage.image = image;
+        self.chatBackgroudImage.image = [self.chatBackgroudImage.image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+        self.chatBackgroudImage.frame = CGRectMake(CGRectGetMaxX(self.iconImage.frame)+5, CGRectGetMaxY(self.timeLabel.frame)+10, 200, 100);
+        
+        _fileImageView.frame = CGRectMake(10, 10, 80, 80);
+        _fileName.frame = CGRectMake(95, 10, 100, 40);
+        _fileSize.frame = CGRectMake(95, 75, 50, 15);
+        _trackTintColor.frame = CGRectMake(15, 94, 180, 3);
+        _progressTintColor.frame = CGRectMake(15, 94, 0, 3);
+        _status.frame = CGRectMake(145, 75, 50, 15);
+        self.sendStatus.hidden = YES;
+    }
+    
+    // 也可以根据本地路径获取image缩略图
+//    if ([message.fileName.pathExtension.lowercaseString isEqualToString:@"doc"]||[message.fileName.pathExtension.lowercaseString isEqualToString:@"docx"]) {
+//        _fileImageView.image = [UIImage imageNamed:@"custom_file_doc"];
+//    }else if ([message.fileName.pathExtension.lowercaseString isEqualToString:@"xls"]||[message.fileName.pathExtension.lowercaseString isEqualToString:@"xlsx"]) {
+//        _fileImageView.image = [UIImage imageNamed:@"custom_file_xlsx"];
+//    }else if ([message.fileName.pathExtension.lowercaseString isEqualToString:@"pdf"]) {
+//        _fileImageView.image = [UIImage imageNamed:@"custom_file_pdf"];
+//    }else if ([message.fileName.pathExtension.lowercaseString isEqualToString:@"mp3"]||[message.fileName.pathExtension.lowercaseString isEqualToString:@"mov"]) {
+//        _fileImageView.image = [UIImage imageNamed:@"custom_file_mov"];
+//    }else {
+//        _fileImageView.image = [UIImage imageNamed:@"custom_file_rar"];
+//    }
+    
+    NSString *imageName = [self matchImageWithFileNameExtension: message.fileName.pathExtension.lowercaseString];
+    _fileImageView.image = [UIImage imageNamed:imageName];
+    
+    if (message.fileName != nil) {
+        _fileName.text = message.fileName;
+    }else {
+        _fileName.text = message.message;
+    }
+    [_fileName sizeToFit];
+
+    if (message.fileSize == nil) {
+        _fileSize.text = @"0 K";
+    }else {
+        _fileSize.text = message.fileSize;
+    }
+    
+    if ([message.fromType isEqualToString:@"0"]) {
+        if ([message.status isEqualToString:@"0"]) {
+            _progressTintColor.hidden = YES;
+            _trackTintColor.hidden = YES;
+            _status.text = @"已上传";
+        }else if ([message.status isEqualToString:@"1"]) {
+            _progressTintColor.hidden = YES;
+            _trackTintColor.hidden = YES;
+            _status.text = @"上传失败";
+        }else {
+            _progressTintColor.hidden = NO;
+            _trackTintColor.hidden = NO;
+            _status.text = @"上传中";
+        }
+    }else {
+        if ([message.downloadState isEqualToString:@"2"]) {
+            _progressTintColor.hidden = NO;
+            _trackTintColor.hidden = NO;
+            _status.text = @"下载中";
+        }else if ([message.downloadState isEqualToString:@"1"]) {
+            _progressTintColor.hidden = YES;
+            _trackTintColor.hidden = YES;
+            _status.text = @"未下载";
+        }else if ([message.downloadState isEqualToString:@"0"]) {
+            _progressTintColor.hidden = YES;
+            _trackTintColor.hidden = YES;
+            _status.text = @"已下载";
+        }else {
+            _progressTintColor.hidden = YES;
+            _trackTintColor.hidden = YES;
+            _status.text = @"已下载";
+        }
+    }
+
+    [super setData:message];
+}
+
+- (void)setProgress: (float)progress {
+    _progressTintColor.frame = CGRectMake(10, 94, progress*180, 3);
+}
+
+- (void)tapPressGesture:(id)sender {
+    NSLog(@"点击下载或查看");
+    if (self.message.localFilePath == nil) {
+        NSString *localPath = [[QMProfileManager sharedInstance] checkFileExtension: self.message.fileName];
+        
+        [QMConnect downloadFileWithMessage:self.message localFilePath:localPath progressHander:^(float progress) {
+            NSLog(@"%f", progress);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _progressTintColor.frame = CGRectMake(15, 94, progress*180, 3);
+            });
+        } successBlock:^{
+            // 图片或视频存储至相册
+            _progressTintColor.frame = CGRectMake(15, 94, 0, 3);
+        } failBlock:^(NSString * _Nonnull error) {
+            _progressTintColor.frame = CGRectMake(15, 94, 0, 3);
+        }];
+    }else {
+        // 打开本地文件
+        NSLog(@"查看本地文件");
+        QMChatRoomShowFileController *showFile = [[QMChatRoomShowFileController alloc] init];
+        
+        NSLog(@"%@", self.message.localFilePath);
+        showFile.filePath = self.message.localFilePath;
+        
+        UIViewController *vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+        [vc presentViewController:showFile animated:YES completion:nil];
+    }
+}
+
+- (NSString *)matchImageWithFileNameExtension: (NSString *)fileName {
+    NSString * str;
+    if ([fileName isEqualToString:@"doc"]||[fileName isEqualToString:@"docx"]) {
+        str = @"doc";
+    }else if ([fileName isEqualToString:@"xlsx"]||[fileName isEqualToString:@"xls"]) {
+        str = @"xls";
+    }else if ([fileName isEqualToString:@"ppt"]||[fileName isEqualToString:@"pptx"]) {
+        str = @"ppt";
+    }else if ([fileName isEqualToString:@"pdf"]) {
+        str = @"pdf";
+    }else if ([fileName isEqualToString:@"mp3"]) {
+        str = @"mp3";
+    }else if ([fileName isEqualToString:@"mov"]||[fileName isEqualToString:@"mp4"]) {
+        str = @"mov";
+    }else if ([fileName isEqualToString:@"png"]||[fileName isEqualToString:@"jpg"]||[fileName isEqualToString:@"bmp"]||[fileName isEqualToString:@"jpeg"]) {
+        str = @"bmp";
+    }else if ([fileName isEqualToString:@"zip"]) {
+        str = @"zip";
+    }else if ([fileName isEqualToString:@"rar"]) {
+        str = @"rar";
+    }else if ([fileName isEqualToString:@"wav"]) {
+        str = @"wav";
+    }else if ([fileName isEqualToString:@"text"]) {
+        str = @"text";
+    }else if ([fileName isEqualToString:@"wmv"]) {
+        str = @"wmv";
+    }else if ([fileName isEqualToString:@"wma"]) {
+        str = @"wma";
+    }else {
+        str = @"zip";
+    }
+    return [NSString stringWithFormat:@"custom_file_%@", str];
+}
+
+@end

@@ -1,0 +1,148 @@
+//
+//  QMChatRoomBaseCell.m
+//  IMSDK-OC
+//
+//  Created by HCF on 16/3/10.
+//  Copyright © 2016年 HCF. All rights reserved.
+//
+
+#import "QMChatRoomBaseCell.h"
+
+#define kIconImageViewWidth 45
+
+@implementation QMChatRoomBaseCell
+{
+    CustomMessage *_message;
+}
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.backgroundColor = kMainCellColor;
+        
+        self.iconImage = [[UIImageView alloc] init];
+        self.iconImage.backgroundColor = kMainCellColor;
+        [self.contentView addSubview:self.iconImage];
+        
+        self.timeLabel = [[UILabel alloc] init];
+        self.timeLabel.hidden = YES;
+        self.timeLabel.textAlignment = NSTextAlignmentCenter;
+        self.timeLabel.backgroundColor = kMainCellColor;
+        self.timeLabel.font = [UIFont systemFontOfSize:12];
+        [self.contentView addSubview:self.timeLabel];
+        
+        self.chatBackgroudImage = [[UIImageView alloc] init];
+        self.chatBackgroudImage.backgroundColor = kMainCellColor;
+        self.chatBackgroudImage.userInteractionEnabled = YES;
+        [self.contentView addSubview:self.chatBackgroudImage];
+        
+        self.sendStatus = [[UIImageView alloc] init];
+        self.sendStatus.userInteractionEnabled = YES;
+        [self.contentView addSubview:self.sendStatus];
+        
+        UITapGestureRecognizer *tapResendMessage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reSendAction:)];
+        [self.sendStatus addGestureRecognizer:tapResendMessage];
+
+//        UILongPressGestureRecognizer * longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressTapGesture:)];
+//        [self.chatBackgroudImage addGestureRecognizer:longPressGesture];
+        
+        UITapGestureRecognizer * tapPressGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPressGesture:)];
+        [self.chatBackgroudImage addGestureRecognizer:tapPressGesture];        
+    }
+    return self;
+}
+
+- (void)setData:(CustomMessage *)message {
+    _message = message;
+    if ([message.fromType isEqualToString:@"0"]) {
+        if ([message.status isEqualToString:@"0"]) {
+            self.sendStatus.hidden = YES;
+        }else if ([message.status isEqualToString:@"1"]) {
+            self.sendStatus.hidden = NO;
+            self.sendStatus.image = [UIImage imageNamed:@"icon_send_failed"];
+            [self removeSendingAnimation];
+        }else {
+            self.sendStatus.hidden = NO;
+            self.sendStatus.image = [UIImage imageNamed:@"icon_sending"];
+            [self showSendingAnimation];
+        }
+    }
+}
+
+- (void)showSendingAnimation {
+    CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    animation.fromValue = @0.0;
+    animation.toValue = @(2*M_PI);
+    animation.duration = 1.0;
+    animation.repeatCount = MAXFLOAT;
+    __weak QMChatRoomBaseCell *strongSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [strongSelf.sendStatus.layer addAnimation:animation forKey:@"transform.rotation.z"];
+    });
+}
+
+- (void)removeSendingAnimation {
+    __weak QMChatRoomBaseCell *strongSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [strongSelf.sendStatus.layer removeAnimationForKey:@"transform.rotation.z"];
+    });
+}
+
+- (void)setProgress: (float)progress {
+    
+}
+
+// 计算高度
++ (CGFloat)setHeightWithData:(CustomMessage *)message {
+    return 60;
+}
+
+- (void)longPressTapGesture:(id)sender {
+    
+}
+
+- (void)tapPressGesture:(id)sender {
+    
+}
+
+- (void)reSendAction: (UITapGestureRecognizer *)gesture {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"重新发送消息Y/N" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([_message.status isEqualToString:@"1"]) {
+            NSLog(@"重新发送");
+            [QMConnect resendMessage:_message successBlock:^{
+                NSLog(@"消息重发成功");
+            } failBlock:^{
+                NSLog(@"消息重发失败");
+            }];
+        }
+    }];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:doneAction];
+    [alert addAction:cancelAction];
+    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)tapResendMessage: (id)sender {
+    NSLog(@"点击手势");
+    if ([_message.status isEqualToString:@"1"]) {
+        NSLog(@"重新发送");
+        [QMConnect resendMessage:_message successBlock:^{
+            NSLog(@"消息重发成功");
+        } failBlock:^{
+            NSLog(@"消息重发失败");
+        }];
+    }
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+}
+
+@end

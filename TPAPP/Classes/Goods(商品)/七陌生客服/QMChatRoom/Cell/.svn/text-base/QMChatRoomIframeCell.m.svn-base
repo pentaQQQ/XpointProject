@@ -1,0 +1,90 @@
+//
+//  QMChatRoomIframeCell.m
+//  IMSDK-OC
+//
+//  Created by haochongfeng on 16/11/13.
+//  Copyright © 2016年 HCF. All rights reserved.
+//
+
+#import "QMChatRoomIframeCell.h"
+#import <IMSDK/IMSDK.h>
+
+@interface QMChatRoomIframeCell() {
+    UIWebView *_webView;
+    NSString *_messageId;
+}
+
+@end
+
+@implementation QMChatRoomIframeCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self createUI];
+    }
+    return self;
+}
+
+- (void)createUI {
+    _webView = [[UIWebView alloc] init];
+    [self.chatBackgroudImage addSubview:_webView];
+}
+
+- (void)setData: (CustomMessage *)message {
+    NSLog(@"取出来的数据");
+    
+    _messageId = message._id;
+    
+    if (self.timeLabel.hidden == YES) {
+        self.timeLabel.frame = CGRectZero;
+    }else {
+        self.timeLabel.frame = CGRectMake(0, 10, kScreenWidth, 20);
+    }
+    
+    self.timeLabel.text = [Util showChatTime:message.createdTime];
+
+    // 重写
+    if ([message.fromType isEqualToString:@"0"]) {
+        //发送
+    }else {
+        //接收
+//        self.iconImage.image = [UIImage imageNamed:@"qm_default_icon"];
+        if (message.agentIcon) {
+            [self.iconImage sd_setImageWithURL:[NSURL URLWithString:message.agentIcon] placeholderImage:[UIImage imageNamed:@"qm_default_icon"]];
+        }else {
+            self.iconImage.image = [UIImage imageNamed:@"qm_default_icon"];
+        }
+        self.iconImage.frame = CGRectMake(10, CGRectGetMaxY(self.timeLabel.frame)+10, 41, 41);
+        
+        UIImage *image = [UIImage imageNamed:@"ReceiverTextNodeBkg"];
+        self.chatBackgroudImage.image = image;
+        self.chatBackgroudImage.image = [self.chatBackgroudImage.image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+        
+        self.sendStatus.hidden = YES;
+    }
+
+    if ([message.fromType isEqualToString:@"0"]) {
+        // 发送
+    }else {
+        NSURLRequest *reqeust = [NSURLRequest requestWithURL:[NSURL URLWithString:message.message]];
+        [_webView loadRequest:reqeust];
+        [_webView reload];
+        
+        _webView.frame = CGRectMake(15, 10, (CGFloat)message.width.intValue, (CGFloat)message.height.intValue);
+        self.chatBackgroudImage.frame = CGRectMake(CGRectGetMaxX(self.iconImage.frame)+5, CGRectGetMaxY(self.timeLabel.frame)+10, _webView.frame.size.width+30, _webView.frame.size.height+20);
+    }
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end
