@@ -110,10 +110,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MSHttpTool)
 
 
 
-
-
-
-
 -(void)cancelAllTasks{
     for (NSURLSessionDataTask * task in self.mgrTasksArray) {
         [task cancel];
@@ -130,6 +126,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MSHttpTool)
 //封装AF
 
 - (NSURLSessionDataTask *)getWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:@"token"];
+    
+    [_manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     NSURLSessionDataTask * task = [self.manager GET:url parameters:params  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(responseObject);
@@ -144,7 +143,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MSHttpTool)
 
 
 - (NSURLSessionDataTask *)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:@"token"];
     
+    [_manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     NSURLSessionDataTask * task = [self.manager POST:url parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(responseObject);
@@ -160,7 +161,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MSHttpTool)
 }
 
 - (NSURLSessionDataTask *)postBodyWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:@"token"];
     
+    [_manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     NSURLSessionDataTask * task = [self.manager POST:url parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(responseObject);
@@ -176,7 +179,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MSHttpTool)
 }
 
 - (NSURLSessionDataTask *)putWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:@"token"];
     
+    [_manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     NSURLSessionDataTask * task = [self.manager PUT:url parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(responseObject);
@@ -195,6 +200,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MSHttpTool)
 
 - (NSURLSessionDataTask *)deleteWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
     
+    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:@"token"];
+    
+    [_manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     NSURLSessionDataTask * task = [self.manager DELETE:url parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(responseObject);

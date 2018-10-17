@@ -1059,7 +1059,7 @@
 		8E3E6D552138D76E007B3306 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		8E3E6D562138D76E007B3306 /* WeChateBoardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeChateBoardViewController.xib; sourceTree = "<group>"; };
 		8E3E6D572138D76E007B3306 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		8E3E6D582138D76F007B3306 /* WeChateBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeChateBoardViewController.m; sourceTree = "<group>"; };
+		8E3E6D582138D76F007B3306 /* WeChateBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeChateBoardViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E3E6D592138D76F007B3306 /* WeChateBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChateBoardViewController.h; sourceTree = "<group>"; };
 		8E3E6D5A2138D76F007B3306 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		8E3E6D5F2138D79A007B3306 /* UIButton+LYCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+LYCountDownButton.m"; sourceTree = "<group>"; };
@@ -1076,7 +1076,7 @@
 		8E3E6D7D21390A55007B3306 /* TransportationSeationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransportationSeationView.m; sourceTree = "<group>"; };
 		8E3E6D7F21390A60007B3306 /* TransportationSeationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransportationSeationView.xib; sourceTree = "<group>"; };
 		8E3E6D81213D067B007B3306 /* registViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = registViewController.h; sourceTree = "<group>"; };
-		8E3E6D82213D067B007B3306 /* registViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = registViewController.m; sourceTree = "<group>"; };
+		8E3E6D82213D067B007B3306 /* registViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = registViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E3E6D83213D067B007B3306 /* registViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = registViewController.xib; sourceTree = "<group>"; };
 		8E3E6D86213D37AD007B3306 /* LYAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYAccount.m; sourceTree = "<group>"; };
 		8E3E6D87213D37AD007B3306 /* LYAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYAccount.h; sourceTree = "<group>"; };
@@ -1480,7 +1480,7 @@
 		9A8745031FC508CE006E892C /* HomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		9ABCEE9C1FFCA6BB00DF4380 /* MSHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSHttpTool.h; sourceTree = "<group>"; };
 		9ABCEE9D1FFCA6BB00DF4380 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
-		9ABCEE9E1FFCA6BB00DF4380 /* MSHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSHttpTool.m; sourceTree = "<group>"; };
+		9ABCEE9E1FFCA6BB00DF4380 /* MSHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSHttpTool.m; sourceTree = "<group>"; wrapsLines = 1; };
 		9ABCEE9F1FFCA6BB00DF4380 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		D267EB8161CA06C167E23F28 /* Pods-TPAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TPAPP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TPAPP/Pods-TPAPP.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
