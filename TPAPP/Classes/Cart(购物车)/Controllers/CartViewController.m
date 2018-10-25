@@ -63,7 +63,8 @@
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
+    [self.navigationController.navigationBar setTranslucent:NO];
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     
     self.CartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -SafeAreaBottomHeight) style:UITableViewStyleGrouped];
     self.CartTableView.estimatedRowHeight = 0;

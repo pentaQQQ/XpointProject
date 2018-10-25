@@ -105,7 +105,7 @@
 
 // 基本配置
 - (void)viewWillAppear:(BOOL)animated {
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:246/255.0 green:248/255.0 blue:249/255.0 alpha:1.0];
+//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:246/255.0 green:248/255.0 blue:249/255.0 alpha:1.0];
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:13/255.0 green:139/255.0 blue:249/255.0 alpha:1];
     [self.navigationController.navigationBar setTranslucent:NO];
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
@@ -305,10 +305,14 @@
 
     // 注销
     self.logoutButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.logoutButton.frame = CGRectMake(0, 0, 50, 30);
+    self.logoutButton.frame = CGRectMake(0, 0, 30, 30);
     self.logoutButton.titleLabel.font = [UIFont systemFontOfSize:16];
-    [self.logoutButton setTitle:NSLocalizedString(@"button.logout", nil) forState:UIControlStateNormal];
-    [self.logoutButton setTitleColor:[UIColor colorWithRed:13/255.0 green:139/255.0 blue:249/255.0 alpha:1] forState:UIControlStateNormal];
+//    [self.logoutButton setTitle:NSLocalizedString(@"button.logout", nil) forState:UIControlStateNormal];
+    [self.logoutButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    
+    
+    
+//    [self.logoutButton setTitleColor:[UIColor colorWithRed:13/255.0 green:139/255.0 blue:249/255.0 alpha:1] forState:UIControlStateNormal];
     [self.logoutButton addTarget:self action:@selector(logoutAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.logoutButton];
     
@@ -975,6 +979,7 @@
         });
     }];
 }
+
 
 #pragma mark - 留言提示
 - (void)showGuestBookViewController {

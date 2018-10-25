@@ -60,13 +60,13 @@
     self.view.backgroundColor = WhiteColor;
     [self setUpUI];
     
-    
-    
+
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerSuccess:) name:CUSTOM_LOGIN_SUCCEED object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerFailure:) name:CUSTOM_LOGIN_ERROR_USER object:nil];
     
-    
+    [self.navigationController.navigationBar setTranslucent:NO];
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
 }
 
 
@@ -76,7 +76,7 @@
 }
 -(void)setUpUI{
     
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-SafeAreaBottomHeight) style:UITableViewStylePlain];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-SafeAreaBottomHeight-SafeAreaTopHeight-44) style:UITableViewStylePlain];
     self.tableview = tableview;
     [self.view addSubview:tableview];
     

@@ -58,6 +58,8 @@
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets=NO;
+    [self.navigationController.navigationBar setTranslucent:NO];
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     [self createItems];
     [self listTableView];
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）

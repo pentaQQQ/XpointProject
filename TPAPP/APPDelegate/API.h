@@ -17,7 +17,16 @@
 #define WeChateSecret   @"112c2f14829cb6552c30e3ba9510d077"//微信开发者账号Secret
 #define WeChateappid    @"wxe18e2ff7e93e4253"//微信开发者账号appid
 
-#define kBaseUrl           @"http://47.92.193.30/"
+//#define kBaseUrl           @"http://47.92.193.30/"
+#define kBaseUrl           @"https://pay.shty518.com/"
+
+
+
+
+
+
+
+
 
 //获取首页标签及内容
 #define getMainResources [NSString stringWithFormat:@"%@%@",kBaseUrl,@"api/main/getMainResources"]
