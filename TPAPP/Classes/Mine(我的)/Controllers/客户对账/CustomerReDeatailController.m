@@ -38,8 +38,12 @@
         _listTableView.showsHorizontalScrollIndicator = NO;
         //        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:_listTableView];
+        //获取状态栏的rect
+        CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+        //获取导航栏的rect
+        CGRect navRect = self.navigationController.navigationBar.frame;
         _listTableView.sd_layout
-        .topSpaceToView(self.view, 0)
+        .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .bottomSpaceToView(self.view, SafeAreaBottomHeight);

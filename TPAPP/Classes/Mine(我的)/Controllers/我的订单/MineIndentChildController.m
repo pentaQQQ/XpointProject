@@ -99,6 +99,9 @@
     LYAccount *account = [LYAccount shareAccount];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:account.id forKey:@"userId"];
+    [dic setValue:@(10) forKey:@"pageNum"];
+    [dic setValue:@(10) forKey:@"pageSize"];
+    [dic setValue:account.id forKey:@"status"];
     [LYTools postBossDemoWithUrl:self.urlString param:dic success:^(NSDictionary *dict) {
         NSLog(@"%@",dict);
         [SVProgressHUD dismiss];

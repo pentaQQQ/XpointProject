@@ -15,7 +15,6 @@
 @interface MineIndentViewController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentScrollView *pageContentScrollView;
-//<JXCategoryViewDelegate>
 //@property (nonatomic, strong) NSMutableArray *titles;
 //@property (nonatomic, strong) JXCategoryNumberView *myCategoryView;
 @end

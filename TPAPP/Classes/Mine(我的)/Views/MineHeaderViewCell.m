@@ -70,8 +70,7 @@
     self.sLayer.position = CGPointZero;
     self.sLayer.frame = self.gradientBgView.bounds;
     self.gradientBgView.layer.mask = self.sLayer;
-    
-    self.headerBgView.frame = CGRectMake(20, 0, self.frame.size.width-40, 240);
+    self.headerBgView.frame = CGRectMake(20, SafeAreaTopHeight, self.frame.size.width-40, 240);
     self.headerBgView.layer.cornerRadius = 4.0;
     self.headerBgView.layer.shadowColor = [UIColor grayColor].CGColor;//阴影颜色
     self.headerBgView.layer.shadowOffset = CGSizeMake(0, 1);//阴影偏移量
