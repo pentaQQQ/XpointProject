@@ -113,7 +113,7 @@
     /// pageTitleView
     self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(44, pageTitleViewY, self.view.frame.size.width-88, 44) delegate:self titleNames:self.titleArr configure:configure];
     [self.view addSubview:_pageTitleView];
-   
+    
     
     NSMutableArray *childArr = [NSMutableArray array];
     for (int i=0; i<self.titleArr.count; i++) {
@@ -161,11 +161,11 @@
 
 //网络请求实列
 - (void)lodaDataSuccess:(void(^)(id respons))success{
-  
+    
     [[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
         
         NSLog(@"%@",json);
-
+        
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             
