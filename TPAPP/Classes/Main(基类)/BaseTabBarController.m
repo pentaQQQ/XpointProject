@@ -72,6 +72,8 @@
     
     CartViewController *c4=[[CartViewController alloc]init];
     c4.title=@"购物车";
+//    c4.hidesBottomBarWhenPushed = YES;
+//    c4.tabBarController.tabBar.hidden = YES;
     c4.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_buy"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     c4.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_buy_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     BaseNavigationController *thirdNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c4];

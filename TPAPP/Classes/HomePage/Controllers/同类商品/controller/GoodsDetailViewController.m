@@ -200,6 +200,7 @@
                 [dic setValue:model.productId forKey:@"productId"];
                 [dic setValue:model.size forKey:@"size"];
                 [dic setValue:lyAccount.id forKey:@"userId"];
+                [dic setValue:@"1" forKey:@"number"];
                 [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
                     NSLog(@"%@",dict);
                     NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
@@ -494,6 +495,7 @@
         LYAccount *lyAccount = [LYAccount shareAccount];
         [dic setValue:lyAccount.id forKey:@"userId"];
         [dic setValue:alertView.textView.text forKey:@"remark"];
+        [dic setValue:@"1" forKey:@"number"];
         [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
             NSLog(@"%@",dict);
             NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];

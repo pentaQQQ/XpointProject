@@ -25,6 +25,10 @@
 #import "IndentCell.h"
 #import "RefundCell.h"
 #import "ElseTableCell.h"
+#import "MXNavigationBarManager.h"
+#define SCREEN_RECT [UIScreen mainScreen].bounds
+static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
+static const CGFloat headerImageHeight = 260.0f;
 
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
@@ -56,10 +60,15 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    UINavigationBar *navBar = [UINavigationBar appearance];
+    //navBar.translucent = NO;
+//    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+//    self.automaticallyAdjustsScrollViewInsets=NO;
+//    [self.navigationController.navigationBar setTranslucent:NO];
+//    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
+    [self initBarManager];
     
-    self.automaticallyAdjustsScrollViewInsets=NO;
-    [self.navigationController.navigationBar setTranslucent:NO];
-    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
+    [self initBaseData];
     [self createItems];
     [self listTableView];
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
@@ -72,57 +81,105 @@
     // 隐藏状态
     self.mjHeader.stateLabel.hidden = YES;
     self.listTableView.mj_header = self.mjHeader;
-    self.mjHeader.hidden = YES;
+//    self.mjHeader.hidden = YES;
     
-    CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
-    CGRect navRect = self.navigationController.navigationBar.frame;
-    _view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, statusRect.size.height+navRect.size.height)];
-    _view1.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
-    [self.view addSubview:_view1];
+//    CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+//    CGRect navRect = self.navigationController.navigationBar.frame;
+//    _view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, statusRect.size.height+navRect.size.height)];
+//    _view1.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
+//    [self.view addSubview:_view1];
+}
+
+- (void)initBarManager {
+    [MXNavigationBarManager managerWithController:self];
+//    [MXNavigationBarManager setBarColor:[UIColor colorWithRed:0.5 green:0.5 blue:1 alpha:1]];
+    [MXNavigationBarManager setBarColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+    [MXNavigationBarManager setTintColor:[UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1.0]];
+    [MXNavigationBarManager setStatusBarStyle:UIStatusBarStyleDefault];
+    [MXNavigationBarManager setZeroAlphaOffset:0];
+    [MXNavigationBarManager setFullAlphaOffset:207];
+    [MXNavigationBarManager setFullAlphaTintColor:[UIColor whiteColor]];
+    [MXNavigationBarManager setFullAlphaBarStyle:UIStatusBarStyleLightContent];
+}
+
+- (void)initBaseData {
+    self.title = @"长草颜文字";
+    
+//    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kMXCellIdentifer];
+    self.listTableView.showsVerticalScrollIndicator = NO;
+    
+//    UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(SCREEN_RECT), headerImageHeight)];
+//    headerImageView.image = [UIImage imageNamed:@"headerImage"];
+//    self.listTableView.tableHeaderView = headerImageView;
+    
+//    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"right_arrow"]  style:UIBarButtonItemStylePlain target:self action:@selector(pushToBackView)];
+//    self.navigationItem.rightBarButtonItem = barButtonItem;
 }
 #pragma mark - 刷新数据
 - (void)loadNewData
 {
     [self.listTableView.mj_header endRefreshing];
 }
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+#pragma mark - scrollView delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
+    [MXNavigationBarManager changeAlphaWithCurrentOffset:offsetY];
     NSLog(@"%f",offsetY);
-    if (offsetY<0 && offsetY>-64) {
-        [self.navigationController.navigationBar setShadowImage:nil];
+    if (offsetY>15) {
+//        [self.navigationController.navigationBar setShadowImage:nil];
         [self.leftBtn setImage:[UIImage imageNamed:@"消息_black"] forState:UIControlStateNormal];
         [self.rightBtn setImage:[UIImage imageNamed:@"设置_black"] forState:UIControlStateNormal];
-    }else if (offsetY<=-64){
-        [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    }else if (offsetY<=15){
+//        [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
         [self.leftBtn setImage:[UIImage imageNamed:@"消息_white"] forState:UIControlStateNormal];
         [self.rightBtn setImage:[UIImage imageNamed:@"设置_white"] forState:UIControlStateNormal];
-        
-    }
-    if (offsetY < -64) {
-        self.mjHeader.hidden = NO;
-    }else if (offsetY >= -64){
-        self.mjHeader.hidden = YES;
-    }
-    if (SafeAreaTopHeight == 88) {
-        if (offsetY < 64)
-        {
-            _view1.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent: offsetY/40];
-        }
-    }else{
-        if (offsetY < 137)
-        {
-            _view1.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent: offsetY/64];
-        }
     }
 }
+
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    CGFloat offsetY = scrollView.contentOffset.y;
+//    NSLog(@"%f",offsetY);
+//    if (offsetY<0 && offsetY>-64) {
+//        [self.navigationController.navigationBar setShadowImage:nil];
+//        [self.leftBtn setImage:[UIImage imageNamed:@"消息_black"] forState:UIControlStateNormal];
+//        [self.rightBtn setImage:[UIImage imageNamed:@"设置_black"] forState:UIControlStateNormal];
+//    }else if (offsetY<=-64){
+//        [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+//        [self.leftBtn setImage:[UIImage imageNamed:@"消息_white"] forState:UIControlStateNormal];
+//        [self.rightBtn setImage:[UIImage imageNamed:@"设置_white"] forState:UIControlStateNormal];
+//
+//    }
+//    if (offsetY < -64) {
+//        self.mjHeader.hidden = NO;
+//    }else if (offsetY >= -64){
+//        self.mjHeader.hidden = YES;
+//    }
+//    if (SafeAreaTopHeight == 88) {
+//        if (offsetY < 64)
+//        {
+//            _view1.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent: offsetY/40];
+//        }
+//    }else{
+//        if (offsetY < 137)
+//        {
+//            _view1.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent: offsetY/64];
+//        }
+//    }
+//}
 #pragma mark - iOS 设置导航栏全透明
 - (void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBar.translucent = YES;
-    //设置导航栏背景图片为一个空的image，这样就透明了
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    //去掉透明后导航栏下边的黑边
-    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    [super viewWillAppear:animated];
+    [self initBarManager];
+    self.listTableView.delegate = self;
+    CGFloat offsetY = self.listTableView.contentOffset.y;
+    [MXNavigationBarManager changeAlphaWithCurrentOffset:offsetY];
+//    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+//    self.navigationController.navigationBar.translucent = YES;
+//    //设置导航栏背景图片为一个空的image，这样就透明了
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+//    //去掉透明后导航栏下边的黑边
+//    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
     UILabel*titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.font = [UIFont boldSystemFontOfSize:20];
@@ -133,9 +190,12 @@
     
 }
 - (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
     //如果不想让其他页面的导航栏变为透明 需要重置
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:nil];
+//    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setShadowImage:nil];
+    self.listTableView.delegate = nil;
+    [MXNavigationBarManager reStoreToSystemNavigationBar];
 }
 #pragma mark - 创建tableview
 -(UITableView *)listTableView
@@ -154,6 +214,7 @@
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
         .bottomEqualToView(self.view);
+        _listTableView.contentSize = CGSizeMake(kScreenWidth, 240+20+SafeAreaTopHeight+170+120+80);
         //        if ([self.listTableView respondsToSelector:@selector(setSeparatorInset:)]) {
         //            [self.listTableView setSeparatorInset:UIEdgeInsetsZero];
         //        }
@@ -625,7 +686,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==0) {
-        return 240+20;
+        return 240+20+SafeAreaTopHeight;
     }else if (indexPath.section == 4){
 //        return 185;
         return 100;

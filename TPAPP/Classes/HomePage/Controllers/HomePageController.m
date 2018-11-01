@@ -108,8 +108,6 @@
     [rightBtn setImage:[UIImage imageNamed:@"icon_home_search"] forState:UIControlStateNormal];
     [self.view addSubview:rightBtn];
     [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    
     /// pageTitleView
     self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(44, pageTitleViewY, self.view.frame.size.width-88, 44) delegate:self titleNames:self.titleArr configure:configure];
     [self.view addSubview:_pageTitleView];
