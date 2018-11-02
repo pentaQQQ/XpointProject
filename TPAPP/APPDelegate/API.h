@@ -55,6 +55,14 @@
 //根据商户查询活动信息,前端拿到数据需判断活动结束时间
 #define getActivityByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getActivityByMerchantId"]
 
+
+//根据关键词和商户ID搜索商品,返回所有已上架商品
+#define getsearchProductByKeyword [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/searchProductByKeyword"]
+
+
+
+
+
 //app退出登陆
 #define getexit [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/exit"]
 //编辑用户信息
