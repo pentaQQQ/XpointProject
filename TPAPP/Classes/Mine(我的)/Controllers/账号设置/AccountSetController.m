@@ -14,6 +14,8 @@
 #import "AddressManageController.h"
 #import "ZLNoAuthorityViewController.h"
 #import <NMSSH/NMSSH.h>
+
+#import "NewLoginViewController.h"
 @interface AccountSetController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, readwrite, strong) UITableView *tableView;
 
@@ -401,7 +403,7 @@
         if ([respCode isEqualToString:@"00000"]) {
 //            [LYAccount clear];
             [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
-            LoginViewController*vc = [[LoginViewController alloc]init];
+            NewLoginViewController*vc = [[NewLoginViewController alloc]init];
             RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
             rootVC.rt_disableInteractivePop = YES ;
             [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;

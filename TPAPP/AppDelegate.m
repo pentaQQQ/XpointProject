@@ -23,7 +23,7 @@
 #import <QMChatSDK/QMChatSDK-Swift.h>
 #import "QMManager.h"
 
-
+#import "NewLoginViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -94,7 +94,7 @@
 
     }else{
     
-        LoginViewController*vc = [[LoginViewController alloc]init];
+        NewLoginViewController*vc = [[NewLoginViewController alloc]init];
         RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
         rootVC.rt_disableInteractivePop = YES ;
         self.window.rootViewController = rootVC;

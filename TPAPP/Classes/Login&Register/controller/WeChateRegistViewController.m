@@ -1,18 +1,14 @@
 //
-//  LoginViewController.m
+//  WeChateRegistViewController.m
 //  TPAPP
 //
-//  Created by 崔文龙 on 2018/8/21.
-//  Copyright © 2018年 cbl－　点硕. All rights reserved.
+//  Created by 崔文龙 on 2018/11/5.
+//  Copyright © 2018 cbl－　点硕. All rights reserved.
 //
 
-#import "LoginViewController.h"
-#import "WeChateBoardViewController.h"
-#import "registViewController.h"
+#import "WeChateRegistViewController.h"
 
-@interface LoginViewController ()
-@property (weak, nonatomic) IBOutlet UIView *bottomview;
-
+@interface WeChateRegistViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumberField;
 
@@ -20,41 +16,17 @@
 @property (weak, nonatomic) IBOutlet UITextField *codeField;
 
 @property (weak, nonatomic) IBOutlet UIButton *codeBtn;
-
-@property (weak, nonatomic) IBOutlet UIButton *boardBtn;
-
-
+@property (weak, nonatomic) IBOutlet UIButton *sureBtn;
 @end
 
-@implementation LoginViewController
+@implementation WeChateRegistViewController
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.hidden = YES;
     
+    self.navigationController.navigationBar.hidden = YES;
     [self setuptabbarview];
 }
-
-
-
-- (IBAction)zhanghaobtnClick:(id)sender {
-    
-//    //    //  来吧旋转动画
-//    __weak typeof(self) weakSelf = self;
-//    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        weakSelf.view.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);  // 当前view，这句代码可以不要。这是我的需求
-//
-//    } completion:^(BOOL finished) {
-//        WeChateBoardViewController *newVC =[WeChateBoardViewController new];
-//        [weakSelf presentViewController:newVC animated:NO completion:nil];
-//    }];
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    
-}
-
 
 
 - (IBAction)codeBtnClick:(id)sender {
@@ -72,7 +44,7 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:self.phoneNumberField.text forKey:@"phone"];
-    [dic setValue:@"register" forKey:@"method"];
+    [dic setValue:@"login" forKey:@"method"];
     NSString*url = [NSString stringWithFormat:@"%@/%@",getSecurityCode,self.phoneNumberField.text];
     [[NetworkManager sharedManager]getWithUrl:url param:dic success:^(id json) {
         NSLog(@"%@",json);
@@ -95,10 +67,7 @@
 
 
 
-
-
-
-- (IBAction)boardBtnClick:(id)sender {
+- (IBAction)registBtnClick:(id)sender {
     
     if (!self.phoneNumberField.text.length) {
         [SVProgressHUD doAnyRemindWithHUDMessage:@"输入电话号码不能为空" withDuration:1.5];
@@ -114,21 +83,18 @@
     }
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:self.phoneNumberField.text forKey:@"phone"];
-    [dic setValue:self.codeField.text forKey:@"validCode"];
-    [dic setValue:@"login" forKey:@"method"];
-    [dic setValue:@"1" forKey:@"type"];
-    [[NetworkManager sharedManager]postWithUrl:getlogin param:dic success:^(id json) {
+    [dic setValue:self.phoneNumberField.text forKey:@"phone"];//电话号码
+    [dic setValue:self.codeField.text forKey:@"validCode"];//验证码
+    [dic setValue:self.code forKey:@"inviteCode"];//邀请码
+    [dic setValue:self.openId forKey:@"openId"];
+    [dic setValue:@"register" forKey:@"method"];
+    [dic setValue:@"3" forKey:@"type"];
+    [[NetworkManager sharedManager]postWithUrl:getreg param:dic success:^(id json) {
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            NSString *data = [NSString stringWithFormat:@"%@",json[@"data"]];
-            [[NSUserDefaults standardUserDefaults]setValue:data forKey:@"token"];
-            
+            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"注册成功" withDuration:1.5];
             [self getPeopleInfomation];
-        }else if ([respCode isEqualToString:@"99999"]){
-            registViewController *vc = [[registViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
         }else{
             [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
         }
@@ -136,9 +102,6 @@
         
     }];
 }
-
-
-
 
 
 //获取用户信息
@@ -166,6 +129,9 @@
 }
 
 
+
+
+
 -(void)setuptabbarview{
     
     UIView *vi = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, SafeAreaTopHeight)];
@@ -174,14 +140,12 @@
     
     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, vi.frame.size.height-44, 44, 44)];
     [vi addSubview:btn];
-   
+    
     [btn setImage:[UIImage imageNamed:@"icon_return"] forState:UIControlStateNormal];
     [btn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
     
 }
-
-
 
 @end
