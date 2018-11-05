@@ -14,8 +14,20 @@
 //#define WeChateSecret   @"045dd77a293df7f7dc340fc69211d097"//微信开发者账号Secret
 //#define WeChateappid    @"wx354bd4644a16d2e1"//微信开发者账号appid
 
-#define WeChateSecret   @"112c2f14829cb6552c30e3ba9510d077"//微信开发者账号Secret
-#define WeChateappid    @"wxe18e2ff7e93e4253"//微信开发者账号appid
+#define WeChateSecret   @"a5315115b905a26a31e02ad5659fa22a"//微信开发者账号Secret
+#define WeChateappid    @"wx32d968fae8531d0a"//微信开发者账号appid
+
+
+//AppID  :wx32d968fae8531d0a   AppSecret:a5315115b905a26a31e02ad5659fa22a
+
+
+
+
+
+
+
+
+
 
 //#define kBaseUrl           @"http://47.92.193.30/"
 #define kBaseUrl           @"https://pay.shty518.com/"
