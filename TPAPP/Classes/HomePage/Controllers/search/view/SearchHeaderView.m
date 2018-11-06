@@ -10,13 +10,24 @@
 
 @implementation SearchHeaderView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        
+    }
+    
+    return self;
 }
-*/
+
+
+
+- (void)setFrame:(CGRect)frame {
+    
+    [super setFrame:CGRectMake(0, 0, self.superview.frame.size.width, self.superview.bounds.size.height)];
+}
+
 
 
 
@@ -24,7 +35,20 @@
     
     _bottomView = bottomView;
     
-    ViewBorderRadius(bottomView, 20, 1, [UIColor groupTableViewBackgroundColor]);
+//    ViewBorderRadius(bottomView, 20, 1, [UIColor groupTableViewBackgroundColor]);
 }
+
+
+
+-(CGSize)intrinsicContentSize
+{
+    if (false) {
+        return CGSizeMake(UIViewNoIntrinsicMetric, UIViewNoIntrinsicMetric);
+    } else {
+        return CGSizeMake(kScreenWidth/3*2, 30);
+    }
+}
+
+
 
 @end

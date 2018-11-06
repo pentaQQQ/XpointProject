@@ -130,17 +130,17 @@
 
 -(void)WeatherToLoginWithJson:(id)json success:(void(^)(id json))success{
     
-    NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-     NSString *code = [NSString stringWithFormat:@"%@",json[@"code"]];
-    NSLog(@"=================%@",respCode);
-    if ([respCode isEqualToString:@"90000"]) {
-        [SVProgressHUD doAnyRemindWithHUDMessage:@"登陆过期，请重新登录" withDuration:1.5];
-        [LYTools ToLogin];
-        return;
-    }else{
-        
+//    NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+//     NSString *code = [NSString stringWithFormat:@"%@",json[@"code"]];
+//    NSLog(@"=================%@",respCode);
+//    if ([respCode isEqualToString:@"90000"]) {
+//        [SVProgressHUD doAnyRemindWithHUDMessage:@"登陆过期，请重新登录" withDuration:1.5];
+//        [LYTools ToLogin];
+//        return;
+//    }else{
+    
         success(json);
-    }
+//    }
 }
 
 

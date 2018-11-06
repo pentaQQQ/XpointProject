@@ -1,24 +1,25 @@
 //
-//  WeChateBoardViewController.m
+//  NewLoginViewController.m
 //  TPAPP
 //
-//  Created by 崔文龙 on 2018/8/27.
-//  Copyright © 2018年 cbl－　点硕. All rights reserved.
+//  Created by 崔文龙 on 2018/11/5.
+//  Copyright © 2018 cbl－　点硕. All rights reserved.
 //
 
-#import "WeChateBoardViewController.h"
+#import "NewLoginViewController.h"
 #import "LoginViewController.h"
 #import "WXApi.h"
 #import "WXApiRequestHandler.h"
 #import "WXApiManager.h"
 #import "WechatAuthSDK.h"
 
-#import "registViewController.h"
-@interface WeChateBoardViewController ()<WXApiManagerDelegate,WechatAuthAPIDelegate>
+#import "WeChateRegistViewController.h"
+#import "LoginViewController.h"
+@interface NewLoginViewController ()<WXApiManagerDelegate,WechatAuthAPIDelegate>
 
 @end
 
-@implementation WeChateBoardViewController
+@implementation NewLoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,17 +29,10 @@
 
 
 
-- (IBAction)qianhuanBtnClick:(id)sender {
+- (IBAction)phonenumBtnClick:(id)sender {
+    LoginViewController *vc = [[LoginViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
     
-    //    //  来吧旋转动画
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        weakSelf.view.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);  // 当前view，这句代码可以不要。这是我的需求
-    } completion:^(BOOL finished) {
-        LoginViewController *newVC =[LoginViewController new];
-        [weakSelf presentViewController:newVC animated:NO completion:nil];
-    }];
- 
 }
 
 
@@ -114,21 +108,22 @@
         if ([respCode isEqualToString:@"00000"]) {
             NSString *data = [NSString stringWithFormat:@"%@",json[@"data"]];
             [[NSUserDefaults standardUserDefaults]setValue:data forKey:@"token"];
-
+            
             [self getPeopleInfomation];
         }else if ([respCode isEqualToString:@"99999"]){
-//            registViewController *vc = [[registViewController alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
+            //            registViewController *vc = [[registViewController alloc]init];
+            //            [self.navigationController pushViewController:vc animated:YES];
         }else if ([respCode isEqualToString:@"500"]){//微信未注册
-           
+            
             [LYTools showTextFiledAlertControllerWithTitle:@"请输入邀请码" msg:@"" tfSetting:^(UITextField *textField) {
                 
             } onController:self action:^(NSString *tfValue) {
-                registViewController *vc = [[registViewController alloc]init];
-                
+                WeChateRegistViewController *vc = [[WeChateRegistViewController alloc]init];
+                vc.code = tfValue;
+                vc.openId = openid;
                 [self.navigationController pushViewController:vc animated:YES];
             }];
-          
+            
         }
         
         
@@ -171,7 +166,6 @@
     }];
     
 }
-
 
 
 
