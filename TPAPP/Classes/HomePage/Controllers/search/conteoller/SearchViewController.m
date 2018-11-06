@@ -19,7 +19,20 @@
 #import "danshouView.h"
 #import "HuoDongCell.h"
 
-@interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+
+
+#import "CXSearchCollectionViewCell.h"
+#import "SelectCollectionReusableView.h"
+#import "SelectCollectionLayout.h"
+#import "CXSearchSectionModel.h"
+#import "CXSearchModel.h"
+#import "CXDBHandle.h"
+static NSString *const cxSearchCollectionViewCell = @"CXSearchCollectionViewCell";
+
+static NSString *const headerViewIden = @"HeadViewIden";
+
+
+@interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UICollectionViewDataSource,UICollectionViewDelegate,SelectCollectionCellDelegate,UICollectionReusableViewButtonDelegate,UISearchBarDelegate>
 @property(nonatomic,strong)SearchHeaderView*headerview;
 @property(nonatomic,strong)UITableView*tableview;
 
@@ -35,6 +48,22 @@
 
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)shanghuModel *model;
+
+
+@property(nonatomic,strong)UICollectionView *cxSearchCollectionView;
+/**
+ *  存储网络请求的热搜，与本地缓存的历史搜索model数组
+ */
+@property (nonatomic, strong) NSMutableArray *sectionArray;
+/**
+ *  存搜索的数组 字典
+ */
+@property (nonatomic,strong) NSMutableArray *searchArray;
+
+
+@property(nonatomic,strong)UISearchBar*search;
+
+
 @end
 
 
@@ -51,6 +80,23 @@
 }
 
 
+-(NSMutableArray *)sectionArray
+{
+    if (_sectionArray == nil) {
+        _sectionArray = [NSMutableArray array];
+    }
+    return _sectionArray;
+}
+
+-(NSMutableArray *)searchArray
+{
+    if (_searchArray == nil) {
+        _searchArray = [NSMutableArray array];
+    }
+    return _searchArray;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -58,41 +104,71 @@
     
     
     self.currentIndex = 0;
-    SearchHeaderView*headerview = [[NSBundle mainBundle]loadNibNamed:@"SearchHeaderView" owner:self options:nil].lastObject;
-    headerview.frame = CGRectMake(0, 0, 100,20);
-    ViewBorderRadius(headerview, 5, 1, [UIColor groupTableViewBackgroundColor]);
-    self.headerview = headerview;
     
     
-    headerview.textField.tintColor = [UIColor lightGrayColor];
-    headerview.textField.textColor =[UIColor lightGrayColor];
-    [ headerview.textField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
-    
-    self.navigationItem.titleView = headerview;
     
     
-    headerview.textField.delegate = self;
+    UISearchBar *search = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth/3*2,30)];
+    self.search = search;
+    [search setPlaceholder:@"搜索商品名称/品牌/关键字"];
+    
+    //获取textField(也可以通过KVC获取)
+    UITextField *searchField=[((UIView *)[search.subviews objectAtIndex:0]).subviews lastObject];
+    //设置placeHolder字体的颜色
+    searchField.tintColor = [UIColor lightGrayColor];
+    searchField.textColor =[UIColor lightGrayColor];
+    [searchField setValue:[UIColor lightGrayColor]forKeyPath:@"_placeholderLabel.textColor"];
+    searchField.font = [UIFont systemFontOfSize:14];
+    
+    searchField.returnKeyType = UIReturnKeySend;
+    searchField.backgroundColor = [UIColor whiteColor];
+    
+    
+    search.delegate = self;
+    
+    self.navigationItem.titleView = search;
+    
+    
     
     
     [self setUpUI];
+    
+    [self prepareData];
 }
 
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     
-    if (!textField.text.length) {
+    if (!searchBar.text.length) {
         [SVProgressHUD doAnyRemindWithHUDMessage:@"输入的内容不能为空" withDuration:1.5];
     }else{
         
-        [self getTheSearchGoodsWithkeyword:textField.text AndmerchantId:self.model.merchantId];
+        [self getTheSearchGoodsWithkeyword:searchBar.text AndmerchantId:self.model.merchantId];
+        
+        /***  每搜索一次   就会存放一次到历史记录，但不存重复的*/
+        if (![self.searchArray containsObject:[NSDictionary dictionaryWithObject:searchBar.text forKey:@"content_name"]]) {
+            [self reloadData:searchBar.text];
+        }
         
         
     }
-    textField.text = @"";
     
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-    return YES;
+    
 }
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    
+    if (searchText.length == 0) {
+        self.tableview.hidden = YES;
+    }
+    
+}
+
+
+
+
+
 
 
 
@@ -100,7 +176,7 @@
     
     
     
-    UIButton *topbtn = [[UIButton alloc]initWithFrame:CGRectMake(10, SafeAreaTopHeight, kScreenWidth-20, 40)];
+    UIButton *topbtn = [[UIButton alloc]initWithFrame:CGRectMake(10, SafeAreaTopHeight+10, kScreenWidth-20, 40)];
     self.topbtn = topbtn;
     [self.view addSubview:topbtn];
     topbtn.backgroundColor = [UIColor whiteColor];
@@ -122,8 +198,28 @@
     vi.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
     
+    
+    UICollectionView *cxSearchCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(topbtn.frame)+1, kScreenWidth, kScreenHeight-SafeAreaTopHeight-41) collectionViewLayout:[[SelectCollectionLayout alloc] init]];
+    self.cxSearchCollectionView = cxSearchCollectionView;
+    
+    
+    
+    [self.cxSearchCollectionView registerClass:[SelectCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewIden];
+    [self.cxSearchCollectionView registerNib:[UINib nibWithNibName:@"CXSearchCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cxSearchCollectionViewCell];
+    [self.view addSubview:cxSearchCollectionView];
+    cxSearchCollectionView.backgroundColor = [UIColor whiteColor];
+    cxSearchCollectionView.delegate = self;
+    cxSearchCollectionView.dataSource = self;
+    
+    
+    
+    
+    
+    
+    
     UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(topbtn.frame)+1, kScreenWidth, kScreenHeight-SafeAreaTopHeight-41) style:UITableViewStylePlain];
     self.tableview = tableview;
+    self.tableview.hidden = YES;
     [self.view addSubview:tableview];
     
     tableview.tableFooterView = [UIView new];
@@ -213,7 +309,10 @@
             }
             
             if (self.dataArr.count == 0) {
+                self.tableview.hidden = YES;
                 [SVProgressHUD doAnyRemindWithHUDMessage:@"暂无商品" withDuration:1.5];
+            }else{
+                self.tableview.hidden = NO;
             }
             
             
@@ -227,6 +326,12 @@
     }];
     
 }
+
+
+
+
+
+
 
 
 
@@ -375,4 +480,157 @@
     
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+- (void)prepareData
+{
+    /**
+     *  测试数据 ，字段暂时 只用一个 titleString，后续可以根据需求 相应加入新的字段
+     */
+    NSDictionary *testDict = @{@"section_id":@"1",@"section_title":@"热搜",@"section_content":@[@{@"content_name":@"看看哪些光了"},@{@"content_name":@"看看哪些没光"}]};
+    NSMutableArray *testArray = [@[] mutableCopy];
+    [testArray addObject:testDict];
+    
+    /***  去数据查看 是否有数据*/
+    NSDictionary *parmDict  = @{@"category":@"1"};
+    NSDictionary *dbDictionary =  [CXDBHandle statusesWithParams:parmDict];
+    
+    if (dbDictionary.count) {
+        [testArray addObject:dbDictionary];
+        [self.searchArray addObjectsFromArray:dbDictionary[@"section_content"]];
+    }
+    
+    for (NSDictionary *sectionDict in testArray) {
+        CXSearchSectionModel *model = [[CXSearchSectionModel alloc]initWithDictionary:sectionDict];
+        [self.sectionArray addObject:model];
+    }
+}
+
+
+
+
+
+
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    CXSearchSectionModel *sectionModel =  self.sectionArray[section];
+    return sectionModel.section_contentArray.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CXSearchCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cxSearchCollectionViewCell forIndexPath:indexPath];
+    CXSearchSectionModel *sectionModel =  self.sectionArray[indexPath.section];
+    CXSearchModel *contentModel = sectionModel.section_contentArray[indexPath.row];
+    [cell.contentButton setTitle:contentModel.content_name forState:UIControlStateNormal];
+    cell.selectDelegate = self;
+    return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return self.sectionArray.count;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionReusableView *reusableview = nil;
+    if ([kind isEqualToString: UICollectionElementKindSectionHeader]){
+        SelectCollectionReusableView* view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:headerViewIden forIndexPath:indexPath];
+        view.delectDelegate = self;
+        CXSearchSectionModel *sectionModel =  self.sectionArray[indexPath.section];
+        [view setText:sectionModel.section_title];
+        /***  此处完全 也可以自定义自己想要的模型对应放入*/
+        if(indexPath.section == 0)
+        {
+            [view setImage:@"cxCool"];
+            view.delectButton.hidden = YES;
+        }else{
+            [view setImage:@"cxSearch"];
+            view.delectButton.hidden = NO;
+        }
+        reusableview = view;
+    }
+    return reusableview;
+}
+
+- (CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CXSearchSectionModel *sectionModel =  self.sectionArray[indexPath.section];
+    if (sectionModel.section_contentArray.count > 0) {
+        CXSearchModel *contentModel = sectionModel.section_contentArray[indexPath.row];
+        return [CXSearchCollectionViewCell getSizeWithText:contentModel.content_name];
+    }
+    return CGSizeMake(80, 24);
+}
+
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - SelectCollectionCellDelegate
+- (void)selectButttonClick:(CXSearchCollectionViewCell *)cell;
+{
+    NSIndexPath* indexPath = [self.cxSearchCollectionView indexPathForCell:cell];
+    CXSearchSectionModel *sectionModel =  self.sectionArray[indexPath.section];
+    CXSearchModel *contentModel = sectionModel.section_contentArray[indexPath.row];
+    NSLog(@"您选的内容是：%@",contentModel.content_name);
+    
+    self.search.text = contentModel.content_name;
+    
+    [self getTheSearchGoodsWithkeyword:self.search.text AndmerchantId:self.model.merchantId];
+    
+    
+    
+    
+}
+
+#pragma mark - UICollectionReusableViewButtonDelegate
+- (void)delectData:(SelectCollectionReusableView *)view;
+{
+    if (self.sectionArray.count > 1) {
+        [self.sectionArray removeLastObject];
+        [self.searchArray removeAllObjects];
+        [self.cxSearchCollectionView reloadData];
+        [CXDBHandle saveStatuses:@{} andParam:@{@"category":@"1"}];
+    }
+}
+
+
+
+- (void)reloadData:(NSString *)textString
+{
+    [self.searchArray addObject:[NSDictionary dictionaryWithObject:textString forKey:@"content_name"]];
+    
+    NSDictionary *searchDict = @{@"section_id":@"2",@"section_title":@"历史记录",@"section_content":self.searchArray};
+    
+    /***由于数据量并不大 这样每次存入再删除没问题  存数据库*/
+    NSDictionary *parmDict  = @{@"category":@"1"};
+    [CXDBHandle saveStatuses:searchDict andParam:parmDict];
+    
+    CXSearchSectionModel *model = [[CXSearchSectionModel alloc]initWithDictionary:searchDict];
+    if (self.sectionArray.count > 1) {
+        [self.sectionArray removeLastObject];
+    }
+    [self.sectionArray addObject:model];
+    [self.cxSearchCollectionView reloadData];
+    //    self.headerview.textField.text = @"";
+}
+
+
+
 @end
