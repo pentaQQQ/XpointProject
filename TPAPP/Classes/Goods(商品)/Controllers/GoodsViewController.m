@@ -27,7 +27,7 @@
 #import "QMAlert.h"
 #import "QMManager.h"
 
-
+#import "QImoModel.h"
 
 @interface GoodsViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView*tableview;
@@ -60,14 +60,25 @@
     self.view.backgroundColor = WhiteColor;
     [self setUpUI];
     
-
+    
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerSuccess:) name:CUSTOM_LOGIN_SUCCEED object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerFailure:) name:CUSTOM_LOGIN_ERROR_USER object:nil];
     
     [self.navigationController.navigationBar setTranslucent:NO];
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
+    
+  
 }
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    [SVProgressHUD doAnythingWithHUDMessage:@"获取中"];
+    
+    [QMConnect registerSDKWithAppKey:@"5f12e670-c334-11e8-b0e0-5f753912b765" userName:@"8001" userId:@"8001_id"];
+    
+}
+
 
 
 - (void)dealloc {
@@ -112,7 +123,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 8;
+    return self.dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -124,6 +135,12 @@
         cell = [[NSBundle mainBundle]loadNibNamed:@"TPMessageCell" owner:self options:nil].lastObject;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    QImoModel *model = self.dataArr[indexPath.row];
+    
+    cell.titleLab.text = model.name;
+    
+    
     
     return cell;
 }
@@ -140,11 +157,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
-    
-    [SVProgressHUD doAnythingWithHUDMessage:@"获取中"];
-    
-    [QMConnect registerSDKWithAppKey:@"5f12e670-c334-11e8-b0e0-5f753912b765" userName:@"8001" userId:@"8001_id"];
-    
+    QImoModel *model = self.dataArr[indexPath.row];
+
+    [self showChatRoomViewController:model.id processType:@"" entranceId:@""];
     
 }
 
@@ -270,11 +285,20 @@
             self.isConnecting = NO;
             
             [SVProgressHUD dismiss];
-            if (peers.count == 1 && peers.count != 0) {
-                [self showChatRoomViewController:[peers.firstObject objectForKey:@"id"] processType:@"" entranceId:@""];
-            }else {
-                [self showPeersWithAlert:peers messageStr:NSLocalizedString(@"title.type", nil)];
+            
+            [self.dataArr removeAllObjects];
+            for (NSDictionary *dic in peers) {
+                QImoModel *model = [QImoModel mj_objectWithKeyValues:dic];
+                [self.dataArr addObject:model];
             }
+            
+            [self.tableview reloadData];
+            
+            //            if (peers.count == 1 && peers.count != 0) {
+            //                [self showChatRoomViewController:[peers.firstObject objectForKey:@"id"] processType:@"" entranceId:@""];
+            //            }else {
+            //                [self showPeersWithAlert:peers messageStr:NSLocalizedString(@"title.type", nil)];
+            //            }
         });
     } failureBlock:^{
         dispatch_async(dispatch_get_main_queue(), ^{

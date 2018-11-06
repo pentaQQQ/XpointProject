@@ -360,6 +360,7 @@
 		8E8B0BD821913355002D9949 /* QMChatSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E9A5E1D215F0B530084C9F1 /* QMChatSDK.framework */; };
 		8E8B0BDA219133A7002D9949 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8B0BD9219133A6002D9949 /* libsqlite3.tbd */; };
 		8E8B0BDC219144B7002D9949 /* SearchHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E8B0BDB219144B7002D9949 /* SearchHeaderView.xib */; };
+		8E8B0BDF219181EA002D9949 /* QImoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B0BDE219181EA002D9949 /* QImoModel.m */; };
 		8E9A5E24215F0B820084C9F1 /* QMChatSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8E9A5E1D215F0B530084C9F1 /* QMChatSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8E9A5E26215F0B820084C9F1 /* Qiniu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8E9A5E1E215F0B530084C9F1 /* Qiniu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8E9A5E9B215F140D0084C9F1 /* QMChatRoomCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9A5E2E215F140C0084C9F1 /* QMChatRoomCellFactory.m */; };
@@ -1186,6 +1187,8 @@
 		8E8B0BD4219131C0002D9949 /* CXDBHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXDBHandle.h; sourceTree = "<group>"; };
 		8E8B0BD9219133A6002D9949 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		8E8B0BDB219144B7002D9949 /* SearchHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchHeaderView.xib; sourceTree = "<group>"; };
+		8E8B0BDD219181EA002D9949 /* QImoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QImoModel.h; sourceTree = "<group>"; };
+		8E8B0BDE219181EA002D9949 /* QImoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QImoModel.m; sourceTree = "<group>"; };
 		8E9A5E1D215F0B530084C9F1 /* QMChatSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QMChatSDK.framework; sourceTree = "<group>"; };
 		8E9A5E1E215F0B530084C9F1 /* Qiniu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Qiniu.framework; sourceTree = "<group>"; };
 		8E9A5E2D215F140C0084C9F1 /* QMChatRoomVoiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMChatRoomVoiceCell.h; sourceTree = "<group>"; };
@@ -2196,6 +2199,8 @@
 			children = (
 				012997BF2139267200ADE72B /* GoodLogisticsModel.h */,
 				012997C02139267200ADE72B /* GoodLogisticsModel.m */,
+				8E8B0BDD219181EA002D9949 /* QImoModel.h */,
+				8E8B0BDE219181EA002D9949 /* QImoModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4363,6 +4368,7 @@
 				8EA952FB212BAA930057AC78 /* ZLPhotoPickerBrowserViewController+SignlePhotoBrowser.m in Sources */,
 				8E9A5F83215F14170084C9F1 /* NSData+ImageContentType.m in Sources */,
 				8E9A5F76215F14170084C9F1 /* Reachability.m in Sources */,
+				8E8B0BDF219181EA002D9949 /* QImoModel.m in Sources */,
 				8ED5B48A212A5F7B00B5983B /* ClassDetailViewController.m in Sources */,
 				01121008213392FD0071AC5F /* JXCategoryNumberCell.m in Sources */,
 				012997C22139267200ADE72B /* messageHeaderView.m in Sources */,

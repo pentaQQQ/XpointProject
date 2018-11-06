@@ -102,6 +102,7 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:openid forKey:@"openId"];
     [dic setValue:@"3" forKey:@"type"];
+      [dic setValue:@"login" forKey:@"method"];
     [[NetworkManager sharedManager]postWithUrl:getlogin param:dic success:^(id json) {
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
@@ -113,7 +114,7 @@
         }else if ([respCode isEqualToString:@"99999"]){
             //            registViewController *vc = [[registViewController alloc]init];
             //            [self.navigationController pushViewController:vc animated:YES];
-        }else if ([respCode isEqualToString:@"500"]){//微信未注册
+        }else if ([respCode isEqualToString:@"80000"]){//微信未注册
             
             [LYTools showTextFiledAlertControllerWithTitle:@"请输入邀请码" msg:@"" tfSetting:^(UITextField *textField) {
                 
