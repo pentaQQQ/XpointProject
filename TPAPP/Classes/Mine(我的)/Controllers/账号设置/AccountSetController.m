@@ -14,6 +14,8 @@
 #import "AddressManageController.h"
 #import "ZLNoAuthorityViewController.h"
 #import <NMSSH/NMSSH.h>
+
+#import "NewLoginViewController.h"
 @interface AccountSetController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, readwrite, strong) UITableView *tableView;
 
@@ -30,7 +32,7 @@
     [self prepareData];
 }
 - (void)configureTableView {
-    [self.view addSubview:self.tableView];
+    [self tableView];
 }
 #pragma mark - Public Method
 - (__kindof YSStaticCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath {
@@ -94,6 +96,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 0;
+    }
     YSStaticSectionModel *sectionModel = [self sectionModelInSection:section];
     return sectionModel.sectionHeaderHeight < 0.01 ? 0.01 : sectionModel.sectionHeaderHeight;
 }
@@ -159,7 +164,8 @@
 }
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        [self.view addSubview:_tableView];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -170,6 +176,15 @@
         _tableView.estimatedRowHeight = 0;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        //获取状态栏的rect
+        CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+        //获取导航栏的rect
+        CGRect navRect = self.navigationController.navigationBar.frame;
+        _tableView.sd_layout
+        .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .bottomSpaceToView(self.view, SafeAreaBottomHeight);
     }
     return _tableView;
 }
@@ -388,7 +403,7 @@
         if ([respCode isEqualToString:@"00000"]) {
 //            [LYAccount clear];
             [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
-            LoginViewController*vc = [[LoginViewController alloc]init];
+            NewLoginViewController*vc = [[NewLoginViewController alloc]init];
             RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
             rootVC.rt_disableInteractivePop = YES ;
             [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;

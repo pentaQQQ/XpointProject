@@ -63,15 +63,25 @@
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    
-    self.CartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -SafeAreaBottomHeight) style:UITableViewStyleGrouped];
+    [self.navigationController.navigationBar setTranslucent:NO];
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
+    NSLog(@"%f",SCREEN_HEIGHT);
+    self.CartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-44-SafeAreaBottomHeight) style:UITableViewStyleGrouped];
     self.CartTableView.estimatedRowHeight = 0;
     self.CartTableView.delegate = self;
     self.CartTableView.dataSource = self;
     self.CartTableView.backgroundColor = colorWithRGB(0xEEEEEE);
     self.CartTableView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.CartTableView];
+//    //获取状态栏的rect
+//    CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+//    //获取导航栏的rect
+//    CGRect navRect = self.navigationController.navigationBar.frame;
+//    self.CartTableView.sd_layout
+//    .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
+//    .leftEqualToView(self.view)
+//    .rightEqualToView(self.view)
+//    .bottomSpaceToView(self.view, SafeAreaBottomHeight);
     self.CartTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     //自动更改透明度
     self.CartTableView.mj_header.automaticallyChangeAlpha = YES;
@@ -179,7 +189,7 @@
  */
 -(void)accountsView
 {
-    self.accountView = [[BottomView alloc]initWithFrame:CGRectMake(0, kScreenHeight -44 - 44-SafeAreaBottomHeight, kScreenWidth, 44)];
+    self.accountView = [[BottomView alloc]initWithFrame:CGRectMake(0, kScreenHeight -SafeAreaTopHeight-44 - 44-SafeAreaBottomHeight, kScreenWidth, 44)];
     self.accountView.backgroundColor = [UIColor whiteColor];
     self.accountView.AllSelected = YES;
     self.accountView.delegate = self;
@@ -227,7 +237,7 @@
             [self.accountView removeFromSuperview];
             self.accountView = nil;
         }
-        self.CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-SafeAreaBottomHeight);
+        self.CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-44-SafeAreaBottomHeight);
         return 330;
     }else{
         if(self.accountView == nil){
@@ -235,9 +245,9 @@
             
         }
         [self postCenter];
-        self.CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-SafeAreaBottomHeight);
+        self.CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-44-SafeAreaBottomHeight);
         if (section == self.dataSource.count - 1) {
-            return 200;
+            return 260;
         }else{
             return 10;
         }
@@ -428,7 +438,6 @@
                 DeleteGoodsListController *deleteGoodsCtrl = [[DeleteGoodsListController alloc] init];
                 deleteGoodsCtrl.title = @"回收清单";
                 [self.navigationController pushViewController:deleteGoodsCtrl animated:YES];
-                
             }
         }];
         return cell;

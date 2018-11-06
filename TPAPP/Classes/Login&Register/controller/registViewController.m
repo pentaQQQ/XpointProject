@@ -29,7 +29,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+   self.navigationController.navigationBar.hidden = YES;
+    
+    [self setuptabbarview];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -111,6 +113,26 @@
         
     }];
 }
+
+
+
+-(void)setuptabbarview{
+    
+    UIView *vi = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, SafeAreaTopHeight)];
+    vi.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:vi];
+    
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, vi.frame.size.height-44, 44, 44)];
+    [vi addSubview:btn];
+    
+    [btn setImage:[UIImage imageNamed:@"icon_return"] forState:UIControlStateNormal];
+    [btn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    
+}
+
+
 
 
 @end

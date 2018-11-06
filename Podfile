@@ -19,4 +19,5 @@ target 'TPAPP' do
     pod 'IQKeyboardManager'
     pod 'RTRootNavigationController'
     pod 'NMSSH'
+    pod 'FMDB’
 end

@@ -219,7 +219,16 @@
     
     if (self.count<self.MerchanArray.count-1) {
         self.count++;
-        [self setDadaWithModel:self.MerchanArray[self.count]];
+        if (self.MerchanArray.count>=1) {
+            
+            [self setDadaWithModel:self.MerchanArray[self.count]];
+        }else{
+            [SVProgressHUD doAnyRemindWithHUDMessage:@"该活动暂无商品，开始转发下一场活动" withDuration:1.5];
+            if (self.ToNextMerchanBlock) {
+                self.ToNextMerchanBlock();
+            }
+        }
+      
     }else{
         
         [SVProgressHUD doAnyRemindWithHUDMessage:@"该活动已经转发完，开始转发下一场活动" withDuration:1.5];
@@ -455,7 +464,10 @@
                 [self.MerchanArray addObject:model];
                 
             }
-            [self setDadaWithModel:self.MerchanArray[self.count]];
+            if (self.MerchanArray.count>=1 ) {
+                  [self setDadaWithModel:self.MerchanArray[self.count]];
+            }
+          
             
         }
         

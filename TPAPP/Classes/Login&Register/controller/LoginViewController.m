@@ -34,22 +34,24 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.hidden = YES;
     
-    
+    [self setuptabbarview];
 }
 
 
 
 - (IBAction)zhanghaobtnClick:(id)sender {
     
-    //    //  来吧旋转动画
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        weakSelf.view.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);  // 当前view，这句代码可以不要。这是我的需求
-        
-    } completion:^(BOOL finished) {
-        WeChateBoardViewController *newVC =[WeChateBoardViewController new];
-        [weakSelf presentViewController:newVC animated:NO completion:nil];
-    }];
+//    //    //  来吧旋转动画
+//    __weak typeof(self) weakSelf = self;
+//    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//        weakSelf.view.layer.transform = CATransform3DMakeRotation(M_PI/2.0, 0, 1, 0);  // 当前view，这句代码可以不要。这是我的需求
+//
+//    } completion:^(BOOL finished) {
+//        WeChateBoardViewController *newVC =[WeChateBoardViewController new];
+//        [weakSelf presentViewController:newVC animated:NO completion:nil];
+//    }];
+    
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 
@@ -116,13 +118,12 @@
     [dic setValue:self.codeField.text forKey:@"validCode"];
     [dic setValue:@"login" forKey:@"method"];
     [dic setValue:@"1" forKey:@"type"];
-    [[NetworkManager sharedManager]postWithUrl:getlogin param:dic success:^(id json) {
+    [[NetworkManager sharedManager] postWithUrl:getlogin param:dic success:^(id json) {
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             NSString *data = [NSString stringWithFormat:@"%@",json[@"data"]];
             [[NSUserDefaults standardUserDefaults]setValue:data forKey:@"token"];
-            
             [self getPeopleInfomation];
         }else if ([respCode isEqualToString:@"99999"]){
             registViewController *vc = [[registViewController alloc]init];
@@ -164,6 +165,21 @@
 }
 
 
+-(void)setuptabbarview{
+    
+    UIView *vi = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, SafeAreaTopHeight)];
+    vi.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:vi];
+    
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, vi.frame.size.height-44, 44, 44)];
+    [vi addSubview:btn];
+   
+    [btn setImage:[UIImage imageNamed:@"icon_return"] forState:UIControlStateNormal];
+    [btn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    
+}
 
 
 

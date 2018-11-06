@@ -14,7 +14,7 @@
 @class QMChatRoomMoreView;
 @class QMRecordIndicatorView;
 
-@interface QMChatRoomViewController : UIViewController
+@interface QMChatRoomViewController : BaseViewController
 
 @property (nonatomic, strong) UITableView *chatTableView; // 消息列表
 

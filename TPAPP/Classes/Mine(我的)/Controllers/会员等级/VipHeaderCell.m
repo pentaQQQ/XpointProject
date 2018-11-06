@@ -63,7 +63,9 @@
     self.userNameLabel.textAlignment = NSTextAlignmentCenter;
     self.userNameLabel.textColor = [UIColor blackColor];
     self.userNameLabel.text = lyAccount.nickName;
-    self.userNameLabel.font = [UIFont systemFontOfSize:19];
+    self.userNameLabel.font = [UIFont systemFontOfSize:17];
+    [self.userNameLabel sizeToFit];
+    
     
     self.moneyBgView = [[UIView alloc] init];
     self.moneyBgView.backgroundColor = colorWithRGB(0xEEEEEE);

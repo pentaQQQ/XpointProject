@@ -13,7 +13,7 @@
 #import "WXApiManager.h"
 #import "WechatAuthSDK.h"
 
-
+#import "registViewController.h"
 @interface WeChateBoardViewController ()<WXApiManagerDelegate,WechatAuthAPIDelegate>
 
 @end
@@ -107,20 +107,74 @@
 -(void)thirdloginAppWithOpenid:(NSString*)openid{
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:openid forKey:@"openId"];
-    
-    NSString*url = [NSString stringWithFormat:@"%@/%@",getweChatelogin,openid];
-  
-    [[NetworkManager sharedManager]postWithUrl:url param:dic success:^(id json) {
+    [dic setValue:@"3" forKey:@"type"];
+    [[NetworkManager sharedManager]postWithUrl:getlogin param:dic success:^(id json) {
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            
-        }else{
+            NSString *data = [NSString stringWithFormat:@"%@",json[@"data"]];
+            [[NSUserDefaults standardUserDefaults]setValue:data forKey:@"token"];
+
+            [self getPeopleInfomation];
+        }else if ([respCode isEqualToString:@"99999"]){
+//            registViewController *vc = [[registViewController alloc]init];
+//            [self.navigationController pushViewController:vc animated:YES];
+        }else if ([respCode isEqualToString:@"500"]){//微信未注册
+           
+            [LYTools showTextFiledAlertControllerWithTitle:@"请输入邀请码" msg:@"" tfSetting:^(UITextField *textField) {
+                
+            } onController:self action:^(NSString *tfValue) {
+                registViewController *vc = [[registViewController alloc]init];
+                
+                [self.navigationController pushViewController:vc animated:YES];
+            }];
+          
+        }
+        
+        
+        
+        
+        else{
             [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
         }
     } failure:^(NSError *error) {
         
     }];
 }
+
+
+
+
+
+
+
+//获取用户信息
+-(void)getPeopleInfomation{
+    
+    
+    [[NetworkManager sharedManager]getWithUrl:getinfomation param:nil success:^(id json) {
+        NSLog(@"%@",json);
+        
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]){
+            
+            // 单例赋值
+            [LYAccount mj_objectWithKeyValues:json[@"data"]];
+            [LYTools setUpTabbarController];
+        }else{
+            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+        }
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
+}
+
+
+
+
+
 
 @end

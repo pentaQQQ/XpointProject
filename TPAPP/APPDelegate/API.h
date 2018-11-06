@@ -14,10 +14,31 @@
 //#define WeChateSecret   @"045dd77a293df7f7dc340fc69211d097"//微信开发者账号Secret
 //#define WeChateappid    @"wx354bd4644a16d2e1"//微信开发者账号appid
 
-#define WeChateSecret   @"112c2f14829cb6552c30e3ba9510d077"//微信开发者账号Secret
-#define WeChateappid    @"wxe18e2ff7e93e4253"//微信开发者账号appid
+#define WeChateSecret   @"a5315115b905a26a31e02ad5659fa22a"//微信开发者账号Secret
+#define WeChateappid    @"wx32d968fae8531d0a"//微信开发者账号appid
 
-#define kBaseUrl           @"http://47.92.193.30/"
+
+//AppID  :wx32d968fae8531d0a   AppSecret:a5315115b905a26a31e02ad5659fa22a
+
+
+
+
+
+
+
+
+
+
+//#define kBaseUrl           @"http://47.92.193.30/"
+#define kBaseUrl           @"https://pay.shty518.com/"
+
+
+
+
+
+
+
+
 
 //获取首页标签及内容
 #define getMainResources [NSString stringWithFormat:@"%@%@",kBaseUrl,@"api/main/getMainResources"]
@@ -45,6 +66,14 @@
 #define uploadIdeniti [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/ideniti"]
 //根据商户查询活动信息,前端拿到数据需判断活动结束时间
 #define getActivityByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getActivityByMerchantId"]
+
+
+//根据关键词和商户ID搜索商品,返回所有已上架商品
+#define getsearchProductByKeyword [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/searchProductByKeyword"]
+
+
+
+
 
 //app退出登陆
 #define getexit [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/exit"]

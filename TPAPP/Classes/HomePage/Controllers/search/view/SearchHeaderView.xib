@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,56 +13,53 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SearchHeaderView">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kbx-DA-MQi">
-                    <rect key="frame" x="10" y="28" width="355" height="40"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CI6-p8-LBp">
+                    <rect key="frame" x="10" y="0.0" width="355" height="55"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sbr-IP-yCU">
-                            <rect key="frame" x="315" y="0.0" width="40" height="40"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eXg-L0-d3x">
+                            <rect key="frame" x="300" y="0.0" width="55" height="55"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="sbr-IP-yCU" secondAttribute="height" multiplier="1:1" id="MMi-o5-Mdx"/>
+                                <constraint firstAttribute="width" secondItem="eXg-L0-d3x" secondAttribute="height" multiplier="1:1" id="Pa5-Ge-B7m"/>
                             </constraints>
-                            <state key="normal" image="search_icon"/>
+                            <state key="normal" title="Button"/>
                         </button>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="搜索商品名称/品牌/关键字" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pHz-cP-qSb">
-                            <rect key="frame" x="10" y="0.0" width="305" height="40"/>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="搜索商品名称/品牌/关键字" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aAg-Pr-6ug">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="pHz-cP-qSb" firstAttribute="leading" secondItem="kbx-DA-MQi" secondAttribute="leading" constant="10" id="2f8-v8-TG6"/>
-                        <constraint firstAttribute="height" constant="40" id="37h-ij-AUB"/>
-                        <constraint firstAttribute="bottom" secondItem="sbr-IP-yCU" secondAttribute="bottom" id="Bag-W3-Whs"/>
-                        <constraint firstItem="sbr-IP-yCU" firstAttribute="top" secondItem="kbx-DA-MQi" secondAttribute="top" id="D3n-Ym-X4W"/>
-                        <constraint firstItem="sbr-IP-yCU" firstAttribute="leading" secondItem="pHz-cP-qSb" secondAttribute="trailing" id="M4o-tp-vWa"/>
-                        <constraint firstItem="pHz-cP-qSb" firstAttribute="top" secondItem="kbx-DA-MQi" secondAttribute="top" id="PoL-px-TQo"/>
-                        <constraint firstAttribute="trailing" secondItem="sbr-IP-yCU" secondAttribute="trailing" id="p50-1f-yxj"/>
-                        <constraint firstAttribute="bottom" secondItem="pHz-cP-qSb" secondAttribute="bottom" id="z79-LN-Sdm"/>
+                        <constraint firstItem="aAg-Pr-6ug" firstAttribute="leading" secondItem="CI6-p8-LBp" secondAttribute="leading" id="Eme-8Y-RRD"/>
+                        <constraint firstItem="aAg-Pr-6ug" firstAttribute="top" secondItem="CI6-p8-LBp" secondAttribute="top" id="KmF-es-Clb"/>
+                        <constraint firstItem="eXg-L0-d3x" firstAttribute="leading" secondItem="aAg-Pr-6ug" secondAttribute="trailing" id="MgS-Ii-Dma"/>
+                        <constraint firstAttribute="bottom" secondItem="eXg-L0-d3x" secondAttribute="bottom" id="YaX-UC-icu"/>
+                        <constraint firstItem="eXg-L0-d3x" firstAttribute="top" secondItem="CI6-p8-LBp" secondAttribute="top" id="fR9-qG-SP4"/>
+                        <constraint firstAttribute="trailing" secondItem="eXg-L0-d3x" secondAttribute="trailing" id="vek-be-lFD"/>
+                        <constraint firstAttribute="bottom" secondItem="aAg-Pr-6ug" secondAttribute="bottom" id="x58-CM-acg"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="kbx-DA-MQi" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="XeI-Bc-pe2"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kbx-DA-MQi" secondAttribute="trailing" constant="10" id="aYC-mc-1G4"/>
-                <constraint firstItem="kbx-DA-MQi" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="akM-qh-Cg8"/>
+                <constraint firstItem="CI6-p8-LBp" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="GrT-zG-aYc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="CI6-p8-LBp" secondAttribute="bottom" id="LOm-nh-qIM"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="CI6-p8-LBp" secondAttribute="trailing" constant="10" id="jES-9j-5v2"/>
+                <constraint firstItem="CI6-p8-LBp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="qDw-MX-eDB"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="bottomView" destination="kbx-DA-MQi" id="p05-9K-r2I"/>
-                <outlet property="searchBtn" destination="sbr-IP-yCU" id="uwZ-Zq-jud"/>
-                <outlet property="textField" destination="pHz-cP-qSb" id="XLn-xW-aBr"/>
+                <outlet property="bottomView" destination="CI6-p8-LBp" id="htB-sb-8b8"/>
+                <outlet property="searchBtn" destination="eXg-L0-d3x" id="tky-4K-kla"/>
+                <outlet property="textField" destination="aAg-Pr-6ug" id="6vh-2D-ErF"/>
             </connections>
-            <point key="canvasLocation" x="42.5" y="-232"/>
+            <point key="canvasLocation" x="53.600000000000001" y="-227.13643178410797"/>
         </view>
     </objects>
-    <resources>
-        <image name="search_icon" width="20" height="20"/>
-    </resources>
 </document>
