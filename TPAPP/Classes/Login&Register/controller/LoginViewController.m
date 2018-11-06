@@ -116,13 +116,12 @@
     [dic setValue:self.codeField.text forKey:@"validCode"];
     [dic setValue:@"login" forKey:@"method"];
     [dic setValue:@"1" forKey:@"type"];
-    [[NetworkManager sharedManager]postWithUrl:getlogin param:dic success:^(id json) {
+    [[NetworkManager sharedManager] postWithUrl:getlogin param:dic success:^(id json) {
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             NSString *data = [NSString stringWithFormat:@"%@",json[@"data"]];
             [[NSUserDefaults standardUserDefaults]setValue:data forKey:@"token"];
-            
             [self getPeopleInfomation];
         }else if ([respCode isEqualToString:@"99999"]){
             registViewController *vc = [[registViewController alloc]init];
