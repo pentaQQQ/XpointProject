@@ -13,4 +13,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
+
+
+@property(nonatomic, assign) CGSize intrinsicContentSize;
+
 @end

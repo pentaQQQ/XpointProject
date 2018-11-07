@@ -12,22 +12,22 @@
 
 
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        
-    }
-    
-    return self;
-}
-
-
-
-- (void)setFrame:(CGRect)frame {
-    
-    [super setFrame:CGRectMake(0, 0, self.superview.frame.size.width, self.superview.bounds.size.height)];
-}
-
+//-(id)initWithCoder:(NSCoder *)aDecoder{
+//    self = [super initWithCoder:aDecoder];
+//    if (self) {
+//        
+//    }
+//    
+//    return self;
+//}
+//
+//
+//
+//- (void)setFrame:(CGRect)frame {
+//    
+//    [super setFrame:CGRectMake(0, 0, self.superview.frame.size.width, self.superview.bounds.size.height)];
+//}
+//
 
 
 
@@ -39,7 +39,7 @@
 }
 
 
-
+//
 -(CGSize)intrinsicContentSize
 {
     if (false) {
@@ -47,6 +47,9 @@
     } else {
         return CGSizeMake(kScreenWidth/3*2, 30);
     }
+    
+    
+//     return UILayoutFittingExpandedSize;
 }
 
 
