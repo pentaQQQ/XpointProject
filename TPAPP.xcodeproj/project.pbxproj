@@ -110,7 +110,6 @@
 		011F47F3213E379D0070ABA2 /* ZLNoAuthorityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F47F1213E379C0070ABA2 /* ZLNoAuthorityViewController.m */; };
 		011F47F5213E37AA0070ABA2 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 011F47F4213E37AA0070ABA2 /* lock.png */; };
 		011F47F8213F71C90070ABA2 /* InviteCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F47F7213F71C90070ABA2 /* InviteCodeModel.m */; };
-		011F47FC213FC3090070ABA2 /* DeclareAbnormalAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F47FB213FC3090070ABA2 /* DeclareAbnormalAlertView.m */; };
 		011F47FF213FC3D10070ABA2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 011F47FE213FC3D10070ABA2 /* QuartzCore.framework */; };
 		011F4821213FD9A80070ABA2 /* UIView+frameAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F481F213FD9A70070ABA2 /* UIView+frameAdjust.m */; };
 		011F4822213FD9A80070ABA2 /* UIColor+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 011F4820213FD9A80070ABA2 /* UIColor+Util.m */; };
@@ -132,6 +131,7 @@
 		017888A521359FD400C17F07 /* CustomerReCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 017888A421359FD400C17F07 /* CustomerReCell.m */; };
 		017BA1E92182AB1C003F3A65 /* MXNavigationBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 017BA1E82182AB1C003F3A65 /* MXNavigationBarManager.m */; };
 		017D449321460FD1000CFFBA /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 017D449221460FD1000CFFBA /* CoreData.framework */; };
+		0182B52E21A3A5A2002A5C64 /* DeclareAbnormalAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0182B52C21A3A5A1002A5C64 /* DeclareAbnormalAlertView.m */; };
 		0189891C21453B81003F9DD0 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0189891B21453B80003F9DD0 /* CoreFoundation.framework */; };
 		0189891E21453B91003F9DD0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0189891D21453B91003F9DD0 /* Foundation.framework */; };
 		01944F7D213CE4BA00831504 /* XYNoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01944F77213CE4B900831504 /* XYNoDataView.m */; };
@@ -766,8 +766,6 @@
 		011F47F4213E37AA0070ABA2 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
 		011F47F6213F71C90070ABA2 /* InviteCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InviteCodeModel.h; sourceTree = "<group>"; };
 		011F47F7213F71C90070ABA2 /* InviteCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InviteCodeModel.m; sourceTree = "<group>"; };
-		011F47FA213FC3090070ABA2 /* DeclareAbnormalAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeclareAbnormalAlertView.h; sourceTree = "<group>"; };
-		011F47FB213FC3090070ABA2 /* DeclareAbnormalAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeclareAbnormalAlertView.m; sourceTree = "<group>"; };
 		011F47FE213FC3D10070ABA2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		011F481D213FD9A60070ABA2 /* UIColor+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Util.h"; sourceTree = "<group>"; };
 		011F481E213FD9A70070ABA2 /* UIView+frameAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+frameAdjust.h"; sourceTree = "<group>"; };
@@ -805,6 +803,8 @@
 		017BA1E72182AB1C003F3A65 /* MXNavigationBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXNavigationBarManager.h; sourceTree = "<group>"; };
 		017BA1E82182AB1C003F3A65 /* MXNavigationBarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXNavigationBarManager.m; sourceTree = "<group>"; };
 		017D449221460FD1000CFFBA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0182B52C21A3A5A1002A5C64 /* DeclareAbnormalAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeclareAbnormalAlertView.m; sourceTree = "<group>"; };
+		0182B52D21A3A5A2002A5C64 /* DeclareAbnormalAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeclareAbnormalAlertView.h; sourceTree = "<group>"; };
 		0189891B21453B80003F9DD0 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		0189891D21453B91003F9DD0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		01944F77213CE4B900831504 /* XYNoDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYNoDataView.m; sourceTree = "<group>"; };
@@ -2114,8 +2114,8 @@
 				011F4820213FD9A80070ABA2 /* UIColor+Util.m */,
 				011F481E213FD9A70070ABA2 /* UIView+frameAdjust.h */,
 				011F481F213FD9A70070ABA2 /* UIView+frameAdjust.m */,
-				011F47FA213FC3090070ABA2 /* DeclareAbnormalAlertView.h */,
-				011F47FB213FC3090070ABA2 /* DeclareAbnormalAlertView.m */,
+				0182B52D21A3A5A2002A5C64 /* DeclareAbnormalAlertView.h */,
+				0182B52C21A3A5A1002A5C64 /* DeclareAbnormalAlertView.m */,
 			);
 			path = "自定义弹出输入框";
 			sourceTree = "<group>";
@@ -4368,6 +4368,7 @@
 				8E9A5F83215F14170084C9F1 /* NSData+ImageContentType.m in Sources */,
 				8E9A5F76215F14170084C9F1 /* Reachability.m in Sources */,
 				8E8B0BDF219181EA002D9949 /* QImoModel.m in Sources */,
+				0182B52E21A3A5A2002A5C64 /* DeclareAbnormalAlertView.m in Sources */,
 				8ED5B48A212A5F7B00B5983B /* ClassDetailViewController.m in Sources */,
 				01121008213392FD0071AC5F /* JXCategoryNumberCell.m in Sources */,
 				012997C22139267200ADE72B /* messageHeaderView.m in Sources */,
@@ -4680,7 +4681,6 @@
 				8EA9532C212BE0D70057AC78 /* HeaderTabView.m in Sources */,
 				01120EF721338F9C0071AC5F /* EditAddressController.m in Sources */,
 				01F1DFFD213ACFD5009A925A /* MBProgressHUD.m in Sources */,
-				011F47FC213FC3090070ABA2 /* DeclareAbnormalAlertView.m in Sources */,
 				547C49981F1DBB8200178B67 /* GHWalkThroughView.m in Sources */,
 				01120F0321338F9C0071AC5F /* BankCardViewController.m in Sources */,
 				019AEE3521382A5C00EB3405 /* MMWebView.m in Sources */,
