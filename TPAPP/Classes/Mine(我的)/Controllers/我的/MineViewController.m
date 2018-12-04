@@ -26,6 +26,7 @@
 #import "RefundCell.h"
 #import "ElseTableCell.h"
 #import "MXNavigationBarManager.h"
+#import "PerformanceModel.h"
 #define SCREEN_RECT [UIScreen mainScreen].bounds
 static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 static const CGFloat headerImageHeight = 260.0f;
@@ -81,6 +82,7 @@ static const CGFloat headerImageHeight = 260.0f;
     // 隐藏状态
     self.mjHeader.stateLabel.hidden = YES;
     self.listTableView.mj_header = self.mjHeader;
+    [self.listTableView.mj_header beginRefreshing];
 //    self.mjHeader.hidden = YES;
     
 //    CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
@@ -103,7 +105,7 @@ static const CGFloat headerImageHeight = 260.0f;
 }
 
 - (void)initBaseData {
-    self.title = @"长草颜文字";
+    self.title = @"我的";
     
 //    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kMXCellIdentifer];
     self.listTableView.showsVerticalScrollIndicator = NO;
@@ -118,7 +120,90 @@ static const CGFloat headerImageHeight = 260.0f;
 #pragma mark - 刷新数据
 - (void)loadNewData
 {
-    [self.listTableView.mj_header endRefreshing];
+    LYAccount *account = [LYAccount shareAccount];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[self getFormerlyDate:0] forKey:@"startDate"];
+    [dict setValue:[self getFormerlyDate:0] forKey:@"endDate"];
+    [dict setValue:@"1" forKey:@"type"];
+    [dict setValue:account.id forKey:@"userId"];
+    [[NetworkManager sharedManager] getWithUrl:transSumAmount param:dict success:^(id json) {
+        NSLog(@"%@",json);
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.listDataArr removeAllObjects];
+                for (NSDictionary *dic in json[@"data"]) {
+                    PerformanceModel *model = [PerformanceModel mj_objectWithKeyValues:dic];
+                    [self.listDataArr addObject:[NSString stringWithFormat:@"¥%@",model.amount]];
+                    [self.listDataArr addObject:[NSString stringWithFormat:@"¥%@",model.discountAmount]];
+                }
+                [self loadMouthNewData];
+            });
+        }else if([json[@"code"]longValue] == 500){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.listTableView.mj_header endRefreshing];
+                [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                [self.listTableView reloadData];
+            });
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+- (void)loadMouthNewData
+{
+    LYAccount *account = [LYAccount shareAccount];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:[self getMouthFormerlyDate:0] forKey:@"startDate"];
+    [dict setValue:[self getMouthFormerlyDate:0] forKey:@"endDate"];
+    [dict setValue:@"2" forKey:@"type"];
+    [dict setValue:account.id forKey:@"userId"];
+    [[NetworkManager sharedManager] getWithUrl:transSumAmount param:dict success:^(id json) {
+        NSLog(@"%@",json);
+        [self.listTableView.mj_header endRefreshing];
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                for (NSDictionary *dic in json[@"data"]) {
+                    PerformanceModel *model = [PerformanceModel mj_objectWithKeyValues:dic];
+//                    [self.listDataArr addObject:model];
+                    [self.listDataArr addObject:[NSString stringWithFormat:@"¥%@",model.amount]];
+                    [self.listDataArr addObject:[NSString stringWithFormat:@"¥%@",model.discountAmount]];
+                }
+                [self.listTableView reloadData];
+            });
+        }else if([json[@"code"]longValue] == 500){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.listTableView.mj_header endRefreshing];
+                [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                [self.listTableView reloadData];
+            });
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+- (NSString *)getFormerlyDate:(NSTimeInterval)timeInter
+{
+    NSDate * date = [NSDate date];//当前时间
+    NSDate *lastDay = [NSDate dateWithTimeInterval:timeInter sinceDate:date];//前1天
+    // 用于格式化NSDate对象
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    // 设置格式：yyyy-MM-dd HH:mm:ss
+    formatter.dateFormat = @"yyyyMMdd";
+    // 将 NSDate 按 formatter格式 转成 NSString
+    return [formatter stringFromDate:lastDay];
+}
+- (NSString *)getMouthFormerlyDate:(NSTimeInterval)timeInter
+{
+    NSDate * date = [NSDate date];//当前时间
+    NSDate *lastDay = [NSDate dateWithTimeInterval:timeInter sinceDate:date];//前1天
+    // 用于格式化NSDate对象
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    // 设置格式：yyyy-MM-dd HH:mm:ss
+    formatter.dateFormat = @"yyyyMM";
+    // 将 NSDate 按 formatter格式 转成 NSString
+    return [formatter stringFromDate:lastDay];
 }
 #pragma mark - scrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -213,8 +298,10 @@ static const CGFloat headerImageHeight = 260.0f;
         .topSpaceToView(self.view, 0)
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
-        .bottomEqualToView(self.view);
-        _listTableView.contentSize = CGSizeMake(kScreenWidth, 240+20+SafeAreaTopHeight+170+120+80);
+        .bottomSpaceToView(self.view, 45+SafeAreaBottomHeight);
+        
+//        _listTableView.contentSize = CGSizeMake(kScreenWidth, 240+20+SafeAreaTopHeight+170+120+80);
+        _listTableView.contentSize = CGSizeMake(kScreenWidth, 180+20+SafeAreaTopHeight+170+120+80+100);
         //        if ([self.listTableView respondsToSelector:@selector(setSeparatorInset:)]) {
         //            [self.listTableView setSeparatorInset:UIEdgeInsetsZero];
         //        }
@@ -263,7 +350,7 @@ static const CGFloat headerImageHeight = 260.0f;
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 4;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -286,8 +373,8 @@ static const CGFloat headerImageHeight = 260.0f;
             }else if (selectNum == 2){
                 
             }else if (selectNum == 3){
-                VIPViewController *vipCtrl = [[VIPViewController alloc] init];
-                [self.navigationController pushViewController:vipCtrl animated:YES];
+//                VIPViewController *vipCtrl = [[VIPViewController alloc] init];
+//                [self.navigationController pushViewController:vipCtrl animated:YES];
             }else{
                 AccountSetController *minePerCtrl = [[AccountSetController alloc] init];
                 [self.navigationController pushViewController:minePerCtrl animated:YES];
@@ -300,39 +387,45 @@ static const CGFloat headerImageHeight = 260.0f;
             cell = [[MarketCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"MarketCell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell configWithMarketLimit:[NSMutableArray arrayWithObjects:@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0", nil] andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额",@"上月销售额",@"上月代购额", nil]];
-        return cell;
-    }else if (indexPath.section==2){
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
-        
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+        if (self.listDataArr.count == 0) {
+            [cell configWithMarketLimit:[NSMutableArray arrayWithObjects:@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0", nil] andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额", nil]];
+        }else{
+            [cell configWithMarketLimit:self.listDataArr andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额", nil]];
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = colorWithRGB(0xEEEEEE);
-        UIButton *btn = [[UIButton alloc] init];
-        [cell addSubview:btn];
-        btn.backgroundColor = [UIColor whiteColor];
-        btn.sd_layout
-        .topSpaceToView(cell, 0)
-        .leftSpaceToView(cell, 20)
-        .rightSpaceToView(cell, 20)
-        .heightIs(50);
-        btn.layer.cornerRadius = 10;
-        btn.layer.masksToBounds = YES;
-        btn.layer.borderWidth = 1.0;
-        btn.layer.borderColor = colorWithRGB(0xFF6B24).CGColor;
-        
-        [btn setImage:[UIImage imageNamed:@"vip_icon"] forState:UIControlStateNormal];
-        btn.imageEdgeInsets = UIEdgeInsetsMake(15, (kScreenWidth-40-[self widthLabelWithModel:@"申请提现"]-20)/2+10, 15, (kScreenWidth-40-[self widthLabelWithModel:@"申请提现"]-20)/2+[self widthLabelWithModel:@"申请提现"]-10);
-        [btn addTarget:self action:@selector(applyAction) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitle:@"申请提现" forState:UIControlStateNormal];
-        [btn setTitleColor:colorWithRGB(0xFF6B24) forState:UIControlStateNormal];
-        btn.titleEdgeInsets = UIEdgeInsetsMake(5, -(kScreenWidth-40-[self widthLabelWithModel:@"申请提现"]-20)/2-20-10, 5, 0);
+//        [cell configWithMarketLimit:[NSMutableArray arrayWithObjects:@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0", nil] andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额",@"上月销售额",@"上月代购额", nil]];
         return cell;
-        
     }
-    else if (indexPath.section==3){
+//    else if (indexPath.section==2){
+//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+//
+//        if (!cell) {
+//            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+//        }
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.backgroundColor = colorWithRGB(0xEEEEEE);
+//        UIButton *btn = [[UIButton alloc] init];
+//        [cell addSubview:btn];
+//        btn.backgroundColor = [UIColor whiteColor];
+//        btn.sd_layout
+//        .topSpaceToView(cell, 0)
+//        .leftSpaceToView(cell, 20)
+//        .rightSpaceToView(cell, 20)
+//        .heightIs(50);
+//        btn.layer.cornerRadius = 10;
+//        btn.layer.masksToBounds = YES;
+//        btn.layer.borderWidth = 1.0;
+//        btn.layer.borderColor = colorWithRGB(0xFF6B24).CGColor;
+//
+//        [btn setImage:[UIImage imageNamed:@"vip_icon"] forState:UIControlStateNormal];
+//        btn.imageEdgeInsets = UIEdgeInsetsMake(15, (kScreenWidth-40-[self widthLabelWithModel:@"申请提现"]-20)/2+10, 15, (kScreenWidth-40-[self widthLabelWithModel:@"申请提现"]-20)/2+[self widthLabelWithModel:@"申请提现"]-10);
+//        [btn addTarget:self action:@selector(applyAction) forControlEvents:UIControlEventTouchUpInside];
+//        [btn setTitle:@"申请提现" forState:UIControlStateNormal];
+//        [btn setTitleColor:colorWithRGB(0xFF6B24) forState:UIControlStateNormal];
+//        btn.titleEdgeInsets = UIEdgeInsetsMake(5, -(kScreenWidth-40-[self widthLabelWithModel:@"申请提现"]-20)/2-20-10, 5, 0);
+//        return cell;
+//
+//    }
+    else if (indexPath.section==2){
         IndentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IndentCell"];
         if (!cell) {
             cell = [[IndentCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"IndentCell"];
@@ -341,7 +434,7 @@ static const CGFloat headerImageHeight = 260.0f;
         [cell setSelectBlcok:^(NSInteger num) {
             MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
             minePerCtrl.title = @"我的订单";
-            minePerCtrl.selectIndex = num+1;
+            minePerCtrl.selectIndex = num;
 //            minePerCtrl.selectType = 1;
 //            JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)minePerCtrl.categoryView;
 //
@@ -558,17 +651,21 @@ static const CGFloat headerImageHeight = 260.0f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0 || section == 2 || section == 4) {
+//    if (section == 0 || section == 2 || section == 4) {
+//        return 0;
+//    }else{
+//        return 50;
+//    }
+    if (section == 0 || section == 3) {
         return 0;
     }else{
         return 50;
     }
-    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section == 0 || section == 2 || section == 4) {
+    if (section == 0 || section == 3) {
         return nil;
     }else {
         NSArray *listArr = @[@"我的销售业绩",@"我的订单",@"我的订单"];
@@ -629,6 +726,67 @@ static const CGFloat headerImageHeight = 260.0f;
         detailLabel.text = detailArr[section -1];
         return view;
     }
+//    if (section == 0 || section == 2 || section == 4) {
+//        return nil;
+//    }else {
+//        NSArray *listArr = @[@"我的销售业绩",@"我的订单",@"我的订单"];
+//        NSArray *detailArr = @[@"更多 ",@"查看全部 ",@"查看全部 "];
+//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
+//        view.backgroundColor = [UIColor whiteColor];
+//        view.userInteractionEnabled = YES;
+//        view.tag = section;
+//        UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerViewTap:)];
+//        [view addGestureRecognizer:tapGes];
+//        UIView *lineView = [[UIView alloc] init];
+//        [view addSubview:lineView];
+//        lineView.backgroundColor = colorWithRGB(0xbfbfbf);
+//        lineView.sd_layout
+//        .topSpaceToView(view, 49.5)
+//        .leftEqualToView(view)
+//        .rightEqualToView(view)
+//        .heightIs(.5);
+//
+//        UIImageView *lineImgeView = [[UIImageView alloc] init];
+//        [view addSubview:lineImgeView];
+//        lineImgeView.image = [UIImage imageNamed:@"icon_mine_line"];
+//        lineImgeView.sd_layout
+//        .topSpaceToView(view, 15)
+//        .leftSpaceToView(view, 15)
+//        .bottomSpaceToView(view, 15)
+//        .widthIs(3);
+//
+//        UILabel *listLabel = [[UILabel alloc] init];
+//        [view addSubview:listLabel];
+//        listLabel.sd_layout
+//        .topSpaceToView(view, 15)
+//        .leftSpaceToView(lineImgeView, 5)
+//        .widthIs(150)
+//        .heightIs(20);
+//        listLabel.font = [UIFont systemFontOfSize:15];
+//        listLabel.text = listArr[section -1];
+//
+//        UIImageView *imgeView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth-20, 10, 10, 10)];
+//        [view addSubview:imgeView];
+//        imgeView.image = [UIImage imageNamed:@"icon_mine_arrow"];
+//        imgeView.sd_layout
+//        .topSpaceToView(view, 20)
+//        .rightSpaceToView(view, 15)
+//        .widthIs(10)
+//        .heightIs(10);
+//
+//        UILabel *detailLabel = [[UILabel alloc] init];
+//        detailLabel.textAlignment = NSTextAlignmentRight;
+//        [view addSubview:detailLabel];
+//        detailLabel.sd_layout
+//        .topSpaceToView(view, 15)
+//        .rightSpaceToView(imgeView, 5)
+//        .widthIs([self widthLabelWithModel:detailArr[section -1]]+10)
+//        .heightIs(20);
+//        detailLabel.font = [UIFont systemFontOfSize:12];
+//        detailLabel.textColor = colorWithRGB(0xbfbfbf);
+//        detailLabel.text = detailArr[section -1];
+//        return view;
+//    }
 }
 - (void)headerViewTap:(UITapGestureRecognizer *)ges
 {
@@ -666,35 +824,56 @@ static const CGFloat headerImageHeight = 260.0f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 4) {
-        return 40;
+//    if (section == 4) {
+//        return 40;
+//    }else{
+//      return 0;
+//    }
+    if (section == 3) {
+        return 130;
     }else{
-      return 0;
+        return 0;
     }
-    
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 4) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
+    if (section == 3) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 130)];
         view.backgroundColor = colorWithRGB(0xEEEEEE);
         return view;
     }else{
         return nil;
     }
+//    if (section == 4) {
+//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
+//        view.backgroundColor = colorWithRGB(0xEEEEEE);
+//        return view;
+//    }else{
+//        return nil;
+//    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==0) {
-        return 240+20+SafeAreaTopHeight;
-    }else if (indexPath.section == 4){
-//        return 185;
+        return 180+20+SafeAreaTopHeight;
+        //        return 240+20+SafeAreaTopHeight;
+    }else if (indexPath.section == 3){
+        //        return 185;
         return 100;
-    }else if (indexPath.section == 2){
-        return 50+20;
     }else{
         return 100+20;
     }
+//    if (indexPath.section==0) {
+//        return 180+20+SafeAreaTopHeight;
+////        return 240+20+SafeAreaTopHeight;
+//    }else if (indexPath.section == 4){
+////        return 185;
+//        return 100;
+//    }else if (indexPath.section == 2){
+//        return 50+20;
+//    }else{
+//        return 100+20;
+//    }
     
 }
 

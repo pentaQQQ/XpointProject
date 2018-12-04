@@ -59,7 +59,7 @@
         pageTitleViewY = 88;
     }
     
-    NSArray *titleArr = @[@"全部", @"待支付", @"待发货", @"拣货中", @"已发货", @"已取消"];
+    NSArray *titleArr = @[@"待支付", @"已支付", @"待发货", @"已发货", @"已完成", @"已取消", @"售后"];
     SGPageTitleViewConfigure *configure = [SGPageTitleViewConfigure pageTitleViewConfigure];
     configure.titleAdditionalWidth = 15;
 //    configure.indicatorAdditionalWidth = 10; // 说明：指示器额外增加的宽度，不设置，指示器宽度为标题文字宽度；若设置无限大，则指示器宽度为按钮宽度
@@ -73,6 +73,9 @@
     //    configure.titleTextZoomAdditionalPointSize = 4;
     /// pageTitleView
     self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, pageTitleViewY, self.view.frame.size.width, 44) delegate:self titleNames:titleArr configure:configure];
+    if (self.selectIndex == 4) {
+        self.selectIndex = 5;
+    }
     self.pageTitleView.selectedIndex = self.selectIndex;
     [self.view addSubview:_pageTitleView];
         [_pageTitleView addBadgeForIndex:1];

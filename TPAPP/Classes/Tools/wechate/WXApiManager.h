@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "WXApi.h"
+@protocol WXApiManagerPayDelegate <NSObject>
 
+- (void)WXApiManagerPay:(PayResp *)payResp;
+
+@end
 @protocol WXApiManagerDelegate <NSObject>
 
 @optional
@@ -43,7 +47,7 @@
 @interface WXApiManager : NSObject<WXApiDelegate>
 
 @property (nonatomic, assign) id<WXApiManagerDelegate> delegate;
-
+@property (nonatomic,weak) id<WXApiManagerPayDelegate> paydelegate;
 + (instancetype)sharedManager;
 
 @end

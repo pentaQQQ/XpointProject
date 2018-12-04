@@ -9,6 +9,7 @@
 #import "OrderDetailViewController.h"
 #import "OrderDetailCell.h"
 #import "PayIndentCell.h"
+
 @interface OrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
@@ -36,11 +37,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"订单详情";
+    
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setUpUI];
     [self createBottomView];
 }
+
 - (void)createBottomView
 {
     self.bottomView = [[UIView alloc] init];
@@ -129,13 +132,12 @@
 }
 - (void)setUpUI
 {
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    self.listTableView = tableview;
-    [self.view addSubview:tableview];
-    tableview.sd_layout
-    .topEqualToView(self.view)
+    self.listTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    [self.view addSubview:self.listTableView];
+    self.listTableView.sd_layout
+    .topSpaceToView(self.view, k_top_height)
     .leftEqualToView(self.view)
-    .bottomSpaceToView(self.view, 50)
+    .bottomSpaceToView(self.view, 50+SafeAreaBottomHeight)
     .widthIs(kScreenWidth);
     self.listTableView.backgroundColor = colorWithRGB(0xEEEEEE);
     self.listTableView.delegate = self;

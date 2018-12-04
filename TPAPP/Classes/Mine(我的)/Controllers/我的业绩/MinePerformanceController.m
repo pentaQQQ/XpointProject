@@ -11,6 +11,7 @@
 #import "LXFloaintButton.h"
 #import "MinePerformanceController.h"
 #import "MinePerformanceChildController.h"
+#import "MouthPerformanceController.h"
 //#import "JXCategoryNumberView.h"
 @interface MinePerformanceController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
@@ -94,13 +95,24 @@
     
     NSMutableArray *childArr = [NSMutableArray array];
     for (int i=0; i<titleArr.count; i++) {
-        MinePerformanceChildController *vc = [[MinePerformanceChildController alloc]init];
-        vc.firstCtrl = i;
-        vc.secondCtrl = i;
+        if (i == 0) {
+            MinePerformanceChildController *vc = [[MinePerformanceChildController alloc]init];
+            vc.firstCtrl = 0;
+            vc.secondCtrl = 0;
+            
+            self.selecteDelegate = vc;
+            
+            [childArr addObject:vc];
+        }else{
+            MouthPerformanceController *vc = [[MouthPerformanceController alloc]init];
+            vc.firstCtrl = 1;
+            vc.secondCtrl = 1;
+            
+            self.selecteMouthDelegate  =  vc;
+            
+            [childArr addObject:vc];
+        }
         
-        self.selecteDelegate = vc;
-        
-        [childArr addObject:vc];
     }
     
     CGFloat ContentCollectionViewHeight = self.view.frame.size.height - CGRectGetMaxY(_pageTitleView.frame);
@@ -119,14 +131,21 @@
 }
 
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView index:(NSInteger)index {
-    if (index == 1 || index == 5) {
-        [_pageTitleView removeBadgeForIndex:index];
+    if (index == 0) {
+        if (self.selecteDelegate && [self.selecteDelegate respondsToSelector:@selector(selecteNumber:)])
+        {
+            // 调用代理方法
+            [self.selecteDelegate selecteNumber:index];
+        }
+    }else{
+        if (self.selecteMouthDelegate && [self.selecteMouthDelegate respondsToSelector:@selector(selecteMouthNumber:)])
+        {
+            // 调用代理方法
+            [self.selecteMouthDelegate selecteMouthNumber:index];
+        }
     }
-    if (self.selecteDelegate && [self.selecteDelegate respondsToSelector:@selector(selecteNumber:)])
-    {
-        // 调用代理方法
-        [self.selecteDelegate selecteNumber:index];
-    }
+    
+    
 }
 
 

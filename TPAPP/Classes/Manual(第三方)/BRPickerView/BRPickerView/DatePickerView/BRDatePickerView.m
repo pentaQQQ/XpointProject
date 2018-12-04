@@ -84,7 +84,15 @@
         }
         
         // 把当前时间赋值给 _datePicker
-        [_datePicker setDate:[NSDate date] animated:YES];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        if ([[_selectValue componentsSeparatedByString:@"-"]count] == 3) {
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        }else{
+            [dateFormatter setDateFormat:@"yyyy-MM"];
+        }
+        
+        NSDate *startDate = [dateFormatter dateFromString:_selectValue];
+        [_datePicker setDate:startDate animated:YES];
         
         // 滚动改变值的响应事件
         [_datePicker addTarget:self action:@selector(didSelectValueChanged:) forControlEvents:UIControlEventValueChanged];

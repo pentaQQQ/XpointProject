@@ -189,6 +189,8 @@
 		019AEE9B21382B0B00EB3405 /* MMImagePreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7321382B0B00EB3405 /* MMImagePreviewView.m */; };
 		019AEE9C21382B0B00EB3405 /* MMOperateMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7521382B0B00EB3405 /* MMOperateMenuView.m */; };
 		019AEE9D21382B0B00EB3405 /* MomentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 019AEE7721382B0B00EB3405 /* MomentCell.m */; };
+		01A5147921B62E5A000639A1 /* PerformanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5147821B62E5A000639A1 /* PerformanceModel.m */; };
+		01A5147C21B6339C000639A1 /* MouthPerformanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A5147B21B6339C000639A1 /* MouthPerformanceController.m */; };
 		01ABB01D214BB15A000D616E /* back_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01ABB01B214BB159000D616E /* back_icon@2x.png */; };
 		01ABB01E214BB15A000D616E /* back_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01ABB01C214BB15A000D616E /* back_icon@3x.png */; };
 		01AD1A532148000200348238 /* DefaultAddressMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD1A522148000200348238 /* DefaultAddressMessage.m */; };
@@ -892,6 +894,10 @@
 		019AEE7621382B0B00EB3405 /* MomentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentCell.h; sourceTree = "<group>"; };
 		019AEE7721382B0B00EB3405 /* MomentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentCell.m; sourceTree = "<group>"; };
 		019AEE7821382B0B00EB3405 /* MomentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentKit.h; sourceTree = "<group>"; };
+		01A5147721B62E5A000639A1 /* PerformanceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerformanceModel.h; sourceTree = "<group>"; };
+		01A5147821B62E5A000639A1 /* PerformanceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerformanceModel.m; sourceTree = "<group>"; };
+		01A5147A21B6339C000639A1 /* MouthPerformanceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MouthPerformanceController.h; sourceTree = "<group>"; };
+		01A5147B21B6339C000639A1 /* MouthPerformanceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MouthPerformanceController.m; sourceTree = "<group>"; };
 		01ABB01B214BB159000D616E /* back_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_icon@2x.png"; sourceTree = "<group>"; };
 		01ABB01C214BB15A000D616E /* back_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_icon@3x.png"; sourceTree = "<group>"; };
 		01AD1A512148000200348238 /* DefaultAddressMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultAddressMessage.h; sourceTree = "<group>"; };
@@ -1693,6 +1699,10 @@
 				01120EC021338F9C0071AC5F /* MinePerformanceController.m */,
 				01120EC121338F9C0071AC5F /* PerformaceHeaderCell.h */,
 				01120EC221338F9C0071AC5F /* PerformaceHeaderCell.m */,
+				01A5147721B62E5A000639A1 /* PerformanceModel.h */,
+				01A5147821B62E5A000639A1 /* PerformanceModel.m */,
+				01A5147A21B6339C000639A1 /* MouthPerformanceController.h */,
+				01A5147B21B6339C000639A1 /* MouthPerformanceController.m */,
 			);
 			path = "我的业绩";
 			sourceTree = "<group>";
@@ -4473,6 +4483,7 @@
 				01E46FF9214BF5BE00B88B24 /* EditConsignmentAddressController.m in Sources */,
 				8EA952F5212BAA930057AC78 /* ZLCameraViewController.m in Sources */,
 				8E9A5F66215F14170084C9F1 /* TZAssetModel.m in Sources */,
+				01A5147C21B6339C000639A1 /* MouthPerformanceController.m in Sources */,
 				017888A521359FD400C17F07 /* CustomerReCell.m in Sources */,
 				01121016213392FD0071AC5F /* YSAvatarModel.m in Sources */,
 				01120EEB21338F9C0071AC5F /* InviteAwardCell.m in Sources */,
@@ -4695,6 +4706,7 @@
 				547C49721F1DBB8200178B67 /* UIResponder+LKNotification.m in Sources */,
 				8EA952A4212AC4C50057AC78 /* goodsDetailCell.m in Sources */,
 				8E9A5F72215F14170084C9F1 /* TTTAttributedLabel.m in Sources */,
+				01A5147921B62E5A000639A1 /* PerformanceModel.m in Sources */,
 				8EA95301212BAA930057AC78 /* UIImage+ZLPhotoLib.m in Sources */,
 				547C499A1F1DBB8200178B67 /* UIAppearance.m in Sources */,
 				8E9A5EBE215F140D0084C9F1 /* QMFileCollectionCell.m in Sources */,

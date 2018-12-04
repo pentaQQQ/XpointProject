@@ -11,9 +11,12 @@
 #import "AddressManageController.h"
 #import "ConsignmentAddressManageController.h"
 #import "DeclareAbnormalAlertView.h"
+#import "WXApiRequestHandler.h"
+#import "WXApiManager.h"
+#import "WXApi.h"
 #define defaultTag 1990
 
-@interface BuyGoodsListController ()<UITableViewDelegate,UITableViewDataSource,DeclareAbnormalAlertViewRemindDelegate>
+@interface BuyGoodsListController ()<UITableViewDelegate,UITableViewDataSource,WXApiManagerPayDelegate,WXApiDelegate,DeclareAbnormalAlertViewRemindDelegate>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
 
@@ -45,7 +48,7 @@
          [alertView show];
         
     }];
-    
+    [WXApiManager sharedManager].paydelegate = self;
     self.navigationItem.leftBarButtonItems = @[set];
     DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
     if ([addressMess.id length] == 0) {
@@ -61,6 +64,23 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setUpUI];
     [self createBottomView];
+}
+#pragma mark 微信回调的代理方法
+- (void)WXApiManagerPay:(PayResp *)payResp{
+    //支付返回结果，实际支付结果需要去微信服务器端查询
+    NSString *strMsg;
+    
+    if (payResp.errCode == WXSuccess) {
+        strMsg = @"支付结果：成功！";
+        NSLog(@"支付成功－PaySuccess，retcode = %d", payResp.errCode);
+        
+    }else{
+        
+        strMsg = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", payResp.errCode,payResp.errStr];
+        NSLog(@"错误，retcode = %d, retstr = %@", payResp.errCode,payResp.errStr);
+    }
+    
+    
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

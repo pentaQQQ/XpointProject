@@ -44,7 +44,7 @@
 @implementation CartViewController
 {
     NSMutableArray * timeArr;
-    NSArray  * dateSectionArr;
+    NSArray  * _dateSectionArr;
     MMImagePreviewView *_previewView;
     MMImageView *selectImage;
     int _goodsNum;
@@ -124,8 +124,8 @@
                 //1.取出所有的商户id
                 [allTimeArr addObject:dic[@"productForm"][@"merchantId"]];
             }
-            dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
-            for (NSString *nowTim in dateSectionArr) {
+            self->_dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
+            for (NSString *nowTim in self->_dateSectionArr) {
                 NSMutableArray *arr = [[NSMutableArray alloc] init];
                 for (NSDictionary *ordersDicTwo in dict[@"data"][@"cartDetails"]) {
                     NSString *twoTim = ordersDicTwo[@"productForm"][@"merchantId"];

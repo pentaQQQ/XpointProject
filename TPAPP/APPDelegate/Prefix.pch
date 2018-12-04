@@ -38,8 +38,7 @@
 #import "LYAccount.h"
 #import "DefaultAddressMessage.h"
 #import "ConsignmentManage.h"
-
-
+#import "MineIndentModel.h"
 
 
 

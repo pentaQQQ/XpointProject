@@ -12,23 +12,23 @@
 @interface InviteAwardController ()<UITableViewDelegate, UITableViewDataSource,UIDocumentInteractionControllerDelegate>
 
 @property (nonatomic, retain) UIDocumentInteractionController *docuController;
-@property (nonatomic, strong)UITableView *listTableView;
-@property (nonatomic, strong)NSMutableArray *listDataArr;
-@property (nonatomic, strong)UIView *myQRBgview;
-@property (nonatomic, strong)UIView *myQRView;
-@property (nonatomic, strong)UIView *myQRBottomView;
-@property (nonatomic, strong)UIImageView *qrImageView;
-@property (nonatomic, strong)UIView *bgview;
-@property (nonatomic, strong)UILabel *codeLabel;
-@property (nonatomic, strong)UIView *lineview;
-@property (nonatomic, strong)UIButton *sendBtn;
-@property (nonatomic, strong)UIButton *cancelBtn;
+@property (nonatomic, strong) UITableView *listTableView;
+@property (nonatomic, strong) NSMutableArray *listDataArr;
+@property (nonatomic, strong) UIView *myQRBgview;
+@property (nonatomic, strong) UIView *myQRView;
+@property (nonatomic, strong) UIView *myQRBottomView;
+@property (nonatomic, strong) UIImageView *qrImageView;
+@property (nonatomic, strong) UIView *bgview;
+@property (nonatomic, strong) UILabel *codeLabel;
+@property (nonatomic, strong) UIView *lineview;
+@property (nonatomic, strong) UIButton *sendBtn;
+@property (nonatomic, strong) UIButton *cancelBtn;
 @end
 
 @implementation InviteAwardController
 {
     NSMutableArray *timeArr;
-    NSArray  *dateSectionArr;
+    NSArray  *_dateSectionArr;
     NSString *_savedImagePath;
     InviteCodeModel *_inviteCodeModel;
 }
@@ -76,10 +76,38 @@
     self.title = @"邀请有奖";
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(0, 0, 60, 12);
+    [rightBtn setTitle:@"添加邀请码" forState:UIControlStateNormal];
+    [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    if (@available(iOS 8.2, *)) {
+        [rightBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0 weight:UIFontWeightMedium]];
+    } else {
+        // Fallback on earlier versions
+        [rightBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0]];
+    }
+    [rightBtn addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *itemRight = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    self.navigationItem.rightBarButtonItem = itemRight;
     [self listTableView];
     self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     //自动更改透明度
     self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+}
+- (void)rightAction
+{
+    [[NetworkManager sharedManager] postWithUrl:inviteAdd param:nil success:^(id json) {
+        NSLog(@"%@",json);
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            [self.listTableView.mj_header beginRefreshing];
+        }else{
+            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -103,9 +131,9 @@
                 //1.取出所有出现得时间
                 [allTimeArr addObject:[dict[@"createDataTime"] substringToIndex:10]];
             }
-            dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
-            NSLog(@"%@",dateSectionArr);
-            for (NSString *nowTim in dateSectionArr) {
+            self->_dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
+            NSLog(@"%@",self->_dateSectionArr);
+            for (NSString *nowTim in self->_dateSectionArr) {
                 NSMutableArray *arr = [[NSMutableArray alloc] init];
                 for (NSDictionary *ordersDicTwo in json[@"data"]) {
                     NSString *twoTim = [ordersDicTwo[@"createDataTime"] substringToIndex:10];
@@ -204,7 +232,7 @@
         .widthIs(150)
         .heightIs(20);
         listLabel.font = [UIFont systemFontOfSize:15];
-        listLabel.text = dateSectionArr[section];
+        listLabel.text = self->_dateSectionArr[section];
         return view;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

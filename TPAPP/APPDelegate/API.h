@@ -143,6 +143,7 @@
 //获取邀请码列表
 #define inviteList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/invite/list"]
 
-
+//业绩统计接口
+#define transSumAmount [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/transSum/transSumAmount"]
 
 #endif /* API_h */
