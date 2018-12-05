@@ -101,6 +101,7 @@
     
     header.messageBlock = ^{
         SystemInformationController*vc = [[SystemInformationController alloc]init];
+        vc.isMyPush = NO;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
     

@@ -195,24 +195,135 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    return 40;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10;
+    return 60;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 10)];
-    view.backgroundColor = colorWithRGB(0xEEEEEE);
+    MineIndentModel *model = self.listDataArr[section];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 60)];
+    bgView.backgroundColor = colorWithRGB(0xEEEEEE);
     
-    return view;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
+    view.backgroundColor = [UIColor whiteColor];
+    [bgView addSubview:view];
+    
+    UILabel*goodStatus = [[UILabel alloc] init];
+    goodStatus.textAlignment = NSTextAlignmentLeft;
+    goodStatus.textColor = colorWithRGB(0xFF6B24);
+    goodStatus.font = [UIFont systemFontOfSize:15];
+    [view addSubview:goodStatus];
+    goodStatus.sd_layout
+    .topSpaceToView(view, 15)
+    .leftSpaceToView(view, 15)
+    .widthIs(80)
+    .heightIs(20);
+    if ([model.status isEqualToString:@"0"]) {
+        goodStatus.text = @"待支付";
+        UIButton *paymentBtn = [[UIButton alloc] init];
+        paymentBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        paymentBtn.backgroundColor =colorWithRGB(0xFF6B24);
+        [paymentBtn setTitle:@"去支付" forState:UIControlStateNormal];
+        [paymentBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [paymentBtn addTarget:self action:@selector(applyBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:paymentBtn];
+        paymentBtn.sd_layout
+        .topSpaceToView(view, 10)
+        .rightSpaceToView(view, 15)
+        .widthIs(70)
+        .heightIs(30);
+        UIButton*cancelGoodsBtn = [[UIButton alloc] init];
+        cancelGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        cancelGoodsBtn.backgroundColor =colorWithRGB(0xFF6B24);
+        [cancelGoodsBtn setTitle:@"取消交易" forState:UIControlStateNormal];
+        [cancelGoodsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [cancelGoodsBtn addTarget:self action:@selector(applyBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:cancelGoodsBtn];
+        cancelGoodsBtn.sd_layout
+        .topSpaceToView(view, 10)
+        .rightSpaceToView(view, 10)
+        .widthIs(70)
+        .heightIs(30);
+    }else if ([model.status isEqualToString:@"1"]){
+        goodStatus.text = @"已支付";
+        UIButton *deliverGoodsBtn = [[UIButton alloc] init];
+        deliverGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        deliverGoodsBtn.backgroundColor =colorWithRGB(0xFF6B24);
+        [deliverGoodsBtn setTitle:@"确认发货" forState:UIControlStateNormal];
+        [deliverGoodsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [deliverGoodsBtn addTarget:self action:@selector(applyBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:deliverGoodsBtn];
+        deliverGoodsBtn.sd_layout
+        .topSpaceToView(view, 10)
+        .rightSpaceToView(view, 15)
+        .widthIs(70)
+        .heightIs(30);
+    }else if ([model.status isEqualToString:@"2"]){
+        goodStatus.text = @"待发货";
+    //        self.lookLogisticsBtn.alpha = 0;
+    //        self.mineReminderBtn.alpha = 0;
+    //        self.collectGoodsBtn.alpha = 0;
+    //        self.paymentBtn.alpha = 0;
+    //        self.cancelGoodsBtn.alpha = 0;
+    //        self.deliverGoodsBtn.alpha = 0;
+    }else if ([model.status isEqualToString:@"3"]){
+        goodStatus.text = @"已发货";
+        UIButton *collectGoodsBtn = [[UIButton alloc] init];
+        collectGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        collectGoodsBtn.backgroundColor =colorWithRGB(0xFF6B24);
+        [collectGoodsBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+        [collectGoodsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [collectGoodsBtn addTarget:self action:@selector(applyBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:collectGoodsBtn];
+        collectGoodsBtn.sd_layout
+        .topSpaceToView(view, 10)
+        .rightSpaceToView(view, 15)
+        .widthIs(70)
+        .heightIs(30);
+    
+    
+        UIButton *lookLogisticsBtn = [[UIButton alloc] init];
+        lookLogisticsBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        lookLogisticsBtn.backgroundColor =colorWithRGB(0xFF6B24);
+        [lookLogisticsBtn setTitle:@"查看物流" forState:UIControlStateNormal];
+        [lookLogisticsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [lookLogisticsBtn addTarget:self action:@selector(applyBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:lookLogisticsBtn];
+        lookLogisticsBtn.sd_layout
+        .topSpaceToView(view, 10)
+        .rightSpaceToView(collectGoodsBtn, 10)
+        .widthIs(70)
+        .heightIs(30);
+    
+        UIButton *mineReminderBtn = [[UIButton alloc] init];
+        mineReminderBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        mineReminderBtn.backgroundColor =colorWithRGB(0xFF6B24);
+        [mineReminderBtn setTitle:@"我要催单" forState:UIControlStateNormal];
+        [mineReminderBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [mineReminderBtn addTarget:self action:@selector(applyBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:mineReminderBtn];
+        mineReminderBtn.sd_layout
+        .topSpaceToView(view, 10)
+        .rightSpaceToView(lookLogisticsBtn, 15)
+        .widthIs(70)
+        .heightIs(30);
+    }else if ([model.status isEqualToString:@"4"]){
+        goodStatus.text = @"已完成";
+    }else if ([model.status isEqualToString:@"5"]){
+        goodStatus.text = @"已取消";
+    }else if ([model.status isEqualToString:@"6"]){
+        goodStatus.text = @"售后";
+    }
+    
+    return bgView;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-//    NSArray *listArr = @[@"2018-07-23",@"2018-07-22",@"2018-07-21",@"2018-07-20",@"2018-07-19",@"2018-07-18",@"2018-07-17",@"2018-07-16",@"2018-07-15",@"2018-07-14"];
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
     view.backgroundColor = [UIColor whiteColor];
     
 //    UIImageView *lineImgeView = [[UIImageView alloc] init];
@@ -227,30 +338,19 @@
     UILabel *listLabel = [[UILabel alloc] init];
     [view addSubview:listLabel];
     listLabel.sd_layout
-    .topSpaceToView(view, 5)
+    .topSpaceToView(view, 10)
     .leftSpaceToView(view, 15)
     .widthIs(150)
     .heightIs(20);
     listLabel.font = [UIFont systemFontOfSize:15];
-//    NSDictionary *dict = self.listDataArr[section];
     MineIndentModel *model = self.listDataArr[section];
     listLabel.text = model.merchantName;
-
-    
-    UIImageView *lineImgeView = [[UIImageView alloc] init];
-    lineImgeView.image = [UIImage imageNamed:@"我的订单_line"];
-    [view addSubview:lineImgeView];
-    lineImgeView.sd_layout
-    .topSpaceToView(view, 29)
-    .leftSpaceToView(view, 0)
-    .rightSpaceToView(view, 0)
-    .heightIs(1);
-    
+    listLabel.textColor = [UIColor colorWithRed:103.0/255.0 green:5.0/255.0 blue:67.0/255.0 alpha:1.0];
     return view;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 170;
+    return 120;
     
 }
 

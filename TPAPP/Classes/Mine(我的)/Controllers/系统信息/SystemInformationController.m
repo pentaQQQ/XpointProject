@@ -43,11 +43,20 @@
         CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
         //获取导航栏的rect
         CGRect navRect = self.navigationController.navigationBar.frame;
-        _listTableView.sd_layout
-        .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
-        .leftEqualToView(self.view)
-        .rightEqualToView(self.view)
-        .bottomSpaceToView(self.view, SafeAreaBottomHeight);
+        if (self.isMyPush) {
+            _listTableView.sd_layout
+            .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
+            .leftEqualToView(self.view)
+            .rightEqualToView(self.view)
+            .bottomSpaceToView(self.view, SafeAreaBottomHeight);
+        }else{
+            _listTableView.sd_layout
+            .topSpaceToView(self.view, 0)
+            .leftEqualToView(self.view)
+            .rightEqualToView(self.view)
+            .bottomSpaceToView(self.view, SafeAreaBottomHeight);
+        }
+        
 
     }
     return _listTableView;

@@ -30,7 +30,7 @@
 
 
 //#define kBaseUrl           @"http://47.92.193.30/"
-#define kBaseUrl           @"https://pay.shty518.com/"
+#define kBaseUrl           @"https://pay.shty518.com"
 
 
 
@@ -41,11 +41,11 @@
 
 
 //获取首页标签及内容
-#define getMainResources [NSString stringWithFormat:@"%@%@",kBaseUrl,@"api/main/getMainResources"]
+#define getMainResources [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/main/getMainResources"]
 //根据活动查询商品信息，返回所有已上架商品
-#define getProductByActivityId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"api/main/getProductByActivityId"]
+#define getProductByActivityId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/main/getProductByActivityId"]
 //获取验证码
-#define getSecurityCode [NSString stringWithFormat:@"%@%@",kBaseUrl,@"api/eshopUser/send/login"]
+#define getSecurityCode [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/send/login"]
 //登陆
 #define getlogin [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/login"]
 //微信登陆

@@ -132,11 +132,17 @@ static const CGFloat headerImageHeight = 260.0f;
         if ([respCode isEqualToString:@"00000"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.listDataArr removeAllObjects];
-                for (NSDictionary *dic in json[@"data"]) {
-                    PerformanceModel *model = [PerformanceModel mj_objectWithKeyValues:dic];
-                    [self.listDataArr addObject:[NSString stringWithFormat:@"¥%@",model.amount]];
-                    [self.listDataArr addObject:[NSString stringWithFormat:@"¥%@",model.discountAmount]];
+                if ([json[@"data"] count] == 0) {
+                    [self.listDataArr addObject:@"¥0.00"];
+                    [self.listDataArr addObject:@"¥0.00"];
+                }else{
+                    for (NSDictionary *dic in json[@"data"]) {
+                        PerformanceModel *model = [PerformanceModel mj_objectWithKeyValues:dic];
+                        [self.listDataArr addObject:[NSString stringWithFormat:@"¥%@",model.amount]];
+                        [self.listDataArr addObject:[NSString stringWithFormat:@"¥%@",model.discountAmount]];
+                    }
                 }
+                
                 [self loadMouthNewData];
             });
         }else if([json[@"code"]longValue] == 500){
@@ -164,12 +170,17 @@ static const CGFloat headerImageHeight = 260.0f;
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                for (NSDictionary *dic in json[@"data"]) {
-                    PerformanceModel *model = [PerformanceModel mj_objectWithKeyValues:dic];
-//                    [self.listDataArr addObject:model];
-                    [self.listDataArr addObject:[NSString stringWithFormat:@"¥%@",model.amount]];
-                    [self.listDataArr addObject:[NSString stringWithFormat:@"¥%@",model.discountAmount]];
+                if ([json[@"data"] count] == 0) {
+                    [self.listDataArr addObject:@"¥0.00"];
+                    [self.listDataArr addObject:@"¥0.00"];
+                }else{
+                    for (NSDictionary *dic in json[@"data"]) {
+                        PerformanceModel *model = [PerformanceModel mj_objectWithKeyValues:dic];
+                        [self.listDataArr addObject:[NSString stringWithFormat:@"¥%@",model.amount]];
+                        [self.listDataArr addObject:[NSString stringWithFormat:@"¥%@",model.discountAmount]];
+                    }
                 }
+                
                 [self.listTableView reloadData];
             });
         }else if([json[@"code"]longValue] == 500){
@@ -888,6 +899,7 @@ static const CGFloat headerImageHeight = 260.0f;
 {
     
     SystemInformationController *minePerCtrl = [[SystemInformationController alloc] init];
+    minePerCtrl.isMyPush = YES;
     [self.navigationController pushViewController:minePerCtrl animated:YES];
 }
 - (void)rightAction

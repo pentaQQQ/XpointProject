@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 @interface SystemInformationController : BaseViewController
-
+@property (nonatomic, assign)BOOL isMyPush;
 @end
