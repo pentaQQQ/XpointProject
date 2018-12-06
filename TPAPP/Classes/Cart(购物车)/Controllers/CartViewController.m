@@ -119,6 +119,7 @@
         NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             self.goodsCartModel = [GoodsCartModel mj_objectWithKeyValues:dict[@"data"]];
+            self.goodsCartModel.userId = lyAccount.id;
             NSMutableArray *allTimeArr = [NSMutableArray array];
             for (NSDictionary *dic in dict[@"data"][@"cartDetails"]) {
                 //1.取出所有的商户id
@@ -137,6 +138,7 @@
                         model.CheckAll = @"1";
                         model.Edit= @"0";
                         model.EditBtn = @"0";
+                        model.userId = lyAccount.id;
                         SimilarProductModel *sModel = [SimilarProductModel mj_objectWithKeyValues:ordersDicTwo[@"productForm"]];
                         model.productForm = sModel;
                         [arr addObject:model];
@@ -904,21 +906,36 @@
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             [dict setValue:addressId forKey:@"addressId"];
             [dict setValue:model.productForm.merchantId forKey:@"merchantId"];
-            [dict setValue:model.productForm.merchantUrL forKey:@"merchantLogo"];
+            [dict setValue:@(0) forKey:@"isCheck"];
             [dict setValue:model.productForm.merchantName forKey:@"merchantName"];
             [dict setValue:[[LYAccount shareAccount] id]  forKey:@"userId"];
             NSMutableArray *arr1 = [NSMutableArray array];
             for (NSInteger j = 0 ; j < arr.count; j ++) {
                 CartDetailsModel *detailModel = arr[j];
-                NSMutableDictionary *goodDict = [NSMutableDictionary dictionary];
-                [goodDict setValue:@([detailModel.productForm.discountAmount longLongValue]) forKey:@"discountAmount"];
-                [goodDict setValue:@(detailModel.number) forKey:@"number"];
-                [goodDict setValue:detailModel.productId forKey:@"productId"];
-                [goodDict setValue:detailModel.remark forKey:@"remark"];
-                [goodDict setValue:detailModel.size forKey:@"size"];
-                [goodDict setValue:detailModel.specId forKey:@"specId"];
-                [goodDict setValue:detailModel.productForm.marketAmount forKey:@"productAmount"];
-                [arr1 addObject:goodDict];
+                NSMutableDictionary *newDic = [detailModel mj_keyValues];
+                NSMutableDictionary *newDics = newDic[@"productForm"];
+                [newDics removeObjectForKey:@"debugDescription"];
+                [newDics removeObjectForKey:@"description"];
+                [newDics removeObjectForKey:@"superclass"];
+                newDic[@"productForm"] = newDics;
+                [newDic setValue:@(1) forKey:@"isCheck"];
+                [newDic setValue:detailModel.productForm.marketAmount forKey:@"productAmount"];
+                [newDic removeObjectForKey:@"SelectedType"];
+                [newDic removeObjectForKey:@"Type"];
+                [newDic removeObjectForKey:@"CheckAll"];
+                [newDic removeObjectForKey:@"Edit"];
+                [newDic removeObjectForKey:@"EditBtn"];
+                [newDic removeObjectForKey:@"rowHeight"];
+              
+//                NSMutableDictionary *goodDict = [NSMutableDictionary dictionary];
+//                [goodDict setValue:@([detailModel.productForm.discountAmount longLongValue]) forKey:@"discountAmount"];
+//                [goodDict setValue:@(detailModel.number) forKey:@"number"];
+//                [goodDict setValue:detailModel.productId forKey:@"productId"];
+//                [goodDict setValue:detailModel.remark forKey:@"remark"];
+//                [goodDict setValue:detailModel.size forKey:@"size"];
+//                [goodDict setValue:detailModel.specId forKey:@"specId"];
+//                [goodDict setValue:detailModel.productForm.marketAmount forKey:@"productAmount"];
+                [arr1 addObject:newDic];
             }
             [dict setValue:arr1 forKey:@"orderDetailList"];
             [dataArray addObject:dict];
@@ -929,12 +946,29 @@
             NSLog(@"%@",dict);
             NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
             if ([respCode isEqualToString:@"00000"]) {
-                BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
+                 BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
+                for (NSDictionary *dics in dict[@"data"]) {
+                    MineIndentModel *indentModel = [MineIndentModel mj_objectWithKeyValues:dics];
+                    AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
+                    indentModel.addressInfo = addressModel;
+                    if (![dics[@"orderDetailList"] isKindOfClass:[NSNull class]]) {
+                        [indentModel.orderDetailList removeAllObjects];
+                        
+                        for (NSDictionary *newsDic in dics[@"orderDetailList"]) {
+                            OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newsDic];
+                            [indentModel.orderDetailList addObject:orderDetailModel];
+                            
+                        }
+                    }
+                    
+                    buyCtrl.minModel = indentModel;
+                }
+               
                 buyCtrl.goodsListArray = goodListArr;
-                buyCtrl.goodsNum = _goodsNum;
-                buyCtrl.goodsPrice = _goodsPrice;
+                buyCtrl.goodsNum = self->_goodsNum;
+                buyCtrl.goodsPrice = self->_goodsPrice;
                 [self.navigationController pushViewController:buyCtrl animated:YES];
-            }else if([dict[@"code"]longValue] == 500){
+            }else{
                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
             }
         } fail:^(NSError *error) {
@@ -1159,16 +1193,16 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         UIWindow *window = [[UIApplication sharedApplication].windows objectAtIndex:0];
         // 解除隐藏
-        [window addSubview:_previewView];
-        [window bringSubviewToFront:_previewView];
+        [window addSubview:self->_previewView];
+        [window bringSubviewToFront:self->_previewView];
         // 清空
-        [_previewView.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self->_previewView.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         // 添加子视图
         NSInteger index = 0;
         NSInteger count = cell.detailModel.productForm.imagesList.count;
         CGRect convertRect;
         if (count == 1) {
-            [_previewView.pageControl removeFromSuperview];
+            [self->_previewView.pageControl removeFromSuperview];
         }
         for (NSInteger i = 0; i < count; i ++)
         {
@@ -1181,7 +1215,7 @@
             MMImageView *pImageView = [[MMImageView alloc] initWithFrame:rect2];;
             convertRect = rect2;
             // 添加
-            MMScrollView *scrollView = [[MMScrollView alloc] initWithFrame:CGRectMake(i*_previewView.width, 0, _previewView.width, _previewView.height)];
+            MMScrollView *scrollView = [[MMScrollView alloc] initWithFrame:CGRectMake(i*self->_previewView.width, 0, self->_previewView.width, self->_previewView.height)];
             scrollView.tag = 100+i;
             scrollView.maximumZoomScale = 2.0;
             // 根据图片的url下载图片数据
@@ -1202,11 +1236,11 @@
                     [scrollView setLongPressBigView:^(MMScrollView *scrollView){
                         [self longPresssBigViewCallback:scrollView.imageView];
                     }];
-                    [_previewView.scrollView addSubview:scrollView];
+                    [self->_previewView.scrollView addSubview:scrollView];
                     if (i == index) {
                         [UIView animateWithDuration:0.3 animations:^{
-                            _previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0];
-                            _previewView.pageControl.hidden = NO;
+                            self->_previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0];
+                            self->_previewView.pageControl.hidden = NO;
                             [scrollView updateOriginRect];
                         }];
                     } else {
@@ -1218,9 +1252,9 @@
             
         }
         // 更新offset
-        CGPoint offset = _previewView.scrollView.contentOffset;
+        CGPoint offset = self->_previewView.scrollView.contentOffset;
         offset.x = index * k_screen_width;
-        _previewView.scrollView.contentOffset = offset;
+        self->_previewView.scrollView.contentOffset = offset;
     });
     
 }
@@ -1229,12 +1263,12 @@
 - (void)singleTapBigViewCallback:(MMScrollView *)scrollView
 {
     [UIView animateWithDuration:0.3 animations:^{
-        _previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-        _previewView.pageControl.hidden = YES;
+        self->_previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+        self->_previewView.pageControl.hidden = YES;
         scrollView.contentRect = scrollView.contentRect;
         scrollView.zoomScale = 1.0;
     } completion:^(BOOL finished) {
-        [_previewView removeFromSuperview];
+        [self->_previewView removeFromSuperview];
     }];
 }
 

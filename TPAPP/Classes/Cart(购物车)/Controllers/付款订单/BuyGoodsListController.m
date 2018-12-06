@@ -56,7 +56,7 @@
     }else{
         self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
     }
-    self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%d件)",self.goodsNum],self.goodsPrice],@[@"优惠金额",@"-¥0.00"],@[@"运费",@"+¥50.00"],@[@"应付金额",self.goodsPrice], nil];
+    self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal]],@[@"优惠金额",@"-¥0.00"],@[@"运费",[NSString stringWithFormat:@"¥%.2lf",self.minModel.logisticsFee]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal]], nil];
     
     self.title = @"支付订单";
     self.btnTag = defaultTag; //self.btnTag = defaultTag+1  表示默认选择第二个，依次类推
@@ -120,7 +120,7 @@
     .heightIs(20);
     
     self.allGoodsPriceLabel = [[UILabel alloc] init];
-    self.allGoodsPriceLabel.text = self.goodsPrice;
+    self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal];
     self.allGoodsPriceLabel.textAlignment = NSTextAlignmentLeft;
     self.allGoodsPriceLabel.textColor = colorWithRGB(0xFF6B24);
     self.allGoodsPriceLabel.font = [UIFont systemFontOfSize:19];
@@ -128,11 +128,11 @@
     self.allGoodsPriceLabel.sd_layout
     .topSpaceToView(self.bottomView,10)
     .leftSpaceToView(self.priceLabel, 5)
-    .widthIs([self widthLabelWithModel:self.goodsPrice withFont:19])
+    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal] withFont:19])
     .heightIs(30);
     
     self.allGoodsNumberLabel = [[UILabel alloc] init];
-    self.allGoodsNumberLabel.text = [NSString stringWithFormat:@"(共%d件)",self.goodsNum];
+    self.allGoodsNumberLabel.text = [NSString stringWithFormat:@"(共%ld件)",self.minModel.productCount];
     self.allGoodsNumberLabel.textAlignment = NSTextAlignmentLeft;
     self.allGoodsNumberLabel.textColor = colorWithRGB(0xFF6B24);
     self.allGoodsNumberLabel.font = [UIFont systemFontOfSize:13];
@@ -140,7 +140,7 @@
     self.allGoodsNumberLabel.sd_layout
     .topSpaceToView(self.bottomView,20)
     .leftSpaceToView(self.allGoodsPriceLabel, 5)
-    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"(共%d件)",self.goodsNum] withFont:13])
+    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"(共%ld件)",self.minModel.productCount] withFont:13])
     .heightIs(20);
     
     self.buyButton = [[UIButton alloc] init];

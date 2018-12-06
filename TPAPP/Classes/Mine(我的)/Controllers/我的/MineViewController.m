@@ -29,7 +29,7 @@
 #import "PerformanceModel.h"
 #define SCREEN_RECT [UIScreen mainScreen].bounds
 static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
-static const CGFloat headerImageHeight = 260.0f;
+//static const CGFloat headerImageHeight = 260.0f;
 
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;

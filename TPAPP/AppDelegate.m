@@ -15,8 +15,6 @@
 #import "WXApiManager.h"
 #import "AddressModel.h"
 
-
-
 #import "QMProfileManager.h"
 #import <UserNotifications/UserNotifications.h>
 #import <QMChatSDK/QMChatSDK.h>
@@ -37,6 +35,8 @@
    
     
     [self initKeyboard];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isMyCtrl"];
+    
     
     [WXApi startLogByLevel:WXLogLevelNormal logBlock:^(NSString *log) {
         NSLog(@"log : %@", log);

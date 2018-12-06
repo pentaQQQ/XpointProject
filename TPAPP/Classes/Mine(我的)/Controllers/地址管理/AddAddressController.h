@@ -10,4 +10,5 @@
 #import "BaseViewController.h"
 @interface AddAddressController : BaseViewController
 @property (nonatomic, assign)NSInteger dataNull;
+@property (nonatomic, assign)BOOL isCartCtrl;
 @end

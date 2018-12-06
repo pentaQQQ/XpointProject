@@ -284,14 +284,6 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
     view.backgroundColor = [UIColor whiteColor];
     
-    //    UIImageView *lineImgeView = [[UIImageView alloc] init];
-    //    [view addSubview:lineImgeView];
-    //    lineImgeView.image = [UIImage imageNamed:@"icon_mine_line"];
-    //    lineImgeView.sd_layout
-    //    .topSpaceToView(view, 7)
-    //    .leftSpaceToView(view, 15)
-    //    .bottomSpaceToView(view, 7)
-    //    .widthIs(2);
     
     UILabel *listLabel = [[UILabel alloc] init];
     [view addSubview:listLabel];
