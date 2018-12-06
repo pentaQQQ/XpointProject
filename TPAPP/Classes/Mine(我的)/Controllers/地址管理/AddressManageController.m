@@ -81,6 +81,7 @@
 {
     AddAddressController *addCtrl = [[AddAddressController alloc] init];
     addCtrl.dataNull = self.listDataArr.count;
+    addCtrl.isCartCtrl = self.isCartCtrlType;
     [self.navigationController pushViewController:addCtrl animated:YES];
 }
 
@@ -97,7 +98,7 @@
             [self.listDataArr removeAllObjects];
             for (NSDictionary *dict in json[@"data"]) {
                 AddressModel *model = [AddressModel statusWithDict:dict];
-//                if ([model.isGeneration isEqualToString:@"0"]) {
+                if ([model.isGeneration isEqualToString:@"0"]) {
                     if ([model.isDefault isEqualToString:@"1"]) {
                         NSMutableDictionary *dictt = [[LYAccount shareAccount] mj_keyValues];
                         dictt[@"defaultAddress"] = [model mj_keyValues];
@@ -106,7 +107,7 @@
                     }else{
                         [self.listDataArr addObject:model];
                     }
-//                }
+                }
                 
             }
             [self.listTableView reloadData];
@@ -140,15 +141,25 @@
         _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _listTableView.dataSource = self;
         [self.view addSubview:self.listTableView];
+       
         //获取状态栏的rect
-//        CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+        CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
         //获取导航栏的rect
-//        CGRect navRect = self.navigationController.navigationBar.frame;
-        _listTableView.sd_layout
-        .topSpaceToView(self.view, 0)
-        .leftEqualToView(self.view)
-        .rightEqualToView(self.view)
-        .bottomSpaceToView(self.view, 100);
+        CGRect navRect = self.navigationController.navigationBar.frame;
+        if (self.isCartCtrlType == NO) {
+            _listTableView.sd_layout
+            .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
+            .leftEqualToView(self.view)
+            .rightEqualToView(self.view)
+            .bottomSpaceToView(self.view, 100);
+        }else{
+            _listTableView.sd_layout
+            .topSpaceToView(self.view, 0)
+            .leftEqualToView(self.view)
+            .rightEqualToView(self.view)
+            .bottomSpaceToView(self.view, 100);
+        }
+        
     }
     return _listTableView;
 }
@@ -175,6 +186,7 @@
         if (num == 0) {
             EditAddressController *addCtrl = [[EditAddressController alloc] init];
             addCtrl.addressModel = model;
+            addCtrl.isCartCtrl = self.isCartCtrlType;
             [self.navigationController pushViewController:addCtrl animated:YES];
         }else{
             if ([model.isDefault isEqualToString:@"0"]) {
@@ -186,7 +198,9 @@
                 [self.dataDict addEntriesFromDictionary:@{@"recNickName":model.recNickName}];
                 [self.dataDict addEntriesFromDictionary:@{@"recPhone":model.recPhone}];
                 [self.dataDict addEntriesFromDictionary:@{@"isGeneration":model.isGeneration}];
-                [self.dataDict addEntriesFromDictionary:@{@"recIdentityCardNo":model.recIdentityCardNo}];
+                if (model.recIdentityCardNo.length != 0) {
+                    [self.dataDict addEntriesFromDictionary:@{@"recIdentityCardNo":model.recIdentityCardNo}];
+                }
                 [self.dataDict addEntriesFromDictionary:@{@"recAddress":model.recAddress}];
                 [self.dataDict addEntriesFromDictionary:@{@"isDefault":@"1"}];
                 [self.dataDict addEntriesFromDictionary:@{@"recProv":model.recProv}];
@@ -194,7 +208,6 @@
                 [self.dataDict addEntriesFromDictionary:@{@"recArea":model.recArea}];
                 [self.dataDict addEntriesFromDictionary:@{@"id":model.id}];
                 [LYTools postBossDemoWithUrl:updateAddress param:self.dataDict success:^(NSDictionary *dict) {
-//                    NSLog(@"%@",dict);
                     NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
                     if ([respCode isEqualToString:@"00000"]) {
                         [self loadNewTopic];

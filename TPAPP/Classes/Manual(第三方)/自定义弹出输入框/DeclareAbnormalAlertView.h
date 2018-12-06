@@ -32,12 +32,16 @@ typedef NS_ENUM(NSUInteger, AbnormalButton) {
 - (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectCell:(CompileCell *)cell selectSpesModel:(specsModel *)model;
 
 @end
+@protocol DeclareAbnormalAlertViewOrderListRemindDelegate <NSObject>
+
+- (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel;
+
+@end
 @protocol DeclareAbnormalAlertViewRemindDelegate <NSObject>
 
 - (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex comGoodList:(NSMutableArray *)goodListArr;
 
 @end
-
 #pragma mark - interface
 
 /** 申报异常弹窗 */
@@ -53,6 +57,7 @@ typedef NS_ENUM(NSUInteger, AbnormalButton) {
 @property (nonatomic,copy)   NSString *rightButtonTitle;
 @property (nonatomic,weak) id<DeclareAbnormalAlertViewDelegate> delegate;
 @property (nonatomic,weak) id<DeclareAbnormalAlertViewRemindDelegate> remindDelegate;
+@property (nonatomic,weak) id<DeclareAbnormalAlertViewOrderListRemindDelegate> orderListRemindDelegate;
 /**
  申报异常弹窗的构造方法
 
@@ -65,7 +70,7 @@ typedef NS_ENUM(NSUInteger, AbnormalButton) {
  */
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle comCell:(CompileCell *)cell isAddGood:(BOOL)isAddGood spesmodel:(specsModel *)model;
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message remind:(NSString *)remind delegate:(id)remindDelegate leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle comGoodList:(NSMutableArray *)goodListArr;
-
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message selectType:(NSString *)type delegate:(id)orderRemindDelegate leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle comGoodList:(MineIndentModel *)minModel;
 /** show出这个弹窗 */
 - (void)show;
 

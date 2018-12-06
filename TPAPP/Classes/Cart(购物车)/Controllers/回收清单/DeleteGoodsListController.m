@@ -44,7 +44,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     
-    self.cartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -SafeAreaBottomHeight) style:UITableViewStyleGrouped];
+    self.cartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -SafeAreaBottomHeight-SafeAreaTopHeight) style:UITableViewStyleGrouped];
     self.cartTableView.estimatedRowHeight = 0;
     self.cartTableView.delegate = self;
     self.cartTableView.dataSource = self;

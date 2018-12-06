@@ -615,7 +615,7 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     NSURLSessionDataTask *task = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        NSLog(@"-----responseObject===%@+++++",responseObject);
+//        NSLog(@"-----responseObject===%@+++++",responseObject);
         if (!error) {
             if ([responseObject isKindOfClass:[NSDictionary class]]) {
                 [self weatherToLoginWithJson:responseObject success:^(id responseObject) {
@@ -650,7 +650,7 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     NSURLSessionDataTask *task = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        NSLog(@"-----responseObject===%@+++++",responseObject);
+//        NSLog(@"-----responseObject===%@+++++",responseObject);
         if (!error) {
             if ([responseObject isKindOfClass:[NSDictionary class]]) {
                 [self weatherToLoginWithJson:responseObject success:^(id responseObject) {
