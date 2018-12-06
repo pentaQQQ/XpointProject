@@ -12,6 +12,13 @@
 #import "MineIndentViewController.h"
 #import "JXCategoryNumberView.h"
 #import "MineIndentChildController.h"
+#import "AfterSalesViewController.h"
+#import "HasBeenCancelledController.h"
+#import "HasBeenCompletedController.h"
+#import "HasBeenShippedViewController.h"
+#import "WaitDeliveryViewController.h"
+#import "HavePayViewController.h"
+#import "GenerationPaymentViewController.h"
 @interface MineIndentViewController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentScrollView *pageContentScrollView;
@@ -83,11 +90,50 @@
     
     NSMutableArray *childArr = [NSMutableArray array];
     for (int i=0; i<titleArr.count; i++) {
-        MineIndentChildController *vc = [[MineIndentChildController alloc]init];
-        vc.selectCtrl = i;
-        //设置代理
-        self.selecteDelegate = vc;
-        [childArr addObject:vc];
+        if (i == 0) {
+            GenerationPaymentViewController *vc = [[GenerationPaymentViewController alloc]init];
+            vc.selectCtrl = i;
+            //设置代理
+            self.generationPaymentDelegate  =  vc;
+            [childArr addObject:vc];
+        }else if (i == 1){
+            HavePayViewController *vc = [[HavePayViewController alloc]init];
+            vc.selectCtrl = i;
+            //设置代理
+            self.havePayDelegate  =  vc;
+            [childArr addObject:vc];
+        }else if (i == 2){
+            WaitDeliveryViewController *vc = [[WaitDeliveryViewController alloc]init];
+            vc.selectCtrl = i;
+            //设置代理
+            self.waitDeliveryDelegate  =  vc;
+            [childArr addObject:vc];
+        }else if (i == 3){
+            HasBeenShippedViewController *vc = [[HasBeenShippedViewController alloc]init];
+            vc.selectCtrl = i;
+            //设置代理
+            self.hasBeenShippedDelegate  =  vc;
+            [childArr addObject:vc];
+        }else if (i == 4){
+            HasBeenCompletedController *vc = [[HasBeenCompletedController alloc]init];
+            vc.selectCtrl = i;
+            //设置代理
+            self.hasBeenCompletedDelegate  =  vc;
+            [childArr addObject:vc];
+        }else if (i == 5){
+            HasBeenCancelledController *vc = [[HasBeenCancelledController alloc]init];
+            vc.selectCtrl = i;
+            //设置代理
+            self.hasBeenCancelledDelegate  =  vc;
+            [childArr addObject:vc];
+        }else{
+            AfterSalesViewController *vc = [[AfterSalesViewController alloc]init];
+            vc.selectCtrl = i;
+            //设置代理
+            self.afterSalesDelegate  =  vc;
+            [childArr addObject:vc];
+        }
+        
     }
     
     CGFloat ContentCollectionViewHeight = self.view.frame.size.height - CGRectGetMaxY(_pageTitleView.frame);
@@ -112,11 +158,55 @@
     if (index == 1 || index == 5) {
         [_pageTitleView removeBadgeForIndex:index];
     }
-    if (self.selecteDelegate && [self.selecteDelegate respondsToSelector:@selector(selecteNumber:)])
-    {
-        // 调用代理方法
-        [self.selecteDelegate selecteNumber:index];
+    if (index == 0) {
+        if (self.generationPaymentDelegate && [self.generationPaymentDelegate respondsToSelector:@selector(selecteGenerationPayment:)])
+        {
+            // 调用代理方法
+            [self.generationPaymentDelegate selecteGenerationPayment:index];
+        }
+    }else if (index == 1){
+        if (self.havePayDelegate && [self.havePayDelegate respondsToSelector:@selector(selecteHavePay:)])
+        {
+            // 调用代理方法
+            [self.havePayDelegate selecteHavePay:index];
+        }
+    }else if (index == 2){
+        if (self.waitDeliveryDelegate && [self.waitDeliveryDelegate respondsToSelector:@selector(selecteWaitDelivery:)])
+        {
+            // 调用代理方法
+            [self.waitDeliveryDelegate selecteWaitDelivery:index];
+        }
+    }else if (index == 3){
+        if (self.hasBeenShippedDelegate && [self.hasBeenShippedDelegate respondsToSelector:@selector(selecteHasBeenShipped:)])
+        {
+            // 调用代理方法
+            [self.hasBeenShippedDelegate selecteHasBeenShipped:index];
+        }
+    }else if (index == 4){
+        if (self.hasBeenCompletedDelegate && [self.hasBeenCompletedDelegate respondsToSelector:@selector(selecteHasBeenCompleted:)])
+        {
+            // 调用代理方法
+            [self.hasBeenCompletedDelegate selecteHasBeenCompleted:index];
+        }
+    }else if (index == 5){
+        if (self.hasBeenCancelledDelegate && [self.hasBeenCancelledDelegate respondsToSelector:@selector(selecteHasBeenCancelled:)])
+        {
+            // 调用代理方法
+            [self.hasBeenCancelledDelegate selecteHasBeenCancelled:index];
+        }
+    }else if (index == 6){
+        if (self.afterSalesDelegate && [self.afterSalesDelegate respondsToSelector:@selector(selecteAfterSales:)])
+        {
+            // 调用代理方法
+            [self.afterSalesDelegate selecteAfterSales:index];
+        }
     }
+    
+//    if (self.selecteDelegate && [self.selecteDelegate respondsToSelector:@selector(selecteNumber:)])
+//    {
+//        // 调用代理方法
+//        [self.selecteDelegate selecteNumber:index];
+//    }
 }
 
 //- (JXCategoryNumberView *)myCategoryView {

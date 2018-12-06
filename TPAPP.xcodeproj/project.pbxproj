@@ -127,7 +127,15 @@
 		012997CB2139267200ADE72B /* GoodLogisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997C02139267200ADE72B /* GoodLogisticsModel.m */; };
 		01304F7F2149123F0040936F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01304F7E2149123E0040936F /* CoreGraphics.framework */; };
 		01304F81214912570040936F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01304F80214912570040936F /* UIKit.framework */; };
+		014C5C1021B774BF00774B1D /* GenerationPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C0F21B774BF00774B1D /* GenerationPaymentViewController.m */; };
+		014C5C1321B774D000774B1D /* HavePayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C1221B774D000774B1D /* HavePayViewController.m */; };
+		014C5C1621B774DF00774B1D /* WaitDeliveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C1521B774DF00774B1D /* WaitDeliveryViewController.m */; };
+		014C5C1921B774F700774B1D /* HasBeenShippedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C1821B774F700774B1D /* HasBeenShippedViewController.m */; };
+		014C5C1C21B7750A00774B1D /* HasBeenCompletedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C1B21B7750A00774B1D /* HasBeenCompletedController.m */; };
+		014C5C1F21B7751B00774B1D /* HasBeenCancelledController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C1E21B7751B00774B1D /* HasBeenCancelledController.m */; };
+		014C5C2221B7752C00774B1D /* AfterSalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C2121B7752C00774B1D /* AfterSalesViewController.m */; };
 		015A411B21402135008EC232 /* GoodsCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 015A411A21402135008EC232 /* GoodsCartModel.m */; };
+		0174B1E921B7E54300A47147 /* TransMessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0174B1E821B7E54300A47147 /* TransMessViewController.m */; };
 		017888A521359FD400C17F07 /* CustomerReCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 017888A421359FD400C17F07 /* CustomerReCell.m */; };
 		017BA1E92182AB1C003F3A65 /* MXNavigationBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 017BA1E82182AB1C003F3A65 /* MXNavigationBarManager.m */; };
 		017D449321460FD1000CFFBA /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 017D449221460FD1000CFFBA /* CoreData.framework */; };
@@ -798,8 +806,24 @@
 		012997C02139267200ADE72B /* GoodLogisticsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsModel.m; sourceTree = "<group>"; };
 		01304F7E2149123E0040936F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		01304F80214912570040936F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		014C5C0E21B774BF00774B1D /* GenerationPaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenerationPaymentViewController.h; sourceTree = "<group>"; };
+		014C5C0F21B774BF00774B1D /* GenerationPaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenerationPaymentViewController.m; sourceTree = "<group>"; };
+		014C5C1121B774D000774B1D /* HavePayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HavePayViewController.h; sourceTree = "<group>"; };
+		014C5C1221B774D000774B1D /* HavePayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HavePayViewController.m; sourceTree = "<group>"; };
+		014C5C1421B774DF00774B1D /* WaitDeliveryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaitDeliveryViewController.h; sourceTree = "<group>"; };
+		014C5C1521B774DF00774B1D /* WaitDeliveryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaitDeliveryViewController.m; sourceTree = "<group>"; };
+		014C5C1721B774F700774B1D /* HasBeenShippedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HasBeenShippedViewController.h; sourceTree = "<group>"; };
+		014C5C1821B774F700774B1D /* HasBeenShippedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HasBeenShippedViewController.m; sourceTree = "<group>"; };
+		014C5C1A21B7750A00774B1D /* HasBeenCompletedController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HasBeenCompletedController.h; sourceTree = "<group>"; };
+		014C5C1B21B7750A00774B1D /* HasBeenCompletedController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HasBeenCompletedController.m; sourceTree = "<group>"; };
+		014C5C1D21B7751B00774B1D /* HasBeenCancelledController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HasBeenCancelledController.h; sourceTree = "<group>"; };
+		014C5C1E21B7751B00774B1D /* HasBeenCancelledController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HasBeenCancelledController.m; sourceTree = "<group>"; };
+		014C5C2021B7752C00774B1D /* AfterSalesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AfterSalesViewController.h; sourceTree = "<group>"; };
+		014C5C2121B7752C00774B1D /* AfterSalesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AfterSalesViewController.m; sourceTree = "<group>"; };
 		015A411921402135008EC232 /* GoodsCartModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodsCartModel.h; sourceTree = "<group>"; };
 		015A411A21402135008EC232 /* GoodsCartModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodsCartModel.m; sourceTree = "<group>"; };
+		0174B1E721B7E54300A47147 /* TransMessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransMessViewController.h; sourceTree = "<group>"; };
+		0174B1E821B7E54300A47147 /* TransMessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransMessViewController.m; sourceTree = "<group>"; };
 		017888A321359FD400C17F07 /* CustomerReCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomerReCell.h; sourceTree = "<group>"; };
 		017888A421359FD400C17F07 /* CustomerReCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomerReCell.m; sourceTree = "<group>"; };
 		017BA1E72182AB1C003F3A65 /* MXNavigationBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXNavigationBarManager.h; sourceTree = "<group>"; };
@@ -1720,6 +1744,22 @@
 				01F1DFF5213A7CF6009A925A /* MineIndentListCell.m */,
 				01BC59A52147ADA7000FF81F /* MineIndentModel.h */,
 				01BC59A62147ADA7000FF81F /* MineIndentModel.m */,
+				014C5C0E21B774BF00774B1D /* GenerationPaymentViewController.h */,
+				014C5C0F21B774BF00774B1D /* GenerationPaymentViewController.m */,
+				014C5C1121B774D000774B1D /* HavePayViewController.h */,
+				014C5C1221B774D000774B1D /* HavePayViewController.m */,
+				014C5C1421B774DF00774B1D /* WaitDeliveryViewController.h */,
+				014C5C1521B774DF00774B1D /* WaitDeliveryViewController.m */,
+				014C5C1721B774F700774B1D /* HasBeenShippedViewController.h */,
+				014C5C1821B774F700774B1D /* HasBeenShippedViewController.m */,
+				014C5C1A21B7750A00774B1D /* HasBeenCompletedController.h */,
+				014C5C1B21B7750A00774B1D /* HasBeenCompletedController.m */,
+				014C5C1D21B7751B00774B1D /* HasBeenCancelledController.h */,
+				014C5C1E21B7751B00774B1D /* HasBeenCancelledController.m */,
+				014C5C2021B7752C00774B1D /* AfterSalesViewController.h */,
+				014C5C2121B7752C00774B1D /* AfterSalesViewController.m */,
+				0174B1E721B7E54300A47147 /* TransMessViewController.h */,
+				0174B1E821B7E54300A47147 /* TransMessViewController.m */,
 			);
 			path = "我的订单";
 			sourceTree = "<group>";
@@ -4417,6 +4457,7 @@
 				8E9A5F6F215F14170084C9F1 /* TZImagePickerController.m in Sources */,
 				8E9A5F69215F14170084C9F1 /* TZPhotoPreviewController.m in Sources */,
 				01121003213392FD0071AC5F /* JXCategoryComponentCellModel.m in Sources */,
+				0174B1E921B7E54300A47147 /* TransMessViewController.m in Sources */,
 				8E9A5EBA215F140D0084C9F1 /* QMDateManager.m in Sources */,
 				8E8B0BCA21913020002D9949 /* CXSearchCollectionViewCell.m in Sources */,
 				0112100D213392FD0071AC5F /* JXCategoryTitleView.m in Sources */,
@@ -4442,6 +4483,7 @@
 				01120EE521338F9C0071AC5F /* AddressTableViewCell.m in Sources */,
 				8E9A5EBB215F140D0084C9F1 /* QMTapGestureRecognizer.m in Sources */,
 				8E9A5F7E215F14170084C9F1 /* UIImage+MultiFormat.m in Sources */,
+				014C5C1021B774BF00774B1D /* GenerationPaymentViewController.m in Sources */,
 				01120EE421338F9C0071AC5F /* AddAddressCell.m in Sources */,
 				547C49631F1DBB8200178B67 /* BaseViewController.m in Sources */,
 				8E3E6DB621421CD1007B3306 /* PiLiangzhuanfaCell.m in Sources */,
@@ -4571,6 +4613,7 @@
 				9A8745061FC508CE006E892C /* HomePageController.m in Sources */,
 				8E9A5EA7215F140D0084C9F1 /* QMChatRoomTextCell.m in Sources */,
 				8E8B0BC821913020002D9949 /* CXTexeFileBgView.m in Sources */,
+				014C5C1621B774DF00774B1D /* WaitDeliveryViewController.m in Sources */,
 				019AEE9C21382B0B00EB3405 /* MMOperateMenuView.m in Sources */,
 				8E9A5EA3215F140D0084C9F1 /* QMChatRoomRobotCell.m in Sources */,
 				019AEE3D21382A5C00EB3405 /* MLLinkLabel.m in Sources */,
@@ -4591,6 +4634,7 @@
 				8E9A5ECA215F140D0084C9F1 /* QMAlert.m in Sources */,
 				8EA9530F212BAA930057AC78 /* ZLPhotoPickerGroupTableViewCell.m in Sources */,
 				01120EE921338F9C0071AC5F /* IndentCell.m in Sources */,
+				014C5C1C21B7750A00774B1D /* HasBeenCompletedController.m in Sources */,
 				0112108021362BB70071AC5F /* CustomerReDeatailController.m in Sources */,
 				8E9A5F7A215F14170084C9F1 /* SDWebImageDecoder.m in Sources */,
 				8E9A5EB3215F140D0084C9F1 /* QMChatRoomShowFileController.m in Sources */,
@@ -4616,6 +4660,7 @@
 				8E78BE13213643B3000A9EA4 /* releaseActivitiesModel.m in Sources */,
 				8EA9530A212BAA930057AC78 /* ZLPhotoPickerViewController.m in Sources */,
 				8E3E6D84213D067B007B3306 /* registViewController.m in Sources */,
+				014C5C1F21B7751B00774B1D /* HasBeenCancelledController.m in Sources */,
 				8EA952FF212BAA930057AC78 /* ZLPhotoPickerCustomToolBarView.m in Sources */,
 				8E3E6DB12142140C007B3306 /* PiliangzhuanfaViewController.m in Sources */,
 				8E78BE2721366E88000A9EA4 /* SimilarProductModel.m in Sources */,
@@ -4656,6 +4701,8 @@
 				8EA952F3212BAA930057AC78 /* DALabeledCircularProgressView.m in Sources */,
 				0112108A213663F00071AC5F /* OrderDetailCell.m in Sources */,
 				8E9A5F54215F14170084C9F1 /* UIView+MJExtension.m in Sources */,
+				014C5C1321B774D000774B1D /* HavePayViewController.m in Sources */,
+				014C5C1921B774F700774B1D /* HasBeenShippedViewController.m in Sources */,
 				019AEE4321382A5C00EB3405 /* NSString+MLLabel.m in Sources */,
 				547C499B1F1DBB8200178B67 /* UIBarButtonItem+Create.m in Sources */,
 				8EA9534D212E4C550057AC78 /* zhuanfaViewController.m in Sources */,
@@ -4745,6 +4792,7 @@
 				012997C92139267200ADE72B /* TransportationSeationView.m in Sources */,
 				01120F0121338F9C0071AC5F /* ApplyGoodsServiceController.m in Sources */,
 				01120F0921338F9C0071AC5F /* ReturnGoodsViewController.m in Sources */,
+				014C5C2221B7752C00774B1D /* AfterSalesViewController.m in Sources */,
 				019AEE3E21382A5C00EB3405 /* MLTextAttachment.m in Sources */,
 				01E46FFF214CD7F000B88B24 /* AddConsignmentAddressCell.m in Sources */,
 				8E9A5F7D215F14170084C9F1 /* UIImage+GIF.m in Sources */,

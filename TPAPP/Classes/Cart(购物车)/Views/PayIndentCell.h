@@ -99,6 +99,7 @@
 - (void)configWithModel:(NSMutableArray *)model;
 
 @end
+
 @interface PayIndentButtonCell : UITableViewCell
 /**
  *  左侧图标

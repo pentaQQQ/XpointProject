@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong)UILabel *goodRemarkTitle;
 @property (nonatomic, strong)UILabel *goodRemark;
-- (void)configWithModel:(NSMutableArray *)model;
+- (void)configWithModel:(OrderDetailModel *)model;
 @end
 
 @interface OrderDetailAddressCell : UITableViewCell
@@ -48,7 +48,7 @@
  *  地址
  */
 @property (nonatomic, retain)UILabel *buyUserAddess;
-- (void)configWithModel:(NSMutableArray *)model;
+- (void)configWithModel:(MineIndentModel *)model;
 @end
 
 @interface OrderDetailMessageCell : UITableViewCell
@@ -60,5 +60,5 @@
 
 @property (nonatomic, strong)UILabel *buyDate;
 @property (nonatomic, strong)UILabel *buyGoodTime;
-- (void)configWithModel:(NSMutableArray *)model;
+- (void)configWithModel:(MineIndentModel *)model;
 @end

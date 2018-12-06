@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface TransportationMessageViewController : BaseViewController
-
+@property (nonatomic, strong)MineIndentModel *model;
 @end
