@@ -14,7 +14,7 @@
 #import "SVProgressHUD+DoAnythingAfter.h"
 #import "MBProgressHUD+NJ.h"
 #import "MineIndentModel.h"
-@interface WaitDeliveryViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface WaitDeliveryViewController ()<UITableViewDelegate, UITableViewDataSource,DeclareAbnormalAlertViewOrderListRemindDelegate>
 
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
@@ -126,7 +126,7 @@
                     }
                     [self.listDataArr addObject:model];
                 }
-<<<<<<< HEAD
+
                 // 这里是你点击了cell里的某个按钮后要做的操作
                 //                if (self.selectCtrl == 0) {
                 //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]},@{@"goodName":@"耐克旗舰店",@"listArr":@[@[@"icon",@"NIKE男士运动板鞋",@"40码",@"1",@"355678",@"1",@"420",@"商家已接单",@"3"]]},@{@"goodName":@"阿迪达斯舰店",@"listArr":@[@[@"icon",@"阿迪达斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"],@[@"icon",@"阿迪达斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]},@{@"goodName":@"安踏旗舰店",@"listArr":@[@[@"icon",@"安踏旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]}, nil];
@@ -142,9 +142,7 @@
                 //                    self.listDataArr = [NSMutableArray array];
                 //                    //self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]}, nil];
                 //                }
-=======
                 
->>>>>>> 1d7e1aec2cf3fd6d27a567bde18e4588a61f409a
                 [self.listTableView reloadData];
             });
         }else if([dict[@"code"]longValue] == 500){
@@ -272,29 +270,52 @@
 - (void)applyBtnAction:(UIButton *)btn
 {
     MineIndentModel *minModel = self.listDataArr[btn.tag];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:minModel.id forKey:@"orderNo"];
-    [dic setValue:@"1" forKey:@"state"];
-    [dic setValue:@"无" forKey:@"why"];
-    [dic setValue:@"无" forKey:@"remark"];
-    [dic setValue:@(minModel.orderAmountTotal+minModel.logisticsFee) forKey:@"applyAmount"];
-    NSString *urlStr = orderReturnsApply;
-    [[NetworkManager sharedManager]postWithUrl:urlStr param:dic success:^(id json) {
-        NSLog(@"%@",json);
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            [self loadNewTopic];
-        }else{
-            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
-        }
-    } failure:^(NSError *error) {
-        
-    }];
+    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"确认退款" message:[NSString stringWithFormat:@"您的退款金额为%.2lf,运费:%.2lf，共:%.2lf确认退款?",minModel.orderAmountTotal,minModel.logisticsFee,minModel.orderAmountTotal+minModel.logisticsFee] selectType:@"退款" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
+    [alertView show];
+    
     
 }
 - (void)returningAction:(UIButton *)btn
 {
     
+}
+-(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel
+{
+    if (buttonIndex == AlertButtonLeft) {
+        if ([type isEqualToString:@"退款审核中"]){
+            [self loadNewTopic];
+        }
+    }else{
+        if ([type isEqualToString:@"退款"]) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setValue:minModel.id forKey:@"orderNo"];
+            [dic setValue:@"1" forKey:@"state"];
+            [dic setValue:@"无" forKey:@"why"];
+            [dic setValue:@"无" forKey:@"remark"];
+            [dic setValue:@(minModel.orderAmountTotal+minModel.logisticsFee) forKey:@"applyAmount"];
+            NSString *urlStr = orderReturnsApply;
+            [[NetworkManager sharedManager]postWithUrl:urlStr param:dic success:^(id json) {
+                NSLog(@"%@",json);
+                NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+                if ([respCode isEqualToString:@"00000"]) {
+                    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"操作成功" message:[NSString stringWithFormat:@"审核成功，待审核之后将原路退回到微信、支付宝或者银行卡"] selectType:@"退款审核中" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
+                    [alertView show];
+                }else{
+                    [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                }
+            } failure:^(NSError *error) {
+                
+            }];
+            
+            
+                    
+            
+        }else if ([type isEqualToString:@"退款审核中"]){
+            [self loadNewTopic];
+        }else if ([type isEqualToString:@"退款中"]){
+            
+        }
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {

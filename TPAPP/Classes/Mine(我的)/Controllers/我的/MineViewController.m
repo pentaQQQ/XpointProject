@@ -446,6 +446,10 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
             MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
             minePerCtrl.title = @"我的订单";
             minePerCtrl.selectIndex = num;
+            if (num == 4) {
+                minePerCtrl.selectIndex = 5;
+            }
+            
 //            minePerCtrl.selectType = 1;
 //            JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)minePerCtrl.categoryView;
 //
@@ -473,20 +477,28 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
         headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [headerCell setSelectBlcok:^(NSInteger num) {
             if (num == 0) {
-                ReturnGoodsViewController*goodsCtrl = [[ReturnGoodsViewController alloc] init];
+//                ReturnGoodsViewController*goodsCtrl = [[ReturnGoodsViewController alloc] init];
 //                goodsCtrl.selectType = 2;
-                goodsCtrl.title = @"退款/售后";
+//                goodsCtrl.title = @"退款/售后";
 //                JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)goodsCtrl.categoryView;
 //                titleCategoryView.titleColorGradientEnabled = YES;
 //                titleCategoryView.indicatorLineViewShowEnabled = YES;
 //                titleCategoryView.zoomEnabled = NO;
-                [self.navigationController pushViewController:goodsCtrl animated:YES];
+//                [self.navigationController pushViewController:goodsCtrl animated:YES];
+                MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
+                minePerCtrl.title = @"我的订单";
+                minePerCtrl.selectIndex = 6;
+                [self.navigationController pushViewController:minePerCtrl animated:YES];
             }else if (num == 1){
                 CustomerReconciliationsController *inviteCtrl = [[CustomerReconciliationsController alloc] init];
                 [self.navigationController pushViewController:inviteCtrl animated:YES];
             }else if (num == 2){
-                ApplyGoodsServiceController *inviteCtrl = [[ApplyGoodsServiceController alloc] init];
-                [self.navigationController pushViewController:inviteCtrl animated:YES];
+//                ApplyGoodsServiceController *inviteCtrl = [[ApplyGoodsServiceController alloc] init];
+//                [self.navigationController pushViewController:inviteCtrl animated:YES];
+                MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
+                minePerCtrl.title = @"我的订单";
+                minePerCtrl.selectIndex = 4;
+                [self.navigationController pushViewController:minePerCtrl animated:YES];
             }else if (num == 3){
                 self.myQRBgview = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, kScreenHeight/2.0, 0, 0)];
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(qrTapAction)];
@@ -869,8 +881,8 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
         return 180+20+SafeAreaTopHeight;
         //        return 240+20+SafeAreaTopHeight;
     }else if (indexPath.section == 3){
-        //        return 185;
-        return 100;
+                return 185;
+//        return 100;
     }else{
         return 100+20;
     }

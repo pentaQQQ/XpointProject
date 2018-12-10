@@ -98,26 +98,39 @@
     self.remarksDeatail.sd_layout
     .topSpaceToView(self.goodSize, 10)
     .leftSpaceToView(self.remarksLabel, 0)
-    .widthIs([self widthLabelWithModel:@"已发货" withFont:13])
-    .heightIs(20);
-    
-    
-    
-    self.downBtn = [[UIButton alloc] init];
-    self.downBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [self.downBtn setImage:[UIImage imageNamed:@"icon_arrow_down"] forState:UIControlStateNormal];
-   
-    [self.downBtn addTarget:self action:@selector(applyBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.downBtn];
-    self.downBtn.sd_layout
-    .bottomSpaceToView(self.contentView, 15)
     .rightSpaceToView(self.contentView, 15)
-    .widthIs(20)
     .heightIs(20);
+    
+    
+    
+//    self.downBtn = [[UIButton alloc] init];
+//    self.downBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+//    [self.downBtn setImage:[UIImage imageNamed:@"icon_arrow_down"] forState:UIControlStateNormal];
+//
+//    [self.downBtn addTarget:self action:@selector(applyBtnAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.contentView addSubview:self.downBtn];
+//    self.downBtn.sd_layout
+//    .bottomSpaceToView(self.contentView, 15)
+//    .rightSpaceToView(self.contentView, 15)
+//    .widthIs(20)
+//    .heightIs(20);
 }
-- (void)applyBtnAction
-{
+//- (void)applyBtnAction
+//{
 //    [self.delegate SelectedCell:self];
+//}
+
+-(void)configWithModel:(MineIndentModel *)minModel
+{
+    OrderDetailModel *model = minModel.orderDetailList[0];
+    [self.goodIcon sd_setImageWithURL:[NSURL URLWithString:model.productImg]];
+    self.goodName.text = [NSString stringWithFormat:@"%@",model.productName];
+    self.goodSize.text = [NSString stringWithFormat:@"规格: %@",model.size];
+    self.goodNumber.text = [NSString stringWithFormat:@"x%ld",model.number];
+    self.goodPrice.text = [NSString stringWithFormat:@"%.2lf元",model.totalAmount];
+    if (model.remark.length != 0) {
+        self.remarksDeatail.text = [NSString stringWithFormat:@"%@",model.remark];
+    }
 }
 #pragma mark-字体宽度自适应
 - (CGFloat)widthLabelWithModel:(NSString *)titleString withFont:(NSInteger)font

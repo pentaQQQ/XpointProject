@@ -14,13 +14,15 @@
 #import "SVProgressHUD+DoAnythingAfter.h"
 #import "MBProgressHUD+NJ.h"
 #import "MineIndentModel.h"
-@interface HavePayViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface HavePayViewController ()<UITableViewDelegate, UITableViewDataSource,DeclareAbnormalAlertViewOrderListRemindDelegate>
 
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
 @property (nonatomic, strong)NSMutableArray *urlArr;
 @property (nonatomic, strong)NSString *urlString;
-
+@property (nonatomic, strong)UIView *bottomView;
+@property (nonatomic, strong)UIButton *rightBtn;
+@property (nonatomic, strong)NSMutableArray *selectDataArr;
 @end
 
 @implementation HavePayViewController
@@ -33,9 +35,16 @@
     }
     return _listDataArr;
 }
+-(NSMutableArray *)selectDataArr
+{
+    if (_selectDataArr == nil) {
+        _selectDataArr = [NSMutableArray array];
+    }
+    return _selectDataArr;
+}
 - (void)setUpUI
 {
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, kScreenWidth, kScreenHeight-SafeAreaTopHeight-44) style:UITableViewStyleGrouped];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, kScreenWidth, kScreenHeight-SafeAreaTopHeight-44-50-SafeAreaBottomHeight) style:UITableViewStyleGrouped];
     
     [self.view addSubview:tableView];
     self.listTableView = tableView;
@@ -50,28 +59,23 @@
     if ([self.listTableView respondsToSelector:@selector(setLayoutMargins:)]) {
         [self.listTableView setLayoutMargins:UIEdgeInsetsZero];
     }
+    
 }
-//#pragma mark - 创建tableview
-//-(UITableView *)listTableView
-//{
-//    if (_listTableView == nil) {
-//        _listTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-//        _listTableView.backgroundColor = colorWithRGB(0xEEEEEE);
-//        _listTableView.delegate = self;
-//        _listTableView.dataSource = self;
-//        _listTableView.showsVerticalScrollIndicator = NO;
-//        _listTableView.showsHorizontalScrollIndicator = NO;
-//        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//        [self.view addSubview:_listTableView];
-//        _listTableView.sd_layout
-//        .topSpaceToView(self.view, 0)
-//        .leftEqualToView(self.view)
-//        .rightEqualToView(self.view)
-//        .bottomEqualToView(self.view);
-//
-//    }
-//    return _listTableView;
-//}
+
+#pragma mark -批量发货的事件
+- (void)rightBtnAction
+{
+    NSMutableArray *selectArr = [NSMutableArray array];
+    for (MineIndentModel *model in self.listDataArr) {
+        if (model.selectStatus) {
+            [selectArr addObject:model];
+        }
+    }
+    if (selectArr.count==0) {
+        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"请选择订单" selectType:@"请选择批量发货订单" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+        [alertView show];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -80,18 +84,33 @@
     self.title =@"我的订单";
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
-    //    [self dsads:self.selectCtrl];
-    //    if (self.selectCtrl == 0) {
     self.urlString = getOrderListInfo;
-    //    }
     [self setUpUI];
     self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
     //自动更改透明度
     self.listTableView.mj_header.automaticallyChangeAlpha = YES;
     //进入刷新状态
-    //    [self.listTableView.mj_header beginRefreshing];
-//    [SVProgressHUD doAnythingWithHUDMessage:nil];
-//    [self loadNewTopic];
+    self.bottomView = [[UIView alloc] init];
+    self.bottomView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.bottomView];
+    self.bottomView.sd_layout
+    .topSpaceToView(self.listTableView, 0)
+    .leftEqualToView(self.view)
+    .widthIs(kScreenWidth)
+    .heightIs(50+SafeAreaBottomHeight);
+    
+    self.rightBtn = [[UIButton alloc] init];
+    self.rightBtn.backgroundColor = colorWithRGB(0xFF6B24);
+    [self.rightBtn setTitle:@"批量发货" forState:UIControlStateNormal];
+    [self.rightBtn setTitleColor:colorWithRGB(0xFFFFFF) forState:UIControlStateNormal];
+    [self.rightBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomView addSubview:self.rightBtn];
+    self.rightBtn.sd_layout
+    .topSpaceToView(self.bottomView, 0)
+    .rightEqualToView(self.bottomView)
+    .widthIs(120)
+    .heightIs(50+SafeAreaBottomHeight);
+    
 }
 
 #pragma mark - 下拉刷新数据
@@ -126,25 +145,7 @@
                     }
                     [self.listDataArr addObject:model];
                 }
-<<<<<<< HEAD
-                // 这里是你点击了cell里的某个按钮后要做的操作
-                //                if (self.selectCtrl == 0) {
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]},@{@"goodName":@"耐克旗舰店",@"listArr":@[@[@"icon",@"NIKE男士运动板鞋",@"40码",@"1",@"355678",@"1",@"420",@"商家已接单",@"3"]]},@{@"goodName":@"阿迪达斯舰店",@"listArr":@[@[@"icon",@"阿迪达斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"],@[@"icon",@"阿迪达斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]},@{@"goodName":@"安踏旗舰店",@"listArr":@[@[@"icon",@"安踏旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]}, nil];
-                //                }else if (self.selectCtrl == 1){
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"等待付款",@"1"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"]]}, nil];
-                //                }else if (self.selectCtrl == 2){
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]}, nil];
-                //                }else if (self.selectCtrl == 3){
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"]]}, nil];
-                //                }else if (self.selectCtrl == 4){
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]}, nil];
-                //                }else{
-                //                    self.listDataArr = [NSMutableArray array];
-                //                    //self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]}, nil];
-                //                }
-=======
                 
->>>>>>> 1d7e1aec2cf3fd6d27a567bde18e4588a61f409a
                 [self.listTableView reloadData];
             });
         }else if([dict[@"code"]longValue] == 500){
@@ -288,50 +289,76 @@
 - (void)lookLogisticsBtnAction:(UIButton *)btn
 {
     MineIndentModel *minModel = self.listDataArr[btn.tag];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:minModel.id forKey:@"orderNo"];
-    [dic setValue:@"1" forKey:@"state"];
-    [dic setValue:@"无" forKey:@"why"];
-    [dic setValue:@"无" forKey:@"remark"];
-    [dic setValue:@(minModel.orderAmountTotal) forKey:@"applyAmount"];
-    NSString *urlStr = orderReturnsApply;
-    [[NetworkManager sharedManager]postWithUrl:urlStr param:dic success:^(id json) {
-        NSLog(@"%@",json);
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            [self loadNewTopic];
-        }else{
-            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
-        }
-    } failure:^(NSError *error) {
-        
-    }];
+    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"确认退款" message:[NSString stringWithFormat:@"您的退款金额为%.2lf,运费:0，共:%.2lf确认退款?",minModel.orderAmountTotal,minModel.orderAmountTotal] selectType:@"退款" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
+    [alertView show];
 
 }
 - (void)applyBtnAction:(UIButton *)btn
 {
-    
+    MineIndentModel *minModel = self.listDataArr[btn.tag];
+    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确认支付运费%.2lf吗?",minModel.logisticsFee] selectType:@"确认发货" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
+    [alertView show];
+}
+-(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel
+{
+    if (buttonIndex == AlertButtonLeft) {
+        if ([type isEqualToString:@"退款中"]){
+            [self loadNewTopic];
+        }
+    }else{
+        if ([type isEqualToString:@"退款"]) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setValue:minModel.id forKey:@"orderNo"];
+            [dic setValue:@"1" forKey:@"state"];
+            [dic setValue:@"无" forKey:@"why"];
+            [dic setValue:@"无" forKey:@"remark"];
+            [dic setValue:@(minModel.orderAmountTotal) forKey:@"applyAmount"];
+            NSString *urlStr = orderReturnsApply;
+            [[NetworkManager sharedManager]postWithUrl:urlStr param:dic success:^(id json) {
+                NSLog(@"%@",json);
+                NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+                if ([respCode isEqualToString:@"00000"]) {
+                    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"操作成功" message:[NSString stringWithFormat:@"审核成功，待审核之后将原路退回到微信、支付宝或者银行卡"] selectType:@"退款中" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
+                    [alertView show];
+                    
+                }else{
+                    [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                }
+            } failure:^(NSError *error) {
+                
+            }];
+        }else if ([type isEqualToString:@"退款中"]){
+            [self loadNewTopic];
+        }else if ([type isEqualToString:@"确认发货"]){
+            
+        }
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
     view.backgroundColor = [UIColor whiteColor];
+    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGes:)];
+    [view addGestureRecognizer:tapGes];
+    view.tag = section;
     
-    //    UIImageView *lineImgeView = [[UIImageView alloc] init];
-    //    [view addSubview:lineImgeView];
-    //    lineImgeView.image = [UIImage imageNamed:@"icon_mine_line"];
-    //    lineImgeView.sd_layout
-    //    .topSpaceToView(view, 7)
-    //    .leftSpaceToView(view, 15)
-    //    .bottomSpaceToView(view, 7)
-    //    .widthIs(2);
+    
+    UIImageView *lineImgeView = [[UIImageView alloc] init];
+    [view addSubview:lineImgeView];
+    lineImgeView.tag = section;
+    lineImgeView.image = [UIImage imageNamed:@"icon_未选择"];
+    lineImgeView.sd_layout
+    .topSpaceToView(view, 10)
+    .leftSpaceToView(view, 15)
+    .heightIs(20)
+    .widthIs(20);
     
     UILabel *listLabel = [[UILabel alloc] init];
     [view addSubview:listLabel];
     listLabel.sd_layout
     .topSpaceToView(view, 10)
-    .leftSpaceToView(view, 15)
+    .leftSpaceToView(lineImgeView, 10)
     .widthIs(150)
     .heightIs(20);
     listLabel.font = [UIFont systemFontOfSize:15];
@@ -340,6 +367,33 @@
     listLabel.textColor = [UIColor colorWithRed:103.0/255.0 green:5.0/255.0 blue:67.0/255.0 alpha:1.0];
     return view;
 }
+- (void)tapGes:(UITapGestureRecognizer *)tap
+{
+    UIView *view = tap.view;
+    NSArray *arr = [view subviews];
+    MineIndentModel *model = self.listDataArr[view.tag];
+    if (model.selectStatus) {
+        model.selectStatus = NO;
+        [self.listDataArr replaceObjectAtIndex:view.tag withObject:model];
+        for (id imaView in arr) {
+            if ([imaView isKindOfClass:[UIImageView class]]) {
+                UIImageView *lineImageView = (UIImageView *)imaView;
+                lineImageView.image = [UIImage imageNamed:@"icon_未选择"];
+            }
+        }
+    }else{
+        model.selectStatus = YES;
+        [self.listDataArr replaceObjectAtIndex:view.tag withObject:model];
+        for (id imaView in arr) {
+            if ([imaView isKindOfClass:[UIImageView class]]) {
+                UIImageView *lineImageView = (UIImageView *)imaView;
+                lineImageView.image = [UIImage imageNamed:@"icon_已选择"];
+            }
+        }
+    }
+}
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 120;

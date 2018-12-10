@@ -123,7 +123,7 @@
     }];
     //------- 弹窗主内容 -------//
     self.contentView = [[UIView alloc]init];
-    self.contentView.frame = CGRectMake(40, (SCREEN_HEIGHT - 215-60) / 2, (SCREEN_WIDTH - 80), 215-60);
+    self.contentView.frame = CGRectMake(40, (SCREEN_HEIGHT - 225-60) / 2, (SCREEN_WIDTH - 80), 225-60);
     self.contentView.center = self.center;
     [self addSubview:self.contentView];
     self.contentView.backgroundColor = [UIColor whiteColor];
@@ -137,7 +137,7 @@
     titleLabel.text = self.title;
     
     // textView里面的占位label
-    self.messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, titleLabel.maxY + 10, self.contentView.width - 40, 40)];
+    self.messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, titleLabel.maxY + 10, self.contentView.width - 40, 50)];
     self.messageLabel.text = self.message;
     self.messageLabel.textAlignment = NSTextAlignmentCenter;
     self.messageLabel.numberOfLines = 2;

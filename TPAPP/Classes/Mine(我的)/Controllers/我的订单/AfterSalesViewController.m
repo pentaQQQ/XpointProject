@@ -14,7 +14,8 @@
 #import "SVProgressHUD+DoAnythingAfter.h"
 #import "MBProgressHUD+NJ.h"
 #import "MineIndentModel.h"
-@interface AfterSalesViewController ()<UITableViewDelegate, UITableViewDataSource>
+#import "TransMessViewController.h"
+@interface AfterSalesViewController ()<UITableViewDelegate, UITableViewDataSource,DeclareAbnormalAlertViewOrderListRemindDelegate>
 
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
@@ -312,7 +313,10 @@
 }
 - (void)returnOrderBtnAction:(UIButton *)btn
 {
-    
+    MineIndentModel *minModel = self.listDataArr[btn.tag];
+    TransMessViewController*vc = [[TransMessViewController alloc]init];
+    vc.model = minModel;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)seeDetailBtnAction:(UIButton *)btn
 {
@@ -324,28 +328,36 @@
 
 - (void)applyBtnAction:(UIButton *)btn
 {
+    MineIndentModel *minModel = self.listDataArr[btn.tag];
+    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"确定取消售后吗?" selectType:@"取消售后" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
+    [alertView show];
     
-    UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定取消售后吗?" preferredStyle:UIAlertControllerStyleAlert];
-    [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-    [alertCtrl addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        MineIndentModel *model = self.listDataArr[btn.tag];
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setValue:model.id forKey:@"orderId"];
-        [[NetworkManager sharedManager]postWithUrl:cancelOrderReturnsApply param:dic success:^(id json) {
-            NSLog(@"%@",json);
-            NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-            if ([respCode isEqualToString:@"00000"]) {
-                [self loadNewTopic];
-            }else{
-                [self.listTableView reloadData];
-                [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
-            }
-        } failure:^(NSError *error) {
+}
+-(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel
+{
+    if (buttonIndex == AlertButtonLeft) {
+        if ([type isEqualToString:@"取消售后"]){
+            [self loadNewTopic];
+        }
+    }else{
+        if ([type isEqualToString:@"取消售后"]) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setValue:minModel.id forKey:@"orderId"];
+            [[NetworkManager sharedManager]postWithUrl:cancelOrderReturnsApply param:dic success:^(id json) {
+                NSLog(@"%@",json);
+                NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+                if ([respCode isEqualToString:@"00000"]) {
+                    [self loadNewTopic];
+                }else{
+                    [self.listTableView reloadData];
+                    [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                }
+            } failure:^(NSError *error) {
+                
+            }];
             
-        }];
-        
-    }]];
-    [self presentViewController:alertCtrl animated:YES completion:nil];
+        }
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {

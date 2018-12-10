@@ -64,6 +64,8 @@
 #define getProductByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getProductByMerchantId"]
 //上传身份证信息
 #define uploadIdeniti [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/ideniti"]
+//上传身份证信息
+#define fileUploadFile [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/file/uploadFile"]
 //根据商户查询活动信息,前端拿到数据需判断活动结束时间
 #define getActivityByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getActivityByMerchantId"]
 

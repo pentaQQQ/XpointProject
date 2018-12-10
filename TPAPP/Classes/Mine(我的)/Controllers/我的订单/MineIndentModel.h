@@ -29,6 +29,7 @@
 @property (nonatomic, copy)NSString *status;//订单状态 0未付款,1已付款,2已发货,3已签收,-1退货申请,-2退货中,-3已退货,-4取消交易 -5退款申请 -6已退款
 @property (nonatomic, copy)NSString *total;
 @property (nonatomic, copy)NSString *userId;
+@property (nonatomic, assign)BOOL selectStatus;
 @property (nonatomic, strong)NSMutableArray<OrderDetailModel*> *orderDetailList;
 @end
 
