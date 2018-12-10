@@ -14,6 +14,8 @@
 #import "SVProgressHUD+DoAnythingAfter.h"
 #import "MBProgressHUD+NJ.h"
 #import "MineIndentModel.h"
+#import "TransMessViewController.h"
+#import "ApplyDeatailController.h"
 @interface HasBeenCompletedController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong)UITableView *listTableView;
@@ -245,11 +247,17 @@
 }
 - (void)cancelGoodsBtnAction:(UIButton *)btn
 {
-    
+    MineIndentModel *minModel = self.listDataArr[btn.tag];
+    ApplyDeatailController *applyCtrl = [[ApplyDeatailController alloc] init];
+    applyCtrl.minModel = minModel;
+    [self.navigationController pushViewController:applyCtrl animated:YES];
 }
 - (void)applyBtnAction:(UIButton *)btn
 {
-    
+    MineIndentModel *minModel = self.listDataArr[btn.tag];
+    TransMessViewController*vc = [[TransMessViewController alloc]init];
+    vc.model = minModel;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)applyBtnAction
 {

@@ -80,9 +80,9 @@
     //    configure.titleTextZoomAdditionalPointSize = 4;
     /// pageTitleView
     self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, pageTitleViewY, self.view.frame.size.width, 44) delegate:self titleNames:titleArr configure:configure];
-    if (self.selectIndex == 4) {
-        self.selectIndex = 5;
-    }
+//    if (self.selectIndex == 4) {
+//        self.selectIndex = 5;
+//    }
     self.pageTitleView.selectedIndex = self.selectIndex;
     [self.view addSubview:_pageTitleView];
         [_pageTitleView addBadgeForIndex:1];

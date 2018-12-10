@@ -16,13 +16,8 @@
 #import "MineIndentModel.h"
 #import "UITableView+XY.h"
 #import "XYNoDataView.h"
-<<<<<<< HEAD
-@interface GenerationPaymentViewController ()<UITableViewDelegate, UITableViewDataSource>
-=======
 #import "BuyGoodsListController.h"
 @interface GenerationPaymentViewController ()<UITableViewDelegate, UITableViewDataSource,DeclareAbnormalAlertViewOrderListRemindDelegate>
->>>>>>> 1d7e1aec2cf3fd6d27a567bde18e4588a61f409a
-
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
 @property (nonatomic, strong)NSMutableArray *urlArr;
@@ -113,14 +108,11 @@
                     [self.listDataArr addObject:model];
                 }
                 [self.listTableView reloadData];
-<<<<<<< HEAD
                 [self.listTableView reloadData];
                 [self.listTableView reloadData];
                 [self.listTableView reloadData];
                 [self.listTableView reloadData];
-=======
              
->>>>>>> 1d7e1aec2cf3fd6d27a567bde18e4588a61f409a
             });
         }else if([dict[@"code"]longValue] == 500){
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -236,40 +228,36 @@
     
     return bgView;
 }
+//- (void)cancelGoodsBtnAction:(UIButton *)btn
+//{
+//    MineIndentModel *minModel = self.listDataArr[btn.tag];
+//    LYAccount *account = [LYAccount shareAccount];
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    [dic setValue:account.id forKey:@"userId"];
+//    [dic setValue:minModel.id forKey:@"id"];
+//    [LYTools postBossDemoWithUrl:cancelOrderInfo param:dic success:^(NSDictionary *dict) {
+//        NSLog(@"%@",dict);
+//
+//        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+//        if ([respCode isEqualToString:@"00000"]) {
+//            [self loadNewTopic];
+//        }else if([dict[@"code"]longValue] == 500){
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+//                [self.listTableView reloadData];
+//            });
+//        }
+//    } fail:^(NSError *error) {
+//
+//    }];
+//}
 - (void)cancelGoodsBtnAction:(UIButton *)btn
 {
-<<<<<<< HEAD
-    MineIndentModel *minModel = self.listDataArr[btn.tag];
-    LYAccount *account = [LYAccount shareAccount];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:account.id forKey:@"userId"];
-    [dic setValue:minModel.id forKey:@"id"];
-    [LYTools postBossDemoWithUrl:cancelOrderInfo param:dic success:^(NSDictionary *dict) {
-        NSLog(@"%@",dict);
-        
-        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            [self loadNewTopic];
-        }else if([dict[@"code"]longValue] == 500){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
-                [self.listTableView reloadData];
-            });
-        }
-    } fail:^(NSError *error) {
-        
-    }];
-}
-- (void)applyBtnAction:(UIButton *)btn
-{
-    
-=======
-    
     MineIndentModel *minModel = self.listDataArr[btn.tag];
     DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"您确定要取消订单吗" selectType:@"取消交易" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
     [alertView show];
-    
 }
+
 - (void)applyBtnAction:(UIButton *)btn
 {
     MineIndentModel *minModel = self.listDataArr[btn.tag];
@@ -279,11 +267,10 @@
 //    buyCtrl.goodsNum = self->_goodsNum;
 //    buyCtrl.goodsPrice = self->_goodsPrice;
     [self.navigationController pushViewController:buyCtrl animated:YES];
-    
-    
 //    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"您确定要取消订单吗" selectType:@"去支付" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
 //    [alertView show];
 }
+
 -(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel
 {
     if (buttonIndex == AlertButtonLeft) {
@@ -310,7 +297,6 @@
             }];
         }
     }
->>>>>>> 1d7e1aec2cf3fd6d27a567bde18e4588a61f409a
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
