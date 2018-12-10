@@ -678,7 +678,7 @@
 - (void)choosePayTypeButtonAction:(UIButton *)sender{
     self.isSelect = !self.isSelect;
     if (self.qhxSelectBlock) {
-        self.qhxSelectBlock(self.isSelect,sender.tag);
+        self.qhxSelectBlock(self.isSelect,sender.tag,self.payTypeLabel.text);
     }
     
 }

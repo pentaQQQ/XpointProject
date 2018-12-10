@@ -13,7 +13,7 @@
 
 //#define WeChateSecret   @"045dd77a293df7f7dc340fc69211d097"//微信开发者账号Secret
 //#define WeChateappid    @"wx354bd4644a16d2e1"//微信开发者账号appid
-
+#define AliSchemeKey @"tianyangcangappalipay"
 #define WeChateSecret   @"a5315115b905a26a31e02ad5659fa22a"//微信开发者账号Secret
 #define WeChateappid    @"wx32d968fae8531d0a"//微信开发者账号appid
 
@@ -147,5 +147,9 @@
 
 //业绩统计接口
 #define transSumAmount [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/transSum/transSumAmount"]
+//支付宝接口
+#define aliPayByOrder [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/aliPay/getAliPayOrderStr"]
+//微信接口
+#define wechatPayByOrder [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/weixinPay/getWeChatPreyIdByOrder"]
 
 #endif /* API_h */

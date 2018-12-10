@@ -48,7 +48,7 @@
 #import "UIImageView+WebCache.h"
 #import "MLEmojiLabel.h"
 #import "QMDateManager.h"
-
+#import <AlipaySDK/AlipaySDK.h>
 
 
 
