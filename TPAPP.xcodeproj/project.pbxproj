@@ -787,7 +787,7 @@
 		012997B12139267100ADE72B /* TPMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPMessageCell.m; sourceTree = "<group>"; };
 		012997B22139267100ADE72B /* TPMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TPMessageCell.xib; sourceTree = "<group>"; };
 		012997B52139267100ADE72B /* TransportationMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationMessageViewController.h; sourceTree = "<group>"; };
-		012997B62139267100ADE72B /* TransportationMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationMessageViewController.m; sourceTree = "<group>"; };
+		012997B62139267100ADE72B /* TransportationMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationMessageViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		012997B82139267100ADE72B /* TransportationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransportationCell.h; sourceTree = "<group>"; };
 		012997B92139267100ADE72B /* TransportationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransportationCell.m; sourceTree = "<group>"; };
 		012997BA2139267100ADE72B /* TransportationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransportationCell.xib; sourceTree = "<group>"; };
