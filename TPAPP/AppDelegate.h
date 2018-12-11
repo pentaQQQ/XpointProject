@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "WXApi.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate>
-
+{
+    BOOL isPushCtrl;
+}
 @property (strong, nonatomic) UIWindow *window;
-
+@property (assign, nonatomic) BOOL isPushCtrl;
 
 @end
 

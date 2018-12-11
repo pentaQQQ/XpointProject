@@ -66,7 +66,21 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setUpUI];
     [self createBottomView];
+    [self getOrderData];
 }
+- (void)getOrderData
+{
+//    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//    [dic setValue:self.minModel.id forKey:@"orderIds"];
+//    [[NetworkManager sharedManager] postWithUrl:makeOrderDetail param:dic success:^(id json) {
+//        NSLog(@"%@",json);
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//    }];
+    
+    
+}
+
 //接收通知并相应的方法
 - (void) aliPaytype:(NSNotification *)notification{
     
@@ -78,6 +92,7 @@
     {
         MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
         minePerCtrl.title = @"我的订单";
+        minePerCtrl.isPushCtrl = YES;
         minePerCtrl.selectIndex = 1;
         [self.navigationController pushViewController:minePerCtrl animated:YES];
     }
@@ -99,9 +114,13 @@
     if (payResp.errCode == WXSuccess) {
         strMsg = @"支付结果：成功！";
         NSLog(@"支付成功－PaySuccess，retcode = %d", payResp.errCode);
-        
+        MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
+        minePerCtrl.title = @"我的订单";
+        minePerCtrl.isPushCtrl = YES;
+        minePerCtrl.selectIndex = 1;
+        [self.navigationController pushViewController:minePerCtrl animated:YES];
     }else{
-        
+        [SVProgressHUD doAnyRemindWithHUDMessage:strMsg withDuration:1.0];
         strMsg = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", payResp.errCode,payResp.errStr];
         NSLog(@"错误，retcode = %d, retstr = %@", payResp.errCode,payResp.errStr);
     }
@@ -120,7 +139,14 @@
             self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
         }
     }
-    
+    NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
+    [dic1 setValue:self.addressModel.id forKey:@"addressId"];
+    [dic1 setValue:self.minModel.id forKey:@"id"];
+    [LYTools postBossDemoWithUrl:updateOrderAddress param:[NSMutableArray arrayWithObject:dic1] success:^(NSDictionary *dict) {
+//        NSLog(@"%@",dict);
+    } fail:^(NSError *error) {
+//        NSLog(@"%@",error);
+    }];
     [self.listTableView reloadData];
 }
 - (void)createBottomView
@@ -246,11 +272,20 @@
     UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.listTableView = tableview;
     [self.view addSubview:tableview];
-    tableview.sd_layout
-    .topEqualToView(self.view)
-    .leftEqualToView(self.view)
-    .bottomSpaceToView(self.view, 50)
-    .widthIs(kScreenWidth);
+    if (self.pushCtrl == 1) {
+        tableview.sd_layout
+        .topEqualToView(self.view)
+        .leftEqualToView(self.view)
+        .bottomSpaceToView(self.view, 50)
+        .widthIs(kScreenWidth);
+    }else{
+        tableview.sd_layout
+        .topSpaceToView(self.view, SafeAreaTopHeight)
+        .leftEqualToView(self.view)
+        .bottomSpaceToView(self.view, 50)
+        .widthIs(kScreenWidth);
+    }
+    
     self.listTableView.backgroundColor = colorWithRGB(0xEEEEEE);
     self.listTableView.delegate = self;
     self.listTableView.dataSource = self;
@@ -323,12 +358,21 @@
             if (num == 0) {
                 AddressManageController *addressMaCtrl = [[AddressManageController alloc] init];
                 addressMaCtrl.title = @"选择地址";
-                addressMaCtrl.isCartCtrlType = YES;
+                if (self.pushCtrl == 1) {
+                  addressMaCtrl.isCartCtrlType = YES;
+                }else{
+                   addressMaCtrl.isCartCtrlType = NO;
+                }
+                
                 [self.navigationController pushViewController:addressMaCtrl animated:YES];
             }else{
                 ConsignmentAddressManageController *addressMaCtrl = [[ConsignmentAddressManageController alloc] init];
                 addressMaCtrl.title = @"选择地址";
-//                addressMaCtrl.isCartCtrlType = YES;
+                if (self.pushCtrl == 1) {
+                    addressMaCtrl.isCartCtrlType = YES;
+                }else{
+                    addressMaCtrl.isCartCtrlType = NO;
+                }
                 [self.navigationController pushViewController:addressMaCtrl animated:YES];
             }
         }];

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class OrderDetailModel;
+@class OrderDetailModel,OrderLogisticsModel;
 @interface MineIndentModel : NSObject
 @property (nonatomic, strong)AddressModel *addressInfo;
 @property (nonatomic, copy)NSString *afterStatus;//用户售后状态 0 未发起售后 1 申请售后 3 售后已取消 4 处理中 5 处理完毕 ,
@@ -20,7 +20,7 @@
 @property (nonatomic, copy)NSString *merchantLogo;//品牌商LOGO ,
 @property (nonatomic, copy)NSString *merchantName;//品牌商名称 ,
 @property (nonatomic, assign)double orderAmountTotal;//订单实际付款金额 ,
-@property (nonatomic, copy)NSString *orderLogistics;
+@property (nonatomic, strong)OrderLogisticsModel *orderLogistics;
 @property (nonatomic, copy)NSString *orderSettlementStatus;//订单结算状态 0未结算 1已结算 ,
 @property (nonatomic, copy)NSString *payChannel;//支付渠道 0余额 1微信 2支付宝 ,
 @property (nonatomic, copy)NSString *payTime;//付款时间 ,
@@ -55,4 +55,21 @@
 @property (nonatomic, copy)NSString *userId;
 @property (nonatomic, assign)double totalAmount;
 
+@end
+@interface OrderLogisticsModel : NSObject
+@property (nonatomic, copy)NSString *consigneeAddress;
+@property (nonatomic, copy)NSString *consigneeRealname;
+@property (nonatomic, copy)NSString *consigneeTelphone;
+@property (nonatomic, copy)NSString *createDataTime;
+@property (nonatomic, copy)NSString *expressNo;
+@property (nonatomic, copy)NSString *id;
+@property (nonatomic, copy)NSString *isNoFee;
+@property (nonatomic, copy)NSString *logisticsCode;
+@property (nonatomic, copy)NSString *logisticsSettlementStatus;
+@property (nonatomic, copy)NSString *logisticsSettlementTime;
+@property (nonatomic, copy)NSString *logisticsStatus;
+@property (nonatomic, strong)NSString *logisticsType;
+@property (nonatomic, copy)NSString *logisticsUpdateTime;
+@property (nonatomic, copy)NSString *orderNo;
+@property (nonatomic, copy)NSString *remark;
 @end

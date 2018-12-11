@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,10 +23,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="448" height="131.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LIL-S9-NxG">
-                                <rect key="frame" x="10" y="46" width="40" height="40"/>
+                                <rect key="frame" x="10" y="46" width="70" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="07-23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qt-iR-Fxx">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="6Sz-FU-li1"/>
                                         </constraints>
@@ -36,7 +35,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCa-k3-hzS">
-                                        <rect key="frame" x="0.0" y="20" width="40" height="20"/>
+                                        <rect key="frame" x="0.0" y="20" width="70" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -46,7 +45,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="8J5-ri-Pp9"/>
                                     <constraint firstAttribute="trailing" secondItem="oCa-k3-hzS" secondAttribute="trailing" id="HWL-8z-ije"/>
-                                    <constraint firstAttribute="width" constant="40" id="P4S-V8-2c0"/>
+                                    <constraint firstAttribute="width" constant="70" id="P4S-V8-2c0"/>
                                     <constraint firstItem="0qt-iR-Fxx" firstAttribute="leading" secondItem="LIL-S9-NxG" secondAttribute="leading" id="Pf1-v0-caI"/>
                                     <constraint firstAttribute="trailing" secondItem="0qt-iR-Fxx" secondAttribute="trailing" id="a58-D3-g5x"/>
                                     <constraint firstItem="oCa-k3-hzS" firstAttribute="top" secondItem="0qt-iR-Fxx" secondAttribute="bottom" id="kdY-JY-DPn"/>
@@ -56,7 +55,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dc5-BB-6JQ">
-                                <rect key="frame" x="50" y="46" width="40" height="40"/>
+                                <rect key="frame" x="80" y="46" width="40" height="40"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_wuliu" translatesAutoresizingMaskIntoConstraints="NO" id="4lH-0e-lrp">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -77,19 +76,10 @@
                                     <constraint firstAttribute="width" constant="40" id="paT-s0-5Oc"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="运输中" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IV9-8N-sQd">
-                                <rect key="frame" x="100" y="46" width="37" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在北京市区东城区，即将发往上海" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1A-sB-YpG">
+                                <rect key="frame" x="130" y="44" width="303" height="42"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="FDX-0e-AGF"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在北京市区东城区，即将发往上海" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1A-sB-YpG">
-                                <rect key="frame" x="100" y="65" width="184" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="VFw-Oa-1Kv"/>
+                                    <constraint firstAttribute="height" constant="42" id="VFw-Oa-1Kv"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -98,14 +88,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="IV9-8N-sQd" firstAttribute="top" secondItem="Dc5-BB-6JQ" secondAttribute="top" id="1PV-KV-t4g"/>
                             <constraint firstItem="c1A-sB-YpG" firstAttribute="leading" secondItem="Dc5-BB-6JQ" secondAttribute="trailing" constant="10" id="5oq-ak-3ve"/>
                             <constraint firstItem="LIL-S9-NxG" firstAttribute="centerY" secondItem="JCi-k8-ziX" secondAttribute="centerY" id="J6F-DX-abz"/>
-                            <constraint firstItem="IV9-8N-sQd" firstAttribute="leading" secondItem="Dc5-BB-6JQ" secondAttribute="trailing" constant="10" id="Ke2-3J-WvG"/>
                             <constraint firstItem="c1A-sB-YpG" firstAttribute="bottom" secondItem="Dc5-BB-6JQ" secondAttribute="bottom" id="aNM-li-fhk"/>
                             <constraint firstItem="Dc5-BB-6JQ" firstAttribute="leading" secondItem="LIL-S9-NxG" secondAttribute="trailing" id="ri0-ay-fiw"/>
                             <constraint firstItem="LIL-S9-NxG" firstAttribute="leading" secondItem="JCi-k8-ziX" secondAttribute="leading" constant="10" id="rop-56-T8Z"/>
                             <constraint firstItem="Dc5-BB-6JQ" firstAttribute="centerY" secondItem="JCi-k8-ziX" secondAttribute="centerY" id="ubq-Um-MC2"/>
+                            <constraint firstAttribute="trailing" secondItem="c1A-sB-YpG" secondAttribute="trailing" constant="15" id="y1e-1S-FkT"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -119,11 +108,15 @@
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
                 <outlet property="bottomview" destination="Dc5-BB-6JQ" id="tj4-Gk-ftv"/>
+                <outlet property="dayTimeLabel" destination="oCa-k3-hzS" id="OYL-6v-zCI"/>
+                <outlet property="sendAddress" destination="c1A-sB-YpG" id="1Of-hu-pAg"/>
+                <outlet property="wuliuStatusIcon" destination="4lH-0e-lrp" id="LdU-c8-an2"/>
+                <outlet property="yearMouthLabel" destination="0qt-iR-Fxx" id="Wfw-j5-NZi"/>
             </connections>
             <point key="canvasLocation" x="98" y="98"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icon_wuliu" width="32" height="32"/>
+        <image name="icon_wuliu" width="32.5" height="32.5"/>
     </resources>
 </document>

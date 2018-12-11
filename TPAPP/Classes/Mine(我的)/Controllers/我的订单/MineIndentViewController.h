@@ -56,4 +56,5 @@
 @property(nonatomic,weak)id<HasBeenCompletedDelegate>hasBeenCompletedDelegate;
 @property(nonatomic,weak)id<HasBeenCancelledDelegate>hasBeenCancelledDelegate;
 @property(nonatomic,weak)id<AfterSalesDelegate>afterSalesDelegate;
+@property (nonatomic, assign)BOOL isPushCtrl;
 @end

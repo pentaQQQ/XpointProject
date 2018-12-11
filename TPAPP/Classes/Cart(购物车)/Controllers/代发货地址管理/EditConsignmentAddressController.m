@@ -35,7 +35,15 @@
     self.title = @"编辑地址";
     
     self.listDataArr = [NSMutableArray arrayWithObjects:@[@[@"寄件人:",@"请输入寄件人名字",@0],@[@"电    话:",@"请输入寄件人电话",@0],@[@"省 市 区",@"",@1],@[@"请输入详细地址",@"",@2],@[@"身份证号码:",@"请输入身份证号码",@0]],@[@[@"收件人:",@"请输入收件人名字",@0],@[@"电    话:",@"请输入收件人电话",@0],@[@"省 市 区",@"",@1],@[@"请输入详细地址",@"",@2],@[@"身份证号码:",@"请输入身份证号码",@0]],@[@[@"是否设置为默认地址",@"",@3]], nil];
-    self.modelDataArr = [NSMutableArray arrayWithObjects:@[@[self.addressModel.senderNickName],@[self.addressModel.senderPhone],@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.senderProv,self.addressModel.senderCity,self.addressModel.senderArea]],@[self.addressModel.senderAddress],@[self.addressModel.senderIdentityCardNo]],@[@[self.addressModel.recNickName],@[self.addressModel.recPhone],@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.recProv,self.addressModel.recCity,self.addressModel.recArea]],@[self.addressModel.recAddress],@[self.addressModel.recIdentityCardNo]],@[@[[NSString stringWithFormat:@"%ld",[self.addressModel.isDefault integerValue]]]], nil];
+    if (self.addressModel.senderIdentityCardNo.length != 0 && self.addressModel.recIdentityCardNo.length != 0) {
+        self.modelDataArr = [NSMutableArray arrayWithObjects:@[@[self.addressModel.senderNickName],@[self.addressModel.senderPhone],@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.senderProv,self.addressModel.senderCity,self.addressModel.senderArea]],@[self.addressModel.senderAddress],@[self.addressModel.senderIdentityCardNo]],@[@[self.addressModel.recNickName],@[self.addressModel.recPhone],@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.recProv,self.addressModel.recCity,self.addressModel.recArea]],@[self.addressModel.recAddress],@[self.addressModel.recIdentityCardNo]],@[@[[NSString stringWithFormat:@"%ld",[self.addressModel.isDefault integerValue]]]], nil];
+    }else if((self.addressModel.senderIdentityCardNo.length != 0 && self.addressModel.recIdentityCardNo.length == 0)){
+        self.modelDataArr = [NSMutableArray arrayWithObjects:@[@[self.addressModel.senderNickName],@[self.addressModel.senderPhone],@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.senderProv,self.addressModel.senderCity,self.addressModel.senderArea]],@[self.addressModel.senderAddress],@[@""]],@[@[self.addressModel.recNickName],@[self.addressModel.recPhone],@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.recProv,self.addressModel.recCity,self.addressModel.recArea]],@[self.addressModel.recAddress],@[self.addressModel.recIdentityCardNo]],@[@[[NSString stringWithFormat:@"%ld",[self.addressModel.isDefault integerValue]]]], nil];
+    }else if((self.addressModel.senderIdentityCardNo.length == 0 && self.addressModel.recIdentityCardNo.length != 0)){
+        self.modelDataArr = [NSMutableArray arrayWithObjects:@[@[self.addressModel.senderNickName],@[self.addressModel.senderPhone],@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.senderProv,self.addressModel.senderCity,self.addressModel.senderArea]],@[self.addressModel.senderAddress],@[self.addressModel.senderIdentityCardNo]],@[@[self.addressModel.recNickName],@[self.addressModel.recPhone],@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.recProv,self.addressModel.recCity,self.addressModel.recArea]],@[self.addressModel.recAddress],@[@""]],@[@[[NSString stringWithFormat:@"%ld",[self.addressModel.isDefault integerValue]]]], nil];
+    }else{
+        self.modelDataArr = [NSMutableArray arrayWithObjects:@[@[self.addressModel.senderNickName],@[self.addressModel.senderPhone],@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.senderProv,self.addressModel.senderCity,self.addressModel.senderArea]],@[self.addressModel.senderAddress],@[@""]],@[@[self.addressModel.recNickName],@[self.addressModel.recPhone],@[[NSString stringWithFormat:@"%@ %@ %@",self.addressModel.recProv,self.addressModel.recCity,self.addressModel.recArea]],@[self.addressModel.recAddress],@[@""]],@[@[[NSString stringWithFormat:@"%ld",[self.addressModel.isDefault integerValue]]]], nil];
+    }
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self listTableView];
     
@@ -48,7 +56,11 @@
     [self.dataDict addEntriesFromDictionary:@{@"recNickName":self.addressModel.recNickName}];
     [self.dataDict addEntriesFromDictionary:@{@"recPhone":self.addressModel.recPhone}];
     [self.dataDict addEntriesFromDictionary:@{@"isGeneration":self.addressModel.isGeneration}];
-    [self.dataDict addEntriesFromDictionary:@{@"recIdentityCardNo":self.addressModel.recIdentityCardNo}];
+    if (self.addressModel.recIdentityCardNo.length != 0) {
+        [self.dataDict addEntriesFromDictionary:@{@"recIdentityCardNo":self.addressModel.recIdentityCardNo}];
+    }
+    
+    
     [self.dataDict addEntriesFromDictionary:@{@"recAddress":self.addressModel.recAddress}];
     [self.dataDict addEntriesFromDictionary:@{@"isDefault":[NSString stringWithFormat:@"%ld",[self.addressModel.isDefault integerValue]]}];
     [self.dataDict addEntriesFromDictionary:@{@"recProv":self.addressModel.recProv}];
@@ -58,7 +70,10 @@
     
     [self.dataDict addEntriesFromDictionary:@{@"senderNickName":self.addressModel.senderNickName}];
     [self.dataDict addEntriesFromDictionary:@{@"senderPhone":self.addressModel.senderPhone}];
-    [self.dataDict addEntriesFromDictionary:@{@"senderIdentityCardNo":self.addressModel.senderIdentityCardNo}];
+    if (self.addressModel.senderIdentityCardNo.length != 0) {
+        [self.dataDict addEntriesFromDictionary:@{@"senderIdentityCardNo":self.addressModel.senderIdentityCardNo}];
+    }
+    
     [self.dataDict addEntriesFromDictionary:@{@"senderAddress":self.addressModel.senderAddress}];
     [self.dataDict addEntriesFromDictionary:@{@"senderProv":self.addressModel.senderProv}];
     [self.dataDict addEntriesFromDictionary:@{@"senderCity":self.addressModel.senderCity}];
@@ -176,11 +191,25 @@
         //        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _listTableView.dataSource = self;
         [self.view addSubview:self.listTableView];
-        self.listTableView.sd_layout
-        .topSpaceToView(self.view, 0)
-        .leftEqualToView(self.view)
-        .rightEqualToView(self.view)
-        .bottomSpaceToView(self.view, 0);
+        
+        //获取状态栏的rect
+        CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+        //获取导航栏的rect
+        CGRect navRect = self.navigationController.navigationBar.frame;
+        if (self.isCartCtrlType == NO) {
+            
+            self.listTableView.sd_layout
+            .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
+            .leftEqualToView(self.view)
+            .rightEqualToView(self.view)
+            .bottomSpaceToView(self.view, 0);
+        }else{
+            self.listTableView.sd_layout
+            .topSpaceToView(self.view, 0)
+            .leftEqualToView(self.view)
+            .rightEqualToView(self.view)
+            .bottomSpaceToView(self.view, 0);
+        }
         if ([self.listTableView respondsToSelector:@selector(setSeparatorInset:)]) {
             [self.listTableView setSeparatorInset:UIEdgeInsetsZero];
         }

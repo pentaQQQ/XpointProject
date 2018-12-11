@@ -15,7 +15,7 @@
 //#define WeChateappid    @"wx354bd4644a16d2e1"//微信开发者账号appid
 #define AliSchemeKey @"tianyangcangappalipay"
 #define WeChateSecret   @"a5315115b905a26a31e02ad5659fa22a"//微信开发者账号Secret
-#define WeChateappid    @"wx32d968fae8531d0a"//微信开发者账号appid
+#define WeChateappid    @"wxf366f6ce13931de9"//微信开发者账号appid
 
 
 //AppID  :wx32d968fae8531d0a   AppSecret:a5315115b905a26a31e02ad5659fa22a
@@ -98,7 +98,16 @@
 #define makeOrder [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/makeOrder"]
 //订单支付 传入订单id 用户id 支付渠道(若为第三方支付，则传入第三方支付流水)
 #define orderPayInfo [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/pay"]
-
+//确认发货校验+计算支付运费 订单id集合，逗号隔开
+#define confirmDelivery [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/confirmDelivery"]
+//确认发货无需支付只改订单状态
+#define confirmDeliverySubmit [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/confirmDeliverySubmit"]
+//确认发货需要支付
+#define confirmDeliverySubmitPay [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/confirmDeliverySubmitPay"]
+//批量更新订单地址信息
+#define updateOrderAddress [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/updateOrderAddress"]
+//获取支付页面数据，订单id集合，逗号隔开
+#define makeOrderDetail [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/makeOrderDetail"]
 
 
 //申请售后的接口

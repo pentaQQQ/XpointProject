@@ -62,34 +62,19 @@
         [self setIsInitFinish:YES];
         return ;
     }
-//    if ([self.dataSource isKindOfClass:[CartViewController class]]) {
-//        //  刷新完成之后检测数据量
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            NSInteger numberOfSections = [self numberOfSections];
-//            BOOL havingData = NO;
-//            if (numberOfSections >= 1) {
-//                havingData = NO;
-//            }else{
-//                havingData = YES;
-//            }
-//            [self xy_havingData:havingData];
-//        });
-//    }else{
-        //  刷新完成之后检测数据量
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            NSInteger numberOfSections = [self numberOfSections];
-            BOOL havingData = NO;
-            for (NSInteger i = 0; i < numberOfSections; i++) {
-                if ([self numberOfRowsInSection:i] > 0) {
-                    havingData = YES;
-                    break;
-                }
+    //  刷新完成之后检测数据量
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSInteger numberOfSections = [self numberOfSections];
+        BOOL havingData = NO;
+        for (NSInteger i = 0; i < numberOfSections; i++) {
+            if ([self numberOfRowsInSection:i] > 0) {
+                havingData = YES;
+                break;
             }
+        }
             
-            [self xy_havingData:havingData];
-        });
-//    }
+        [self xy_havingData:havingData];
+    });
 
 }
 /**

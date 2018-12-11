@@ -5,7 +5,8 @@
 //  Created by Frank on 2018/12/5.
 //  Copyright © 2018 cbl－　点硕. All rights reserved.
 //
-
+//keyWindow
+#define KeyWindow [UIApplication sharedApplication].keyWindow
 #import "HavePayViewController.h"
 #import "OrderDetailViewController.h"
 #import "GoodsListCell.h"
@@ -14,8 +15,12 @@
 #import "SVProgressHUD+DoAnythingAfter.h"
 #import "MBProgressHUD+NJ.h"
 #import "MineIndentModel.h"
-@interface HavePayViewController ()<UITableViewDelegate, UITableViewDataSource,DeclareAbnormalAlertViewOrderListRemindDelegate>
-
+#import "FXPayTypeView.h"
+#import "WXApiRequestHandler.h"
+#import "WXApiManager.h"
+#import "WXApi.h"
+@interface HavePayViewController ()<UITableViewDelegate, UITableViewDataSource,WXApiManagerPayDelegate,WXApiDelegate,DeclareAbnormalAlertViewOrderListRemindDelegate>
+@property (nonatomic, strong) FXPayTypeView *payTypeView;
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
 @property (nonatomic, strong)NSMutableArray *urlArr;
@@ -26,7 +31,9 @@
 @end
 
 @implementation HavePayViewController
-
+{
+    NSMutableDictionary *_selectDict;
+}
 #pragma mark - 懒加载
 -(NSMutableArray *)listDataArr
 {
@@ -66,20 +73,49 @@
 - (void)rightBtnAction
 {
     NSMutableArray *selectArr = [NSMutableArray array];
+    NSMutableArray *arr = [NSMutableArray array];
     for (MineIndentModel *model in self.listDataArr) {
         if (model.selectStatus) {
             [selectArr addObject:model];
+            [arr addObject:model.id];
         }
     }
     if (selectArr.count==0) {
         DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"请选择订单" selectType:@"请选择批量发货订单" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
         [alertView show];
+    }else{
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setValue:[NSString stringWithFormat:@"%@",[arr componentsJoinedByString:@","]] forKey:@"orderIds"];
+        [[NetworkManager sharedManager] postWithUrl:confirmDelivery param:dic success:^(id json) {
+            NSLog(@"%@",json);
+            if ([json[@"respCode"] isEqualToString:@"00000"]) {
+                self->_selectDict = [[NSMutableDictionary alloc] initWithDictionary:json[@"data"]];
+                if (self->_selectDict[@"amount"] != 0) {
+                    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确认支付运费%.2lf吗?",[self->_selectDict[@"amount"] doubleValue]] selectType:@"确认支付运费" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+                    [alertView show];
+                }else{
+                    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确认批量发货吗"] selectType:@"确认批量发货" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+                    [alertView show];
+                }
+                
+            }else{
+                [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.0];
+            }
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+
+        
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.listDataArr = [NSMutableArray array];
+    [WXApiManager sharedManager].paydelegate = self;
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(aliPaytype:) name:@"aliPaytype"object:nil];
     // Do any additional setup after loading the view.
     self.title =@"我的订单";
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
@@ -112,7 +148,47 @@
     .heightIs(50+SafeAreaBottomHeight);
     
 }
-
+//接收通知并相应的方法
+- (void) aliPaytype:(NSNotification *)notification{
+    
+    NSDictionary *dic = notification.object;
+    //    NSLog(@"通知过来的 - dic = %@",notification.object);
+    int statusCode = [dic[@"resultStatus"]  intValue];
+    
+    if (statusCode == 9000)
+    {
+        MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
+        minePerCtrl.title = @"我的订单";
+        minePerCtrl.selectIndex = 1;
+        [self.navigationController pushViewController:minePerCtrl animated:YES];
+    }
+    else
+    {
+        [SVProgressHUD doAnyRemindWithHUDMessage:@"支付失败" withDuration:1.0];
+    }
+    
+}
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"aliPaytype" object:nil];
+}
+#pragma mark 微信回调的代理方法
+- (void)WXApiManagerPay:(PayResp *)payResp{
+    //支付返回结果，实际支付结果需要去微信服务器端查询
+    NSString *strMsg;
+    
+    if (payResp.errCode == WXSuccess) {
+        strMsg = @"支付结果：成功！";
+        NSLog(@"支付成功－PaySuccess，retcode = %d", payResp.errCode);
+        [self loadNewTopic];
+    }else{
+        
+        strMsg = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", payResp.errCode,payResp.errStr];
+        NSLog(@"错误，retcode = %d, retstr = %@", payResp.errCode,payResp.errStr);
+    }
+    
+    
+}
 #pragma mark - 下拉刷新数据
 - (void)loadNewTopic
 {
@@ -131,12 +207,15 @@
         }
         NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            [self.listDataArr removeAllObjects];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.listDataArr removeAllObjects];
                 for (NSDictionary *dics in dict[@"data"]) {
                     MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
                     AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
                     model.addressInfo = addressModel;
+                    OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
+                    model.orderLogistics = logisticsModel;
                     [model.orderDetailList removeAllObjects];
                     for (NSDictionary *newDic in dics[@"orderDetailList"]) {
                         OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
@@ -190,10 +269,13 @@
         headerCell = [[MineIndentListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MineIndentListCellID"];
     }
     headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    MineIndentModel *model = self.listDataArr[indexPath.section];
     
-    OrderDetailModel *detailModel = model.orderDetailList[indexPath.row];
-    [headerCell configWithModel:detailModel andMineIndentModel:model];
+    if (self.listDataArr.count != 0) {
+        MineIndentModel *model = self.listDataArr[indexPath.section];
+        OrderDetailModel *detailModel = model.orderDetailList[indexPath.row];
+        [headerCell configWithModel:detailModel andMineIndentModel:model];
+    }
+    
     [headerCell setSelectBlock:^(NSInteger num, MineIndentListCell *cell) {
         
     }];
@@ -296,8 +378,26 @@
 - (void)applyBtnAction:(UIButton *)btn
 {
     MineIndentModel *minModel = self.listDataArr[btn.tag];
-    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确认支付运费%.2lf吗?",minModel.logisticsFee] selectType:@"确认发货" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
-    [alertView show];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:[NSString stringWithFormat:@"%@",minModel.id] forKey:@"orderIds"];
+    [[NetworkManager sharedManager] postWithUrl:confirmDelivery param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        if ([json[@"respCode"] isEqualToString:@"00000"]) {
+          
+            self->_selectDict = [[NSMutableDictionary alloc] initWithDictionary:json[@"data"]];
+            if (self->_selectDict[@"amount"] != 0) {
+                DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确认支付运费%.2lf吗?",[self->_selectDict[@"amount"] doubleValue]] selectType:@"确认支付运费" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+                [alertView show];
+            }else{
+                DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确认批量发货吗"] selectType:@"确认批量发货" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+                [alertView show];
+            }
+        }else{
+            [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.0];
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
 }
 -(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel
 {
@@ -331,6 +431,85 @@
             [self loadNewTopic];
         }else if ([type isEqualToString:@"确认发货"]){
             
+        }else if ([type isEqualToString:@"确认支付运费"]){
+            typeof(self) weakSelf = self;
+            _payTypeView = [[FXPayTypeView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            [KeyWindow addSubview:_payTypeView];
+            [_payTypeView show];
+            
+            [_payTypeView setSelectTypeBlock:^(NSInteger selectType) {
+                if (selectType == 2) {
+                    
+                    [weakSelf->_selectDict setValue:@"IOS" forKey:@"tradeType"];
+                    [LYTools postBossDemoWithUrl:confirmDeliverySubmitPay param:weakSelf->_selectDict success:^(NSDictionary *dict) {
+                        NSLog(@"%@",dict);
+                        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                        if ([respCode isEqualToString:@"00000"]) {
+                            NSDictionary *body = dict[@"data"];
+                            NSMutableString *stamp  = [body objectForKey:@"timestamp"];
+                            PayReq* req             = [[PayReq alloc] init];
+                            req.partnerId           = [body objectForKey:@"partnerid"];
+                            req.prepayId            = [body objectForKey:@"prepayid"];
+                            req.nonceStr            = [body objectForKey:@"noncestr"];
+                            req.timeStamp           = stamp.intValue;
+                            req.package             = [body objectForKey:@"package"];
+                            req.sign                = [body objectForKey:@"sign"];
+                            [WXApi sendReq:req];
+                        }else{
+                            [SVProgressHUD doAnyRemindWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                        }
+                    } fail:^(NSError *error) {
+                        
+                    }];
+
+                }else{
+                    [weakSelf->_selectDict setValue:@"IOS" forKey:@"tradeType"];
+                    [LYTools postBossDemoWithUrl:confirmDeliverySubmitPay param:weakSelf->_selectDict success:^(NSDictionary *dict) {
+                        NSLog(@"%@",dict);
+                        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                        if ([respCode isEqualToString:@"00000"]) {
+                            NSLog(@"%@",dict);
+                            // NOTE: 调用支付结果开始支付
+                            [[AlipaySDK defaultService] payOrder:dict[@"data"] fromScheme:AliSchemeKey callback:^(NSDictionary *resultDic) {
+                                int statusCode = [resultDic[@"resultStatus"]  intValue];
+                                
+                                if (statusCode == 9000)
+                                {
+                                    
+                                }
+                                else
+                                {
+                                    
+                                }
+                                
+                                
+                            }];
+                        }else{
+                            [SVProgressHUD doAnyRemindWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                        }
+                    } fail:^(NSError *error) {
+                        
+                    }];
+                    
+                    
+                }
+              }];
+                
+
+            
+        }else if ([type isEqualToString:@"确认批量发货"]){
+            [[NetworkManager sharedManager]postWithUrl:confirmDeliverySubmit param:_selectDict success:^(id json) {
+                NSLog(@"%@",json);
+                NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+                if ([respCode isEqualToString:@"00000"]) {
+                    [self loadNewTopic];
+                    
+                }else{
+                    [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                }
+            } failure:^(NSError *error) {
+                
+            }];
         }
     }
 }
@@ -349,10 +528,10 @@
     lineImgeView.tag = section;
     lineImgeView.image = [UIImage imageNamed:@"icon_未选择"];
     lineImgeView.sd_layout
-    .topSpaceToView(view, 10)
+    .topSpaceToView(view, 12.5)
     .leftSpaceToView(view, 15)
-    .heightIs(20)
-    .widthIs(20);
+    .heightIs(15)
+    .widthIs(15);
     
     UILabel *listLabel = [[UILabel alloc] init];
     [view addSubview:listLabel];
@@ -382,14 +561,32 @@
             }
         }
     }else{
-        model.selectStatus = YES;
-        [self.listDataArr replaceObjectAtIndex:view.tag withObject:model];
-        for (id imaView in arr) {
-            if ([imaView isKindOfClass:[UIImageView class]]) {
-                UIImageView *lineImageView = (UIImageView *)imaView;
-                lineImageView.image = [UIImage imageNamed:@"icon_已选择"];
+        NSMutableArray *selectArr = [NSMutableArray array];
+        for (MineIndentModel *model in self.listDataArr) {
+            if (model.selectStatus) {
+                [selectArr addObject:model];
             }
         }
+        BOOL isEqualModel = YES;
+        for (MineIndentModel *selctModel in selectArr) {
+            if (![selctModel.merchantId isEqualToString:model.merchantId]) {
+                isEqualModel = NO;
+            }
+        }
+        if (isEqualModel) {
+            model.selectStatus = YES;
+            [self.listDataArr replaceObjectAtIndex:view.tag withObject:model];
+            for (id imaView in arr) {
+                if ([imaView isKindOfClass:[UIImageView class]]) {
+                    UIImageView *lineImageView = (UIImageView *)imaView;
+                    lineImageView.image = [UIImage imageNamed:@"icon_已选择"];
+                }
+            }
+        }else{
+            DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"批量发货只能选同一商户商品" selectType:@"批量发货提示" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:model];
+            [alertView show];
+        }
+        
     }
 }
 
