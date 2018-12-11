@@ -9,7 +9,8 @@
 #import "OrderDetailViewController.h"
 #import "OrderDetailCell.h"
 #import "PayIndentCell.h"
-@interface OrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "DeclareAbnormalAlertView.h"
+@interface OrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource,DeclareAbnormalAlertViewRemindDelegate>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
 @property (nonatomic, strong)UIView *bottomView;
@@ -36,11 +37,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"订单详情";
+    
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setUpUI];
     [self createBottomView];
 }
+
 - (void)createBottomView
 {
     self.bottomView = [[UIView alloc] init];
@@ -66,7 +69,7 @@
     
     
     self.allGoodsNumberLabel = [[UILabel alloc] init];
-    self.allGoodsNumberLabel.text = @"1件";
+    self.allGoodsNumberLabel.text = [NSString stringWithFormat:@"%ld件",self.model.productCount];
     self.allGoodsNumberLabel.textAlignment = NSTextAlignmentLeft;
 //    self.allGoodsNumberLabel.textColor = colorWithRGB(0xFF6B24);
     self.allGoodsNumberLabel.font = [UIFont systemFontOfSize:15];
@@ -74,7 +77,7 @@
     self.allGoodsNumberLabel.sd_layout
     .topSpaceToView(self.bottomView,15)
     .leftSpaceToView(self.priceLabel, 5)
-    .widthIs([self widthLabelWithModel:@"1件" withFont:15])
+    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"%ld件",self.model.productCount] withFont:15])
     .heightIs(20);
     
 //    self.buyButton = [[UIButton alloc] init];
@@ -90,7 +93,7 @@
 //    .heightIs(50);
     
     self.allGoodsPriceLabel = [[UILabel alloc] init];
-    self.allGoodsPriceLabel.text = @"¥1000";
+    self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal];
     self.allGoodsPriceLabel.textAlignment = NSTextAlignmentRight;
     self.allGoodsPriceLabel.textColor = colorWithRGB(0xFF6B24);
     self.allGoodsPriceLabel.font = [UIFont systemFontOfSize:17];
@@ -98,7 +101,7 @@
     self.allGoodsPriceLabel.sd_layout
     .topSpaceToView(self.bottomView,10)
     .rightSpaceToView(self.bottomView, 15)
-    .widthIs([self widthLabelWithModel:@"¥1000" withFont:17])
+    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal] withFont:17])
     .heightIs(30);
     
     self.buyGoodsPriceLabel = [[UILabel alloc] init];
@@ -129,13 +132,12 @@
 }
 - (void)setUpUI
 {
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    self.listTableView = tableview;
-    [self.view addSubview:tableview];
-    tableview.sd_layout
-    .topEqualToView(self.view)
+    self.listTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    [self.view addSubview:self.listTableView];
+    self.listTableView.sd_layout
+    .topSpaceToView(self.view, k_top_height)
     .leftEqualToView(self.view)
-    .bottomSpaceToView(self.view, 50)
+    .bottomSpaceToView(self.view, 50+SafeAreaBottomHeight)
     .widthIs(kScreenWidth);
     self.listTableView.backgroundColor = colorWithRGB(0xEEEEEE);
     self.listTableView.delegate = self;
@@ -165,12 +167,14 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 4;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 3) {
+    if (section == 2) {
         return 3;
+    }else if (section == 3) {
+        return self.model.orderDetailList.count;
     }else{
         return 1;
     }
@@ -186,9 +190,9 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
-        [cell configWithModel:[NSMutableArray arrayWithObjects:@"3363655",@"交易成功",@"2018-07-22 15:40:22", nil]];
+        [cell configWithModel:self.model];
         return cell;
-    }else if (indexPath.section == 1 || indexPath.section == 2){
+    }else if (indexPath.section == 1){
         static NSString *cellId = @"OrderDetailAddressCellID";
         OrderDetailAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
@@ -196,10 +200,10 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
-        NSMutableArray *arr = [NSMutableArray arrayWithObjects:@[@"收货人:",@"Alan",@"18501605966",@"收货地址:",@"上海宝山区沪太路3100号A座"],@[@"代购人:",@"Alan",@"18501605966",@"代购地址:",@"上海宝山区沪太路3100号A座"], nil];
-        [cell configWithModel:arr[indexPath.section-1]];
+//        NSMutableArray *arr = [NSMutableArray arrayWithObjects:@[@"收货人:",@"Alan",@"18501605966",@"收货地址:",@"上海宝山区沪太路3100号A座"],@[@"代购人:",@"Alan",@"18501605966",@"代购地址:",@"上海宝山区沪太路3100号A座"], nil];
+        [cell configWithModel:self.model];
         return cell;
-    }else if (indexPath.section == 3){
+    }else if (indexPath.section == 2){
         static NSString *cellId = @"PayIndentDefaultCellID";
          PayIndentDefaultCell*cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
@@ -207,8 +211,12 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
-         NSMutableArray *arr = [NSMutableArray arrayWithObjects:@[@"商品金额 (1件)",@"¥1000"],@[@"优惠金额",@"¥50"],@[@"运费",@"¥50"], nil];
+         NSMutableArray *arr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.model.productCount],[NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal]],@[@"优惠金额",@"¥0.00"],@[@"运费",[NSString stringWithFormat:@"¥%.2lf",self.model.logisticsFee]], nil];
         [cell configWithModel:arr[indexPath.row]];
+        [cell setYfBlock:^(NSInteger num) {
+            DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"运费规则" message:@"同一家店铺且同一收获地址的满三件包邮" remind:[NSString stringWithFormat:@"(否则收%.2lf元运费)",self.model.logisticsFee] delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"同意" comGoodList:nil];
+            [alertView show];
+        }];
         return cell;
     }else{
         static NSString *cellId = @"OrderDetailCellID";
@@ -218,72 +226,82 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
-        [cell configWithModel:[NSMutableArray arrayWithObjects:@"粉色简约休闲OL轻便上装",@"S码",@"¥1000",@"x1",@"交易成功",@"图片", nil]];
+        OrderDetailModel *model = self.model.orderDetailList[indexPath.row];
+        [cell configWithModel:model];
         return cell;
     }
     
 }
-
+-(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex comGoodList:(NSMutableArray *)goodListArr
+{
+    
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 3) {
+//    if (indexPath.section == 3) {
+//        return 50;
+//    }else if (indexPath.section == 4) {
+//        return 90;
+//    }else{
+//        return 70;
+//    }
+    if (indexPath.section == 2) {
         return 50;
-    }else if (indexPath.section == 4) {
+    }else if (indexPath.section == 3) {
         return 90;
     }else{
         return 70;
     }
     
-    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 2) {
-        return 40;
-    }else{
-      return 0;
-    }
-    
+//    if (section == 2) {
+//        return 40;
+//    }else{
+//      return 0;
+//    }
+    return 0;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section == 2) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-        view.backgroundColor = [UIColor whiteColor];
-        
-        UIView *lineView = [[UIView alloc] init];
-        [view addSubview:lineView];
-        lineView.backgroundColor = colorWithRGB(0xbfbfbf);
-        lineView.sd_layout
-        .topSpaceToView(view, 39.5)
-        .leftEqualToView(view)
-        .rightEqualToView(view)
-        .heightIs(.5);
-        
-        UIImageView *lineImgeView = [[UIImageView alloc] init];
-        [view addSubview:lineImgeView];
-        lineImgeView.image = [UIImage imageNamed:@"icon_mine_line"];
-        lineImgeView.sd_layout
-        .topSpaceToView(view, 15)
-        .leftSpaceToView(view, 15)
-        .bottomSpaceToView(view, 15)
-        .widthIs(3);
-        
-        UILabel *listLabel = [[UILabel alloc] init];
-        [view addSubview:listLabel];
-        listLabel.sd_layout
-        .topSpaceToView(view, 10)
-        .leftSpaceToView(lineImgeView, 5)
-        .widthIs(150)
-        .heightIs(20);
-        listLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15];
-        listLabel.text = @"代购人信息";
-        return view;
-    }else{
-       return nil;
-    }
-    
+//    if (section == 2) {
+//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
+//        view.backgroundColor = [UIColor whiteColor];
+//
+//        UIView *lineView = [[UIView alloc] init];
+//        [view addSubview:lineView];
+//        lineView.backgroundColor = colorWithRGB(0xbfbfbf);
+//        lineView.sd_layout
+//        .topSpaceToView(view, 39.5)
+//        .leftEqualToView(view)
+//        .rightEqualToView(view)
+//        .heightIs(.5);
+//
+//        UIImageView *lineImgeView = [[UIImageView alloc] init];
+//        [view addSubview:lineImgeView];
+//        lineImgeView.image = [UIImage imageNamed:@"icon_mine_line"];
+//        lineImgeView.sd_layout
+//        .topSpaceToView(view, 15)
+//        .leftSpaceToView(view, 15)
+//        .bottomSpaceToView(view, 15)
+//        .widthIs(3);
+//
+//        UILabel *listLabel = [[UILabel alloc] init];
+//        [view addSubview:listLabel];
+//        listLabel.sd_layout
+//        .topSpaceToView(view, 10)
+//        .leftSpaceToView(lineImgeView, 5)
+//        .widthIs(150)
+//        .heightIs(20);
+//        listLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:15];
+//        listLabel.text = @"代购人信息";
+//        return view;
+//    }else{
+//       return nil;
+//    }
+    return nil;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {

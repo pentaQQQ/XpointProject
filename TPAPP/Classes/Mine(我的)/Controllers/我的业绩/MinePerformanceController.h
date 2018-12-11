@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MineBaseController.h"
 #import "BaseViewController.h"
+@protocol SelecteMouthNumDelegate <NSObject>
+- (void)selecteMouthNumber:(NSInteger)index;
+@end
 @protocol SelecteNumDelegate <NSObject>
 - (void)selecteNumber:(NSInteger)index;
 @end
@@ -16,4 +19,6 @@
 @interface MinePerformanceController : BaseViewController
 // 在这里定义一个属性，注意这里的修饰词要用weak
 @property(nonatomic,weak)id<SelecteNumDelegate>selecteDelegate;
+// 在这里定义一个属性，注意这里的修饰词要用weak
+@property(nonatomic,weak)id<SelecteMouthNumDelegate>selecteMouthDelegate;
 @end

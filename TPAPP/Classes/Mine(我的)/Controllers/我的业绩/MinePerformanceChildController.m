@@ -11,6 +11,7 @@
 #import "NSDate+BRAdd.h"
 #import "PerformaceHeaderCell.h"
 #import "MinePerformanceCell.h"
+#import "PerformanceModel.h"
 @interface MinePerformanceChildController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
@@ -30,19 +31,25 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.listDataArr = [NSMutableArray arrayWithObjects:@[@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"], nil];
-    if (self.firstCtrl == 0 ) {
+//    self.listDataArr = [NSMutableArray arrayWithObjects:@[@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"], nil];
+//    if (self.firstCtrl == 0 ) {
         [self createTopView];
         [self setUpUI:50];
-    }else{
-        [self setUpUI:0];
-    }
-    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
-    //自动更改透明度
-    self.listTableView.mj_header.automaticallyChangeAlpha = YES;
-    //进入刷新状态
-//    [self.listTableView.mj_header beginRefreshing];
-    [self loadNewTopic];
+        self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+        //自动更改透明度
+        self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+        //进入刷新状态
+        //    [self.listTableView.mj_header beginRefreshing];
+//        [self loadNewTopic];
+//    }
+//    else{
+//        [self setUpUI:0];
+//        self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+//        //自动更改透明度
+//        self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+//
+//    }
+   
 }
 - (void)setUpUI:(CGFloat)height_top
 {
@@ -87,7 +94,12 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.listDataArr.count;
+    if (self.listDataArr.count != 0) {
+      return self.listDataArr.count+1;
+    }else{
+        return 0;
+    }
+    
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -96,14 +108,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        static NSString *cellId = @"MinePerformanceCellID";
+        static NSString *cellId = @"PerformaceHeaderCellID";
         PerformaceHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
             cell = [[PerformaceHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
-        [cell configWithModel:self.listDataArr[indexPath.section]];
+        [cell configWithModel:self.listDataArr];
         return cell;
     }else{
         static NSString *cellId = @"MinePerformanceCellID";
@@ -113,7 +125,7 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
-        [cell configWithModel:self.listDataArr[indexPath.section]];
+        [cell configWithModel:self.listDataArr[indexPath.row]];
         return cell;
     }
 }
@@ -154,7 +166,19 @@
 #pragma mark - 下拉刷新数据
 - (void)loadNewTopic
 {
-    [[NetworkManager sharedManager] getWithUrl:getMainResources param:nil success:^(id json) {
+    LYAccount *account = [LYAccount shareAccount];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    if (self.secondCtrl == 0) {
+        
+        [dict setValue:[[self.startDateBtn.titleLabel.text componentsSeparatedByString:@"-"] componentsJoinedByString:@""] forKey:@"startDate"];
+        [dict setValue:[[self.endDateBtn.titleLabel.text componentsSeparatedByString:@"-"] componentsJoinedByString:@""] forKey:@"endDate"];
+        [dict setValue:@"1" forKey:@"type"];
+        [dict setValue:account.id forKey:@"userId"];
+    }else{
+        
+    }
+    
+    [[NetworkManager sharedManager] getWithUrl:transSumAmount param:dict success:^(id json) {
         NSLog(@"%@",json);
         [self.listTableView.mj_header endRefreshing];
         [SVProgressHUD dismiss];
@@ -162,7 +186,11 @@
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.listDataArr = [NSMutableArray arrayWithObjects:@[@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"],@[@"2018-08-22",@"¥0.0",@"¥0.0"], nil];
+                [self.listDataArr removeAllObjects];
+                for (NSDictionary *dic in json[@"data"]) {
+                    PerformanceModel *model = [PerformanceModel mj_objectWithKeyValues:dic];
+                    [self.listDataArr addObject:model];
+                }
                 [self.listTableView reloadData];
             });
         }else if([json[@"code"]longValue] == 500){
@@ -183,22 +211,27 @@
         // 这里是你点击了cell里的某个按钮后要做的操作
         if (index == 0) {
             self.secondCtrl = 0;
+            //进入刷新状态
+            if (self.listTableView == nil) {
+//                if (self.secondCtrl == 0 ) {
+                    [self createTopView];
+                    [self setUpUI:50];
+//                }else{
+//                    [self setUpUI:0];
+//                }
+                self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+                self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+                //进入刷新状态
+                //            [self.listTableView.mj_header beginRefreshing];
+            }else{
+                //             [self.listTableView.mj_header beginRefreshing];
+            }
+            [SVProgressHUD doAnythingWithHUDMessage:nil];
+            [self loadNewTopic];
         }else{
             self.secondCtrl = 1;
         }
-        //进入刷新状态
-        if (self.listTableView == nil) {
-            if (self.secondCtrl == 0 ) {
-                [self createTopView];
-                [self setUpUI:50];
-            }else{
-                [self setUpUI:0];
-            }
-            self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
-        }else{
-        }
-        [SVProgressHUD doAnythingWithHUDMessage:nil];
-        [self loadNewTopic];
+        
     });
    
     
@@ -231,7 +264,6 @@
     
     
     self.startDateBtn = [[UIButton alloc] init];
-    [self.startDateBtn setTitle:[self getFormerlyDate:-24*60*60*7] forState:UIControlStateNormal];
     [self.startDateBtn setTitleColor:colorWithRGB(0xFF5760) forState:UIControlStateNormal];
     self.startDateBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [self.startDateBtn addTarget:self action:@selector(startDateBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -266,7 +298,6 @@
     
     
     self.endDateBtn = [[UIButton alloc] init];
-    [self.endDateBtn setTitle:[self getFormerlyDate:-24*60*60] forState:UIControlStateNormal];
     [self.endDateBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     self.endDateBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [self.endDateBtn addTarget:self action:@selector(endDateBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -276,6 +307,15 @@
     .rightSpaceToView(self.topView, 0)
     .widthIs(kScreenWidth/3-10)
     .heightIs(20);
+    
+    if (self.secondCtrl == 0) {
+        [self.startDateBtn setTitle:[self getFormerlyDate:-24*60*60*6] forState:UIControlStateNormal];
+        [self.endDateBtn setTitle:[self getFormerlyDate:0] forState:UIControlStateNormal];
+    }else{
+        
+    }
+    
+    
     self.endLineView = [[UIView alloc] init];
     self.endLineView.backgroundColor = [UIColor lightGrayColor];
     [self.topView addSubview:self.endLineView];
@@ -354,11 +394,19 @@
             [self.endDateBtn setTitle:[self getFormerlyDate:-24*60*60] forState:UIControlStateNormal];
         }];
     }else{
-        
+        [SVProgressHUD doAnythingWithHUDMessage:nil];
+        [self loadNewTopic];
     }
     
 }
-
+- (UIImage  *)xy_noDataViewImage
+{
+    return [UIImage imageNamed:@"缺省-暂无"];
+}
+- (NSString *)xy_noDataViewMessage
+{
+    return @"暂无数据";
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

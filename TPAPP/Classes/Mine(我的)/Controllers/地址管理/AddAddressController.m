@@ -79,19 +79,19 @@
 - (void)addBtnAction
 {
     if ([self.dataDict[@"recNickName"] length] == 0) {
-        
+        [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入收货人姓名" withDuration:1.0];
     }else{
         if ([self.dataDict[@"recPhone"] length] == 0) {
-            
+           [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入收货人电话" withDuration:1.0];
         }else{
             if ([self.dataDict[@"recProv"] length] == 0) {
-                
+                [SVProgressHUD doAnyRemindWithHUDMessage:@"请选择收货人地址" withDuration:1.0];
             }else{
                 if ([self.dataDict[@"recAddress"] length] == 0) {
-                    
+                    [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入收货人详细地址" withDuration:1.0];
                 }else{
                     if ([self.dataDict[@"recIdentityCardNo"] length] == 0) {
-                        
+                        [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入收货人身份证号码" withDuration:1.0];
                     }else{
                         LYAccount *lyAccount = [LYAccount shareAccount];
                         [self.dataDict addEntriesFromDictionary:@{@"userId":lyAccount.id}];
@@ -143,11 +143,20 @@
         CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
         //获取导航栏的rect
         CGRect navRect = self.navigationController.navigationBar.frame;
-        _listTableView.sd_layout
-        .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
-        .leftEqualToView(self.view)
-        .rightEqualToView(self.view)
-        .bottomSpaceToView(self.view, SafeAreaBottomHeight);
+        if (self.isCartCtrl) {
+            _listTableView.sd_layout
+            .topSpaceToView(self.view, 0)
+            .leftEqualToView(self.view)
+            .rightEqualToView(self.view)
+            .bottomSpaceToView(self.view, SafeAreaBottomHeight);
+        }else{
+            _listTableView.sd_layout
+            .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
+            .leftEqualToView(self.view)
+            .rightEqualToView(self.view)
+            .bottomSpaceToView(self.view, SafeAreaBottomHeight);
+        }
+        
 //        if ([self.listTableView respondsToSelector:@selector(setSeparatorInset:)]) {
 //            [self.listTableView setSeparatorInset:UIEdgeInsetsZero];
 //        }

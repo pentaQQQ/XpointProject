@@ -99,6 +99,7 @@
 - (void)configWithModel:(NSMutableArray *)model;
 
 @end
+
 @interface PayIndentButtonCell : UITableViewCell
 /**
  *  左侧图标
@@ -113,7 +114,7 @@
  */
 @property (nonatomic, retain)UIButton *choosePayTypeButton;
 @property (nonatomic, assign) BOOL isSelect;
-@property (nonatomic, copy) void(^qhxSelectBlock)(BOOL choice,NSInteger btntag);
+@property (nonatomic, copy) void(^qhxSelectBlock)(BOOL choice,NSInteger btntag,NSString *selectTitle);
 - (void)configWithModel:(NSMutableArray *)model;
 @end
 

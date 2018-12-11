@@ -19,4 +19,5 @@
 @property (nonatomic, strong)UILabel *remarksDeatail;
 
 @property (nonatomic, strong)UIButton *downBtn;
+- (void)configWithModel:(MineIndentModel *)minModel;
 @end

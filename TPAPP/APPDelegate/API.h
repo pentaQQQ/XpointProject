@@ -13,7 +13,7 @@
 
 //#define WeChateSecret   @"045dd77a293df7f7dc340fc69211d097"//微信开发者账号Secret
 //#define WeChateappid    @"wx354bd4644a16d2e1"//微信开发者账号appid
-
+#define AliSchemeKey @"tianyangcangappalipay"
 #define WeChateSecret   @"a5315115b905a26a31e02ad5659fa22a"//微信开发者账号Secret
 #define WeChateappid    @"wx32d968fae8531d0a"//微信开发者账号appid
 
@@ -30,7 +30,7 @@
 
 
 //#define kBaseUrl           @"http://47.92.193.30/"
-#define kBaseUrl           @"https://pay.shty518.com/"
+#define kBaseUrl           @"https://pay.shty518.com"
 
 
 
@@ -41,11 +41,11 @@
 
 
 //获取首页标签及内容
-#define getMainResources [NSString stringWithFormat:@"%@%@",kBaseUrl,@"api/main/getMainResources"]
+#define getMainResources [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/main/getMainResources"]
 //根据活动查询商品信息，返回所有已上架商品
-#define getProductByActivityId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"api/main/getProductByActivityId"]
+#define getProductByActivityId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/main/getProductByActivityId"]
 //获取验证码
-#define getSecurityCode [NSString stringWithFormat:@"%@%@",kBaseUrl,@"api/eshopUser/send/login"]
+#define getSecurityCode [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/send/login"]
 //登陆
 #define getlogin [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/login"]
 //微信登陆
@@ -64,6 +64,8 @@
 #define getProductByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getProductByMerchantId"]
 //上传身份证信息
 #define uploadIdeniti [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/ideniti"]
+//上传身份证信息
+#define fileUploadFile [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/file/uploadFile"]
 //根据商户查询活动信息,前端拿到数据需判断活动结束时间
 #define getActivityByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getActivityByMerchantId"]
 
@@ -143,6 +145,11 @@
 //获取邀请码列表
 #define inviteList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/invite/list"]
 
-
+//业绩统计接口
+#define transSumAmount [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/transSum/transSumAmount"]
+//支付宝接口
+#define aliPayByOrder [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/aliPay/getAliPayOrderStr"]
+//微信接口
+#define wechatPayByOrder [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/weixinPay/getWeChatPreyIdByOrder"]
 
 #endif /* API_h */

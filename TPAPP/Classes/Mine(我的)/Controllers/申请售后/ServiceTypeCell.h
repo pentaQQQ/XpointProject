@@ -13,5 +13,5 @@
 @property (nonatomic, strong)UIButton *retureGood;
 @property (nonatomic, strong)UIButton *changeGood;
 @property (nonatomic, strong)UIButton *retureMoney;
-@property (nonatomic, strong)void(^selectTypeBlock)(ServiceTypeCell *);
+@property (nonatomic, strong)void(^selectTypeBlock)(ServiceTypeCell *,NSInteger );
 @end

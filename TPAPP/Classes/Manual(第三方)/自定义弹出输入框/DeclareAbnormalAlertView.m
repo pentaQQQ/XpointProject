@@ -34,6 +34,10 @@
 @property (nonatomic,assign) BOOL isAddGood;
 @property (nonatomic, strong)specsModel *model;
 @property (nonatomic, strong)NSMutableArray *goodListArr;
+
+
+@property (nonatomic, strong)MineIndentModel *minModel;
+
 @end
 
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
@@ -90,6 +94,112 @@
         [self setRemindUpUI];
     }
     return self;
+}
+
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message selectType:(NSString *)type delegate:(id)orderRemindDelegate leftButtonTitle:(NSString *)leftButtonTitle rightButtonTitle:(NSString *)rightButtonTitle comGoodList:(MineIndentModel *)minModel
+{
+    if (self = [super init]) {
+        self.title = title;
+        self.message = message;
+        self.remind = type;
+        self.minModel  = minModel;
+        self.orderListRemindDelegate = orderRemindDelegate;
+        self.leftButtonTitle = leftButtonTitle;
+        self.rightButtonTitle = rightButtonTitle;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
+        
+        // UI搭建
+        [self setOrderListRemindUI];
+    }
+    return self;
+}
+- (void)setOrderListRemindUI
+{
+    self.frame = [UIScreen mainScreen].bounds;
+    self.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
+    [UIView animateWithDuration:0.1 animations:^{
+        self.alpha = 1;
+    }];
+    //------- 弹窗主内容 -------//
+    self.contentView = [[UIView alloc]init];
+    self.contentView.frame = CGRectMake(40, (SCREEN_HEIGHT - 225-60) / 2, (SCREEN_WIDTH - 80), 225-60);
+    self.contentView.center = self.center;
+    [self addSubview:self.contentView];
+    self.contentView.backgroundColor = [UIColor whiteColor];
+    self.contentView.layer.cornerRadius = 6;
+    
+    // 标题
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, self.contentView.width, 30)];
+    [self.contentView addSubview:titleLabel];
+    titleLabel.font = [UIFont boldSystemFontOfSize:20];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text = self.title;
+    
+    // textView里面的占位label
+    self.messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, titleLabel.maxY + 10, self.contentView.width - 40, 50)];
+    self.messageLabel.text = self.message;
+    self.messageLabel.textAlignment = NSTextAlignmentCenter;
+    self.messageLabel.numberOfLines = 2;
+    self.messageLabel.font = [UIFont systemFontOfSize:15];
+    self.messageLabel.textColor = [UIColor colorWithHexString:@"484848"];
+    //        [self.messageLabel sizeToFit];
+    [self.contentView addSubview:self.messageLabel];
+    
+    
+    // 标题
+//    self.remindLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, self.messageLabel.maxY + 10, self.contentView.width-40, 20)];
+//    [self.contentView addSubview:self.remindLabel];
+//    self.remindLabel.numberOfLines = 0;
+//    self.remindLabel.font = [UIFont systemFontOfSize:15];
+//    self.remindLabel.textColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
+//    //        [remindLabel sizeToFit];
+//    self.remindLabel.textAlignment = NSTextAlignmentLeft;
+//    self.remindLabel.text = self.remind;
+    
+    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, self.messageLabel.maxY + 10, self.contentView.width, 1)];
+    topView.backgroundColor = [UIColor colorWithHexString:@"e0e0e0"];
+    [self.contentView addSubview:topView];
+    
+    // 取消按钮
+    UIButton *cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(0, topView.maxY, (self.contentView.width-1)/2, self.contentView.height-topView.maxY)];
+    [self.contentView addSubview:cancelButton];
+    [cancelButton setTitle:self.leftButtonTitle forState:UIControlStateNormal];
+    [cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [cancelButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
+    cancelButton.layer.cornerRadius = 6;
+    [cancelButton addTarget:self action:@selector(cancelOrderRemindButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *middleView = [[UIView alloc] initWithFrame:CGRectMake((self.contentView.width-1)/2, topView.maxY, 1, self.contentView.height-topView.maxY)];
+    middleView.backgroundColor = [UIColor colorWithHexString:@"e0e0e0"];
+    [self.contentView addSubview:middleView];
+    // 确定按钮
+    UIButton *abnormalButton = [[UIButton alloc]initWithFrame:CGRectMake((self.contentView.width-1)/2+1, cancelButton.minY, (self.contentView.width-1)/2, self.contentView.height-topView.maxY)];
+    [self.contentView addSubview:abnormalButton];
+    [abnormalButton setTitleColor:[UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [abnormalButton setTitle:self.rightButtonTitle forState:UIControlStateNormal];
+    [abnormalButton.titleLabel setFont:[UIFont systemFontOfSize:18]];
+    abnormalButton.layer.cornerRadius = 6;
+    [abnormalButton addTarget:self action:@selector(abnormalOrderRemindButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    //------- 调整弹窗高度和中心 -------//
+    self.contentView.center = self.center;
+    
+}
+- (void)cancelOrderRemindButtonClicked
+{
+    if ([self.orderListRemindDelegate respondsToSelector:@selector(declareAbnormalAlertView:clickedButtonAtIndex:selectType:comGoodList:)]) {
+        [self.orderListRemindDelegate declareAbnormalAlertView:self clickedButtonAtIndex:AlertButtonLeft selectType:self.remind comGoodList:self.minModel];
+    }
+    [self dismiss];
+}
+
+- (void)abnormalOrderRemindButtonClicked
+{
+    if ([self.orderListRemindDelegate respondsToSelector:@selector(declareAbnormalAlertView:clickedButtonAtIndex:selectType:comGoodList:)]) {
+        [self.orderListRemindDelegate declareAbnormalAlertView:self clickedButtonAtIndex:AlertButtonRight selectType:self.remind comGoodList:self.minModel];
+    }
+    [self dismiss];
+    
 }
 - (void)setRemindUpUI
 {

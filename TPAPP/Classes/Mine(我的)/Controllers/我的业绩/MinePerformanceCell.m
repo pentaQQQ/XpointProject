@@ -52,11 +52,11 @@
     .widthIs(kScreenWidth/3)
     .heightIs(20);
 }
--(void)configWithModel:(NSMutableArray *)arr
+-(void)configWithModel:(PerformanceModel *)model
 {
-    self.dateLabel.text = arr[0];
-    self.marketLabel.text = arr[1];
-    self.buyLabel.text = arr[2];
+    self.dateLabel.text = model.date;
+    self.marketLabel.text = model.amount;
+    self.buyLabel.text = model.discountAmount;
 }
 
 - (void)awakeFromNib {

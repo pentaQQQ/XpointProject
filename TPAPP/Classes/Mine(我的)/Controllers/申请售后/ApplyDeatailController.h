@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 @interface ApplyDeatailController : BaseViewController
-
+@property (nonatomic, strong)MineIndentModel *minModel;
 @end

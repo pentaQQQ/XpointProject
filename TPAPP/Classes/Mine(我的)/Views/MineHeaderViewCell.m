@@ -70,7 +70,7 @@
     self.sLayer.position = CGPointZero;
     self.sLayer.frame = self.gradientBgView.bounds;
     self.gradientBgView.layer.mask = self.sLayer;
-    self.headerBgView.frame = CGRectMake(20, SafeAreaTopHeight, self.frame.size.width-40, 240);
+    self.headerBgView.frame = CGRectMake(20, SafeAreaTopHeight, self.frame.size.width-40, 180);
     self.headerBgView.layer.cornerRadius = 4.0;
     self.headerBgView.layer.shadowColor = [UIColor grayColor].CGColor;//阴影颜色
     self.headerBgView.layer.shadowOffset = CGSizeMake(0, 1);//阴影偏移量
@@ -151,18 +151,18 @@
     self.authenticationBtn.titleLabel.font = [UIFont systemFontOfSize:15];
 
     
-    self.ruleBtn = [[UIButton alloc] init];
-    [self.headerBgView addSubview:self.ruleBtn];
-    self.ruleBtn.sd_layout
-    .topSpaceToView(self.headerBgView, 15)
-    .rightSpaceToView(self.headerBgView, 0)
-    .widthIs(80)
-    .heightIs(20);
-    [self.ruleBtn addTarget:self action:@selector(ruleAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.ruleBtn setBackgroundImage:[UIImage imageNamed:@"icon_mine_tag"] forState:UIControlStateNormal];
-    [self.ruleBtn setTitle:@"等级规则" forState:UIControlStateNormal];
-    [self.ruleBtn setTitleColor:colorWithRGB(0xFF6B24) forState:UIControlStateNormal];
-    self.ruleBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+//    self.ruleBtn = [[UIButton alloc] init];
+//    [self.headerBgView addSubview:self.ruleBtn];
+//    self.ruleBtn.sd_layout
+//    .topSpaceToView(self.headerBgView, 15)
+//    .rightSpaceToView(self.headerBgView, 0)
+//    .widthIs(80)
+//    .heightIs(20);
+//    [self.ruleBtn addTarget:self action:@selector(ruleAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.ruleBtn setBackgroundImage:[UIImage imageNamed:@"icon_mine_tag"] forState:UIControlStateNormal];
+//    [self.ruleBtn setTitle:@"等级规则" forState:UIControlStateNormal];
+//    [self.ruleBtn setTitleColor:colorWithRGB(0xFF6B24) forState:UIControlStateNormal];
+//    self.ruleBtn.titleLabel.font = [UIFont systemFontOfSize:15];
 
     
     self.vipBtn = [[UIButton alloc] init];
@@ -208,44 +208,44 @@
     self.numberLabel.text = [NSString stringWithFormat:@"代购编号:%@",lyAccount.buyNo];
     self.numberLabel.font = [UIFont systemFontOfSize:14];
     
-    self.moneyBgView = [[UIView alloc] init];
-    self.moneyBgView.backgroundColor = colorWithRGB(0xEEEEEE);
-    [self.headerBgView addSubview:self.moneyBgView];
-    self.moneyBgView.sd_layout
-    .topSpaceToView(self.numberLabel, 20)
-    .centerXEqualToView(self.headerBgView)
-    .leftSpaceToView(self.headerBgView, 20)
-    .rightSpaceToView(self.headerBgView, 20)
-    .heightIs(20);
-    self.moneyBgView.layer.cornerRadius = 10;
-    self.moneyBgView.layer.masksToBounds = YES;
-    
-    
-    self.moneyView = [[UIView alloc] init];
-    self.moneyView.backgroundColor = colorWithRGB(0xFF6B24);
-    [self.moneyBgView addSubview:self.moneyView];
-    self.moneyView.sd_layout
-    .topSpaceToView(self.moneyBgView, 0)
-    .leftSpaceToView(self.moneyBgView, 0)
-    .widthIs((self.headerBgView.frame.size.width-40)/2)
-    .heightIs(20);
-    self.moneyView.layer.cornerRadius = 10;
-    self.moneyView.layer.masksToBounds = YES;
-    
-    self.moneyLabel = [[UILabel alloc] init];
-    self.moneyLabel.backgroundColor = colorWithRGB(0xFF6B24);
-    [self.moneyView addSubview:self.moneyLabel];
-    self.moneyLabel.sd_layout
-    .topSpaceToView(self.moneyView, 0)
-    .rightSpaceToView(self.moneyView, 10)
-    .widthIs(self.moneyView.frame.size.width-10)
-    .heightIs(20);
-    self.moneyLabel.layer.cornerRadius = 10;
-    self.moneyLabel.layer.masksToBounds = YES;
-    self.moneyLabel.textAlignment = NSTextAlignmentRight;
-    self.moneyLabel.textColor = [UIColor whiteColor];
-    self.moneyLabel.text = @"¥50";
-    self.moneyLabel.font = [UIFont systemFontOfSize:12];
+//    self.moneyBgView = [[UIView alloc] init];
+//    self.moneyBgView.backgroundColor = colorWithRGB(0xEEEEEE);
+//    [self.headerBgView addSubview:self.moneyBgView];
+//    self.moneyBgView.sd_layout
+//    .topSpaceToView(self.numberLabel, 20)
+//    .centerXEqualToView(self.headerBgView)
+//    .leftSpaceToView(self.headerBgView, 20)
+//    .rightSpaceToView(self.headerBgView, 20)
+//    .heightIs(20);
+//    self.moneyBgView.layer.cornerRadius = 10;
+//    self.moneyBgView.layer.masksToBounds = YES;
+//    
+//    
+//    self.moneyView = [[UIView alloc] init];
+//    self.moneyView.backgroundColor = colorWithRGB(0xFF6B24);
+//    [self.moneyBgView addSubview:self.moneyView];
+//    self.moneyView.sd_layout
+//    .topSpaceToView(self.moneyBgView, 0)
+//    .leftSpaceToView(self.moneyBgView, 0)
+//    .widthIs((self.headerBgView.frame.size.width-40)/2)
+//    .heightIs(20);
+//    self.moneyView.layer.cornerRadius = 10;
+//    self.moneyView.layer.masksToBounds = YES;
+//    
+//    self.moneyLabel = [[UILabel alloc] init];
+//    self.moneyLabel.backgroundColor = colorWithRGB(0xFF6B24);
+//    [self.moneyView addSubview:self.moneyLabel];
+//    self.moneyLabel.sd_layout
+//    .topSpaceToView(self.moneyView, 0)
+//    .rightSpaceToView(self.moneyView, 10)
+//    .widthIs(self.moneyView.frame.size.width-10)
+//    .heightIs(20);
+//    self.moneyLabel.layer.cornerRadius = 10;
+//    self.moneyLabel.layer.masksToBounds = YES;
+//    self.moneyLabel.textAlignment = NSTextAlignmentRight;
+//    self.moneyLabel.textColor = [UIColor whiteColor];
+//    self.moneyLabel.text = @"¥50";
+//    self.moneyLabel.font = [UIFont systemFontOfSize:12];
    
 //    self.moneyLabel = [[UILabel alloc] init];
 //    self.moneyLabel.backgroundColor = colorWithRGB(0xFF6B24);
@@ -263,17 +263,17 @@
 //    self.moneyLabel.font = [UIFont systemFontOfSize:12];
     
     
-    self.distanceLabel = [[UILabel alloc] init];
-    [self.headerBgView addSubview:self.distanceLabel];
-    self.distanceLabel.sd_layout
-    .topSpaceToView(self.moneyBgView, 10)
-    .centerXEqualToView(self.headerBgView)
-    .widthIs(self.headerBgView.frame.size.width)
-    .heightIs(10);
-    self.distanceLabel.textAlignment = NSTextAlignmentCenter;
-    self.distanceLabel.textColor = [UIColor lightGrayColor];
-    self.distanceLabel.text = @"距离升级还差 ¥50";
-    self.distanceLabel.font = [UIFont systemFontOfSize:12];
+//    self.distanceLabel = [[UILabel alloc] init];
+//    [self.headerBgView addSubview:self.distanceLabel];
+//    self.distanceLabel.sd_layout
+//    .topSpaceToView(self.moneyBgView, 10)
+//    .centerXEqualToView(self.headerBgView)
+//    .widthIs(self.headerBgView.frame.size.width)
+//    .heightIs(10);
+//    self.distanceLabel.textAlignment = NSTextAlignmentCenter;
+//    self.distanceLabel.textColor = [UIColor lightGrayColor];
+//    self.distanceLabel.text = @"距离升级还差 ¥50";
+//    self.distanceLabel.font = [UIFont systemFontOfSize:12];
 }
 #pragma mark-字体宽度自适应
 - (CGFloat)widthLabelWithModel:(NSString *)titleString

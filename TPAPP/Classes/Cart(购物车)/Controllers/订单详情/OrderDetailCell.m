@@ -7,7 +7,7 @@
 //
 
 #import "OrderDetailCell.h"
-
+#import "AddressModel.h"
 @implementation OrderDetailCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -111,14 +111,14 @@
     
 }
 
--(void)configWithModel:(NSMutableArray *)model
+-(void)configWithModel:(OrderDetailModel *)model
 {
-    self.goodIcon.image = [UIImage imageNamed:model[5]];
-    self.goodName.text = model[0];
-    self.goodSize.text = model[1];
-    self.goodPrice.text = model[2];
-    self.goodNumber.text = model[3];
-    self.goodRemark.text = model[4];
+    [self.goodIcon sd_setImageWithURL:[NSURL URLWithString:model.productImg]];
+    self.goodName.text = model.productName;
+    self.goodSize.text = model.size;
+    self.goodPrice.text = model.productAmount;
+    self.goodNumber.text = [NSString stringWithFormat:@"x%ld",model.number];
+    self.goodRemark.text = model.remark;
 }
 #pragma mark-字体宽度自适应
 - (CGFloat)widthLabelWithModel:(NSString *)titleString withFont:(NSInteger)font
@@ -175,31 +175,36 @@
     .widthIs([self widthLabelWithModel:@"代购人:" withFont:14])
     .heightIs(30);
     
-    
-    
-    self.buyUserTelephone= [[UILabel alloc] init];
-    self.buyUserTelephone.font = [UIFont systemFontOfSize:14];
-    self.buyUserTelephone.textColor = [UIColor blackColor];
-    self.buyUserTelephone.textAlignment = NSTextAlignmentRight;
-    [self.contentView addSubview:self.buyUserTelephone];
-    self.buyUserTelephone.text = @"18501605966";
-    self.buyUserTelephone.sd_layout
-    .topSpaceToView(self.contentView, 10)
-    .rightSpaceToView(self.contentView, 15)
-    .widthIs([self widthLabelWithModel:@"18501605966" withFont:14])
-    .heightIs(30);
-    
     self.buyUserName= [[UILabel alloc] init];
     self.buyUserName.font = [UIFont systemFontOfSize:14];
     self.buyUserName.textColor = [UIColor blackColor];
     self.buyUserName.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.buyUserName];
-    self.buyUserName.text = @"Alan";
+//    self.buyUserName.text = @"Alan";
+//    self.buyUserName.sd_layout
+//    .topSpaceToView(self.contentView, 10)
+//    .leftSpaceToView(self.buyUserTitle, 5)
+//    .heightIs([self widthLabelWithModel:@"Alan" withFont:14])
+//    .heightIs(30);
     self.buyUserName.sd_layout
     .topSpaceToView(self.contentView, 10)
     .leftSpaceToView(self.buyUserTitle, 5)
-    .rightSpaceToView(self.buyUserTelephone, 5)
+    .rightSpaceToView(self.contentView, 15)
     .heightIs(30);
+    
+//    self.buyUserTelephone= [[UILabel alloc] init];
+//    self.buyUserTelephone.font = [UIFont systemFontOfSize:14];
+//    self.buyUserTelephone.textColor = [UIColor blackColor];
+//    self.buyUserTelephone.textAlignment = NSTextAlignmentLeft;
+//    [self.contentView addSubview:self.buyUserTelephone];
+//    self.buyUserTelephone.text = @"18501605966";
+//    self.buyUserTelephone.sd_layout
+//    .topSpaceToView(self.contentView, 10)
+//    .leftSpaceToView(self.buyUserName, 10)
+//    .widthIs([self widthLabelWithModel:@"18501605966" withFont:14])
+//    .heightIs(30);
+    
+    
     
     self.buyAddessTitle= [[UILabel alloc] init];
     self.buyAddessTitle.font = [UIFont systemFontOfSize:14];
@@ -220,19 +225,20 @@
     [self.contentView addSubview:self.buyUserAddess];
     self.buyUserAddess.text = @"上海市宝山区沪太路3100号A座";
     self.buyUserAddess.sd_layout
-    .topSpaceToView(self.buyUserTelephone, 0)
+    .topSpaceToView(self.buyUserName, 0)
     .leftSpaceToView(self.buyAddessTitle, 5)
     .rightSpaceToView(self.contentView, 15)
     .heightIs(20);
     
 }
--(void)configWithModel:(NSMutableArray *)model
+-(void)configWithModel:(MineIndentModel *)model
 {
-    self.buyUserTitle.text = model[0];
-    self.buyUserName.text = model[1];
-    self.buyUserTelephone.text = model[2];
-    self.buyAddessTitle.text = model[3];
-    self.buyUserAddess.text = model[4];
+    self.buyUserTitle.text = @"收货人: ";
+//    self.buyUserName.text = model.addressInfo.recNickName;
+//    self.buyUserTelephone.text = model.addressInfo.recPhone;
+    self.buyUserName.text = [NSString stringWithFormat:@"%@ %@",model.addressInfo.recNickName,model.addressInfo.recPhone];
+    self.buyAddessTitle.text = @"收货地址: ";
+    self.buyUserAddess.text = [NSString stringWithFormat:@"%@%@%@%@",model.addressInfo.recProv,model.addressInfo.recCity,model.addressInfo.recArea,model.addressInfo.recAddress];
    
 }
 #pragma mark-字体宽度自适应
@@ -289,7 +295,7 @@
     self.goodOrderNumber.sd_layout
     .topSpaceToView(self.contentView, 15)
     .leftSpaceToView(self.goodOrder, 5)
-    .widthIs(100)
+    .rightSpaceToView(self.contentView, 15)
     .heightIs(20);
     
     self.buyDate = [[UILabel alloc] init];
@@ -324,7 +330,7 @@
     self.goodStatus.sd_layout
     .topSpaceToView(self.contentView, 27.5)
     .rightSpaceToView(self.contentView, 15)
-    .widthIs([self widthLabelWithModel:@"交易完成" withFont:13])
+    .widthIs([self widthLabelWithModel:@"交易完" withFont:13])
     .heightIs(20);
     
     self.statusIcon = [[UIImageView alloc] init];
@@ -337,11 +343,27 @@
     .widthIs(20)
     .heightIs(20);
 }
--(void)configWithModel:(NSMutableArray *)model
+-(void)configWithModel:(MineIndentModel *)model
 {
-    self.goodOrderNumber.text = model[0];
-    self.goodStatus.text = model[1];
-    self.buyGoodTime.text = model[2];
+    self.goodOrderNumber.text = model.id;
+    self.buyGoodTime.text = model.createDataTime;
+    if ([model.status isEqualToString:@"0"]) {
+        self.goodStatus.text = @"待支付";
+    }else if ([model.status isEqualToString:@"1"]){
+        self.goodStatus.text = @"已支付";
+    }else if ([model.status isEqualToString:@"2"]){
+        self.goodStatus.text = @"已支付";
+    }else if ([model.status isEqualToString:@"3"]){
+        self.goodStatus.text = @"已支付";
+    }else if ([model.status isEqualToString:@"4"]){
+        self.goodStatus.text = @"已支付";
+    }else if ([model.status isEqualToString:@"5"]){
+        self.goodStatus.text = @"已取消";
+    }else if ([model.status isEqualToString:@"6"]){
+        self.goodStatus.text = @"已支付";
+    }
+    
+    
     
 }
 #pragma mark-字体宽度自适应

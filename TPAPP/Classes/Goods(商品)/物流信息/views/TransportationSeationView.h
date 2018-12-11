@@ -11,5 +11,12 @@
 @interface TransportationSeationView : UIView
 @property (weak, nonatomic) IBOutlet UIButton *rotaBtn;
 @property (weak, nonatomic) IBOutlet UIView *bottomview;
+@property (weak, nonatomic) IBOutlet UIImageView *orderIcon;
+@property (weak, nonatomic) IBOutlet UILabel *orderName;
+@property (weak, nonatomic) IBOutlet UILabel *sizeTitle;
+@property (weak, nonatomic) IBOutlet UILabel *sizeNum;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *payNumber;
+@property (weak, nonatomic) IBOutlet UILabel *remarkLabel;
 
 @end

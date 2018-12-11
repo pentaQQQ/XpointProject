@@ -11,3 +11,6 @@
 @implementation MineIndentModel
 
 @end
+@implementation OrderDetailModel
+
+@end

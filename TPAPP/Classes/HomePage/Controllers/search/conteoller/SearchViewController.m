@@ -32,7 +32,7 @@ static NSString *const cxSearchCollectionViewCell = @"CXSearchCollectionViewCell
 static NSString *const headerViewIden = @"HeadViewIden";
 
 
-@interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UICollectionViewDataSource,UICollectionViewDelegate,SelectCollectionCellDelegate,UICollectionReusableViewButtonDelegate,UISearchBarDelegate>
+@interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UICollectionViewDataSource,UICollectionViewDelegate,SelectCollectionCellDelegate,UICollectionReusableViewButtonDelegate,UISearchBarDelegate,DeclareAbnormalAlertViewDelegate>
 @property(nonatomic,strong)SearchHeaderView*headerview;
 @property(nonatomic,strong)UITableView*tableview;
 
@@ -368,13 +368,13 @@ static NSString *const headerViewIden = @"HeadViewIden";
                 [dic setValue:model.size forKey:@"size"];
                 [dic setValue:lyAccount.id forKey:@"userId"];
                 [dic setValue:@"1" forKey:@"number"];
+                [dic setValue:model.id forKey:@"cartDetailId"];
                 [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
                     NSLog(@"%@",dict);
                     NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
                     if ([respCode isEqualToString:@"00000"]) {
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
                         [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
-                        //                        [self.navigationController.tabBarController.viewControllers[3].tabBarItem setBadgeValue:@"5"];
                     }else{
                         [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                     }
@@ -407,7 +407,36 @@ static NSString *const headerViewIden = @"HeadViewIden";
     
 }
 
-
+// 输入框弹窗的button点击时回调
+- (void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectCell:(CompileCell *)cell selectSpesModel:(specsModel *)model{
+    if (buttonIndex == AlertButtonLeft) {
+        
+    }else{
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setValue:model.productId forKey:@"productId"];
+        [dic setValue:model.size forKey:@"size"];
+        [dic setValue:@"1" forKey:@"number"];
+        LYAccount *lyAccount = [LYAccount shareAccount];
+        [dic setValue:lyAccount.id forKey:@"userId"];
+        [dic setValue:alertView.textView.text forKey:@"remark"];
+        [dic setValue:model.id forKey:@"cartDetailId"];
+        [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
+            NSLog(@"%@",dict);
+            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+            if ([respCode isEqualToString:@"00000"]) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
+                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+            }else{
+                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+            }
+        } fail:^(NSError *error) {
+            
+        }];
+        
+        
+        
+    }
+}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     

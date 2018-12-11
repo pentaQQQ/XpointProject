@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PerformanceModel.h"
 @interface MinePerformanceCell : UITableViewCell
 @property (nonatomic, strong)UILabel *dateLabel;
 @property (nonatomic, strong)UILabel *marketLabel;
 @property (nonatomic, strong)UILabel *buyLabel;
-- (void)configWithModel:(NSMutableArray *)arr;
+- (void)configWithModel:(PerformanceModel *)model;
 @end

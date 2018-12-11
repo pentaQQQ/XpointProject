@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MineIndentModel.h"
 @interface MineIndentListCell : UITableViewCell
 @property (nonatomic, strong)UILabel *storeName;
+@property (nonatomic, strong)UILabel *remarkLabel;
 @property (nonatomic, strong)UIImageView *upLineView;
 @property (nonatomic, strong)UIImageView *goodIcon;
 @property (nonatomic, strong)UILabel *goodName;
@@ -29,9 +30,9 @@
 @property (nonatomic, strong)UIButton *cancelGoodsBtn;//取消付款
 @property (nonatomic, strong)UIButton *deliverGoodsBtn;//提醒发货
 @property (nonatomic, strong)UIImageView *downLineView;
-
+@property (nonatomic, strong)OrderDetailModel *orderDetailModel;
 @property (nonatomic, strong)void(^selectBlock)(NSInteger ,MineIndentListCell *);
 
--(void)configWithModel:(NSMutableArray *)model;
+-(void)configWithModel:(OrderDetailModel *)model andMineIndentModel:(MineIndentModel *)minModel;
 
 @end

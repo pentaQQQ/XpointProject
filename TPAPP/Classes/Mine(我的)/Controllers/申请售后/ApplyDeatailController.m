@@ -104,7 +104,7 @@
         if (!headerCell) {
             headerCell = [[ApplyDeatailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ApplyDeatailCellID"];
         }
-        
+        [headerCell configWithModel:self.minModel];
         headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return headerCell;
     }else if (indexPath.section == 1){
@@ -114,6 +114,9 @@
         }
         
         headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        headerCell.selectTypeBlock = ^(ServiceTypeCell *cell, NSInteger selectType) {
+            
+        };
         return headerCell;
     }else{
         QuestionDeatailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"QuestionDeatailCellID"];

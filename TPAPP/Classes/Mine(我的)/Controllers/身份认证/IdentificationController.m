@@ -249,82 +249,189 @@
     CGRect rect = [titleString boundingRectWithSize:size options:NSStringDrawingUsesFontLeading|NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]} context:nil];
     return rect.size.width;
 }
+-(void)uploadPicturesImage:(UIImage* )image nsNo:(NSString* )nsNo
+{
+   
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain", @"multipart/form-data", @"application/json", @"text/html", @"image/jpeg", @"image/png", @"text/json", nil];
+    
+//    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:@"token"];
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    [manager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
+//   [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    NSData* imagedata = UIImagePNGRepresentation(image);
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setValue:nsNo forKey:@"multipartFile"];
+    NSLog(@"字典的值：%@", parameters);
+    [manager POST:fileUploadFile parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>_Nonnull formData) {
+       //上传文件参数
+        NSLog(@"我需要的相片data：%@", imagedata);
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyyMMddHHmmss";
+        NSString *str = [formatter stringFromDate:[NSDate date]];
+        NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
+        NSLog(@"我需要的fileName：%@", fileName);
+        [formData appendPartWithFileData:imagedata name:@"file" fileName:fileName mimeType:@"image/png"];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        //打印上传进度
+        CGFloat progress = 100.0 * uploadProgress.completedUnitCount / uploadProgress.totalUnitCount;
+        NSLog(@"%.2lf%%", progress);
+   } success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
+        //请求成功
+        NSLog(@"请求成功：%@",responseObject);
+//        NSLog(@"返回的说明desc：%@", [responseObject objectForKey:@"desc"]);
+       NSDictionary *dics = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+       NSLog(@"返回的说明desc：%@", dics);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+          //请求失败
+         NSLog(@"请求失败：%@",error);
+    }];
+
+
+
+    
+    
+//    NSData* data = UIImageJPEGRepresentation(image, 0.01);
+//    NSString *TWITTERFON_FORM_BOUNDARY = @"AaB03x";
+//    //分界线 --AaB03x
+//    NSString *MPboundary=[[NSString alloc]initWithFormat:@"--%@",TWITTERFON_FORM_BOUNDARY];
+//    //结束符 AaB03x--
+//    NSString *endMPboundary=[[NSString alloc]initWithFormat:@"%@--",MPboundary];
+//    NSMutableString *body=[[NSMutableString alloc]init];
+//    //参数的集合的所有key的集合
+//    [body appendFormat:@"%@\r\n",MPboundary];
+//    //声明pic字段，文件名为boris.png
+//    [body appendFormat:@"Content-Disposition:form-data;name=%@;filename=%@.jpg\r\n",nsNo,nsNo];
+//    //声明上传文件的格式
+//    [body appendFormat:@"Content-Type:application/octet-stream\r\n\r\n"];
+//    //声明结束符：--AaB03x-
+//    NSString *end=[[NSString alloc]initWithFormat:@"\r\n%@",endMPboundary];
+//    //声明myRequestData，用来放入http body
+//    NSMutableData *myRequestData=[NSMutableData data];
+//    //将body字符串转化为UTF8格式的二进制
+//    [myRequestData appendData:[body dataUsingEncoding:NSUTF8StringEncoding]];
+//    //将image的data加入
+//    [myRequestData appendData:data];
+//    //加入结束符--AaB03x--
+//    [myRequestData appendData:[end dataUsingEncoding:NSUTF8StringEncoding]];
+////    NSString* urlIp = [PublicFunction getHttpUrlIp];
+////    NSString *phone = [[NSUserDefaults standardUserDefaults] objectForKey:USER_NAME];
+//    NSString *urlString = fileUploadFile;
+//    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    NSLog(@"上传图片：%@",urlString);
+//    NSURL *url = [[NSURL alloc] initWithString:urlString];
+//    assert(url != nil);
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+//    [request setTimeoutInterval:50];
+//    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data;boundary=%@",TWITTERFON_FORM_BOUNDARY];
+//    [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
+//    [request setHTTPMethod:@"POST"];
+//    [request setHTTPBody:myRequestData];
+//    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+//    {
+//        if (connectionError == nil)
+//        {
+//            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//            NSLog(@"%@",dic);
+//            NSString *respCode = [dic objectForKey:@"respCode"];
+//            if ([respCode isEqualToString:@"00000"])
+//            {
+//                NSLog(@"上传成功-----msg--%@",[dic objectForKey:@"content"]);
+//
+//            }else {
+//                NSLog(@"上传失败-----msg--%@",[dic objectForKey:@"content"]);
+//
+//            }
+//
+//        }
+//
+//    }];
+    
+}
 
 - (void)nextBtnAction
 {
     if (_facadeIDIsOK && _oppositeIDIsOK&&self.nameTextField.text.length > 0 && self.idNumberTextField.text.length > 0) {
         imageNameArr = [NSMutableArray array];
         NSArray *fileArr = @[self.FacadeIDImage,self.oppositeIDImage];
-        for (UIImage *image in fileArr) {
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            formatter.dateFormat = @"yyyyMMddHHmmssSSS";
-            NSString *str = [formatter stringFromDate:[NSDate date]];
-            NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
-            [imageNameArr addObject:[NSString stringWithFormat:@"http://47.92.193.30/images/%@",imageName]];
-            // 创建文件管理器
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            //获取路径
-            //参数NSDocumentDirectory要获取那种路径
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-            NSString *documenDirectory = [paths objectAtIndex:0];//去处需要的路径
-            NSString *path = [documenDirectory stringByAppendingPathComponent:imageName];
-            BOOL isEXsit = [fileManager fileExistsAtPath:path];
-            if (isEXsit) {
-                [fileManager removeItemAtPath:path error:nil];
-                [fileManager createFileAtPath:path contents:nil attributes:nil];
-            }else {
-                [fileManager createFileAtPath:path contents:nil attributes:nil];
-            }
-            NSData *data = [[NSData alloc] init];
-            data = UIImageJPEGRepresentation(image,0.5);
-            [data writeToFile:path atomically:YES];
-            _facadeImageFilePath = path;
-            
-            NMSSHSession *session = [NMSSHSession connectToHost:@"47.92.193.30" port:22 withUsername:@"root"];
-            if (session.isConnected) {
-                [session authenticateByPassword:@"yb0820@!8"];
-                if (session.isAuthorized) {
-                    NSLog(@"Authentication succeeded");
-                }
-            }
-            NSError *error = nil;
-            NSString *response = [session.channel execute:@"ls -l /usr/local/files/" error:&error];
-            NSLog(@"List of my sites: %@", response);
-            BOOL success = [session.channel uploadFile:_facadeImageFilePath to:@"/usr/local/files/images/"];
-            if (success) {
-                NSLog(@"上传成功");
-                if (_facadeImageFilePath.length > 0) {
-                    [fileManager removeItemAtPath:_facadeImageFilePath error:nil];
-                }else if (_oppositeImageFilePath.length > 0){
-                    [fileManager removeItemAtPath:_oppositeImageFilePath error:nil];
-                }
-                if (imageNameArr.count == 2) {
-                    LYAccount *account = [LYAccount shareAccount];
-                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                    [dic setValue:account.id forKey:@"id"];
-                    [dic setValue:@"1" forKey:@"realName"];
-                    [dic setValue:self.nameTextField.text forKey:@"trueName"];
-                    [dic setValue:self.idNumberTextField.text forKey:@"identit"];
-                    [dic setValue:imageNameArr[0] forKey:@"identitPicZ"];
-                    [dic setValue:imageNameArr[1] forKey:@"identitPicF"];
-                    [[NetworkManager sharedManager]postWithUrl:uploadIdeniti param:dic success:^(id json) {
-                        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-                        if ([respCode isEqualToString:@"00000"]) {
-                            // 单例赋值
-                            [LYAccount mj_objectWithKeyValues:json[@"data"]];
-                            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"身份证信息上传成功" withDuration:1.5];
-                        }else{
-                            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
-                        }
-                    } failure:^(NSError *error) {
-                        
-                    }];
-                }
-            }else{
-                NSLog(@"上传失败");
-            }
-            [session disconnect];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyyMMddHHmmssSSS";
+        NSString *str = [formatter stringFromDate:[NSDate date]];
+        
+        NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
+        [imageNameArr addObject:[NSString stringWithFormat:@"http://47.92.193.30/images/%@",imageName]];
+        //             创建文件管理器
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        //            获取路径
+        //            参数NSDocumentDirectory要获取那种路径
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *documenDirectory = [paths objectAtIndex:0];//去处需要的路径
+        NSString *path = [documenDirectory stringByAppendingPathComponent:imageName];
+        BOOL isEXsit = [fileManager fileExistsAtPath:path];
+        if (isEXsit) {
+            [fileManager removeItemAtPath:path error:nil];
+            [fileManager createFileAtPath:path contents:nil attributes:nil];
+        }else {
+            [fileManager createFileAtPath:path contents:nil attributes:nil];
         }
+        
+        NSData *data = [[NSData alloc] init];
+        UIImage *image =fileArr[0];
+        data = UIImagePNGRepresentation(image);
+        [data writeToFile:path atomically:YES];
+        [self uploadPicturesImage:image nsNo:path];
+//        for (UIImage *image in fileArr) {
+        
+//            _facadeImageFilePath = path;
+//
+//            NMSSHSession *session = [NMSSHSession connectToHost:@"47.92.193.30" port:22 withUsername:@"root"];
+//            if (session.isConnected) {
+//                [session authenticateByPassword:@"yb0820@!8"];
+//                if (session.isAuthorized) {
+//                    NSLog(@"Authentication succeeded");
+//                }
+//            }
+//            NSError *error = nil;
+//            NSString *response = [session.channel execute:@"ls -l /usr/local/files/" error:&error];
+//            NSLog(@"List of my sites: %@", response);
+//            BOOL success = [session.channel uploadFile:_facadeImageFilePath to:@"/usr/local/files/images/"];
+//            if (success) {
+//                NSLog(@"上传成功");
+//                if (_facadeImageFilePath.length > 0) {
+//                    [fileManager removeItemAtPath:_facadeImageFilePath error:nil];
+//                }else if (_oppositeImageFilePath.length > 0){
+//                    [fileManager removeItemAtPath:_oppositeImageFilePath error:nil];
+//                }
+//                if (imageNameArr.count == 2) {
+//                    LYAccount *account = [LYAccount shareAccount];
+//                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//                    [dic setValue:account.id forKey:@"id"];
+//                    [dic setValue:@"1" forKey:@"realName"];
+//                    [dic setValue:self.nameTextField.text forKey:@"trueName"];
+//                    [dic setValue:self.idNumberTextField.text forKey:@"identit"];
+//                    [dic setValue:imageNameArr[0] forKey:@"identitPicZ"];
+//                    [dic setValue:imageNameArr[1] forKey:@"identitPicF"];
+//                    [[NetworkManager sharedManager]postWithUrl:uploadIdeniti param:dic success:^(id json) {
+//                        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+//                        if ([respCode isEqualToString:@"00000"]) {
+//                            // 单例赋值
+//                            [LYAccount mj_objectWithKeyValues:json[@"data"]];
+//                            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"身份证信息上传成功" withDuration:1.5];
+//                        }else{
+//                            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+//                        }
+//                    } failure:^(NSError *error) {
+//
+//                    }];
+//                }
+//            }else{
+//                NSLog(@"上传失败");
+//            }
+//            [session disconnect];
+//        }
+    }else{
     }
 }
 #pragma mark - imagePickerController delegate

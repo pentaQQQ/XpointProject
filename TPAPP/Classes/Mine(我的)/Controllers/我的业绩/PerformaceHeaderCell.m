@@ -7,7 +7,7 @@
 //
 
 #import "PerformaceHeaderCell.h"
-
+#import "PerformanceModel.h"
 @implementation PerformaceHeaderCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -81,8 +81,15 @@
 }
 -(void)configWithModel:(NSMutableArray *)arr
 {
-    self.marketLabel.text = arr[0];
-    self.buyLabel.text = arr[1];
+    NSString * marketNumString;
+    NSString * buyNumString;
+    for (PerformanceModel *model in arr) {
+        marketNumString = [NSString stringWithFormat:@"%.2lf",[model.amount doubleValue]+ [marketNumString doubleValue]];
+        buyNumString = [NSString stringWithFormat:@"%.2lf",[model.discountAmount doubleValue]+ [buyNumString doubleValue]];
+    }
+    
+    self.marketLabel.text = marketNumString;
+    self.buyLabel.text = buyNumString;
 }
 
 - (void)awakeFromNib {

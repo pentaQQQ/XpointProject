@@ -29,7 +29,7 @@
     .rightEqualToView(self.contentView)
     .bottomSpaceToView(self.contentView, 20);
     NSArray *icons = @[@"icon_mine_dzf",@"icon_mine_dfh",@"icon_mine_jhz",@"icon_mine_yfh",@"icon_mine_yqx"];
-    NSArray *arr = @[@"代付款",@"代发货",@"拣货中",@"已发货",@"已取消"];
+    NSArray *arr = @[@"代支付",@"已支付",@"代发货",@"已发货",@"已取消"];
     for (int i = 0; i < arr.count; i++) {
         //添加按钮
         IndentControl *indentCtrl = [[IndentControl alloc] initWithFrame:CGRectMake(0+(kScreenWidth/5)*i, 15, kScreenWidth/5, 70)];

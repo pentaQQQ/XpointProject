@@ -11,4 +11,5 @@
 #import "AddressModel.h"
 @interface EditAddressController : BaseViewController
 @property (nonatomic, strong)AddressModel *addressModel;
+@property (nonatomic, assign)BOOL isCartCtrl;
 @end

@@ -100,7 +100,7 @@
 
 - (void)configWithMarketLimit:(NSMutableArray *)limitArr andLimitTitle:(NSMutableArray *)titleArr
 {
-    
+    self.scrollView.contentSize = CGSizeMake((kScreenWidth/3)*titleArr.count, 80);
     for (int i = 0; i < limitArr.count; i++) {
         //添加按钮
         MarketControl *markCtrl = [[MarketControl alloc] initWithFrame:CGRectMake(0+(kScreenWidth/3)*i, 0, kScreenWidth/3, 80)];

@@ -73,7 +73,12 @@
         if ([_delegate respondsToSelector:@selector(managerDidRecvPayInsuranceResponse:)]) {
             [_delegate managerDidRecvPayInsuranceResponse:(WXPayInsuranceResp *)resp];
         }
+    }else if([resp isKindOfClass:[PayResp class]]){
+        if ([self.paydelegate respondsToSelector:@selector(WXApiManagerPay:)]) {
+            [self.paydelegate WXApiManagerPay:(PayResp *)resp];
+        }
     }
+    
 }
 
 - (void)onReq:(BaseReq *)req {
