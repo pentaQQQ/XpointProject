@@ -953,37 +953,23 @@
                     indentModel.addressInfo = addressModel;
                     if (![dics[@"orderDetailList"] isKindOfClass:[NSNull class]]) {
                         [indentModel.orderDetailList removeAllObjects];
-                        
                         for (NSDictionary *newsDic in dics[@"orderDetailList"]) {
                             OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newsDic];
                             [indentModel.orderDetailList addObject:orderDetailModel];
-                            
                         }
                     }
-                    
                     buyCtrl.minModel = indentModel;
                 }
-               
                 buyCtrl.goodsListArray = goodListArr;
                 buyCtrl.goodsNum = self->_goodsNum;
                 buyCtrl.goodsPrice = self->_goodsPrice;
+                buyCtrl.pushCtrl = 1;
                 [self.navigationController pushViewController:buyCtrl animated:YES];
             }else{
                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
             }
         } fail:^(NSError *error) {
-            
         }];
-        
-//        [[NetworkManager sharedManager] postWithUrl:makeOrder param:dataArray success:^(id json) {
-//
-//            NSLog(@"%@",json);
-//
-//        } failure:^(NSError *error) {
-//
-//        }];
-        
-
     }
 }
 -(void)DidSelectedAllGoods

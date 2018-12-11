@@ -46,7 +46,8 @@
 //    self.myCategoryView.counts = numbers;
     self.view.backgroundColor = [UIColor whiteColor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSelectedIndex:) name:@"changeSelectedIndex" object:nil];
-//    self.myCategoryView.titles = self.titles;
+    self.navigationItem.title = @"我的订单";
+    //    self.myCategoryView.titles = self.titles;
 //    self.myCategoryView.defaultSelectedIndex = self.selectIndex;
 //    self.myCategoryView.zoomEnabled = YES;
 //    self.myCategoryView.titleColorGradientEnabled = YES;
@@ -79,7 +80,12 @@
     //    configure.titleTextZoom = YES;
     //    configure.titleTextZoomAdditionalPointSize = 4;
     /// pageTitleView
-    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, pageTitleViewY, self.view.frame.size.width, 44) delegate:self titleNames:titleArr configure:configure];
+    if (self.isPushCtrl) {
+        self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self titleNames:titleArr configure:configure];
+    }else{
+        self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, pageTitleViewY, self.view.frame.size.width, 44) delegate:self titleNames:titleArr configure:configure];
+    }
+    
 //    if (self.selectIndex == 4) {
 //        self.selectIndex = 5;
 //    }
@@ -133,9 +139,7 @@
             self.afterSalesDelegate  =  vc;
             [childArr addObject:vc];
         }
-        
     }
-    
     CGFloat ContentCollectionViewHeight = self.view.frame.size.height - CGRectGetMaxY(_pageTitleView.frame);
     self.pageContentScrollView = [[SGPageContentScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_pageTitleView.frame), self.view.frame.size.width, ContentCollectionViewHeight) parentVC:self childVCs:childArr];
     _pageContentScrollView.delegatePageContentScrollView = self;

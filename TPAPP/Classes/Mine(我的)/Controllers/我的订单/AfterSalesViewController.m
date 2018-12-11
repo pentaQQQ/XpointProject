@@ -99,15 +99,15 @@
                     MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
                     AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
                     model.addressInfo = addressModel;
+                    OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
+                    model.orderLogistics = logisticsModel;
                     [model.orderDetailList removeAllObjects];
                     for (NSDictionary *newDic in dics[@"orderDetailList"]) {
                         OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
                         [model.orderDetailList addObject:orderDetailModel];
-                        
                     }
                     [self.listDataArr addObject:model];
                 }
-           
                 [self.listTableView reloadData];
             });
         }else if([dict[@"code"]longValue] == 500){

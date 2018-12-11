@@ -18,5 +18,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *payNumber;
 @property (weak, nonatomic) IBOutlet UILabel *remarkLabel;
+//@property (weak, nonatomic) IBOutlet UIImageView *logiIconImageView;
+@property (weak, nonatomic) IBOutlet UILabel *logiName;
+@property (weak, nonatomic) IBOutlet UILabel *logilistNum;
+@property (weak, nonatomic) IBOutlet UILabel *yearMouth;
+@property (weak, nonatomic) IBOutlet UILabel *dayTime;
+//@property (weak, nonatomic) IBOutlet UILabel *sendStatus;
+@property (weak, nonatomic) IBOutlet UILabel *sendAddress;
+@property (weak, nonatomic) IBOutlet UIImageView *logistStatusIcon;
 
 @end

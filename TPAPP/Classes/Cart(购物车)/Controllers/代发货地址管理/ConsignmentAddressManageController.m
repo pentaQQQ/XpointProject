@@ -140,11 +140,25 @@
         _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _listTableView.dataSource = self;
         [self.view addSubview:self.listTableView];
-        self.listTableView.sd_layout
-        .topSpaceToView(self.view, 0)
-        .leftEqualToView(self.view)
-        .rightEqualToView(self.view)
-        .bottomSpaceToView(self.view, 100);
+        
+        //获取状态栏的rect
+        CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+        //获取导航栏的rect
+        CGRect navRect = self.navigationController.navigationBar.frame;
+        if (self.isCartCtrlType == NO) {
+            
+            self.listTableView.sd_layout
+            .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
+            .leftEqualToView(self.view)
+            .rightEqualToView(self.view)
+            .bottomSpaceToView(self.view, 100);
+        }else{
+            self.listTableView.sd_layout
+            .topSpaceToView(self.view, 0)
+            .leftEqualToView(self.view)
+            .rightEqualToView(self.view)
+            .bottomSpaceToView(self.view, 100);
+        }
     }
     return _listTableView;
 }
@@ -179,7 +193,10 @@
                 [self.dataDict addEntriesFromDictionary:@{@"recNickName":model.recNickName}];
                 [self.dataDict addEntriesFromDictionary:@{@"recPhone":model.recPhone}];
                 [self.dataDict addEntriesFromDictionary:@{@"isGeneration":model.isGeneration}];
-                [self.dataDict addEntriesFromDictionary:@{@"recIdentityCardNo":model.recIdentityCardNo}];
+                if (model.recIdentityCardNo.length != 0) {
+                   [self.dataDict addEntriesFromDictionary:@{@"recIdentityCardNo":model.recIdentityCardNo}];
+                }
+                
                 [self.dataDict addEntriesFromDictionary:@{@"recAddress":model.recAddress}];
                 [self.dataDict addEntriesFromDictionary:@{@"isDefault":@"1"}];
                 [self.dataDict addEntriesFromDictionary:@{@"recProv":model.recProv}];
@@ -188,7 +205,10 @@
                 [self.dataDict addEntriesFromDictionary:@{@"senderAddress":model.senderAddress}];
                 [self.dataDict addEntriesFromDictionary:@{@"senderNickName":model.senderNickName}];
                 [self.dataDict addEntriesFromDictionary:@{@"senderPhone":model.senderPhone}];
-                [self.dataDict addEntriesFromDictionary:@{@"senderIdentityCardNo":model.senderIdentityCardNo}];
+                if (model.senderIdentityCardNo.length != 0) {
+                    [self.dataDict addEntriesFromDictionary:@{@"senderIdentityCardNo":model.senderIdentityCardNo}];
+                }
+                
                 [self.dataDict addEntriesFromDictionary:@{@"senderProv":model.senderProv}];
                 [self.dataDict addEntriesFromDictionary:@{@"senderCity":model.senderCity}];
                 [self.dataDict addEntriesFromDictionary:@{@"senderArea":model.senderArea}];

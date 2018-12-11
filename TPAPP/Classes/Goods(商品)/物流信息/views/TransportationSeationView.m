@@ -9,6 +9,8 @@
 #import "TransportationSeationView.h"
 
 @implementation TransportationSeationView
+- (IBAction)rotaBtnSender:(id)sender {
+}
 
 -(void)setBottomview:(UIView *)bottomview{
     _bottomview = bottomview;

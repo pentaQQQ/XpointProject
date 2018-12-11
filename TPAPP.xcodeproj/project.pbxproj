@@ -206,6 +206,9 @@
 		01AD1A532148000200348238 /* DefaultAddressMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD1A522148000200348238 /* DefaultAddressMessage.m */; };
 		01BC59A72147ADA7000FF81F /* MineIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BC59A62147ADA7000FF81F /* MineIndentModel.m */; };
 		01BC59AD2147B409000FF81F /* 上箭头@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01BC59AC2147B409000FF81F /* 上箭头@2x.png */; };
+		01C2A28821BF6CF40072D4D6 /* FXPayTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C2A28521BF6CF30072D4D6 /* FXPayTypeView.m */; };
+		01C2A28921BF6CF40072D4D6 /* FXPayTypeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C2A28621BF6CF30072D4D6 /* FXPayTypeItemView.m */; };
+		01C2A28C21BFAA8E0072D4D6 /* TransforMessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C2A28B21BFAA8E0072D4D6 /* TransforMessModel.m */; };
 		01E46FF3214BF57800B88B24 /* AddConsignmentAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FF2214BF57800B88B24 /* AddConsignmentAddressController.m */; };
 		01E46FF6214BF5A700B88B24 /* ConsignmentAddressManageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FF5214BF5A700B88B24 /* ConsignmentAddressManageController.m */; };
 		01E46FF9214BF5BE00B88B24 /* EditConsignmentAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FF8214BF5BE00B88B24 /* EditConsignmentAddressController.m */; };
@@ -933,6 +936,12 @@
 		01BC59A52147ADA7000FF81F /* MineIndentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineIndentModel.h; sourceTree = "<group>"; };
 		01BC59A62147ADA7000FF81F /* MineIndentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineIndentModel.m; sourceTree = "<group>"; };
 		01BC59AC2147B409000FF81F /* 上箭头@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上箭头@2x.png"; sourceTree = "<group>"; };
+		01C2A28421BF6CF20072D4D6 /* FXPayTypeItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXPayTypeItemView.h; sourceTree = "<group>"; };
+		01C2A28521BF6CF30072D4D6 /* FXPayTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXPayTypeView.m; sourceTree = "<group>"; };
+		01C2A28621BF6CF30072D4D6 /* FXPayTypeItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXPayTypeItemView.m; sourceTree = "<group>"; };
+		01C2A28721BF6CF30072D4D6 /* FXPayTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXPayTypeView.h; sourceTree = "<group>"; };
+		01C2A28A21BFAA8E0072D4D6 /* TransforMessModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransforMessModel.h; sourceTree = "<group>"; };
+		01C2A28B21BFAA8E0072D4D6 /* TransforMessModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransforMessModel.m; sourceTree = "<group>"; };
 		01E46FF1214BF57800B88B24 /* AddConsignmentAddressController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddConsignmentAddressController.h; sourceTree = "<group>"; };
 		01E46FF2214BF57800B88B24 /* AddConsignmentAddressController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddConsignmentAddressController.m; sourceTree = "<group>"; };
 		01E46FF4214BF5A700B88B24 /* ConsignmentAddressManageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsignmentAddressManageController.h; sourceTree = "<group>"; };
@@ -1611,6 +1620,12 @@
 		01120E8A21338F9B0071AC5F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				01C2A28721BF6CF30072D4D6 /* FXPayTypeView.h */,
+				01C2A28521BF6CF30072D4D6 /* FXPayTypeView.m */,
+				01C2A28421BF6CF20072D4D6 /* FXPayTypeItemView.h */,
+				01C2A28621BF6CF30072D4D6 /* FXPayTypeItemView.m */,
+				01F1DFF4213A7CF6009A925A /* MineIndentListCell.h */,
+				01F1DFF5213A7CF6009A925A /* MineIndentListCell.m */,
 				01120E8B21338F9B0071AC5F /* AddAddressCell.h */,
 				01120E8C21338F9B0071AC5F /* AddAddressCell.m */,
 				01120E8D21338F9B0071AC5F /* AddressTableViewCell.h */,
@@ -1745,10 +1760,6 @@
 				01120EC721338F9C0071AC5F /* MineIndentChildController.m */,
 				01120EC821338F9C0071AC5F /* MineIndentViewController.h */,
 				01120EC921338F9C0071AC5F /* MineIndentViewController.m */,
-				01F1DFF4213A7CF6009A925A /* MineIndentListCell.h */,
-				01F1DFF5213A7CF6009A925A /* MineIndentListCell.m */,
-				01BC59A52147ADA7000FF81F /* MineIndentModel.h */,
-				01BC59A62147ADA7000FF81F /* MineIndentModel.m */,
 				014C5C0E21B774BF00774B1D /* GenerationPaymentViewController.h */,
 				014C5C0F21B774BF00774B1D /* GenerationPaymentViewController.m */,
 				014C5C1121B774D000774B1D /* HavePayViewController.h */,
@@ -2415,6 +2426,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		01C2A28D21BFAA9B0072D4D6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				01BC59A52147ADA7000FF81F /* MineIndentModel.h */,
+				01BC59A62147ADA7000FF81F /* MineIndentModel.m */,
+				01C2A28A21BFAA8E0072D4D6 /* TransforMessModel.h */,
+				01C2A28B21BFAA8E0072D4D6 /* TransforMessModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		01E46FF0214BF14D00B88B24 /* 代发货地址管理 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2913,6 +2935,7 @@
 		547C49481F1DBB8200178B67 /* Mine(我的) */ = {
 			isa = PBXGroup;
 			children = (
+				01C2A28D21BFAA9B0072D4D6 /* Models */,
 				01120EA521338F9C0071AC5F /* Controllers */,
 				01120E8A21338F9B0071AC5F /* Views */,
 			);
@@ -4698,6 +4721,7 @@
 				547C49B51F1DD88500178B67 /* FindViewController.m in Sources */,
 				8E9A5F86215F14170084C9F1 /* UIButton+WebCache.m in Sources */,
 				8E9A5F62215F14170084C9F1 /* MJRefreshComponent.m in Sources */,
+				01C2A28821BF6CF40072D4D6 /* FXPayTypeView.m in Sources */,
 				8E9A5F70215F14170084C9F1 /* TZLocationManager.m in Sources */,
 				8E9A5EAD215F140D0084C9F1 /* QMRecordIndicatorView.m in Sources */,
 				8E9A5F4F215F14170084C9F1 /* UIScrollView+MJRefresh.m in Sources */,
@@ -4727,6 +4751,7 @@
 				01120EEE21338F9C0071AC5F /* MineHeaderViewCell.m in Sources */,
 				01120FFB213392FD0071AC5F /* JXCategoryBackgroundImageCellModel.m in Sources */,
 				8E9A5F5D215F14170084C9F1 /* MJRefreshGifHeader.m in Sources */,
+				01C2A28921BF6CF40072D4D6 /* FXPayTypeItemView.m in Sources */,
 				8E78BE1A21366708000A9EA4 /* LYTools.m in Sources */,
 				547C49871F1DBB8200178B67 /* SGPickerView.m in Sources */,
 				011F484E21421BF20070ABA2 /* DeleteGoodsListController.m in Sources */,
@@ -4807,6 +4832,7 @@
 				8E78BE3321367AE5000A9EA4 /* GoDetailTableViewCell.m in Sources */,
 				8E9A5EB2215F140D0084C9F1 /* QMChatRoomViewController.m in Sources */,
 				8EA95346212E49BC0057AC78 /* LXFloaintButton.m in Sources */,
+				01C2A28C21BFAA8E0072D4D6 /* TransforMessModel.m in Sources */,
 				01BC59A72147ADA7000FF81F /* MineIndentModel.m in Sources */,
 				547C49661F1DBB8200178B67 /* UIResponder+LKBubble.m in Sources */,
 				547C49931F1DBB8200178B67 /* NSString+Base64.m in Sources */,

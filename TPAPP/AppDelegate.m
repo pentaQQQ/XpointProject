@@ -28,11 +28,10 @@
 
 @implementation AppDelegate
 
-
+@synthesize isPushCtrl;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self chooseTheRootViewController];
-   
     
     [self initKeyboard];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isMyCtrl"];

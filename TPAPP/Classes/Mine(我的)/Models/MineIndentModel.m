@@ -14,3 +14,6 @@
 @implementation OrderDetailModel
 
 @end
+@implementation OrderLogisticsModel
+
+@end
