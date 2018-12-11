@@ -14,6 +14,7 @@
 #import "WXApiRequestHandler.h"
 #import "WXApiManager.h"
 #import "WXApi.h"
+#import "MineIndentViewController.h"
 #define defaultTag 1990
 
 @interface BuyGoodsListController ()<UITableViewDelegate,UITableViewDataSource,WXApiManagerPayDelegate,WXApiDelegate,DeclareAbnormalAlertViewRemindDelegate>
@@ -57,13 +58,38 @@
         self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
     }
     self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal]],@[@"优惠金额",@"-¥0.00"],@[@"运费",[NSString stringWithFormat:@"¥%.2lf",self.minModel.logisticsFee]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal]], nil];
-    
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(aliPaytype:) name:@"aliPaytype"object:nil];
     self.title = @"支付订单";
     self.btnTag = defaultTag; //self.btnTag = defaultTag+1  表示默认选择第二个，依次类推
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setUpUI];
     [self createBottomView];
+}
+//接收通知并相应的方法
+- (void) aliPaytype:(NSNotification *)notification{
+    
+    NSDictionary *dic = notification.object;
+    //    NSLog(@"通知过来的 - dic = %@",notification.object);
+    int statusCode = [dic[@"resultStatus"]  intValue];
+    
+    if (statusCode == 9000)
+    {
+        MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
+        minePerCtrl.title = @"我的订单";
+        minePerCtrl.selectIndex = 1;
+        [self.navigationController pushViewController:minePerCtrl animated:YES];
+    }
+    else
+    {
+        [SVProgressHUD doAnyRemindWithHUDMessage:@"支付失败" withDuration:1.0];
+    }
+    
+}
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"aliPaytype" object:nil];
 }
 #pragma mark 微信回调的代理方法
 - (void)WXApiManagerPay:(PayResp *)payResp{
@@ -159,7 +185,61 @@
 }
 - (void)buyButtonAction
 {
+    if (self.btnTag == 1990) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setValue:@"IOS" forKey:@"tradeType"];
+        [dic setValue:@"order" forKey:@"type"];
+        NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
+        [dic1 setValue:[NSString stringWithFormat:@"%.2lf",self.minModel.orderAmountTotal] forKey:@"amount"];
+        [dic1 setValue:self.minModel.id forKey:@"orderId"];
+        [dic setValue:[NSMutableArray arrayWithObject:dic1]forKey:@"weiXinPayParams"];
+        [LYTools postBossDemoWithUrl:wechatPayByOrder param:dic success:^(NSDictionary *dict) {
+            NSLog(@"%@",dict);
+            NSDictionary *body = dict[@"data"];
+            NSMutableString *stamp  = [body objectForKey:@"timestamp"];
+            
+            //调起微信支付
+            PayReq* req             = [[PayReq alloc] init];
+            req.partnerId           = [body objectForKey:@"partnerid"];
+            req.prepayId            = [body objectForKey:@"prepayid"];
+            req.nonceStr            = [body objectForKey:@"noncestr"];
+            req.timeStamp           = stamp.intValue;
+            req.package             = [body objectForKey:@"package"];
+            req.sign                = [body objectForKey:@"sign"];
+            [WXApi sendReq:req];
+        } fail:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+    }else{
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setValue:@"IOS" forKey:@"tradeType"];
+        [dic setValue:@"order" forKey:@"type"];
+        NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
+        [dic1 setValue:[NSString stringWithFormat:@"%.2lf",self.minModel.orderAmountTotal] forKey:@"amount"];
+        [dic1 setValue:self.minModel.id forKey:@"orderId"];
+        [dic setValue:[NSMutableArray arrayWithObject:dic1]forKey:@"weiXinPayParams"];
+        [LYTools postBossDemoWithUrl:aliPayByOrder param:dic success:^(NSDictionary *dict) {
+            NSLog(@"%@",dict);
+            // NOTE: 调用支付结果开始支付
+            [[AlipaySDK defaultService] payOrder:dict[@"data"] fromScheme:AliSchemeKey callback:^(NSDictionary *resultDic) {
+                int statusCode = [resultDic[@"resultStatus"]  intValue];
+                
+                if (statusCode == 9000)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                
+                
+            }];
+        } fail:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
     
+    }
 }
 - (void)setUpUI
 {
@@ -283,7 +363,7 @@
             [cell.choosePayTypeButton setImage:[UIImage imageNamed:@"未选中支付"] forState:UIControlStateNormal];
         }
         __weak PayIndentButtonCell *weakCell = cell;
-        [cell setQhxSelectBlock:^(BOOL choice,NSInteger btnTag){
+        [cell setQhxSelectBlock:^(BOOL choice,NSInteger btnTag,NSString *selectTitle){
             if (choice) {
                 [weakCell.choosePayTypeButton setImage:[UIImage imageNamed:@"选中支付"] forState:UIControlStateNormal];
                 self.btnTag = btnTag;
@@ -353,6 +433,7 @@
     if (indexPath.section == 2) {
         PayIndentButtonCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.isSelect = !cell.isSelect;
+        
         if (cell.isSelect) {
             [cell.choosePayTypeButton setImage:[UIImage imageNamed:@"选中支付"] forState:UIControlStateNormal];
             self.btnTag = cell.choosePayTypeButton.tag;

@@ -127,6 +127,8 @@
 		012997CB2139267200ADE72B /* GoodLogisticsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 012997C02139267200ADE72B /* GoodLogisticsModel.m */; };
 		01304F7F2149123F0040936F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01304F7E2149123E0040936F /* CoreGraphics.framework */; };
 		01304F81214912570040936F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01304F80214912570040936F /* UIKit.framework */; };
+		0133B27C21BEAD460069946F /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0133B27B21BEAD460069946F /* AlipaySDK.framework */; };
+		0133B27E21BEAD6E0069946F /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0133B27D21BEAD6E0069946F /* AlipaySDK.bundle */; };
 		014C5C1021B774BF00774B1D /* GenerationPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C0F21B774BF00774B1D /* GenerationPaymentViewController.m */; };
 		014C5C1321B774D000774B1D /* HavePayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C1221B774D000774B1D /* HavePayViewController.m */; };
 		014C5C1621B774DF00774B1D /* WaitDeliveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C1521B774DF00774B1D /* WaitDeliveryViewController.m */; };
@@ -806,6 +808,8 @@
 		012997C02139267200ADE72B /* GoodLogisticsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodLogisticsModel.m; sourceTree = "<group>"; };
 		01304F7E2149123E0040936F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		01304F80214912570040936F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0133B27B21BEAD460069946F /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
+		0133B27D21BEAD6E0069946F /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		014C5C0E21B774BF00774B1D /* GenerationPaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenerationPaymentViewController.h; sourceTree = "<group>"; };
 		014C5C0F21B774BF00774B1D /* GenerationPaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenerationPaymentViewController.m; sourceTree = "<group>"; };
 		014C5C1121B774D000774B1D /* HavePayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HavePayViewController.h; sourceTree = "<group>"; };
@@ -1579,6 +1583,7 @@
 				8E3E6D3F2138D50B007B3306 /* CFNetwork.framework in Frameworks */,
 				8E3E6D3D2138D504007B3306 /* CoreTelephony.framework in Frameworks */,
 				8E3E6D3B2138D4FA007B3306 /* libsqlite3.0.tbd in Frameworks */,
+				0133B27C21BEAD460069946F /* AlipaySDK.framework in Frameworks */,
 				01120E8821338F070071AC5F /* PhotosUI.framework in Frameworks */,
 				01120E8921338F070071AC5F /* Photos.framework in Frameworks */,
 				8E3E6D392138D4BE007B3306 /* libWeChatSDK.a in Frameworks */,
@@ -2476,6 +2481,8 @@
 		547C486A1F1DA8AF00178B67 /* TPAPP */ = {
 			isa = PBXGroup;
 			children = (
+				0133B27D21BEAD6E0069946F /* AlipaySDK.bundle */,
+				0133B27B21BEAD460069946F /* AlipaySDK.framework */,
 				547C489E1F1DBB8200178B67 /* APPDelegate */,
 				547C489F1F1DBB8200178B67 /* Classes */,
 				547C48771F1DA8AF00178B67 /* Assets.xcassets */,
@@ -4220,6 +4227,7 @@
 				547C49A51F1DBB8200178B67 /* tab_edu_nor@3x.png in Resources */,
 				011F47F5213E37AA0070ABA2 /* lock.png in Resources */,
 				019AEE7B21382B0B00EB3405 /* moment_camera@2x.png in Resources */,
+				0133B27E21BEAD6E0069946F /* AlipaySDK.bundle in Resources */,
 				019AEE7F21382B0B00EB3405 /* moment_comment_hl@2x.png in Resources */,
 				019AEE7D21382B0B00EB3405 /* moment_comment@2x.png in Resources */,
 				8E3E6DB721421CD1007B3306 /* PiLiangzhuanfaCell.xib in Resources */,
@@ -4998,6 +5006,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TPAPP/Classes/Manual(第三方)/七陌sdk",
+					"$(PROJECT_DIR)/TPAPP",
 				);
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
@@ -5055,6 +5064,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TPAPP/Classes/Manual(第三方)/七陌sdk",
+					"$(PROJECT_DIR)/TPAPP",
 				);
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
