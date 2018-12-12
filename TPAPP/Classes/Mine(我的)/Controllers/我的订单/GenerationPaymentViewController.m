@@ -110,8 +110,6 @@
                     [self.listDataArr addObject:model];
                 }
                 [self.listTableView reloadData];
-                
-             
             });
         }else if([dict[@"code"]longValue] == 500){
             dispatch_async(dispatch_get_main_queue(), ^{

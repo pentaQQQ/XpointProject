@@ -464,7 +464,7 @@
 
                 }else{
                     [weakSelf->_selectDict setValue:@"IOS" forKey:@"tradeType"];
-                    [LYTools postBossDemoWithUrl:confirmDeliverySubmitPay param:weakSelf->_selectDict success:^(NSDictionary *dict) {
+                    [LYTools postBossDemoWithUrl:confirmDeliverySubmitPayAli param:weakSelf->_selectDict success:^(NSDictionary *dict) {
                         NSLog(@"%@",dict);
                         NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
                         if ([respCode isEqualToString:@"00000"]) {

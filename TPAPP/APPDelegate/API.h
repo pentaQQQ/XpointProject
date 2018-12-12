@@ -102,8 +102,12 @@
 #define confirmDelivery [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/confirmDelivery"]
 //确认发货无需支付只改订单状态
 #define confirmDeliverySubmit [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/confirmDeliverySubmit"]
-//确认发货需要支付
+//确认发货需要支付-微信
 #define confirmDeliverySubmitPay [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/confirmDeliverySubmitPay"]
+//确认发货需要支付-支付宝
+#define confirmDeliverySubmitPayAli [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/confirmDeliverySubmitPayAli"]
+
+
 //批量更新订单地址信息
 #define updateOrderAddress [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/updateOrderAddress"]
 //获取支付页面数据，订单id集合，逗号隔开

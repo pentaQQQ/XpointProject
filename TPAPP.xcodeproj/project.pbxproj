@@ -129,6 +129,8 @@
 		01304F81214912570040936F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01304F80214912570040936F /* UIKit.framework */; };
 		0133B27C21BEAD460069946F /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0133B27B21BEAD460069946F /* AlipaySDK.framework */; };
 		0133B27E21BEAD6E0069946F /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0133B27D21BEAD6E0069946F /* AlipaySDK.bundle */; };
+		01418C7521C0F68A00455812 /* TFFileUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 01418C7421C0F68A00455812 /* TFFileUploadManager.m */; };
+		01418C7721C0F6A700455812 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01418C7621C0F6A700455812 /* MobileCoreServices.framework */; };
 		014C5C1021B774BF00774B1D /* GenerationPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C0F21B774BF00774B1D /* GenerationPaymentViewController.m */; };
 		014C5C1321B774D000774B1D /* HavePayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C1221B774D000774B1D /* HavePayViewController.m */; };
 		014C5C1621B774DF00774B1D /* WaitDeliveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C1521B774DF00774B1D /* WaitDeliveryViewController.m */; };
@@ -813,6 +815,9 @@
 		01304F80214912570040936F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0133B27B21BEAD460069946F /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		0133B27D21BEAD6E0069946F /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		01418C7321C0F68A00455812 /* TFFileUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFFileUploadManager.h; sourceTree = "<group>"; };
+		01418C7421C0F68A00455812 /* TFFileUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFFileUploadManager.m; sourceTree = "<group>"; };
+		01418C7621C0F6A700455812 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		014C5C0E21B774BF00774B1D /* GenerationPaymentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenerationPaymentViewController.h; sourceTree = "<group>"; };
 		014C5C0F21B774BF00774B1D /* GenerationPaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenerationPaymentViewController.m; sourceTree = "<group>"; };
 		014C5C1121B774D000774B1D /* HavePayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HavePayViewController.h; sourceTree = "<group>"; };
@@ -1575,6 +1580,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01418C7721C0F6A700455812 /* MobileCoreServices.framework in Frameworks */,
 				8E8B0BDA219133A7002D9949 /* libsqlite3.tbd in Frameworks */,
 				8E8B0BD721913355002D9949 /* Qiniu.framework in Frameworks */,
 				8E8B0BD821913355002D9949 /* QMChatSDK.framework in Frameworks */,
@@ -1829,6 +1835,8 @@
 		01120ED921338F9C0071AC5F /* 身份认证 */ = {
 			isa = PBXGroup;
 			children = (
+				01418C7321C0F68A00455812 /* TFFileUploadManager.h */,
+				01418C7421C0F68A00455812 /* TFFileUploadManager.m */,
 				01120EDA21338F9C0071AC5F /* IdentificationController.h */,
 				01120EDB21338F9C0071AC5F /* IdentificationController.m */,
 			);
@@ -4107,6 +4115,7 @@
 		D63B1E6C203BBED43C75CC97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01418C7621C0F6A700455812 /* MobileCoreServices.framework */,
 				8E8B0BD9219133A6002D9949 /* libsqlite3.tbd */,
 				01304F80214912570040936F /* UIKit.framework */,
 				01304F7E2149123E0040936F /* CoreGraphics.framework */,
@@ -4671,6 +4680,7 @@
 				8E9A5EB3215F140D0084C9F1 /* QMChatRoomShowFileController.m in Sources */,
 				01120EF521338F9C0071AC5F /* AddAddressController.m in Sources */,
 				547C49711F1DBB8200178B67 /* LKNotificationManager.m in Sources */,
+				01418C7521C0F68A00455812 /* TFFileUploadManager.m in Sources */,
 				547C49861F1DBB8200178B67 /* SGNormalPickerView.m in Sources */,
 				8E9A5EAF215F140D0084C9F1 /* TCExpressionSectionBar.m in Sources */,
 				8EA95305212BAA930057AC78 /* ZLPhotoAssets.m in Sources */,
