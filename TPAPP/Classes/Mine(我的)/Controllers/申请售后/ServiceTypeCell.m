@@ -85,6 +85,7 @@
 - (void)retureGoodAction
 {
     if (self.retureGood.selected == NO) {
+        self.selectTypeBlock(self,1);
         self.retureGood.selected = YES;
         [self.retureGood setTitleColor:colorWithRGB(0xFF6B24) forState:UIControlStateNormal];
         self.retureGood.layer.borderWidth = 1.0;
@@ -99,9 +100,38 @@
     
     //    [self.delegate SelectedCell:self];
 }
+
+-(void)configWithModel:(ApplyReturnGoodsModel *)minModel
+{
+    if ([minModel.state isEqualToString:@"1"]) {
+        self.selectTypeBlock(self,1);
+        self.retureGood.selected = YES;
+        [self.retureGood setTitleColor:colorWithRGB(0xFF6B24) forState:UIControlStateNormal];
+        self.retureGood.layer.borderWidth = 1.0;
+        self.retureGood.layer.borderColor = colorWithRGB(0xFF6B24).CGColor;
+        self.selectTypeBlock(self,1);
+        self.changeGood.layer.borderWidth = 1.0;
+        self.changeGood.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.changeGood.selected = NO;
+        [self.changeGood setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }else{
+        self.selectTypeBlock(self,2);
+        self.changeGood.selected = YES;
+        [self.changeGood setTitleColor:colorWithRGB(0xFF6B24) forState:UIControlStateNormal];
+        self.changeGood.layer.borderWidth = 1.0;
+        self.changeGood.layer.borderColor = colorWithRGB(0xFF6B24).CGColor;
+        self.selectTypeBlock(self,2);
+        self.retureGood.layer.borderWidth = 1.0;
+        self.retureGood.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.retureGood.selected = NO;
+        [self.retureGood setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+}
+
 - (void)changeGoodAction
 {
     if (self.changeGood.selected == NO) {
+        self.selectTypeBlock(self,2);
         self.changeGood.selected = YES;
         [self.changeGood setTitleColor:colorWithRGB(0xFF6B24) forState:UIControlStateNormal];
         self.changeGood.layer.borderWidth = 1.0;

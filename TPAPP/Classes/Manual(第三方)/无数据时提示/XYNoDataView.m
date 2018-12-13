@@ -13,7 +13,7 @@ NSString * const kXYNoDataViewObserveKeyPath = @"frame";
 @implementation XYNoDataView
 
 - (void)dealloc {
-//    NSLog(@"占位视图正常销毁");
+    NSLog(@"占位视图正常销毁");
 }
 
 @end

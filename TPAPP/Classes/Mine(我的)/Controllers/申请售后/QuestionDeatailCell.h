@@ -12,6 +12,9 @@
 @property (nonatomic, strong)UITextView *myTextView;
 @property (nonatomic, strong)UIButton *cameraBtn;
 @property (nonatomic, strong)void (^selectCameraBlock)(QuestionDeatailCell*);
+@property (nonatomic, strong)void (^textViewTextBlock)(NSString*);
+@property (nonatomic, strong)void (^deleteImageBlock)(NSInteger);
 @property (nonatomic, assign)NSInteger imagesNumber;
 -(void)configWithImage:(UIImage *)image;
+- (void)configWithModel:(ApplyReturnGoodsModel *)minModel;
 @end

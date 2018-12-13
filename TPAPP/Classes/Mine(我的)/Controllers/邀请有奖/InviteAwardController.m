@@ -79,7 +79,7 @@
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 60, 12);
     [rightBtn setTitle:@"添加邀请码" forState:UIControlStateNormal];
-    [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [rightBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     if (@available(iOS 8.2, *)) {
         [rightBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0 weight:UIFontWeightMedium]];

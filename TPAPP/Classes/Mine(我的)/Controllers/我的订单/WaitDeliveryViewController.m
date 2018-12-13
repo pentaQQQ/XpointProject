@@ -14,6 +14,8 @@
 #import "SVProgressHUD+DoAnythingAfter.h"
 #import "MBProgressHUD+NJ.h"
 #import "MineIndentModel.h"
+#import "UITableView+XY.h"
+#import "XYNoDataView.h"
 @interface WaitDeliveryViewController ()<UITableViewDelegate, UITableViewDataSource,DeclareAbnormalAlertViewOrderListRemindDelegate>
 
 @property (nonatomic, strong)UITableView *listTableView;
@@ -146,11 +148,21 @@
                 //                }
                 
                 [self.listTableView reloadData];
+                if (self.listDataArr.count != 0) {
+                    [self.listTableView xy_havingData:YES];
+                }else{
+                    [self.listTableView xy_havingData:NO];
+                }
             });
         }else if([dict[@"code"]longValue] == 500){
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                 [self.listTableView reloadData];
+                if (self.listDataArr.count != 0) {
+                    [self.listTableView xy_havingData:YES];
+                }else{
+                    [self.listTableView xy_havingData:NO];
+                }
             });
         }
     } fail:^(NSError *error) {

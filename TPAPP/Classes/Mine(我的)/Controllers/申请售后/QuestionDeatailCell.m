@@ -7,7 +7,9 @@
 //
 #define image_width (kScreenWidth-40-40*6)/5
 #import "QuestionDeatailCell.h"
+@interface QuestionDeatailCell ()<UITextViewDelegate>
 
+@end
 @implementation QuestionDeatailCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -22,6 +24,7 @@
 {
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.myTextView = [[UITextView alloc] init];
+    self.myTextView.delegate = self;
 //    self.myTextView.backgroundColor = colorWithRGB(0xEEEEEE);
     [self.contentView addSubview:self.myTextView];
     self.myTextView.tag = 100;
@@ -53,6 +56,10 @@
     .heightIs(30);
     
 }
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    self.textViewTextBlock(textView.text);
+}
 - (void)configWithImage:(UIImage *)image
 {
     
@@ -82,9 +89,34 @@
 //    .widthIs(15)
 //    .heightIs(15);
 }
+- (void)configWithModel:(ApplyReturnGoodsModel *)minModel
+{
+    self.myTextView.text = minModel.why;
+    self.textViewTextBlock(minModel.why);
+    for (ApplyReturnGoodsImagesModel *model in minModel.images) {
+        if (self.imagesNumber == 6) {
+            self.cameraBtn.userInteractionEnabled = NO;
+            return;
+        }
+        self.imagesNumber++;
+        UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(20+((40+image_width)*(self.imagesNumber-1)), 117.5, 40,50)];
+        [imageview sd_setImageWithURL:[NSURL URLWithString:model.imgUrl]];
+        imageview.tag = self.imagesNumber-1;
+        [self.contentView addSubview:imageview];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(20+40-7.5+((40+image_width)*(self.imagesNumber-1)), 110, 15,15)];
+        btn.tag = self.imagesNumber-1;
+        [btn setImage:[UIImage imageNamed:@"delete_image"] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(deletetnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:btn];
+    }
+}
+
+
+
 - (void)deletetnAction:(UIButton*)btn
 {
     NSInteger tag = btn.tag;
+    self.deleteImageBlock(tag);
     [btn removeFromSuperview];
     for (UIImageView* subView in self.contentView.subviews)
     {

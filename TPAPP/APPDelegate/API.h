@@ -122,6 +122,8 @@
 //获取售后列表
 #define getOrderReturnsList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/orderReturns/list"]
 
+//获取售后详情
+#define getReturnDetail [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/orderReturns/returnDetail"]
 
 //购物车管理接口
 //新增关注

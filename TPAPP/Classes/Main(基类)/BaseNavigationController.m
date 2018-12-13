@@ -21,29 +21,24 @@
     self.view.backgroundColor = [UIColor whiteColor];
     UINavigationBar *navBar = [UINavigationBar appearance];
     //navBar.translucent = NO;
-    navBar.barTintColor = colorWithRGB(0x00A9EB);
+//    navBar.barTintColor = colorWithRGB(0x00A9EB);
 //    navBar.barTintColor = colorWithRGB(0xFF6B24);
-    navBar.tintColor = [UIColor whiteColor];
-    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont systemFontOfSize:17 weight:UIFontWeightBold]}];
-    [navBar setShadowImage:[UIImage new]];
+    navBar.tintColor = [UIColor blackColor];
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont systemFontOfSize:17 weight:UIFontWeightBold]}];
+//    [navBar setShadowImage:[UIImage new]];
 }
-
-
 
 //hide  tabbar
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    
     if (self.viewControllers.count > 0) {
         if ([viewController isKindOfClass:[GoodsDetailViewController class]] || [viewController isKindOfClass:[MerchanDetailViewController class]]) {
             viewController.hidesBottomBarWhenPushed = NO;
         }else{
             viewController.hidesBottomBarWhenPushed = YES;
         }
-        
     }
     [super pushViewController:viewController animated:animated];
 }
-
 
 //status  become  white
 - (UIStatusBarStyle)preferredStatusBarStyle {

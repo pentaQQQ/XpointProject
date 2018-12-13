@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/HavePayViewController.m"
-            timestampString = "566298497.185189"
+            timestampString = "566386756.473442"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "-rightBtnAction"
             landmarkType = "7">
          </BreakpointContent>
@@ -25,44 +25,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/GenerationPaymentViewController.m"
-            timestampString = "566298497.185263"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
-            landmarkName = "-xy_noDataViewImage"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/GenerationPaymentViewController.m"
-            timestampString = "566298497.1853141"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "359"
-            endingLineNumber = "359"
-            landmarkName = "-xy_noDataViewMessage"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/HavePayViewController.m"
-            timestampString = "566298497.18536"
+            timestampString = "566386756.473781"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "466"
-            endingLineNumber = "466"
+            startingLineNumber = "478"
+            endingLineNumber = "478"
             landmarkName = "-declareAbnormalAlertView:clickedButtonAtIndex:selectType:comGoodList:"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/HavePayViewController.m"
-            timestampString = "566298497.185407"
+            timestampString = "566386756.473842"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "443"
-            endingLineNumber = "443"
+            startingLineNumber = "455"
+            endingLineNumber = "455"
             landmarkName = "-declareAbnormalAlertView:clickedButtonAtIndex:selectType:comGoodList:"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/HavePayViewController.m"
-            timestampString = "566298497.1854531"
+            timestampString = "566386756.4739029"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "470"
-            endingLineNumber = "470"
+            startingLineNumber = "482"
+            endingLineNumber = "482"
             landmarkName = "-declareAbnormalAlertView:clickedButtonAtIndex:selectType:comGoodList:"
             landmarkType = "7">
          </BreakpointContent>
@@ -209,6 +177,149 @@
             endingLineNumber = "100"
             landmarkName = "AFContentTypeForPathExtension"
             landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/GenerationPaymentViewController.m"
+            timestampString = "566367169.2608269"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "-loadNewTopic"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPAPP/Classes/Find(&#x53d1;&#x73b0;)/Controllers/NewsViewController.m"
+            timestampString = "566367169.260896"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "364"
+            endingLineNumber = "364"
+            landmarkName = "NewsViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPAPP/Classes/Manual(&#x7b2c;&#x4e09;&#x65b9;)/&#x65e0;&#x6570;&#x636e;&#x65f6;&#x63d0;&#x793a;/UITableView+XYNoDataView.m"
+            timestampString = "566365131.253011"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "-xy_reloadData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPAPP/Classes/Manual(&#x7b2c;&#x4e09;&#x65b9;)/&#x65e0;&#x6570;&#x636e;&#x65f6;&#x63d0;&#x793a;/UITableView+XYNoDataView.m"
+            timestampString = "566365131.253686"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "-load"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[UITableView(XYNoDataView) load]"
+                  moduleName = "TPAPP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Manual(%E7%AC%AC%E4%B8%89%E6%96%B9)/%E6%97%A0%E6%95%B0%E6%8D%AE%E6%97%B6%E6%8F%90%E7%A4%BA/UITableView+XYNoDataView.m"
+                  timestampString = "566365132.423539"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__33-[UITableView(XYNoDataView) load]_block_invoke"
+                  moduleName = "TPAPP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Manual(%E7%AC%AC%E4%B8%89%E6%96%B9)/%E6%97%A0%E6%95%B0%E6%8D%AE%E6%97%B6%E6%8F%90%E7%A4%BA/UITableView+XYNoDataView.m"
+                  timestampString = "566365132.425931"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_"
+                  moduleName = "TPAPP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Manual(%E7%AC%AC%E4%B8%89%E6%96%B9)/%E6%97%A0%E6%95%B0%E6%8D%AE%E6%97%B6%E6%8F%90%E7%A4%BA/UITableView+XYNoDataView.m"
+                  timestampString = "566365132.428104"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPAPP/Classes/Manual(&#x7b2c;&#x4e09;&#x65b9;)/&#x65e0;&#x6570;&#x636e;&#x65f6;&#x63d0;&#x793a;/UITableView+XYNoDataView.m"
+            timestampString = "566365136.2344429"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "-xy_havingData:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x7533;&#x8bf7;&#x552e;&#x540e;/ApplyDeatailController.m"
+            timestampString = "566391005.7394969"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "-uploadPicturesImage:nsNo:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
