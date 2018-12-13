@@ -16,6 +16,8 @@
 #import "MineIndentModel.h"
 #import "TransMessViewController.h"
 #import "ApplyDeatailController.h"
+#import "UITableView+XY.h"
+#import "XYNoDataView.h"
 @interface HasBeenCompletedController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong)UITableView *listTableView;
@@ -109,27 +111,23 @@
                     }
                     [self.listDataArr addObject:model];
                 }
-                // 这里是你点击了cell里的某个按钮后要做的操作
-                //                if (self.selectCtrl == 0) {
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]},@{@"goodName":@"耐克旗舰店",@"listArr":@[@[@"icon",@"NIKE男士运动板鞋",@"40码",@"1",@"355678",@"1",@"420",@"商家已接单",@"3"]]},@{@"goodName":@"阿迪达斯舰店",@"listArr":@[@[@"icon",@"阿迪达斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"],@[@"icon",@"阿迪达斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]},@{@"goodName":@"安踏旗舰店",@"listArr":@[@[@"icon",@"安踏旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]}, nil];
-                //                }else if (self.selectCtrl == 1){
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"等待付款",@"1"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"]]}, nil];
-                //                }else if (self.selectCtrl == 2){
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]}, nil];
-                //                }else if (self.selectCtrl == 3){
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"]]}, nil];
-                //                }else if (self.selectCtrl == 4){
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]}, nil];
-                //                }else{
-                //                    self.listDataArr = [NSMutableArray array];
-                //                    //self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]}, nil];
-                //                }
+                
                 [self.listTableView reloadData];
+                if (self.listDataArr.count != 0) {
+                    [self.listTableView xy_havingData:YES];
+                }else{
+                    [self.listTableView xy_havingData:NO];
+                }
             });
         }else if([dict[@"code"]longValue] == 500){
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                 [self.listTableView reloadData];
+                if (self.listDataArr.count != 0) {
+                    [self.listTableView xy_havingData:YES];
+                }else{
+                    [self.listTableView xy_havingData:NO];
+                }
             });
         }
     } fail:^(NSError *error) {
@@ -206,17 +204,6 @@
     .widthIs(80)
     .heightIs(20);
     if ([model.status isEqualToString:@"4"]){
-        if ([model.afterStatus isEqualToString:@"3"]) {
-            goodStatus.text = @"申请退款";
-        }else if ([model.afterStatus isEqualToString:@"4"]) {
-            goodStatus.text = @"拒绝退货";
-        }else if ([model.afterStatus isEqualToString:@"5"]) {
-            goodStatus.text = @"y退货中";
-        }else if ([model.afterStatus isEqualToString:@"7"]) {
-            goodStatus.text = @"退款完成";
-        }else{
-            goodStatus.text = @"已支付";
-        }
         UIButton *paymentBtn = [[UIButton alloc] init];
         paymentBtn.tag = section;
         paymentBtn.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -230,19 +217,32 @@
         .rightSpaceToView(view, 15)
         .widthIs(70)
         .heightIs(30);
-        UIButton*cancelGoodsBtn = [[UIButton alloc] init];
-        cancelGoodsBtn.tag = section;
-        cancelGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-        cancelGoodsBtn.backgroundColor =colorWithRGB(0xFF6B24);
-        [cancelGoodsBtn setTitle:@"申请售后" forState:UIControlStateNormal];
-        [cancelGoodsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [cancelGoodsBtn addTarget:self action:@selector(cancelGoodsBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        [view addSubview:cancelGoodsBtn];
-        cancelGoodsBtn.sd_layout
-        .topSpaceToView(view, 10)
-        .rightSpaceToView(paymentBtn, 10)
-        .widthIs(70)
-        .heightIs(30);
+        if ([model.afterStatus isEqualToString:@"3"]) {
+            goodStatus.text = @"申请退款";
+        }else if ([model.afterStatus isEqualToString:@"4"]) {
+            goodStatus.text = @"拒绝退货";
+        }else if ([model.afterStatus isEqualToString:@"5"]) {
+            goodStatus.text = @"退货中";
+        }else if ([model.afterStatus isEqualToString:@"7"]) {
+            goodStatus.text = @"退款完成";
+        }else{
+            goodStatus.text = @"已支付";
+            UIButton*cancelGoodsBtn = [[UIButton alloc] init];
+            cancelGoodsBtn.tag = section;
+            cancelGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+            cancelGoodsBtn.backgroundColor =colorWithRGB(0xFF6B24);
+            [cancelGoodsBtn setTitle:@"申请售后" forState:UIControlStateNormal];
+            [cancelGoodsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [cancelGoodsBtn addTarget:self action:@selector(cancelGoodsBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+            [view addSubview:cancelGoodsBtn];
+            cancelGoodsBtn.sd_layout
+            .topSpaceToView(view, 10)
+            .rightSpaceToView(paymentBtn, 10)
+            .widthIs(70)
+            .heightIs(30);
+        }
+        
+        
     }
     
     return bgView;

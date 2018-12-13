@@ -120,9 +120,9 @@
 //    [self.delegate SelectedCell:self];
 //}
 
--(void)configWithModel:(MineIndentModel *)minModel
+-(void)configWithModel:(ApplyReturnGoodsModel *)minModel
 {
-    OrderDetailModel *model = minModel.orderDetailList[0];
+    ApplyReturnDetailResultModel *model = minModel.detailResult[0];
     [self.goodIcon sd_setImageWithURL:[NSURL URLWithString:model.productImg]];
     self.goodName.text = [NSString stringWithFormat:@"%@",model.productName];
     self.goodSize.text = [NSString stringWithFormat:@"规格: %@",model.size];

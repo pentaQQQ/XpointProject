@@ -91,8 +91,8 @@
 //    }
     self.pageTitleView.selectedIndex = self.selectIndex;
     [self.view addSubview:_pageTitleView];
-        [_pageTitleView addBadgeForIndex:1];
-        [_pageTitleView addBadgeForIndex:5];
+//        [_pageTitleView addBadgeForIndex:1];
+//        [_pageTitleView addBadgeForIndex:5];
     
     NSMutableArray *childArr = [NSMutableArray array];
     for (int i=0; i<titleArr.count; i++) {
@@ -148,20 +148,16 @@
 
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex {
     [self.pageContentScrollView setPageContentScrollViewCurrentIndex:selectedIndex];
-    
 }
 
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView progress:(CGFloat)progress originalIndex:(NSInteger)originalIndex targetIndex:(NSInteger)targetIndex {
-   
     [self.pageTitleView setPageTitleViewWithProgress:progress originalIndex:originalIndex targetIndex:targetIndex];
-    
 }
 
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView index:(NSInteger)index {
-    
-    if (index == 1 || index == 5) {
-        [_pageTitleView removeBadgeForIndex:index];
-    }
+//    if (index == 1 || index == 5) {
+//        [_pageTitleView removeBadgeForIndex:index];
+//    }
     if (index == 0) {
         if (self.generationPaymentDelegate && [self.generationPaymentDelegate respondsToSelector:@selector(selecteGenerationPayment:)])
         {
