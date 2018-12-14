@@ -313,12 +313,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x7533;&#x8bf7;&#x552e;&#x540e;/ApplyDeatailController.m"
-            timestampString = "566391005.7394969"
+            timestampString = "566452543.370849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "-uploadPicturesImage:nsNo:"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "-declareAbnormalAlertView:clickedButtonAtIndex:selectType:comGoodList:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
