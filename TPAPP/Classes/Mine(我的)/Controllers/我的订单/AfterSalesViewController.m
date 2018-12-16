@@ -17,6 +17,7 @@
 #import "TransMessViewController.h"
 #import "UITableView+XY.h"
 #import "XYNoDataView.h"
+#import "ApplyDeatailController.h"
 @interface AfterSalesViewController ()<UITableViewDelegate, UITableViewDataSource,DeclareAbnormalAlertViewOrderListRemindDelegate>
 
 @property (nonatomic, strong)UITableView *listTableView;
@@ -333,9 +334,13 @@
 - (void)seeDetailBtnAction:(UIButton *)btn
 {
     MineIndentModel *minModel = self.listDataArr[btn.tag];
-    OrderDetailViewController *minePerCtrl = [[OrderDetailViewController alloc] init];
-    minePerCtrl.model = minModel;
-    [self.navigationController pushViewController:minePerCtrl animated:YES];
+    ApplyDeatailController *applyCtrl = [[ApplyDeatailController alloc] init];
+    applyCtrl.minModel = minModel;
+    [self.navigationController pushViewController:applyCtrl animated:YES];
+//    MineIndentModel *minModel = self.listDataArr[btn.tag];
+//    OrderDetailViewController *minePerCtrl = [[OrderDetailViewController alloc] init];
+//    minePerCtrl.model = minModel;
+//    [self.navigationController pushViewController:minePerCtrl animated:YES];
 }
 
 - (void)applyBtnAction:(UIButton *)btn

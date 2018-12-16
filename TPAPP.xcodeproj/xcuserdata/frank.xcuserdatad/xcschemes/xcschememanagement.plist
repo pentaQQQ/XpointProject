@@ -7,7 +7,15 @@
 		<key>TPAPP.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
+<<<<<<< HEAD
 			<integer>0</integer>
+=======
+<<<<<<< HEAD
+			<integer>1</integer>
+=======
+			<integer>18</integer>
+>>>>>>> 1cc7174ac35fa55167d94feaa64504739efb1a5e
+>>>>>>> 57b8f6c9ae128b1e84d4958e5e03c77b6e96b208
 		</dict>
 	</dict>
 </dict>
