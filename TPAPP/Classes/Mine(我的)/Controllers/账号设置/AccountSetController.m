@@ -14,7 +14,6 @@
 #import "AddressManageController.h"
 #import "ZLNoAuthorityViewController.h"
 #import <NMSSH/NMSSH.h>
-
 #import "NewLoginViewController.h"
 @interface AccountSetController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, readwrite, strong) UITableView *tableView;
@@ -389,6 +388,7 @@
 
 -(void)existBoard{
     
+    
 //    [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
 //
 //    LoginViewController*vc = [[LoginViewController alloc]init];
@@ -396,20 +396,24 @@
 //    rootVC.rt_disableInteractivePop = YES ;
 //    [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
 //
-    
-    [[NetworkManager sharedManager] getWithUrl:getexit param:nil success:^(id json) {
-        NSLog(@"%@",json);
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-//            [LYAccount clear];
-            [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
-            NewLoginViewController*vc = [[NewLoginViewController alloc]init];
-            RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
-            rootVC.rt_disableInteractivePop = YES ;
-            [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
-        }
-    } failure:^(NSError *error) {
-    }];
+    [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+    NewLoginViewController*vc = [[NewLoginViewController alloc]init];
+    RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+    rootVC.rt_disableInteractivePop = YES ;
+    [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+//    [[NetworkManager sharedManager] getWithUrl:getexit param:nil success:^(id json) {
+//        NSLog(@"%@",json);
+//        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+//        if ([respCode isEqualToString:@"00000"]) {
+////            [LYAccount clear];
+//            [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+//            NewLoginViewController*vc = [[NewLoginViewController alloc]init];
+//            RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+//            rootVC.rt_disableInteractivePop = YES ;
+//            [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+//        }
+//    } failure:^(NSError *error) {
+//    }];
 }
 
 
