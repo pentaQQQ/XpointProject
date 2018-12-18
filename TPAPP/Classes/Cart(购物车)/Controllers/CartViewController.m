@@ -30,8 +30,8 @@
 #define Image(name) [UIImage imageNamed:name]
 @interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate,DeclareAbnormalAlertViewDelegate,DeclareAbnormalAlertViewRemindDelegate>
 {
-    BOOL allowMultipleSwipe;
-    BOOL isPreview;
+    BOOL _allowMultipleSwipe;
+    BOOL _isPreview;
 }
 
 @property (nonatomic, strong)UITableView *CartTableView;
@@ -39,6 +39,9 @@
 @property (nonatomic, strong)UIView *remindView;
 @property (nonatomic, strong)NSMutableArray *dataSource;
 @property (nonatomic, strong)GoodsCartModel *goodsCartModel;
+@property (nonatomic, strong)UIView *topRemindView;
+@property (nonatomic, strong)UILabel *topRemindLabel;
+@property (nonatomic, strong)UIButton *topRemindButton;
 @end
 
 @implementation CartViewController
@@ -66,7 +69,8 @@
     [self.navigationController.navigationBar setTranslucent:NO];
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     NSLog(@"%f",SCREEN_HEIGHT);
-    self.CartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-44-SafeAreaBottomHeight) style:UITableViewStyleGrouped];
+    [self createTopRemindView];
+    self.CartTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 45, SCREEN_WIDTH, SCREEN_HEIGHT-44-44-SafeAreaBottomHeight-45) style:UITableViewStyleGrouped];
     self.CartTableView.estimatedRowHeight = 0;
     self.CartTableView.delegate = self;
     self.CartTableView.dataSource = self;
@@ -89,12 +93,30 @@
 //    [self.CartTableView.mj_header beginRefreshing];
 }
 
-
+- (void)createTopRemindView
+{
+    self.topRemindView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 45)];
+    self.topRemindView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
+    [self.view addSubview:self.topRemindView];
+    self.topRemindLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH-30, 45)];
+    self.topRemindLabel.textColor = [UIColor whiteColor];
+    self.topRemindLabel.numberOfLines = 0;
+//    if (@available(iOS 8.2, *)) {
+//        self.topRemindLabel.font = [UIFont systemFontOfSize:14.0 weight:UIFontWeightMedium];
+//    } else {
+        // Fallback on earlier versions
+        self.topRemindLabel.font = [UIFont systemFontOfSize:14.0];
+//    }
+    self.topRemindLabel.textAlignment=NSTextAlignmentLeft;
+    self.topRemindLabel.text = @"提示：购物车里的商品有效期60分钟，请在60分钟内支付，超时回收；回收详情请查看回收清单";
+    self.topRemindLabel.lineBreakMode=NSLineBreakByTruncatingTail;
+    [self.topRemindView addSubview:self.topRemindLabel];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (isPreview) {
-        isPreview = NO;
+    if (_isPreview) {
+        _isPreview = NO;
     }else{
         if ([self.CartTableView.mj_header isRefreshing]) {
             [self.CartTableView.mj_header endRefreshing];
@@ -239,7 +261,7 @@
             [self.accountView removeFromSuperview];
             self.accountView = nil;
         }
-        self.CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-44-SafeAreaBottomHeight);
+        self.CartTableView.frame = CGRectMake(0, 45, SCREEN_WIDTH, SCREEN_HEIGHT-44-44-SafeAreaBottomHeight-45);
         return 330;
     }else{
         if(self.accountView == nil){
@@ -247,7 +269,7 @@
             
         }
         [self postCenter];
-        self.CartTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-44-SafeAreaBottomHeight);
+        self.CartTableView.frame = CGRectMake(0, 45, SCREEN_WIDTH, SCREEN_HEIGHT-44-44-SafeAreaBottomHeight-45);
         if (section == self.dataSource.count - 1) {
             return 260;
         }else{
@@ -460,7 +482,7 @@
                 cell.delegate = self;
                 cell.SelectedDelegate = self;
                 
-                cell.allowsMultipleSwipe = allowMultipleSwipe;
+                cell.allowsMultipleSwipe = _allowMultipleSwipe;
                 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
@@ -657,7 +679,7 @@
     // 展示控制器
     [pickerBrowser showPickerVc:[UIApplication sharedApplication].keyWindow.rootViewController];
     [pickerBrowser setSelectImagesClick:^(NSString *selectString) {
-        isPreview = YES;
+        self->_isPreview = YES;
     }];
 }
 
@@ -953,37 +975,23 @@
                     indentModel.addressInfo = addressModel;
                     if (![dics[@"orderDetailList"] isKindOfClass:[NSNull class]]) {
                         [indentModel.orderDetailList removeAllObjects];
-                        
                         for (NSDictionary *newsDic in dics[@"orderDetailList"]) {
                             OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newsDic];
                             [indentModel.orderDetailList addObject:orderDetailModel];
-                            
                         }
                     }
-                    
                     buyCtrl.minModel = indentModel;
                 }
-               
                 buyCtrl.goodsListArray = goodListArr;
                 buyCtrl.goodsNum = self->_goodsNum;
                 buyCtrl.goodsPrice = self->_goodsPrice;
+                buyCtrl.pushCtrl = 1;
                 [self.navigationController pushViewController:buyCtrl animated:YES];
             }else{
                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
             }
         } fail:^(NSError *error) {
-            
         }];
-        
-//        [[NetworkManager sharedManager] postWithUrl:makeOrder param:dataArray success:^(id json) {
-//
-//            NSLog(@"%@",json);
-//
-//        } failure:^(NSError *error) {
-//
-//        }];
-        
-
     }
 }
 -(void)DidSelectedAllGoods

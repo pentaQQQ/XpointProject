@@ -15,4 +15,9 @@
 @property (nonatomic, strong)MineIndentModel *minModel;
 @property (nonatomic, assign)int goodsNum;
 @property (nonatomic, strong)NSString *goodsPrice;
+@property (nonatomic, assign)NSInteger pushCtrl;
+
+
+
+
 @end

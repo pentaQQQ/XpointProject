@@ -10,4 +10,5 @@
 
 @interface AddConsignmentAddressController : BaseViewController
 @property (nonatomic, assign)NSInteger dataNull;
+@property (nonatomic, assign)BOOL isCartCtrlType;
 @end

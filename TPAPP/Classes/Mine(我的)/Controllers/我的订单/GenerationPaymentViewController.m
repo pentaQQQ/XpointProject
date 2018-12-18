@@ -99,6 +99,8 @@
                     MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
                     AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
                     model.addressInfo = addressModel;
+                    OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
+                    model.orderLogistics = logisticsModel;
                     [model.orderDetailList removeAllObjects];
                     for (NSDictionary *newDic in dics[@"orderDetailList"]) {
                         OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
@@ -108,16 +110,22 @@
                     [self.listDataArr addObject:model];
                 }
                 [self.listTableView reloadData];
-                [self.listTableView reloadData];
-                [self.listTableView reloadData];
-                [self.listTableView reloadData];
-                [self.listTableView reloadData];
-             
+                if (self.listDataArr.count != 0) {
+                   [self.listTableView xy_havingData:YES];
+                }else{
+                  [self.listTableView xy_havingData:NO];
+                }
+                
             });
         }else if([dict[@"code"]longValue] == 500){
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                 [self.listTableView reloadData];
+                if (self.listDataArr.count != 0) {
+                    [self.listTableView xy_havingData:YES];
+                }else{
+                    [self.listTableView xy_havingData:NO];
+                }
             });
         }
     } fail:^(NSError *error) {
@@ -244,7 +252,7 @@
 //        }else if([dict[@"code"]longValue] == 500){
 //            dispatch_async(dispatch_get_main_queue(), ^{
 //                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
-//                [self.listTableView reloadData];
+//                [self.listTableView xy_havingData:NO];
 //            });
 //        }
 //    } fail:^(NSError *error) {
@@ -263,12 +271,9 @@
     MineIndentModel *minModel = self.listDataArr[btn.tag];
     BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
     buyCtrl.minModel = minModel;
-//    buyCtrl.goodsListArray = goodListArr;
-//    buyCtrl.goodsNum = self->_goodsNum;
-//    buyCtrl.goodsPrice = self->_goodsPrice;
+    buyCtrl.pushCtrl = 2;
     [self.navigationController pushViewController:buyCtrl animated:YES];
-//    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"您确定要取消订单吗" selectType:@"去支付" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
-//    [alertView show];
+
 }
 
 -(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel
@@ -290,6 +295,11 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                         [self.listTableView reloadData];
+                        if (self.listDataArr.count != 0) {
+                            [self.listTableView xy_havingData:YES];
+                        }else{
+                            [self.listTableView xy_havingData:NO];
+                        }
                     });
                 }
             } fail:^(NSError *error) {
@@ -363,6 +373,9 @@
 
 - (NSString *)xy_noDataViewMessage {
     return @"暂无相关订单";
+}
+- (UIColor *)xy_noDataViewMessageColor {
+    return [UIColor blackColor];
 }
 /*
 #pragma mark - Navigation

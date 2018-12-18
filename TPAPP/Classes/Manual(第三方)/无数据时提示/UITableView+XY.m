@@ -1,6 +1,6 @@
 //
 //  UITableView+XY.m
-//  XYTableViewNoDataView
+//  TPAPP
 //
 //  Created by 韩元旭 on 2017/7/19.
 //  Copyright © 2017年 iCourt. All rights reserved.
@@ -9,7 +9,6 @@
 #import "UITableView+XY.h"
 #import "XYNoDataView.h"
 #import <objc/runtime.h>
-#import "CartViewController.h"
 /**
  消除警告
  */
@@ -22,10 +21,7 @@
 - (NSNumber *)xy_noDataViewCenterYOffset;   //  使用默认占位图, CenterY 向下的偏移量
 @end
 
-
 @implementation UITableView (XY)
-
-
 /**
  加载时, 交换方法
  */
@@ -62,34 +58,19 @@
         [self setIsInitFinish:YES];
         return ;
     }
-//    if ([self.dataSource isKindOfClass:[CartViewController class]]) {
-//        //  刷新完成之后检测数据量
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            NSInteger numberOfSections = [self numberOfSections];
-//            BOOL havingData = NO;
-//            if (numberOfSections >= 1) {
-//                havingData = NO;
-//            }else{
-//                havingData = YES;
-//            }
-//            [self xy_havingData:havingData];
-//        });
-//    }else{
-        //  刷新完成之后检测数据量
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            NSInteger numberOfSections = [self numberOfSections];
-            BOOL havingData = NO;
-            for (NSInteger i = 0; i < numberOfSections; i++) {
-                if ([self numberOfRowsInSection:i] > 0) {
-                    havingData = YES;
-                    break;
-                }
+    //  刷新完成之后检测数据量
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSInteger numberOfSections = [self numberOfSections];
+        BOOL havingData = NO;
+        for (NSInteger i = 0; i < numberOfSections; i++) {
+            if ([self numberOfRowsInSection:i] > 0) {
+                havingData = YES;
+                break;
             }
+        }
             
-            [self xy_havingData:havingData];
-        });
-//    }
+        [self xy_havingData:havingData];
+    });
 
 }
 /**
@@ -223,6 +204,7 @@
     if ([self.backgroundView isKindOfClass:[XYNoDataView class]]) {
         [self.backgroundView removeObserver:self forKeyPath:kXYNoDataViewObserveKeyPath context:nil];
     }
+    
 }
 
 - (void)xy_dealloc {

@@ -135,11 +135,25 @@
         _listTableView.showsHorizontalScrollIndicator = NO;
         _listTableView.dataSource = self;
         [self.view addSubview:self.listTableView];
-        self.listTableView.sd_layout
-        .topSpaceToView(self.view, 0)
-        .leftEqualToView(self.view)
-        .rightEqualToView(self.view)
-        .bottomSpaceToView(self.view, 0);
+        
+        //获取状态栏的rect
+        CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+        //获取导航栏的rect
+        CGRect navRect = self.navigationController.navigationBar.frame;
+        if (self.isCartCtrlType == NO) {
+            self.listTableView.sd_layout
+            .topSpaceToView(self.view, statusRect.size.height+navRect.size.height)
+            .leftEqualToView(self.view)
+            .rightEqualToView(self.view)
+            .bottomSpaceToView(self.view, 0);
+            
+        }else{
+            self.listTableView.sd_layout
+            .topSpaceToView(self.view, 0)
+            .leftEqualToView(self.view)
+            .rightEqualToView(self.view)
+            .bottomSpaceToView(self.view, 0);
+        }
         if ([self.listTableView respondsToSelector:@selector(setSeparatorInset:)]) {
             [self.listTableView setSeparatorInset:UIEdgeInsetsZero];
         }

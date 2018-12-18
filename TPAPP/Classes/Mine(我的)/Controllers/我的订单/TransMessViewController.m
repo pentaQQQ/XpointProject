@@ -44,8 +44,38 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.boolArray addObject:@YES];
     [self setUpTableview];
+    [self loaData];
 }
-
+- (void)loaData
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:self.model.orderLogistics.logisticsCode forKeyPath:@"expressCompany"];
+    [dic setValue:self.model.orderLogistics.expressNo forKeyPath:@"expressNo"];
+    [[NetworkManager sharedManager] getWithUrl:getLogisticsInfo param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        [self.dataArray removeAllObjects];
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            TransforMessModel *model = [TransforMessModel mj_objectWithKeyValues:json[@"data"]];
+            
+            [model.data removeAllObjects];
+            for (NSDictionary *newDic in json[@"data"][@"data"]) {
+                TransforMessDetailModel *orderDetailModel = [TransforMessDetailModel mj_objectWithKeyValues:newDic];
+                [model.data addObject:orderDetailModel];
+                
+            }
+            [self.dataArray addObject:model];
+            [self.tableview reloadData];
+        }else if([json[@"code"]longValue] == 500){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                [self.tableview reloadData];
+            });
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 
 -(void)setUpTableview{
@@ -67,18 +97,16 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    
     if ([self.boolArray[section] boolValue] == YES) {
-        
-        
-        return 4;
-        
+        if (self.dataArray.count != 0) {
+            TransforMessModel *model = self.dataArray[0];
+            return model.data.count-1;
+        }else{
+            return 0;
+        }
     }else{
         return 0;
     }
-    
-    
 }
 
 
@@ -90,7 +118,7 @@
 }
 // 分区头的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 201;
+    return 260;
 }
 // 分区尾的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -104,14 +132,27 @@
     if (self.model.orderDetailList.count == 1) {
         OrderDetailModel *model = self.model.orderDetailList[0];
         TransportationSeationView *transview = [[NSBundle mainBundle]loadNibNamed:@"TransportationSeationView" owner:self options:nil].lastObject;
-        transview.frame = CGRectMake(0, 0, kScreenWidth, 201);
+        transview.frame = CGRectMake(0, 0, kScreenWidth, 260);
         [transview.orderIcon sd_setImageWithURL:[NSURL URLWithString:model.productImg]];
         transview.orderName.text = model.productName;
         transview.sizeNum.text = [NSString stringWithFormat:@"%@",model.size];
         transview.payNumber.text = [NSString stringWithFormat:@"x%ld",model.number];
-        transview.remarkLabel.text = model.remark;
+        if (model.remark.length == 0) {
+            transview.remarkLabel.text = @"备注: 无";
+        }else{
+            transview.remarkLabel.text = [NSString stringWithFormat:@"备注: %@",model.remark];
+        }
+        if (self.dataArray.count != 0) {
+            TransforMessModel *transModel = self.dataArray[0];
+            transview.logiName.text = transModel.com;
+            transview.logilistNum.text = transModel.nu;
+            TransforMessDetailModel *deModel = transModel.data[0];
+            NSArray *arr = [deModel.time componentsSeparatedByString:@" "];
+            transview.yearMouth.text = arr[0];
+            transview.dayTime.text = arr[1];
+            transview.sendAddress.text = deModel.context;
+        }
         transview.priceLabel.text = model.productAmount;
-        
         
         CGFloat rota;
         
@@ -135,18 +176,12 @@
 
 
 - (void)openClick:(UIButton *)sender {
-    
-    
     NSInteger section = sender.tag - 1000;
-    
-    
     if ([self.boolArray[section] boolValue] == NO) {
         [self.boolArray replaceObjectAtIndex:section withObject:@YES];
-        
     }else{
         [self.boolArray replaceObjectAtIndex:section withObject:@NO];
     }
-    
     [self.tableview reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationAutomatic];
     
 }
@@ -156,13 +191,22 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *reuesId = @"TransportationCell";
-    
     TransportationCell *cell = [tableView dequeueReusableCellWithIdentifier:reuesId];
     if (!cell) {
         cell = [[NSBundle mainBundle]loadNibNamed:@"TransportationCell" owner:self options:nil].lastObject;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    if (self.dataArray.count != 0) {
+        TransforMessModel *transModel = self.dataArray[0];
+        TransforMessDetailModel *deModel = transModel.data[indexPath.row+1];
+        NSArray *arr = [deModel.time componentsSeparatedByString:@" "];
+        cell.yearMouthLabel.text = arr[0];
+        cell.dayTimeLabel.text = arr[1];
+        cell.sendAddress.numberOfLines=0;
+        cell.sendAddress.textAlignment=NSTextAlignmentLeft;
+        cell.sendAddress.lineBreakMode=NSLineBreakByTruncatingTail;
+        cell.sendAddress.text = deModel.context;
+    }
     return cell;
 }
 

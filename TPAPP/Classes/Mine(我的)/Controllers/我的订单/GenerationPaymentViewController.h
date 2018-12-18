@@ -9,7 +9,7 @@
 #import "BaseViewController.h"
 #import "MineIndentViewController.h"
 NS_ASSUME_NONNULL_BEGIN
-@interface GenerationPaymentViewController : BaseViewController<GenerationPaymentDelegate>
+@interface GenerationPaymentViewController : UIViewController<GenerationPaymentDelegate>
 @property (nonatomic, assign)NSInteger selectCtrl;
 
 @end

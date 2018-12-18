@@ -194,7 +194,7 @@
     // 展示控制器
     [pickerBrowser showPickerVc:[UIApplication sharedApplication].keyWindow.rootViewController];
     [pickerBrowser setSelectImagesClick:^(NSString *selectString) {
-        isPreview = YES;
+        self->isPreview = YES;
     }];
 }
 #pragma mark - 小图单击
@@ -203,16 +203,16 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         UIWindow *window = [[UIApplication sharedApplication].windows objectAtIndex:0];
         // 解除隐藏
-        [window addSubview:_previewView];
-        [window bringSubviewToFront:_previewView];
+        [window addSubview:self->_previewView];
+        [window bringSubviewToFront:self->_previewView];
         // 清空
-        [_previewView.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self->_previewView.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         // 添加子视图
         NSInteger index = 0;
         NSInteger count = cell.detailModel.productForm.imagesList.count;
         CGRect convertRect;
         if (count == 1) {
-            [_previewView.pageControl removeFromSuperview];
+            [self->_previewView.pageControl removeFromSuperview];
         }
         for (NSInteger i = 0; i < count; i ++)
         {
@@ -225,7 +225,7 @@
 //            MMImageView *pImageView = [[MMImageView alloc] initWithFrame:rect2];;
             convertRect = rect2;
             // 添加
-            MMScrollView *scrollView = [[MMScrollView alloc] initWithFrame:CGRectMake(i*_previewView.width, 0, _previewView.width, _previewView.height)];
+            MMScrollView *scrollView = [[MMScrollView alloc] initWithFrame:CGRectMake(i*self->_previewView.width, 0, self->_previewView.width, self->_previewView.height)];
             scrollView.tag = 100+i;
             scrollView.maximumZoomScale = 2.0;
             // 根据图片的url下载图片数据
@@ -246,11 +246,11 @@
                     [scrollView setLongPressBigView:^(MMScrollView *scrollView){
                         [self longPresssBigViewCallback:scrollView.imageView];
                     }];
-                    [_previewView.scrollView addSubview:scrollView];
+                    [self->_previewView.scrollView addSubview:scrollView];
                     if (i == index) {
                         [UIView animateWithDuration:0.3 animations:^{
-                            _previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0];
-                            _previewView.pageControl.hidden = NO;
+                            self->_previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0];
+                            self->_previewView.pageControl.hidden = NO;
                             [scrollView updateOriginRect];
                         }];
                     } else {
@@ -262,9 +262,9 @@
             
         }
         // 更新offset
-        CGPoint offset = _previewView.scrollView.contentOffset;
+        CGPoint offset = self->_previewView.scrollView.contentOffset;
         offset.x = index * k_screen_width;
-        _previewView.scrollView.contentOffset = offset;
+        self->_previewView.scrollView.contentOffset = offset;
     });
     
 }
@@ -273,12 +273,12 @@
 - (void)singleTapBigViewCallback:(MMScrollView *)scrollView
 {
     [UIView animateWithDuration:0.3 animations:^{
-        _previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-        _previewView.pageControl.hidden = YES;
+        self->_previewView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+        self->_previewView.pageControl.hidden = YES;
         scrollView.contentRect = scrollView.contentRect;
         scrollView.zoomScale = 1.0;
     } completion:^(BOOL finished) {
-        [_previewView removeFromSuperview];
+        [self->_previewView removeFromSuperview];
     }];
 }
 

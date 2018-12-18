@@ -15,6 +15,9 @@
 #import "MBProgressHUD+NJ.h"
 #import "MineIndentModel.h"
 #import "TransMessViewController.h"
+#import "UITableView+XY.h"
+#import "XYNoDataView.h"
+#import "ApplyDeatailController.h"
 @interface AfterSalesViewController ()<UITableViewDelegate, UITableViewDataSource,DeclareAbnormalAlertViewOrderListRemindDelegate>
 
 @property (nonatomic, strong)UITableView *listTableView;
@@ -99,21 +102,31 @@
                     MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
                     AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
                     model.addressInfo = addressModel;
+                    OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
+                    model.orderLogistics = logisticsModel;
                     [model.orderDetailList removeAllObjects];
                     for (NSDictionary *newDic in dics[@"orderDetailList"]) {
                         OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
                         [model.orderDetailList addObject:orderDetailModel];
-                        
                     }
                     [self.listDataArr addObject:model];
                 }
-           
                 [self.listTableView reloadData];
+                if (self.listDataArr.count != 0) {
+                    [self.listTableView xy_havingData:YES];
+                }else{
+                    [self.listTableView xy_havingData:NO];
+                }
             });
         }else if([dict[@"code"]longValue] == 500){
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                 [self.listTableView reloadData];
+                if (self.listDataArr.count != 0) {
+                    [self.listTableView xy_havingData:YES];
+                }else{
+                    [self.listTableView xy_havingData:NO];
+                }
             });
         }
     } fail:^(NSError *error) {
@@ -321,9 +334,13 @@
 - (void)seeDetailBtnAction:(UIButton *)btn
 {
     MineIndentModel *minModel = self.listDataArr[btn.tag];
-    OrderDetailViewController *minePerCtrl = [[OrderDetailViewController alloc] init];
-    minePerCtrl.model = minModel;
-    [self.navigationController pushViewController:minePerCtrl animated:YES];
+    ApplyDeatailController *applyCtrl = [[ApplyDeatailController alloc] init];
+    applyCtrl.minModel = minModel;
+    [self.navigationController pushViewController:applyCtrl animated:YES];
+//    MineIndentModel *minModel = self.listDataArr[btn.tag];
+//    OrderDetailViewController *minePerCtrl = [[OrderDetailViewController alloc] init];
+//    minePerCtrl.model = minModel;
+//    [self.navigationController pushViewController:minePerCtrl animated:YES];
 }
 
 - (void)applyBtnAction:(UIButton *)btn
@@ -350,6 +367,11 @@
                     [self loadNewTopic];
                 }else{
                     [self.listTableView reloadData];
+                    if (self.listDataArr.count != 0) {
+                        [self.listTableView xy_havingData:YES];
+                    }else{
+                        [self.listTableView xy_havingData:NO];
+                    }
                     [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
                 }
             } failure:^(NSError *error) {

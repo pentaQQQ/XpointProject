@@ -231,6 +231,7 @@
             .widthIs([self widthLabelWithModel:@"是否代发货" withFont:15])
             .heightIs(20);
             
+            
             [self.contentView addSubview:self.defaultSwitch];
             [self.defaultSwitch setOn:self.isSender];
             self.defaultSwitch.onTintColor = colorWithRGB(0xFF6B24);
@@ -471,8 +472,14 @@
 - (UILabel *)defaultLabel {
     if (!_defaultLabel) {
         _defaultLabel= [[UILabel alloc] init];
-        _defaultLabel.font = [UIFont systemFontOfSize:15];
-        _defaultLabel.textColor = [UIColor blackColor];
+        _defaultLabel.textColor = colorWithRGB(0xED1516);
+        if (@available(iOS 8.2, *)) {
+            _defaultLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightMedium];
+        }else {
+            _defaultLabel.font = [UIFont systemFontOfSize:15.0];
+        }
+//        _defaultLabel.font = [UIFont systemFontOfSize:15];
+//        _defaultLabel.textColor = [UIColor blackColor];
         _defaultLabel.textAlignment = NSTextAlignmentLeft;
     }
     return _defaultLabel;

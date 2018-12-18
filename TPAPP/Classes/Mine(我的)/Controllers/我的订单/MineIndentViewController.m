@@ -46,7 +46,8 @@
 //    self.myCategoryView.counts = numbers;
     self.view.backgroundColor = [UIColor whiteColor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSelectedIndex:) name:@"changeSelectedIndex" object:nil];
-//    self.myCategoryView.titles = self.titles;
+    self.navigationItem.title = @"我的订单";
+    //    self.myCategoryView.titles = self.titles;
 //    self.myCategoryView.defaultSelectedIndex = self.selectIndex;
 //    self.myCategoryView.zoomEnabled = YES;
 //    self.myCategoryView.titleColorGradientEnabled = YES;
@@ -79,14 +80,19 @@
     //    configure.titleTextZoom = YES;
     //    configure.titleTextZoomAdditionalPointSize = 4;
     /// pageTitleView
-    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, pageTitleViewY, self.view.frame.size.width, 44) delegate:self titleNames:titleArr configure:configure];
+    if (self.isPushCtrl) {
+        self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44) delegate:self titleNames:titleArr configure:configure];
+    }else{
+        self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, pageTitleViewY, self.view.frame.size.width, 44) delegate:self titleNames:titleArr configure:configure];
+    }
+    
 //    if (self.selectIndex == 4) {
 //        self.selectIndex = 5;
 //    }
     self.pageTitleView.selectedIndex = self.selectIndex;
     [self.view addSubview:_pageTitleView];
-        [_pageTitleView addBadgeForIndex:1];
-        [_pageTitleView addBadgeForIndex:5];
+//        [_pageTitleView addBadgeForIndex:1];
+//        [_pageTitleView addBadgeForIndex:5];
     
     NSMutableArray *childArr = [NSMutableArray array];
     for (int i=0; i<titleArr.count; i++) {
@@ -133,9 +139,7 @@
             self.afterSalesDelegate  =  vc;
             [childArr addObject:vc];
         }
-        
     }
-    
     CGFloat ContentCollectionViewHeight = self.view.frame.size.height - CGRectGetMaxY(_pageTitleView.frame);
     self.pageContentScrollView = [[SGPageContentScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_pageTitleView.frame), self.view.frame.size.width, ContentCollectionViewHeight) parentVC:self childVCs:childArr];
     _pageContentScrollView.delegatePageContentScrollView = self;
@@ -144,20 +148,16 @@
 
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex {
     [self.pageContentScrollView setPageContentScrollViewCurrentIndex:selectedIndex];
-    
 }
 
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView progress:(CGFloat)progress originalIndex:(NSInteger)originalIndex targetIndex:(NSInteger)targetIndex {
-   
     [self.pageTitleView setPageTitleViewWithProgress:progress originalIndex:originalIndex targetIndex:targetIndex];
-    
 }
 
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView index:(NSInteger)index {
-    
-    if (index == 1 || index == 5) {
-        [_pageTitleView removeBadgeForIndex:index];
-    }
+//    if (index == 1 || index == 5) {
+//        [_pageTitleView removeBadgeForIndex:index];
+//    }
     if (index == 0) {
         if (self.generationPaymentDelegate && [self.generationPaymentDelegate respondsToSelector:@selector(selecteGenerationPayment:)])
         {

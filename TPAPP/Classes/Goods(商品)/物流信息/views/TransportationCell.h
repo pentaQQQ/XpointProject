@@ -10,4 +10,10 @@
 
 @interface TransportationCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *bottomview;
+@property (weak, nonatomic) IBOutlet UIImageView *wuliuStatusIcon;
+//@property (weak, nonatomic) IBOutlet UILabel *sendStatus;
+@property (weak, nonatomic) IBOutlet UILabel *sendAddress;
+@property (weak, nonatomic) IBOutlet UILabel *yearMouthLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dayTimeLabel;
+
 @end

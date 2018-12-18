@@ -16,17 +16,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = [UIColor whiteColor];
    // [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
-    UIBarButtonItem *gap = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    gap.width = -6;
-    UIBarButtonItem *set = [[UIBarButtonItem alloc] initWithImage:@"back" complete:^{
+//    UIBarButtonItem *gap = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+//    gap.width = -6;
+    UIBarButtonItem *set = [[UIBarButtonItem alloc] initWithImage:@"bake_icon" complete:^{
         [self.navigationController popViewControllerAnimated:YES];
     }];
-
-    self.navigationItem.leftBarButtonItems = @[gap, set];
+    self.navigationItem.leftBarButtonItems = @[set];
 }
 
 -(void)viewWillLayoutSubviews
