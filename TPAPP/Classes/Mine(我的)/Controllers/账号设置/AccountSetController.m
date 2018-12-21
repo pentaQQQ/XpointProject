@@ -15,7 +15,8 @@
 #import "ZLNoAuthorityViewController.h"
 #import <NMSSH/NMSSH.h>
 #import "NewLoginViewController.h"
-@interface AccountSetController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+#import "ConsignmentAddressManageController.h"
+@interface AccountSetController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,DeclareAbnormalAlertViewOrderListRemindDelegate>
 @property (nonatomic, readwrite, strong) UITableView *tableView;
 
 @end
@@ -28,10 +29,14 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"账户设置";
     [self configureTableView];
-    [self prepareData];
 }
 - (void)configureTableView {
     [self tableView];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self prepareData];
 }
 #pragma mark - Public Method
 - (__kindof YSStaticCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath {
@@ -136,24 +141,45 @@
             VIPViewController *vipCtrl = [[VIPViewController alloc] init];
             [self.navigationController pushViewController:vipCtrl animated:YES];
         }else if (indexPath.row == 1){
+            
             AddressManageController *idCtrl = [[AddressManageController alloc] init];
             idCtrl.title = @"地址管理";
             [self.navigationController pushViewController:idCtrl animated:YES];
+        }else if (indexPath.row == 2){
+            
+            ConsignmentAddressManageController *idCtrl = [[ConsignmentAddressManageController alloc] init];
+            idCtrl.title = @"代发货地址管理";
+            [self.navigationController pushViewController:idCtrl animated:YES];
+        }else if (indexPath.row == 3){
+            //                LYAccount *account = [LYAccount shareAccount];
+            //                if ([account.realName isEqualToString:@"0"]) {
+            IdentificationController *idCtrl = [[IdentificationController alloc] init];
+            [self.navigationController pushViewController:idCtrl animated:YES];
+            //                }else{
+            //                }
         }else{
-                LYAccount *account = [LYAccount shareAccount];
-                if ([account.realName isEqualToString:@"0"]) {
-                    IdentificationController *idCtrl = [[IdentificationController alloc] init];
-                    [self.navigationController pushViewController:idCtrl animated:YES];
-                }else{
-                }
+
         }
     }else if (indexPath.section ==2){
         if (indexPath.row == 0) {
         }else{
         }
     }else{
-        //退出登录在此处理
-        [self existBoard];
+        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确认退出登录吗"] selectType:@"确认退出登录" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+        [alertView show];
+        
+    }
+}
+-(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel
+{
+    if (buttonIndex == AlertButtonLeft) {
+        if ([type isEqualToString:@"确认退出登录"]){
+        }
+    }else{
+        if ([type isEqualToString:@"确认退出登录"]) {
+            //退出登录在此处理
+            [self existBoard];
+        }
     }
 }
 #pragma mark - Setter && Getter
@@ -226,6 +252,9 @@
         model5.indicatorTitle = addresModel.recAddress;
     }
     
+    YSStaticDefaultModel *models = [[YSStaticDefaultModel alloc] init];
+    models.title = @"代发货地址管理";
+    
     
     YSStaticDefaultModel *model6 = [[YSStaticDefaultModel alloc] init];
     model6.title = @"实名认证";
@@ -254,7 +283,7 @@
         }];
     }];
     
-    YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model4, model5,model6,model10]];
+    YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model4, model5,models,model6,model10]];
     
     YSStaticDefaultModel *model7 = [[YSStaticDefaultModel alloc] init];
     model7.title = @"隐私政策";
@@ -311,11 +340,26 @@
             [[UIApplication sharedApplication] openURL:url];
         }
     }else{
-        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        controller.delegate = self;
-        controller.allowsEditing = YES;
-        [self presentViewController:controller animated:YES completion:nil];
+        
+        UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+        
+        pickerController.editing = YES;
+        
+        pickerController.delegate = self;
+        
+        pickerController.allowsEditing = YES;
+        
+        pickerController.navigationBar.translucent = NO;//去除毛玻璃效果
+        
+        pickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        [self presentViewController:pickerController animated:YES completion:nil];
+        
+//        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+//        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//        controller.delegate = self;
+//        controller.allowsEditing = YES;
+//        [self presentViewController:controller animated:YES completion:nil];
     }
 }
 #pragma mark - UIImagePickerControllrDelegate

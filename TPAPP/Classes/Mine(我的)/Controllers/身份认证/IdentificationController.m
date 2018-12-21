@@ -45,6 +45,13 @@
     // Do any additional setup after loading the view.
     self.title = @"实名认证";
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
+    LYAccount *account = [LYAccount shareAccount];
+    if (account.identitPicZ.length != 0) {
+        self.FacadeIDImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:account.identitPicZ]]];
+    }
+    if (account.identitPicF.length != 0) {
+        self.oppositeIDImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:account.identitPicF]]];
+    }
     [self listTableView];
 }
 #pragma mark - 懒加载
@@ -118,25 +125,36 @@
         remindLabel.text = @"提示:请上传本人身份证";
         
         self.idZMBtn = [[UIButton alloc] init];
-        UIImage *idImage = [UIImage imageNamed:@"mine_zhenmian"];
-        [self.idZMBtn setBackgroundImage:idImage forState:UIControlStateNormal];
         [self.idZMBtn addTarget:self action:@selector(idZMBtnAction) forControlEvents:UIControlEventTouchUpInside];
         [headerCell.contentView addSubview:self.idZMBtn];
+        if (self.FacadeIDImage == nil) {
+            [self.idZMBtn setBackgroundImage:[UIImage imageNamed:@"mine_zhenmian"] forState:UIControlStateNormal];
+            
+        }else{
+            [self.idZMBtn setBackgroundImage:self.FacadeIDImage forState:UIControlStateNormal];
+        }
+        UIImage *img = [UIImage imageNamed:@"mine_zhenmian"];
         self.idZMBtn.sd_layout
         .topSpaceToView(remindLabel, 15)
         .leftSpaceToView(headerCell.contentView, 30)
         .widthIs((kScreenWidth-3*30)/2)
-        .heightIs(((kScreenWidth-3*30)/2)*idImage.size.height/idImage.size.width);
+        .heightIs(((kScreenWidth-3*30)/2)*img.size.height/img.size.width);
+        
         
         self.idFMBtn = [[UIButton alloc] init];
-        [self.idFMBtn setBackgroundImage:[UIImage imageNamed:@"mine_fanmian"] forState:UIControlStateNormal];
+        if (self.oppositeIDImage == nil) {
+            
+            [self.idFMBtn setBackgroundImage:[UIImage imageNamed:@"mine_fanmian"] forState:UIControlStateNormal];
+        }else{
+            [self.idFMBtn setBackgroundImage:self.oppositeIDImage forState:UIControlStateNormal];
+        }
         [self.idFMBtn addTarget:self action:@selector(idFMBtnAction) forControlEvents:UIControlEventTouchUpInside];
         [headerCell.contentView addSubview:self.idFMBtn];
         self.idFMBtn.sd_layout
         .topSpaceToView(remindLabel, 15)
         .rightSpaceToView(headerCell.contentView, 30)
         .widthIs((kScreenWidth-3*30)/2)
-        .heightIs(((kScreenWidth-3*30)/2)*idImage.size.height/idImage.size.width);
+        .heightIs(((kScreenWidth-3*30)/2)*img.size.height/img.size.width);
         
         UILabel *idZMLabel = [[UILabel alloc] init];
         idZMLabel.textColor = [UIColor blackColor];
@@ -205,6 +223,14 @@
             .rightEqualToView(cell.contentView)
             .bottomSpaceToView(cell.contentView, 0);
         }
+        LYAccount *account = [LYAccount shareAccount];
+        if (self.nameTextField.text.length == 0) {
+            self.nameTextField.text = account.trueName;
+        }
+        if (self.idNumberTextField.text.length == 0) {
+            self.idNumberTextField.text = account.identit;
+        }
+        
         return cell;
     }else{
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewThirdCell"];

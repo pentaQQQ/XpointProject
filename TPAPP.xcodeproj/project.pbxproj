@@ -377,8 +377,8 @@
 		8E8B0BD02191315E002D9949 /* CXSearchSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B0BCE2191315D002D9949 /* CXSearchSectionModel.m */; };
 		8E8B0BD12191315E002D9949 /* CXSearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B0BCF2191315D002D9949 /* CXSearchModel.m */; };
 		8E8B0BD5219131C0002D9949 /* CXDBHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B0BD3219131C0002D9949 /* CXDBHandle.m */; };
-		8E8B0BD721913355002D9949 /* Qiniu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E9A5E1E215F0B530084C9F1 /* Qiniu.framework */; };
-		8E8B0BD821913355002D9949 /* QMChatSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E9A5E1D215F0B530084C9F1 /* QMChatSDK.framework */; };
+		8E8B0BD721913355002D9949 /* Qiniu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E9A5E1E215F0B530084C9F1 /* Qiniu.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		8E8B0BD821913355002D9949 /* QMChatSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E9A5E1D215F0B530084C9F1 /* QMChatSDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		8E8B0BDA219133A7002D9949 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E8B0BD9219133A6002D9949 /* libsqlite3.tbd */; };
 		8E8B0BDC219144B7002D9949 /* SearchHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E8B0BDB219144B7002D9949 /* SearchHeaderView.xib */; };
 		8E8B0BDF219181EA002D9949 /* QImoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B0BDE219181EA002D9949 /* QImoModel.m */; };
@@ -5065,7 +5065,7 @@
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TPAPP/Classes/Manual(第三方)/WechatSDK1.8.2",
@@ -5123,7 +5123,7 @@
 				GCC_PREFIX_HEADER = TPAPP/APPDelegate/Prefix.pch;
 				INFOPLIST_FILE = TPAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TPAPP/Classes/Manual(第三方)/WechatSDK1.8.2",
