@@ -27,6 +27,7 @@
 #import "imagesListModel.h"
 #import "DeleteGoodsListController.h"
 #import "ZLPhotoPickerBrowserViewController.h"
+#import "NewLoginViewController.h"
 #define Image(name) [UIImage imageNamed:name]
 @interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate,DeclareAbnormalAlertViewDelegate,DeclareAbnormalAlertViewRemindDelegate>
 {
@@ -130,56 +131,66 @@
 #pragma mark - 下拉刷新数据
 - (void)loadNewTopic
 {
-    NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
+    
     LYAccount *lyAccount = [LYAccount shareAccount];
-    [dataDict setValue:lyAccount.id forKey:@"userId"];
-    [dataDict setValue:@"0" forKey:@"status"];
-    [LYTools postBossDemoWithUrl:cartList param:dataDict success:^(NSDictionary *dict) {
-        [self.CartTableView.mj_header endRefreshing];
-        [self.dataSource removeAllObjects];
-        [self.dataSource addObject:@[]];
-        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            self.goodsCartModel = [GoodsCartModel mj_objectWithKeyValues:dict[@"data"]];
-            self.goodsCartModel.userId = lyAccount.id;
-            NSMutableArray *allTimeArr = [NSMutableArray array];
-            for (NSDictionary *dic in dict[@"data"][@"cartDetails"]) {
-                //1.取出所有的商户id
-                [allTimeArr addObject:dic[@"productForm"][@"merchantId"]];
-            }
-            self->_dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
-            for (NSString *nowTim in self->_dateSectionArr) {
-                NSMutableArray *arr = [[NSMutableArray alloc] init];
-                for (NSDictionary *ordersDicTwo in dict[@"data"][@"cartDetails"]) {
-                    NSString *twoTim = ordersDicTwo[@"productForm"][@"merchantId"];
-                    if([twoTim isEqualToString:nowTim]){
-                        //2.将每个字典保存在模型数组中
-                        CartDetailsModel *model = [CartDetailsModel mj_objectWithKeyValues:ordersDicTwo];
-                        model.SelectedType = @"已选中";
-                        model.Type = @"1";
-                        model.CheckAll = @"1";
-                        model.Edit= @"0";
-                        model.EditBtn = @"0";
-                        model.userId = lyAccount.id;
-                        SimilarProductModel *sModel = [SimilarProductModel mj_objectWithKeyValues:ordersDicTwo[@"productForm"]];
-                        model.productForm = sModel;
-                        [arr addObject:model];
-                    }
+    if ([lyAccount.id length] == 0) {
+        [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+        NewLoginViewController*vc = [[NewLoginViewController alloc]init];
+        RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+        rootVC.rt_disableInteractivePop = YES ;
+        [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+    }else{
+        NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
+        [dataDict setValue:lyAccount.id forKey:@"userId"];
+        [dataDict setValue:@"0" forKey:@"status"];
+        [LYTools postBossDemoWithUrl:cartList param:dataDict success:^(NSDictionary *dict) {
+            [self.CartTableView.mj_header endRefreshing];
+            [self.dataSource removeAllObjects];
+            [self.dataSource addObject:@[]];
+            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+            if ([respCode isEqualToString:@"00000"]) {
+                self.goodsCartModel = [GoodsCartModel mj_objectWithKeyValues:dict[@"data"]];
+                self.goodsCartModel.userId = lyAccount.id;
+                NSMutableArray *allTimeArr = [NSMutableArray array];
+                for (NSDictionary *dic in dict[@"data"][@"cartDetails"]) {
+                    //1.取出所有的商户id
+                    [allTimeArr addObject:dic[@"productForm"][@"merchantId"]];
                 }
-
-                [self.dataSource addObject:arr];
+                self->_dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
+                for (NSString *nowTim in self->_dateSectionArr) {
+                    NSMutableArray *arr = [[NSMutableArray alloc] init];
+                    for (NSDictionary *ordersDicTwo in dict[@"data"][@"cartDetails"]) {
+                        NSString *twoTim = ordersDicTwo[@"productForm"][@"merchantId"];
+                        if([twoTim isEqualToString:nowTim]){
+                            //2.将每个字典保存在模型数组中
+                            CartDetailsModel *model = [CartDetailsModel mj_objectWithKeyValues:ordersDicTwo];
+                            model.SelectedType = @"已选中";
+                            model.Type = @"1";
+                            model.CheckAll = @"1";
+                            model.Edit= @"0";
+                            model.EditBtn = @"0";
+                            model.userId = lyAccount.id;
+                            SimilarProductModel *sModel = [SimilarProductModel mj_objectWithKeyValues:ordersDicTwo[@"productForm"]];
+                            model.productForm = sModel;
+                            [arr addObject:model];
+                        }
+                    }
+                    
+                    [self.dataSource addObject:arr];
+                }
+                [self.CartTableView reloadData];
+            }else if([dict[@"code"]longValue] == 500){
+                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
             }
+        } fail:^(NSError *error) {
+            [self.dataSource removeAllObjects];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:@"[Error]\n似乎已断开与互联网的连接" withDuration:1.5];
+            [self.CartTableView.mj_header endRefreshing];
+            [self.dataSource addObject:@[]];
             [self.CartTableView reloadData];
-        }else if([dict[@"code"]longValue] == 500){
-            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
-        }
-    } fail:^(NSError *error) {
-        [self.dataSource removeAllObjects];
-        [SVProgressHUD doAnythingFailedWithHUDMessage:@"[Error]\n似乎已断开与互联网的连接" withDuration:1.5];
-        [self.CartTableView.mj_header endRefreshing];
-        [self.dataSource addObject:@[]];
-        [self.CartTableView reloadData];
-    }];
+        }];
+    }
+    
 }
 //去除数组中重复的
 -(NSArray *)arrayWithMemberIsOnly:(NSArray *)array

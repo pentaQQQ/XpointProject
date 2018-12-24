@@ -27,6 +27,7 @@
 #import "ElseTableCell.h"
 #import "MXNavigationBarManager.h"
 #import "PerformanceModel.h"
+#import "NewLoginViewController.h"
 #define SCREEN_RECT [UIScreen mainScreen].bounds
 static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 //static const CGFloat headerImageHeight = 260.0f;
@@ -283,7 +284,14 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.text = @"我的";
     self.navigationItem.titleView= titleLabel;
-    
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    if ([lyAccount.id length] == 0) {
+        [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+        NewLoginViewController*vc = [[NewLoginViewController alloc]init];
+        RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+        rootVC.rt_disableInteractivePop = YES ;
+        [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+    }
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
