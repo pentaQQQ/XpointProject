@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "homePageHeaderModel.h"
 @interface ClassDetailViewController : BaseViewController
 @property(nonatomic,strong)NSArray*arr;
+@property(nonatomic,strong)homePageHeaderModel *pageModel;
 @end

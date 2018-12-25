@@ -20,13 +20,14 @@
 @property(nonatomic,copy)NSString *merchantCode;
 @property(nonatomic,copy)NSString *merchantId;
 @property(nonatomic,copy)NSString *merchantName;
+@property(nonatomic,copy)NSString *merchantUrl;
 @property(nonatomic,copy)NSString *productCode;
 @property(nonatomic,copy)NSString *productName;
 @property(nonatomic,copy)NSString *realAmount;
 @property(nonatomic,copy)NSString *sort;
 @property(nonatomic,strong)NSArray *specs;
 @property(nonatomic,copy)NSString *status;
-
+@property(nonatomic,copy)NSString *unuseAmount;
 
 
 

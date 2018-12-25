@@ -14,11 +14,10 @@
 #import "SearchViewController.h"
 #import "LXFloaintButton.h"
 #import "zhuanfaViewController.h"
-
 #import "homePageHeaderModel.h"
-
-
-@interface HomePageController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
+#import "AdvertisingModel.h"
+@interface HomePageController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate,SDCycleScrollViewDelegate>
+@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentScrollView *pageContentScrollView;
 @property(nonatomic,strong)LXFloaintButton *button;
@@ -113,10 +112,14 @@
     [self.view addSubview:_pageTitleView];
     
     
+    
+    
+    
     NSMutableArray *childArr = [NSMutableArray array];
     for (int i=0; i<self.titleArr.count; i++) {
         homePageHeaderModel *model = self.dataArr[i];
         ClassDetailViewController *vc = [[ClassDetailViewController alloc]init];
+        vc.pageModel = self.dataArr[i];
         vc.arr = model.releaseActivities;
         [childArr addObject:vc];
     }
@@ -156,7 +159,6 @@
 }
 
 
-
 //网络请求实列
 - (void)lodaDataSuccess:(void(^)(id respons))success{
     
@@ -170,13 +172,10 @@
             for (NSDictionary *dic in json[@"data"]) {
                 homePageHeaderModel *model = [homePageHeaderModel mj_objectWithKeyValues:dic];
                 [self.titleArr addObject:model.labelName];
-                
                 [self.dataArr addObject:model];
             }
             success(self.titleArr);
-            
         }
-        
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];

@@ -336,13 +336,13 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 #pragma mark -自定义导航栏返回按钮
 - (void)createItems
 {
-    self.leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.leftBtn.frame = CGRectMake(0, 0, 25, 25);
-    //    self.leftBtn.backgroundColor = [UIColor whiteColor];
-    [self.leftBtn setImage:[UIImage imageNamed:@"消息_white"] forState:UIControlStateNormal];
-    [self.leftBtn addTarget:self action:@selector(leftBackAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *itemleft = [[UIBarButtonItem alloc] initWithCustomView:self.leftBtn];
-    self.navigationItem.leftBarButtonItem = itemleft;
+//    self.leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.leftBtn.frame = CGRectMake(0, 0, 25, 25);
+//    //    self.leftBtn.backgroundColor = [UIColor whiteColor];
+//    [self.leftBtn setImage:[UIImage imageNamed:@"消息_white"] forState:UIControlStateNormal];
+//    [self.leftBtn addTarget:self action:@selector(leftBackAction) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *itemleft = [[UIBarButtonItem alloc] initWithCustomView:self.leftBtn];
+//    self.navigationItem.leftBarButtonItem = itemleft;
     
     
     self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];

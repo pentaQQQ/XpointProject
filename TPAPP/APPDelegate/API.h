@@ -61,13 +61,13 @@
 //获取商户列表
 #define getMerchantList [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/main/getMerchantList"]
 //根据商户查询商品信息,返回所有已上架商品
-#define getProductByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getProductByMerchantId"]
+#define getProductByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/main/getProductByActivityId"]
 //上传身份证信息
 #define uploadIdeniti [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/eshopUser/ideniti"]
 //上传身份证信息
 #define fileUploadFile [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/file/uploadFile"]
 //根据商户查询活动信息,前端拿到数据需判断活动结束时间
-#define getActivityByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getActivityByMerchantId"]
+#define getActivityByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getMerchantMain"]
 
 
 //根据关键词和商户ID搜索商品,返回所有已上架商品
@@ -113,7 +113,8 @@
 //获取支付页面数据，订单id集合，逗号隔开
 #define makeOrderDetail [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/order/makeOrderDetail"]
 
-
+//获取首页轮播广告（已排序）
+#define getAdvertising [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/main/getAdvertising"]
 //申请售后的接口
 //提交售后申请
 #define orderReturnsApply [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/orderReturns/applyReturns"]

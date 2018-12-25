@@ -129,6 +129,7 @@
 		01304F81214912570040936F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01304F80214912570040936F /* UIKit.framework */; };
 		0133B27C21BEAD460069946F /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0133B27B21BEAD460069946F /* AlipaySDK.framework */; };
 		0133B27E21BEAD6E0069946F /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0133B27D21BEAD6E0069946F /* AlipaySDK.bundle */; };
+		013E7F1621D1FD9A00DCF115 /* AdvertisingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 013E7F1521D1FD9A00DCF115 /* AdvertisingModel.m */; };
 		01418C7521C0F68A00455812 /* TFFileUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 01418C7421C0F68A00455812 /* TFFileUploadManager.m */; };
 		01418C7721C0F6A700455812 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01418C7621C0F6A700455812 /* MobileCoreServices.framework */; };
 		014C5C1021B774BF00774B1D /* GenerationPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014C5C0F21B774BF00774B1D /* GenerationPaymentViewController.m */; };
@@ -819,6 +820,8 @@
 		01304F80214912570040936F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0133B27B21BEAD460069946F /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		0133B27D21BEAD6E0069946F /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		013E7F1421D1FD9A00DCF115 /* AdvertisingModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdvertisingModel.h; sourceTree = "<group>"; };
+		013E7F1521D1FD9A00DCF115 /* AdvertisingModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdvertisingModel.m; sourceTree = "<group>"; };
 		01418C7321C0F68A00455812 /* TFFileUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFFileUploadManager.h; sourceTree = "<group>"; };
 		01418C7421C0F68A00455812 /* TFFileUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFFileUploadManager.m; sourceTree = "<group>"; };
 		01418C7621C0F6A700455812 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -3671,6 +3674,8 @@
 				8E78BE152136447D000A9EA4 /* imagesListModel.m */,
 				8E3E6D89213E764C007B3306 /* shanghuModel.h */,
 				8E3E6D8A213E764C007B3306 /* shanghuModel.m */,
+				013E7F1421D1FD9A00DCF115 /* AdvertisingModel.h */,
+				013E7F1521D1FD9A00DCF115 /* AdvertisingModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4520,6 +4525,7 @@
 				0112100D213392FD0071AC5F /* JXCategoryTitleView.m in Sources */,
 				8E9A5E9F215F140D0084C9F1 /* QMChatRoomCardCell.m in Sources */,
 				01120F0A21338F9C0071AC5F /* InviteAwardController.m in Sources */,
+				013E7F1621D1FD9A00DCF115 /* AdvertisingModel.m in Sources */,
 				01120F1C21338FB70071AC5F /* CartHeaderCell.m in Sources */,
 				8E9A5EC0215F140D0084C9F1 /* QMProfileManager.m in Sources */,
 				547C49621F1DBB8200178B67 /* BaseTabBarController.m in Sources */,

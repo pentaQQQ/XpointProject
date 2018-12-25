@@ -148,29 +148,28 @@
 - (void)lodaHuodongData
 {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:self.ID forKey:@"id"];
+    [dic setValue:nil forKey:@"activityId"];
+    [dic setValue:self.ID forKey:@"merchantId"];
+    [dic setValue:@"0" forKey:@"pageNum"];
+    [dic setValue:@"5" forKey:@"pageSize"];
     [[NetworkManager sharedManager] getWithUrl:getActivityByMerchantId param:dic success:^(id json) {
-        
         NSLog(@"%@",json);
-        
-        
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            
-            for (NSDictionary *dic in json[@"data"]) {
-                releaseActivitiesModel *model = [releaseActivitiesModel mj_objectWithKeyValues:dic];
-                
+//            for (NSDictionary *dic in json[@"data"][@"releaseActivityApiResult"]) {
+                releaseActivitiesModel *model = [releaseActivitiesModel mj_objectWithKeyValues:json[@"data"][@"releaseActivityApiResult"]];
                 [self.dataArr addObject:model];
-
+//            }
+            for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {
+                SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
+                [self.dataArr addObject:model];
             }
-            
-            [self lodaData];
+            [self.tableview reloadData];
+//            [self lodaData];
         }
-        
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    
 }
 
 

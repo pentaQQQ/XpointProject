@@ -19,6 +19,7 @@
 #import "HuoDongCell.h"
 #import "PiliangzhuanfaViewController.h"
 #import "DeclareAbnormalAlertView.h"
+#import "releaseActivitiesModel.h"
 @interface GoodsDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIDocumentInteractionControllerDelegate,DeclareAbnormalAlertViewDelegate>
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)UITableView*tableview;
@@ -114,7 +115,7 @@
 - (void)lodaData
 {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:self.ID forKey:@"id"];
+    [dic setValue:self.model.id forKey:@"id"];
     [[NetworkManager sharedManager] getWithUrl:getProductByActivityId param:dic success:^(id json) {
         
         NSLog(@"%@",json);
@@ -142,7 +143,10 @@
 - (void)lodaHuodongData
 {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:self.ID forKey:@"id"];
+    [dic setValue:self.model.id forKey:@"activityId"];
+    [dic setValue:self.model.merchantId forKey:@"merchantId"];
+    [dic setValue:@(0) forKey:@"pageNum"];
+    [dic setValue:@(6) forKey:@"pageSize"];
     [[NetworkManager sharedManager] getWithUrl:getActivityByMerchantId param:dic success:^(id json) {
         
         NSLog(@"%@",json);
@@ -150,15 +154,16 @@
         
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            
-            for (NSDictionary *dic in json[@"data"]) {
+            //            for (NSDictionary *dic in json[@"data"][@"releaseActivityApiResult"]) {
+            releaseActivitiesModel *model = [releaseActivitiesModel mj_objectWithKeyValues:json[@"data"][@"releaseActivityApiResult"]];
+            [self.dataArr addObject:model];
+            //            }
+            for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {
                 SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
                 [self.dataArr addObject:model];
             }
-
-            [self lodaData];
-            
-            
+            [self.tableview reloadData];
+            //            [self lodaData];
         }
         
     } failure:^(NSError *error) {
