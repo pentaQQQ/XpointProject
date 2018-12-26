@@ -41,7 +41,11 @@
 @end
 
 @implementation GoodsDetailViewController
-
+{
+    int _buyGoodNumber;
+    int _dataRefreshNumber;
+    BOOL _isFetching;
+}
 
 -(NSMutableArray*)dataArr{
     if (_dataArr == nil) {
@@ -55,7 +59,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUpTableview];
-    [self lodaHuodongData];
+//    [self lodaHuodongData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,7 +82,11 @@
     
     [self.view addSubview:tableview];
     
+    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+    [self.tableview.mj_header beginRefreshing];
     
+    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+    self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
     
     XinHeChengTuView *xinheview = [[NSBundle mainBundle]loadNibNamed:@"XinHeChengTuView" owner:self options:nil].lastObject;
     self.xinheview = xinheview;
@@ -108,8 +116,17 @@
     
 }
 
-
-
+- (void)headerRereshing
+{
+    _dataRefreshNumber = 0;
+    [self lodaHuodongData];
+    
+}
+- (void)footerRereshing
+{
+    _dataRefreshNumber++;
+    [self lodaHuodongData];
+}
 
 
 - (void)lodaData
@@ -140,40 +157,83 @@
 
 
 
+
 - (void)lodaHuodongData
 {
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:self.model.id forKey:@"activityId"];
-    [dic setValue:self.model.merchantId forKey:@"merchantId"];
-    [dic setValue:@(0) forKey:@"pageNum"];
-    [dic setValue:@(6) forKey:@"pageSize"];
-    [[NetworkManager sharedManager] getWithUrl:getActivityByMerchantId param:dic success:^(id json) {
-        
-        NSLog(@"%@",json);
-        
-        
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            //            for (NSDictionary *dic in json[@"data"][@"releaseActivityApiResult"]) {
-            releaseActivitiesModel *model = [releaseActivitiesModel mj_objectWithKeyValues:json[@"data"][@"releaseActivityApiResult"]];
-            [self.dataArr addObject:model];
-            //            }
-            for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {
-                SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
-                [self.dataArr addObject:model];
+    _isFetching = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setValue:self.model.id forKey:@"activityId"];
+        [dic setValue:self.model.merchantId forKey:@"merchantId"];
+        [dic setValue:@(self->_dataRefreshNumber) forKey:@"pageNum"];
+        [dic setValue:@(5) forKey:@"pageSize"];
+        [[NetworkManager sharedManager] getWithUrl:getActivityByMerchantId param:dic success:^(id json) {
+            
+            NSLog(@"%@",json);
+            
+            
+            NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+            if ([respCode isEqualToString:@"00000"]) {
+                if (self->_dataRefreshNumber == 0) {
+                    
+                    [self.dataArr removeAllObjects];
+                    releaseActivitiesModel *model = [releaseActivitiesModel mj_objectWithKeyValues:json[@"data"][@"releaseActivityApiResult"]];
+                    [self.dataArr addObject:model];
+                    for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {
+                        SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
+                        [self.dataArr addObject:model];
+                    }
+                    [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+                    
+                }else{
+                    
+                    if ([json[@"data"][@"productApiResults"][@"data"] count] < 5) {
+                        [self.tableview.mj_footer endRefreshingWithNoMoreData];
+                    }else{
+                        //                    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:0]; //创建一个临时数组
+                        for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {
+                            SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
+                            //                        [tempArray addObject:model];
+                            [self.dataArr addObject:model];
+                        }
+                        [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                            self->_isFetching = NO;
+//                            [self.tableview reloadData];
+//                        });
+                        //                    NSMutableArray *insertInexPaths = [NSMutableArray arrayWithCapacity:[tempArray count]];
+                        //                    //创建一个临时数据存放indexpath
+                        //                    for (NSInteger i = 0; i< tempArray.count; i++) {
+                        //                        // 取出后面需要加入的indexPath放进刚刚的那个临时数组
+                        //                        NSIndexPath *newPath = [NSIndexPath indexPathForRow:[self.dataArr indexOfObject:[tempArray objectAtIndex:i]] inSection:0];
+                        //                        [insertInexPaths addObject:newPath];
+                        //                    }
+                        //                    //把新的数据插入到后面
+                        //                    [self.tableview insertRowsAtIndexPaths:insertInexPaths withRowAnimation:(UITableViewRowAnimationNone)];
+                    }
+                    
+                }
+                
             }
-            [self.tableview reloadData];
-            //            [self lodaData];
-        }
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
         
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
+        
+    });
+    
+   
+    
     
 }
 
-
-
+- (void)reloadDeals
+{
+    [self.tableview reloadData];
+    [self.tableview.mj_header endRefreshing];
+    [self.tableview.mj_footer endRefreshing];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataArr.count;
@@ -196,6 +256,7 @@
         cell.model = model;
         
         [cell setAddGoodsGoCartBlock:^(specsModel *model) {
+            self->_buyGoodNumber = [cell.goodsNumberLabel.text intValue];
             LYAccount *lyAccount = [LYAccount shareAccount];
             if ([lyAccount.isRemark intValue] == 1) {
                 DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"添加商品备注" message:@"请输入备注信息" delegate:self leftButtonTitle:@"不下单" rightButtonTitle:@"下单" comCell:nil isAddGood:YES spesmodel:model];
@@ -205,7 +266,7 @@
                 [dic setValue:model.productId forKey:@"productId"];
                 [dic setValue:model.size forKey:@"size"];
                 [dic setValue:lyAccount.id forKey:@"userId"];
-                [dic setValue:@"1" forKey:@"number"];
+                [dic setValue:[NSString stringWithFormat:@"%d",self->_buyGoodNumber] forKey:@"number"];
                 [dic setValue:model.id forKey:@"cartDetailId"];
                 [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
                     NSLog(@"%@",dict);
@@ -501,7 +562,7 @@
         LYAccount *lyAccount = [LYAccount shareAccount];
         [dic setValue:lyAccount.id forKey:@"userId"];
         [dic setValue:alertView.textView.text forKey:@"remark"];
-        [dic setValue:@"1" forKey:@"number"];
+        [dic setValue:[NSString stringWithFormat:@"%d",self->_buyGoodNumber] forKey:@"number"];
         [dic setValue:model.id forKey:@"cartDetailId"];
         [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
             NSLog(@"%@",dict);

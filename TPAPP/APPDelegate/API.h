@@ -14,7 +14,7 @@
 //#define WeChateSecret   @"045dd77a293df7f7dc340fc69211d097"//微信开发者账号Secret
 //#define WeChateappid    @"wx354bd4644a16d2e1"//微信开发者账号appid
 #define AliSchemeKey @"tianyangcangappalipay"
-#define WeChateSecret   @"a5315115b905a26a31e02ad5659fa22a"//微信开发者账号Secret
+#define WeChateSecret   @"844ce927ffd81e5eee4c936e84c37da3"//微信开发者账号Secret
 #define WeChateappid    @"wxf366f6ce13931de9"//微信开发者账号appid
 
 

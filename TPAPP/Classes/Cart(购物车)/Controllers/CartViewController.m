@@ -164,9 +164,9 @@
                         if([twoTim isEqualToString:nowTim]){
                             //2.将每个字典保存在模型数组中
                             CartDetailsModel *model = [CartDetailsModel mj_objectWithKeyValues:ordersDicTwo];
-                            model.SelectedType = @"已选中";
-                            model.Type = @"1";
-                            model.CheckAll = @"1";
+                            model.SelectedType = @"未选中支付";
+                            model.Type = @"0";
+                            model.CheckAll = @"0";
                             model.Edit= @"0";
                             model.EditBtn = @"0";
                             model.userId = lyAccount.id;
@@ -554,7 +554,7 @@
                     if (arr.count > 0) {
                         [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
                         [self postCenter];
-                        //[self.CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        //[self.CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
                         NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
                         NSInteger index = 0; //判读section下的row是否全部勾选
                         for (NSInteger i = 0; i < arr.count; i++) {
@@ -575,14 +575,14 @@
                         [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
                         //一个section刷新
                         NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-                        [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
 //                        self.CartTableView.backgroundView = nil;
 //                        [self.CartTableView reloadData];
                     }else{
                         [self.dataSource removeObjectAtIndex:indexPath.section];
                         [self postCenter];
 //                        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-//                        [self.CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+//                        [self.CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
 //                        self.CartTableView.backgroundView = nil;
                         [self.CartTableView reloadData];
                     }
@@ -801,7 +801,7 @@
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
 }
 
 /********************************************
@@ -832,7 +832,7 @@
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     
 }
 
@@ -894,7 +894,7 @@
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     
 }
 
@@ -1102,7 +1102,7 @@
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     
     NSLog(@"%ld",section);
 }
@@ -1147,9 +1147,9 @@
             
             //                //一个section刷新
             //                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-            //                [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            //                [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
             
-            [self.CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
             
         }else{
             [self.dataSource removeObjectAtIndex:indexPath.section];
@@ -1157,7 +1157,7 @@
             [self postCenter];
             
             NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-            [self.CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
         }
         
         
