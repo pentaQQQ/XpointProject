@@ -89,13 +89,13 @@
     [dic setValue:self.openId forKey:@"openId"];
     [dic setValue:@"register" forKey:@"method"];
     [dic setValue:@"3" forKey:@"type"];
-    
-//    NSString *urlstr = [NSString stringWithFormat:@"%@/phone=%@&validCode=%@&inviteCode=%@&openId=%@&method=%@&type=%@",getreg,self.phoneNumberField.text,self.codeField.text,self.code,self.openId,@"register",@"3"];
     [[NetworkManager sharedManager]postWithUrl:getreg param:dic success:^(id json) {
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             [SVProgressHUD doAnythingSuccessWithHUDMessage:@"注册成功" withDuration:1.5];
+            NSString *data = [NSString stringWithFormat:@"%@",json[@"data"]];
+            [[NSUserDefaults standardUserDefaults]setValue:data forKey:@"token"];
             [self getPeopleInfomation];
         }else{
             [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];

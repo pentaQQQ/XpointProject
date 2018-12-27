@@ -370,66 +370,127 @@
         UIImage *image = info[UIImagePickerControllerOriginalImage];
         NSLog(@"%@",image);
 //        [SVProgressHUD doAnythingWithHUDMessage:nil];
+//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//        formatter.dateFormat = @"yyyyMMddHHmmssSSS";
+//        NSString *str = [formatter stringFromDate:[NSDate date]];
+//        NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
+//        NSString *headUrl = [NSString stringWithFormat:@"http://47.92.193.30/images/%@",imageName];
+//        // 创建文件管理器
+//        NSFileManager *fileManager = [NSFileManager defaultManager];
+//        //获取路径
+//        //参数NSDocumentDirectory要获取那种路径
+//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+//        NSString *documenDirectory = [paths objectAtIndex:0];//去处需要的路径
+//        NSString *path = [documenDirectory stringByAppendingPathComponent:imageName];
+//        BOOL isEXsit = [fileManager fileExistsAtPath:path];
+//        if (isEXsit) {
+//            [fileManager removeItemAtPath:path error:nil];
+//            [fileManager createFileAtPath:path contents:nil attributes:nil];
+//        }else {
+//            [fileManager createFileAtPath:path contents:nil attributes:nil];
+//        }
+//        NSData *data = [[NSData alloc] init];
+//        data = UIImageJPEGRepresentation(image,0.5);
+//        [data writeToFile:path atomically:YES];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"yyyyMMddHHmmssSSS";
         NSString *str = [formatter stringFromDate:[NSDate date]];
+        
         NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
-        NSString *headUrl = [NSString stringWithFormat:@"http://47.92.193.30/images/%@",imageName];
-        // 创建文件管理器
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        //获取路径
-        //参数NSDocumentDirectory要获取那种路径
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-        NSString *documenDirectory = [paths objectAtIndex:0];//去处需要的路径
-        NSString *path = [documenDirectory stringByAppendingPathComponent:imageName];
-        BOOL isEXsit = [fileManager fileExistsAtPath:path];
-        if (isEXsit) {
-            [fileManager removeItemAtPath:path error:nil];
-            [fileManager createFileAtPath:path contents:nil attributes:nil];
-        }else {
-            [fileManager createFileAtPath:path contents:nil attributes:nil];
-        }
-        NSData *data = [[NSData alloc] init];
-        data = UIImageJPEGRepresentation(image,0.5);
-        [data writeToFile:path atomically:YES];
-        
-        NMSSHSession *session = [NMSSHSession connectToHost:@"47.92.193.30" port:22 withUsername:@"root"];
-        if (session.isConnected) {
-            [session authenticateByPassword:@"yb0820@!8"];
-            if (session.isAuthorized) {
-                NSLog(@"Authentication succeeded");
-            }
-        }
-        NSError *error = nil;
-        NSString *response = [session.channel execute:@"ls -l /usr/local/files/" error:&error];
-        NSLog(@"List of my sites: %@", response);
-        BOOL success = [session.channel uploadFile:path to:@"/usr/local/files/images/"];
-        if (success) {
-            NSLog(@"上传成功");
-            [fileManager removeItemAtPath:path error:nil];
-            [[NetworkManager sharedManager] postWithUrl:editUserMessage param:@{@"headUrl":headUrl} success:^(id json) {
-//                [SVProgressHUD dismiss];
-                NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-                if ([respCode isEqualToString:@"00000"]) {
-                    [LYAccount mj_objectWithKeyValues:json[@"data"]];
-                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"昵称头像成功" withDuration:1.5];
-                    [self prepareData];
-                    [self.tableView reloadData];
-                }else{
-                    [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
-                }
-            } failure:^(NSError *error) {
-                
-            }];
-        }else{
-            NSLog(@"上传失败");
-        }
-         [session disconnect];
-        
-        
+
+        [self uploadPicturesImage:image nsNo:imageName];
+//        NMSSHSession *session = [NMSSHSession connectToHost:@"47.92.193.30" port:22 withUsername:@"root"];
+//        if (session.isConnected) {
+//            [session authenticateByPassword:@"yb0820@!8"];
+//            if (session.isAuthorized) {
+//                NSLog(@"Authentication succeeded");
+//            }
+//        }
+//        NSError *error = nil;
+//        NSString *response = [session.channel execute:@"ls -l /usr/local/files/" error:&error];
+//        NSLog(@"List of my sites: %@", response);
+//        BOOL success = [session.channel uploadFile:path to:@"/usr/local/files/images/"];
+//        if (success) {
+//            NSLog(@"上传成功");
+//            [fileManager removeItemAtPath:path error:nil];
+//            [[NetworkManager sharedManager] postWithUrl:editUserMessage param:@{@"headUrl":headUrl} success:^(id json) {
+////                [SVProgressHUD dismiss];
+//                NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+//                if ([respCode isEqualToString:@"00000"]) {
+//                    [LYAccount mj_objectWithKeyValues:json[@"data"]];
+//                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"昵称头像成功" withDuration:1.5];
+//                    [self prepareData];
+//                    [self.tableView reloadData];
+//                }else{
+//                    [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+//                }
+//            } failure:^(NSError *error) {
+//
+//            }];
+//        }else{
+//            NSLog(@"上传失败");
+//        }
+//         [session disconnect];
+//
+//
     }];
 }
-
+-(void)uploadPicturesImage:(UIImage* )image nsNo:(NSString* )nsNo
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"multipart/form-data",@"text/plain",@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    [manager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    NSData* imagedata = UIImageJPEGRepresentation(image, 1.0);
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setValue:imagedata forKey:@"multipartFile"];
+    NSLog(@"字典的值：%@", parameters);
+    [manager POST:fileUploadFile parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>_Nonnull formData) {
+        //上传文件参数
+        if (imagedata) {
+            NSString * type;
+            NSString * mimeType;
+            type = @"jpg";
+            mimeType = @"image/jpeg";
+            NSString * fileName = nsNo;
+            [formData appendPartWithFileData:imagedata name:@"multipartFile" fileName:fileName mimeType:mimeType];
+            
+        }
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        //打印上传进度
+        CGFloat progress = 100.0 * uploadProgress.completedUnitCount / uploadProgress.totalUnitCount;
+        NSLog(@"%.2lf%%", progress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
+        //请求成功
+        NSDictionary *dics = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        if ([dics[@"respCode"] isEqualToString:@"00000"]) {
+            NSString *imageUrl = dics[@"data"];
+            if (imageUrl.length != 0) {
+                [[NetworkManager sharedManager] postWithUrl:editUserMessage param:@{@"headUrl":imageUrl} success:^(id json) {
+                    //                [SVProgressHUD dismiss];
+                    NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+                    if ([respCode isEqualToString:@"00000"]) {
+                        [LYAccount mj_objectWithKeyValues:json[@"data"]];
+                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"昵称头像成功" withDuration:1.5];
+                        [self prepareData];
+                        [self.tableView reloadData];
+                    }else{
+                        [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                    }
+                } failure:^(NSError *error) {
+                    
+                }];
+            }
+        }
+        
+        NSLog(@"返回的说明desc：%@", dics);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //请求失败
+        NSLog(@"请求失败：%@",error);
+    }];
+}
 -(void)existBoard{
     
     

@@ -90,8 +90,15 @@
     SGPageTitleViewConfigure *configure = [SGPageTitleViewConfigure pageTitleViewConfigure];
     configure.indicatorAdditionalWidth = 10; // 说明：指示器额外增加的宽度，不设置，指示器宽度为标题文字宽度；若设置无限大，则指示器宽度为按钮宽度
     configure.showBottomSeparator = NO;
-    configure.titleSelectedFont = [UIFont systemFontOfSize:14];
-    configure.titleColor = [UIColor lightGrayColor];
+    if (@available(iOS 8.2, *)) {
+        configure.titleSelectedFont = [UIFont systemFontOfSize:21.0 weight:UIFontWeightMedium];
+        configure.titleFont = [UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
+    } else {
+        // Fallback on earlier versions
+        configure.titleSelectedFont = [UIFont systemFontOfSize:21.0];
+        configure.titleFont = [UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
+    }
+    configure.titleColor = [UIColor blackColor];
     configure.titleSelectedColor = kRGBColor(228, 135, 60);
     configure.indicatorColor = kRGBColor(228, 135, 60);
     
