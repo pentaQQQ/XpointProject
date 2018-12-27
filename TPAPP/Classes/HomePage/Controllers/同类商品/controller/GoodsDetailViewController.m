@@ -45,6 +45,7 @@
     int _buyGoodNumber;
     int _dataRefreshNumber;
     BOOL _isFetching;
+    int _isFiveData;
 }
 
 -(NSMutableArray*)dataArr{
@@ -188,7 +189,18 @@
                 }else{
                     
                     if ([json[@"data"][@"productApiResults"][@"data"] count] < 5) {
-                        [self.tableview.mj_footer endRefreshingWithNoMoreData];
+                        self->_isFiveData++;
+                        if (self->_isFiveData > 1) {
+                           [self.tableview.mj_footer endRefreshingWithNoMoreData];
+                        }else{
+                            for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {
+                                SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
+                                //                        [tempArray addObject:model];
+                                [self.dataArr addObject:model];
+                            }
+                            [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+                        }
+                        
                     }else{
                         //                    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:0]; //创建一个临时数组
                         for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {

@@ -101,7 +101,8 @@
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
-            [self.listTableView.mj_header beginRefreshing];
+//            [self.listTableView.mj_header beginRefreshing];
+            [self loadNewTopic];
         }else{
             [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
         }
