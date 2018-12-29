@@ -110,7 +110,6 @@
 - (void)WXApiManagerPay:(PayResp *)payResp{
     //支付返回结果，实际支付结果需要去微信服务器端查询
     NSString *strMsg;
-    
     if (payResp.errCode == WXSuccess) {
         strMsg = @"支付结果：成功！";
         NSLog(@"支付成功－PaySuccess，retcode = %d", payResp.errCode);
@@ -120,12 +119,10 @@
         minePerCtrl.selectIndex = 1;
         [self.navigationController pushViewController:minePerCtrl animated:YES];
     }else{
-        [SVProgressHUD doAnyRemindWithHUDMessage:strMsg withDuration:1.0];
+        [SVProgressHUD doAnyRemindWithHUDMessage:@"支付失败" withDuration:1.0];
         strMsg = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", payResp.errCode,payResp.errStr];
         NSLog(@"错误，retcode = %d, retstr = %@", payResp.errCode,payResp.errStr);
     }
-    
-    
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

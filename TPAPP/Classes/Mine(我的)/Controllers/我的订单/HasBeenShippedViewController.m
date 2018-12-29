@@ -225,6 +225,9 @@
           .rightSpaceToView(view, 15)
           .widthIs(70)
           .heightIs(30);
+          paymentBtn.layer.cornerRadius = 3;
+          paymentBtn.layer.masksToBounds = YES;
+          
           UIButton*cancelGoodsBtn = [[UIButton alloc] init];
           cancelGoodsBtn.tag = section;
           cancelGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -238,6 +241,8 @@
           .rightSpaceToView(paymentBtn, 10)
           .widthIs(70)
           .heightIs(30);
+          cancelGoodsBtn.layer.cornerRadius = 3;
+          cancelGoodsBtn.layer.masksToBounds = YES;
       }
     }
     

@@ -383,6 +383,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
             headerCell = [[MineHeaderViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MineHeaderViewCell"];
         }
         headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [headerCell configModel];
         [headerCell setSelectBlcok:^(NSInteger selectNum) {
             if (selectNum == 0) {
                 

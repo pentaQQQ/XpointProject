@@ -166,7 +166,8 @@
     }
     else
     {
-        [SVProgressHUD doAnyRemindWithHUDMessage:@"支付失败" withDuration:1.0];
+        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"支付失败"] selectType:@"支付失败" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+        [alertView show];
     }
     
 }
@@ -184,7 +185,8 @@
         NSLog(@"支付成功－PaySuccess，retcode = %d", payResp.errCode);
         [self loadNewTopic];
     }else{
-        
+        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"支付失败"] selectType:@"支付失败" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+        [alertView show];
         strMsg = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", payResp.errCode,payResp.errStr];
         NSLog(@"错误，retcode = %d, retstr = %@", payResp.errCode,payResp.errStr);
     }
@@ -344,6 +346,9 @@
             .rightSpaceToView(view, 10)
             .widthIs(70)
             .heightIs(30);
+            lookLogisticsBtn.layer.cornerRadius = 3;
+            lookLogisticsBtn.layer.masksToBounds = YES;
+            
             
             UIButton *deliverGoodsBtn = [[UIButton alloc] init];
             deliverGoodsBtn.tag = section;
@@ -358,7 +363,8 @@
             .rightSpaceToView(lookLogisticsBtn, 10)
             .widthIs(70)
             .heightIs(30);
-            
+            deliverGoodsBtn.layer.cornerRadius = 3;
+            deliverGoodsBtn.layer.masksToBounds = YES;
             
         }else{
             UIButton *deliverGoodsBtn = [[UIButton alloc] init];
@@ -373,6 +379,8 @@
             .rightSpaceToView(view, 15)
             .widthIs(70)
             .heightIs(30);
+            deliverGoodsBtn.layer.cornerRadius = 3;
+            deliverGoodsBtn.layer.masksToBounds = YES;
         }
         
     }
@@ -398,7 +406,7 @@
           
             self->_selectDict = [[NSMutableDictionary alloc] initWithDictionary:json[@"data"]];
             if (self->_selectDict[@"amount"] != 0) {
-                DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确认支付运费%.2lf吗?",[self->_selectDict[@"amount"] doubleValue]] selectType:@"确认支付运费" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+                DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"你选择的订单中有%df个收货地址且不满三件,您需额外支付%.2lf元运费,确认支付运费?",[self->_selectDict[@"addressNum"] intValue],[self->_selectDict[@"amount"] doubleValue]] selectType:@"确认支付运费" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
                 [alertView show];
             }else{
                 DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确认批量发货吗"] selectType:@"确认批量发货" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
@@ -502,20 +510,14 @@
                     } fail:^(NSError *error) {
                         
                     }];
-                    
-                    
                 }
               }];
-                
-
-            
         }else if ([type isEqualToString:@"确认批量发货"]){
             [[NetworkManager sharedManager]postWithUrl:confirmDeliverySubmit param:_selectDict success:^(id json) {
                 NSLog(@"%@",json);
                 NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
                 if ([respCode isEqualToString:@"00000"]) {
                     [self loadNewTopic];
-                    
                 }else{
                     [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
                 }

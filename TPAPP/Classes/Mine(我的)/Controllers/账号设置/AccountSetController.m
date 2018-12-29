@@ -259,7 +259,7 @@
     YSStaticDefaultModel *model6 = [[YSStaticDefaultModel alloc] init];
     model6.title = @"实名认证";
     LYAccount *account = [LYAccount shareAccount];
-    if ([account.realName isEqualToString:@"0"]) {
+    if ([account.trueName isEqualToString:@"0"]) {
         model6.indicatorTitle = @"未认证";
     }else{
        model6.indicatorTitle = @"已认证";

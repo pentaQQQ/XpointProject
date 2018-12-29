@@ -33,4 +33,5 @@ typedef NS_ENUM(NSUInteger, GradientType) {
 @property (nonatomic, strong)UILabel *moneyLabel;
 @property (nonatomic, strong)UIView *moneyView;
 @property (nonatomic, strong)void(^selectBlcok)(NSInteger);
+- (void)configModel;
 @end

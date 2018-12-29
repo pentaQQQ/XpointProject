@@ -261,6 +261,8 @@
             .rightSpaceToView(view, 15)
             .widthIs(70)
             .heightIs(30);
+            paymentBtn.layer.cornerRadius = 3;
+            paymentBtn.layer.masksToBounds = YES;
         }
         if ([model.afterStatus isEqualToString:@"8"]) {
             UIButton *returningBtn = [[UIButton alloc] init];
@@ -276,6 +278,8 @@
             .rightSpaceToView(view, 15)
             .widthIs(70)
             .heightIs(30);
+            returningBtn.layer.cornerRadius = 3;
+            returningBtn.layer.masksToBounds = YES;
         }
     }
     
