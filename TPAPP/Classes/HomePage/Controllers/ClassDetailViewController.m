@@ -13,15 +13,23 @@
 #import "GoodsDetailViewController.h"
 #import "homePageHeaderModel.h"
 #import "AdvertisingModel.h"
+
+#import "fenxiangTanchuangView.h"
+
+
 @interface ClassDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView*tableview;
 @property(nonatomic,strong)NSMutableArray*dataArr;
 @property(nonatomic,strong)SDCycleScrollView*scrollview;
 @property(nonatomic,strong)NSMutableArray*imagesArr;
 //@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
+
+@property(nonatomic,weak)UIView *mengbanView;
+@property(nonatomic,strong)fenxiangTanchuangView *zhuanfaotherview;
 @end
 
 @implementation ClassDetailViewController
+
 - (NSMutableArray *)imagesArr
 {
     if (_imagesArr == nil) {
@@ -29,6 +37,8 @@
     }
     return _imagesArr;
 }
+
+
 -(NSMutableArray*)dataArr{
     
     if (_dataArr == nil) {
@@ -36,6 +46,8 @@
     }
     return _dataArr;
 }
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -133,6 +145,10 @@
 //        PiliangzhuanfaViewController *vc = [[PiliangzhuanfaViewController alloc]init];
 //        vc.ID = model.id;
 //        [self.navigationController pushViewController:vc animated:YES];
+        
+        
+        
+        [self tanchuang];
     };
     
     return cell;
@@ -163,6 +179,57 @@
     vc.title = model.merchantName;
     vc.model = model;
     [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+
+
+
+
+
+
+
+-(void)tanchuang
+
+{
+    
+    
+    UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
+    UIView *mengbanView = [[UIView alloc]init];
+    self.mengbanView = mengbanView;
+    self.mengbanView.frame = keyWindow.bounds;
+    [keyWindow addSubview:self.mengbanView];
+    mengbanView.alpha = 0.5;
+    mengbanView.backgroundColor=[UIColor blackColor];
+    
+    fenxiangTanchuangView *zhuanfaotherview = [[NSBundle mainBundle]loadNibNamed:@"fenxiangTanchuangView" owner:self options:nil].lastObject;
+    ViewBorderRadius(zhuanfaotherview, 5, 1, [UIColor clearColor]);
+    self.zhuanfaotherview = zhuanfaotherview;
+    zhuanfaotherview.frame = CGRectMake(20, (kScreenHeight-322)/2, kScreenWidth-40, 322);
+    
+    [keyWindow addSubview:zhuanfaotherview];
+    
+    UITapGestureRecognizer*tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
+    [mengbanView addGestureRecognizer:tap];
+    
+    
+    
+    __weak __typeof(self) weakSelf = self;
+    
+ 
+    
+    [zhuanfaotherview.shareBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        
+    }];
+    
+}
+
+
+
+-(void)tap{
+    
+    [self.zhuanfaotherview removeFromSuperview];
+    [self.mengbanView removeFromSuperview];
     
 }
 

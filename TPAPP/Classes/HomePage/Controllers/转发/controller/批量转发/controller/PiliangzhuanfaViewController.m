@@ -83,7 +83,7 @@
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.tableFooterView = [UIView new];
-    [self lodaData];
+ 
     [self getTheUserForwardConfi];
     
     
@@ -115,6 +115,30 @@
                 SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
                 [self.dataArr addObject:model];
             }
+            
+            if (self.dataArr.count >=  self.shareCount) {
+                self.topLab.text = [NSString stringWithFormat:@"当前已选中%d款商品",self.shareCount];
+                
+                for (int i =0; i<self.shareCount; i++) {
+                    
+                    NSString *ind = [NSString stringWithFormat:@"%d",i];
+                    
+                    [self.indexArr addObject:ind];
+                }
+                
+            }else{
+                self.topLab.text = [NSString stringWithFormat:@"当前已选中%lu款商品",(unsigned long)self.dataArr.count];
+                
+                for (int i =0; i<self.dataArr.count; i++) {
+                    
+                    NSString *ind = [NSString stringWithFormat:@"%d",i];
+                    
+                    [self.indexArr addObject:ind];
+                }
+                
+            }
+            
+            
             [self.tableview reloadData];
             
         }
@@ -171,21 +195,23 @@
     
     NSString *ind = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
     
-    if (self.indexArr.count == self.shareCount) {
-        NSString *ti = [NSString stringWithFormat:@"一次最多只能选%d个商品",self.shareCount];
-        [SVProgressHUD doAnyRemindWithHUDMessage:ti withDuration:1.5];
-        return;
-    }else{
+   
         
         if ([self.indexArr containsObject:ind]) {
             [self.indexArr removeObject:ind];
         }else{
             
-            [self.indexArr addObject:ind];
+            
+            if (self.indexArr.count == self.shareCount) {
+                NSString *ti = [NSString stringWithFormat:@"一次最多只能选%d个商品",self.shareCount];
+                [SVProgressHUD doAnyRemindWithHUDMessage:ti withDuration:1.5];
+                return;
+            }else{
+                 [self.indexArr addObject:ind];
+            }
+  
         }
         [self.tableview reloadData];
-    }
-    
     
     
 }
@@ -411,13 +437,13 @@
 //获取长图
 -(void)getTheChangTuWithArr:(NSMutableArray*)arr Success:(void(^)(UIImage *))success{
     
-    UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight/3)];
     [self.view insertSubview:scroll belowSubview:self.vi];
     
-    scroll.contentSize = CGSizeMake(kScreenWidth, kScreenHeight * arr.count);
+    scroll.contentSize = CGSizeMake(kScreenWidth, kScreenHeight * arr.count/3);
     for (int i =0; i<arr.count; i++) {
         UIImage *imag = arr[i];
-        UIImageView *ima = [[UIImageView alloc]initWithFrame:CGRectMake(0, kScreenHeight*i, kScreenWidth, kScreenHeight)];
+        UIImageView *ima = [[UIImageView alloc]initWithFrame:CGRectMake(0, kScreenHeight*i/3, kScreenWidth, kScreenHeight/3)];
         ima.image = imag;
         [scroll addSubview:ima];
     }
@@ -434,10 +460,6 @@
 
 
 
-
-
-
-
 //获取转发设置
 -(void)getTheUserForwardConfi{
     
@@ -448,12 +470,15 @@
     
     [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
         NSLog(@"%@",json);
-        
+       
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]){
             self.zhuanfamodel = [zhuanfaModel mj_objectWithKeyValues:json[@"data"]];
             self.shareCount =  [self.zhuanfamodel.num intValue];
             [self.tableview reloadData];
+            
+        [self lodaData];
+            
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);

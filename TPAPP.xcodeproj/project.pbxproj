@@ -343,6 +343,8 @@
 		8E3E6DB721421CD1007B3306 /* PiLiangzhuanfaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6DB521421CD1007B3306 /* PiLiangzhuanfaCell.xib */; };
 		8E3E6DBB21451FB0007B3306 /* HuoDongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E6DB921451FB0007B3306 /* HuoDongCell.m */; };
 		8E3E6DBC21451FB0007B3306 /* HuoDongCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6DBA21451FB0007B3306 /* HuoDongCell.xib */; };
+		8E5B33C021DC9FED00E6F183 /* fenxiangTanchuangView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B33BF21DC9FED00E6F183 /* fenxiangTanchuangView.m */; };
+		8E5B33C221DC9FF900E6F183 /* fenxiangTanchuangView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E5B33C121DC9FF900E6F183 /* fenxiangTanchuangView.xib */; };
 		8E78BDF52135343A000A9EA4 /* zhuanfasetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */; };
 		8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */; };
 		8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDF22135343A000A9EA4 /* tupiansetview.xib */; };
@@ -1185,6 +1187,9 @@
 		8E3E6DB821451FB0007B3306 /* HuoDongCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HuoDongCell.h; sourceTree = "<group>"; };
 		8E3E6DB921451FB0007B3306 /* HuoDongCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HuoDongCell.m; sourceTree = "<group>"; };
 		8E3E6DBA21451FB0007B3306 /* HuoDongCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HuoDongCell.xib; sourceTree = "<group>"; };
+		8E5B33BE21DC9FED00E6F183 /* fenxiangTanchuangView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fenxiangTanchuangView.h; sourceTree = "<group>"; };
+		8E5B33BF21DC9FED00E6F183 /* fenxiangTanchuangView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fenxiangTanchuangView.m; sourceTree = "<group>"; };
+		8E5B33C121DC9FF900E6F183 /* fenxiangTanchuangView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = fenxiangTanchuangView.xib; sourceTree = "<group>"; };
 		8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = zhuanfasetViewController.xib; sourceTree = "<group>"; };
 		8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhuanfasetViewController.m; sourceTree = "<group>"; };
 		8E78BDF02135343A000A9EA4 /* zhuanfasetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhuanfasetViewController.h; sourceTree = "<group>"; };
@@ -3688,6 +3693,9 @@
 				8EA952A1212AC4C50057AC78 /* goodsDetailCell.h */,
 				8EA952A2212AC4C50057AC78 /* goodsDetailCell.m */,
 				8EA952A3212AC4C50057AC78 /* goodsDetailCell.xib */,
+				8E5B33BE21DC9FED00E6F183 /* fenxiangTanchuangView.h */,
+				8E5B33BF21DC9FED00E6F183 /* fenxiangTanchuangView.m */,
+				8E5B33C121DC9FF900E6F183 /* fenxiangTanchuangView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4270,6 +4278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E5B33C221DC9FF900E6F183 /* fenxiangTanchuangView.xib in Resources */,
 				547C49AD1F1DBB8200178B67 /* tab_mine_nor@3x.png in Resources */,
 				547C49A91F1DBB8200178B67 /* tab_job_nor@3x.png in Resources */,
 				8EA9532E212BE0E20057AC78 /* HeaderTabView.xib in Resources */,
@@ -4610,6 +4619,7 @@
 				8E9A5F63215F14170084C9F1 /* TZImageCropManager.m in Sources */,
 				547C499C1F1DBB8200178B67 /* GVUserDefaults+Information.m in Sources */,
 				8EA95322212BDCC90057AC78 /* SearchViewController.m in Sources */,
+				8E5B33C021DC9FED00E6F183 /* fenxiangTanchuangView.m in Sources */,
 				019AEE4121382A5C00EB3405 /* NSMutableAttributedString+MLLabel.m in Sources */,
 				019AEE4221382A5C00EB3405 /* NSString+MLExpression.m in Sources */,
 				8E3E6D532138D5DB007B3306 /* WXMediaMessage+messageConstruct.m in Sources */,

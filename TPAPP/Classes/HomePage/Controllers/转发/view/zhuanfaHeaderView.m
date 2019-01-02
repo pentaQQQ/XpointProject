@@ -449,16 +449,22 @@
 -(void)getTheMerchanWitnTheMerchanId:(NSString*)merchanid{
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:merchanid forKey:@"id"];
+    [dic setValue:merchanid forKey:@"id"];//  getProductByMerchantId
     
     
-    [[NetworkManager sharedManager]getWithUrl:getProductByMerchantId param:dic success:^(id json) {
+    [[NetworkManager sharedManager] getWithUrl:getActivityByMerchantId param:dic success:^(id json) {
+    
         NSLog(@"%@",json);
+        
         
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]){
             [self.MerchanArray removeAllObjects];
-            for (NSDictionary *dic in json[@"data"]) {
+            for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {
+                
+                
+                
+                
                 
                 SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
                 [self.MerchanArray addObject:model];

@@ -63,6 +63,14 @@
 -(void)setShouqianBtn:(UIButton *)shouqianBtn{
     _shouqianBtn = shouqianBtn;
     ViewBorderRadius(shouqianBtn, 5, 1, [UIColor clearColor]);
+    WeakSelf(weakSelf);
+    [shouqianBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        if (weakSelf.TofuwuBlock) {
+            weakSelf.TofuwuBlock(weakSelf.model);
+        }
+    }];
+    
+    
 }
 -(void)setZhuanfaBtn:(UIButton *)zhuanfaBtn{
     _zhuanfaBtn = zhuanfaBtn;

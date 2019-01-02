@@ -300,7 +300,6 @@ static NSString *const headerViewIden = @"HeadViewIden";
     [[NetworkManager sharedManager]getWithUrl:getsearchProductByKeyword param:dict1 success:^(id json) {
         NSLog(@"%@",json);
         
-        
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             
@@ -316,9 +315,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
             }else{
                 self.tableview.hidden = NO;
             }
-            
-            
-            
+
             [self.tableview reloadData];
             
         }
