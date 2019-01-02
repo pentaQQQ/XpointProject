@@ -27,6 +27,7 @@
 #import "ElseTableCell.h"
 #import "MXNavigationBarManager.h"
 #import "PerformanceModel.h"
+#import "NewLoginViewController.h"
 #define SCREEN_RECT [UIScreen mainScreen].bounds
 static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 //static const CGFloat headerImageHeight = 260.0f;
@@ -283,7 +284,14 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.text = @"我的";
     self.navigationItem.titleView= titleLabel;
-    
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    if ([lyAccount.id length] == 0) {
+        [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+        NewLoginViewController*vc = [[NewLoginViewController alloc]init];
+        RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+        rootVC.rt_disableInteractivePop = YES ;
+        [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+    }
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -328,13 +336,13 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 #pragma mark -自定义导航栏返回按钮
 - (void)createItems
 {
-    self.leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.leftBtn.frame = CGRectMake(0, 0, 25, 25);
-    //    self.leftBtn.backgroundColor = [UIColor whiteColor];
-    [self.leftBtn setImage:[UIImage imageNamed:@"消息_white"] forState:UIControlStateNormal];
-    [self.leftBtn addTarget:self action:@selector(leftBackAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *itemleft = [[UIBarButtonItem alloc] initWithCustomView:self.leftBtn];
-    self.navigationItem.leftBarButtonItem = itemleft;
+//    self.leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.leftBtn.frame = CGRectMake(0, 0, 25, 25);
+//    //    self.leftBtn.backgroundColor = [UIColor whiteColor];
+//    [self.leftBtn setImage:[UIImage imageNamed:@"消息_white"] forState:UIControlStateNormal];
+//    [self.leftBtn addTarget:self action:@selector(leftBackAction) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *itemleft = [[UIBarButtonItem alloc] initWithCustomView:self.leftBtn];
+//    self.navigationItem.leftBarButtonItem = itemleft;
     
     
     self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -375,6 +383,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
             headerCell = [[MineHeaderViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MineHeaderViewCell"];
         }
         headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [headerCell configModel];
         [headerCell setSelectBlcok:^(NSInteger selectNum) {
             if (selectNum == 0) {
                 
@@ -881,8 +890,8 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
         return 180+20+SafeAreaTopHeight;
         //        return 240+20+SafeAreaTopHeight;
     }else if (indexPath.section == 3){
-                return 185;
-//        return 100;
+//                return 185;
+        return 100;
     }else{
         return 100+20;
     }

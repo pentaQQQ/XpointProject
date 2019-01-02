@@ -94,6 +94,8 @@
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             [SVProgressHUD doAnythingSuccessWithHUDMessage:@"注册成功" withDuration:1.5];
+            NSString *data = [NSString stringWithFormat:@"%@",json[@"data"]];
+            [[NSUserDefaults standardUserDefaults]setValue:data forKey:@"token"];
             [self getPeopleInfomation];
         }else{
             [SVProgressHUD doAnyRemindWithHUDMessage:json[@"respMessage"] withDuration:1.5];
@@ -103,7 +105,43 @@
     }];
 }
 
+-(NSString *)convertToJsonData:(NSDictionary *)dict
 
+{
+    
+    NSError *error;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSString *jsonString;
+    
+    if (!jsonData) {
+        
+        NSLog(@"%@",error);
+        
+    }else{
+        
+        jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+    }
+    
+    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
+    
+    NSRange range = {0,jsonString.length};
+    
+    //去掉字符串中的空格
+    
+    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
+    
+    NSRange range2 = {0,mutStr.length};
+    
+    //去掉字符串中的换行符
+    
+    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    
+    return mutStr;
+    
+}
 //获取用户信息
 -(void)getPeopleInfomation{
     

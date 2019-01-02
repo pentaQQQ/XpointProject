@@ -127,7 +127,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="顺丰快递" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fk-X4-o1j">
-                                    <rect key="frame" x="10" y="10" width="58" height="21"/>
+                                    <rect key="frame" x="10" y="9.5" width="58" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="jtY-9B-0l1"/>
                                     </constraints>
@@ -217,7 +217,7 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在北京市区东城区，即将发往上海" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9b-zd-IdN">
-                                    <rect key="frame" x="130" y="8" width="184" height="42"/>
+                                    <rect key="frame" x="130" y="8" width="205" height="42"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="42" id="bTr-eL-WUI"/>
                                     </constraints>
@@ -230,6 +230,7 @@
                             <constraints>
                                 <constraint firstItem="N9b-zd-IdN" firstAttribute="bottom" secondItem="Dwv-34-SwB" secondAttribute="bottom" id="1UQ-fw-zfU"/>
                                 <constraint firstItem="YZu-Rv-mba" firstAttribute="leading" secondItem="9v2-wf-3Ja" secondAttribute="leading" constant="10" id="8A4-AK-Qg9"/>
+                                <constraint firstItem="sgv-Ib-weO" firstAttribute="leading" secondItem="N9b-zd-IdN" secondAttribute="trailing" constant="10" id="8wq-b4-U0r"/>
                                 <constraint firstItem="Dwv-34-SwB" firstAttribute="centerY" secondItem="9v2-wf-3Ja" secondAttribute="centerY" id="CIg-aU-7od"/>
                                 <constraint firstAttribute="height" constant="60" id="Vm8-uP-HTn"/>
                                 <constraint firstItem="N9b-zd-IdN" firstAttribute="leading" secondItem="Dwv-34-SwB" secondAttribute="trailing" constant="10" id="c48-z3-fff"/>

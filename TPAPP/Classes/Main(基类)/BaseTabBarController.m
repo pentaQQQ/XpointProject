@@ -62,12 +62,12 @@
     //c6.tabBarItem.selectedImage =[[UIImage imageNamed:@"tab_market_nor"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     BaseNavigationController *fourthNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c6];
     
-    FindViewController *secondViewController = [[FindViewController alloc] init];
-    secondViewController.title=@"发现";
-    secondViewController.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_home"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    secondViewController.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_home_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    BaseNavigationController *secondNavigationController = [[BaseNavigationController alloc]
-                                                            initWithRootViewController:secondViewController];
+//    FindViewController *secondViewController = [[FindViewController alloc] init];
+//    secondViewController.title=@"发现";
+//    secondViewController.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_home"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    secondViewController.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_home_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    BaseNavigationController *secondNavigationController = [[BaseNavigationController alloc]
+//                                                            initWithRootViewController:secondViewController];
     
     CartViewController *c4=[[CartViewController alloc]init];
     c4.title=@"购物车";
@@ -87,14 +87,19 @@
     BaseNavigationController *sevenNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c7];
     
     
+//    NSArray *viewControllers = @[
+//                                 firstNavigationController,
+//                                 fourthNavigationController,
+//                                 secondNavigationController,
+//                                 thirdNavigationController,
+//                                 sevenNavigationController
+//                                 ];
     NSArray *viewControllers = @[
                                  firstNavigationController,
                                  fourthNavigationController,
-                                 secondNavigationController,
                                  thirdNavigationController,
                                  sevenNavigationController
                                  ];
-    
     self.viewControllers = viewControllers;
     [self loadNewTopic];
     
@@ -138,22 +143,22 @@
         if ([respCode isEqualToString:@"00000"]) {
             self.goodListNum =  [dict[@"data"][@"cartDetails"] count];
             if (self.goodListNum == 0) {
-                CartViewController *cartCtrl = self.viewControllers[3];
+                CartViewController *cartCtrl = self.viewControllers[2];
                 [cartCtrl.tabBarItem setBadgeValue:nil];
             }else{
-                CartViewController *cartCtrl = self.viewControllers[3];
+                CartViewController *cartCtrl = self.viewControllers[2];
                 [cartCtrl.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%ld",self.goodListNum]];
             }
             
         }else if([dict[@"code"]longValue] == 500){
             self.goodListNum = 0;
-            CartViewController *cartCtrl = self.viewControllers[3];
+            CartViewController *cartCtrl = self.viewControllers[2];
             [cartCtrl.tabBarItem setBadgeValue:nil];
            
         }
     } fail:^(NSError *error) {
         self.goodListNum = 0;
-        CartViewController *cartCtrl = self.viewControllers[3];
+        CartViewController *cartCtrl = self.viewControllers[2];
         [cartCtrl.tabBarItem setBadgeValue:nil];
         
     }];

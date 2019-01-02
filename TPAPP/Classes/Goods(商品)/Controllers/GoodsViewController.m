@@ -93,22 +93,22 @@
     
     
     
-    messageHeaderView *header = [[NSBundle mainBundle]loadNibNamed:@"messageHeaderView" owner:self options:nil].lastObject;
-    
-    header.frame = CGRectMake(0, 0, kScreenWidth, 80);
-    self.tableview.tableHeaderView =header;
-    __weak __typeof(self) weakSelf = self;
-    
-    header.messageBlock = ^{
-        SystemInformationController*vc = [[SystemInformationController alloc]init];
-        vc.isMyPush = NO;
-        [weakSelf.navigationController pushViewController:vc animated:YES];
-    };
-    
-    header.wuliuBlock = ^{
-        TransportationMessageViewController*vc = [[TransportationMessageViewController alloc]init];
-        [weakSelf.navigationController pushViewController:vc animated:YES];
-    };
+//    messageHeaderView *header = [[NSBundle mainBundle]loadNibNamed:@"messageHeaderView" owner:self options:nil].lastObject;
+//
+//    header.frame = CGRectMake(0, 0, kScreenWidth, 80);
+//    self.tableview.tableHeaderView =header;
+//    __weak __typeof(self) weakSelf = self;
+//
+//    header.messageBlock = ^{
+//        SystemInformationController*vc = [[SystemInformationController alloc]init];
+//        vc.isMyPush = NO;
+//        [weakSelf.navigationController pushViewController:vc animated:YES];
+//    };
+//
+//    header.wuliuBlock = ^{
+//        TransportationMessageViewController*vc = [[TransportationMessageViewController alloc]init];
+//        [weakSelf.navigationController pushViewController:vc animated:YES];
+//    };
     
     
     
@@ -129,7 +129,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
     static NSString *reuesId = @"TPMessageCell";
     TPMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:reuesId];
     if (cell == nil) {
@@ -140,7 +139,7 @@
     QImoModel *model = self.dataArr[indexPath.row];
     
     cell.titleLab.text = model.name;
-    
+    cell.imageview.image = [UIImage imageNamed:@"icon_kefu"];
     
     
     return cell;

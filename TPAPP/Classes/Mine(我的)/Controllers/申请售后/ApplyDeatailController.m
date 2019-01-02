@@ -436,10 +436,19 @@
         status == PHAuthorizationStatusDenied) {
         
     }else{
-        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        controller.delegate = self;
-        [self presentViewController:controller animated:YES completion:nil];
+        UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+        
+        pickerController.editing = YES;
+        
+        pickerController.delegate = self;
+        
+        pickerController.allowsEditing = YES;
+        
+        pickerController.navigationBar.translucent = NO;//去除毛玻璃效果
+        
+        pickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        [self presentViewController:pickerController animated:YES completion:nil];
     }
     
     

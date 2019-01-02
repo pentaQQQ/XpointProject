@@ -56,7 +56,8 @@
     .heightIs(20);
     
     self.nickNameTextField = [[UITextField alloc] init];
-    self.nickNameTextField.text = @"Alan";
+    LYAccount *account = [LYAccount shareAccount];
+    self.nickNameTextField.text = account.nickName;
     self.nickNameTextField.textColor = [UIColor grayColor];
     [self.topView addSubview:self.nickNameTextField];
     self.nickNameTextField.font = [UIFont systemFontOfSize:14];

@@ -41,7 +41,20 @@
     [self AddTheMerchanToShoppingCart];
 }
 
+- (IBAction)plusGoodsAction:(id)sender {
+    int goodsNum = [self.goodsNumberLabel.text intValue];
+    goodsNum++;
+    self.goodsNumberLabel.text = [NSString stringWithFormat:@"%d",goodsNum];
+}
 
+- (IBAction)minusGoodsAction:(id)sender {
+    int goodsNum = [self.goodsNumberLabel.text intValue];
+    if (goodsNum>1) {
+        goodsNum--;
+        self.goodsNumberLabel.text = [NSString stringWithFormat:@"%d",goodsNum];
+    }
+    
+}
 
 -(void)setImageview:(UIImageView *)imageview{
     _imageview = imageview;
@@ -64,8 +77,15 @@
     ViewBorderRadius(shoppingcartBtn, 5, 1, [UIColor clearColor]);
     shoppingcartBtn.userInteractionEnabled = NO;
 }
+-(void)setPlusGoodsBtn:(UIButton *)plusGoodsBtn{
+    _plusGoodsBtn = plusGoodsBtn;
+    ViewBorderRadius(plusGoodsBtn, 5, 1, [UIColor clearColor]);
+}
 
-
+-(void)setMinusGoodsBtn:(UIButton *)minusGoodsBtn{
+    _minusGoodsBtn = minusGoodsBtn;
+    ViewBorderRadius(minusGoodsBtn, 5, 1, [UIColor clearColor]);
+}
 
 
 

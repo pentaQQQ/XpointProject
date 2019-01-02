@@ -70,7 +70,9 @@ static NSString *const headerViewIden = @"HeadViewIden";
 
 
 @implementation SearchViewController
-
+{
+    int _buyGoodNumber;
+}
 
 -(NSMutableArray*)dataArr{
     if (_dataArr == nil) {
@@ -358,6 +360,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
         cell.model = model;
         
         [cell setAddGoodsGoCartBlock:^(specsModel *model) {
+            self->_buyGoodNumber = [cell.goodsNumberLabel.text intValue];
             LYAccount *lyAccount = [LYAccount shareAccount];
             if ([lyAccount.isRemark intValue] == 1) {
                 DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"添加商品备注" message:@"请输入备注信息" delegate:self leftButtonTitle:@"不下单" rightButtonTitle:@"下单" comCell:nil isAddGood:YES spesmodel:model];
@@ -367,7 +370,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
                 [dic setValue:model.productId forKey:@"productId"];
                 [dic setValue:model.size forKey:@"size"];
                 [dic setValue:lyAccount.id forKey:@"userId"];
-                [dic setValue:@"1" forKey:@"number"];
+                [dic setValue:[NSString stringWithFormat:@"%d",self->_buyGoodNumber] forKey:@"number"];
                 [dic setValue:model.id forKey:@"cartDetailId"];
                 [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
                     NSLog(@"%@",dict);
@@ -415,7 +418,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setValue:model.productId forKey:@"productId"];
         [dic setValue:model.size forKey:@"size"];
-        [dic setValue:@"1" forKey:@"number"];
+        [dic setValue:[NSString stringWithFormat:@"%d",self->_buyGoodNumber] forKey:@"number"];
         LYAccount *lyAccount = [LYAccount shareAccount];
         [dic setValue:lyAccount.id forKey:@"userId"];
         [dic setValue:alertView.textView.text forKey:@"remark"];

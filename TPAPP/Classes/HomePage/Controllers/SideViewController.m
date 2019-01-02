@@ -60,7 +60,30 @@
     }
     shanghuModel *model = self.titleArray[indexPath.row];
     
-    cell.textLabel.text = model.merchantName;
+    UIImageView *imageview = [[UIImageView alloc] init];
+    [imageview sd_setImageWithURL:[NSURL URLWithString:model.logo]];
+    [cell addSubview:imageview];
+    imageview.sd_layout
+    .topSpaceToView(cell, 10)
+    .leftSpaceToView(cell, 10)
+    .widthIs(30)
+    .heightIs(30);
+    imageview.layer.cornerRadius = 15;
+    imageview.layer.masksToBounds = YES;
+    
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.text = model.merchantName;
+    titleLabel.font = [UIFont systemFontOfSize:19];
+    [cell addSubview:titleLabel];
+    titleLabel.sd_layout
+    .topSpaceToView(cell, 10)
+    .leftSpaceToView(imageview, 10)
+    .rightSpaceToView(cell, 10)
+    .heightIs(30);
+    
+//    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:model.logo]];
+//    cell.detailTextLabel.text = model.merchantName;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -72,7 +95,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    return 50;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -88,7 +111,19 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return SafeAreaTopHeight;
+    return 50;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 50)];
+    bgView.backgroundColor = [UIColor whiteColor];
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.text = @"活动进行中";
+    titleLabel.frame = CGRectMake(10, 10, tableView.frame.size.width-20, 30);
+    titleLabel.font = [UIFont systemFontOfSize:21];
+    titleLabel.textColor = [UIColor colorWithRed:103/255.0 green:5/255.0 blue:47/255.0 alpha:1.0];
+    [bgView addSubview:titleLabel];
+    return bgView;
 }
 
 #pragma mark ---- lazyLoad View

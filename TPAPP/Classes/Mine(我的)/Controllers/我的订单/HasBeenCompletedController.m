@@ -217,6 +217,8 @@
         .rightSpaceToView(view, 15)
         .widthIs(70)
         .heightIs(30);
+        paymentBtn.layer.cornerRadius = 3;
+        paymentBtn.layer.masksToBounds = YES;
         if ([model.afterStatus isEqualToString:@"3"]) {
             goodStatus.text = @"申请退款";
         }else if ([model.afterStatus isEqualToString:@"4"]) {
@@ -240,6 +242,8 @@
             .rightSpaceToView(paymentBtn, 10)
             .widthIs(70)
             .heightIs(30);
+            cancelGoodsBtn.layer.cornerRadius = 3;
+            cancelGoodsBtn.layer.masksToBounds = YES;
         }
         
         

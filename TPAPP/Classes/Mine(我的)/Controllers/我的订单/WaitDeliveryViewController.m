@@ -261,6 +261,8 @@
             .rightSpaceToView(view, 15)
             .widthIs(70)
             .heightIs(30);
+            paymentBtn.layer.cornerRadius = 3;
+            paymentBtn.layer.masksToBounds = YES;
         }
         if ([model.afterStatus isEqualToString:@"8"]) {
             UIButton *returningBtn = [[UIButton alloc] init];
@@ -276,6 +278,8 @@
             .rightSpaceToView(view, 15)
             .widthIs(70)
             .heightIs(30);
+            returningBtn.layer.cornerRadius = 3;
+            returningBtn.layer.masksToBounds = YES;
         }
     }
     
@@ -284,7 +288,8 @@
 - (void)applyBtnAction:(UIButton *)btn
 {
     MineIndentModel *minModel = self.listDataArr[btn.tag];
-    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"确认退款" message:[NSString stringWithFormat:@"您的退款金额为%.2lf,运费:%.2lf，共:%.2lf确认退款?",minModel.orderAmountTotal,minModel.logisticsFee,minModel.orderAmountTotal+minModel.logisticsFee] selectType:@"退款" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
+//    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"确认退款" message:[NSString stringWithFormat:@"您的退款金额为%.2lf,运费:%.2lf，共:%.2lf确认退款?",minModel.orderAmountTotal,minModel.logisticsFee,minModel.orderAmountTotal+minModel.logisticsFee] selectType:@"退款" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
+    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"确认退款" message:[NSString stringWithFormat:@"您的退款金额为%.2lf,运费:0，共:%.2lf确认退款?",minModel.orderAmountTotal,minModel.orderAmountTotal] selectType:@"退款" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
     [alertView show];
     
     
@@ -306,7 +311,7 @@
             [dic setValue:@"1" forKey:@"state"];
             [dic setValue:@"无" forKey:@"why"];
             [dic setValue:@"无" forKey:@"remark"];
-            [dic setValue:@(minModel.orderAmountTotal+minModel.logisticsFee) forKey:@"applyAmount"];
+            [dic setValue:@(minModel.orderAmountTotal) forKey:@"applyAmount"];
             NSString *urlStr = orderReturnsApply;
             [[NetworkManager sharedManager]postWithUrl:urlStr param:dic success:^(id json) {
                 NSLog(@"%@",json);

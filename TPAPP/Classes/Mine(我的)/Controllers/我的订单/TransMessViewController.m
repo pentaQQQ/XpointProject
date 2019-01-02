@@ -146,6 +146,10 @@
             TransforMessModel *transModel = self.dataArray[0];
             transview.logiName.text = transModel.com;
             transview.logilistNum.text = transModel.nu;
+            transview.logilistNum.numberOfLines=0;
+            transview.logilistNum.textAlignment=NSTextAlignmentLeft;
+            transview.logilistNum.lineBreakMode=NSLineBreakByTruncatingTail;
+            
             TransforMessDetailModel *deModel = transModel.data[0];
             NSArray *arr = [deModel.time componentsSeparatedByString:@" "];
             transview.yearMouth.text = arr[0];

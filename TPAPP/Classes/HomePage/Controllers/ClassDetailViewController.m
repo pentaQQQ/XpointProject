@@ -11,13 +11,24 @@
 #import "goodsDetailCell.h"
 #import "releaseActivitiesModel.h"
 #import "GoodsDetailViewController.h"
+#import "homePageHeaderModel.h"
+#import "AdvertisingModel.h"
 @interface ClassDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView*tableview;
 @property(nonatomic,strong)NSMutableArray*dataArr;
 @property(nonatomic,strong)SDCycleScrollView*scrollview;
+@property(nonatomic,strong)NSMutableArray*imagesArr;
+//@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 @end
 
 @implementation ClassDetailViewController
+- (NSMutableArray *)imagesArr
+{
+    if (_imagesArr == nil) {
+        _imagesArr = [NSMutableArray array];
+    }
+    return _imagesArr;
+}
 -(NSMutableArray*)dataArr{
     
     if (_dataArr == nil) {
@@ -30,20 +41,49 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self setUpUI];
+    [self getAdvertisingData];
 }
-
+- (void)getAdvertisingData
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue:self.pageModel.id forKey:@"labelId"];
+    [[NetworkManager sharedManager] getWithUrl:getAdvertising param:dict success:^(id json) {
+        
+        NSLog(@"%@",json);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            NSMutableArray *arr = [NSMutableArray array];
+            for (NSDictionary *dic in json[@"data"]) {
+                AdvertisingModel *advModel = [AdvertisingModel mj_objectWithKeyValues:dic];
+                [arr addObject:advModel.imgUrl];
+                [self.imagesArr addObject:advModel];
+            }
+            if (arr.count != 0) {
+                self.scrollview.imageURLStringsGroup = arr;
+            }else{
+                self.tableview.tableHeaderView = [UIView new];
+            }
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 -(void)setUpUI{
     UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-SafeAreaTopHeight-44-49-SafeAreaBottomHeight) style:UITableViewStylePlain];
     self.tableview = tableview;
     [self.view addSubview:tableview];
     
+    SDCycleScrollView*scrollview = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenWidth, 150) delegate:self placeholderImage:nil];
+    scrollview.currentPageDotColor = [UIColor colorWithRed:255.0/255.0 green:107.0/255.0 blue:36.0/255.0 alpha:1.0];
+    scrollview.pageDotColor = [UIColor lightGrayColor];
+    self.scrollview = scrollview;
+    self.tableview.tableHeaderView = scrollview;
     
-//    SDCycleScrollView*scrollview = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenWidth, 100) delegate:self placeholderImage:[UIImage imageNamed:@"WechatIMG3"]];
-//
-//    self.scrollview = scrollview;
-//
-//    self.tableview.tableHeaderView = scrollview;
-//    self.scrollview.imageURLStringsGroup = [NSArray array];
+    
+    
     self.tableview.tableFooterView = [UIView new];
     
     self.tableview.delegate = self;
@@ -84,7 +124,8 @@
     
     cell.qianggouBlock = ^(releaseActivitiesModel *model) {
         GoodsDetailViewController *vc = [[GoodsDetailViewController alloc]init];
-        vc.ID = model.id;
+        vc.title = model.merchantName;
+        vc.model = model;
         [self.navigationController pushViewController:vc animated:YES];
     };
     
@@ -120,7 +161,7 @@
     releaseActivitiesModel*model = self.arr[indexPath.row];
     GoodsDetailViewController *vc = [[GoodsDetailViewController alloc]init];
     vc.title = model.merchantName;
-    vc.ID = model.id;
+    vc.model = model;
     [self.navigationController pushViewController:vc animated:YES];
     
 }
