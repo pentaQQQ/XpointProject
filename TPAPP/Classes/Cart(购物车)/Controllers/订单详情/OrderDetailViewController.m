@@ -93,7 +93,7 @@
 //    .heightIs(50);
     
     self.allGoodsPriceLabel = [[UILabel alloc] init];
-    self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal];
+    self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal+self.model.logisticsFee];
     self.allGoodsPriceLabel.textAlignment = NSTextAlignmentRight;
     self.allGoodsPriceLabel.textColor = colorWithRGB(0xFF6B24);
     self.allGoodsPriceLabel.font = [UIFont systemFontOfSize:17];
@@ -101,7 +101,7 @@
     self.allGoodsPriceLabel.sd_layout
     .topSpaceToView(self.bottomView,10)
     .rightSpaceToView(self.bottomView, 15)
-    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal] withFont:17])
+    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal+self.model.logisticsFee] withFont:17])
     .heightIs(30);
     
     self.buyGoodsPriceLabel = [[UILabel alloc] init];

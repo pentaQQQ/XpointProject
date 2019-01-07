@@ -406,7 +406,7 @@
           
             self->_selectDict = [[NSMutableDictionary alloc] initWithDictionary:json[@"data"]];
             if (self->_selectDict[@"amount"] != 0) {
-                DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"你选择的订单中有%df个收货地址且不满三件,您需额外支付%.2lf元运费,确认支付运费?",[self->_selectDict[@"addressNum"] intValue],[self->_selectDict[@"amount"] doubleValue]] selectType:@"确认支付运费" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+                DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"你选择的订单中有%d个收货地址且不满三件,您需额外支付%.2lf元运费,确认支付运费?",[self->_selectDict[@"addressNum"] intValue],[self->_selectDict[@"amount"] doubleValue]] selectType:@"确认支付运费" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
                 [alertView show];
             }else{
                 DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确认批量发货吗"] selectType:@"确认批量发货" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];

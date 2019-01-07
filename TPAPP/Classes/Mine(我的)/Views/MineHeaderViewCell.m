@@ -193,7 +193,11 @@
     .widthIs(100)
     .heightIs(20);
     [self.accountBtn addTarget:self action:@selector(accountAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.accountBtn setTitle:lyAccount.nickName forState:UIControlStateNormal];
+    if (lyAccount.trueName.length != 0) {
+        [self.accountBtn setTitle:lyAccount.trueName forState:UIControlStateNormal];
+    }else{
+        [self.accountBtn setTitle:lyAccount.nickName forState:UIControlStateNormal];
+    }
     [self.accountBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
     self.numberLabel = [[UILabel alloc] init];
