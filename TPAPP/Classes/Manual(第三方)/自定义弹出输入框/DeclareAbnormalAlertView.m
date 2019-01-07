@@ -142,6 +142,7 @@
     self.messageLabel.textAlignment = NSTextAlignmentCenter;
     self.messageLabel.numberOfLines = 2;
     self.messageLabel.font = [UIFont systemFontOfSize:15];
+    self.messageLabel.adjustsFontSizeToFitWidth = YES;
     self.messageLabel.textColor = [UIColor colorWithHexString:@"484848"];
     //        [self.messageLabel sizeToFit];
     [self.contentView addSubview:self.messageLabel];
