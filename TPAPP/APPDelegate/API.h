@@ -70,6 +70,9 @@
 #define getActivityByMerchantId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getMerchantMain"]
 
 
+
+
+
 //根据关键词和商户ID搜索商品,返回所有已上架商品
 #define getsearchProductByKeyword [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/searchProductByKeyword"]
 
