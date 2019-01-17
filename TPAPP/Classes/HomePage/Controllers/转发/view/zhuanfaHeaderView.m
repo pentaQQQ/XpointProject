@@ -451,8 +451,8 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:merchanid forKey:@"id"];//  getProductByMerchantId
     
-    
-    [[NetworkManager sharedManager] getWithUrl:getActivityByMerchantId param:dic success:^(id json) {
+    //getProductByActivityId   getActivityByMerchantId
+    [[NetworkManager sharedManager] getWithUrl:getsearchProductByKeyword param:dic success:^(id json) {
     
         NSLog(@"%@",json);
         
@@ -460,7 +460,7 @@
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]){
             [self.MerchanArray removeAllObjects];
-            for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {
+            for (NSDictionary *dic in json[@"data"]) {
                 
                 
                 
