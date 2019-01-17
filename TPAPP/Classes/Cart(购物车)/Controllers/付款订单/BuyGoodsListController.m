@@ -57,7 +57,8 @@
     }else{
         self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
     }
-    self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal]],@[@"优惠金额",@"-¥0.00"],@[@"运费",[NSString stringWithFormat:@"¥%.2lf",self.minModel.logisticsFee]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee]], nil];
+//    self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal]],@[@"优惠金额",@"-¥0.00"],@[@"运费",[NSString stringWithFormat:@"¥%.2lf",self.minModel.logisticsFee]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee]], nil];
+    self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee]],@[@"优惠金额",@"-¥0.00"],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee]], nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(aliPaytype:) name:@"aliPaytype"object:nil];
     self.title = @"支付订单";
@@ -74,6 +75,35 @@
     [dic setValue:self.minModel.id forKey:@"orderIds"];
     [[NetworkManager sharedManager] postWithUrl:makeOrderDetail param:dic success:^(id json) {
         NSLog(@"%@",json);
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+//            [self.listDataArr removeAllObjects];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+                for (NSDictionary *dics in json[@"data"]) {
+                    MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
+                    AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
+                    model.addressInfo = addressModel;
+                    OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
+                    model.orderLogistics = logisticsModel;
+                    [model.orderDetailList removeAllObjects];
+                    for (NSDictionary *newDic in dics[@"orderDetailList"]) {
+                        OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
+                        [model.orderDetailList addObject:orderDetailModel];
+                        
+                    }
+                    self.minModel.couponAmount = model.couponAmount;
+//                    [self.listDataArr addObject:model];
+                }
+            self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee-self.minModel.couponAmount];
+               self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee]],@[@"优惠金额",[NSString stringWithFormat:@"-¥%.2lf",self.minModel.couponAmount]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee-self.minModel.couponAmount]], nil];
+                [self.listTableView reloadData];
+//            });
+        }else if([json[@"code"]longValue] == 500){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                [self.listTableView reloadData];
+            });
+        }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -177,7 +207,7 @@
     self.allGoodsPriceLabel.sd_layout
     .topSpaceToView(self.bottomView,10)
     .leftSpaceToView(self.priceLabel, 5)
-    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal] withFont:19])
+    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee] withFont:19])
     .heightIs(30);
     
     self.allGoodsNumberLabel = [[UILabel alloc] init];
@@ -213,7 +243,7 @@
         [dic setValue:@"IOS" forKey:@"tradeType"];
         [dic setValue:@"order" forKey:@"type"];
         NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
-        [dic1 setValue:[NSString stringWithFormat:@"%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee] forKey:@"amount"];
+        [dic1 setValue:[NSString stringWithFormat:@"%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee-self.minModel.couponAmount] forKey:@"amount"];
         [dic1 setValue:self.minModel.id forKey:@"orderId"];
         [dic setValue:[NSMutableArray arrayWithObject:dic1]forKey:@"weiXinPayParams"];
         [LYTools postBossDemoWithUrl:wechatPayByOrder param:dic success:^(NSDictionary *dict) {
@@ -238,7 +268,7 @@
         [dic setValue:@"IOS" forKey:@"tradeType"];
         [dic setValue:@"order" forKey:@"type"];
         NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
-        [dic1 setValue:[NSString stringWithFormat:@"%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee] forKey:@"amount"];
+        [dic1 setValue:[NSString stringWithFormat:@"%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee-self.minModel.couponAmount] forKey:@"amount"];
         [dic1 setValue:self.minModel.id forKey:@"orderId"];
         [dic setValue:[NSMutableArray arrayWithObject:dic1]forKey:@"weiXinPayParams"];
         [LYTools postBossDemoWithUrl:aliPayByOrder param:dic success:^(NSDictionary *dict) {
@@ -318,7 +348,7 @@
     if (section == 0) {
         return 1;
     }else if (section == 1){
-        return 4;
+        return 3;
     }else{
         return 2;
     }

@@ -32,7 +32,7 @@ static NSString *const cxSearchCollectionViewCell = @"CXSearchCollectionViewCell
 static NSString *const headerViewIden = @"HeadViewIden";
 
 
-@interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UICollectionViewDataSource,UICollectionViewDelegate,SelectCollectionCellDelegate,UICollectionReusableViewButtonDelegate,UISearchBarDelegate,DeclareAbnormalAlertViewDelegate>
+@interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UICollectionViewDataSource,UICollectionViewDelegate,SelectCollectionCellDelegate,UICollectionReusableViewButtonDelegate,UISearchBarDelegate,DeclareAbnormalAlertViewDelegate,DeclareAbnormalAlertViewOrderListRemindDelegate>
 @property(nonatomic,strong)SearchHeaderView*headerview;
 @property(nonatomic,strong)UITableView*tableview;
 
@@ -375,7 +375,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
                     if ([respCode isEqualToString:@"00000"]) {
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
 //                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
-                        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"添加成功,是否跳到购物车" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comCell:nil isAddGood:NO spesmodel:nil];
+                        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"添加成功,是否跳到购物车" selectType:@"是否跳到购物车" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
                         [alertView show];
                     }else{
                         [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
@@ -414,39 +414,42 @@ static NSString *const headerViewIden = @"HeadViewIden";
     if (buttonIndex == AlertButtonLeft) {
         
     }else{
-        if (model == nil) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setValue:model.productId forKey:@"productId"];
+        [dic setValue:model.size forKey:@"size"];
+        [dic setValue:[NSString stringWithFormat:@"%d",self->_buyGoodNumber] forKey:@"number"];
+        LYAccount *lyAccount = [LYAccount shareAccount];
+        [dic setValue:lyAccount.id forKey:@"userId"];
+        [dic setValue:alertView.textView.text forKey:@"remark"];
+        [dic setValue:model.id forKey:@"cartDetailId"];
+        [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
+            NSLog(@"%@",dict);
+            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+            if ([respCode isEqualToString:@"00000"]) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
+                //                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+                DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"添加成功,是否跳到购物车" selectType:@"是否跳到购物车" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+                [alertView show];
+            }else{
+                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+            }
+        } fail:^(NSError *error) {
             
-        }else{
-            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-            [dic setValue:model.productId forKey:@"productId"];
-            [dic setValue:model.size forKey:@"size"];
-            [dic setValue:[NSString stringWithFormat:@"%d",self->_buyGoodNumber] forKey:@"number"];
-            LYAccount *lyAccount = [LYAccount shareAccount];
-            [dic setValue:lyAccount.id forKey:@"userId"];
-            [dic setValue:alertView.textView.text forKey:@"remark"];
-            [dic setValue:model.id forKey:@"cartDetailId"];
-            [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
-                NSLog(@"%@",dict);
-                NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-                if ([respCode isEqualToString:@"00000"]) {
-                    [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
-//                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
-                    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"添加成功,是否跳到购物车" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comCell:nil isAddGood:NO spesmodel:nil];
-                    [alertView show];
-                }else{
-                    [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
-                }
-            } fail:^(NSError *error) {
-                
-            }];
-        }
+        }];
         
         
         
         
     }
 }
-
+-(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel
+{
+    if (buttonIndex == AlertButtonLeft) {
+    }else{
+        self.tabBarController.selectedIndex = 2;
+        
+    }
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     SimilarProductModel*model = self.dataArr[indexPath.row];

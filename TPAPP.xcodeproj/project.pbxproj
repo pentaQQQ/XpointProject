@@ -212,6 +212,11 @@
 		01AD1A532148000200348238 /* DefaultAddressMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AD1A522148000200348238 /* DefaultAddressMessage.m */; };
 		01BC59A72147ADA7000FF81F /* MineIndentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BC59A62147ADA7000FF81F /* MineIndentModel.m */; };
 		01BC59AD2147B409000FF81F /* 上箭头@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01BC59AC2147B409000FF81F /* 上箭头@2x.png */; };
+		01BF066521F0896C007D288D /* CouponsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BF066421F0896C007D288D /* CouponsViewCell.m */; };
+		01BF066921F08DC4007D288D /* MyCouponsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BF066821F08DC4007D288D /* MyCouponsViewController.m */; };
+		01BF066C21F08E93007D288D /* CouponsSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BF066B21F08E93007D288D /* CouponsSegment.m */; };
+		01BF066F21F08F05007D288D /* AvailableCouponsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BF066E21F08F05007D288D /* AvailableCouponsController.m */; };
+		01BF067221F08F18007D288D /* ExpiredCouponsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BF067121F08F18007D288D /* ExpiredCouponsController.m */; };
 		01C2A28821BF6CF40072D4D6 /* FXPayTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C2A28521BF6CF30072D4D6 /* FXPayTypeView.m */; };
 		01C2A28921BF6CF40072D4D6 /* FXPayTypeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C2A28621BF6CF30072D4D6 /* FXPayTypeItemView.m */; };
 		01C2A28C21BFAA8E0072D4D6 /* TransforMessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C2A28B21BFAA8E0072D4D6 /* TransforMessModel.m */; };
@@ -956,6 +961,16 @@
 		01BC59A52147ADA7000FF81F /* MineIndentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineIndentModel.h; sourceTree = "<group>"; };
 		01BC59A62147ADA7000FF81F /* MineIndentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineIndentModel.m; sourceTree = "<group>"; };
 		01BC59AC2147B409000FF81F /* 上箭头@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上箭头@2x.png"; sourceTree = "<group>"; };
+		01BF066321F0896C007D288D /* CouponsViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponsViewCell.h; sourceTree = "<group>"; };
+		01BF066421F0896C007D288D /* CouponsViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponsViewCell.m; sourceTree = "<group>"; };
+		01BF066721F08DC4007D288D /* MyCouponsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCouponsViewController.h; sourceTree = "<group>"; };
+		01BF066821F08DC4007D288D /* MyCouponsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCouponsViewController.m; sourceTree = "<group>"; };
+		01BF066A21F08E93007D288D /* CouponsSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponsSegment.h; sourceTree = "<group>"; };
+		01BF066B21F08E93007D288D /* CouponsSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponsSegment.m; sourceTree = "<group>"; };
+		01BF066D21F08F05007D288D /* AvailableCouponsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AvailableCouponsController.h; sourceTree = "<group>"; };
+		01BF066E21F08F05007D288D /* AvailableCouponsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AvailableCouponsController.m; sourceTree = "<group>"; };
+		01BF067021F08F18007D288D /* ExpiredCouponsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpiredCouponsController.h; sourceTree = "<group>"; };
+		01BF067121F08F18007D288D /* ExpiredCouponsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpiredCouponsController.m; sourceTree = "<group>"; };
 		01C2A28421BF6CF20072D4D6 /* FXPayTypeItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXPayTypeItemView.h; sourceTree = "<group>"; };
 		01C2A28521BF6CF30072D4D6 /* FXPayTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXPayTypeView.m; sourceTree = "<group>"; };
 		01C2A28621BF6CF30072D4D6 /* FXPayTypeItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXPayTypeItemView.m; sourceTree = "<group>"; };
@@ -1682,6 +1697,8 @@
 				01120EA221338F9B0071AC5F /* RefundCell.m */,
 				01120EA321338F9B0071AC5F /* vip_icon.png */,
 				01120EA421338F9B0071AC5F /* 测试头像.jpeg */,
+				01BF066321F0896C007D288D /* CouponsViewCell.h */,
+				01BF066421F0896C007D288D /* CouponsViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1689,6 +1706,7 @@
 		01120EA521338F9C0071AC5F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				01BF066621F08D66007D288D /* 优惠券 */,
 				019AA51921343EFA0018A832 /* 系统信息 */,
 				01120EA621338F9C0071AC5F /* 会员等级 */,
 				01120EAD21338F9C0071AC5F /* 地址管理 */,
@@ -2458,6 +2476,21 @@
 				019AEE7821382B0B00EB3405 /* MomentKit.h */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		01BF066621F08D66007D288D /* 优惠券 */ = {
+			isa = PBXGroup;
+			children = (
+				01BF066A21F08E93007D288D /* CouponsSegment.h */,
+				01BF066B21F08E93007D288D /* CouponsSegment.m */,
+				01BF066721F08DC4007D288D /* MyCouponsViewController.h */,
+				01BF066821F08DC4007D288D /* MyCouponsViewController.m */,
+				01BF066D21F08F05007D288D /* AvailableCouponsController.h */,
+				01BF066E21F08F05007D288D /* AvailableCouponsController.m */,
+				01BF067021F08F18007D288D /* ExpiredCouponsController.h */,
+				01BF067121F08F18007D288D /* ExpiredCouponsController.m */,
+			);
+			path = "优惠券";
 			sourceTree = "<group>";
 		};
 		01C2A28D21BFAA9B0072D4D6 /* Models */ = {
@@ -4245,7 +4278,6 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -4493,6 +4525,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01BF066521F0896C007D288D /* CouponsViewCell.m in Sources */,
 				0112106F2133DAF60071AC5F /* ApplyDeatailCell.m in Sources */,
 				8E9A5EAA215F140D0084C9F1 /* TCFaceView.m in Sources */,
 				8E9A5EA9215F140D0084C9F1 /* QMChatRoomRobotReplyView.m in Sources */,
@@ -4591,6 +4624,7 @@
 				8E9A5EC9215F140D0084C9F1 /* QMPickedAudioViewController.m in Sources */,
 				01120FF7213392FD0071AC5F /* YYClassInfo.m in Sources */,
 				8E9A5F50215F14170084C9F1 /* MJRefreshConst.m in Sources */,
+				01BF066F21F08F05007D288D /* AvailableCouponsController.m in Sources */,
 				01120EFF21338F9C0071AC5F /* MineIndentChildController.m in Sources */,
 				01121001213392FD0071AC5F /* UIColor+JXAdd.m in Sources */,
 				01120F1E21338FB70071AC5F /* Helper.m in Sources */,
@@ -4600,6 +4634,7 @@
 				8E9A5F56215F14170084C9F1 /* MJRefreshBackStateFooter.m in Sources */,
 				019AEE9B21382B0B00EB3405 /* MMImagePreviewView.m in Sources */,
 				01121007213392FD0071AC5F /* JXCategoryLineStyleView.m in Sources */,
+				01BF066921F08DC4007D288D /* MyCouponsViewController.m in Sources */,
 				8EA9530C212BAA930057AC78 /* ZLPhotoPickerCollectionViewCell.m in Sources */,
 				8E8B0BC721913020002D9949 /* SelectCollectionLayout.m in Sources */,
 				8EA95303212BAA930057AC78 /* ZLPhotoPickerDatas.m in Sources */,
@@ -4710,6 +4745,7 @@
 				8EA952F9212BAA930057AC78 /* ZLPhotoPickerBrowserPhoto.m in Sources */,
 				019AEE9621382B0B00EB3405 /* Moment.m in Sources */,
 				0112100C213392FD0071AC5F /* JXCategoryTitleCellModel.m in Sources */,
+				01BF066C21F08E93007D288D /* CouponsSegment.m in Sources */,
 				8E9A5EA1215F140D0084C9F1 /* QMChatRoomFileCell.m in Sources */,
 				01121006213392FD0071AC5F /* JXCategoryLineStyleCellModel.m in Sources */,
 				0112106C2133DA120071AC5F /* ApplyDeatailController.m in Sources */,
@@ -4730,6 +4766,7 @@
 				547C49861F1DBB8200178B67 /* SGNormalPickerView.m in Sources */,
 				8E9A5EAF215F140D0084C9F1 /* TCExpressionSectionBar.m in Sources */,
 				8EA95305212BAA930057AC78 /* ZLPhotoAssets.m in Sources */,
+				01BF067221F08F18007D288D /* ExpiredCouponsController.m in Sources */,
 				019AEE9521382B0B00EB3405 /* Comment.m in Sources */,
 				019AEE9A21382B0B00EB3405 /* MMImageListView.m in Sources */,
 				011F47F3213E379D0070ABA2 /* ZLNoAuthorityViewController.m in Sources */,
@@ -5084,7 +5121,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9MHQLQBTW8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5142,7 +5179,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9MHQLQBTW8;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

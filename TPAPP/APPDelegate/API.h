@@ -30,8 +30,8 @@
 
 
 //#define kBaseUrl           @"http://47.92.193.30/"
-#define kBaseUrl           @"https://pay.shty518.com"
-
+//#define kBaseUrl           @"https://pay.shty518.com"
+#define kBaseUrl           @"http://pay.shty518.com:9999"
 
 
 

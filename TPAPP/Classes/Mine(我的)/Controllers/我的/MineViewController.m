@@ -28,6 +28,7 @@
 #import "MXNavigationBarManager.h"
 #import "PerformanceModel.h"
 #import "NewLoginViewController.h"
+#import "CouponsViewCell.h"
 #define SCREEN_RECT [UIScreen mainScreen].bounds
 static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 //static const CGFloat headerImageHeight = 260.0f;
@@ -369,7 +370,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 5;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -414,6 +415,19 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
         }
 //        [cell configWithMarketLimit:[NSMutableArray arrayWithObjects:@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0", nil] andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额",@"上月销售额",@"上月代购额", nil]];
         return cell;
+    }else if (indexPath.section ==2){
+        CouponsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CouponsViewCellID"];
+        if (!cell) {
+            cell = [[CouponsViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CouponsViewCellID"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        if (self.listDataArr.count == 0) {
+//            [cell configWithMarketLimit:[NSMutableArray arrayWithObjects:@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0", nil] andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额", nil]];
+//        }else{
+//            [cell configWithMarketLimit:self.listDataArr andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额", nil]];
+//        }
+        //        [cell configWithMarketLimit:[NSMutableArray arrayWithObjects:@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0", nil] andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额",@"上月销售额",@"上月代购额", nil]];
+        return cell;
     }
 //    else if (indexPath.section==2){
 //        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
@@ -445,7 +459,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 //        return cell;
 //
 //    }
-    else if (indexPath.section==2){
+    else if (indexPath.section==3){
         IndentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IndentCell"];
         if (!cell) {
             cell = [[IndentCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"IndentCell"];
@@ -688,7 +702,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 //    }else{
 //        return 50;
 //    }
-    if (section == 0 || section == 3) {
+    if (section == 0 || section == 2 || section == 4) {
         return 0;
     }else{
         return 50;
@@ -697,7 +711,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section == 0 || section == 3) {
+    if (section == 0 || section == 2 || section == 4) {
         return nil;
     }else {
         NSArray *listArr = @[@"我的销售业绩",@"我的订单",@"我的订单"];
@@ -861,7 +875,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 //    }else{
 //      return 0;
 //    }
-    if (section == 3) {
+    if (section == 4) {
         return 130;
     }else{
         return 0;
@@ -869,7 +883,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 3) {
+    if (section == 4) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 130)];
         view.backgroundColor = colorWithRGB(0xEEEEEE);
         return view;
@@ -889,9 +903,12 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
     if (indexPath.section==0) {
         return 180+20+SafeAreaTopHeight;
         //        return 240+20+SafeAreaTopHeight;
-    }else if (indexPath.section == 3){
+    }else if (indexPath.section == 4){
 //                return 185;
         return 100;
+    }else if (indexPath.section == 2){
+        //                return 185;
+        return 70;
     }else{
         return 100+20;
     }
@@ -912,6 +929,9 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 2) {
+        
+    }
 }
 
 
