@@ -335,8 +335,9 @@
                     if ([respCode isEqualToString:@"00000"]) {
                         
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
-                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
-                    
+//                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+                        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"添加成功,是否跳到购物车" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comCell:nil isAddGood:NO spesmodel:nil];
+                        [alertView show];
                     }else{
                         [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                     }
@@ -621,28 +622,35 @@
     if (buttonIndex == AlertButtonLeft) {
         
     }else{
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setValue:model.productId forKey:@"productId"];
-        [dic setValue:model.size forKey:@"size"];
-        LYAccount *lyAccount = [LYAccount shareAccount];
-        [dic setValue:lyAccount.id forKey:@"userId"];
-        [dic setValue:alertView.textView.text forKey:@"remark"];
-        [dic setValue:[NSString stringWithFormat:@"%d",self->_buyGoodNumber] forKey:@"number"];
-        [dic setValue:model.id forKey:@"cartDetailId"];
-        [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
-            NSLog(@"%@",dict);
-            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-            if ([respCode isEqualToString:@"00000"]) {
-//                CartDetailsModel *detailModel = [CartDetailsModel mj_objectWithKeyValues:dict[@"data"]];
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
-                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
-//                [self addRemarkMessage:alertView.textView.text andDetailModel:detailModel];
-            }else{
-                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
-            }
-        } fail:^(NSError *error) {
+        if (model == nil) {
             
-        }];
+        }else{
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setValue:model.productId forKey:@"productId"];
+            [dic setValue:model.size forKey:@"size"];
+            [dic setValue:[NSString stringWithFormat:@"%d",self->_buyGoodNumber] forKey:@"number"];
+            LYAccount *lyAccount = [LYAccount shareAccount];
+            [dic setValue:lyAccount.id forKey:@"userId"];
+            [dic setValue:alertView.textView.text forKey:@"remark"];
+            [dic setValue:model.id forKey:@"cartDetailId"];
+            [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
+                NSLog(@"%@",dict);
+                NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                if ([respCode isEqualToString:@"00000"]) {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
+                    //                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+                    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"添加成功,是否跳到购物车" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comCell:nil isAddGood:NO spesmodel:nil];
+                    [alertView show];
+                }else{
+                    [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                }
+            } fail:^(NSError *error) {
+                
+            }];
+        }
+        
+        
+        
         
     }
 }
