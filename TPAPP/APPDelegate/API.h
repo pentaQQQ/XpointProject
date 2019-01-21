@@ -171,4 +171,11 @@
 //微信接口
 #define wechatPayByOrder [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/weixinPay/getWeChatPreyIdByOrder"]
 
+//APP优惠券
+//根据userId查询不可用优惠券
+#define getUnuseCouponListByUserId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/coupon/getUnuseCouponListByUserId"]
+//根据userId查询可用优惠券
+#define getUseCouponListByUserId [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/coupon/getUseCouponListByUserId"]
+
+
 #endif /* API_h */

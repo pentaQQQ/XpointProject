@@ -7,6 +7,8 @@
 //
 
 #import "ExpiredCouponsController.h"
+#import "CouponModel.h"
+#import "MyCouponsCell.h"
 //#import "CouponsCell.h"
 //#import "CouponsPersonModel.h"
 static NSString *cellID = @"UsedCouponsCellID";
@@ -35,8 +37,9 @@ static NSString *cellID = @"UsedCouponsCellID";
         _listTableView.dataSource = self;
         _listTableView.tableFooterView = [UIView new];
         _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        //        _listTableView.sectionFooterHeight = 20;
-        //        [_listTableView registerNib:[UINib nibWithNibName:NSStringFromClass([CouponsCell class]) bundle:nil] forCellReuseIdentifier:cellID];
+        _listTableView.tableHeaderView = [UIView new];
+        _listTableView.sectionHeaderHeight = 0;
+//        [_listTableView registerNib:[UINib nibWithNibName:NSStringFromClass([MyCouponsCell class]) bundle:nil] forCellReuseIdentifier:cellID];
         [self.view addSubview:_listTableView];
         [_listTableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.view);
@@ -67,78 +70,86 @@ static NSString *cellID = @"UsedCouponsCellID";
 {
     [SVProgressHUD show];
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setValue:@(1) forKey:@"type"];
-    //    [[NetworkManager sharedManager] getWithUrl:selectCoupon param:dict success:^(id json) {
-    //        [SVProgressHUD dismiss];
-    //        [self.listDataArray removeAllObjects];
-    //        if ([json[@"code"] intValue] == 200) {
-    //            if (![json[@"body"] isKindOfClass:[NSNull class]]) {
-    //                for (NSDictionary *dict in json[@"body"]) {
-    //                    CouponsPersonModel *model = [CouponsPersonModel mj_objectWithKeyValues:dict];
-    //                    if (model.type == 1) {
-    //                        [self.listDataArray addObject:model];
-    //                    }
-    //                }
-    //            }
-    //
-    //            [self.listTableView reloadData];
-    //
-    //        }else{
-    //
-    //        }
-    //    } failure:^(NSError *error) {
-    //
-    //    }];
+    LYAccount *lyAcc = [LYAccount shareAccount];
+    [dict setValue:lyAcc.id forKey:@"userId"];
+    [[NetworkManager sharedManager] getWithUrl:getUnuseCouponListByUserId param:dict success:^(id json) {
+        [SVProgressHUD dismiss];
+        [self.listDataArray removeAllObjects];
+        if ([json[@"respCode"] isEqualToString:@"00000"]) {
+            for (NSDictionary *dict in json[@"data"]) {
+                CouponModel *model = [CouponModel mj_objectWithKeyValues:dict];
+                //                    if (model.type == 1) {
+                [self.listDataArray addObject:model];
+                //                    }
+            }
+            
+            [self.listTableView reloadData];
+            
+        }else{
+    
+        }
+    } failure:^(NSError *error) {
+    
+    }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-    
-}
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.listDataArray.count;
     
 }
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+    
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    static NSString *cellId = @"deviceSceneCellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
-    //    cell.backgroundColor = [UIColor clearColor];
-    //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    //    cell.bgImageview.image = [UIImage imageNamed:@"卡券BG-已使用已过期"];
-    //    cell.jbImageView.alpha = 0;
-    //    CouponsPersonModel *model = self.listDataArray[indexPath.row];
-    //    cell.moneyLabel.text = [NSString stringWithFormat:@"¥%@",model.money];
-    //    cell.couponsTypeLabel.textColor = HEXCOLOR(0x333333, 1.0);
-    //    cell.couponsTypeLabel.text = model.couponName;
-    //    cell.dateTimeLabel.text = [NSString stringWithFormat:@"有效期至:%@",model.endDateStr];
-    //    cell.detailLabel.text = model.describe;
-    //    if (model.couponType == 1) {
-    //        cell.couponsLabel.text = @"限制券";
-    //    }else{
-    //        cell.couponsLabel.text = @"非限制券";
-    //    }
-    //    [cell setSelectBlock:^(NSInteger num) {
-    //
-    //    }];
+    MyCouponsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (cell == nil) {
+        cell = [[MyCouponsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+    }
+    CouponModel *model = self.listDataArray[indexPath.section];
+    cell.bgImageview.image = [UIImage imageNamed:@"已使用"];
+    cell.dateTimeLabel.text = [NSString stringWithFormat:@"%@-%@",[[model.updateTime componentsSeparatedByString:@" "] firstObject],[[model.loseTime componentsSeparatedByString:@" "] firstObject]];
+    cell.merchantNameLabel.text = model.couponMerchantName;
+    
+    NSString *dateStr = [NSString stringWithFormat:@"%.0lfRMB",model.discountMoney];
+    NSRange range = NSMakeRange(dateStr.length - 3, 3);
+    NSMutableAttributedString *mutAttStr = [[NSMutableAttributedString alloc]initWithString:dateStr];
+    [mutAttStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.0] range:range];
+    cell.moneyLabel.attributedText = mutAttStr;
+    cell.detailLabel.text = [NSString stringWithFormat:@"满%.0lf可用",model.fullReduction];
+    cell.couponsTypeLabel.text = @"已过期";
+    cell.couponsLabel.text = model.couponName;
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 127;
+    return 170;
 }
-//-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-//{
-//    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 15)];
-//    return footerView;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-//    return 15;
-//
-//}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5)];
+    return footerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 5;
+    
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 15)];
+    return footerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 15;
+
+}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

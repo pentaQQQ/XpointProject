@@ -29,6 +29,7 @@
 #import "PerformanceModel.h"
 #import "NewLoginViewController.h"
 #import "CouponsViewCell.h"
+#import "MyCouponsViewController.h"
 #define SCREEN_RECT [UIScreen mainScreen].bounds
 static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 //static const CGFloat headerImageHeight = 260.0f;
@@ -930,7 +931,8 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 2) {
-        
+        MyCouponsViewController *fzCtrl = [[MyCouponsViewController alloc] init];
+        [self.navigationController pushViewController:fzCtrl animated:YES];
     }
 }
 

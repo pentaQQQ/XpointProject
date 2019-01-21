@@ -345,7 +345,7 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Login&amp;Register/controller/WeChateBoardViewController.m"
-                  timestampString = "569412911.032078"
+                  timestampString = "569759171.387502"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "35"
@@ -360,7 +360,7 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Login&amp;Register/controller/WeChateBoardViewController.m"
-                  timestampString = "569412911.034561"
+                  timestampString = "569759171.389842"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "36"
@@ -375,7 +375,7 @@
                   moduleName = "TPAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Login&amp;Register/controller/WeChateBoardViewController.m"
-                  timestampString = "569412911.036875"
+                  timestampString = "569759171.3916"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "35"
@@ -462,6 +462,22 @@
             startingLineNumber = "34"
             endingLineNumber = "34"
             landmarkName = "-codeBtnClick:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Controllers/CartViewController.m"
+            timestampString = "569759169.389316"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "930"
+            endingLineNumber = "930"
+            landmarkName = "-declareAbnormalAlertView:clickedButtonAtIndex:comGoodList:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

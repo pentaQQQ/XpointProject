@@ -37,13 +37,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    [self createNavBarBtn];
+    self.navigationItem.title = @"优惠券";
+//    [self createNavBarBtn];
     //加载Segment
     [self setSegment];
     //加载ViewController
     [self addChildViewController];
     //加载ScrollView
     [self setContentScrollView];
+    //添加导航栏左边按钮
+//    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    leftBtn.frame = CGRectMake(0, 0, 25, 25);
+//    [leftBtn setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+//    [leftBtn addTarget:self action:@selector(leftBackAction) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *itemleft = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+//    self.navigationItem.leftBarButtonItem = itemleft;
 }
 -(void)setSegment {
     
@@ -78,13 +86,12 @@
         UIViewController * vc = self.childViewControllers[i];
         vc.view.frame = CGRectMake(i * LG_ScreenW, 0, LG_ScreenW, LG_ScreenH-SafeAreaTopHeight-40-SafeAreaBottomHeight);
         [sv addSubview:vc.view];
-        
     }
     
     sv.contentSize = CGSizeMake(2 * LG_ScreenW, 0);
     self.contentScrollView = sv;
 }
-//加载3个ViewController
+//加载2个ViewController
 -(void)addChildViewController{
     
     AvailableCouponsController * vc1 = [[AvailableCouponsController alloc]init];

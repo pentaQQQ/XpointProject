@@ -44,7 +44,7 @@
 }
 -(void)commonInit {
     //按钮名称
-    NSMutableArray *titleLis = [[NSMutableArray alloc]initWithObjects:@"可使用",@"已使用",@"已过期", nil];
+    NSMutableArray *titleLis = [[NSMutableArray alloc]initWithObjects:@"可使用",@"已过期", nil];
     
     self.titleList = titleLis;
     
@@ -67,9 +67,9 @@
         buttonItem.tag = i + 1;
         [buttonItem setTitle:temp forState:UIControlStateNormal];
         if (@available(iOS 8.2, *)) {
-            [buttonItem.titleLabel setFont:[UIFont systemFontOfSize:12.0 weight:UIFontWeightMedium]];
+            [buttonItem.titleLabel setFont:[UIFont systemFontOfSize:17.0 weight:UIFontWeightMedium]];
         } else {
-            [buttonItem.titleLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [buttonItem.titleLabel setFont:[UIFont systemFontOfSize:17.0]];
         }
         
         [buttonItem setTitleColor:LG_ButtonColor_UnSelected forState:UIControlStateNormal];

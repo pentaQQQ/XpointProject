@@ -195,7 +195,8 @@
     
     
     AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:info.defaultAddress];
-    if ([addressModel.id length] == 0) {
+    DefaultAddressMessage *defaultMess = [DefaultAddressMessage shareDefaultAddressMessage];
+    if ([addressModel.id length] == 0 && [defaultMess.id length] == 0) {
         [self.contentView addSubview:self.lineView];
         self.lineView.sd_layout
         .topSpaceToView(self.contentView, 20+40)
@@ -244,39 +245,25 @@
         [self.contentView addSubview:self.localImageView];
         UIImage *image = [UIImage imageNamed:@"icon_addres"];
         self.localImageView.image = image;
-        
-        
-        
         [self.contentView addSubview:self.buyUserName];
-        
-        
-        
         [self.contentView addSubview:self.buyUserTelephone];
-        
-        
-        
         [self.contentView addSubview:self.defaultImageView];
         UIImage *image1 = [UIImage imageNamed:@"tag_moren"];
-        
         [self.contentView addSubview:self.buyUserAddess];
         
         
+        [self.lineView removeFromSuperview];
+        [self.getAddess removeFromSuperview];
+        [self.chooseAddress removeFromSuperview];
         [self.contentView addSubview:self.lineView];
-        
-        
         [self.contentView addSubview:self.getAddess];
         self.getAddess.text = @"收货地址";
-        
-        
         self.chooseAddress = [[UIControl alloc] init];
         [self.contentView addSubview:self.chooseAddress];
         [self.chooseAddress addTarget:self action:@selector(chooseAddressAction) forControlEvents:UIControlEventTouchUpInside];
-        
-        
         UIImageView *myImageview = [[UIImageView alloc] init];
         myImageview.image = [UIImage imageNamed:@"编辑"];
         [self.chooseAddress addSubview:myImageview];
-        
         
         UILabel *chooseLabel = [[UILabel alloc] init];
         chooseLabel.text = @"选择";
@@ -316,37 +303,45 @@
         .leftSpaceToView(self.buyUserName, 30)
         .widthIs([self widthLabelWithModel:self.buyUserTelephone.text withFont:15])
         .heightIs(20);
+        
         self.defaultImageView.image = image1;
         self.defaultImageView.sd_layout
         .topSpaceToView(self.contentView, 20+40)
         .leftSpaceToView(self.buyUserTelephone, 5)
         .widthIs(50)
         .heightIs(20);
+        
         self.buyUserAddess.sd_layout
         .topSpaceToView(self.buyUserTelephone, 5)
         .leftSpaceToView(self.contentView, 40)
         .rightSpaceToView(self.contentView, 40)
         .heightIs(20);
+        
+        
         self.lineView.sd_layout
         .topSpaceToView(self.buyUserAddess, 10)
         .leftSpaceToView(self.contentView, 0)
         .rightSpaceToView(self.contentView, 0)
         .heightIs(1);
+        
         self.getAddess.sd_layout
         .topSpaceToView(self.lineView, 10)
         .leftSpaceToView(self.contentView, 15)
         .widthIs([self widthLabelWithModel:@"收货地址" withFont:15])
         .heightIs(20);
+        
         self.chooseAddress.sd_layout
         .topSpaceToView(self.lineView, 10)
         .rightSpaceToView(self.contentView, 15)
         .widthIs(55)
         .heightIs(20);
+        
         myImageview.sd_layout
         .topEqualToView(self.chooseAddress)
         .leftEqualToView(self.chooseAddress)
         .heightIs(20)
         .widthIs(20);
+        
         chooseLabel.sd_layout
         .topEqualToView(self.chooseAddress)
         .rightEqualToView(self.chooseAddress)

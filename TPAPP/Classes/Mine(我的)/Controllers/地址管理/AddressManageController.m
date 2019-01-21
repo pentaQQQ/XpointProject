@@ -110,6 +110,15 @@
                 }
                 
             }
+            if (self.listDataArr.count == 0) {
+                LYAccount *acc = [LYAccount shareAccount];
+                acc.defaultAddress = [NSDictionary new];
+                NSDictionary *dict = [acc mj_keyValues];
+                [LYAccount mj_objectWithKeyValues:dict];
+                [DefaultAddressMessage mj_objectWithKeyValues:[[NSDictionary alloc]init]];
+            }
+            
+            
             [self.listTableView reloadData];
         }else{
             [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
@@ -258,7 +267,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     AddressTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (self.isCartCtrlType) {
-        [DefaultAddressMessage mj_objectWithKeyValues:[cell.addressModel mj_keyValues]];
+//        LYAccount *acc = [LYAccount shareAccount];
+        NSDictionary *dict = [cell.addressModel mj_keyValues];
+        [DefaultAddressMessage mj_objectWithKeyValues:dict];
+//        DefaultAddressMessage *defaultMess = [DefaultAddressMessage shareDefaultAddressMessage];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

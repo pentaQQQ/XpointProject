@@ -119,6 +119,7 @@
     if (_isPreview) {
         _isPreview = NO;
     }else{
+        [self.CartTableView reloadData];
         if ([self.CartTableView.mj_header isRefreshing]) {
             [self.CartTableView.mj_header endRefreshing];
         }
@@ -421,8 +422,8 @@
     if (indexPath.section == 0) {
         LYAccount *lyAccount = [LYAccount shareAccount];
         AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:lyAccount.defaultAddress];
-//        DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
-        if (addressModel.id.length == 0) {
+        DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
+        if (addressModel.id.length == 0 && addressMes.id.length == 0) {
             return 100;
         }else{
           return 155;
@@ -461,6 +462,7 @@
           cell = [[CartHeaderAddressCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CartHeaderAddressCellID"];
         }
         cell.backgroundColor = [UIColor whiteColor];
+        [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         [cell withData:[LYAccount shareAccount]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setSelectButtonBlock:^(NSInteger num) {

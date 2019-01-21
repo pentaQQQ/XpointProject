@@ -220,6 +220,10 @@
 		01C2A28821BF6CF40072D4D6 /* FXPayTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C2A28521BF6CF30072D4D6 /* FXPayTypeView.m */; };
 		01C2A28921BF6CF40072D4D6 /* FXPayTypeItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C2A28621BF6CF30072D4D6 /* FXPayTypeItemView.m */; };
 		01C2A28C21BFAA8E0072D4D6 /* TransforMessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C2A28B21BFAA8E0072D4D6 /* TransforMessModel.m */; };
+		01C5C48721F559C100F4CBF3 /* CouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C5C48621F559C100F4CBF3 /* CouponModel.m */; };
+		01C5C48A21F55E9800F4CBF3 /* MyCouponsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C5C48921F55E9800F4CBF3 /* MyCouponsCell.m */; };
+		01C5C48D21F567F200F4CBF3 /* 已使用.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C5C48B21F567F100F4CBF3 /* 已使用.png */; };
+		01C5C48E21F567F200F4CBF3 /* 优惠券.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C5C48C21F567F200F4CBF3 /* 优惠券.png */; };
 		01E46FF3214BF57800B88B24 /* AddConsignmentAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FF2214BF57800B88B24 /* AddConsignmentAddressController.m */; };
 		01E46FF6214BF5A700B88B24 /* ConsignmentAddressManageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FF5214BF5A700B88B24 /* ConsignmentAddressManageController.m */; };
 		01E46FF9214BF5BE00B88B24 /* EditConsignmentAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FF8214BF5BE00B88B24 /* EditConsignmentAddressController.m */; };
@@ -977,6 +981,12 @@
 		01C2A28721BF6CF30072D4D6 /* FXPayTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXPayTypeView.h; sourceTree = "<group>"; };
 		01C2A28A21BFAA8E0072D4D6 /* TransforMessModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransforMessModel.h; sourceTree = "<group>"; };
 		01C2A28B21BFAA8E0072D4D6 /* TransforMessModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransforMessModel.m; sourceTree = "<group>"; };
+		01C5C48521F559C100F4CBF3 /* CouponModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponModel.h; sourceTree = "<group>"; };
+		01C5C48621F559C100F4CBF3 /* CouponModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponModel.m; sourceTree = "<group>"; };
+		01C5C48821F55E9800F4CBF3 /* MyCouponsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCouponsCell.h; sourceTree = "<group>"; };
+		01C5C48921F55E9800F4CBF3 /* MyCouponsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCouponsCell.m; sourceTree = "<group>"; };
+		01C5C48B21F567F100F4CBF3 /* 已使用.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "已使用.png"; sourceTree = "<group>"; };
+		01C5C48C21F567F200F4CBF3 /* 优惠券.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "优惠券.png"; sourceTree = "<group>"; };
 		01E46FF1214BF57800B88B24 /* AddConsignmentAddressController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddConsignmentAddressController.h; sourceTree = "<group>"; };
 		01E46FF2214BF57800B88B24 /* AddConsignmentAddressController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddConsignmentAddressController.m; sourceTree = "<group>"; };
 		01E46FF4214BF5A700B88B24 /* ConsignmentAddressManageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsignmentAddressManageController.h; sourceTree = "<group>"; };
@@ -2481,6 +2491,8 @@
 		01BF066621F08D66007D288D /* 优惠券 */ = {
 			isa = PBXGroup;
 			children = (
+				01C5C48B21F567F100F4CBF3 /* 已使用.png */,
+				01C5C48C21F567F200F4CBF3 /* 优惠券.png */,
 				01BF066A21F08E93007D288D /* CouponsSegment.h */,
 				01BF066B21F08E93007D288D /* CouponsSegment.m */,
 				01BF066721F08DC4007D288D /* MyCouponsViewController.h */,
@@ -2489,6 +2501,8 @@
 				01BF066E21F08F05007D288D /* AvailableCouponsController.m */,
 				01BF067021F08F18007D288D /* ExpiredCouponsController.h */,
 				01BF067121F08F18007D288D /* ExpiredCouponsController.m */,
+				01C5C48821F55E9800F4CBF3 /* MyCouponsCell.h */,
+				01C5C48921F55E9800F4CBF3 /* MyCouponsCell.m */,
 			);
 			path = "优惠券";
 			sourceTree = "<group>";
@@ -2500,6 +2514,8 @@
 				01BC59A62147ADA7000FF81F /* MineIndentModel.m */,
 				01C2A28A21BFAA8E0072D4D6 /* TransforMessModel.h */,
 				01C2A28B21BFAA8E0072D4D6 /* TransforMessModel.m */,
+				01C5C48521F559C100F4CBF3 /* CouponModel.h */,
+				01C5C48621F559C100F4CBF3 /* CouponModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4410,12 +4426,14 @@
 				0112108521363CF00071AC5F /* 编辑.png in Resources */,
 				019AEE7C21382B0B00EB3405 /* moment_camera@3x.png in Resources */,
 				8E3E6DA92140FFA9007B3306 /* oldhechengView.xib in Resources */,
+				01C5C48E21F567F200F4CBF3 /* 优惠券.png in Resources */,
 				547C49A21F1DBB8200178B67 /* back@2x.png in Resources */,
 				8E9A5F9C215F22C90084C9F1 /* Localizable.strings in Resources */,
 				8E3E6D5C2138D76F007B3306 /* WeChateBoardViewController.xib in Resources */,
 				547C49A61F1DBB8200178B67 /* tab_index_nor@2x.png in Resources */,
 				547C48761F1DA8AF00178B67 /* Main.storyboard in Resources */,
 				8E3E6D5E2138D76F007B3306 /* LoginViewController.xib in Resources */,
+				01C5C48D21F567F200F4CBF3 /* 已使用.png in Resources */,
 				8E3E6DB22142140C007B3306 /* PiliangzhuanfaViewController.xib in Resources */,
 				01ABB01D214BB15A000D616E /* back_icon@2x.png in Resources */,
 				547C49A81F1DBB8200178B67 /* tab_job_nor@2x.png in Resources */,
@@ -4718,6 +4736,7 @@
 				547C49601F1DBB8200178B67 /* BaseNavigationController.m in Sources */,
 				8E9A5F5C215F14170084C9F1 /* MJRefreshStateHeader.m in Sources */,
 				8E9A5F73215F14170084C9F1 /* MLEmojiLabel.m in Sources */,
+				01C5C48721F559C100F4CBF3 /* CouponModel.m in Sources */,
 				01121018213392FD0071AC5F /* YSStaticCellModel.m in Sources */,
 				8EA95307212BAA930057AC78 /* ZLPhotoPickerGroupViewController.m in Sources */,
 				01120EEC21338F9C0071AC5F /* MarketCell.m in Sources */,
@@ -4904,6 +4923,7 @@
 				012997C62139267200ADE72B /* TransportationMessageViewController.m in Sources */,
 				8E8B0BD12191315E002D9949 /* CXSearchModel.m in Sources */,
 				8E9A5F84215F14170084C9F1 /* UIImageView+WebCache.m in Sources */,
+				01C5C48A21F55E9800F4CBF3 /* MyCouponsCell.m in Sources */,
 				8E9A5F78215F14170084C9F1 /* MKAnnotationView+WebCache.m in Sources */,
 				01121005213392FD0071AC5F /* JXCategoryLineStyleCell.m in Sources */,
 				8E9A5EAC215F140D0084C9F1 /* TCMessageManagerFaceView.m in Sources */,
