@@ -9,8 +9,6 @@
 #ifndef API_h
 #define API_h
 
-
-
 //#define WeChateSecret   @"045dd77a293df7f7dc340fc69211d097"//微信开发者账号Secret
 //#define WeChateappid    @"wx354bd4644a16d2e1"//微信开发者账号appid
 #define AliSchemeKey @"tianyangcangappalipay"

@@ -11,4 +11,5 @@
 #import "MineIndentModel.h"
 @interface OrderDetailViewController : BaseViewController
 @property (nonatomic, strong)MineIndentModel *model;
+@property (nonatomic, assign)BOOL pushCtrl;
 @end

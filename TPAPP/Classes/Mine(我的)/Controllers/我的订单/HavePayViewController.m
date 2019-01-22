@@ -152,17 +152,16 @@
 }
 //接收通知并相应的方法
 - (void) aliPaytype:(NSNotification *)notification{
-    
     NSDictionary *dic = notification.object;
     //    NSLog(@"通知过来的 - dic = %@",notification.object);
     int statusCode = [dic[@"resultStatus"]  intValue];
-    
     if (statusCode == 9000)
     {
-        MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
-        minePerCtrl.title = @"我的订单";
-        minePerCtrl.selectIndex = 1;
-        [self.navigationController pushViewController:minePerCtrl animated:YES];
+        [self loadNewTopic];
+//        MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
+//        minePerCtrl.title = @"我的订单";
+//        minePerCtrl.selectIndex = 1;
+//        [self.navigationController pushViewController:minePerCtrl animated:YES];
     }
     else
     {
@@ -391,7 +390,7 @@
 - (void)lookLogisticsBtnAction:(UIButton *)btn
 {
     MineIndentModel *minModel = self.listDataArr[btn.tag];
-    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"确认退款" message:[NSString stringWithFormat:@"您的退款金额为%.2lf,运费:0，共:%.2lf确认退款?",minModel.orderAmountTotal,minModel.orderAmountTotal] selectType:@"退款" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
+    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"确认退款" message:[NSString stringWithFormat:@"您的退款金额为%.2lf,确认退款?",minModel.orderAmountTotal] selectType:@"退款" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
     [alertView show];
 
 }
@@ -617,6 +616,7 @@
     MineIndentModel *minModel = self.listDataArr[indexPath.section];
     OrderDetailViewController *minePerCtrl = [[OrderDetailViewController alloc] init];
     minePerCtrl.model = minModel;
+    minePerCtrl.pushCtrl = self.pushCtrl;
     [self.navigationController pushViewController:minePerCtrl animated:YES];
 }
 #pragma mark --------------- LeftBodyCellDelegate

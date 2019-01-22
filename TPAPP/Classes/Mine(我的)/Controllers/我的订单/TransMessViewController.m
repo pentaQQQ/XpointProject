@@ -59,11 +59,14 @@
             TransforMessModel *model = [TransforMessModel mj_objectWithKeyValues:json[@"data"]];
             
             [model.data removeAllObjects];
-            for (NSDictionary *newDic in json[@"data"][@"data"]) {
-                TransforMessDetailModel *orderDetailModel = [TransforMessDetailModel mj_objectWithKeyValues:newDic];
-                [model.data addObject:orderDetailModel];
-                
+            if (![json[@"data"][@"data"] isKindOfClass:[NSNull class]]) {
+                for (NSDictionary *newDic in json[@"data"][@"data"]) {
+                    TransforMessDetailModel *orderDetailModel = [TransforMessDetailModel mj_objectWithKeyValues:newDic];
+                    [model.data addObject:orderDetailModel];
+                    
+                }
             }
+            
             [self.dataArray addObject:model];
             [self.tableview reloadData];
         }else if([json[@"code"]longValue] == 500){

@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface HasBeenShippedViewController : BaseViewController<HasBeenShippedDelegate>
 @property (nonatomic, assign)NSInteger selectCtrl;
+@property (nonatomic, assign)BOOL pushCtrl;
 @end
 
 NS_ASSUME_NONNULL_END

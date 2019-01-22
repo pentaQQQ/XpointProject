@@ -64,6 +64,14 @@
  * 备注按钮
  */
 @property (nonatomic, retain)UIButton *Remarks_button;
+
+/**
+ *  删除按钮
+ */
+@property (nonatomic, retain)UIButton *Goods_delete;
+
+@property (nonatomic, strong)void(^deleteBlock)(CartDetailsModel *detailModel);
+
 @property (nonatomic,strong)CartDetailsModel *detailModel;
 -(void)withData:(CartDetailsModel *)info;
 

@@ -432,6 +432,7 @@
     MineIndentModel *minModel = self.listDataArr[indexPath.section];
     OrderDetailViewController *minePerCtrl = [[OrderDetailViewController alloc] init];
     minePerCtrl.model = minModel;
+    minePerCtrl.pushCtrl = self.pushCtrl;
     [self.navigationController pushViewController:minePerCtrl animated:YES];
 }
 #pragma mark --------------- LeftBodyCellDelegate

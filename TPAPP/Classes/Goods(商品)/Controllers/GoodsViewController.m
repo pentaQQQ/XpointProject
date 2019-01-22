@@ -139,7 +139,7 @@
     QImoModel *model = self.dataArr[indexPath.row];
     
     cell.titleLab.text = model.name;
-    cell.imageview.image = [UIImage imageNamed:@"icon_kefu"];
+    cell.imageview.image = [UIImage imageNamed:@"qm_default_agent"];
     
     
     return cell;

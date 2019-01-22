@@ -498,6 +498,52 @@
                 cell.allowsMultipleSwipe = _allowMultipleSwipe;
                 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                [cell setDeleteBlock:^(CartDetailsModel *detailModel) {
+                    [Helper ShowAlertWithTitle:@"是否删除该商品" prompt:@"" cancel:@"取消" defaultLb:@"确定" ViewController:self alertOkClick:^{
+                        NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+                        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
+                        CartDetailsModel *model = arr[indexPath.row];
+                        [dict1 setValue:model.id forKey:@"cartDetailId"];
+                        [LYTools postBossDemoWithUrl:cartDelProduct param:dict1 success:^(NSDictionary *dict) {
+                            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                            if ([respCode isEqualToString:@"00000"]) {
+                                [arr removeObjectAtIndex:indexPath.row];
+                                if (arr.count > 0) {
+                                    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+                                    [self postCenter];
+                                    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
+                                    NSInteger index = 0; //判读section下的row是否全部勾选
+                                    for (NSInteger i = 0; i < arr.count; i++) {
+                                        CartDetailsModel *model = arr[i];
+                                        if ([model.Type isEqualToString:@"1"]) {
+                                            index ++;
+                                        }
+                                    }
+                                    //如果全部row的状态都为选中状态 则改变section的按钮状态
+                                    if (index == arr.count) {
+                                        CartDetailsModel *model = arr[0];
+                                        model.CheckAll = @"1";
+                                        [arr replaceObjectAtIndex:0 withObject:model];
+                                    }
+                                    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+                                    //一个section刷新
+                                    NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
+                                    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+                                }else{
+                                    [self.dataSource removeObjectAtIndex:indexPath.section];
+                                    [self postCenter];
+                                    [self.CartTableView reloadData];
+                                }
+                            }else if([dict[@"code"]longValue] == 500){
+                                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                            }
+                        } fail:^(NSError *error) {
+                            
+                        }];
+                        
+                    } alertNoClick:^{
+                    }];
+                }];
                 return cell;
             }else{
                 return nil;
@@ -909,7 +955,9 @@
 - (void)BalanceSelectedGoods:(NSMutableArray *)arr goodsNum:(int)goodsNum goodsPrice:(NSString *)goodsPrice
 {
     LYAccount *lyAccount = [LYAccount shareAccount];
-    if (lyAccount.defaultAddress == nil) {
+    AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:lyAccount.defaultAddress];
+    DefaultAddressMessage *defaultMess = [DefaultAddressMessage shareDefaultAddressMessage];
+    if ([addressModel.id length]== 0 && [defaultMess.id length] == 0) {
         [SVProgressHUD showInfoWithStatus:@"请先添加收货地址"];
     }else{
         _goodsNum = goodsNum;

@@ -57,10 +57,19 @@
     
     GoodsViewController *c6=[[GoodsViewController alloc]init];
     c6.title=@"客服";
-    c6.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_xiaoxi"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    c6.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_xiaoxi_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    c6.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_jsxd"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    c6.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //c6.tabBarItem.selectedImage =[[UIImage imageNamed:@"tab_market_nor"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     BaseNavigationController *fourthNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c6];
+    
+    SearchViewController *searchCtrl = [[SearchViewController alloc] init];
+    searchCtrl.title=@"搜索";
+    searchCtrl.tabBarItem.image=[[UIImage imageNamed:@"icon_search_unselect"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    searchCtrl.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_search_select"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    BaseNavigationController *searchNavigationController = [[BaseNavigationController alloc]
+                                                           initWithRootViewController:searchCtrl];
+    
+    
     
 //    FindViewController *secondViewController = [[FindViewController alloc] init];
 //    secondViewController.title=@"发现";
@@ -97,6 +106,7 @@
     NSArray *viewControllers = @[
                                  firstNavigationController,
                                  fourthNavigationController,
+                                 searchNavigationController,
                                  thirdNavigationController,
                                  sevenNavigationController
                                  ];
@@ -143,22 +153,22 @@
         if ([respCode isEqualToString:@"00000"]) {
             self.goodListNum =  [dict[@"data"][@"cartDetails"] count];
             if (self.goodListNum == 0) {
-                CartViewController *cartCtrl = self.viewControllers[2];
+                CartViewController *cartCtrl = self.viewControllers[3];
                 [cartCtrl.tabBarItem setBadgeValue:nil];
             }else{
-                CartViewController *cartCtrl = self.viewControllers[2];
+                CartViewController *cartCtrl = self.viewControllers[3];
                 [cartCtrl.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%ld",self.goodListNum]];
             }
             
         }else if([dict[@"code"]longValue] == 500){
             self.goodListNum = 0;
-            CartViewController *cartCtrl = self.viewControllers[2];
+            CartViewController *cartCtrl = self.viewControllers[3];
             [cartCtrl.tabBarItem setBadgeValue:nil];
            
         }
     } fail:^(NSError *error) {
         self.goodListNum = 0;
-        CartViewController *cartCtrl = self.viewControllers[2];
+        CartViewController *cartCtrl = self.viewControllers[3];
         [cartCtrl.tabBarItem setBadgeValue:nil];
         
     }];

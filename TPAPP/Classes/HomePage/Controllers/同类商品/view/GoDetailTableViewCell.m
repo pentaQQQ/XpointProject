@@ -107,7 +107,7 @@
     _model = model;
     self.title.text = model.merchantName;
     self.contentLab.text = model.productName;
-    
+    [self.imageview sd_setImageWithURL:[NSURL URLWithString:model.merchantUrl]];
     
     NSString *str = @"";
     for (int i=0; i<model.specs.count; i++) {

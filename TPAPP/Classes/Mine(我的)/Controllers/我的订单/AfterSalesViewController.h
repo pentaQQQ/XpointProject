@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AfterSalesViewController : BaseViewController<AfterSalesDelegate>
 @property (nonatomic, assign)NSInteger selectCtrl;
+@property (nonatomic, assign)BOOL pushCtrl;
 @end
 
 NS_ASSUME_NONNULL_END

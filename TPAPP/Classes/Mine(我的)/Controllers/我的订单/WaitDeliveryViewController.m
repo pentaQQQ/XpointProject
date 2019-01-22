@@ -289,7 +289,7 @@
 {
     MineIndentModel *minModel = self.listDataArr[btn.tag];
 //    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"确认退款" message:[NSString stringWithFormat:@"您的退款金额为%.2lf,运费:%.2lf，共:%.2lf确认退款?",minModel.orderAmountTotal,minModel.logisticsFee,minModel.orderAmountTotal+minModel.logisticsFee] selectType:@"退款" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
-    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"确认退款" message:[NSString stringWithFormat:@"您的退款金额为%.2lf,运费:0，共:%.2lf确认退款?",minModel.orderAmountTotal,minModel.orderAmountTotal] selectType:@"退款" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
+    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"确认退款" message:[NSString stringWithFormat:@"您的退款金额为%.2lf,确认退款?",minModel.orderAmountTotal] selectType:@"退款" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:minModel];
     [alertView show];
     
     
@@ -376,6 +376,7 @@
     MineIndentModel *minModel = self.listDataArr[indexPath.section];
     OrderDetailViewController *minePerCtrl = [[OrderDetailViewController alloc] init];
     minePerCtrl.model = minModel;
+    minePerCtrl.pushCtrl = self.pushCtrl;
     [self.navigationController pushViewController:minePerCtrl animated:YES];
 }
 #pragma mark --------------- LeftBodyCellDelegate

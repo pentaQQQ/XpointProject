@@ -58,7 +58,7 @@
         self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
     }
 //    self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal]],@[@"优惠金额",@"-¥0.00"],@[@"运费",[NSString stringWithFormat:@"¥%.2lf",self.minModel.logisticsFee]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee]], nil];
-    self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee]],@[@"优惠金额",@"-¥0.00"],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee]], nil];
+    self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.productAmountTotal]],@[@"优惠金额",[NSString stringWithFormat:@"-¥%.2lf",self.minModel.couponAmount]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal]], nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(aliPaytype:) name:@"aliPaytype"object:nil];
     self.title = @"支付订单";
@@ -94,8 +94,8 @@
                     self.minModel.couponAmount = model.couponAmount;
 //                    [self.listDataArr addObject:model];
                 }
-            self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee-self.minModel.couponAmount];
-               self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee]],@[@"优惠金额",[NSString stringWithFormat:@"-¥%.2lf",self.minModel.couponAmount]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee-self.minModel.couponAmount]], nil];
+               self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal];
+               self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.productAmountTotal]],@[@"优惠金额",[NSString stringWithFormat:@"-¥%.2lf",self.minModel.couponAmount]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal]], nil];
                 [self.listTableView reloadData];
 //            });
         }else if([json[@"code"]longValue] == 500){
@@ -122,6 +122,7 @@
     {
         MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
         minePerCtrl.title = @"我的订单";
+        minePerCtrl.pushCtrl = YES;
         minePerCtrl.isPushCtrl = YES;
         minePerCtrl.selectIndex = 1;
         [self.navigationController pushViewController:minePerCtrl animated:YES];
@@ -145,6 +146,7 @@
         NSLog(@"支付成功－PaySuccess，retcode = %d", payResp.errCode);
         MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
         minePerCtrl.title = @"我的订单";
+        minePerCtrl.pushCtrl = YES;
         minePerCtrl.isPushCtrl = YES;
         minePerCtrl.selectIndex = 1;
         [self.navigationController pushViewController:minePerCtrl animated:YES];
@@ -199,7 +201,7 @@
     .heightIs(20);
     
     self.allGoodsPriceLabel = [[UILabel alloc] init];
-    self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee];
+    self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal];
     self.allGoodsPriceLabel.textAlignment = NSTextAlignmentLeft;
     self.allGoodsPriceLabel.textColor = colorWithRGB(0xFF6B24);
     self.allGoodsPriceLabel.font = [UIFont systemFontOfSize:19];
@@ -207,7 +209,7 @@
     self.allGoodsPriceLabel.sd_layout
     .topSpaceToView(self.bottomView,10)
     .leftSpaceToView(self.priceLabel, 5)
-    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee] withFont:19])
+    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal] withFont:19])
     .heightIs(30);
     
     self.allGoodsNumberLabel = [[UILabel alloc] init];
@@ -243,7 +245,7 @@
         [dic setValue:@"IOS" forKey:@"tradeType"];
         [dic setValue:@"order" forKey:@"type"];
         NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
-        [dic1 setValue:[NSString stringWithFormat:@"%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee-self.minModel.couponAmount] forKey:@"amount"];
+        [dic1 setValue:[NSString stringWithFormat:@"%.2lf",self.minModel.orderAmountTotal] forKey:@"amount"];
         [dic1 setValue:self.minModel.id forKey:@"orderId"];
         [dic setValue:[NSMutableArray arrayWithObject:dic1]forKey:@"weiXinPayParams"];
         [LYTools postBossDemoWithUrl:wechatPayByOrder param:dic success:^(NSDictionary *dict) {
@@ -268,7 +270,7 @@
         [dic setValue:@"IOS" forKey:@"tradeType"];
         [dic setValue:@"order" forKey:@"type"];
         NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
-        [dic1 setValue:[NSString stringWithFormat:@"%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee-self.minModel.couponAmount] forKey:@"amount"];
+        [dic1 setValue:[NSString stringWithFormat:@"%.2lf",self.minModel.orderAmountTotal] forKey:@"amount"];
         [dic1 setValue:self.minModel.id forKey:@"orderId"];
         [dic setValue:[NSMutableArray arrayWithObject:dic1]forKey:@"weiXinPayParams"];
         [LYTools postBossDemoWithUrl:aliPayByOrder param:dic success:^(NSDictionary *dict) {

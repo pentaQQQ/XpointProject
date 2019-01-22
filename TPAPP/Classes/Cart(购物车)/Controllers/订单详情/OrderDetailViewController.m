@@ -35,9 +35,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    //Do any additional setup after loading the view.
     self.title = @"订单详情";
-    
+    self.extendedLayoutIncludesOpaqueBars = NO;
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setUpUI];
@@ -132,13 +132,21 @@
 }
 - (void)setUpUI
 {
-    self.listTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    if (self.pushCtrl) {
+        self.listTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-k_top_height-50-SafeAreaBottomHeight) style:UITableViewStyleGrouped];
+    }else{
+        self.listTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, k_top_height, kScreenWidth, kScreenHeight-k_top_height-50-SafeAreaBottomHeight) style:UITableViewStyleGrouped];
+    }
+    
     [self.view addSubview:self.listTableView];
-    self.listTableView.sd_layout
-    .topSpaceToView(self.view, k_top_height)
-    .leftEqualToView(self.view)
-    .bottomSpaceToView(self.view, 50+SafeAreaBottomHeight)
-    .widthIs(kScreenWidth);
+//    self.listTableView.sd_layout
+//    .topSpaceToView(self.view, k_top_height)
+//    .leftEqualToView(self.view)
+//    .bottomSpaceToView(self.view, 50+SafeAreaBottomHeight)
+//    .widthIs(kScreenWidth);
+    
+    NSLog(@"11111111======%f",self.listTableView.frame.size.height);
+    
     self.listTableView.backgroundColor = colorWithRGB(0xEEEEEE);
     self.listTableView.delegate = self;
     self.listTableView.dataSource = self;

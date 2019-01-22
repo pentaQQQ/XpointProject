@@ -120,9 +120,8 @@
                 [dataArr addObject:model];
                 index2 = index2 +model.number;
                 double product;
-                double Price = [model.amount doubleValue];
+                double Price = [model.productForm.marketAmount doubleValue];
                 NSInteger goodsNum = model.number;
-                
                 product = Price * goodsNum;
                 
                 goodsSum = goodsSum + product;

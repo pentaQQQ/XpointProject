@@ -43,7 +43,7 @@
 #import "DefaultAddressMessage.h"
 #import "TransforMessModel.h"
 #import "ApplyReturnGoodsModel.h"
-
+#import "SearchViewController.h"
 //七陌
 #import "UIImage+GIF.h"
 #import "UIImageView+WebCache.h"
