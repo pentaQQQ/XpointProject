@@ -106,7 +106,7 @@
     
     _model = model;
     self.title.text = model.merchantName;
-    self.contentLab.text = model.productName;
+   
     [self.imageview sd_setImageWithURL:[NSURL URLWithString:model.merchantUrl]];
     
     NSString *str = @"";
@@ -122,7 +122,7 @@
     }
     
     
-    
+    self.contentLab.text = model.productName;
     self.chimLab.text = [NSString stringWithFormat:@"尺码 %@",str];
     self.kuanshiLab.text = [NSString stringWithFormat:@"款式 %@",model.design];
     self.kuanhaoLab.text = [NSString stringWithFormat:@"款号 %@",model.designCode];

@@ -216,9 +216,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    shanghuModel *model = self.titleArray[indexPath.row];
     self.currentIndex = (int)indexPath.row;
-    
+    self.headerview.merchanid = model.merchantId;
     [self.tableview reloadData];
     
 }

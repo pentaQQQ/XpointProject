@@ -350,6 +350,35 @@
         
         cell.ToZhuanfaBlock = ^(SimilarProductModel *model, int currentDEX) {
             
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            
+            
+            NSString *str = @"";
+            for (int i=0; i<model.specs.count; i++) {
+                specsModel*spmodel =model.specs[i];
+                
+                if (i== 0) {
+                    str = [NSString stringWithFormat:@"%@(%ld)",spmodel.size,[spmodel.stock integerValue]];
+                }else{
+                    NSString *tempstr = [NSString stringWithFormat:@"%@(%ld)",spmodel.size,[spmodel.stock integerValue]];
+                    str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
+                }
+            }
+            
+            
+            
+            
+            NSString *content = model.productName;
+            NSString*chimLab = [NSString stringWithFormat:@"尺码 %@",str];
+            NSString*kuanshiLab = [NSString stringWithFormat:@"款式 %@",model.design];
+            NSString*kuanhaoLab = [NSString stringWithFormat:@"款号 %@",model.designCode];
+            
+            
+            
+            pasteboard.string = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",content,chimLab,kuanshiLab,kuanhaoLab];
+            
+            
+            
             
             if (currentDEX == 0) {
                 self.danshouview.model = model;

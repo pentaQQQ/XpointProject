@@ -277,7 +277,7 @@
 -(void)setMerchanid:(NSString *)merchanid{
     _merchanid = merchanid;
     
-    
+    [self.MerchanArray removeAllObjects];
     self.count = 0;
     [self getTheMerchanWitnTheMerchanId:merchanid];
     
@@ -461,10 +461,6 @@
         if ([respCode isEqualToString:@"00000"]){
             [self.MerchanArray removeAllObjects];
             for (NSDictionary *dic in json[@"data"]) {
-                
-                
-                
-                
                 
                 SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
                 [self.MerchanArray addObject:model];
