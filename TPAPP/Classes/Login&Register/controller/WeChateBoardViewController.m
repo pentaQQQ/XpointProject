@@ -15,6 +15,7 @@
 
 #import "registViewController.h"
 @interface WeChateBoardViewController ()<WXApiManagerDelegate,WechatAuthAPIDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 
 @end
 
@@ -24,6 +25,13 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [WXApiManager sharedManager].delegate = self;
+    self.phoneLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneLabelGes)];
+    [self.phoneLabel addGestureRecognizer:tapGes];
+}
+- (void)phoneLabelGes
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://18101697060"] options:@{} completionHandler:nil];
 }
 
 

@@ -17,6 +17,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *codeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *sureBtn;
+
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+
 @end
 
 @implementation WeChateRegistViewController
@@ -26,6 +29,13 @@
     
     self.navigationController.navigationBar.hidden = YES;
     [self setuptabbarview];
+    self.phoneLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneLabelGes)];
+    [self.phoneLabel addGestureRecognizer:tapGes];
+}
+- (void)phoneLabelGes
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://18101697060"] options:@{} completionHandler:nil];
 }
 
 

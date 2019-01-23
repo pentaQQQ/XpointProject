@@ -276,6 +276,7 @@
 {
     MineIndentModel *minModel = self.listDataArr[btn.tag];
     BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
+    buyCtrl.orderListArray = [NSMutableArray arrayWithObject:minModel];
     buyCtrl.minModel = minModel;
     buyCtrl.pushCtrl = 2;
     [self.navigationController pushViewController:buyCtrl animated:YES];

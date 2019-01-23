@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="codeBtn" destination="zdj-Ad-A4b" id="lDL-9D-ErD"/>
                 <outlet property="codeField" destination="BNO-Xc-A6A" id="YZk-Zs-nee"/>
+                <outlet property="phoneLabel" destination="vnY-wM-13d" id="faP-AT-eA1"/>
                 <outlet property="phoneNumberField" destination="5Lc-3Z-RqV" id="kjq-6O-hT6"/>
                 <outlet property="sureBtn" destination="X7N-Sl-3Ec" id="L59-n3-wYQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -34,7 +35,7 @@
                                 <constraint firstAttribute="width" constant="120" id="baF-Of-EE5"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有货源联系：13916257745" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnY-wM-13d">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有货源联系：18101697060" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnY-wM-13d">
                             <rect key="frame" x="100.5" y="440" width="174" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="3g9-Db-dDD"/>
@@ -146,6 +147,6 @@
         </view>
     </objects>
     <resources>
-        <image name="logo" width="236" height="250"/>
+        <image name="logo" width="600" height="600"/>
     </resources>
 </document>

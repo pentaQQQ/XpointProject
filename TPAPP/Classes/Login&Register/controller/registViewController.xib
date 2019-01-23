@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="codeBtn" destination="Kiu-ef-lht" id="Yqo-kW-0JW"/>
                 <outlet property="codeField" destination="AUP-sG-erI" id="20Z-CY-yVf"/>
+                <outlet property="phoneLabel" destination="Bty-Dd-9ME" id="pUA-XR-q34"/>
                 <outlet property="phoneNumberField" destination="evt-KZ-eAk" id="ZhJ-iY-8JD"/>
                 <outlet property="registBtn" destination="uqY-Ka-zJS" id="I1G-rE-Hyw"/>
                 <outlet property="view" destination="HEU-hr-GQ1" id="ruu-rL-RWa"/>
@@ -68,7 +69,7 @@
                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有货源联系：13916257745" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bty-Dd-9ME">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有货源联系：18101697060" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bty-Dd-9ME">
                             <rect key="frame" x="100.5" y="440" width="174" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="J2K-w1-0ww"/>
@@ -209,6 +210,6 @@
         </view>
     </objects>
     <resources>
-        <image name="logo" width="107" height="53"/>
+        <image name="logo" width="600" height="600"/>
     </resources>
 </document>

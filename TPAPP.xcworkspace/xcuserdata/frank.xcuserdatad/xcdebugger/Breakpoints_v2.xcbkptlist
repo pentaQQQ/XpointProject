@@ -122,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/GenerationPaymentViewController.m"
-            timestampString = "569823028.373841"
+            timestampString = "569905668.824725"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "123"
@@ -297,12 +297,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Login&amp;Register/controller/WeChateBoardViewController.m"
-            timestampString = "567503115.466887"
+            timestampString = "569905668.825153"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "-getAccess_tokenWithCode:"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-managerDidRecvAuthResponse:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -313,11 +313,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Login&amp;Register/controller/LoginViewController.m"
-            timestampString = "567501575.970013"
+            timestampString = "569905668.825212"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "-codeBtnClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -329,60 +329,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Login&amp;Register/controller/WeChateBoardViewController.m"
-            timestampString = "567503115.466978"
+            timestampString = "569905668.825261"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "-qianhuanBtnClick:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[WeChateBoardViewController qianhuanBtnClick:]"
-                  moduleName = "TPAPP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Login&amp;Register/controller/WeChateBoardViewController.m"
-                  timestampString = "569841566.5984941"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "68">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__47-[WeChateBoardViewController qianhuanBtnClick:]_block_invoke"
-                  moduleName = "TPAPP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Login&amp;Register/controller/WeChateBoardViewController.m"
-                  timestampString = "569841566.601022"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "28">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_"
-                  moduleName = "TPAPP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/frank/Desktop/TP/TPAPP/Classes/Login&amp;Register/controller/WeChateBoardViewController.m"
-                  timestampString = "569841566.605258"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -392,28 +345,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Login&amp;Register/controller/WeChateBoardViewController.m"
-            timestampString = "567503115.467024"
+            timestampString = "569905668.825308"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "-wechateBtnClick:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TPAPP/Classes/Login&amp;Register/controller/WeChateBoardViewController.m"
-            timestampString = "567503115.467069"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "-thirdloginAppWithOpenid:"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "-getPeopleinfomationWithOpenid:AndAccess_token:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -424,43 +361,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Login&amp;Register/controller/registViewController.m"
-            timestampString = "567501618.0611041"
+            timestampString = "569905668.825356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "-registBtnClick:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TPAPP/Classes/Login&amp;Register/controller/registViewController.m"
-            timestampString = "567501623.731672"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "-codeBtnClick:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TPAPP/Classes/Login&amp;Register/controller/WeChateRegistViewController.m"
-            timestampString = "567593265.560974"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "-codeBtnClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -494,6 +399,22 @@
             startingLineNumber = "136"
             endingLineNumber = "136"
             landmarkName = "-tableView:viewForHeaderInSection:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Controllers/&#x4ed8;&#x6b3e;&#x8ba2;&#x5355;/BuyGoodsListController.m"
+            timestampString = "569905668.825539"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "-viewWillAppear:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -1030,6 +1030,7 @@
             NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
             if ([respCode isEqualToString:@"00000"]) {
                  BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
+                NSMutableArray *listOrderArr = [NSMutableArray array];
                 for (NSDictionary *dics in dict[@"data"]) {
                     MineIndentModel *indentModel = [MineIndentModel mj_objectWithKeyValues:dics];
                     AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
@@ -1041,8 +1042,10 @@
                             [indentModel.orderDetailList addObject:orderDetailModel];
                         }
                     }
+                    [listOrderArr addObject:indentModel];
                     buyCtrl.minModel = indentModel;
                 }
+                buyCtrl.orderListArray = listOrderArr;
                 buyCtrl.goodsListArray = goodListArr;
                 buyCtrl.goodsNum = self->_goodsNum;
                 buyCtrl.goodsPrice = self->_goodsPrice;

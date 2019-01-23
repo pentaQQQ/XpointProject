@@ -446,7 +446,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
 {
     if (buttonIndex == AlertButtonLeft) {
     }else{
-        self.tabBarController.selectedIndex = 2;
+        self.tabBarController.selectedIndex = 3;
         
     }
 }

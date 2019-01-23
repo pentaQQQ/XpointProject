@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewLoginViewController">
             <connections>
+                <outlet property="phoneLabel" destination="g3b-2y-wUO" id="9Pi-D5-gL3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -46,7 +47,7 @@
                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有货源联系：13916257745" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3b-2y-wUO">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有货源联系：18101697060" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3b-2y-wUO">
                             <rect key="frame" x="100.5" y="526" width="174" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="jPx-Ut-qNd"/>
@@ -121,6 +122,6 @@
         </view>
     </objects>
     <resources>
-        <image name="logo" width="236" height="250"/>
+        <image name="logo" width="600" height="600"/>
     </resources>
 </document>

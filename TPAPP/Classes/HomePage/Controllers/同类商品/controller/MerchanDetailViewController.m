@@ -583,7 +583,7 @@
     if (buttonIndex == AlertButtonLeft) {
     }else{
         
-        self.tabBarController.selectedIndex = 2;
+        self.tabBarController.selectedIndex = 3;
     }
 }
 #pragma mark - 添加备注

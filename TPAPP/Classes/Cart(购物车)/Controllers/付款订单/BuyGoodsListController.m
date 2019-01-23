@@ -33,6 +33,12 @@
 @end
 
 @implementation BuyGoodsListController
+{
+    long _orderNum;
+    double _productAmount;
+    double _couponsAmount;
+    double _orderAmount;
+}
 #pragma mark - 懒加载
 -(NSMutableArray *)listDataArr
 {
@@ -58,7 +64,17 @@
         self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
     }
 //    self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal]],@[@"优惠金额",@"-¥0.00"],@[@"运费",[NSString stringWithFormat:@"¥%.2lf",self.minModel.logisticsFee]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal+self.minModel.logisticsFee]], nil];
-    self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.productAmountTotal]],@[@"优惠金额",[NSString stringWithFormat:@"-¥%.2lf",self.minModel.couponAmount]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal]], nil];
+    _orderNum = 0;
+    _productAmount = 0;
+    _couponsAmount = 0;
+    _orderAmount = 0;
+    for (MineIndentModel *orderModel in self.orderListArray) {
+        _orderNum = _orderNum+orderModel.productCount;
+        _productAmount = _productAmount+orderModel.productAmountTotal;
+        _couponsAmount = _couponsAmount+orderModel.couponAmount;
+        _orderAmount = _orderAmount+orderModel.orderAmountTotal;
+    }
+    self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",_orderNum],[NSString stringWithFormat:@"¥%.2lf",_productAmount]],@[@"优惠金额",[NSString stringWithFormat:@"-¥%.2lf",_couponsAmount]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",_orderAmount]], nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(aliPaytype:) name:@"aliPaytype"object:nil];
     self.title = @"支付订单";
@@ -72,11 +88,19 @@
 - (void)getOrderData
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setValue:self.minModel.id forKey:@"orderIds"];
+    
+
+    NSMutableArray *arr = [NSMutableArray array];
+    for (MineIndentModel *orderModel in self.orderListArray) {
+        [arr addObject:orderModel.id];
+    }
+    NSString *orderIds = [arr componentsJoinedByString:@","];
+    [dic setValue:orderIds forKey:@"orderIds"];
     [[NetworkManager sharedManager] postWithUrl:makeOrderDetail param:dic success:^(id json) {
         NSLog(@"%@",json);
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
+            [self.orderListArray removeAllObjects];
 //            [self.listDataArr removeAllObjects];
 //            dispatch_async(dispatch_get_main_queue(), ^{
                 for (NSDictionary *dics in json[@"data"]) {
@@ -91,11 +115,23 @@
                         [model.orderDetailList addObject:orderDetailModel];
                         
                     }
-                    self.minModel.couponAmount = model.couponAmount;
+                    [self.orderListArray addObject:model];
+//                    self.minModel.couponAmount = model.couponAmount;
 //                    [self.listDataArr addObject:model];
                 }
-               self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal];
-               self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.minModel.productCount],[NSString stringWithFormat:@"¥%.2lf",self.minModel.productAmountTotal]],@[@"优惠金额",[NSString stringWithFormat:@"-¥%.2lf",self.minModel.couponAmount]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal]], nil];
+                self->_orderNum = 0;
+                self->_productAmount = 0;
+                self->_couponsAmount = 0;
+                self->_orderAmount = 0;
+                for (MineIndentModel *orderModel in self.orderListArray) {
+                    self->_orderNum = self->_orderNum+orderModel.productCount;
+                    self->_productAmount = self->_productAmount+orderModel.productAmountTotal;
+                    self->_couponsAmount = self->_couponsAmount+orderModel.couponAmount;
+                    self->_orderAmount = self->_orderAmount+orderModel.orderAmountTotal;
+                }
+                self.listDataArr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self->_orderNum],[NSString stringWithFormat:@"¥%.2lf",self->_productAmount]],@[@"优惠金额",[NSString stringWithFormat:@"-¥%.2lf",self->_couponsAmount]],@[@"应付金额",[NSString stringWithFormat:@"¥%.2lf",self->_orderAmount]], nil];
+                self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self->_orderAmount];
+                self.allGoodsNumberLabel.text = [NSString stringWithFormat:@"(共%ld件)",self->_orderNum];
                 [self.listTableView reloadData];
 //            });
         }else if([json[@"code"]longValue] == 500){
@@ -168,10 +204,17 @@
             self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
         }
     }
-    NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
-    [dic1 setValue:self.addressModel.id forKey:@"addressId"];
-    [dic1 setValue:self.minModel.id forKey:@"id"];
-    [LYTools postBossDemoWithUrl:updateOrderAddress param:[NSMutableArray arrayWithObject:dic1] success:^(NSDictionary *dict) {
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    for (MineIndentModel *orderModel in self.orderListArray) {
+        NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
+        [dic1 setValue:self.addressModel.id forKey:@"addressId"];
+        [dic1 setValue:orderModel.id forKey:@"id"];
+        [arr addObject:dic1];
+    }
+    
+   
+    [LYTools postBossDemoWithUrl:updateOrderAddress param:arr success:^(NSDictionary *dict) {
 //        NSLog(@"%@",dict);
     } fail:^(NSError *error) {
 //        NSLog(@"%@",error);
@@ -201,7 +244,7 @@
     .heightIs(20);
     
     self.allGoodsPriceLabel = [[UILabel alloc] init];
-    self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal];
+    self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",_orderAmount];
     self.allGoodsPriceLabel.textAlignment = NSTextAlignmentLeft;
     self.allGoodsPriceLabel.textColor = colorWithRGB(0xFF6B24);
     self.allGoodsPriceLabel.font = [UIFont systemFontOfSize:19];
@@ -209,11 +252,11 @@
     self.allGoodsPriceLabel.sd_layout
     .topSpaceToView(self.bottomView,10)
     .leftSpaceToView(self.priceLabel, 5)
-    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",self.minModel.orderAmountTotal] withFont:19])
+    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",_orderAmount] withFont:19])
     .heightIs(30);
     
     self.allGoodsNumberLabel = [[UILabel alloc] init];
-    self.allGoodsNumberLabel.text = [NSString stringWithFormat:@"(共%ld件)",self.minModel.productCount];
+    self.allGoodsNumberLabel.text = [NSString stringWithFormat:@"(共%ld件)",_orderNum];
     self.allGoodsNumberLabel.textAlignment = NSTextAlignmentLeft;
     self.allGoodsNumberLabel.textColor = colorWithRGB(0xFF6B24);
     self.allGoodsNumberLabel.font = [UIFont systemFontOfSize:13];
@@ -221,7 +264,7 @@
     self.allGoodsNumberLabel.sd_layout
     .topSpaceToView(self.bottomView,20)
     .leftSpaceToView(self.allGoodsPriceLabel, 5)
-    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"(共%ld件)",self.minModel.productCount] withFont:13])
+    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"(共%ld件)",_orderNum] withFont:13])
     .heightIs(20);
     
     self.buyButton = [[UIButton alloc] init];
@@ -244,10 +287,16 @@
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setValue:@"IOS" forKey:@"tradeType"];
         [dic setValue:@"order" forKey:@"type"];
-        NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
-        [dic1 setValue:[NSString stringWithFormat:@"%.2lf",self.minModel.orderAmountTotal] forKey:@"amount"];
-        [dic1 setValue:self.minModel.id forKey:@"orderId"];
-        [dic setValue:[NSMutableArray arrayWithObject:dic1]forKey:@"weiXinPayParams"];
+       
+        NSMutableArray *arr = [NSMutableArray array];
+        for (MineIndentModel *orderModel in self.orderListArray) {
+            NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
+            [dic1 setValue:[NSString stringWithFormat:@"%.2lf",orderModel.orderAmountTotal] forKey:@"amount"];
+            [dic1 setValue:orderModel.id forKey:@"orderId"];
+            [arr addObject:dic1];
+        }
+       
+        [dic setValue:arr forKey:@"weiXinPayParams"];
         [LYTools postBossDemoWithUrl:wechatPayByOrder param:dic success:^(NSDictionary *dict) {
             NSLog(@"%@",dict);
             NSDictionary *body = dict[@"data"];
@@ -269,10 +318,15 @@
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setValue:@"IOS" forKey:@"tradeType"];
         [dic setValue:@"order" forKey:@"type"];
-        NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
-        [dic1 setValue:[NSString stringWithFormat:@"%.2lf",self.minModel.orderAmountTotal] forKey:@"amount"];
-        [dic1 setValue:self.minModel.id forKey:@"orderId"];
-        [dic setValue:[NSMutableArray arrayWithObject:dic1]forKey:@"weiXinPayParams"];
+        NSMutableArray *arr = [NSMutableArray array];
+        for (MineIndentModel *orderModel in self.orderListArray) {
+            NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
+            [dic1 setValue:[NSString stringWithFormat:@"%.2lf",orderModel.orderAmountTotal] forKey:@"amount"];
+            [dic1 setValue:orderModel.id forKey:@"orderId"];
+            [arr addObject:dic1];
+        }
+        
+        [dic setValue:arr forKey:@"weiXinPayParams"];
         [LYTools postBossDemoWithUrl:aliPayByOrder param:dic success:^(NSDictionary *dict) {
             NSLog(@"%@",dict);
             // NOTE: 调用支付结果开始支付
