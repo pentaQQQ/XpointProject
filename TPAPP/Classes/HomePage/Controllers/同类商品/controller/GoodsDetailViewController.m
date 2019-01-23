@@ -258,19 +258,7 @@
                             [self.dataArr addObject:model];
                         }
                         [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
-//                        dispatch_async(dispatch_get_main_queue(), ^{
-//                            self->_isFetching = NO;
-//                            [self.tableview reloadData];
-//                        });
-                        //                    NSMutableArray *insertInexPaths = [NSMutableArray arrayWithCapacity:[tempArray count]];
-                        //                    //创建一个临时数据存放indexpath
-                        //                    for (NSInteger i = 0; i< tempArray.count; i++) {
-                        //                        // 取出后面需要加入的indexPath放进刚刚的那个临时数组
-                        //                        NSIndexPath *newPath = [NSIndexPath indexPathForRow:[self.dataArr indexOfObject:[tempArray objectAtIndex:i]] inSection:0];
-                        //                        [insertInexPaths addObject:newPath];
-                        //                    }
-                        //                    //把新的数据插入到后面
-                        //                    [self.tableview insertRowsAtIndexPaths:insertInexPaths withRowAnimation:(UITableViewRowAnimationNone)];
+
                     }
                     
                 }
@@ -598,41 +586,7 @@
       
     }
     
-//    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
-//
-//    //去除特定的分享功能
-//    activityVC.excludedActivityTypes = @[UIActivityTypePostToFacebook,UIActivityTypePostToTwitter, UIActivityTypePostToWeibo,UIActivityTypeMessage,UIActivityTypeMail,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeAssignToContact,UIActivityTypeSaveToCameraRoll,UIActivityTypeAddToReadingList,UIActivityTypePostToFlickr,UIActivityTypePostToVimeo,UIActivityTypePostToTencentWeibo,UIActivityTypeAirDrop,UIActivityTypeOpenInIBooks];
-//
-//    [self presentViewController: activityVC animated:YES completion:nil];
-//
-//
-//
-//    //初始化Block回调方法,此回调方法是在iOS8之后出的，代替了之前的方法
-//    UIActivityViewControllerCompletionWithItemsHandler myBlock = ^(NSString *activityType,BOOL completed,NSArray *returnedItems,NSError *activityError)
-//    {
-//        NSLog(@"activityType :%@", activityType);
-//        if (completed)
-//        {
-//            NSLog(@"completed");
-//
-//            for (int i = 0; i < activityItems.count; i++){
-//                NSString *imagePath = [docPath stringByAppendingString:[NSString stringWithFormat:@"/SharePic%d.jpg",i]];
-//                NSFileManager *manager = [NSFileManager defaultManager];
-//                [manager removeItemAtPath:imagePath error:nil];
-//            }
-//
-//        }
-//        else
-//        {
-//            NSLog(@"cancel");
-//        }
-//
-//    };
-//
-//    // 初始化completionHandler，当post结束之后（无论是done还是cancell）该blog都会被调用
-//    activityVC.completionWithItemsHandler = myBlock;
-//
-    
+
     [[[ShareTool alloc] init]shareWithItems:items completionHandler:^(UIActivityType  _Nullable activityType, BOOL completed) {
         for (int i = 0; i < activityItems.count; i++){
             NSString *imagePath = [docPath stringByAppendingString:[NSString stringWithFormat:@"/SharePic%d.jpg",i]];
@@ -745,23 +699,6 @@
     }
     return nil;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 - (void)registerSuccess:(NSNotification *)sender {

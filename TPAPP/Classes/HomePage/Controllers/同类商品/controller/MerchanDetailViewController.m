@@ -313,8 +313,7 @@
                 
                 
             }else if (currentDEX == 1){
-                
-                
+
                 [self shareMangPictureWithModel:model];
                 
             }else if (currentDEX == 2){
