@@ -358,6 +358,8 @@
 		8E617F6221EDD80E00DBFD2A /* NSData+Base64Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E617F5F21EDD80D00DBFD2A /* NSData+Base64Encode.m */; };
 		8E617F6821F8612100DBFD2A /* huodongfenxiangview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E617F6721F8612100DBFD2A /* huodongfenxiangview.m */; };
 		8E617F6A21F8613000DBFD2A /* huodongfenxiangview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E617F6921F8613000DBFD2A /* huodongfenxiangview.xib */; };
+		8E617F6D21F9BB4C00DBFD2A /* OYCountDownManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E617F6C21F9BB4C00DBFD2A /* OYCountDownManager.m */; };
+		8E617F7021F9BB6A00DBFD2A /* OYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E617F6F21F9BB6900DBFD2A /* OYModel.m */; };
 		8E78BDF52135343A000A9EA4 /* zhuanfasetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */; };
 		8E78BDF62135343A000A9EA4 /* zhuanfasetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */; };
 		8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E78BDF22135343A000A9EA4 /* tupiansetview.xib */; };
@@ -1226,6 +1228,10 @@
 		8E617F6621F8612100DBFD2A /* huodongfenxiangview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = huodongfenxiangview.h; sourceTree = "<group>"; };
 		8E617F6721F8612100DBFD2A /* huodongfenxiangview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = huodongfenxiangview.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E617F6921F8613000DBFD2A /* huodongfenxiangview.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = huodongfenxiangview.xib; sourceTree = "<group>"; };
+		8E617F6B21F9BB4B00DBFD2A /* OYCountDownManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OYCountDownManager.h; sourceTree = "<group>"; };
+		8E617F6C21F9BB4C00DBFD2A /* OYCountDownManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OYCountDownManager.m; sourceTree = "<group>"; };
+		8E617F6E21F9BB6900DBFD2A /* OYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OYModel.h; sourceTree = "<group>"; };
+		8E617F6F21F9BB6900DBFD2A /* OYModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OYModel.m; sourceTree = "<group>"; };
 		8E78BDEE2135343A000A9EA4 /* zhuanfasetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = zhuanfasetViewController.xib; sourceTree = "<group>"; };
 		8E78BDEF2135343A000A9EA4 /* zhuanfasetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhuanfasetViewController.m; sourceTree = "<group>"; };
 		8E78BDF02135343A000A9EA4 /* zhuanfasetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhuanfasetViewController.h; sourceTree = "<group>"; };
@@ -3748,6 +3754,10 @@
 		8EA952A0212AC4850057AC78 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				8E617F6B21F9BB4B00DBFD2A /* OYCountDownManager.h */,
+				8E617F6C21F9BB4C00DBFD2A /* OYCountDownManager.m */,
+				8E617F6E21F9BB6900DBFD2A /* OYModel.h */,
+				8E617F6F21F9BB6900DBFD2A /* OYModel.m */,
 				8E131F0C214B4AF100BE10E5 /* customLabel.h */,
 				8E131F0D214B4AF200BE10E5 /* customLabel.m */,
 				8EA952A1212AC4C50057AC78 /* goodsDetailCell.h */,
@@ -4594,6 +4604,7 @@
 				01120EE621338F9C0071AC5F /* AddressTextView.m in Sources */,
 				8E3E6D8B213E764C007B3306 /* shanghuModel.m in Sources */,
 				9ABCEEA01FFCA6BB00DF4380 /* MSHttpTool.m in Sources */,
+				8E617F6D21F9BB4C00DBFD2A /* OYCountDownManager.m in Sources */,
 				8E78BE05213541E5000A9EA4 /* zidingyijineView.m in Sources */,
 				8EA95327212BDD060057AC78 /* SearchHeaderView.m in Sources */,
 				8ED5B4BC212A6AC100B5983B /* SGPageTitleView.m in Sources */,
@@ -4873,6 +4884,7 @@
 				01120EEE21338F9C0071AC5F /* MineHeaderViewCell.m in Sources */,
 				01120FFB213392FD0071AC5F /* JXCategoryBackgroundImageCellModel.m in Sources */,
 				8E9A5F5D215F14170084C9F1 /* MJRefreshGifHeader.m in Sources */,
+				8E617F7021F9BB6A00DBFD2A /* OYModel.m in Sources */,
 				01C2A28921BF6CF40072D4D6 /* FXPayTypeItemView.m in Sources */,
 				8E78BE1A21366708000A9EA4 /* LYTools.m in Sources */,
 				547C49871F1DBB8200178B67 /* SGPickerView.m in Sources */,

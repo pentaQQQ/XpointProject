@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "releaseActivitiesModel.h"
+#import "customLabel.h"
+
+#import "OYModel.h"
 
 @interface goodsDetailCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageview;
@@ -42,5 +45,14 @@
 @property(nonatomic,copy)void(^qianggouBlock)(releaseActivitiesModel*model);
 
 @property(nonatomic,copy)void(^zhuanfaBlock)(releaseActivitiesModel*model);
+
+@property (weak, nonatomic) IBOutlet UILabel *daojishiLab;
+
+/// 倒计时到0时回调
+@property (nonatomic, copy) void(^countDownZero)(OYModel *);
+
+
+
+
 
 @end

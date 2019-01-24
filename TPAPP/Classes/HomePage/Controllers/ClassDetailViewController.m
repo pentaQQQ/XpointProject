@@ -17,6 +17,9 @@
 #import "fenxiangTanchuangView.h"
 #import "huodongfenxiangview.h"
 #import "ShareItem.h"
+
+#import "OYCountDownManager.h"
+
 @interface ClassDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView*tableview;
 @property(nonatomic,strong)NSMutableArray*dataArr;
@@ -63,7 +66,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    // 启动倒计时管理
+    [kCountDownManager start];
     [self setUpUI];
     [self getAdvertisingData];
 }

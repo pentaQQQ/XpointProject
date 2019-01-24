@@ -10,7 +10,9 @@
 #import "ZLPhotoPickerBrowserViewController.h"
 #import "imagesListModel.h"
 #import "UIButton+WebCache.h"
-#import "customLabel.h"
+
+#import "OYCountDownManager.h"
+
 @implementation goodsDetailCell
 
 - (void)awakeFromNib {
@@ -23,6 +25,20 @@
     
     // Configure the view for the selected state
 }
+
+
+// xib创建
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        // 监听通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(countDownNotification) name:OYCountDownNotification object:nil];
+    }
+    return self;
+}
+
+
 -(void)setImageview:(UIImageView *)imageview{
     _imageview = imageview;
     ViewBorderRadius(imageview, 5, 1, [UIColor lightGrayColor]);
@@ -91,14 +107,23 @@
         self.beginDetailTime.hidden = YES;
         self.tianLab.hidden = YES;
         self.begintimeWidth.constant = 60;
-    }else if ([str isEqualToString:@"倒计时"]){
+    }else if ([str containsString:@"倒计时"]){
         self.tianLab.hidden = YES;
         
-        customLabel *lab = [[customLabel alloc]initWithFrame: self.beginTime.bounds];
-        lab.string = [model.endTime substringFromIndex:11];
+//        customLabel *lab = [[customLabel alloc]initWithFrame: self.beginTime.bounds];
+//        lab.string = [model.endTime substringFromIndex:11];
+//
+//        NSLog(@"%@",lab.string);
         self.beginTime.hidden = YES;
+//        [self addSubview:lab];
+//        lab.backgroundColor = [UIColor redColor];
         
         
+        NSInteger count = [[str substringFromIndex:4]integerValue];
+        
+         [self countDownNotification];
+        
+        NSLog(@"%ld",(long)count);
     }else{
         self.beginTime.text = str;
         self.tianLab.hidden = NO;
@@ -109,7 +134,7 @@
     NSString *tempStr = [model.endTime substringFromIndex:11];
     NSString *tempStr1 = [tempStr substringToIndex:2];
     
-    NSString *tempStr2 = [tempStr substringFromIndex:4];
+    NSString *tempStr2 = [tempStr substringFromIndex:3];
     NSString *tempStr3 = [tempStr2 substringToIndex:2];
    
     
@@ -229,7 +254,51 @@
 
 
 
+#pragma mark - 倒计时通知回调
+- (void)countDownNotification {
+    
+    
+    
+    
+    NSString *str = [LYTools inputTimeStr:self.model.endTime];
+    
+  if ([str containsString:@"倒计时"]){
 
+    NSInteger count = [[str substringFromIndex:4]integerValue];
+        
+      
+      /// 判断是否需要倒计时 -- 可能有的cell不需要倒计时,根据真实需求来进行判断
+      if (0) {
+          return;
+      }
+      /// 计算倒计时
+      //    OYModel *model = self.model;
+      NSInteger timeInterval;
+      //    if (model.countDownSource) {
+      //        timeInterval = [kCountDownManager timeIntervalWithIdentifier:model.countDownSource];
+      //    }else {
+      timeInterval = kCountDownManager.timeInterval;
+      //    }
+      NSInteger countDown = count - timeInterval;
+      /// 当倒计时到了进行回调
+      //    if (countDown <= 0) {
+      //        self.detailTextLabel.text = @"活动开始";
+      //        // 回调给控制器
+      //        if (self.countDownZero) {
+      //            self.countDownZero(model);
+      //        }
+      //        return;
+      //    }
+      /// 重新赋值
+      self.daojishiLab.text = [NSString stringWithFormat:@"%02zd:%02zd:%02zd", countDown/3600, (countDown/60)%60, countDown%60];
+      self.daojishiLab.textColor = [UIColor blackColor];
+      self.daojishiLab.hidden = NO;
+        NSLog(@"%ld",(long)count);
+    }
+    
+    
+   
+}
 
 
 @end

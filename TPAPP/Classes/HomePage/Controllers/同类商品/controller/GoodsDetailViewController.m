@@ -36,7 +36,7 @@
 #import "QImoModel.h"
 
 #import "ShareTool.h"
-
+#import "OYCountDownManager.h"
 
 @interface GoodsDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIDocumentInteractionControllerDelegate,DeclareAbnormalAlertViewDelegate,DeclareAbnormalAlertViewOrderListRemindDelegate>
 @property(nonatomic,strong)NSMutableArray *dataArr;
@@ -102,7 +102,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUpTableview];
-
+    // 启动倒计时管理
+    [kCountDownManager start];
     
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerSuccess:) name:CUSTOM_LOGIN_SUCCEED object:nil];
