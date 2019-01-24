@@ -91,11 +91,15 @@
     [self.navigationController.navigationBar setTranslucent:NO];
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     
+       [kCountDownManager start];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [self.navigationController.navigationBar setTranslucent:YES];
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = YES;
+    
+    [kCountDownManager invalidate];
 }
 
 - (void)viewDidLoad {
@@ -171,12 +175,19 @@
 {
     _dataRefreshNumber = 0;
     [self lodaHuodongData];
+     [kCountDownManager reload];
     
 }
 - (void)footerRereshing
 {
     _dataRefreshNumber++;
     [self lodaHuodongData];
+     [kCountDownManager reload];
+}
+
+-(void)dealloc{
+    
+    [kCountDownManager invalidate];
 }
 
 

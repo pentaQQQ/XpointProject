@@ -13,6 +13,14 @@
 
 #import "OYCountDownManager.h"
 
+
+@interface goodsDetailCell ()
+
+@property(nonatomic,assign)NSInteger count;
+
+
+@end
+
 @implementation goodsDetailCell
 
 - (void)awakeFromNib {
@@ -120,6 +128,8 @@
         
         
         NSInteger count = [[str substringFromIndex:4]integerValue];
+        
+        self.count = count;
         
          [self countDownNotification];
         
@@ -264,13 +274,8 @@
     
   if ([str containsString:@"倒计时"]){
 
-    NSInteger count = [[str substringFromIndex:4]integerValue];
+    NSInteger count = self.count;
         
-      
-      /// 判断是否需要倒计时 -- 可能有的cell不需要倒计时,根据真实需求来进行判断
-      if (0) {
-          return;
-      }
       /// 计算倒计时
       //    OYModel *model = self.model;
       NSInteger timeInterval;
@@ -279,16 +284,16 @@
       //    }else {
       timeInterval = kCountDownManager.timeInterval;
       //    }
-      NSInteger countDown = count - timeInterval;
-      /// 当倒计时到了进行回调
-      //    if (countDown <= 0) {
-      //        self.detailTextLabel.text = @"活动开始";
-      //        // 回调给控制器
-      //        if (self.countDownZero) {
-      //            self.countDownZero(model);
-      //        }
-      //        return;
-      //    }
+      NSInteger countDown = count - timeInterval+1;
+      // 当倒计时到了进行回调
+          if (countDown <= 0) {
+//              self.detailTextLabel.text = @"活动开始";
+//              // 回调给控制器
+//              if (self.countDownZero) {
+//                  self.countDownZero(model);
+//              }
+              return;
+          }
       /// 重新赋值
       self.daojishiLab.text = [NSString stringWithFormat:@"%02zd:%02zd:%02zd", countDown/3600, (countDown/60)%60, countDown%60];
       self.daojishiLab.textColor = [UIColor blackColor];

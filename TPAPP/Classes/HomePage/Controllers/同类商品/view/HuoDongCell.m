@@ -13,6 +13,13 @@
 #import "UIButton+WebCache.h"
 #import "customLabel.h"
 #import "OYCountDownManager.h"
+
+
+@interface HuoDongCell()
+@property(nonatomic,assign)NSInteger count;
+@end
+
+
 @implementation HuoDongCell
 
 - (void)awakeFromNib {
@@ -115,7 +122,7 @@
         
         
         NSInteger count = [[str substringFromIndex:4]integerValue];
-        
+        self.count = count;
         [self countDownNotification];
         
         NSLog(@"%ld",(long)count);
@@ -129,7 +136,7 @@
     NSString *tempStr = [model.endTime substringFromIndex:11];
     NSString *tempStr1 = [tempStr substringToIndex:2];
     
-    NSString *tempStr2 = [tempStr substringFromIndex:4];
+    NSString *tempStr2 = [tempStr substringFromIndex:3];
     NSString *tempStr3 = [tempStr2 substringToIndex:2];
     
     
@@ -271,7 +278,7 @@
     
     if ([str containsString:@"倒计时"]){
         
-        NSInteger count = [[str substringFromIndex:4]integerValue];
+        NSInteger count = self.count;
         
         
         /// 判断是否需要倒计时 -- 可能有的cell不需要倒计时,根据真实需求来进行判断
