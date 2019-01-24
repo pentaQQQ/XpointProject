@@ -9,6 +9,7 @@
 #import "BaseViewController.h"
 #import "UIBarButtonItem+Create.h"
 #import "MineIndentViewController.h"
+#import "SearchViewController.h"
 @interface BaseViewController ()
 
 @end
@@ -28,7 +29,10 @@
         }
         [self.navigationController popViewControllerAnimated:YES];
     }];
-    self.navigationItem.leftBarButtonItems = @[set];
+    if (![self isKindOfClass:[SearchViewController class]]) {
+        self.navigationItem.leftBarButtonItems = @[set];
+    }
+    
 }
 
 -(void)viewWillLayoutSubviews

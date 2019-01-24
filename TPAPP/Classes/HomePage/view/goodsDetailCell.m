@@ -60,7 +60,7 @@
     [self setImagewithArray:model.imagesList];
     
     if ([model.typeac isEqualToString:@"0"]) {
-        [self.zhuanfaBtn setTitle:@"分享整场活动" forState:UIControlStateNormal];
+        [self.zhuanfaBtn setTitle:@"转发全场" forState:UIControlStateNormal];
     }else{
         [self.zhuanfaBtn setTitle:@"转发" forState:UIControlStateNormal];
     }

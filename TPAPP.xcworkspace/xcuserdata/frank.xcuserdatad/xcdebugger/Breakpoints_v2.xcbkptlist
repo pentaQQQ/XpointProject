@@ -377,7 +377,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/HavePayViewController.m"
-            timestampString = "569841520.295963"
+            timestampString = "570011735.869049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
@@ -415,6 +415,22 @@
             startingLineNumber = "208"
             endingLineNumber = "208"
             landmarkName = "-viewWillAppear:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPAPP/Classes/HomePage/Controllers/ClassDetailViewController.m"
+            timestampString = "570011797.2321661"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "-getAdvertisingData"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
