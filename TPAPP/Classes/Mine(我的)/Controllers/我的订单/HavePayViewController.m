@@ -323,10 +323,20 @@
     .widthIs(80)
     .heightIs(20);
    if ([model.status isEqualToString:@"1"]){
-        if ([model.afterStatus isEqualToString:@"2"]) {
-            goodStatus.text = @"退款拒绝";
+        if ([model.afterStatus isEqualToString:@"1"]) {
+           goodStatus.text = @"申请退款";
+        }else if ([model.afterStatus isEqualToString:@"2"]) {
+            goodStatus.text = @"拒绝退款";
+        }else if ([model.afterStatus isEqualToString:@"3"]) {
+            goodStatus.text = @"申请退货退款";
         }else if ([model.afterStatus isEqualToString:@"4"]) {
-            goodStatus.text = @"退款退货";
+            goodStatus.text = @"拒绝退货";
+        }else if ([model.afterStatus isEqualToString:@"5"]) {
+            goodStatus.text = @"退货中";
+        }else if ([model.afterStatus isEqualToString:@"7"]) {
+            goodStatus.text = @"退款成功";
+        }else if ([model.afterStatus isEqualToString:@"8"]) {
+            goodStatus.text = @"退款中";
         }else{
            goodStatus.text = @"已支付";
         }

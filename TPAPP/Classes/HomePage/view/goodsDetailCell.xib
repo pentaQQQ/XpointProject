@@ -163,7 +163,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="eNv-bQ-gSb"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="分享整场活动">
+                                                <state key="normal" title="转发全场">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>

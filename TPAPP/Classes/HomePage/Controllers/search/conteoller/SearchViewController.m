@@ -103,23 +103,19 @@ static NSString *const headerViewIden = @"HeadViewIden";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"搜索";
-    
-    
     self.currentIndex = 0;
-    
     
     
     
     UISearchBar *search = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth/3*2,30)];
     self.search = search;
     [search setPlaceholder:@"搜索商品名称/品牌/关键字"];
-    
     //获取textField(也可以通过KVC获取)
     UITextField *searchField=[((UIView *)[search.subviews objectAtIndex:0]).subviews lastObject];
     //设置placeHolder字体的颜色
     searchField.tintColor = [UIColor lightGrayColor];
-    searchField.textColor =[UIColor lightGrayColor];
-    [searchField setValue:[UIColor lightGrayColor]forKeyPath:@"_placeholderLabel.textColor"];
+    searchField.textColor =[UIColor blackColor];
+    [searchField setValue:[UIColor blackColor]forKeyPath:@"_placeholderLabel.textColor"];
     searchField.font = [UIFont systemFontOfSize:14];
     
     searchField.returnKeyType = UIReturnKeySend;
@@ -201,7 +197,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
     
     
     
-    UICollectionView *cxSearchCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(topbtn.frame)+1, kScreenWidth, kScreenHeight-SafeAreaTopHeight-41) collectionViewLayout:[[SelectCollectionLayout alloc] init]];
+    UICollectionView *cxSearchCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(topbtn.frame)+1, kScreenWidth, kScreenHeight-SafeAreaTopHeight-41-self.tabBarController.tabBar.bounds.size.height-SafeAreaBottomHeight) collectionViewLayout:[[SelectCollectionLayout alloc] init]];
     self.cxSearchCollectionView = cxSearchCollectionView;
     
     
@@ -219,7 +215,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
     
     
     
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(topbtn.frame)+1, kScreenWidth, kScreenHeight-SafeAreaTopHeight-41) style:UITableViewStylePlain];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(topbtn.frame)+1, kScreenWidth, kScreenHeight-SafeAreaTopHeight-41-self.tabBarController.tabBar.bounds.size.height-SafeAreaBottomHeight) style:UITableViewStylePlain];
     self.tableview = tableview;
     self.tableview.hidden = YES;
     [self.view addSubview:tableview];
