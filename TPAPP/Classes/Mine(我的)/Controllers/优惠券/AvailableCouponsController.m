@@ -112,20 +112,20 @@ static NSString *cellID = @"MyCouponsCellID";
     cell.dateTimeLabel.text = [NSString stringWithFormat:@"%@-%@",[[model.updateTime componentsSeparatedByString:@" "] firstObject],[[model.loseTime componentsSeparatedByString:@" "] firstObject]];
     cell.merchantNameLabel.text = model.couponMerchantName;
     
-    NSString *dateStr = [NSString stringWithFormat:@"%.0lfRMB",model.discountMoney];
-    NSRange range = NSMakeRange(dateStr.length - 3, 3);
+    NSString *dateStr = [NSString stringWithFormat:@"¥%.0lf",model.discountMoney];
+    NSRange range = NSMakeRange(0, 1);
     NSMutableAttributedString *mutAttStr = [[NSMutableAttributedString alloc]initWithString:dateStr];
     [mutAttStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.0] range:range];
     cell.moneyLabel.attributedText = mutAttStr;
-    cell.detailLabel.text = [NSString stringWithFormat:@"满%.0lf可用",model.fullReduction];
-    cell.couponsTypeLabel.text = @"可使用";
+    cell.detailLabel.text = [NSString stringWithFormat:@"满%.0lf抵用",model.fullReduction];
+//    cell.couponsTypeLabel.text = @"可使用";
     cell.couponsLabel.text = model.couponName;
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 170;
+    return 120;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
