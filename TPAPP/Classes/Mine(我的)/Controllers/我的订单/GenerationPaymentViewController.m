@@ -217,6 +217,10 @@
             .rightSpaceToView(view, 15)
             .widthIs(70)
             .heightIs(30);
+            paymentBtn.layer.cornerRadius = 3;
+            paymentBtn.layer.masksToBounds = YES;
+            
+            
             UIButton*cancelGoodsBtn = [[UIButton alloc] init];
             cancelGoodsBtn.tag = section;
             cancelGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -230,6 +234,8 @@
             .rightSpaceToView(paymentBtn, 10)
             .widthIs(70)
             .heightIs(30);
+            cancelGoodsBtn.layer.cornerRadius = 3;
+            cancelGoodsBtn.layer.masksToBounds = YES;
         }
         
     }
@@ -270,6 +276,7 @@
 {
     MineIndentModel *minModel = self.listDataArr[btn.tag];
     BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
+    buyCtrl.orderListArray = [NSMutableArray arrayWithObject:minModel];
     buyCtrl.minModel = minModel;
     buyCtrl.pushCtrl = 2;
     [self.navigationController pushViewController:buyCtrl animated:YES];
@@ -348,6 +355,7 @@
     MineIndentModel *minModel = self.listDataArr[indexPath.section];
     OrderDetailViewController *minePerCtrl = [[OrderDetailViewController alloc] init];
     minePerCtrl.model = minModel;
+    minePerCtrl.pushCtrl = self.pushCtrl;
     [self.navigationController pushViewController:minePerCtrl animated:YES];
 }
 #pragma mark --------------- LeftBodyCellDelegate

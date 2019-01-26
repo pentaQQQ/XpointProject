@@ -723,8 +723,8 @@
     {//大于60s，小于一小时
         
         //倒计时
-          str = @"倒计时";
-        
+//          str = @"倒计时";
+        str = [NSString stringWithFormat:@"倒计时:%d",i];
     }else if (i>60*60*24)
         {//
         

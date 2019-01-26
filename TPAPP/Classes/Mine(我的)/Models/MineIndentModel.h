@@ -10,6 +10,7 @@
 @class OrderDetailModel,OrderLogisticsModel;
 @interface MineIndentModel : NSObject
 @property (nonatomic, strong)AddressModel *addressInfo;
+@property (nonatomic, assign)double couponAmount;//订单优惠金额 ,
 @property (nonatomic, copy)NSString *afterStatus;//用户售后状态 0 未发起售后 1 申请售后 3 售后已取消 4 处理中 5 处理完毕 ,
 @property (nonatomic, copy)NSString *createDataTime;//创建时间 ,
 @property (nonatomic, copy)NSString *deliveryTime;//发货时间 ,

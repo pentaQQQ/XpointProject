@@ -19,8 +19,28 @@
 #import "HuoDongCell.h"
 #import "PiliangzhuanfaViewController.h"
 #import "DeclareAbnormalAlertView.h"
-@interface GoodsDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIDocumentInteractionControllerDelegate,DeclareAbnormalAlertViewDelegate>
+#import "releaseActivitiesModel.h"
+
+
+
+
+
+#import "QMChatRoomViewController.h"
+#import <QMChatSDK/QMChatSDK.h>
+#import <QMChatSDK/QMChatSDK-Swift.h>
+
+#import "QMChatRoomGuestBookViewController.h"
+#import "QMAlert.h"
+#import "QMManager.h"
+
+#import "QImoModel.h"
+
+#import "ShareTool.h"
+#import "OYCountDownManager.h"
+
+@interface GoodsDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIDocumentInteractionControllerDelegate,DeclareAbnormalAlertViewDelegate,DeclareAbnormalAlertViewOrderListRemindDelegate>
 @property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,strong)NSMutableArray *fuwuArr;
 @property(nonatomic,strong)UITableView*tableview;
 
 
@@ -35,12 +55,18 @@
 @property (nonatomic, retain) UIDocumentInteractionController *docuController;
 
 
-
-
+@property (nonatomic, assign) BOOL isConnecting;
+@property (nonatomic, copy) NSDictionary * dictionary;
+@property (nonatomic, assign) BOOL isPushed;
 @end
 
 @implementation GoodsDetailViewController
-
+{
+    int _buyGoodNumber;
+    int _dataRefreshNumber;
+    BOOL _isFetching;
+    int _isFiveData;
+}
 
 -(NSMutableArray*)dataArr{
     if (_dataArr == nil) {
@@ -49,12 +75,46 @@
     return _dataArr;
 }
 
+-(NSMutableArray*)fuwuArr{
+    if (_fuwuArr == nil) {
+        _fuwuArr = [NSMutableArray array];
+    }
+    return _fuwuArr;
+}
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [SVProgressHUD doAnythingWithHUDMessage:@"获取中"];
+    [QMConnect registerSDKWithAppKey:@"5f12e670-c334-11e8-b0e0-5f753912b765" userName:@"8001" userId:@"8001_id"];
+    
+    [self.navigationController.navigationBar setTranslucent:NO];
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
+    
+       [kCountDownManager start];
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [self.navigationController.navigationBar setTranslucent:YES];
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = YES;
+    
+    [kCountDownManager invalidate];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUpTableview];
-    [self lodaHuodongData];
+    // 启动倒计时管理
+    [kCountDownManager start];
+    
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerSuccess:) name:CUSTOM_LOGIN_SUCCEED object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerFailure:) name:CUSTOM_LOGIN_ERROR_USER object:nil];
+    
+   
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,7 +125,7 @@
 
 
 -(void)setUpTableview{
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, kScreenWidth, kScreenHeight-SafeAreaTopHeight-49-SafeAreaBottomHeight) style:UITableViewStylePlain];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-SafeAreaTopHeight-49-SafeAreaBottomHeight) style:UITableViewStylePlain];
     self.tableview = tableview;
     
     tableview.delegate = self;
@@ -77,7 +137,11 @@
     
     [self.view addSubview:tableview];
     
+    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+    [self.tableview.mj_header beginRefreshing];
     
+    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+    self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
     
     XinHeChengTuView *xinheview = [[NSBundle mainBundle]loadNibNamed:@"XinHeChengTuView" owner:self options:nil].lastObject;
     self.xinheview = xinheview;
@@ -107,14 +171,30 @@
     
 }
 
+- (void)headerRereshing
+{
+    _dataRefreshNumber = 0;
+    [self lodaHuodongData];
+     [kCountDownManager reload];
+    
+}
+- (void)footerRereshing
+{
+    _dataRefreshNumber++;
+    [self lodaHuodongData];
+     [kCountDownManager reload];
+}
 
-
+-(void)dealloc{
+    
+    [kCountDownManager invalidate];
+}
 
 
 - (void)lodaData
 {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:self.ID forKey:@"id"];
+    [dic setValue:self.model.id forKey:@"id"];
     [[NetworkManager sharedManager] getWithUrl:getProductByActivityId param:dic success:^(id json) {
         
         NSLog(@"%@",json);
@@ -139,36 +219,82 @@
 
 
 
+
 - (void)lodaHuodongData
 {
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:self.ID forKey:@"id"];
-    [[NetworkManager sharedManager] getWithUrl:getActivityByMerchantId param:dic success:^(id json) {
-        
-        NSLog(@"%@",json);
-        
-        
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
+    _isFetching = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setValue:self.model.id forKey:@"activityId"];
+        [dic setValue:self.model.merchantId forKey:@"merchantId"];
+        [dic setValue:@(self->_dataRefreshNumber) forKey:@"pageNum"];
+        [dic setValue:@(5) forKey:@"pageSize"];
+        [[NetworkManager sharedManager] getWithUrl:getActivityByMerchantId param:dic success:^(id json) {
             
-            for (NSDictionary *dic in json[@"data"]) {
-                SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
-                [self.dataArr addObject:model];
-            }
+            NSLog(@"%@",json);
+            
+            
+            NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+            if ([respCode isEqualToString:@"00000"]) {
+                if (self->_dataRefreshNumber == 0) {
+                    
+                    [self.dataArr removeAllObjects];
+                    releaseActivitiesModel *model = [releaseActivitiesModel mj_objectWithKeyValues:json[@"data"][@"releaseActivityApiResult"]];
+                    [self.dataArr addObject:model];
+                    for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {
+                        SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
+                        [self.dataArr addObject:model];
+                    }
+                    [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+                    
+                }else{
+                    
+                    if ([json[@"data"][@"productApiResults"][@"data"] count] < 5) {
+                        self->_isFiveData++;
+                        if (self->_isFiveData > 1) {
+                           [self.tableview.mj_footer endRefreshingWithNoMoreData];
+                        }else{
+                            for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {
+                                SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
+                                //                        [tempArray addObject:model];
+                                [self.dataArr addObject:model];
+                            }
+                            [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+                        }
+                        
+                    }else{
+                        //                    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:0]; //创建一个临时数组
+                        for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {
+                            SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
+                            //                        [tempArray addObject:model];
+                            [self.dataArr addObject:model];
+                        }
+                        [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
 
-            [self lodaData];
+                    }
+                    
+                }
+                
+            }
             
-            
-        }
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
         
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
+        
+    });
+    
+   
+    
     
 }
 
-
-
+- (void)reloadDeals
+{
+    [self.tableview reloadData];
+    [self.tableview.mj_header endRefreshing];
+    [self.tableview.mj_footer endRefreshing];
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataArr.count;
@@ -191,6 +317,7 @@
         cell.model = model;
         
         [cell setAddGoodsGoCartBlock:^(specsModel *model) {
+            self->_buyGoodNumber = [cell.goodsNumberLabel.text intValue];
             LYAccount *lyAccount = [LYAccount shareAccount];
             if ([lyAccount.isRemark intValue] == 1) {
                 DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"添加商品备注" message:@"请输入备注信息" delegate:self leftButtonTitle:@"不下单" rightButtonTitle:@"下单" comCell:nil isAddGood:YES spesmodel:model];
@@ -200,7 +327,7 @@
                 [dic setValue:model.productId forKey:@"productId"];
                 [dic setValue:model.size forKey:@"size"];
                 [dic setValue:lyAccount.id forKey:@"userId"];
-                [dic setValue:@"1" forKey:@"number"];
+                [dic setValue:[NSString stringWithFormat:@"%d",self->_buyGoodNumber] forKey:@"number"];
                 [dic setValue:model.id forKey:@"cartDetailId"];
                 [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
                     NSLog(@"%@",dict);
@@ -208,8 +335,10 @@
                     if ([respCode isEqualToString:@"00000"]) {
                         
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
-                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
-                    
+//                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+                        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"添加成功,是否跳到购物车" selectType:@"是否跳到购物车" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+                        [alertView show];
+                        
                     }else{
                         [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                     }
@@ -220,6 +349,35 @@
         }];
         
         cell.ToZhuanfaBlock = ^(SimilarProductModel *model, int currentDEX) {
+            
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            
+            
+            NSString *str = @"";
+            for (int i=0; i<model.specs.count; i++) {
+                specsModel*spmodel =model.specs[i];
+                
+                if (i== 0) {
+                    str = [NSString stringWithFormat:@"%@(%ld)",spmodel.size,[spmodel.stock integerValue]];
+                }else{
+                    NSString *tempstr = [NSString stringWithFormat:@"%@(%ld)",spmodel.size,[spmodel.stock integerValue]];
+                    str = [NSString stringWithFormat:@"%@/%@",str,tempstr];
+                }
+            }
+            
+            
+            
+            
+            NSString *content = model.productName;
+            NSString*chimLab = [NSString stringWithFormat:@"尺码 %@",str];
+            NSString*kuanshiLab = [NSString stringWithFormat:@"款式 %@",model.design];
+            NSString*kuanhaoLab = [NSString stringWithFormat:@"款号 %@",model.designCode];
+            
+            
+            
+            pasteboard.string = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",content,chimLab,kuanshiLab,kuanhaoLab];
+            
+            
             
             
             if (currentDEX == 0) {
@@ -232,6 +390,7 @@
                 
             }else if (currentDEX == 1){
                 
+                [SVProgressHUD doAnyRemindWithHUDMessage:@"多图转发朋友圈，请在列表中选择“朋友圈选项”" withDuration:3];
                 
                 [self shareMangPictureWithModel:model];
                 
@@ -252,6 +411,12 @@
                 });
             }
             
+        };
+        
+        cell.TofuwuBlock = ^(SimilarProductModel *model) {
+            QImoModel *mode = self.fuwuArr[0];
+
+            [self showChatRoomViewController:mode.id processType:@"" entranceId:@""];
         };
         
         return cell;
@@ -372,8 +537,6 @@
 
 -(void)sharePictureWithImageData:(NSData*)imagedata{
     
-    //            NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.xinheview], 1.0f);
-    
     NSArray*paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     
     NSString *documentsDirectory=[paths objectAtIndex:0];
@@ -410,6 +573,12 @@
     NSMutableArray *items = [NSMutableArray array];
     NSString *docPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
     for (int i = 0; i < activityItems.count; i++) {
+        
+        
+        if (i==4) {
+            break;
+        }
+        
         //取出地址
         NSString *URL = [activityItems[i] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         //把图片转成NSData类型
@@ -426,43 +595,17 @@
         ShareItem *item = [[ShareItem alloc] initWithData: imagerang andFile:shareobj];
         //分享的数组
         [items addObject:item];
+      
     }
     
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
-    
-    //去除特定的分享功能
-    activityVC.excludedActivityTypes = @[UIActivityTypePostToFacebook,UIActivityTypePostToTwitter, UIActivityTypePostToWeibo,UIActivityTypeMessage,UIActivityTypeMail,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeAssignToContact,UIActivityTypeSaveToCameraRoll,UIActivityTypeAddToReadingList,UIActivityTypePostToFlickr,UIActivityTypePostToVimeo,UIActivityTypePostToTencentWeibo,UIActivityTypeAirDrop,UIActivityTypeOpenInIBooks];
-    
-    [self presentViewController: activityVC animated:YES completion:nil];
-    
-    
-    
-    //初始化Block回调方法,此回调方法是在iOS8之后出的，代替了之前的方法
-    UIActivityViewControllerCompletionWithItemsHandler myBlock = ^(NSString *activityType,BOOL completed,NSArray *returnedItems,NSError *activityError)
-    {
-        NSLog(@"activityType :%@", activityType);
-        if (completed)
-        {
-            NSLog(@"completed");
-            
-            for (int i = 0; i < activityItems.count; i++){
-                NSString *imagePath = [docPath stringByAppendingString:[NSString stringWithFormat:@"/SharePic%d.jpg",i]];
-                NSFileManager *manager = [NSFileManager defaultManager];
-                [manager removeItemAtPath:imagePath error:nil];
-            }
-            
+
+    [[[ShareTool alloc] init]shareWithItems:items completionHandler:^(UIActivityType  _Nullable activityType, BOOL completed) {
+        for (int i = 0; i < activityItems.count; i++){
+            NSString *imagePath = [docPath stringByAppendingString:[NSString stringWithFormat:@"/SharePic%d.jpg",i]];
+            NSFileManager *manager = [NSFileManager defaultManager];
+            [manager removeItemAtPath:imagePath error:nil];
         }
-        else
-        {
-            NSLog(@"cancel");
-        }
-        
-    };
-    
-    // 初始化completionHandler，当post结束之后（无论是done还是cancell）该blog都会被调用
-    activityVC.completionWithItemsHandler = myBlock;
-    
-    
+    }];
     
 }
 
@@ -493,19 +636,19 @@
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setValue:model.productId forKey:@"productId"];
         [dic setValue:model.size forKey:@"size"];
+        [dic setValue:[NSString stringWithFormat:@"%d",self->_buyGoodNumber] forKey:@"number"];
         LYAccount *lyAccount = [LYAccount shareAccount];
         [dic setValue:lyAccount.id forKey:@"userId"];
         [dic setValue:alertView.textView.text forKey:@"remark"];
-        [dic setValue:@"1" forKey:@"number"];
         [dic setValue:model.id forKey:@"cartDetailId"];
         [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
             NSLog(@"%@",dict);
             NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
             if ([respCode isEqualToString:@"00000"]) {
-//                CartDetailsModel *detailModel = [CartDetailsModel mj_objectWithKeyValues:dict[@"data"]];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
-                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
-//                [self addRemarkMessage:alertView.textView.text andDetailModel:detailModel];
+                //                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+                DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"添加成功,是否跳到购物车" selectType:@"是否跳到购物车" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+                [alertView show];
             }else{
                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
             }
@@ -513,9 +656,20 @@
             
         }];
         
+        
+        
+        
     }
 }
-
+-(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel
+{
+    if (buttonIndex == AlertButtonLeft) {
+    }else{
+        
+      self.tabBarController.selectedIndex = 3;
+        
+    }
+}
 
 #pragma mark - 截取某视图的内容
 - (UIImage *)snapshotScreenInView:(UIView *)view
@@ -558,6 +712,145 @@
     return nil;
 }
 
+
+- (void)registerSuccess:(NSNotification *)sender {
+    NSLog(@"注册成功");
+    
+    if ([QMManager defaultManager].selectedPush) {
+        [self showChatRoomViewController:@"" processType:@"" entranceId:@""]; //
+    }else{
+        
+        // 页面跳转控制
+        if (self.isPushed) {
+            return;
+        }
+        
+        [QMConnect sdkGetWebchatScheduleConfig:^(NSDictionary * _Nonnull scheduleDic) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.dictionary = scheduleDic;
+                if ([self.dictionary[@"scheduleEnable"] intValue] == 1) {
+                    NSLog(@"日程管理");
+                    [self starSchedule];
+                }else{
+                    NSLog(@"技能组");
+                    [self getPeers];
+                }
+            });
+        } failBlock:^{
+            [self getPeers];
+        }];
+    }
+    
+    [QMManager defaultManager].selectedPush = NO;
+    
+    
+}
+
+- (void)registerFailure:(NSNotification *)sender {
+    NSLog(@"注册失败::%@", sender.object);
+    self.isConnecting = NO;
+    
+    [SVProgressHUD dismiss];
+}
+
+
+
+
+
+#pragma mark - 跳转聊天界面
+- (void)showChatRoomViewController:(NSString *)peerId processType:(NSString *)processType entranceId:(NSString *)entranceId {
+    QMChatRoomViewController *chatRoomViewController = [[QMChatRoomViewController alloc] init];
+    chatRoomViewController.peerId = peerId;
+    chatRoomViewController.isPush = NO;
+    chatRoomViewController.avaterStr = @"";
+    if ([self.dictionary[@"scheduleEnable"] intValue] == 1) {
+        chatRoomViewController.isOpenSchedule = true;
+        chatRoomViewController.scheduleId = self.dictionary[@"scheduleId"];
+        chatRoomViewController.processId = self.dictionary[@"processId"];
+        chatRoomViewController.currentNodeId = peerId;
+        chatRoomViewController.processType = processType;
+        chatRoomViewController.entranceId = entranceId;
+    }else{
+        chatRoomViewController.isOpenSchedule = false;
+    }
+    [self.navigationController pushViewController:chatRoomViewController animated:YES];
+}
+
+
+
+#pragma mark - 日程管理
+- (void)starSchedule {
+    self.isConnecting = NO;
+    
+    if ([self.dictionary[@"scheduleId"]  isEqual: @""] || [self.dictionary[@"processId"]  isEqual: @""] || [self.dictionary objectForKey:@"entranceNode"] == nil || [self.dictionary objectForKey:@"leavemsgNodes"] == nil) {
+        [QMAlert showMessage:NSLocalizedString(@"title.sorryconfigurationiswrong", nil)];
+    }else{
+        NSDictionary *entranceNode = self.dictionary[@"entranceNode"];
+        NSArray *entrances = entranceNode[@"entrances"];
+        if (entrances.count == 1 && entrances.count != 0) {
+            [self showChatRoomViewController:[entrances.firstObject objectForKey:@"processTo"] processType:[entrances.firstObject objectForKey:@"processType"] entranceId:[entrances.firstObject objectForKey:@"_id"]];
+        }else{
+            [self showPeersWithAlert:entrances messageStr:NSLocalizedString(@"title.schedule_type", nil)];
+        }
+    }
+}
+
+
+
+
+- (void)showPeersWithAlert: (NSArray *)peers messageStr: (NSString *)message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"title.type", nil) preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"button.cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        self.isConnecting = NO;
+    }];
+    [alertController addAction:cancelAction];
+    for (NSDictionary *index in peers) {
+        UIAlertAction *surelAction = [UIAlertAction actionWithTitle:[index objectForKey:@"name"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if ([self.dictionary[@"scheduleEnable"] integerValue] == 1) {
+                [self showChatRoomViewController:[index objectForKey:@"processTo"] processType:[index objectForKey:@"processType"] entranceId:[index objectForKey:@"_id"]];
+            }else{
+                [self showChatRoomViewController:[index objectForKey:@"id"] processType:@"" entranceId:@""];
+            }
+        }];
+        [alertController addAction:surelAction];
+    }
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+
+
+#pragma mark - 技能组选择
+- (void)getPeers {
+    [QMConnect sdkGetPeers:^(NSArray * _Nonnull peerArray) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSArray *peers = peerArray;
+            self.isConnecting = NO;
+            
+            [SVProgressHUD dismiss];
+            
+            [self.fuwuArr removeAllObjects];
+            for (NSDictionary *dic in peers) {
+                QImoModel *model = [QImoModel mj_objectWithKeyValues:dic];
+                [self.fuwuArr addObject:model];
+            }
+            
+            [self.tableview reloadData];
+            
+            //            if (peers.count == 1 && peers.count != 0) {
+            //                [self showChatRoomViewController:[peers.firstObject objectForKey:@"id"] processType:@"" entranceId:@""];
+            //            }else {
+            //                [self showPeersWithAlert:peers messageStr:NSLocalizedString(@"title.type", nil)];
+            //            }
+        });
+    } failureBlock:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            
+            [SVProgressHUD dismiss];
+            self.isConnecting = NO;
+        });
+    }];
+}
 
 
 

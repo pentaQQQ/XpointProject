@@ -59,11 +59,14 @@
             TransforMessModel *model = [TransforMessModel mj_objectWithKeyValues:json[@"data"]];
             
             [model.data removeAllObjects];
-            for (NSDictionary *newDic in json[@"data"][@"data"]) {
-                TransforMessDetailModel *orderDetailModel = [TransforMessDetailModel mj_objectWithKeyValues:newDic];
-                [model.data addObject:orderDetailModel];
-                
+            if (![json[@"data"][@"data"] isKindOfClass:[NSNull class]]) {
+                for (NSDictionary *newDic in json[@"data"][@"data"]) {
+                    TransforMessDetailModel *orderDetailModel = [TransforMessDetailModel mj_objectWithKeyValues:newDic];
+                    [model.data addObject:orderDetailModel];
+                    
+                }
             }
+            
             [self.dataArray addObject:model];
             [self.tableview reloadData];
         }else if([json[@"code"]longValue] == 500){
@@ -146,6 +149,10 @@
             TransforMessModel *transModel = self.dataArray[0];
             transview.logiName.text = transModel.com;
             transview.logilistNum.text = transModel.nu;
+            transview.logilistNum.numberOfLines=0;
+            transview.logilistNum.textAlignment=NSTextAlignmentLeft;
+            transview.logilistNum.lineBreakMode=NSLineBreakByTruncatingTail;
+            
             TransforMessDetailModel *deModel = transModel.data[0];
             NSArray *arr = [deModel.time componentsSeparatedByString:@" "];
             transview.yearMouth.text = arr[0];

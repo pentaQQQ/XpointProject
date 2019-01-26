@@ -11,8 +11,10 @@
 @interface releaseActivitiesModel : NSObject<MJKeyValue>
 
 @property(nonatomic,copy)NSString *beginTime;
+@property(nonatomic,copy)NSString *beginTimes;
 @property(nonatomic,copy)NSString *context;
 @property(nonatomic,copy)NSString *endTime;
+@property(nonatomic,copy)NSString *endTimes;
 @property(nonatomic,copy)NSString *id;
 @property(nonatomic,strong)NSArray *imagesList;
 @property(nonatomic,copy)NSString *merchantId;

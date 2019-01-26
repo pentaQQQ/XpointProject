@@ -11,4 +11,5 @@
 @interface shanghuModel : NSObject
 @property(nonatomic,copy)NSString * merchantId;
 @property(nonatomic,copy)NSString * merchantName;
+@property(nonatomic,copy)NSString * logo;
 @end

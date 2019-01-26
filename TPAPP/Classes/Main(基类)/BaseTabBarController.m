@@ -57,17 +57,26 @@
     
     GoodsViewController *c6=[[GoodsViewController alloc]init];
     c6.title=@"客服";
-    c6.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_xiaoxi"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    c6.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_xiaoxi_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    c6.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_jsxd"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    c6.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //c6.tabBarItem.selectedImage =[[UIImage imageNamed:@"tab_market_nor"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     BaseNavigationController *fourthNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c6];
     
-    FindViewController *secondViewController = [[FindViewController alloc] init];
-    secondViewController.title=@"发现";
-    secondViewController.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_home"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    secondViewController.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_home_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    BaseNavigationController *secondNavigationController = [[BaseNavigationController alloc]
-                                                            initWithRootViewController:secondViewController];
+    SearchViewController *searchCtrl = [[SearchViewController alloc] init];
+    searchCtrl.title=@"搜索";
+    searchCtrl.tabBarItem.image=[[UIImage imageNamed:@"icon_search_unselect"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    searchCtrl.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_search_select"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    BaseNavigationController *searchNavigationController = [[BaseNavigationController alloc]
+                                                           initWithRootViewController:searchCtrl];
+    
+    
+    
+//    FindViewController *secondViewController = [[FindViewController alloc] init];
+//    secondViewController.title=@"发现";
+//    secondViewController.tabBarItem.image=[[UIImage imageNamed:@"icon_foot_home"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    secondViewController.tabBarItem.selectedImage =[[UIImage imageNamed:@"icon_foot_home_press"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    BaseNavigationController *secondNavigationController = [[BaseNavigationController alloc]
+//                                                            initWithRootViewController:secondViewController];
     
     CartViewController *c4=[[CartViewController alloc]init];
     c4.title=@"购物车";
@@ -87,14 +96,20 @@
     BaseNavigationController *sevenNavigationController = [[BaseNavigationController alloc] initWithRootViewController:c7];
     
     
+//    NSArray *viewControllers = @[
+//                                 firstNavigationController,
+//                                 fourthNavigationController,
+//                                 secondNavigationController,
+//                                 thirdNavigationController,
+//                                 sevenNavigationController
+//                                 ];
     NSArray *viewControllers = @[
                                  firstNavigationController,
                                  fourthNavigationController,
-                                 secondNavigationController,
+                                 searchNavigationController,
                                  thirdNavigationController,
                                  sevenNavigationController
                                  ];
-    
     self.viewControllers = viewControllers;
     [self loadNewTopic];
     

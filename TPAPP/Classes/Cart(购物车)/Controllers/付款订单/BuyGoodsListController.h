@@ -17,7 +17,7 @@
 @property (nonatomic, strong)NSString *goodsPrice;
 @property (nonatomic, assign)NSInteger pushCtrl;
 
-
+@property (nonatomic, strong)NSMutableArray *orderListArray;
 
 
 @end

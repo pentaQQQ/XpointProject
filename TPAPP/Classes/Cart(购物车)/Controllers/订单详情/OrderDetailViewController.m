@@ -35,9 +35,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    //Do any additional setup after loading the view.
     self.title = @"订单详情";
-    
+    self.extendedLayoutIncludesOpaqueBars = NO;
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setUpUI];
@@ -93,7 +93,7 @@
 //    .heightIs(50);
     
     self.allGoodsPriceLabel = [[UILabel alloc] init];
-    self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal];
+    self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal+self.model.logisticsFee];
     self.allGoodsPriceLabel.textAlignment = NSTextAlignmentRight;
     self.allGoodsPriceLabel.textColor = colorWithRGB(0xFF6B24);
     self.allGoodsPriceLabel.font = [UIFont systemFontOfSize:17];
@@ -101,7 +101,7 @@
     self.allGoodsPriceLabel.sd_layout
     .topSpaceToView(self.bottomView,10)
     .rightSpaceToView(self.bottomView, 15)
-    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal] withFont:17])
+    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal+self.model.logisticsFee] withFont:17])
     .heightIs(30);
     
     self.buyGoodsPriceLabel = [[UILabel alloc] init];
@@ -132,13 +132,21 @@
 }
 - (void)setUpUI
 {
-    self.listTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    if (self.pushCtrl) {
+        self.listTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-k_top_height-50-SafeAreaBottomHeight) style:UITableViewStyleGrouped];
+    }else{
+        self.listTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, k_top_height, kScreenWidth, kScreenHeight-k_top_height-50-SafeAreaBottomHeight) style:UITableViewStyleGrouped];
+    }
+    
     [self.view addSubview:self.listTableView];
-    self.listTableView.sd_layout
-    .topSpaceToView(self.view, k_top_height)
-    .leftEqualToView(self.view)
-    .bottomSpaceToView(self.view, 50+SafeAreaBottomHeight)
-    .widthIs(kScreenWidth);
+//    self.listTableView.sd_layout
+//    .topSpaceToView(self.view, k_top_height)
+//    .leftEqualToView(self.view)
+//    .bottomSpaceToView(self.view, 50+SafeAreaBottomHeight)
+//    .widthIs(kScreenWidth);
+    
+    NSLog(@"11111111======%f",self.listTableView.frame.size.height);
+    
     self.listTableView.backgroundColor = colorWithRGB(0xEEEEEE);
     self.listTableView.delegate = self;
     self.listTableView.dataSource = self;

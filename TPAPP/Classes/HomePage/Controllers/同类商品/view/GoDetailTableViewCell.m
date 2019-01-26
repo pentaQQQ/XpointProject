@@ -41,7 +41,20 @@
     [self AddTheMerchanToShoppingCart];
 }
 
+- (IBAction)plusGoodsAction:(id)sender {
+    int goodsNum = [self.goodsNumberLabel.text intValue];
+    goodsNum++;
+    self.goodsNumberLabel.text = [NSString stringWithFormat:@"%d",goodsNum];
+}
 
+- (IBAction)minusGoodsAction:(id)sender {
+    int goodsNum = [self.goodsNumberLabel.text intValue];
+    if (goodsNum>1) {
+        goodsNum--;
+        self.goodsNumberLabel.text = [NSString stringWithFormat:@"%d",goodsNum];
+    }
+    
+}
 
 -(void)setImageview:(UIImageView *)imageview{
     _imageview = imageview;
@@ -50,6 +63,14 @@
 -(void)setShouqianBtn:(UIButton *)shouqianBtn{
     _shouqianBtn = shouqianBtn;
     ViewBorderRadius(shouqianBtn, 5, 1, [UIColor clearColor]);
+    WeakSelf(weakSelf);
+    [shouqianBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        if (weakSelf.TofuwuBlock) {
+            weakSelf.TofuwuBlock(weakSelf.model);
+        }
+    }];
+    
+    
 }
 -(void)setZhuanfaBtn:(UIButton *)zhuanfaBtn{
     _zhuanfaBtn = zhuanfaBtn;
@@ -64,8 +85,15 @@
     ViewBorderRadius(shoppingcartBtn, 5, 1, [UIColor clearColor]);
     shoppingcartBtn.userInteractionEnabled = NO;
 }
+-(void)setPlusGoodsBtn:(UIButton *)plusGoodsBtn{
+    _plusGoodsBtn = plusGoodsBtn;
+    ViewBorderRadius(plusGoodsBtn, 5, 1, [UIColor clearColor]);
+}
 
-
+-(void)setMinusGoodsBtn:(UIButton *)minusGoodsBtn{
+    _minusGoodsBtn = minusGoodsBtn;
+    ViewBorderRadius(minusGoodsBtn, 5, 1, [UIColor clearColor]);
+}
 
 
 
@@ -78,8 +106,8 @@
     
     _model = model;
     self.title.text = model.merchantName;
-    self.contentLab.text = model.productName;
-    
+   
+    [self.imageview sd_setImageWithURL:[NSURL URLWithString:model.merchantUrl]];
     
     NSString *str = @"";
     for (int i=0; i<model.specs.count; i++) {
@@ -94,7 +122,7 @@
     }
     
     
-    
+    self.contentLab.text = model.productName;
     self.chimLab.text = [NSString stringWithFormat:@"尺码 %@",str];
     self.kuanshiLab.text = [NSString stringWithFormat:@"款式 %@",model.design];
     self.kuanhaoLab.text = [NSString stringWithFormat:@"款号 %@",model.designCode];

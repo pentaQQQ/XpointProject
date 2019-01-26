@@ -85,7 +85,6 @@
     }else{
         self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(0, pageTitleViewY, self.view.frame.size.width, 44) delegate:self titleNames:titleArr configure:configure];
     }
-    
 //    if (self.selectIndex == 4) {
 //        self.selectIndex = 5;
 //    }
@@ -99,42 +98,49 @@
         if (i == 0) {
             GenerationPaymentViewController *vc = [[GenerationPaymentViewController alloc]init];
             vc.selectCtrl = i;
+            vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.generationPaymentDelegate  =  vc;
             [childArr addObject:vc];
         }else if (i == 1){
             HavePayViewController *vc = [[HavePayViewController alloc]init];
             vc.selectCtrl = i;
+            vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.havePayDelegate  =  vc;
             [childArr addObject:vc];
         }else if (i == 2){
             WaitDeliveryViewController *vc = [[WaitDeliveryViewController alloc]init];
             vc.selectCtrl = i;
+            vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.waitDeliveryDelegate  =  vc;
             [childArr addObject:vc];
         }else if (i == 3){
             HasBeenShippedViewController *vc = [[HasBeenShippedViewController alloc]init];
             vc.selectCtrl = i;
+            vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.hasBeenShippedDelegate  =  vc;
             [childArr addObject:vc];
         }else if (i == 4){
             HasBeenCompletedController *vc = [[HasBeenCompletedController alloc]init];
             vc.selectCtrl = i;
+            vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.hasBeenCompletedDelegate  =  vc;
             [childArr addObject:vc];
         }else if (i == 5){
             HasBeenCancelledController *vc = [[HasBeenCancelledController alloc]init];
             vc.selectCtrl = i;
+            vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.hasBeenCancelledDelegate  =  vc;
             [childArr addObject:vc];
         }else{
             AfterSalesViewController *vc = [[AfterSalesViewController alloc]init];
             vc.selectCtrl = i;
+            vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.afterSalesDelegate  =  vc;
             [childArr addObject:vc];

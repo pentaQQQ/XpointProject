@@ -45,6 +45,13 @@
     // Do any additional setup after loading the view.
     self.title = @"实名认证";
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
+    LYAccount *account = [LYAccount shareAccount];
+    if (account.identitPicZ.length != 0) {
+        self.FacadeIDImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:account.identitPicZ]]];
+    }
+    if (account.identitPicF.length != 0) {
+        self.oppositeIDImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:account.identitPicF]]];
+    }
     [self listTableView];
 }
 #pragma mark - 懒加载
@@ -118,25 +125,36 @@
         remindLabel.text = @"提示:请上传本人身份证";
         
         self.idZMBtn = [[UIButton alloc] init];
-        UIImage *idImage = [UIImage imageNamed:@"mine_zhenmian"];
-        [self.idZMBtn setBackgroundImage:idImage forState:UIControlStateNormal];
         [self.idZMBtn addTarget:self action:@selector(idZMBtnAction) forControlEvents:UIControlEventTouchUpInside];
         [headerCell.contentView addSubview:self.idZMBtn];
+        if (self.FacadeIDImage == nil) {
+            [self.idZMBtn setBackgroundImage:[UIImage imageNamed:@"mine_zhenmian"] forState:UIControlStateNormal];
+            
+        }else{
+            [self.idZMBtn setBackgroundImage:self.FacadeIDImage forState:UIControlStateNormal];
+        }
+        UIImage *img = [UIImage imageNamed:@"mine_zhenmian"];
         self.idZMBtn.sd_layout
         .topSpaceToView(remindLabel, 15)
         .leftSpaceToView(headerCell.contentView, 30)
         .widthIs((kScreenWidth-3*30)/2)
-        .heightIs(((kScreenWidth-3*30)/2)*idImage.size.height/idImage.size.width);
+        .heightIs(((kScreenWidth-3*30)/2)*img.size.height/img.size.width);
+        
         
         self.idFMBtn = [[UIButton alloc] init];
-        [self.idFMBtn setBackgroundImage:[UIImage imageNamed:@"mine_fanmian"] forState:UIControlStateNormal];
+        if (self.oppositeIDImage == nil) {
+            
+            [self.idFMBtn setBackgroundImage:[UIImage imageNamed:@"mine_fanmian"] forState:UIControlStateNormal];
+        }else{
+            [self.idFMBtn setBackgroundImage:self.oppositeIDImage forState:UIControlStateNormal];
+        }
         [self.idFMBtn addTarget:self action:@selector(idFMBtnAction) forControlEvents:UIControlEventTouchUpInside];
         [headerCell.contentView addSubview:self.idFMBtn];
         self.idFMBtn.sd_layout
         .topSpaceToView(remindLabel, 15)
         .rightSpaceToView(headerCell.contentView, 30)
         .widthIs((kScreenWidth-3*30)/2)
-        .heightIs(((kScreenWidth-3*30)/2)*idImage.size.height/idImage.size.width);
+        .heightIs(((kScreenWidth-3*30)/2)*img.size.height/img.size.width);
         
         UILabel *idZMLabel = [[UILabel alloc] init];
         idZMLabel.textColor = [UIColor blackColor];
@@ -205,6 +223,14 @@
             .rightEqualToView(cell.contentView)
             .bottomSpaceToView(cell.contentView, 0);
         }
+        LYAccount *account = [LYAccount shareAccount];
+        if (self.nameTextField.text.length == 0) {
+            self.nameTextField.text = account.trueName;
+        }
+        if (self.idNumberTextField.text.length == 0) {
+            self.idNumberTextField.text = account.identit;
+        }
+        
         return cell;
     }else{
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewThirdCell"];
@@ -297,6 +323,7 @@
                         [[NetworkManager sharedManager]postWithUrl:uploadIdeniti param:dic success:^(id json) {
                             NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
                             if ([respCode isEqualToString:@"00000"]) {
+                                [self getPeopleInfomation];
                                 // 单例赋值
 //                                [LYAccount mj_objectWithKeyValues:json[@"data"]];
                                 [self.navigationController popViewControllerAnimated:YES];
@@ -317,90 +344,36 @@
             NSLog(@"请求失败：%@",error);
         }];
 }
-
+//获取用户信息
+-(void)getPeopleInfomation{
+    [[NetworkManager sharedManager]getWithUrl:getinfomation param:nil success:^(id json) {
+        NSLog(@"%@",json);
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]){
+            // 单例赋值
+            [LYAccount mj_objectWithKeyValues:json[@"data"]];
+        }
+    } failure:^(NSError *error) {
+    }];
+}
 - (void)nextBtnAction
 {
-    if (_facadeIDIsOK && _oppositeIDIsOK&&self.nameTextField.text.length > 0 && self.idNumberTextField.text.length > 0) {
+//    if (_facadeIDIsOK && _oppositeIDIsOK&&self.nameTextField.text.length > 0 && self.idNumberTextField.text.length > 0) {
         _imageNameArr = [NSMutableArray array];
         NSArray *fileArr = @[self.FacadeIDImage,self.oppositeIDImage];
         for (UIImage *image in fileArr) {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyyMMddHHmmssSSS";
             NSString *str = [formatter stringFromDate:[NSDate date]];
-            
             NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
-            //             创建文件管理器
-//            NSFileManager *fileManager = [NSFileManager defaultManager];
-//            //            获取路径
-//            //            参数NSDocumentDirectory要获取那种路径
-//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-//            NSString *documenDirectory = [paths objectAtIndex:0];//去处需要的路径
-//            NSString *path = [documenDirectory stringByAppendingPathComponent:imageName];
-//            BOOL isEXsit = [fileManager fileExistsAtPath:path];
-//            if (isEXsit) {
-//                [fileManager removeItemAtPath:path error:nil];
-//                [fileManager createFileAtPath:path contents:nil attributes:nil];
-//            }else {
-//                [fileManager createFileAtPath:path contents:nil attributes:nil];
-//            }
-            
-//            NSData *data = [[NSData alloc] init];
-//            data = UIImagePNGRepresentation(image);
-//            [data writeToFile:path atomically:YES];
             [self uploadPicturesImage:image nsNo:imageName];
         }
-        
-//        for (UIImage *image in fileArr) {
-        
-//            _facadeImageFilePath = path;
-//
-//            NMSSHSession *session = [NMSSHSession connectToHost:@"47.92.193.30" port:22 withUsername:@"root"];
-//            if (session.isConnected) {
-//                [session authenticateByPassword:@"yb0820@!8"];
-//                if (session.isAuthorized) {
-//                    NSLog(@"Authentication succeeded");
-//                }
-//            }
-//            NSError *error = nil;
-//            NSString *response = [session.channel execute:@"ls -l /usr/local/files/" error:&error];
-//            NSLog(@"List of my sites: %@", response);
-//            BOOL success = [session.channel uploadFile:_facadeImageFilePath to:@"/usr/local/files/images/"];
-//            if (success) {
-//                NSLog(@"上传成功");
-//                if (_facadeImageFilePath.length > 0) {
-//                    [fileManager removeItemAtPath:_facadeImageFilePath error:nil];
-//                }else if (_oppositeImageFilePath.length > 0){
-//                    [fileManager removeItemAtPath:_oppositeImageFilePath error:nil];
-//                }
-//                if (_imageNameArr.count == 2) {
-//                    LYAccount *account = [LYAccount shareAccount];
-//                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//                    [dic setValue:account.id forKey:@"id"];
-//                    [dic setValue:@"1" forKey:@"realName"];
-//                    [dic setValue:self.nameTextField.text forKey:@"trueName"];
-//                    [dic setValue:self.idNumberTextField.text forKey:@"identit"];
-//                    [dic setValue:_imageNameArr[0] forKey:@"identitPicZ"];
-//                    [dic setValue:_imageNameArr[1] forKey:@"identitPicF"];
-//                    [[NetworkManager sharedManager]postWithUrl:uploadIdeniti param:dic success:^(id json) {
-//                        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-//                        if ([respCode isEqualToString:@"00000"]) {
-//                            // 单例赋值
-//                            [LYAccount mj_objectWithKeyValues:json[@"data"]];
-//                            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"身份证信息上传成功" withDuration:1.5];
-//                        }else{
-//                            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
-//                        }
-//                    } failure:^(NSError *error) {
-//
-//                    }];
-//                }
-//            }else{
-//                NSLog(@"上传失败");
-//            }
-//            [session disconnect];
+//    }else{
+//        (_facadeIDIsOK && _oppositeIDIsOK&&self.nameTextField.text.length > 0 && self.idNumberTextField.text.length > 0)
+//        if (_facadeIDIsOK == NO) {
+//            [SVProgressHUD doAnyRemindWithHUDMessage:@"" withDuration:1.5];
 //        }
-    }else{
-    }
+//    }
 }
 #pragma mark - imagePickerController delegate
 

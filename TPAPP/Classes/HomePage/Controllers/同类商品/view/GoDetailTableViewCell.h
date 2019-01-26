@@ -37,6 +37,12 @@
 
 @property (weak, nonatomic) IBOutlet UIView *xinghaoView;//型号view
 
+@property (weak, nonatomic) IBOutlet UIButton *plusGoodsBtn;//添加商品数量的按钮
+
+@property (weak, nonatomic) IBOutlet UIButton *minusGoodsBtn;//减少商品数量的按钮
+
+@property (weak, nonatomic) IBOutlet UILabel *goodsNumberLabel;//添加的商品数量
+
 @property (weak, nonatomic) IBOutlet UIButton *shoppingcartBtn;//购物车按钮
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHigh;//产品介绍高度
@@ -58,6 +64,6 @@
 
 @property(nonatomic,copy)void(^ToZhuanfaBlock)(SimilarProductModel*model,int currentDEX);
 
-
+@property(nonatomic,copy)void(^TofuwuBlock)(SimilarProductModel*model);
 
 @end

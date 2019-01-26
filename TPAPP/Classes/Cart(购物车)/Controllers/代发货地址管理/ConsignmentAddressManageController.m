@@ -81,6 +81,7 @@
 {
     AddConsignmentAddressController *addCtrl = [[AddConsignmentAddressController alloc] init];
     addCtrl.dataNull = self.listDataArr.count;
+    addCtrl.isCartCtrlType = self.isCartCtrlType;
     [self.navigationController pushViewController:addCtrl animated:YES];
 }
 
@@ -185,6 +186,7 @@
         if (num == 0) {
             EditConsignmentAddressController *addCtrl = [[EditConsignmentAddressController alloc] init];
             addCtrl.addressModel = model;
+            addCtrl.isCartCtrlType = self.isCartCtrlType;
             [self.navigationController pushViewController:addCtrl animated:YES];
         }else{
             if ([model.isDefault isEqualToString:@"0"]) {

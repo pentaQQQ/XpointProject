@@ -27,10 +27,16 @@
 #import "ElseTableCell.h"
 #import "MXNavigationBarManager.h"
 #import "PerformanceModel.h"
+#import "NewLoginViewController.h"
+#import "CouponsViewCell.h"
+#import "MyCouponsViewController.h"
+#import "WXApiRequestHandler.h"
+#import "WXApiManager.h"
 #define SCREEN_RECT [UIScreen mainScreen].bounds
 static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 //static const CGFloat headerImageHeight = 260.0f;
-
+static NSString *kMiniProgramTitle = @"田洋仓";
+static NSString *kMiniProgramDesc = @"小程序Desc";
 @interface MineViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listTableView;
 @property (nonatomic, strong)NSMutableArray *listDataArr;
@@ -283,7 +289,14 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.text = @"我的";
     self.navigationItem.titleView= titleLabel;
-    
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    if ([lyAccount.id length] == 0) {
+        [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+        NewLoginViewController*vc = [[NewLoginViewController alloc]init];
+        RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+        rootVC.rt_disableInteractivePop = YES ;
+        [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+    }
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -328,13 +341,13 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 #pragma mark -自定义导航栏返回按钮
 - (void)createItems
 {
-    self.leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.leftBtn.frame = CGRectMake(0, 0, 25, 25);
-    //    self.leftBtn.backgroundColor = [UIColor whiteColor];
-    [self.leftBtn setImage:[UIImage imageNamed:@"消息_white"] forState:UIControlStateNormal];
-    [self.leftBtn addTarget:self action:@selector(leftBackAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *itemleft = [[UIBarButtonItem alloc] initWithCustomView:self.leftBtn];
-    self.navigationItem.leftBarButtonItem = itemleft;
+//    self.leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.leftBtn.frame = CGRectMake(0, 0, 25, 25);
+//    //    self.leftBtn.backgroundColor = [UIColor whiteColor];
+//    [self.leftBtn setImage:[UIImage imageNamed:@"消息_white"] forState:UIControlStateNormal];
+//    [self.leftBtn addTarget:self action:@selector(leftBackAction) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *itemleft = [[UIBarButtonItem alloc] initWithCustomView:self.leftBtn];
+//    self.navigationItem.leftBarButtonItem = itemleft;
     
     
     self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -361,7 +374,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 5;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -375,6 +388,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
             headerCell = [[MineHeaderViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MineHeaderViewCell"];
         }
         headerCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [headerCell configModel];
         [headerCell setSelectBlcok:^(NSInteger selectNum) {
             if (selectNum == 0) {
                 
@@ -404,6 +418,19 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
             [cell configWithMarketLimit:self.listDataArr andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额", nil]];
         }
 //        [cell configWithMarketLimit:[NSMutableArray arrayWithObjects:@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0", nil] andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额",@"上月销售额",@"上月代购额", nil]];
+        return cell;
+    }else if (indexPath.section ==2){
+        CouponsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CouponsViewCellID"];
+        if (!cell) {
+            cell = [[CouponsViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CouponsViewCellID"];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        if (self.listDataArr.count == 0) {
+//            [cell configWithMarketLimit:[NSMutableArray arrayWithObjects:@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0", nil] andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额", nil]];
+//        }else{
+//            [cell configWithMarketLimit:self.listDataArr andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额", nil]];
+//        }
+        //        [cell configWithMarketLimit:[NSMutableArray arrayWithObjects:@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0",@"¥0.0", nil] andLimitTitle:[NSMutableArray arrayWithObjects:@"今日销售额",@"今日代购费",@"本月代购费",@"本月销售额",@"上月销售额",@"上月代购额", nil]];
         return cell;
     }
 //    else if (indexPath.section==2){
@@ -436,7 +463,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 //        return cell;
 //
 //    }
-    else if (indexPath.section==2){
+    else if (indexPath.section==3){
         IndentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"IndentCell"];
         if (!cell) {
             cell = [[IndentCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"IndentCell"];
@@ -500,97 +527,112 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
                 minePerCtrl.selectIndex = 4;
                 [self.navigationController pushViewController:minePerCtrl animated:YES];
             }else if (num == 3){
-                self.myQRBgview = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, kScreenHeight/2.0, 0, 0)];
-                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(qrTapAction)];
-                [self.myQRBgview addGestureRecognizer:tap];
-                self.myQRBgview.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
-                UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                [window addSubview:self.myQRBgview];
+                UIImage *thumbImage = nil;
+                NSData *thumbData = UIImageJPEGRepresentation([UIImage imageNamed:@"logo"], 0.7);
+                WXMiniProgramType miniProgramType = (WXMiniProgramType)[@"0" integerValue];
+                [WXApiRequestHandler sendMiniProgramWebpageUrl:@"https://www.baidu.com"
+                                                      userName:@"gh_c9f31c64dcdb"
+                                                          path:@"首页"
+                                                         title:kMiniProgramTitle
+                                                   Description:kMiniProgramDesc
+                                                    ThumbImage:thumbImage
+                                                   hdImageData:thumbData
+                                               withShareTicket:NO
+                                               miniProgramType:miniProgramType
+                                                       InScene:WXSceneSession];
                 
                 
-                [UIView animateWithDuration:.5 animations:^{
-                    self.myQRBgview.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
-                } completion:^(BOOL finished) {
-                    self.myQRView = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth-300)/2.0, (kScreenHeight-400)/2.0, 300, 400)];
-                    self.myQRView.backgroundColor = [UIColor whiteColor];
-                    [self.myQRBgview addSubview:self.myQRView];
-                    self.myQRView.layer.cornerRadius = 8;
-                    self.myQRView.layer.masksToBounds = YES;
-                    
-                    self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 300, 20)];
-                    self.dateLabel.text = @"微信公众号";
-                    self.dateLabel.textAlignment = NSTextAlignmentCenter;
-                    self.dateLabel.font = [UIFont systemFontOfSize:16];
-                    self.dateLabel.textColor = colorWithRGB(0xFF5760);
-                    [self.myQRView addSubview:self.dateLabel];
-                    //                    self.dateLabel.sd_layout
-                    //                    .topSpaceToView(self.myQRView, 20)
-                    //                    .centerXEqualToView(self.myQRView)
-                    //                    .widthIs(180)
-                    //                    .heightIs(20);
-                    
-                    self.bgview = [[UIView alloc] initWithFrame:CGRectMake((300-160)/2, CGRectGetMaxY(self.dateLabel.frame)+10, 160, 160)];
-                    self.bgview.backgroundColor = colorWithRGB(0xFF5760);
-                    [self.myQRView addSubview:self.bgview];
-                    //                    self.bgview.sd_layout
-                    //                    .topSpaceToView(self.dateLabel, 15)
-                    //                    .centerXEqualToView(self.myQRView)
-                    //                    .widthIs(120)
-                    //                    .heightIs(120);
-                    
-                    self.qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 140, 140)];
-                    //                    imageView.backgroundColor = [UIColor grayColor];
-                    self.qrImageView.image = [self createQRImageWithString:@"1234" size:CGSizeMake(140, 140)];
-                    [self.bgview addSubview:self.qrImageView];
-                    //                    self.qrImageView.sd_layout
-                    //                    .topSpaceToView(self.bgview, 10)
-                    //                    .leftSpaceToView(self.bgview, 10)
-                    //                    .bottomSpaceToView(self.bgview, 10)
-                    //                    .rightSpaceToView(self.bgview, 10);
-                    
-                    
-                    self.firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.bgview.frame)+20, 290, 40)];
-                    self.firstLabel.numberOfLines = 2;
-                    self.firstLabel.text = @"1、点击立即关注，二维码会自动保存至你的相册";
-                    self.firstLabel.textAlignment = NSTextAlignmentLeft;
-                    self.firstLabel.font = [UIFont systemFontOfSize:15];
-                    self.firstLabel.textColor = [UIColor lightGrayColor];
-                    [self.myQRView addSubview:self.firstLabel];
-                    //                    self.firstLabel.sd_layout
-                    //                    .topSpaceToView(self.bgview, 20)
-                    //                    .leftSpaceToView(self.myQRView, 10)
-                    //                    .rightEqualToView(self.myQRView)
-                    //                    .heightIs(40);
-                    
-                    self.secondLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.firstLabel.frame), 290, 40)];
-                    self.secondLabel.numberOfLines = 2;
-                    self.secondLabel.text = @"2、打开微信扫一扫，选择相册中的二维码，直接关注成功";
-                    self.secondLabel.textAlignment = NSTextAlignmentLeft;
-                    self.secondLabel.font = [UIFont systemFontOfSize:15];
-                    self.secondLabel.textColor = [UIColor lightGrayColor];
-                    [self.myQRView addSubview:self.secondLabel];
-                    //                    self.secondLabel.sd_layout
-                    //                    .topSpaceToView(self.firstLabel, 0)
-                    //                    .leftSpaceToView(self.myQRView, 10)
-                    //                    .rightEqualToView(self.myQRView)
-                    //                    .heightIs(40);
-                    
-                    
-                    self.attentionBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.secondLabel.frame)+30, 260, 40)];
-                    self.attentionBtn.backgroundColor = colorWithRGB(0xFF5760);
-                    [self.attentionBtn setTitle:@"立即关注" forState:UIControlStateNormal];
-                    [self.attentionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                    [self.attentionBtn addTarget:self action:@selector(attentionBtnAction) forControlEvents:UIControlEventTouchUpInside];
-                    [self.myQRView addSubview:self.attentionBtn];
-                    //                    self.attentionBtn.sd_layout
-                    //                    .topSpaceToView(self.secondLabel,40)
-                    //                    .rightSpaceToView(self.myQRView, 20)
-                    //                    .leftSpaceToView(self.myQRView, 20)
-                    //                    .heightIs(40);
-                    self.attentionBtn.layer.cornerRadius = 6;
-                    self.attentionBtn.layer.masksToBounds = YES;
-                    
-                }];
+//                self.myQRBgview = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, kScreenHeight/2.0, 0, 0)];
+//                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(qrTapAction)];
+//                [self.myQRBgview addGestureRecognizer:tap];
+//                self.myQRBgview.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+//                UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//                [window addSubview:self.myQRBgview];
+//
+//
+//                [UIView animateWithDuration:.5 animations:^{
+//                    self.myQRBgview.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+//                } completion:^(BOOL finished) {
+//                    self.myQRView = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth-300)/2.0, (kScreenHeight-400)/2.0, 300, 400)];
+//                    self.myQRView.backgroundColor = [UIColor whiteColor];
+//                    [self.myQRBgview addSubview:self.myQRView];
+//                    self.myQRView.layer.cornerRadius = 8;
+//                    self.myQRView.layer.masksToBounds = YES;
+//
+//                    self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 300, 20)];
+//                    self.dateLabel.text = @"微信公众号";
+//                    self.dateLabel.textAlignment = NSTextAlignmentCenter;
+//                    self.dateLabel.font = [UIFont systemFontOfSize:16];
+//                    self.dateLabel.textColor = colorWithRGB(0xFF5760);
+//                    [self.myQRView addSubview:self.dateLabel];
+//                    //                    self.dateLabel.sd_layout
+//                    //                    .topSpaceToView(self.myQRView, 20)
+//                    //                    .centerXEqualToView(self.myQRView)
+//                    //                    .widthIs(180)
+//                    //                    .heightIs(20);
+//
+//                    self.bgview = [[UIView alloc] initWithFrame:CGRectMake((300-160)/2, CGRectGetMaxY(self.dateLabel.frame)+10, 160, 160)];
+//                    self.bgview.backgroundColor = colorWithRGB(0xFF5760);
+//                    [self.myQRView addSubview:self.bgview];
+//                    //                    self.bgview.sd_layout
+//                    //                    .topSpaceToView(self.dateLabel, 15)
+//                    //                    .centerXEqualToView(self.myQRView)
+//                    //                    .widthIs(120)
+//                    //                    .heightIs(120);
+//
+//                    self.qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 140, 140)];
+//                    //                    imageView.backgroundColor = [UIColor grayColor];
+//                    self.qrImageView.image = [self createQRImageWithString:@"1234" size:CGSizeMake(140, 140)];
+//                    [self.bgview addSubview:self.qrImageView];
+//                    //                    self.qrImageView.sd_layout
+//                    //                    .topSpaceToView(self.bgview, 10)
+//                    //                    .leftSpaceToView(self.bgview, 10)
+//                    //                    .bottomSpaceToView(self.bgview, 10)
+//                    //                    .rightSpaceToView(self.bgview, 10);
+//
+//
+//                    self.firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.bgview.frame)+20, 290, 40)];
+//                    self.firstLabel.numberOfLines = 2;
+//                    self.firstLabel.text = @"1、点击立即关注，二维码会自动保存至你的相册";
+//                    self.firstLabel.textAlignment = NSTextAlignmentLeft;
+//                    self.firstLabel.font = [UIFont systemFontOfSize:15];
+//                    self.firstLabel.textColor = [UIColor lightGrayColor];
+//                    [self.myQRView addSubview:self.firstLabel];
+//                    //                    self.firstLabel.sd_layout
+//                    //                    .topSpaceToView(self.bgview, 20)
+//                    //                    .leftSpaceToView(self.myQRView, 10)
+//                    //                    .rightEqualToView(self.myQRView)
+//                    //                    .heightIs(40);
+//
+//                    self.secondLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.firstLabel.frame), 290, 40)];
+//                    self.secondLabel.numberOfLines = 2;
+//                    self.secondLabel.text = @"2、打开微信扫一扫，选择相册中的二维码，直接关注成功";
+//                    self.secondLabel.textAlignment = NSTextAlignmentLeft;
+//                    self.secondLabel.font = [UIFont systemFontOfSize:15];
+//                    self.secondLabel.textColor = [UIColor lightGrayColor];
+//                    [self.myQRView addSubview:self.secondLabel];
+//                    //                    self.secondLabel.sd_layout
+//                    //                    .topSpaceToView(self.firstLabel, 0)
+//                    //                    .leftSpaceToView(self.myQRView, 10)
+//                    //                    .rightEqualToView(self.myQRView)
+//                    //                    .heightIs(40);
+//
+//
+//                    self.attentionBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.secondLabel.frame)+30, 260, 40)];
+//                    self.attentionBtn.backgroundColor = colorWithRGB(0xFF5760);
+//                    [self.attentionBtn setTitle:@"立即关注" forState:UIControlStateNormal];
+//                    [self.attentionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//                    [self.attentionBtn addTarget:self action:@selector(attentionBtnAction) forControlEvents:UIControlEventTouchUpInside];
+//                    [self.myQRView addSubview:self.attentionBtn];
+//                    //                    self.attentionBtn.sd_layout
+//                    //                    .topSpaceToView(self.secondLabel,40)
+//                    //                    .rightSpaceToView(self.myQRView, 20)
+//                    //                    .leftSpaceToView(self.myQRView, 20)
+//                    //                    .heightIs(40);
+//                    self.attentionBtn.layer.cornerRadius = 6;
+//                    self.attentionBtn.layer.masksToBounds = YES;
+//
+//                }];
             }else{
                 InviteAwardController *inviteCtrl = [[InviteAwardController alloc] init];
                 [self.navigationController pushViewController:inviteCtrl animated:YES];
@@ -679,7 +721,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 //    }else{
 //        return 50;
 //    }
-    if (section == 0 || section == 3) {
+    if (section == 0 || section == 2 || section == 4) {
         return 0;
     }else{
         return 50;
@@ -688,7 +730,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section == 0 || section == 3) {
+    if (section == 0 || section == 2 || section == 4) {
         return nil;
     }else {
         NSArray *listArr = @[@"我的销售业绩",@"我的订单",@"我的订单"];
@@ -852,7 +894,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 //    }else{
 //      return 0;
 //    }
-    if (section == 3) {
+    if (section == 4) {
         return 130;
     }else{
         return 0;
@@ -860,7 +902,7 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section == 3) {
+    if (section == 4) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 130)];
         view.backgroundColor = colorWithRGB(0xEEEEEE);
         return view;
@@ -880,9 +922,12 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
     if (indexPath.section==0) {
         return 180+20+SafeAreaTopHeight;
         //        return 240+20+SafeAreaTopHeight;
-    }else if (indexPath.section == 3){
-                return 185;
-//        return 100;
+    }else if (indexPath.section == 4){
+//                return 185;
+        return 100;
+    }else if (indexPath.section == 2){
+        //                return 185;
+        return 70;
     }else{
         return 100+20;
     }
@@ -903,6 +948,10 @@ static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 2) {
+        MyCouponsViewController *fzCtrl = [[MyCouponsViewController alloc] init];
+        [self.navigationController pushViewController:fzCtrl animated:YES];
+    }
 }
 
 

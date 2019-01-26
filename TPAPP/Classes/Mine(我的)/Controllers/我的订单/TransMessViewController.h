@@ -7,11 +7,11 @@
 //
 
 #import "BaseViewController.h"
-
 NS_ASSUME_NONNULL_BEGIN
-
 @interface TransMessViewController : BaseViewController
+
 @property (nonatomic, strong)MineIndentModel *model;
+
 @end
 
 NS_ASSUME_NONNULL_END

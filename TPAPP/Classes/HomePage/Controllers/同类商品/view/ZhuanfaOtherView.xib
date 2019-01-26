@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,14 +13,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ZhuanfaOtherView">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="298"/>
+            <rect key="frame" x="0.0" y="0.0" width="644" height="298"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BvU-M2-eEp">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="298"/>
+                    <rect key="frame" x="0.0" y="0.0" width="644" height="298"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品描述已复制" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q8S-50-WdO">
-                            <rect key="frame" x="0.0" y="10" width="375" height="21"/>
+                            <rect key="frame" x="0.0" y="10" width="644" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="SjG-I3-HFo"/>
                             </constraints>
@@ -30,7 +29,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.点击“转发”后若无微信和QQ选项，可在“更多”中打开" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVD-92-vDl">
-                            <rect key="frame" x="10" y="31" width="355" height="40"/>
+                            <rect key="frame" x="10" y="31" width="624" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="uWq-41-LUO"/>
                             </constraints>
@@ -39,7 +38,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.商品描述已复制 可以长按“粘贴”" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iof-Bl-RWL">
-                            <rect key="frame" x="10" y="71" width="355" height="21"/>
+                            <rect key="frame" x="10" y="71" width="624" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="a9k-R2-7zd"/>
                             </constraints>
@@ -48,10 +47,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4b-r4-rq1">
-                            <rect key="frame" x="0.0" y="102" width="375" height="30"/>
+                            <rect key="frame" x="0.0" y="102" width="644" height="30"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0pL-Yb-pIS">
-                                    <rect key="frame" x="10" y="0.0" width="365" height="30"/>
+                                    <rect key="frame" x="10" y="0.0" width="634" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="合成图（新版四图组合+描述）" image="已选中">
@@ -72,10 +71,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocm-rb-Xsz">
-                            <rect key="frame" x="0.0" y="132" width="375" height="30"/>
+                            <rect key="frame" x="0.0" y="132" width="644" height="30"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KGX-vi-lQz">
-                                    <rect key="frame" x="10" y="0.0" width="365" height="30"/>
+                                    <rect key="frame" x="10" y="0.0" width="634" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="单张图  (商品首图+描述)" image="icon_未选择">
@@ -96,10 +95,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FGi-FO-jYE">
-                            <rect key="frame" x="0.0" y="162" width="375" height="30"/>
+                            <rect key="frame" x="0.0" y="162" width="644" height="30"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OaH-jq-iG7">
-                                    <rect key="frame" x="10" y="0.0" width="365" height="30"/>
+                                    <rect key="frame" x="10" y="0.0" width="634" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="四张图（描述默认复制）" image="icon_未选择">
@@ -120,10 +119,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="siS-TC-gvV">
-                            <rect key="frame" x="0.0" y="192" width="375" height="30"/>
+                            <rect key="frame" x="0.0" y="192" width="644" height="30"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wvk-id-yNd">
-                                    <rect key="frame" x="10" y="0.0" width="365" height="30"/>
+                                    <rect key="frame" x="10" y="0.0" width="634" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="合成图（四图组合+描述）" image="icon_未选择">
@@ -144,28 +143,28 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9LB-YB-Udm">
-                            <rect key="frame" x="0.0" y="242" width="375" height="1"/>
+                            <rect key="frame" x="0.0" y="242" width="644" height="1"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="tnF-XL-g5b"/>
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zDs-57-Q3I">
-                            <rect key="frame" x="0.0" y="243" width="187.5" height="55"/>
+                            <rect key="frame" x="0.0" y="243" width="322" height="55"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="取消">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OU0-bu-hv1">
-                            <rect key="frame" x="187.5" y="243" width="1" height="55"/>
+                            <rect key="frame" x="322" y="243" width="1" height="55"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="fiO-bz-UYW"/>
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUQ-v1-FGc">
-                            <rect key="frame" x="188.5" y="243" width="186.5" height="55"/>
+                            <rect key="frame" x="323" y="243" width="321" height="55"/>
                             <state key="normal" title="转发（+15）">
                                 <color key="titleColor" red="1" green="0.21960784310000001" blue="0.2156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </state>
@@ -231,11 +230,11 @@
                 <outlet property="sureBtn" destination="lUQ-v1-FGc" id="hIY-Yb-Hld"/>
                 <outlet property="thirdBtn" destination="OaH-jq-iG7" id="meA-EG-nSq"/>
             </connections>
-            <point key="canvasLocation" x="33.5" y="-129"/>
+            <point key="canvasLocation" x="444.80000000000001" y="-205.99700149925039"/>
         </view>
     </objects>
     <resources>
         <image name="icon_未选择" width="16" height="16"/>
-        <image name="已选中" width="14" height="14"/>
+        <image name="已选中" width="14.5" height="14.5"/>
     </resources>
 </document>

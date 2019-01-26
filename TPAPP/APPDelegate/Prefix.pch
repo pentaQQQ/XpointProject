@@ -32,6 +32,7 @@
 #import "MJRefresh.h"
 #import "LYTools.h"
 #import <SVProgressHUD/SVProgressHUD.h>
+#import <SDCycleScrollView/SDCycleScrollView.h>
 #import "SVProgressHUD+DoAnythingAfter.h"
 #import "UIButton+LYCountDownButton.h"
 #import <RTRootNavigationController/RTRootNavigationController.h>
@@ -42,7 +43,7 @@
 #import "DefaultAddressMessage.h"
 #import "TransforMessModel.h"
 #import "ApplyReturnGoodsModel.h"
-
+#import "SearchViewController.h"
 //七陌
 #import "UIImage+GIF.h"
 #import "UIImageView+WebCache.h"

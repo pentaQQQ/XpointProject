@@ -217,6 +217,8 @@
         .rightSpaceToView(view, 15)
         .widthIs(70)
         .heightIs(30);
+        paymentBtn.layer.cornerRadius = 3;
+        paymentBtn.layer.masksToBounds = YES;
         
     }else if ([model.afterStatus isEqualToString:@"2"]){
         goodStatus.text = @"拒绝退款";
@@ -236,6 +238,8 @@
         .rightSpaceToView(view, 15)
         .widthIs(70)
         .heightIs(30);
+        paymentBtn.layer.cornerRadius = 3;
+        paymentBtn.layer.masksToBounds = YES;
         
         UIButton *seeDetailBtn = [[UIButton alloc] init];
         seeDetailBtn.tag = section;
@@ -250,6 +254,8 @@
         .rightSpaceToView(paymentBtn, 10)
         .widthIs(70)
         .heightIs(30);
+        seeDetailBtn.layer.cornerRadius = 3;
+        seeDetailBtn.layer.masksToBounds = YES;
     }else if ([model.afterStatus isEqualToString:@"4"]){
         goodStatus.text = @"拒绝退货";
         UIButton *seeDetailBtn = [[UIButton alloc] init];
@@ -265,6 +271,8 @@
         .rightSpaceToView(view, 15)
         .widthIs(70)
         .heightIs(30);
+        seeDetailBtn.layer.cornerRadius = 3;
+        seeDetailBtn.layer.masksToBounds = YES;
     }else if ([model.afterStatus isEqualToString:@"5"]){
         goodStatus.text = @"退货中";
         UIButton *paymentBtn = [[UIButton alloc] init];
@@ -280,7 +288,8 @@
         .rightSpaceToView(view, 15)
         .widthIs(70)
         .heightIs(30);
-        
+        paymentBtn.layer.cornerRadius = 3;
+        paymentBtn.layer.masksToBounds = YES;
         UIButton *returnOrderBtn = [[UIButton alloc] init];
         returnOrderBtn.tag = section;
         returnOrderBtn.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -294,7 +303,8 @@
         .rightSpaceToView(paymentBtn, 10)
         .widthIs(70)
         .heightIs(30);
-        
+        returnOrderBtn.layer.cornerRadius = 3;
+        returnOrderBtn.layer.masksToBounds = YES;
         
         UIButton *seeDetailBtn = [[UIButton alloc] init];
         seeDetailBtn.tag = section;
@@ -309,7 +319,8 @@
         .rightSpaceToView(returnOrderBtn, 10)
         .widthIs(70)
         .heightIs(30);
-
+        seeDetailBtn.layer.cornerRadius = 3;
+        seeDetailBtn.layer.masksToBounds = YES;
     }else if ([model.afterStatus isEqualToString:@"6"]){
         goodStatus.text = @"取消售后";
     }else if ([model.afterStatus isEqualToString:@"7"]){
@@ -421,6 +432,7 @@
     MineIndentModel *minModel = self.listDataArr[indexPath.section];
     OrderDetailViewController *minePerCtrl = [[OrderDetailViewController alloc] init];
     minePerCtrl.model = minModel;
+    minePerCtrl.pushCtrl = self.pushCtrl;
     [self.navigationController pushViewController:minePerCtrl animated:YES];
 }
 #pragma mark --------------- LeftBodyCellDelegate

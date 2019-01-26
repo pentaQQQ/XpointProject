@@ -27,6 +27,7 @@
 #import "imagesListModel.h"
 #import "DeleteGoodsListController.h"
 #import "ZLPhotoPickerBrowserViewController.h"
+#import "NewLoginViewController.h"
 #define Image(name) [UIImage imageNamed:name]
 @interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate,DeclareAbnormalAlertViewDelegate,DeclareAbnormalAlertViewRemindDelegate>
 {
@@ -118,6 +119,7 @@
     if (_isPreview) {
         _isPreview = NO;
     }else{
+        [self.CartTableView reloadData];
         if ([self.CartTableView.mj_header isRefreshing]) {
             [self.CartTableView.mj_header endRefreshing];
         }
@@ -130,56 +132,66 @@
 #pragma mark - 下拉刷新数据
 - (void)loadNewTopic
 {
-    NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
+    
     LYAccount *lyAccount = [LYAccount shareAccount];
-    [dataDict setValue:lyAccount.id forKey:@"userId"];
-    [dataDict setValue:@"0" forKey:@"status"];
-    [LYTools postBossDemoWithUrl:cartList param:dataDict success:^(NSDictionary *dict) {
-        [self.CartTableView.mj_header endRefreshing];
-        [self.dataSource removeAllObjects];
-        [self.dataSource addObject:@[]];
-        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            self.goodsCartModel = [GoodsCartModel mj_objectWithKeyValues:dict[@"data"]];
-            self.goodsCartModel.userId = lyAccount.id;
-            NSMutableArray *allTimeArr = [NSMutableArray array];
-            for (NSDictionary *dic in dict[@"data"][@"cartDetails"]) {
-                //1.取出所有的商户id
-                [allTimeArr addObject:dic[@"productForm"][@"merchantId"]];
-            }
-            self->_dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
-            for (NSString *nowTim in self->_dateSectionArr) {
-                NSMutableArray *arr = [[NSMutableArray alloc] init];
-                for (NSDictionary *ordersDicTwo in dict[@"data"][@"cartDetails"]) {
-                    NSString *twoTim = ordersDicTwo[@"productForm"][@"merchantId"];
-                    if([twoTim isEqualToString:nowTim]){
-                        //2.将每个字典保存在模型数组中
-                        CartDetailsModel *model = [CartDetailsModel mj_objectWithKeyValues:ordersDicTwo];
-                        model.SelectedType = @"已选中";
-                        model.Type = @"1";
-                        model.CheckAll = @"1";
-                        model.Edit= @"0";
-                        model.EditBtn = @"0";
-                        model.userId = lyAccount.id;
-                        SimilarProductModel *sModel = [SimilarProductModel mj_objectWithKeyValues:ordersDicTwo[@"productForm"]];
-                        model.productForm = sModel;
-                        [arr addObject:model];
-                    }
+    if ([lyAccount.id length] == 0) {
+        [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+        NewLoginViewController*vc = [[NewLoginViewController alloc]init];
+        RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+        rootVC.rt_disableInteractivePop = YES ;
+        [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+    }else{
+        NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
+        [dataDict setValue:lyAccount.id forKey:@"userId"];
+        [dataDict setValue:@"0" forKey:@"status"];
+        [LYTools postBossDemoWithUrl:cartList param:dataDict success:^(NSDictionary *dict) {
+            [self.CartTableView.mj_header endRefreshing];
+            [self.dataSource removeAllObjects];
+            [self.dataSource addObject:@[]];
+            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+            if ([respCode isEqualToString:@"00000"]) {
+                self.goodsCartModel = [GoodsCartModel mj_objectWithKeyValues:dict[@"data"]];
+                self.goodsCartModel.userId = lyAccount.id;
+                NSMutableArray *allTimeArr = [NSMutableArray array];
+                for (NSDictionary *dic in dict[@"data"][@"cartDetails"]) {
+                    //1.取出所有的商户id
+                    [allTimeArr addObject:dic[@"productForm"][@"merchantId"]];
                 }
-
-                [self.dataSource addObject:arr];
+                self->_dateSectionArr = [self arrayWithMemberIsOnly:allTimeArr];
+                for (NSString *nowTim in self->_dateSectionArr) {
+                    NSMutableArray *arr = [[NSMutableArray alloc] init];
+                    for (NSDictionary *ordersDicTwo in dict[@"data"][@"cartDetails"]) {
+                        NSString *twoTim = ordersDicTwo[@"productForm"][@"merchantId"];
+                        if([twoTim isEqualToString:nowTim]){
+                            //2.将每个字典保存在模型数组中
+                            CartDetailsModel *model = [CartDetailsModel mj_objectWithKeyValues:ordersDicTwo];
+                            model.SelectedType = @"未选中支付";
+                            model.Type = @"0";
+                            model.CheckAll = @"0";
+                            model.Edit= @"0";
+                            model.EditBtn = @"0";
+                            model.userId = lyAccount.id;
+                            SimilarProductModel *sModel = [SimilarProductModel mj_objectWithKeyValues:ordersDicTwo[@"productForm"]];
+                            model.productForm = sModel;
+                            [arr addObject:model];
+                        }
+                    }
+                    
+                    [self.dataSource addObject:arr];
+                }
+                [self.CartTableView reloadData];
+            }else if([dict[@"code"]longValue] == 500){
+                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
             }
+        } fail:^(NSError *error) {
+            [self.dataSource removeAllObjects];
+            [SVProgressHUD doAnythingFailedWithHUDMessage:@"[Error]\n似乎已断开与互联网的连接" withDuration:1.5];
+            [self.CartTableView.mj_header endRefreshing];
+            [self.dataSource addObject:@[]];
             [self.CartTableView reloadData];
-        }else if([dict[@"code"]longValue] == 500){
-            [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
-        }
-    } fail:^(NSError *error) {
-        [self.dataSource removeAllObjects];
-        [SVProgressHUD doAnythingFailedWithHUDMessage:@"[Error]\n似乎已断开与互联网的连接" withDuration:1.5];
-        [self.CartTableView.mj_header endRefreshing];
-        [self.dataSource addObject:@[]];
-        [self.CartTableView reloadData];
-    }];
+        }];
+    }
+    
 }
 //去除数组中重复的
 -(NSArray *)arrayWithMemberIsOnly:(NSArray *)array
@@ -410,8 +422,8 @@
     if (indexPath.section == 0) {
         LYAccount *lyAccount = [LYAccount shareAccount];
         AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:lyAccount.defaultAddress];
-//        DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
-        if (addressModel.id.length == 0) {
+        DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
+        if (addressModel.id.length == 0 && addressMes.id.length == 0) {
             return 100;
         }else{
           return 155;
@@ -450,6 +462,7 @@
           cell = [[CartHeaderAddressCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CartHeaderAddressCellID"];
         }
         cell.backgroundColor = [UIColor whiteColor];
+        [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         [cell withData:[LYAccount shareAccount]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setSelectButtonBlock:^(NSInteger num) {
@@ -485,6 +498,52 @@
                 cell.allowsMultipleSwipe = _allowMultipleSwipe;
                 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                [cell setDeleteBlock:^(CartDetailsModel *detailModel) {
+                    [Helper ShowAlertWithTitle:@"是否删除该商品" prompt:@"" cancel:@"取消" defaultLb:@"确定" ViewController:self alertOkClick:^{
+                        NSMutableDictionary *dict1 = [[NSMutableDictionary alloc] init];
+                        NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
+                        CartDetailsModel *model = arr[indexPath.row];
+                        [dict1 setValue:model.id forKey:@"cartDetailId"];
+                        [LYTools postBossDemoWithUrl:cartDelProduct param:dict1 success:^(NSDictionary *dict) {
+                            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                            if ([respCode isEqualToString:@"00000"]) {
+                                [arr removeObjectAtIndex:indexPath.row];
+                                if (arr.count > 0) {
+                                    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+                                    [self postCenter];
+                                    NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
+                                    NSInteger index = 0; //判读section下的row是否全部勾选
+                                    for (NSInteger i = 0; i < arr.count; i++) {
+                                        CartDetailsModel *model = arr[i];
+                                        if ([model.Type isEqualToString:@"1"]) {
+                                            index ++;
+                                        }
+                                    }
+                                    //如果全部row的状态都为选中状态 则改变section的按钮状态
+                                    if (index == arr.count) {
+                                        CartDetailsModel *model = arr[0];
+                                        model.CheckAll = @"1";
+                                        [arr replaceObjectAtIndex:0 withObject:model];
+                                    }
+                                    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
+                                    //一个section刷新
+                                    NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
+                                    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+                                }else{
+                                    [self.dataSource removeObjectAtIndex:indexPath.section];
+                                    [self postCenter];
+                                    [self.CartTableView reloadData];
+                                }
+                            }else if([dict[@"code"]longValue] == 500){
+                                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                            }
+                        } fail:^(NSError *error) {
+                            
+                        }];
+                        
+                    } alertNoClick:^{
+                    }];
+                }];
                 return cell;
             }else{
                 return nil;
@@ -543,7 +602,7 @@
                     if (arr.count > 0) {
                         [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
                         [self postCenter];
-                        //[self.CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        //[self.CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
                         NSMutableArray *arr = [[NSMutableArray alloc]initWithArray:self.dataSource[indexPath.section]];
                         NSInteger index = 0; //判读section下的row是否全部勾选
                         for (NSInteger i = 0; i < arr.count; i++) {
@@ -564,14 +623,14 @@
                         [self.dataSource replaceObjectAtIndex:indexPath.section withObject:arr];
                         //一个section刷新
                         NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-                        [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                        [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
 //                        self.CartTableView.backgroundView = nil;
 //                        [self.CartTableView reloadData];
                     }else{
                         [self.dataSource removeObjectAtIndex:indexPath.section];
                         [self postCenter];
 //                        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-//                        [self.CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+//                        [self.CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
 //                        self.CartTableView.backgroundView = nil;
                         [self.CartTableView reloadData];
                     }
@@ -790,7 +849,7 @@
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
 }
 
 /********************************************
@@ -821,7 +880,7 @@
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     
 }
 
@@ -883,7 +942,7 @@
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     
 }
 
@@ -896,7 +955,9 @@
 - (void)BalanceSelectedGoods:(NSMutableArray *)arr goodsNum:(int)goodsNum goodsPrice:(NSString *)goodsPrice
 {
     LYAccount *lyAccount = [LYAccount shareAccount];
-    if (lyAccount.defaultAddress == nil) {
+    AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:lyAccount.defaultAddress];
+    DefaultAddressMessage *defaultMess = [DefaultAddressMessage shareDefaultAddressMessage];
+    if ([addressModel.id length]== 0 && [defaultMess.id length] == 0) {
         [SVProgressHUD showInfoWithStatus:@"请先添加收货地址"];
     }else{
         _goodsNum = goodsNum;
@@ -969,6 +1030,7 @@
             NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
             if ([respCode isEqualToString:@"00000"]) {
                  BuyGoodsListController *buyCtrl = [[BuyGoodsListController alloc] init];
+                NSMutableArray *listOrderArr = [NSMutableArray array];
                 for (NSDictionary *dics in dict[@"data"]) {
                     MineIndentModel *indentModel = [MineIndentModel mj_objectWithKeyValues:dics];
                     AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
@@ -980,8 +1042,10 @@
                             [indentModel.orderDetailList addObject:orderDetailModel];
                         }
                     }
+                    [listOrderArr addObject:indentModel];
                     buyCtrl.minModel = indentModel;
                 }
+                buyCtrl.orderListArray = listOrderArr;
                 buyCtrl.goodsListArray = goodListArr;
                 buyCtrl.goodsNum = self->_goodsNum;
                 buyCtrl.goodsPrice = self->_goodsPrice;
@@ -1091,7 +1155,7 @@
     
     //一个section刷新
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:section];
-    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
     
     NSLog(@"%ld",section);
 }
@@ -1136,9 +1200,9 @@
             
             //                //一个section刷新
             //                NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-            //                [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            //                [self.CartTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
             
-            [self.CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.CartTableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
             
         }else{
             [self.dataSource removeObjectAtIndex:indexPath.section];
@@ -1146,7 +1210,7 @@
             [self postCenter];
             
             NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
-            [self.CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.CartTableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
         }
         
         

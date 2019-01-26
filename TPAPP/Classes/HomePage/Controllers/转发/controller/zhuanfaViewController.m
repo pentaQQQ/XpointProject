@@ -18,6 +18,8 @@
 #import "ShareItem.h"
 #import "oldhechengView.h"
 
+#import <Social/Social.h>
+#import "ShareTool.h"
 
 @interface zhuanfaViewController ()<UITableViewDelegate,UITableViewDataSource,UIDocumentInteractionControllerDelegate>
 @property(nonatomic,strong)zhuanfaHeaderView*headerview;
@@ -120,7 +122,7 @@
             
             
         }else if (curretDEX == 1){
-
+            [SVProgressHUD doAnyRemindWithHUDMessage:@"多图转发朋友圈，请在列表中选择“朋友圈选项”" withDuration:3];
             [self shareMangPictureWithModel:model];
             
         }else if (curretDEX == 2){
@@ -214,9 +216,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    shanghuModel *model = self.titleArray[indexPath.row];
     self.currentIndex = (int)indexPath.row;
-    
+    self.headerview.merchanid = model.merchantId;
     [self.tableview reloadData];
     
 }
@@ -289,6 +291,10 @@
     NSMutableArray *items = [NSMutableArray array];
     NSString *docPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
     for (int i = 0; i < activityItems.count; i++) {
+        
+        if (i==4) {
+            break;
+        }
         //取出地址
         NSString *URL = [activityItems[i] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         //把图片转成NSData类型
@@ -307,41 +313,56 @@
         [items addObject:item];
     }
     
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
     
-    //去除特定的分享功能
-    activityVC.excludedActivityTypes = @[UIActivityTypePostToFacebook,UIActivityTypePostToTwitter, UIActivityTypePostToWeibo,UIActivityTypeMessage,UIActivityTypeMail,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeAssignToContact,UIActivityTypeSaveToCameraRoll,UIActivityTypeAddToReadingList,UIActivityTypePostToFlickr,UIActivityTypePostToVimeo,UIActivityTypePostToTencentWeibo,UIActivityTypeAirDrop,UIActivityTypeOpenInIBooks];
+  
     
-    [self presentViewController: activityVC animated:YES completion:nil];
+//    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:activities];
+//
+//
+//        UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
+//
+//        //去除特定的分享功能
+//        activityVC.excludedActivityTypes = @[UIActivityTypePostToFacebook,UIActivityTypePostToTwitter, UIActivityTypePostToWeibo,UIActivityTypeMessage,UIActivityTypeMail,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeAssignToContact,UIActivityTypeSaveToCameraRoll,UIActivityTypeAddToReadingList,UIActivityTypePostToFlickr,UIActivityTypePostToVimeo,UIActivityTypePostToTencentWeibo,UIActivityTypeAirDrop,UIActivityTypeOpenInIBooks];
+//
+//
+//        [self presentViewController: activityVC animated:YES completion:nil];
+//
+//
+//
+//        //初始化Block回调方法,此回调方法是在iOS8之后出的，代替了之前的方法
+//        UIActivityViewControllerCompletionWithItemsHandler myBlock = ^(NSString *activityType,BOOL completed,NSArray *returnedItems,NSError *activityError)
+//        {
+//            NSLog(@"activityType :%@", activityType);
+//            if (completed)
+//            {
+//                NSLog(@"completed");
+//
+//                for (int i = 0; i < activityItems.count; i++){
+//                     NSString *imagePath = [docPath stringByAppendingString:[NSString stringWithFormat:@"/SharePic%d.jpg",i]];
+//                    NSFileManager *manager = [NSFileManager defaultManager];
+//                    [manager removeItemAtPath:imagePath error:nil];
+//                }
+//
+//            }
+//            else
+//            {
+//                NSLog(@"cancel");
+//            }
+//
+//        };
+//
+//        // 初始化completionHandler，当post结束之后（无论是done还是cancell）该blog都会被调用
+//        activityVC.completionWithItemsHandler = myBlock;
     
+
     
-    
-    //初始化Block回调方法,此回调方法是在iOS8之后出的，代替了之前的方法
-    UIActivityViewControllerCompletionWithItemsHandler myBlock = ^(NSString *activityType,BOOL completed,NSArray *returnedItems,NSError *activityError)
-    {
-        NSLog(@"activityType :%@", activityType);
-        if (completed)
-        {
-            NSLog(@"completed");
-            
-            for (int i = 0; i < activityItems.count; i++){
-                 NSString *imagePath = [docPath stringByAppendingString:[NSString stringWithFormat:@"/SharePic%d.jpg",i]];
-                NSFileManager *manager = [NSFileManager defaultManager];
-                [manager removeItemAtPath:imagePath error:nil];
-            }
-            
+    [[[ShareTool alloc] init]shareWithItems:items completionHandler:^(UIActivityType  _Nullable activityType, BOOL completed) {
+        for (int i = 0; i < activityItems.count; i++){
+            NSString *imagePath = [docPath stringByAppendingString:[NSString stringWithFormat:@"/SharePic%d.jpg",i]];
+            NSFileManager *manager = [NSFileManager defaultManager];
+            [manager removeItemAtPath:imagePath error:nil];
         }
-        else
-        {
-            NSLog(@"cancel");
-        }
-        
-    };
-    
-    // 初始化completionHandler，当post结束之后（无论是done还是cancell）该blog都会被调用
-    activityVC.completionWithItemsHandler = myBlock;
-    
-    
+    }];
     
 }
 
@@ -363,6 +384,7 @@
     return image;
     
 }
+
 
 
 //截取长图

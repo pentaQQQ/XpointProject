@@ -76,6 +76,10 @@
         _RemarksLabel.numberOfLines = 2;
 //        CGSize size = [_RemarksLabel sizeThatFits:CGSizeMake(_RemarksLabel.frame.size.width, MAXFLOAT)];
 //        _RemarksLabel.frame = CGRectMake(_RemarksLabel.frame.origin.x, _RemarksLabel.frame.origin.y, _RemarksLabel.frame.size.width,size.height);
+        _Goods_delete = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_Goods_delete setImage:[UIImage imageNamed:@"icon_shanchu"] forState:UIControlStateNormal];
+        [_Goods_delete addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
+        
         _Remarks_button = [UIButton buttonWithType:UIButtonTypeCustom];
         _Remarks_button.titleLabel.font = [UIFont systemFontOfSize:13];
         _Remarks_button.backgroundColor = colorWithRGB(0xFF6B24);
@@ -94,6 +98,7 @@
         [self.contentView addSubview:_Goods_Number];
         [self.contentView addSubview:_Goods_Circle];
         [self.contentView addSubview:_RemarksLabel];
+        [self.contentView addSubview:_Goods_delete];
         [self.contentView addSubview:_Remarks_button];
         
         [_Goods_Circle mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -162,6 +167,15 @@
             make.right.equalTo(self).offset(-10);
             make.height.equalTo(@(20));
         }];
+        
+        [_Goods_delete mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_Goods_Number.mas_bottom).offset(10);
+            make.right.equalTo(self).offset(-10);
+            make.height.equalTo(@(20));
+            make.width.equalTo(@(20));
+        }];
+        
+        
         [_Remarks_button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self).offset(-10);
             make.right.equalTo(self).offset(-10);
@@ -180,7 +194,10 @@
     
     return self;
 }
-
+- (void)deleteAction
+{
+    self.deleteBlock(self.detailModel);
+}
 - (void)remarkAction
 {
     [self.SelectedDelegate SelectedRemarkCell:self];
@@ -199,7 +216,7 @@
     _Goods_DescNum.text = [NSString stringWithFormat:@"款号 %@",info.productForm.designCode];
 
     _Goods_Size.text = [NSString stringWithFormat:@"规格: %@",info.size];
-    _Goods_Price.text = [NSString stringWithFormat:@"￥%@",info.amount];
+    _Goods_Price.text = [NSString stringWithFormat:@"￥%@",info.productForm.marketAmount];
     
     //中划线
 //    NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};

@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *tianLab;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *begintimeWidth;
 
+@property (weak, nonatomic) IBOutlet UILabel *daojishi;
 
 @property(nonatomic,strong)SimilarProductModel*model;
 

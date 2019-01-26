@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -106,16 +104,25 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ju8-We-FCq">
+                                                <rect key="frame" x="0.0" y="10" width="80" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="4zi-AB-QOB"/>
                                             <constraint firstAttribute="width" constant="80" id="BhK-ua-7AK"/>
+                                            <constraint firstAttribute="trailing" secondItem="ju8-We-FCq" secondAttribute="trailing" id="UFT-Bf-8Qx"/>
                                             <constraint firstItem="JnC-Qp-Zyf" firstAttribute="leading" secondItem="rU1-Ns-uie" secondAttribute="trailing" constant="5" id="V4o-pL-yMJ"/>
+                                            <constraint firstItem="ju8-We-FCq" firstAttribute="leading" secondItem="xSY-pq-XdI" secondAttribute="leading" id="fcF-qS-6Ji"/>
                                             <constraint firstItem="rU1-Ns-uie" firstAttribute="leading" secondItem="xSY-pq-XdI" secondAttribute="leading" constant="5" id="hpD-Kb-6TA"/>
                                             <constraint firstItem="JnC-Qp-Zyf" firstAttribute="centerY" secondItem="xSY-pq-XdI" secondAttribute="centerY" id="r48-Lf-xC2"/>
                                             <constraint firstAttribute="bottom" secondItem="rU1-Ns-uie" secondAttribute="bottom" constant="5" id="rCR-UL-nbP"/>
                                             <constraint firstItem="rU1-Ns-uie" firstAttribute="top" secondItem="xSY-pq-XdI" secondAttribute="top" constant="5" id="vNW-eO-8yC"/>
+                                            <constraint firstItem="JnC-Qp-Zyf" firstAttribute="centerY" secondItem="ju8-We-FCq" secondAttribute="centerY" id="yUu-E7-bRP"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下午 13:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kK-uo-70S">
@@ -156,7 +163,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="eNv-bQ-gSb"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="分享整场活动">
+                                                <state key="normal" title="转发全场">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -244,6 +251,7 @@
                 <outlet property="begintimeWidth" destination="9cC-p0-OP2" id="smQ-cv-Mlc"/>
                 <outlet property="content" destination="szg-vh-m0P" id="9lx-ul-i7V"/>
                 <outlet property="contentHigh" destination="pex-px-iUA" id="bmp-oC-9mL"/>
+                <outlet property="daojishiLab" destination="ju8-We-FCq" id="qdb-OG-7my"/>
                 <outlet property="endtime" destination="Bn3-8U-NIJ" id="ag3-qS-Iue"/>
                 <outlet property="imageview" destination="gkG-8i-kE5" id="t5w-pp-iX5"/>
                 <outlet property="pictureView" destination="5H4-V2-hyj" id="BwQ-UK-l9G"/>
@@ -253,7 +261,7 @@
                 <outlet property="title" destination="oOB-77-00U" id="YPM-an-mll"/>
                 <outlet property="zhuanfaBtn" destination="InM-Aa-e8J" id="AI0-zV-vfl"/>
             </connections>
-            <point key="canvasLocation" x="80" y="317"/>
+            <point key="canvasLocation" x="80" y="316.64167916041981"/>
         </tableViewCell>
     </objects>
 </document>

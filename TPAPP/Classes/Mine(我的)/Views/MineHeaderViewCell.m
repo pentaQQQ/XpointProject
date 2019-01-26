@@ -193,7 +193,11 @@
     .widthIs(100)
     .heightIs(20);
     [self.accountBtn addTarget:self action:@selector(accountAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.accountBtn setTitle:lyAccount.nickName forState:UIControlStateNormal];
+    if (lyAccount.trueName.length != 0) {
+        [self.accountBtn setTitle:lyAccount.trueName forState:UIControlStateNormal];
+    }else{
+        [self.accountBtn setTitle:lyAccount.nickName forState:UIControlStateNormal];
+    }
     [self.accountBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
     self.numberLabel = [[UILabel alloc] init];
@@ -275,6 +279,22 @@
 //    self.distanceLabel.text = @"距离升级还差 ¥50";
 //    self.distanceLabel.font = [UIFont systemFontOfSize:12];
 }
+
+- (void)configModel
+{
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    [self.headerBtn sd_setImageWithURL:[NSURL URLWithString:lyAccount.headUrl]
+                              forState:UIControlStateNormal
+                      placeholderImage:[UIImage imageNamed:@"share_sina"]];
+    [self.vipBtn setTitle:[NSString stringWithFormat:@"VIP%@",lyAccount.level] forState:UIControlStateNormal];
+    self.numberLabel.text = [NSString stringWithFormat:@"代购编号:%@",lyAccount.buyNo];
+    if (lyAccount.trueName.length != 0) {
+        [self.accountBtn setTitle:lyAccount.trueName forState:UIControlStateNormal];
+    }else{
+        [self.accountBtn setTitle:lyAccount.nickName forState:UIControlStateNormal];
+    }
+}
+
 #pragma mark-字体宽度自适应
 - (CGFloat)widthLabelWithModel:(NSString *)titleString
 {

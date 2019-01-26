@@ -72,43 +72,52 @@
                     if ([self.dataDict[@"recIdentityCardNo"] length] == 0) {
                         
                     }else{
-                        
-                        if ([self.dataDict[@"senderNickName"] length] == 0) {
-                            
+                        if ([self.dataDict[@"recIdentityCardNo"] length] != 18) {
+                            [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入正确的收货人身份证号码" withDuration:1.0];
                         }else{
-                            if ([self.dataDict[@"senderPhone"] length] == 0) {
+                            if ([self.dataDict[@"senderNickName"] length] == 0) {
                                 
                             }else{
-                                if ([self.dataDict[@"senderProv"] length] == 0) {
+                                if ([self.dataDict[@"senderPhone"] length] == 0) {
                                     
                                 }else{
-                                    if ([self.dataDict[@"senderAddress"] length] == 0) {
+                                    if ([self.dataDict[@"senderProv"] length] == 0) {
                                         
                                     }else{
-                                        if ([self.dataDict[@"senderIdentityCardNo"] length] == 0) {
+                                        if ([self.dataDict[@"senderAddress"] length] == 0) {
                                             
                                         }else{
-                                            LYAccount *lyAccount = [LYAccount shareAccount];
-                                            [self.dataDict addEntriesFromDictionary:@{@"userId":lyAccount.id}];
-                                            [self.dataDict addEntriesFromDictionary:@{@"isDefault":@"0"}];
-                                            [self.dataDict addEntriesFromDictionary:@{@"isGeneration":@"1"}];
-                                            [LYTools postBossDemoWithUrl:saveAddress param:self.dataDict success:^(NSDictionary *dict) {
-                                                NSLog(@"%@",dict);
-                                                NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-                                                if ([respCode isEqualToString:@"00000"]) {
-                                                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"新建成功" withDuration:1.5];
-                                                    [self.navigationController popViewControllerAnimated:YES];
-                                                }else{
-                                                    [SVProgressHUD doAnythingSuccessWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
-                                                }
-                                            } fail:^(NSError *error) {
+                                            if ([self.dataDict[@"senderIdentityCardNo"] length] == 0) {
                                                 
-                                            }];
+                                            }else{
+                                                if ([self.dataDict[@"senderIdentityCardNo"] length] != 18) {
+                                                    [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入正确的寄件人身份证号码" withDuration:1.0];
+                                                }else{
+                                                    LYAccount *lyAccount = [LYAccount shareAccount];
+                                                    [self.dataDict addEntriesFromDictionary:@{@"userId":lyAccount.id}];
+                                                    [self.dataDict addEntriesFromDictionary:@{@"isDefault":@"0"}];
+                                                    [self.dataDict addEntriesFromDictionary:@{@"isGeneration":@"1"}];
+                                                    [LYTools postBossDemoWithUrl:saveAddress param:self.dataDict success:^(NSDictionary *dict) {
+                                                        NSLog(@"%@",dict);
+                                                        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+                                                        if ([respCode isEqualToString:@"00000"]) {
+                                                            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"新建成功" withDuration:1.5];
+                                                            [self.navigationController popViewControllerAnimated:YES];
+                                                        }else{
+                                                            [SVProgressHUD doAnythingSuccessWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                                                        }
+                                                    } fail:^(NSError *error) {
+                                                        
+                                                    }];
+                                                }
+                                                
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
+                        
                     }
                 }
             }

@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 #import "UIBarButtonItem+Create.h"
+#import "MineIndentViewController.h"
+#import "SearchViewController.h"
 @interface BaseViewController ()
 
 @end
@@ -22,9 +24,15 @@
 //    UIBarButtonItem *gap = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
 //    gap.width = -6;
     UIBarButtonItem *set = [[UIBarButtonItem alloc] initWithImage:@"bake_icon" complete:^{
+        if ([self isKindOfClass:[MineIndentViewController class]]) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
         [self.navigationController popViewControllerAnimated:YES];
     }];
-    self.navigationItem.leftBarButtonItems = @[set];
+    if (![self isKindOfClass:[SearchViewController class]]) {
+        self.navigationItem.leftBarButtonItems = @[set];
+    }
+    
 }
 
 -(void)viewWillLayoutSubviews

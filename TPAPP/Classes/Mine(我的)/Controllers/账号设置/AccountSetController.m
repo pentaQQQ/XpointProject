@@ -14,9 +14,9 @@
 #import "AddressManageController.h"
 #import "ZLNoAuthorityViewController.h"
 #import <NMSSH/NMSSH.h>
-
 #import "NewLoginViewController.h"
-@interface AccountSetController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+#import "ConsignmentAddressManageController.h"
+@interface AccountSetController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,DeclareAbnormalAlertViewOrderListRemindDelegate>
 @property (nonatomic, readwrite, strong) UITableView *tableView;
 
 @end
@@ -29,10 +29,14 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"账户设置";
     [self configureTableView];
-    [self prepareData];
 }
 - (void)configureTableView {
     [self tableView];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self prepareData];
 }
 #pragma mark - Public Method
 - (__kindof YSStaticCellModel *)cellModelAtIndexPath:(NSIndexPath *)indexPath {
@@ -137,24 +141,45 @@
             VIPViewController *vipCtrl = [[VIPViewController alloc] init];
             [self.navigationController pushViewController:vipCtrl animated:YES];
         }else if (indexPath.row == 1){
+            
             AddressManageController *idCtrl = [[AddressManageController alloc] init];
             idCtrl.title = @"地址管理";
             [self.navigationController pushViewController:idCtrl animated:YES];
+        }else if (indexPath.row == 2){
+            
+            ConsignmentAddressManageController *idCtrl = [[ConsignmentAddressManageController alloc] init];
+            idCtrl.title = @"代发货地址管理";
+            [self.navigationController pushViewController:idCtrl animated:YES];
+        }else if (indexPath.row == 3){
+            //                LYAccount *account = [LYAccount shareAccount];
+            //                if ([account.realName isEqualToString:@"0"]) {
+            IdentificationController *idCtrl = [[IdentificationController alloc] init];
+            [self.navigationController pushViewController:idCtrl animated:YES];
+            //                }else{
+            //                }
         }else{
-                LYAccount *account = [LYAccount shareAccount];
-                if ([account.realName isEqualToString:@"0"]) {
-                    IdentificationController *idCtrl = [[IdentificationController alloc] init];
-                    [self.navigationController pushViewController:idCtrl animated:YES];
-                }else{
-                }
+
         }
     }else if (indexPath.section ==2){
         if (indexPath.row == 0) {
         }else{
         }
     }else{
-        //退出登录在此处理
-        [self existBoard];
+        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确认退出登录吗"] selectType:@"确认退出登录" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+        [alertView show];
+        
+    }
+}
+-(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel
+{
+    if (buttonIndex == AlertButtonLeft) {
+        if ([type isEqualToString:@"确认退出登录"]){
+        }
+    }else{
+        if ([type isEqualToString:@"确认退出登录"]) {
+            //退出登录在此处理
+            [self existBoard];
+        }
     }
 }
 #pragma mark - Setter && Getter
@@ -227,11 +252,14 @@
         model5.indicatorTitle = addresModel.recAddress;
     }
     
+    YSStaticDefaultModel *models = [[YSStaticDefaultModel alloc] init];
+    models.title = @"代发货地址管理";
+    
     
     YSStaticDefaultModel *model6 = [[YSStaticDefaultModel alloc] init];
     model6.title = @"实名认证";
     LYAccount *account = [LYAccount shareAccount];
-    if ([account.realName isEqualToString:@"0"]) {
+    if ([account.trueName isEqualToString:@"0"]) {
         model6.indicatorTitle = @"未认证";
     }else{
        model6.indicatorTitle = @"已认证";
@@ -255,7 +283,7 @@
         }];
     }];
     
-    YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model4, model5,model6,model10]];
+    YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model4, model5,models,model6,model10]];
     
     YSStaticDefaultModel *model7 = [[YSStaticDefaultModel alloc] init];
     model7.title = @"隐私政策";
@@ -312,11 +340,26 @@
             [[UIApplication sharedApplication] openURL:url];
         }
     }else{
-        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
-        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        controller.delegate = self;
-        controller.allowsEditing = YES;
-        [self presentViewController:controller animated:YES completion:nil];
+        
+        UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+        
+        pickerController.editing = YES;
+        
+        pickerController.delegate = self;
+        
+        pickerController.allowsEditing = YES;
+        
+        pickerController.navigationBar.translucent = NO;//去除毛玻璃效果
+        
+        pickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        [self presentViewController:pickerController animated:YES completion:nil];
+        
+//        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+//        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//        controller.delegate = self;
+//        controller.allowsEditing = YES;
+//        [self presentViewController:controller animated:YES completion:nil];
     }
 }
 #pragma mark - UIImagePickerControllrDelegate
@@ -327,67 +370,129 @@
         UIImage *image = info[UIImagePickerControllerOriginalImage];
         NSLog(@"%@",image);
 //        [SVProgressHUD doAnythingWithHUDMessage:nil];
+//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//        formatter.dateFormat = @"yyyyMMddHHmmssSSS";
+//        NSString *str = [formatter stringFromDate:[NSDate date]];
+//        NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
+//        NSString *headUrl = [NSString stringWithFormat:@"http://47.92.193.30/images/%@",imageName];
+//        // 创建文件管理器
+//        NSFileManager *fileManager = [NSFileManager defaultManager];
+//        //获取路径
+//        //参数NSDocumentDirectory要获取那种路径
+//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+//        NSString *documenDirectory = [paths objectAtIndex:0];//去处需要的路径
+//        NSString *path = [documenDirectory stringByAppendingPathComponent:imageName];
+//        BOOL isEXsit = [fileManager fileExistsAtPath:path];
+//        if (isEXsit) {
+//            [fileManager removeItemAtPath:path error:nil];
+//            [fileManager createFileAtPath:path contents:nil attributes:nil];
+//        }else {
+//            [fileManager createFileAtPath:path contents:nil attributes:nil];
+//        }
+//        NSData *data = [[NSData alloc] init];
+//        data = UIImageJPEGRepresentation(image,0.5);
+//        [data writeToFile:path atomically:YES];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"yyyyMMddHHmmssSSS";
         NSString *str = [formatter stringFromDate:[NSDate date]];
+        
         NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
-        NSString *headUrl = [NSString stringWithFormat:@"http://47.92.193.30/images/%@",imageName];
-        // 创建文件管理器
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        //获取路径
-        //参数NSDocumentDirectory要获取那种路径
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-        NSString *documenDirectory = [paths objectAtIndex:0];//去处需要的路径
-        NSString *path = [documenDirectory stringByAppendingPathComponent:imageName];
-        BOOL isEXsit = [fileManager fileExistsAtPath:path];
-        if (isEXsit) {
-            [fileManager removeItemAtPath:path error:nil];
-            [fileManager createFileAtPath:path contents:nil attributes:nil];
-        }else {
-            [fileManager createFileAtPath:path contents:nil attributes:nil];
-        }
-        NSData *data = [[NSData alloc] init];
-        data = UIImageJPEGRepresentation(image,0.5);
-        [data writeToFile:path atomically:YES];
-        
-        NMSSHSession *session = [NMSSHSession connectToHost:@"47.92.193.30" port:22 withUsername:@"root"];
-        if (session.isConnected) {
-            [session authenticateByPassword:@"yb0820@!8"];
-            if (session.isAuthorized) {
-                NSLog(@"Authentication succeeded");
-            }
-        }
-        NSError *error = nil;
-        NSString *response = [session.channel execute:@"ls -l /usr/local/files/" error:&error];
-        NSLog(@"List of my sites: %@", response);
-        BOOL success = [session.channel uploadFile:path to:@"/usr/local/files/images/"];
-        if (success) {
-            NSLog(@"上传成功");
-            [fileManager removeItemAtPath:path error:nil];
-            [[NetworkManager sharedManager] postWithUrl:editUserMessage param:@{@"headUrl":headUrl} success:^(id json) {
-//                [SVProgressHUD dismiss];
-                NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-                if ([respCode isEqualToString:@"00000"]) {
-                    [LYAccount mj_objectWithKeyValues:json[@"data"]];
-                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"昵称头像成功" withDuration:1.5];
-                    [self prepareData];
-                    [self.tableView reloadData];
-                }else{
-                    [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
-                }
-            } failure:^(NSError *error) {
-                
-            }];
-        }else{
-            NSLog(@"上传失败");
-        }
-         [session disconnect];
-        
-        
+
+        [self uploadPicturesImage:image nsNo:imageName];
+//        NMSSHSession *session = [NMSSHSession connectToHost:@"47.92.193.30" port:22 withUsername:@"root"];
+//        if (session.isConnected) {
+//            [session authenticateByPassword:@"yb0820@!8"];
+//            if (session.isAuthorized) {
+//                NSLog(@"Authentication succeeded");
+//            }
+//        }
+//        NSError *error = nil;
+//        NSString *response = [session.channel execute:@"ls -l /usr/local/files/" error:&error];
+//        NSLog(@"List of my sites: %@", response);
+//        BOOL success = [session.channel uploadFile:path to:@"/usr/local/files/images/"];
+//        if (success) {
+//            NSLog(@"上传成功");
+//            [fileManager removeItemAtPath:path error:nil];
+//            [[NetworkManager sharedManager] postWithUrl:editUserMessage param:@{@"headUrl":headUrl} success:^(id json) {
+////                [SVProgressHUD dismiss];
+//                NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+//                if ([respCode isEqualToString:@"00000"]) {
+//                    [LYAccount mj_objectWithKeyValues:json[@"data"]];
+//                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"昵称头像成功" withDuration:1.5];
+//                    [self prepareData];
+//                    [self.tableView reloadData];
+//                }else{
+//                    [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+//                }
+//            } failure:^(NSError *error) {
+//
+//            }];
+//        }else{
+//            NSLog(@"上传失败");
+//        }
+//         [session disconnect];
+//
+//
     }];
 }
-
+-(void)uploadPicturesImage:(UIImage* )image nsNo:(NSString* )nsNo
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"multipart/form-data",@"text/plain",@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    [manager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    NSData* imagedata = UIImageJPEGRepresentation(image, 1.0);
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setValue:imagedata forKey:@"multipartFile"];
+    NSLog(@"字典的值：%@", parameters);
+    [manager POST:fileUploadFile parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>_Nonnull formData) {
+        //上传文件参数
+        if (imagedata) {
+            NSString * type;
+            NSString * mimeType;
+            type = @"jpg";
+            mimeType = @"image/jpeg";
+            NSString * fileName = nsNo;
+            [formData appendPartWithFileData:imagedata name:@"multipartFile" fileName:fileName mimeType:mimeType];
+            
+        }
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        //打印上传进度
+        CGFloat progress = 100.0 * uploadProgress.completedUnitCount / uploadProgress.totalUnitCount;
+        NSLog(@"%.2lf%%", progress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
+        //请求成功
+        NSDictionary *dics = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        if ([dics[@"respCode"] isEqualToString:@"00000"]) {
+            NSString *imageUrl = dics[@"data"];
+            if (imageUrl.length != 0) {
+                [[NetworkManager sharedManager] postWithUrl:editUserMessage param:@{@"headUrl":imageUrl} success:^(id json) {
+                    //                [SVProgressHUD dismiss];
+                    NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+                    if ([respCode isEqualToString:@"00000"]) {
+                        [LYAccount mj_objectWithKeyValues:json[@"data"]];
+                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"昵称头像成功" withDuration:1.5];
+                        [self prepareData];
+                        [self.tableView reloadData];
+                    }else{
+                        [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                    }
+                } failure:^(NSError *error) {
+                    
+                }];
+            }
+        }
+        
+        NSLog(@"返回的说明desc：%@", dics);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //请求失败
+        NSLog(@"请求失败：%@",error);
+    }];
+}
 -(void)existBoard{
+    
     
 //    [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
 //
@@ -396,20 +501,24 @@
 //    rootVC.rt_disableInteractivePop = YES ;
 //    [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
 //
-    
-    [[NetworkManager sharedManager] getWithUrl:getexit param:nil success:^(id json) {
-        NSLog(@"%@",json);
-        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-//            [LYAccount clear];
-            [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
-            NewLoginViewController*vc = [[NewLoginViewController alloc]init];
-            RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
-            rootVC.rt_disableInteractivePop = YES ;
-            [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
-        }
-    } failure:^(NSError *error) {
-    }];
+    [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+    NewLoginViewController*vc = [[NewLoginViewController alloc]init];
+    RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+    rootVC.rt_disableInteractivePop = YES ;
+    [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+//    [[NetworkManager sharedManager] getWithUrl:getexit param:nil success:^(id json) {
+//        NSLog(@"%@",json);
+//        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+//        if ([respCode isEqualToString:@"00000"]) {
+////            [LYAccount clear];
+//            [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+//            NewLoginViewController*vc = [[NewLoginViewController alloc]init];
+//            RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+//            rootVC.rt_disableInteractivePop = YES ;
+//            [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+//        }
+//    } failure:^(NSError *error) {
+//    }];
 }
 
 

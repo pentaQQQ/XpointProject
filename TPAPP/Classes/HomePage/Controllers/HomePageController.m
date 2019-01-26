@@ -14,11 +14,10 @@
 #import "SearchViewController.h"
 #import "LXFloaintButton.h"
 #import "zhuanfaViewController.h"
-
 #import "homePageHeaderModel.h"
-
-
-@interface HomePageController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
+#import "AdvertisingModel.h"
+@interface HomePageController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate,SDCycleScrollViewDelegate>
+@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentScrollView *pageContentScrollView;
 @property(nonatomic,strong)LXFloaintButton *button;
@@ -91,8 +90,15 @@
     SGPageTitleViewConfigure *configure = [SGPageTitleViewConfigure pageTitleViewConfigure];
     configure.indicatorAdditionalWidth = 10; // 说明：指示器额外增加的宽度，不设置，指示器宽度为标题文字宽度；若设置无限大，则指示器宽度为按钮宽度
     configure.showBottomSeparator = NO;
-    configure.titleSelectedFont = [UIFont systemFontOfSize:14];
-    configure.titleColor = [UIColor lightGrayColor];
+    if (@available(iOS 8.2, *)) {
+        configure.titleSelectedFont = [UIFont systemFontOfSize:21.0 weight:UIFontWeightMedium];
+        configure.titleFont = [UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
+    } else {
+        // Fallback on earlier versions
+        configure.titleSelectedFont = [UIFont systemFontOfSize:21.0];
+        configure.titleFont = [UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
+    }
+    configure.titleColor = [UIColor blackColor];
     configure.titleSelectedColor = kRGBColor(228, 135, 60);
     configure.indicatorColor = kRGBColor(228, 135, 60);
     
@@ -103,20 +109,26 @@
     
     
     
-    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-44, pageTitleViewY, 44, 44)];
-    rightBtn.backgroundColor = [UIColor clearColor];
-    [rightBtn setImage:[UIImage imageNamed:@"icon_home_search"] forState:UIControlStateNormal];
-    [self.view addSubview:rightBtn];
-    [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-44, pageTitleViewY, 44, 44)];
+//    rightBtn.backgroundColor = [UIColor clearColor];
+//    [rightBtn setImage:[UIImage imageNamed:@"icon_home_search"] forState:UIControlStateNormal];
+//    [self.view addSubview:rightBtn];
+//    [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    /// pageTitleView
+//    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(44, pageTitleViewY, self.view.frame.size.width-88, 44) delegate:self titleNames:self.titleArr configure:configure];
+//    [self.view addSubview:_pageTitleView];
     /// pageTitleView
-    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(44, pageTitleViewY, self.view.frame.size.width-88, 44) delegate:self titleNames:self.titleArr configure:configure];
+    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(44, pageTitleViewY, self.view.frame.size.width-44, 44) delegate:self titleNames:self.titleArr configure:configure];
     [self.view addSubview:_pageTitleView];
+    
+    
     
     
     NSMutableArray *childArr = [NSMutableArray array];
     for (int i=0; i<self.titleArr.count; i++) {
         homePageHeaderModel *model = self.dataArr[i];
         ClassDetailViewController *vc = [[ClassDetailViewController alloc]init];
+        vc.pageModel = self.dataArr[i];
         vc.arr = model.releaseActivities;
         [childArr addObject:vc];
     }
@@ -156,7 +168,6 @@
 }
 
 
-
 //网络请求实列
 - (void)lodaDataSuccess:(void(^)(id respons))success{
     
@@ -170,13 +181,10 @@
             for (NSDictionary *dic in json[@"data"]) {
                 homePageHeaderModel *model = [homePageHeaderModel mj_objectWithKeyValues:dic];
                 [self.titleArr addObject:model.labelName];
-                
                 [self.dataArr addObject:model];
             }
             success(self.titleArr);
-            
         }
-        
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];

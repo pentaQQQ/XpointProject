@@ -32,7 +32,7 @@ static NSString *const cxSearchCollectionViewCell = @"CXSearchCollectionViewCell
 static NSString *const headerViewIden = @"HeadViewIden";
 
 
-@interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UICollectionViewDataSource,UICollectionViewDelegate,SelectCollectionCellDelegate,UICollectionReusableViewButtonDelegate,UISearchBarDelegate,DeclareAbnormalAlertViewDelegate>
+@interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UICollectionViewDataSource,UICollectionViewDelegate,SelectCollectionCellDelegate,UICollectionReusableViewButtonDelegate,UISearchBarDelegate,DeclareAbnormalAlertViewDelegate,DeclareAbnormalAlertViewOrderListRemindDelegate>
 @property(nonatomic,strong)SearchHeaderView*headerview;
 @property(nonatomic,strong)UITableView*tableview;
 
@@ -70,7 +70,9 @@ static NSString *const headerViewIden = @"HeadViewIden";
 
 
 @implementation SearchViewController
-
+{
+    int _buyGoodNumber;
+}
 
 -(NSMutableArray*)dataArr{
     if (_dataArr == nil) {
@@ -101,23 +103,19 @@ static NSString *const headerViewIden = @"HeadViewIden";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"搜索";
-    
-    
     self.currentIndex = 0;
-    
     
     
     
     UISearchBar *search = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth/3*2,30)];
     self.search = search;
     [search setPlaceholder:@"搜索商品名称/品牌/关键字"];
-    
     //获取textField(也可以通过KVC获取)
     UITextField *searchField=[((UIView *)[search.subviews objectAtIndex:0]).subviews lastObject];
     //设置placeHolder字体的颜色
     searchField.tintColor = [UIColor lightGrayColor];
-    searchField.textColor =[UIColor lightGrayColor];
-    [searchField setValue:[UIColor lightGrayColor]forKeyPath:@"_placeholderLabel.textColor"];
+    searchField.textColor =[UIColor blackColor];
+    [searchField setValue:[UIColor blackColor]forKeyPath:@"_placeholderLabel.textColor"];
     searchField.font = [UIFont systemFontOfSize:14];
     
     searchField.returnKeyType = UIReturnKeySend;
@@ -199,7 +197,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
     
     
     
-    UICollectionView *cxSearchCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(topbtn.frame)+1, kScreenWidth, kScreenHeight-SafeAreaTopHeight-41) collectionViewLayout:[[SelectCollectionLayout alloc] init]];
+    UICollectionView *cxSearchCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(topbtn.frame)+1, kScreenWidth, kScreenHeight-SafeAreaTopHeight-41-self.tabBarController.tabBar.bounds.size.height-SafeAreaBottomHeight) collectionViewLayout:[[SelectCollectionLayout alloc] init]];
     self.cxSearchCollectionView = cxSearchCollectionView;
     
     
@@ -217,7 +215,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
     
     
     
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(topbtn.frame)+1, kScreenWidth, kScreenHeight-SafeAreaTopHeight-41) style:UITableViewStylePlain];
+    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(topbtn.frame)+1, kScreenWidth, kScreenHeight-SafeAreaTopHeight-41-self.tabBarController.tabBar.bounds.size.height-SafeAreaBottomHeight) style:UITableViewStylePlain];
     self.tableview = tableview;
     self.tableview.hidden = YES;
     [self.view addSubview:tableview];
@@ -298,7 +296,6 @@ static NSString *const headerViewIden = @"HeadViewIden";
     [[NetworkManager sharedManager]getWithUrl:getsearchProductByKeyword param:dict1 success:^(id json) {
         NSLog(@"%@",json);
         
-        
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]) {
             
@@ -314,9 +311,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
             }else{
                 self.tableview.hidden = NO;
             }
-            
-            
-            
+
             [self.tableview reloadData];
             
         }
@@ -358,6 +353,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
         cell.model = model;
         
         [cell setAddGoodsGoCartBlock:^(specsModel *model) {
+            self->_buyGoodNumber = [cell.goodsNumberLabel.text intValue];
             LYAccount *lyAccount = [LYAccount shareAccount];
             if ([lyAccount.isRemark intValue] == 1) {
                 DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"添加商品备注" message:@"请输入备注信息" delegate:self leftButtonTitle:@"不下单" rightButtonTitle:@"下单" comCell:nil isAddGood:YES spesmodel:model];
@@ -367,14 +363,16 @@ static NSString *const headerViewIden = @"HeadViewIden";
                 [dic setValue:model.productId forKey:@"productId"];
                 [dic setValue:model.size forKey:@"size"];
                 [dic setValue:lyAccount.id forKey:@"userId"];
-                [dic setValue:@"1" forKey:@"number"];
+                [dic setValue:[NSString stringWithFormat:@"%d",self->_buyGoodNumber] forKey:@"number"];
                 [dic setValue:model.id forKey:@"cartDetailId"];
                 [LYTools postBossDemoWithUrl:cartAddProduct param:dic success:^(NSDictionary *dict) {
                     NSLog(@"%@",dict);
                     NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
                     if ([respCode isEqualToString:@"00000"]) {
                         [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
-                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+//                        [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+                        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"添加成功,是否跳到购物车" selectType:@"是否跳到购物车" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+                        [alertView show];
                     }else{
                         [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
                     }
@@ -415,7 +413,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setValue:model.productId forKey:@"productId"];
         [dic setValue:model.size forKey:@"size"];
-        [dic setValue:@"1" forKey:@"number"];
+        [dic setValue:[NSString stringWithFormat:@"%d",self->_buyGoodNumber] forKey:@"number"];
         LYAccount *lyAccount = [LYAccount shareAccount];
         [dic setValue:lyAccount.id forKey:@"userId"];
         [dic setValue:alertView.textView.text forKey:@"remark"];
@@ -425,7 +423,9 @@ static NSString *const headerViewIden = @"HeadViewIden";
             NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
             if ([respCode isEqualToString:@"00000"]) {
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
-                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+                //                    [SVProgressHUD doAnythingSuccessWithHUDMessage:@"已经成功添加购物车" withDuration:1.5];
+                DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"添加成功,是否跳到购物车" selectType:@"是否跳到购物车" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+                [alertView show];
             }else{
                 [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
             }
@@ -435,9 +435,17 @@ static NSString *const headerViewIden = @"HeadViewIden";
         
         
         
+        
     }
 }
-
+-(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel
+{
+    if (buttonIndex == AlertButtonLeft) {
+    }else{
+        self.tabBarController.selectedIndex = 3;
+        
+    }
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     SimilarProductModel*model = self.dataArr[indexPath.row];

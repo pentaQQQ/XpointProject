@@ -7,9 +7,9 @@
 //
 
 #import "BaseViewController.h"
-
+#import "releaseActivitiesModel.h"
 @interface GoodsDetailViewController : BaseViewController
 
-@property(nonatomic,copy)NSString *ID;
+@property(nonatomic,strong)releaseActivitiesModel *model;
 
 @end

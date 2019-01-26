@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeChateBoardViewController">
             <connections>
+                <outlet property="phoneLabel" destination="0tb-XC-ntM" id="asT-pX-Hrg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -30,7 +31,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AM9-V6-SS9">
-                    <rect key="frame" x="118.5" y="628.5" width="50" height="15"/>
+                    <rect key="frame" x="118.5" y="629" width="50" height="15"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="15" id="ggq-il-wvX"/>
                     </constraints>
@@ -40,14 +41,14 @@
                     </state>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vfc-ya-PEf">
-                    <rect key="frame" x="118.5" y="643.5" width="50" height="1"/>
+                    <rect key="frame" x="118.5" y="644" width="50" height="1"/>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="Ewe-cK-d0w"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orl-6w-LOh">
-                    <rect key="frame" x="269" y="621" width="86" height="30"/>
+                    <rect key="frame" x="269" y="621.5" width="86" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="7LE-kL-Yk2"/>
                     </constraints>
@@ -72,8 +73,8 @@
                         <action selector="wechateBtnClick:" destination="-1" eventType="touchUpInside" id="aoQ-8e-kr3"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有货源联系：13916257745" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tb-XC-ntM">
-                    <rect key="frame" x="95" y="393.5" width="186" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有货源联系：18101697060" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tb-XC-ntM">
+                    <rect key="frame" x="95" y="393.5" width="185" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="d3a-L1-ExQ"/>
                     </constraints>
@@ -82,14 +83,14 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LIw-E1-U1A">
-                    <rect key="frame" x="10" y="404" width="75" height="1"/>
+                    <rect key="frame" x="10" y="403.5" width="75" height="1"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="9sx-U8-1sf"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPa-xf-TGc">
-                    <rect key="frame" x="291" y="404" width="74" height="1"/>
+                    <rect key="frame" x="290" y="403.5" width="75" height="1"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="cZw-L8-8bE"/>
