@@ -222,8 +222,6 @@
 		01C2A28C21BFAA8E0072D4D6 /* TransforMessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C2A28B21BFAA8E0072D4D6 /* TransforMessModel.m */; };
 		01C5C48721F559C100F4CBF3 /* CouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C5C48621F559C100F4CBF3 /* CouponModel.m */; };
 		01C5C48A21F55E9800F4CBF3 /* MyCouponsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C5C48921F55E9800F4CBF3 /* MyCouponsCell.m */; };
-		01C5C48D21F567F200F4CBF3 /* 已使用.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C5C48B21F567F100F4CBF3 /* 已使用.png */; };
-		01C5C48E21F567F200F4CBF3 /* 优惠券.png in Resources */ = {isa = PBXBuildFile; fileRef = 01C5C48C21F567F200F4CBF3 /* 优惠券.png */; };
 		01E46FF3214BF57800B88B24 /* AddConsignmentAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FF2214BF57800B88B24 /* AddConsignmentAddressController.m */; };
 		01E46FF6214BF5A700B88B24 /* ConsignmentAddressManageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FF5214BF5A700B88B24 /* ConsignmentAddressManageController.m */; };
 		01E46FF9214BF5BE00B88B24 /* EditConsignmentAddressController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01E46FF8214BF5BE00B88B24 /* EditConsignmentAddressController.m */; };
@@ -989,8 +987,6 @@
 		01C5C48621F559C100F4CBF3 /* CouponModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponModel.m; sourceTree = "<group>"; };
 		01C5C48821F55E9800F4CBF3 /* MyCouponsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCouponsCell.h; sourceTree = "<group>"; };
 		01C5C48921F55E9800F4CBF3 /* MyCouponsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCouponsCell.m; sourceTree = "<group>"; };
-		01C5C48B21F567F100F4CBF3 /* 已使用.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "已使用.png"; sourceTree = "<group>"; };
-		01C5C48C21F567F200F4CBF3 /* 优惠券.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "优惠券.png"; sourceTree = "<group>"; };
 		01E46FF1214BF57800B88B24 /* AddConsignmentAddressController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddConsignmentAddressController.h; sourceTree = "<group>"; };
 		01E46FF2214BF57800B88B24 /* AddConsignmentAddressController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddConsignmentAddressController.m; sourceTree = "<group>"; };
 		01E46FF4214BF5A700B88B24 /* ConsignmentAddressManageController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsignmentAddressManageController.h; sourceTree = "<group>"; };
@@ -2502,8 +2498,6 @@
 		01BF066621F08D66007D288D /* 优惠券 */ = {
 			isa = PBXGroup;
 			children = (
-				01C5C48B21F567F100F4CBF3 /* 已使用.png */,
-				01C5C48C21F567F200F4CBF3 /* 优惠券.png */,
 				01BF066A21F08E93007D288D /* CouponsSegment.h */,
 				01BF066B21F08E93007D288D /* CouponsSegment.m */,
 				01BF066721F08DC4007D288D /* MyCouponsViewController.h */,
@@ -4445,14 +4439,12 @@
 				0112108521363CF00071AC5F /* 编辑.png in Resources */,
 				019AEE7C21382B0B00EB3405 /* moment_camera@3x.png in Resources */,
 				8E3E6DA92140FFA9007B3306 /* oldhechengView.xib in Resources */,
-				01C5C48E21F567F200F4CBF3 /* 优惠券.png in Resources */,
 				547C49A21F1DBB8200178B67 /* back@2x.png in Resources */,
 				8E9A5F9C215F22C90084C9F1 /* Localizable.strings in Resources */,
 				8E3E6D5C2138D76F007B3306 /* WeChateBoardViewController.xib in Resources */,
 				547C49A61F1DBB8200178B67 /* tab_index_nor@2x.png in Resources */,
 				547C48761F1DA8AF00178B67 /* Main.storyboard in Resources */,
 				8E3E6D5E2138D76F007B3306 /* LoginViewController.xib in Resources */,
-				01C5C48D21F567F200F4CBF3 /* 已使用.png in Resources */,
 				8E3E6DB22142140C007B3306 /* PiliangzhuanfaViewController.xib in Resources */,
 				01ABB01D214BB15A000D616E /* back_icon@2x.png in Resources */,
 				547C49A81F1DBB8200178B67 /* tab_job_nor@2x.png in Resources */,

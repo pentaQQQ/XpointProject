@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic)  UILabel *couponsTypeLabel;
 @property (strong, nonatomic)  UILabel *detailLabel;
 
+@property (strong, nonatomic)  UIImageView *rightImageview;
 
 @property (strong, nonatomic)  UILabel *moneyLabel;
 @property (strong, nonatomic)  UILabel *merchantNameLabel;

@@ -32,7 +32,7 @@ static NSString *cellID = @"MyCouponsCellID";
 {
     if (_listTableView == nil) {
         _listTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _listTableView.backgroundColor = [UIColor clearColor];
+        _listTableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         _listTableView.delegate = self;
         _listTableView.dataSource = self;
         _listTableView.tableFooterView = [UIView new];
@@ -108,18 +108,23 @@ static NSString *cellID = @"MyCouponsCellID";
         cell = [[MyCouponsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     CouponModel *model = self.listDataArray[indexPath.section];
-    cell.bgImageview.image = [UIImage imageNamed:@"优惠券"];
+    cell.bgImageview.image = [UIImage imageNamed:@"可使用"];
     cell.dateTimeLabel.text = [NSString stringWithFormat:@"%@-%@",[[model.updateTime componentsSeparatedByString:@" "] firstObject],[[model.loseTime componentsSeparatedByString:@" "] firstObject]];
     cell.merchantNameLabel.text = model.couponMerchantName;
+    
+    cell.rightImageview.image = [UIImage imageNamed:@"can_right_icon"];
     
     NSString *dateStr = [NSString stringWithFormat:@"¥%.0lf",model.discountMoney];
     NSRange range = NSMakeRange(0, 1);
     NSMutableAttributedString *mutAttStr = [[NSMutableAttributedString alloc]initWithString:dateStr];
     [mutAttStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.0] range:range];
     cell.moneyLabel.attributedText = mutAttStr;
-    cell.detailLabel.text = [NSString stringWithFormat:@"满%.0lf抵用",model.fullReduction];
+    cell.detailLabel.text = [NSString stringWithFormat:@"满%.0lf元抵用",model.fullReduction];
 //    cell.couponsTypeLabel.text = @"可使用";
     cell.couponsLabel.text = model.couponName;
+    
+    
+    
     return cell;
 }
 

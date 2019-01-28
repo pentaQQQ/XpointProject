@@ -284,65 +284,64 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"multipart/form-data",@"text/plain",@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     [manager.requestSerializer setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
-   [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     NSData* imagedata = UIImageJPEGRepresentation(image, 1.0);
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setValue:imagedata forKey:@"multipartFile"];
     NSLog(@"字典的值：%@", parameters);
-        [manager POST:fileUploadFile parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>_Nonnull formData) {
-            //上传文件参数
-            if (imagedata) {
-                NSString * type;
-                NSString * mimeType;
-                type = @"jpg";
-                mimeType = @"image/jpeg";
-                NSString * fileName = nsNo;
-                [formData appendPartWithFileData:imagedata name:@"multipartFile" fileName:fileName mimeType:mimeType];
+    [manager POST:fileUploadFile parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>_Nonnull formData) {
+        //上传文件参数
+        if (imagedata) {
+            NSString * type;
+            NSString * mimeType;
+            type = @"jpg";
+            mimeType = @"image/jpeg";
+            NSString * fileName = nsNo;
+            [formData appendPartWithFileData:imagedata name:@"multipartFile" fileName:fileName mimeType:mimeType];
                 
-            }
-        } progress:^(NSProgress * _Nonnull uploadProgress) {
-            //打印上传进度
-            CGFloat progress = 100.0 * uploadProgress.completedUnitCount / uploadProgress.totalUnitCount;
-            NSLog(@"%.2lf%%", progress);
-        } success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
-            //请求成功
-            NSDictionary *dics = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-            if ([dics[@"respCode"] isEqualToString:@"00000"]) {
-                NSString *imageUrl = dics[@"data"];
-                if (imageUrl.length != 0) {
-                    [self->_imageNameArr addObject:imageUrl];
-                    if (self->_imageNameArr.count == 2) {
-                        LYAccount *account = [LYAccount shareAccount];
-                        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                        [dic setValue:account.id forKey:@"id"];
-                        [dic setValue:@"1" forKey:@"realName"];
-                        [dic setValue:self.nameTextField.text forKey:@"trueName"];
-                        [dic setValue:self.idNumberTextField.text forKey:@"identit"];
-                        [dic setValue:self->_imageNameArr[0] forKey:@"identitPicZ"];
-                        [dic setValue:self->_imageNameArr[1] forKey:@"identitPicF"];
-                        [[NetworkManager sharedManager]postWithUrl:uploadIdeniti param:dic success:^(id json) {
-                            NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
-                            if ([respCode isEqualToString:@"00000"]) {
-                                [self getPeopleInfomation];
-                                // 单例赋值
-//                                [LYAccount mj_objectWithKeyValues:json[@"data"]];
-                                [self.navigationController popViewControllerAnimated:YES];
-                                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"身份证信息上传成功" withDuration:1.5];
-                            }else{
-                                [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
-                            }
-                        } failure:^(NSError *error) {
+        }
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        //打印上传进度
+        CGFloat progress = 100.0 * uploadProgress.completedUnitCount / uploadProgress.totalUnitCount;
+        NSLog(@"%.2lf%%", progress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
+        //请求成功
+        NSDictionary *dics = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+        if ([dics[@"respCode"] isEqualToString:@"00000"]) {
+            NSString *imageUrl = dics[@"data"];
+            if (imageUrl.length != 0) {
+                [self->_imageNameArr addObject:imageUrl];
+                if (self->_imageNameArr.count == 2) {
+                    LYAccount *account = [LYAccount shareAccount];
+                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+                    [dic setValue:account.id forKey:@"id"];
+                    [dic setValue:@"1" forKey:@"realName"];
+                    [dic setValue:self.nameTextField.text forKey:@"trueName"];
+                    [dic setValue:self.idNumberTextField.text forKey:@"identit"];
+                    [dic setValue:self->_imageNameArr[0] forKey:@"identitPicZ"];
+                    [dic setValue:self->_imageNameArr[1] forKey:@"identitPicF"];
+                    [[NetworkManager sharedManager]postWithUrl:uploadIdeniti param:dic success:^(id json) {
+                        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+                        if ([respCode isEqualToString:@"00000"]) {
+                            [self getPeopleInfomation];
+                            // 单例赋值
+//                           [LYAccount mj_objectWithKeyValues:json[@"data"]];
+                            [self.navigationController popViewControllerAnimated:YES];
+                            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"身份证信息上传成功" withDuration:1.5];
+                        }else{
+                            [SVProgressHUD doAnythingFailedWithHUDMessage:json[@"respMessage"] withDuration:1.5];
+                        }
+                    } failure:^(NSError *error) {
                         
-                    }];
-                }
-               }
+                }];
             }
-            
-            NSLog(@"返回的说明desc：%@", dics);
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            //请求失败
-            NSLog(@"请求失败：%@",error);
-        }];
+          }
+        }
+        NSLog(@"返回的说明desc：%@", dics);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //请求失败
+        NSLog(@"请求失败：%@",error);
+    }];
 }
 //获取用户信息
 -(void)getPeopleInfomation{
@@ -358,18 +357,47 @@
 }
 - (void)nextBtnAction
 {
-//    if (_facadeIDIsOK && _oppositeIDIsOK&&self.nameTextField.text.length > 0 && self.idNumberTextField.text.length > 0) {
-        _imageNameArr = [NSMutableArray array];
-        NSArray *fileArr = @[self.FacadeIDImage,self.oppositeIDImage];
-        for (UIImage *image in fileArr) {
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            formatter.dateFormat = @"yyyyMMddHHmmssSSS";
-            NSString *str = [formatter stringFromDate:[NSDate date]];
-            NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
-            [self uploadPicturesImage:image nsNo:imageName];
+    if (!_facadeIDIsOK) {
+       [SVProgressHUD doAnyRemindWithHUDMessage:@"请选择身份证正面照进行上传" withDuration:1.5];
+    }else{
+        if (!_oppositeIDIsOK) {
+           [SVProgressHUD doAnyRemindWithHUDMessage:@"请选择身份证反面照进行上传" withDuration:1.5];
+        }else{
+            if (self.nameTextField.text.length == 0) {
+                [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入真实的用户名" withDuration:1.5];
+            }else{
+                if (self.idNumberTextField.text.length == 0) {
+                    [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入正确的身份证号码" withDuration:1.5];
+                }else{
+                    _imageNameArr = [NSMutableArray array];
+                    NSArray *fileArr = @[self.FacadeIDImage,self.oppositeIDImage];
+//                    NSMutableArray *fileNameArr = [NSMutableArray array];
+                    for (UIImage *image in fileArr) {
+                        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                        formatter.dateFormat = @"yyyyMMddHHmmssSSS";
+                        NSString *str = [formatter stringFromDate:[NSDate date]];
+                        NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
+//                        [fileNameArr addObject:imageName];
+                        [self uploadPicturesImage:image nsNo:imageName];
+                    }
+                }
+            }
         }
+    }
+    
+    
+//    if (_facadeIDIsOK && _oppositeIDIsOK&&self.nameTextField.text.length > 0 && self.idNumberTextField.text.length > 0) {
+//        _imageNameArr = [NSMutableArray array];
+//        NSArray *fileArr = @[self.FacadeIDImage,self.oppositeIDImage];
+//        for (UIImage *image in fileArr) {
+//            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//            formatter.dateFormat = @"yyyyMMddHHmmssSSS";
+//            NSString *str = [formatter stringFromDate:[NSDate date]];
+//            NSString *imageName = [NSString stringWithFormat:@"%@.jpg",str];
+//            [self uploadPicturesImage:image nsNo:imageName];
+//        }
 //    }else{
-//        (_facadeIDIsOK && _oppositeIDIsOK&&self.nameTextField.text.length > 0 && self.idNumberTextField.text.length > 0)
+////        (_facadeIDIsOK && _oppositeIDIsOK&&self.nameTextField.text.length > 0 && self.idNumberTextField.text.length > 0)
 //        if (_facadeIDIsOK == NO) {
 //            [SVProgressHUD doAnyRemindWithHUDMessage:@"" withDuration:1.5];
 //        }
