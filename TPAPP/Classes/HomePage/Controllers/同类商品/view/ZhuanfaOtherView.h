@@ -26,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *sureBtn;
 
 
-
+@property(nonatomic,copy)NSString *price;
 @property(nonatomic,copy)void(^zhuanfaBlock)(int currentDEX);
 
 

@@ -1199,10 +1199,10 @@
 		8E3E6D94213FD61E007B3306 /* ZhuanfaOtherView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZhuanfaOtherView.m; sourceTree = "<group>"; };
 		8E3E6D96213FD628007B3306 /* ZhuanfaOtherView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZhuanfaOtherView.xib; sourceTree = "<group>"; };
 		8E3E6D982140C039007B3306 /* XinHeChengTuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XinHeChengTuView.h; sourceTree = "<group>"; };
-		8E3E6D992140C039007B3306 /* XinHeChengTuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XinHeChengTuView.m; sourceTree = "<group>"; };
+		8E3E6D992140C039007B3306 /* XinHeChengTuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XinHeChengTuView.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E3E6D9B2140C045007B3306 /* XinHeChengTuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XinHeChengTuView.xib; sourceTree = "<group>"; };
 		8E3E6D9D2140CF67007B3306 /* danshouView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = danshouView.h; sourceTree = "<group>"; };
-		8E3E6D9E2140CF67007B3306 /* danshouView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = danshouView.m; sourceTree = "<group>"; };
+		8E3E6D9E2140CF67007B3306 /* danshouView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = danshouView.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E3E6DA02140CF74007B3306 /* danshouView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = danshouView.xib; sourceTree = "<group>"; };
 		8E3E6DA22140F1AD007B3306 /* ShareItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareItem.h; sourceTree = "<group>"; };
 		8E3E6DA32140F1AD007B3306 /* ShareItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareItem.m; sourceTree = "<group>"; };

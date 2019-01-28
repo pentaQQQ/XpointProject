@@ -42,7 +42,9 @@
 
 
 
-
+-(void)setPrice:(NSString *)price{
+    _price = price;
+}
 
 -(void)setModel:(SimilarProductModel *)model{
     
@@ -71,8 +73,11 @@
     self.kuanhaoLab.text = [NSString stringWithFormat:@"款号 %@",model.designCode];
     
     
-    self.tejiaLab.text = model.realAmount;
+//    self.tejiaLab.text = model.realAmount;
     
+    NSString *jiage =[NSString stringWithFormat:@"%.2f",[model.realAmount floatValue]+[model.discountAmount floatValue]+[self.price floatValue]] ;
+    
+    self.tejiaLab.text = jiage;
     self.yuanjiaLab.text = model.marketAmount;
     
     

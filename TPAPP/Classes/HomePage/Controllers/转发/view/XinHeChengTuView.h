@@ -43,7 +43,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *kuanshiHigh;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *kuanhaoHigh;
 
-
+@property(nonatomic,copy)NSString *price;
 @property(nonatomic,strong)SimilarProductModel*model;
 
 @end

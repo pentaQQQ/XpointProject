@@ -247,10 +247,6 @@
             [weakSelf zhuanfaChangTuWithIndexArr:model];
         }else{
             
-            
-            
-           
-            
        
             UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:[NSArray array] applicationActivities:nil];
             
