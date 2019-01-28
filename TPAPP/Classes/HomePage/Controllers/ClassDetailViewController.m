@@ -19,7 +19,7 @@
 #import "ShareItem.h"
 
 #import "OYCountDownManager.h"
-
+#import "NewLoginViewController.h"
 @interface ClassDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView*tableview;
 @property(nonatomic,strong)NSMutableArray*dataArr;
@@ -66,6 +66,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    if ([lyAccount.id length] == 0) {
+        [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"token"];
+        NewLoginViewController*vc = [[NewLoginViewController alloc]init];
+        RTRootNavigationController *rootVC= [[RTRootNavigationController alloc] initWithRootViewControllerNoWrapping:vc];
+        rootVC.rt_disableInteractivePop = YES ;
+        [UIApplication sharedApplication].keyWindow.rootViewController = rootVC;
+    }
+    
     // 启动倒计时管理
     [kCountDownManager start];
     [self setUpUI];
