@@ -70,6 +70,8 @@
 -(void)setModel:(SimilarProductModel *)model{
     _model = model;
     
+    
+    
     [self.imageview sd_setImageWithURL:[NSURL URLWithString:model.merchantUrL]];
     
     self.title.text = model.merchantName;
@@ -120,7 +122,7 @@
         //        [self addSubview:lab];
         //        lab.backgroundColor = [UIColor redColor];
         
-        
+//        self.daojishi.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
         NSInteger count = [[str substringFromIndex:4]integerValue];
         self.count = count;
         [self countDownNotification];
