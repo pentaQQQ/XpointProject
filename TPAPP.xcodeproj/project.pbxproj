@@ -692,7 +692,7 @@
 		01120F1721338FB60071AC5F /* SectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionView.h; sourceTree = "<group>"; };
 		01120F1821338FB60071AC5F /* SectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionView.m; sourceTree = "<group>"; };
 		01120F2021338FC40071AC5F /* CartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartViewController.h; sourceTree = "<group>"; };
-		01120F2121338FC40071AC5F /* CartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartViewController.m; sourceTree = "<group>"; };
+		01120F2121338FC40071AC5F /* CartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		01120F88213392FD0071AC5F /* BRAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAddressModel.h; sourceTree = "<group>"; };
 		01120F89213392FD0071AC5F /* BRAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAddressModel.m; sourceTree = "<group>"; };
 		01120F8A213392FD0071AC5F /* BRAddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAddressPickerView.h; sourceTree = "<group>"; };
@@ -1195,10 +1195,10 @@
 		8E3E6D94213FD61E007B3306 /* ZhuanfaOtherView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZhuanfaOtherView.m; sourceTree = "<group>"; };
 		8E3E6D96213FD628007B3306 /* ZhuanfaOtherView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZhuanfaOtherView.xib; sourceTree = "<group>"; };
 		8E3E6D982140C039007B3306 /* XinHeChengTuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XinHeChengTuView.h; sourceTree = "<group>"; };
-		8E3E6D992140C039007B3306 /* XinHeChengTuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XinHeChengTuView.m; sourceTree = "<group>"; };
+		8E3E6D992140C039007B3306 /* XinHeChengTuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XinHeChengTuView.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E3E6D9B2140C045007B3306 /* XinHeChengTuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XinHeChengTuView.xib; sourceTree = "<group>"; };
 		8E3E6D9D2140CF67007B3306 /* danshouView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = danshouView.h; sourceTree = "<group>"; };
-		8E3E6D9E2140CF67007B3306 /* danshouView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = danshouView.m; sourceTree = "<group>"; };
+		8E3E6D9E2140CF67007B3306 /* danshouView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = danshouView.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E3E6DA02140CF74007B3306 /* danshouView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = danshouView.xib; sourceTree = "<group>"; };
 		8E3E6DA22140F1AD007B3306 /* ShareItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareItem.h; sourceTree = "<group>"; };
 		8E3E6DA32140F1AD007B3306 /* ShareItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareItem.m; sourceTree = "<group>"; };
@@ -4306,6 +4306,7 @@
 				TargetAttributes = {
 					547C48671F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9MHQLQBTW8;
 						ProvisioningStyle = Automatic;
 					};
 					547C48801F1DA8AF00178B67 = {
@@ -5155,7 +5156,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5213,7 +5214,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9MHQLQBTW8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

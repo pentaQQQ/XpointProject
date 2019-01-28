@@ -458,9 +458,7 @@
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    
-    
-    
+  
 }
 
 
@@ -562,7 +560,6 @@
                 
             }];
         }
-        
         
     } fail:^(NSError *error) {
         

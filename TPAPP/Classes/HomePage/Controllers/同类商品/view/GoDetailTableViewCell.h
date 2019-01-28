@@ -58,6 +58,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *xianghaoViewHigh;//型号view高度
 
 
+
+@property(nonatomic,copy)NSString *price;
+
 @property(nonatomic,strong)SimilarProductModel*model;
 
 @property(nonatomic,copy)void(^addGoodsGoCartBlock)(specsModel*model);

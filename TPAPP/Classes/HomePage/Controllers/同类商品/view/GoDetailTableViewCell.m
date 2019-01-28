@@ -95,11 +95,10 @@
     ViewBorderRadius(minusGoodsBtn, 5, 1, [UIColor clearColor]);
 }
 
-
-
-
-
-
+-(void)setPrice:(NSString *)price{
+    _price = price;
+    
+}
 
 
 -(void)setModel:(SimilarProductModel *)model{
@@ -346,6 +345,8 @@
     ZhuanfaOtherView *zhuanfaotherview = [[NSBundle mainBundle]loadNibNamed:@"ZhuanfaOtherView" owner:self options:nil].lastObject;
     ViewBorderRadius(zhuanfaotherview, 5, 1, [UIColor clearColor]);
     self.zhuanfaotherview = zhuanfaotherview;
+    
+    zhuanfaotherview.price = self.price;
     zhuanfaotherview.frame = CGRectMake(20, (kScreenHeight-283)/2, kScreenWidth-40, 283);
     
     [keyWindow addSubview:zhuanfaotherview];

@@ -37,7 +37,7 @@
 
 #import "ShareTool.h"
 #import "OYCountDownManager.h"
-
+#import "zhuanfaModel.h"
 @interface GoodsDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIDocumentInteractionControllerDelegate,DeclareAbnormalAlertViewDelegate,DeclareAbnormalAlertViewOrderListRemindDelegate>
 @property(nonatomic,strong)NSMutableArray *dataArr;
 @property(nonatomic,strong)NSMutableArray *fuwuArr;
@@ -58,6 +58,10 @@
 @property (nonatomic, assign) BOOL isConnecting;
 @property (nonatomic, copy) NSDictionary * dictionary;
 @property (nonatomic, assign) BOOL isPushed;
+
+@property(nonatomic,copy)NSString *price;
+
+
 @end
 
 @implementation GoodsDetailViewController
@@ -93,6 +97,14 @@
     
        [kCountDownManager start];
     
+    
+    
+    [self getTheUserForwardConfiSuccess:^(zhuanfaModel *model) {
+        
+        self.price = model.price;
+        
+    }];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -113,9 +125,39 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerSuccess:) name:CUSTOM_LOGIN_SUCCEED object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerFailure:) name:CUSTOM_LOGIN_ERROR_USER object:nil];
     
-   
-   
 }
+
+
+
+-(void)getTheUserForwardConfiSuccess:(void(^)(zhuanfaModel*model))success{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    NSString *userId = [NSString stringWithFormat:@"%@",lyAccount.id];
+    [dic setValue:userId forKey:@"userId"];
+    
+    [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]){
+            zhuanfaModel*model = [zhuanfaModel mj_objectWithKeyValues:json[@"data"]];
+            success(model);
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+}
+
+
+
+
+
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -313,7 +355,7 @@
             cell = [[NSBundle mainBundle]loadNibNamed:@"GoDetailTableViewCell" owner:self options:nil].lastObject;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        cell.price = self.price;
         cell.model = model;
         
         [cell setAddGoodsGoCartBlock:^(specsModel *model) {
@@ -381,6 +423,7 @@
             
             
             if (currentDEX == 0) {
+                self.danshouview.price = self.price;
                 self.danshouview.model = model;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.danshouview], 1.0f);
@@ -395,7 +438,7 @@
                 [self shareMangPictureWithModel:model];
                 
             }else if (currentDEX == 2){
-                
+                self.oldheview.price = self.price;
                 self.oldheview.model = model;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     NSData *imagedata= UIImageJPEGRepresentation([self captureScrollView:self.oldheview.scrollview], 1.0f);
@@ -404,7 +447,11 @@
                 
                 
             }else{
+                self.xinheview.price = self.price;
                 self.xinheview.model = model;
+                
+                
+                
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.xinheview], 1.0f);
                     [self sharePictureWithImageData:imagedata];
