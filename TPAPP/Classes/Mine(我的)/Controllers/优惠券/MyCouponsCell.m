@@ -42,7 +42,7 @@
     .leftSpaceToView(self.contentView, 15)
     .widthIs(width_sw/3)
     .heightIs(30);
-    self.moneyLabel.font = [UIFont systemFontOfSize:24];
+    self.moneyLabel.font = [UIFont systemFontOfSize:21];
 //    self.moneyLabel.text = @"¥50";
     self.moneyLabel.adjustsFontSizeToFitWidth = YES;
     
@@ -57,7 +57,7 @@
     .widthIs(width_sw/3)
     .heightIs(30);
     self.detailLabel.adjustsFontSizeToFitWidth = YES;
-    self.detailLabel.font = [UIFont systemFontOfSize:19];
+    self.detailLabel.font = [UIFont systemFontOfSize:17];
     self.detailLabel.text = @"满199抵用";
     
     
@@ -99,7 +99,7 @@
     .leftSpaceToView(self.detailLabel, 0)
     .rightSpaceToView(self.contentView, 10)
     .heightIs(30);
-    self.merchantNameLabel.font = [UIFont systemFontOfSize:24];
+    self.merchantNameLabel.font = [UIFont systemFontOfSize:21];
     self.merchantNameLabel.text = @"田洋仓";
     self.merchantNameLabel.adjustsFontSizeToFitWidth = YES;
     
@@ -138,7 +138,7 @@
     .rightSpaceToView(self.contentView, 10)
     .heightIs(20);
     self.couponsLabel.adjustsFontSizeToFitWidth = YES;
-    self.couponsLabel.font = [UIFont systemFontOfSize:19];
+    self.couponsLabel.font = [UIFont systemFontOfSize:17];
     self.couponsLabel.text = @"优惠券";
 }
 #pragma mark-字体宽度自适应
