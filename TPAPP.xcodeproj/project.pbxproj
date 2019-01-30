@@ -4310,13 +4310,11 @@
 					};
 					547C48801F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = X7GF9H7LXU;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 547C48671F1DA8AF00178B67;
 					};
 					547C488B1F1DA8AF00178B67 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = X7GF9H7LXU;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 547C48671F1DA8AF00178B67;
 					};
@@ -5269,7 +5267,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = X7GF9H7LXU;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TPAPPTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cbl.TPAPPTests;
@@ -5282,7 +5280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = X7GF9H7LXU;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TPAPPTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cbl.TPAPPTests;
@@ -5294,7 +5292,7 @@
 		547C489C1F1DA8AF00178B67 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = X7GF9H7LXU;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TPAPPUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cbl.TPAPPUITests;
@@ -5306,7 +5304,7 @@
 		547C489D1F1DA8AF00178B67 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = X7GF9H7LXU;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TPAPPUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cbl.TPAPPUITests;
