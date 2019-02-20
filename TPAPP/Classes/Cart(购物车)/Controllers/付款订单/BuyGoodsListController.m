@@ -586,6 +586,7 @@
         }
     }else{
         if ([alertView.rightButtonTitle isEqualToString:@"确定离开"]) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             

@@ -44,7 +44,7 @@
 }
 -(void)commonInit {
     //按钮名称
-    NSMutableArray *titleLis = [[NSMutableArray alloc]initWithObjects:@"可使用",@"已过期", nil];
+    NSMutableArray *titleLis = [[NSMutableArray alloc]initWithObjects:@"可使用",@"不可用", nil];
     
     self.titleList = titleLis;
     

@@ -29,7 +29,7 @@
 #import "ZLPhotoPickerBrowserViewController.h"
 #import "NewLoginViewController.h"
 #define Image(name) [UIImage imageNamed:name]
-@interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate,DeclareAbnormalAlertViewDelegate,DeclareAbnormalAlertViewRemindDelegate>
+@interface CartViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,ShoppingSelectedDelegate,SelectedSectionDelegate,BottomViewDelegate,DeclareAbnormalAlertViewDelegate,DeclareAbnormalAlertViewRemindDelegate,DeclareAbnormalAlertViewOrderListRemindDelegate>
 {
     BOOL _allowMultipleSwipe;
     BOOL _isPreview;
@@ -954,21 +954,44 @@
 
 - (void)BalanceSelectedGoods:(NSMutableArray *)arr goodsNum:(int)goodsNum goodsPrice:(NSString *)goodsPrice
 {
-    LYAccount *lyAccount = [LYAccount shareAccount];
-    AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:lyAccount.defaultAddress];
-    DefaultAddressMessage *defaultMess = [DefaultAddressMessage shareDefaultAddressMessage];
-    if ([addressModel.id length]== 0 && [defaultMess.id length] == 0) {
-        [SVProgressHUD showInfoWithStatus:@"请先添加收货地址"];
+    if (arr.count == 0) {
+        if (self.dataSource.count == 0) {
+            DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"请添加商品到购物车" selectType:@"请添加商品到购物车" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+            [alertView show];
+        }else{
+            DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"请选择商品" selectType:@"请选择商品" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+            [alertView show];
+        }
+        
     }else{
-        _goodsNum = goodsNum;
-        _goodsPrice = goodsPrice;
-        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"立即去支付?" message:[NSString stringWithFormat:@"一共%d件 结算金额%@元",goodsNum,goodsPrice] remind:@"(单场活动最多可取消5件商品！)" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"去支付" comGoodList:arr];
-        [alertView show];
-        
-        
+        LYAccount *lyAccount = [LYAccount shareAccount];
+        AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:lyAccount.defaultAddress];
+        DefaultAddressMessage *defaultMess = [DefaultAddressMessage shareDefaultAddressMessage];
+        if ([addressModel.id length]== 0 && [defaultMess.id length] == 0) {
+            [SVProgressHUD showInfoWithStatus:@"请先添加收货地址"];
+        }else{
+            _goodsNum = goodsNum;
+            _goodsPrice = goodsPrice;
+            DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"立即去支付?" message:[NSString stringWithFormat:@"一共%d件 结算金额%@元",goodsNum,goodsPrice] remind:@"(单场活动最多可取消5件商品！)" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"去支付" comGoodList:arr];
+            [alertView show];
+            
+            
+        }
     }
     
+    
 }
+-(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex selectType:(NSString *)type comGoodList:(MineIndentModel *)minModel
+{
+    if (buttonIndex == AlertButtonLeft) {
+    }else{
+        if ([type isEqualToString:@"请添加商品到购物车"]) {
+           self.tabBarController.selectedIndex = 0;
+        }
+    }
+}
+
+
 -(void)declareAbnormalAlertView:(DeclareAbnormalAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex comGoodList:(NSMutableArray *)goodListArr
 {
     if (buttonIndex == AlertButtonLeft) {

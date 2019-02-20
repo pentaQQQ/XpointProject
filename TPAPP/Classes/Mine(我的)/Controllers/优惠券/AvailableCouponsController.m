@@ -112,7 +112,7 @@ static NSString *cellID = @"MyCouponsCellID";
     cell.dateTimeLabel.text = [NSString stringWithFormat:@"%@-%@",[[model.updateTime componentsSeparatedByString:@" "] firstObject],[[model.loseTime componentsSeparatedByString:@" "] firstObject]];
     cell.merchantNameLabel.text = model.couponMerchantName;
     
-    cell.rightImageview.image = [UIImage imageNamed:@"can_right_icon"];
+//    cell.rightImageview.image = [UIImage imageNamed:@"can_right_icon"];
     
     NSString *dateStr = [NSString stringWithFormat:@"¥%.0lf",model.discountMoney];
     NSRange range = NSMakeRange(0, 1);
