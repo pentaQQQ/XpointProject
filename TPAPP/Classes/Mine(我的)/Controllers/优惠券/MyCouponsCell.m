@@ -42,7 +42,7 @@
     .leftSpaceToView(self.contentView, 15)
     .widthIs(width_sw/3)
     .heightIs(30);
-    self.moneyLabel.font = [UIFont systemFontOfSize:21];
+    self.moneyLabel.font = [UIFont systemFontOfSize:24 weight:UIFontWeightRegular];
 //    self.moneyLabel.text = @"¥50";
     self.moneyLabel.adjustsFontSizeToFitWidth = YES;
     
