@@ -341,7 +341,7 @@
         [self zhuanfaChangTu];
         
     }else{//分享整场活动
-        
+         [self zhuanfaChangTu];
     }
     
 }
