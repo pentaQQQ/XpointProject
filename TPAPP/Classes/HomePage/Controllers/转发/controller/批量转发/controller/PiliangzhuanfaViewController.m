@@ -486,14 +486,28 @@
 //获取长图
 -(void)getTheChangTuWithArr:(NSMutableArray*)arr Success:(void(^)(UIImage *))success{
     
-    UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight/3)];
+    CGFloat high = 0;
+    if (kScreenWidth<=375.0) {
+        high = kScreenHeight/3+60;
+    }else{
+        high = kScreenHeight/3+20;
+     
+    }
+    
+    UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, high)];
     [self.view insertSubview:scroll belowSubview:self.vi];
     
-    scroll.contentSize = CGSizeMake(kScreenWidth, kScreenHeight * arr.count/3);
+    scroll.contentSize = CGSizeMake(kScreenWidth, high * arr.count);
     for (int i =0; i<arr.count; i++) {
         UIImage *imag = arr[i];
-        UIImageView *ima = [[UIImageView alloc]initWithFrame:CGRectMake(0, kScreenHeight*i/3, kScreenWidth, kScreenHeight/3)];
+        UIImageView *ima = [[UIImageView alloc]initWithFrame:CGRectMake(0, high*i, kScreenWidth, high)];
         ima.image = imag;
+        
+        [ima setContentMode:UIViewContentModeScaleAspectFill];
+        ima.clipsToBounds = YES;
+        
+        
+        
         [scroll addSubview:ima];
     }
     
