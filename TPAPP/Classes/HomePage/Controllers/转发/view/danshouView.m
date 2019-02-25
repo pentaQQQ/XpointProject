@@ -69,7 +69,8 @@
     
     
    
-    
+    [self.firstImageview setContentMode:UIViewContentModeScaleAspectFill];
+    self.firstImageview.clipsToBounds = YES;
     
     
     
