@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self makeUI];
+    [[UITabBar appearance] setTranslucent:NO];
     self.tabBar.tintColor = colorWithRGB(0x1D99D4);
     [self customizeTabBarAppearance:self];
      [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getShopCarNumberAction:)name:@"getShopCarNumber"object:nil];
