@@ -283,72 +283,9 @@
 }
 - (void)buyButtonAction
 {
-    if (self.btnTag == 1990) {
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setValue:@"IOS" forKey:@"tradeType"];
-        [dic setValue:@"order" forKey:@"type"];
-       
-        NSMutableArray *arr = [NSMutableArray array];
-        for (MineIndentModel *orderModel in self.orderListArray) {
-            NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
-            [dic1 setValue:[NSString stringWithFormat:@"%.2lf",orderModel.orderAmountTotal] forKey:@"amount"];
-            [dic1 setValue:orderModel.id forKey:@"orderId"];
-            [arr addObject:dic1];
-        }
-       
-        [dic setValue:arr forKey:@"weiXinPayParams"];
-        [LYTools postBossDemoWithUrl:wechatPayByOrder param:dic success:^(NSDictionary *dict) {
-            NSLog(@"%@",dict);
-            NSDictionary *body = dict[@"data"];
-            NSMutableString *stamp  = [body objectForKey:@"timestamp"];
-            
-            //调起微信支付
-            PayReq* req             = [[PayReq alloc] init];
-            req.partnerId           = [body objectForKey:@"partnerid"];
-            req.prepayId            = [body objectForKey:@"prepayid"];
-            req.nonceStr            = [body objectForKey:@"noncestr"];
-            req.timeStamp           = stamp.intValue;
-            req.package             = [body objectForKey:@"package"];
-            req.sign                = [body objectForKey:@"sign"];
-            [WXApi sendReq:req];
-        } fail:^(NSError *error) {
-            NSLog(@"%@",error);
-        }];
-    }else{
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setValue:@"IOS" forKey:@"tradeType"];
-        [dic setValue:@"order" forKey:@"type"];
-        NSMutableArray *arr = [NSMutableArray array];
-        for (MineIndentModel *orderModel in self.orderListArray) {
-            NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
-            [dic1 setValue:[NSString stringWithFormat:@"%.2lf",orderModel.orderAmountTotal] forKey:@"amount"];
-            [dic1 setValue:orderModel.id forKey:@"orderId"];
-            [arr addObject:dic1];
-        }
-        
-        [dic setValue:arr forKey:@"weiXinPayParams"];
-        [LYTools postBossDemoWithUrl:aliPayByOrder param:dic success:^(NSDictionary *dict) {
-            NSLog(@"%@",dict);
-            // NOTE: 调用支付结果开始支付
-            [[AlipaySDK defaultService] payOrder:dict[@"data"] fromScheme:AliSchemeKey callback:^(NSDictionary *resultDic) {
-                int statusCode = [resultDic[@"resultStatus"]  intValue];
-                
-                if (statusCode == 9000)
-                {
-                    
-                }
-                else
-                {
-                    
-                }
-                
-                
-            }];
-        } fail:^(NSError *error) {
-            NSLog(@"%@",error);
-        }];
+    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"结单后到已支付里 打勾 按批量发货或 按确定发货 按钮" remind:@"" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+    [alertView show];
     
-    }
 }
 - (void)setUpUI
 {
@@ -588,6 +525,73 @@
         if ([alertView.rightButtonTitle isEqualToString:@"确定离开"]) {
             [[NSNotificationCenter defaultCenter]postNotificationName:@"getShopCarNumber" object:@{@"getShopCarNumber":@1}];
             [self.navigationController popViewControllerAnimated:YES];
+        }else if ([alertView.rightButtonTitle isEqualToString:@"确定"]){
+            if (self.btnTag == 1990) {
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+                [dic setValue:@"IOS" forKey:@"tradeType"];
+                [dic setValue:@"order" forKey:@"type"];
+                
+                NSMutableArray *arr = [NSMutableArray array];
+                for (MineIndentModel *orderModel in self.orderListArray) {
+                    NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
+                    [dic1 setValue:[NSString stringWithFormat:@"%.2lf",orderModel.orderAmountTotal] forKey:@"amount"];
+                    [dic1 setValue:orderModel.id forKey:@"orderId"];
+                    [arr addObject:dic1];
+                }
+                
+                [dic setValue:arr forKey:@"weiXinPayParams"];
+                [LYTools postBossDemoWithUrl:wechatPayByOrder param:dic success:^(NSDictionary *dict) {
+                    NSLog(@"%@",dict);
+                    NSDictionary *body = dict[@"data"];
+                    NSMutableString *stamp  = [body objectForKey:@"timestamp"];
+                    
+                    //调起微信支付
+                    PayReq* req             = [[PayReq alloc] init];
+                    req.partnerId           = [body objectForKey:@"partnerid"];
+                    req.prepayId            = [body objectForKey:@"prepayid"];
+                    req.nonceStr            = [body objectForKey:@"noncestr"];
+                    req.timeStamp           = stamp.intValue;
+                    req.package             = [body objectForKey:@"package"];
+                    req.sign                = [body objectForKey:@"sign"];
+                    [WXApi sendReq:req];
+                } fail:^(NSError *error) {
+                    NSLog(@"%@",error);
+                }];
+            }else{
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+                [dic setValue:@"IOS" forKey:@"tradeType"];
+                [dic setValue:@"order" forKey:@"type"];
+                NSMutableArray *arr = [NSMutableArray array];
+                for (MineIndentModel *orderModel in self.orderListArray) {
+                    NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] init];
+                    [dic1 setValue:[NSString stringWithFormat:@"%.2lf",orderModel.orderAmountTotal] forKey:@"amount"];
+                    [dic1 setValue:orderModel.id forKey:@"orderId"];
+                    [arr addObject:dic1];
+                }
+                
+                [dic setValue:arr forKey:@"weiXinPayParams"];
+                [LYTools postBossDemoWithUrl:aliPayByOrder param:dic success:^(NSDictionary *dict) {
+                    NSLog(@"%@",dict);
+                    // NOTE: 调用支付结果开始支付
+                    [[AlipaySDK defaultService] payOrder:dict[@"data"] fromScheme:AliSchemeKey callback:^(NSDictionary *resultDic) {
+                        int statusCode = [resultDic[@"resultStatus"]  intValue];
+                        
+                        if (statusCode == 9000)
+                        {
+                            
+                        }
+                        else
+                        {
+                            
+                        }
+                        
+                        
+                    }];
+                } fail:^(NSError *error) {
+                    NSLog(@"%@",error);
+                }];
+                
+            }
         }else{
             
         }

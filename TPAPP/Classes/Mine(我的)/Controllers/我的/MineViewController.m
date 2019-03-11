@@ -322,7 +322,7 @@ static NSString *kMiniProgramDesc = @"小程序Desc";
         .topSpaceToView(self.view, 0)
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
-        .bottomSpaceToView(self.view, 45+SafeAreaBottomHeight);
+        .bottomSpaceToView(self.view, 0);
         
 //        _listTableView.contentSize = CGSizeMake(kScreenWidth, 240+20+SafeAreaTopHeight+170+120+80);
         _listTableView.contentSize = CGSizeMake(kScreenWidth, 180+20+SafeAreaTopHeight+170+120+80+100);
