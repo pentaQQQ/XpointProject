@@ -160,7 +160,7 @@
         minePerCtrl.title = @"我的订单";
         minePerCtrl.pushCtrl = YES;
         minePerCtrl.isPushCtrl = YES;
-        minePerCtrl.selectIndex = 1;
+        minePerCtrl.selectIndex = 2;
         [self.navigationController pushViewController:minePerCtrl animated:YES];
     }
     else
@@ -184,7 +184,7 @@
         minePerCtrl.title = @"我的订单";
         minePerCtrl.pushCtrl = YES;
         minePerCtrl.isPushCtrl = YES;
-        minePerCtrl.selectIndex = 1;
+        minePerCtrl.selectIndex = 2;
         [self.navigationController pushViewController:minePerCtrl animated:YES];
     }else{
         [SVProgressHUD doAnyRemindWithHUDMessage:@"支付失败" withDuration:1.0];

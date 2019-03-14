@@ -28,7 +28,10 @@
 @end
 
 @implementation HasBeenShippedViewController
-
+{
+    int _dataRefreshNumber;
+    int _isFiveData;
+}
 #pragma mark - 懒加载
 -(NSMutableArray *)listDataArr
 {
@@ -54,6 +57,129 @@
     if ([self.listTableView respondsToSelector:@selector(setLayoutMargins:)]) {
         [self.listTableView setLayoutMargins:UIEdgeInsetsZero];
     }
+//    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+//    self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+//    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+//    self.listTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+}
+- (void)headerRereshing
+{
+    _dataRefreshNumber = 1;
+    [self loadNewTopic];
+    
+}
+- (void)footerRereshing
+{
+    _dataRefreshNumber++;
+    [self loadNewTopic];
+}
+#pragma mark - 下拉刷新数据
+- (void)loadNewTopic
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        LYAccount *account = [LYAccount shareAccount];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setValue:account.id forKey:@"userId"];
+        [dic setValue:@(10) forKey:@"pageSize"];
+        [dic setValue:@(self->_dataRefreshNumber) forKey:@"pageNum"];
+        [dic setValue:@(self.selectCtrl) forKey:@"status"];
+        [LYTools postBossDemoWithUrl:self.urlString param:dic success:^(NSDictionary *dict) {
+            NSLog(@"%@",dict);
+            [SVProgressHUD dismiss];
+            [SVProgressHUD dismiss];
+            if ([self.listTableView.mj_header isRefreshing]) {
+                [self.listTableView.mj_header endRefreshing];
+            }
+            if ([self.listTableView.mj_footer isRefreshing]) {
+                [self.listTableView.mj_footer endRefreshing];
+            }
+            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+            if ([respCode isEqualToString:@"00000"]) {
+                if (self->_dataRefreshNumber == 1) {
+                    [self.listDataArr removeAllObjects];
+                    for (NSDictionary *dics in dict[@"data"]) {
+                        MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
+                        AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
+                        model.addressInfo = addressModel;
+                        OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
+                        model.orderLogistics = logisticsModel;
+                        [model.orderDetailList removeAllObjects];
+                        for (NSDictionary *newDic in dics[@"orderDetailList"]) {
+                            OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
+                            [model.orderDetailList addObject:orderDetailModel];
+                        }
+                        [self.listDataArr addObject:model];
+                    }
+                    [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+                    if (self.listDataArr.count != 0) {
+                        [self.listTableView xy_havingData:YES];
+                    }else{
+                        [self.listTableView xy_havingData:NO];
+                    }
+                }else{
+                    if ([dict[@"data"] count] < 10) {
+                        self->_isFiveData++;
+                        if (self->_isFiveData > 1) {
+                            [self.listTableView.mj_footer endRefreshingWithNoMoreData];
+                        }else{
+                            if (self.listDataArr.count < 10) {
+                                [self.listTableView.mj_footer endRefreshingWithNoMoreData];
+                            }else{
+                                for (NSDictionary *dics in dict[@"data"]) {
+                                    MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
+                                    AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
+                                    model.addressInfo = addressModel;
+                                    OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
+                                    model.orderLogistics = logisticsModel;
+                                    [model.orderDetailList removeAllObjects];
+                                    for (NSDictionary *newDic in dics[@"orderDetailList"]) {
+                                        OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
+                                        [model.orderDetailList addObject:orderDetailModel];
+                                    }
+                                    [self.listDataArr addObject:model];
+                                }
+                                [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+                            }
+                            
+                        }
+                    }else{
+                        for (NSDictionary *dics in dict[@"data"]) {
+                            MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
+                            AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
+                            model.addressInfo = addressModel;
+                            OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
+                            model.orderLogistics = logisticsModel;
+                            [model.orderDetailList removeAllObjects];
+                            for (NSDictionary *newDic in dics[@"orderDetailList"]) {
+                                OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
+                                [model.orderDetailList addObject:orderDetailModel];
+                            }
+                            [self.listDataArr addObject:model];
+                        }
+                        [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+                    }
+                }
+            }else if([dict[@"code"]longValue] == 500){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                    [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+                    if (self.listDataArr.count != 0) {
+                        [self.listTableView xy_havingData:YES];
+                    }else{
+                        [self.listTableView xy_havingData:NO];
+                    }
+                });
+            }
+        } fail:^(NSError *error) {
+            
+        }];
+    });
+}
+- (void)reloadDeals
+{
+    [self.listTableView reloadData];
+    [self.listTableView.mj_header endRefreshing];
+    [self.listTableView.mj_footer endRefreshing];
 }
 
 
@@ -69,71 +195,21 @@
     self.urlString = getOrderListInfo;
     //    }
     [self setUpUI];
-    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
-    //自动更改透明度
+    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+    //    [self.listTableView.mj_header beginRefreshing];
     self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+    self.listTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+//    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+    //自动更改透明度
+//    self.listTableView.mj_header.automaticallyChangeAlpha = YES;
     //进入刷新状态
     //    [self.listTableView.mj_header beginRefreshing];
 //    [SVProgressHUD doAnythingWithHUDMessage:nil];
 //    [self loadNewTopic];
 }
 
-#pragma mark - 下拉刷新数据
-- (void)loadNewTopic
-{
-    LYAccount *account = [LYAccount shareAccount];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:account.id forKey:@"userId"];
-    [dic setValue:@(1) forKey:@"pageNum"];
-    [dic setValue:@(10) forKey:@"pageSize"];
-    [dic setValue:@(self.selectCtrl) forKey:@"status"];
-    [LYTools postBossDemoWithUrl:self.urlString param:dic success:^(NSDictionary *dict) {
-        NSLog(@"%@",dict);
-        [SVProgressHUD dismiss];
-        [SVProgressHUD dismiss];
-        if ([self.listTableView.mj_header isRefreshing]) {
-            [self.listTableView.mj_header endRefreshing];
-        }
-        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            [self.listDataArr removeAllObjects];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                for (NSDictionary *dics in dict[@"data"]) {
-                    MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
-                    AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
-                    model.addressInfo = addressModel;
-                    OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
-                    model.orderLogistics = logisticsModel;
-                    [model.orderDetailList removeAllObjects];
-                    for (NSDictionary *newDic in dics[@"orderDetailList"]) {
-                        OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
-                        [model.orderDetailList addObject:orderDetailModel];
-                        
-                    }
-                    [self.listDataArr addObject:model];
-                }
-                [self.listTableView reloadData];
-                if (self.listDataArr.count != 0) {
-                    [self.listTableView xy_havingData:YES];
-                }else{
-                    [self.listTableView xy_havingData:NO];
-                }
-            });
-        }else if([dict[@"code"]longValue] == 500){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
-                [self.listTableView reloadData];
-                if (self.listDataArr.count != 0) {
-                    [self.listTableView xy_havingData:YES];
-                }else{
-                    [self.listTableView xy_havingData:NO];
-                }
-            });
-        }
-    } fail:^(NSError *error) {
-        
-    }];
-}
+
 
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -337,11 +413,16 @@
         //进入刷新状态
         if (self.listTableView == nil) {
             [self setUpUI];
-            self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+            self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+            //    [self.listTableView.mj_header beginRefreshing];
+            self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+            // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+            self.listTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+//            self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
         }else{
         }
         [SVProgressHUD doAnythingWithHUDMessage:nil];
-        [self loadNewTopic];
+        [self headerRereshing];
     });
 }
 
