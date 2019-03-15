@@ -497,17 +497,14 @@
     UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, high)];
     [self.view insertSubview:scroll belowSubview:self.vi];
     
-    scroll.contentSize = CGSizeMake(kScreenWidth, high * arr.count);
+    scroll.contentSize = CGSizeMake(kScreenWidth, (high+10) * arr.count);
     for (int i =0; i<arr.count; i++) {
         UIImage *imag = arr[i];
-        UIImageView *ima = [[UIImageView alloc]initWithFrame:CGRectMake(0, high*i, kScreenWidth, high)];
+        UIImageView *ima = [[UIImageView alloc]initWithFrame:CGRectMake(0, (high+10)*i, kScreenWidth, high)];
         ima.image = imag;
         
         [ima setContentMode:UIViewContentModeScaleAspectFill];
         ima.clipsToBounds = YES;
-        
-        
-        
         [scroll addSubview:ima];
     }
     
