@@ -322,7 +322,7 @@ static NSString *kMiniProgramDesc = @"小程序Desc";
         .topSpaceToView(self.view, 0)
         .leftEqualToView(self.view)
         .rightEqualToView(self.view)
-        .bottomSpaceToView(self.view, 45+SafeAreaBottomHeight);
+        .bottomSpaceToView(self.view, 0);
         
 //        _listTableView.contentSize = CGSizeMake(kScreenWidth, 240+20+SafeAreaTopHeight+170+120+80);
         _listTableView.contentSize = CGSizeMake(kScreenWidth, 180+20+SafeAreaTopHeight+170+120+80+100);
@@ -472,9 +472,9 @@ static NSString *kMiniProgramDesc = @"小程序Desc";
         [cell setSelectBlcok:^(NSInteger num) {
             MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
             minePerCtrl.title = @"我的订单";
-            minePerCtrl.selectIndex = num;
+            minePerCtrl.selectIndex = num+1;
             if (num == 4) {
-                minePerCtrl.selectIndex = 5;
+                minePerCtrl.selectIndex = 6;
             }
             
 //            minePerCtrl.selectType = 1;
@@ -514,7 +514,7 @@ static NSString *kMiniProgramDesc = @"小程序Desc";
 //                [self.navigationController pushViewController:goodsCtrl animated:YES];
                 MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
                 minePerCtrl.title = @"我的订单";
-                minePerCtrl.selectIndex = 6;
+                minePerCtrl.selectIndex = 7;
                 [self.navigationController pushViewController:minePerCtrl animated:YES];
             }else if (num == 1){
                 CustomerReconciliationsController *inviteCtrl = [[CustomerReconciliationsController alloc] init];
@@ -524,7 +524,7 @@ static NSString *kMiniProgramDesc = @"小程序Desc";
 //                [self.navigationController pushViewController:inviteCtrl animated:YES];
                 MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
                 minePerCtrl.title = @"我的订单";
-                minePerCtrl.selectIndex = 4;
+                minePerCtrl.selectIndex = 5;
                 [self.navigationController pushViewController:minePerCtrl animated:YES];
             }else if (num == 3){
                 UIImage *thumbImage = nil;

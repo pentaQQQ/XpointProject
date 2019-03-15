@@ -7,7 +7,7 @@
 //  UIButton+SGPagingView.h
 //  SGPagingViewExample
 //
-//  Created by kingsic on 2018/5/27.
+//  Created by kingsic on 2018/5/27./Users/frank/Desktop/i-Home/i-Home/Controller
 //  Copyright © 2018年 kingsic. All rights reserved.
 //
 

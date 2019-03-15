@@ -93,7 +93,12 @@
 //    .heightIs(50);
     
     self.allGoodsPriceLabel = [[UILabel alloc] init];
-    self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal+self.model.logisticsFee];
+    if ([self.model.status intValue] == 1) {
+      self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal];
+    }else{
+      self.allGoodsPriceLabel.text = [NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal+self.model.logisticsFee];
+    }
+    
     self.allGoodsPriceLabel.textAlignment = NSTextAlignmentRight;
     self.allGoodsPriceLabel.textColor = colorWithRGB(0xFF6B24);
     self.allGoodsPriceLabel.font = [UIFont systemFontOfSize:17];
@@ -101,7 +106,7 @@
     self.allGoodsPriceLabel.sd_layout
     .topSpaceToView(self.bottomView,10)
     .rightSpaceToView(self.bottomView, 15)
-    .widthIs([self widthLabelWithModel:[NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal+self.model.logisticsFee] withFont:17])
+    .widthIs([self widthLabelWithModel:self.allGoodsPriceLabel.text withFont:17])
     .heightIs(30);
     
     self.buyGoodsPriceLabel = [[UILabel alloc] init];
@@ -115,6 +120,10 @@
     .rightSpaceToView(self.allGoodsPriceLabel, 5)
     .widthIs([self widthLabelWithModel:@"¥结算金额:" withFont:15])
     .heightIs(30);
+    
+    
+    
+    
     
     self.buyGoodsIcon = [[UIImageView alloc] init];
     self.buyGoodsIcon.image = [UIImage imageNamed:@"icon_money_press"];
@@ -180,7 +189,12 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 2) {
-        return 3;
+        if ([self.model.status intValue] == 1) {
+            return 2;
+        }else{
+          return 3;
+        }
+        
     }else if (section == 3) {
         return self.model.orderDetailList.count;
     }else{
@@ -219,12 +233,23 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
-         NSMutableArray *arr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.model.productCount],[NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal]],@[@"优惠金额",@"¥0.00"],@[@"运费",[NSString stringWithFormat:@"¥%.2lf",self.model.logisticsFee]], nil];
-        [cell configWithModel:arr[indexPath.row]];
-        [cell setYfBlock:^(NSInteger num) {
-            DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"运费规则" message:@"同一家店铺且同一收获地址的满三件包邮" remind:[NSString stringWithFormat:@"(否则收%.2lf元运费)",self.model.logisticsFee] delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"同意" comGoodList:nil];
-            [alertView show];
-        }];
+        if ([self.model.status intValue] == 1) {
+            NSMutableArray *arr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.model.productCount],[NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal]],@[@"优惠金额",@"¥0.00"], nil];
+            [cell configWithModel:arr[indexPath.row]];
+//            [cell setYfBlock:^(NSInteger num) {
+//                DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"运费规则" message:@"同一家店铺且同一收获地址的满三件包邮" remind:[NSString stringWithFormat:@"(否则收%.2lf元运费)",self.model.logisticsFee] delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"同意" comGoodList:nil];
+//                [alertView show];
+//            }];
+        }else{
+            NSMutableArray *arr = [NSMutableArray arrayWithObjects:@[[NSString stringWithFormat:@"商品金额 (%ld件)",self.model.productCount],[NSString stringWithFormat:@"¥%.2lf",self.model.productAmountTotal]],@[@"优惠金额",@"¥0.00"],@[@"运费",[NSString stringWithFormat:@"¥%.2lf",self.model.logisticsFee]], nil];
+            [cell configWithModel:arr[indexPath.row]];
+            [cell setYfBlock:^(NSInteger num) {
+                DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"运费规则" message:@"同一家店铺且同一收获地址的满三件包邮" remind:[NSString stringWithFormat:@"(否则收%.2lf元运费)",self.model.logisticsFee] delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"同意" comGoodList:nil];
+                [alertView show];
+            }];
+        }
+        
+        
         return cell;
     }else{
         static NSString *cellId = @"OrderDetailCellID";

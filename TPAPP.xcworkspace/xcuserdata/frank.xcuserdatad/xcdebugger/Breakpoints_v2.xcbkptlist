@@ -121,22 +121,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/GenerationPaymentViewController.m"
-            timestampString = "569905668.824725"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "-loadNewTopic"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Find(&#x53d1;&#x73b0;)/Controllers/NewsViewController.m"
             timestampString = "566367169.260896"
             startingColumnNumber = "9223372036854775807"
@@ -249,7 +233,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x7533;&#x8bf7;&#x552e;&#x540e;/ApplyDeatailController.m"
-            timestampString = "569841520.295472"
+            timestampString = "574140953.820338"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "230"
@@ -329,11 +313,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/HavePayViewController.m"
-            timestampString = "570076527.696381"
+            timestampString = "574140953.820648"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
             landmarkName = "-rightBtnAction"
             landmarkType = "7">
          </BreakpointContent>
@@ -361,12 +345,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TPAPP/Classes/Cart(&#x8d2d;&#x7269;&#x8f66;)/Controllers/&#x4ed8;&#x6b3e;&#x8ba2;&#x5355;/BuyGoodsListController.m"
-            timestampString = "572770696.564657"
+            timestampString = "574140953.820796"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "-getOrderData"
+            startingLineNumber = "529"
+            endingLineNumber = "529"
+            landmarkName = "-declareAbnormalAlertView:clickedButtonAtIndex:comGoodList:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPAPP/Classes/Mine(&#x6211;&#x7684;)/Controllers/&#x6211;&#x7684;&#x8ba2;&#x5355;/HavePayViewController.m"
+            timestampString = "574140953.82085"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "-loadNewTopic"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
