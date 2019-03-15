@@ -247,6 +247,7 @@
         
         if ([self.indexArr containsObject:ind]) {
             [self.indexArr removeObject:ind];
+             self.topLab.text = [NSString stringWithFormat:@"当前已选中%lu款商品",(unsigned long)self.indexArr.count];
         }else{
             
             
@@ -256,6 +257,10 @@
                 return;
             }else{
                  [self.indexArr addObject:ind];
+                
+                self.topLab.text = [NSString stringWithFormat:@"当前已选中%lu款商品",(unsigned long)self.indexArr.count];
+                
+                
             }
   
         }

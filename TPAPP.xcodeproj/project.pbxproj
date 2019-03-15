@@ -1206,7 +1206,7 @@
 		8E3E6DA22140F1AD007B3306 /* ShareItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareItem.h; sourceTree = "<group>"; };
 		8E3E6DA32140F1AD007B3306 /* ShareItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareItem.m; sourceTree = "<group>"; };
 		8E3E6DA52140FF9D007B3306 /* oldhechengView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = oldhechengView.h; sourceTree = "<group>"; };
-		8E3E6DA62140FF9D007B3306 /* oldhechengView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = oldhechengView.m; sourceTree = "<group>"; };
+		8E3E6DA62140FF9D007B3306 /* oldhechengView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = oldhechengView.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E3E6DA82140FFA9007B3306 /* oldhechengView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = oldhechengView.xib; sourceTree = "<group>"; };
 		8E3E6DAE2142140C007B3306 /* PiliangzhuanfaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiliangzhuanfaViewController.h; sourceTree = "<group>"; };
 		8E3E6DAF2142140C007B3306 /* PiliangzhuanfaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiliangzhuanfaViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
