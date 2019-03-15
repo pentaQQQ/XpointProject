@@ -12,6 +12,9 @@
 #import "oldhechengView.h"
 #import "zhuanfaModel.h"
 #import "ShareItem.h"
+#import "jiajiaView.h"
+#import "zidingyijineView.h"
+
 @interface PiliangzhuanfaViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 
@@ -46,6 +49,14 @@
 
 
 @property(nonatomic,assign)int shareCount;
+
+@property(nonatomic,copy)NSString *price;
+
+
+@property(nonatomic,weak)UIView *mengbanView;
+
+@property(nonatomic,strong)jiajiaView*jiajiaview;
+@property(nonatomic,strong)zidingyijineView*jineview;
 @end
 
 @implementation PiliangzhuanfaViewController
@@ -69,7 +80,42 @@
     return _indexArr;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [self getTheUserForwardConfiSuccess:^(zhuanfaModel *model) {
+        
+        self.price = model.price;
+        
+        
+        NSString*title = [NSString stringWithFormat:@"批量转发(+%@)",self.price];
+        
+        [self.zhuanfaBtn setTitle:title forState:UIControlStateNormal];
+        
+      
+        
+    }];
+}
 
+
+-(void)getTheUserForwardConfiSuccess:(void(^)(zhuanfaModel*model))success{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    NSString *userId = [NSString stringWithFormat:@"%@",lyAccount.id];
+    [dic setValue:userId forKey:@"userId"];
+    
+    [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]){
+            zhuanfaModel*model = [zhuanfaModel mj_objectWithKeyValues:json[@"data"]];
+            success(model);
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -93,6 +139,8 @@
     [self.view insertSubview:vi belowSubview:self.bottomView];
     
     
+    
+    [self.jiajiaBtn addTarget:self action:@selector(jiajiabtnClick) forControlEvents:UIControlEventTouchUpInside];
     
 }
 
@@ -199,6 +247,7 @@
         
         if ([self.indexArr containsObject:ind]) {
             [self.indexArr removeObject:ind];
+             self.topLab.text = [NSString stringWithFormat:@"当前已选中%lu款商品",(unsigned long)self.indexArr.count];
         }else{
             
             
@@ -208,6 +257,10 @@
                 return;
             }else{
                  [self.indexArr addObject:ind];
+                
+                self.topLab.text = [NSString stringWithFormat:@"当前已选中%lu款商品",(unsigned long)self.indexArr.count];
+                
+                
             }
   
         }
@@ -293,7 +346,7 @@
         [self zhuanfaChangTu];
         
     }else{//分享整场活动
-        
+         [self zhuanfaChangTu];
     }
     
 }
@@ -346,6 +399,7 @@
         oldheview.frame =  CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         [self.view insertSubview:oldheview belowSubview:self.vi];
         
+        oldheview.price = self.price;
         oldheview.model = model;
         
         
@@ -437,14 +491,25 @@
 //获取长图
 -(void)getTheChangTuWithArr:(NSMutableArray*)arr Success:(void(^)(UIImage *))success{
     
-    UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight/3)];
+    CGFloat high = 0;
+    if (kScreenWidth<=375.0) {
+        high = kScreenHeight/3+60;
+    }else{
+        high = kScreenHeight/3+20;
+     
+    }
+    
+    UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, high)];
     [self.view insertSubview:scroll belowSubview:self.vi];
     
-    scroll.contentSize = CGSizeMake(kScreenWidth, kScreenHeight * arr.count/3);
+    scroll.contentSize = CGSizeMake(kScreenWidth, (high+10) * arr.count);
     for (int i =0; i<arr.count; i++) {
         UIImage *imag = arr[i];
-        UIImageView *ima = [[UIImageView alloc]initWithFrame:CGRectMake(0, kScreenHeight*i/3, kScreenWidth, kScreenHeight/3)];
+        UIImageView *ima = [[UIImageView alloc]initWithFrame:CGRectMake(0, (high+10)*i, kScreenWidth, high)];
         ima.image = imag;
+        
+        [ima setContentMode:UIViewContentModeScaleAspectFill];
+        ima.clipsToBounds = YES;
         [scroll addSubview:ima];
     }
     
@@ -557,12 +622,179 @@
 
 
 
+-(void)jiajiabtnClick{
+    [self setUpjiajiaView];
+}
 
 
 
 
+-(void)setUpjiajiaView{
+    
+    UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
+    UIView *mengbanView = [[UIView alloc]init];
+    self.mengbanView = mengbanView;
+    self.mengbanView.frame = keyWindow.bounds;
+    [keyWindow addSubview:self.mengbanView];
+    mengbanView.alpha = 0.5;
+    mengbanView.backgroundColor=[UIColor blackColor];
+    
+    jiajiaView *jiajiaview = [[NSBundle mainBundle]loadNibNamed:@"jiajiaView" owner:self options:nil].lastObject;
+    self.jiajiaview = jiajiaview;
+    jiajiaview.frame = CGRectMake(0, kScreenHeight-255-SafeAreaBottomHeight, kScreenWidth, 255+SafeAreaBottomHeight);
+    
+    [keyWindow addSubview:jiajiaview];
+    
+    UITapGestureRecognizer*tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
+    [mengbanView addGestureRecognizer:tap];
+    
+    
+    __weak __typeof(self) weakSelf = self;
+    
+    jiajiaview.jiajiaBlock = ^(NSString *title, NSString *detailTitle) {
+        
+        [weakSelf.mengbanView removeFromSuperview];
+        
+        if (![title isEqualToString:@""]) {
+            
+           
+            
+            if ([title isEqualToString:@"不加价"]) {
+               
+                self.price = @"0";
+                
+                NSString*title = [NSString stringWithFormat:@"批量转发(+%@)",self.price];
+                
+                [self.zhuanfaBtn setTitle:title forState:UIControlStateNormal];
+                
+                
+                
+            }else if ([title isEqualToString:@"+5元"]){
+              
+            
+                self.price = @"5";
+                
+                NSString*title = [NSString stringWithFormat:@"批量转发(+%@)",self.price];
+                
+                [self.zhuanfaBtn setTitle:title forState:UIControlStateNormal];
+                
+                
+            }else if ([title isEqualToString:@"+10元"]){
+               
+                self.price = @"10";
+                
+                NSString*title = [NSString stringWithFormat:@"批量转发(+%@)",self.price];
+                
+                [self.zhuanfaBtn setTitle:title forState:UIControlStateNormal];
+  
+            }
+   
+        }else{
+            
+            [weakSelf setUpZidingyijineView];
+        }
+        
+    };
+    jiajiaview.removeBlock = ^{
+        [weakSelf.mengbanView removeFromSuperview];
+    };
+    
+}
+
+-(void)tap{
+    
+    [self.jiajiaview removeFromSuperview];
+    [self.mengbanView removeFromSuperview];
+}
+
+-(void)setZhuanfaDataWithPrice:(NSString *)price{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:self.zhuanfamodel.defaultImg forKey:@"defaultImg"];
+    [dic setValue:self.zhuanfamodel.id forKey:@"id"];
+    [dic setValue:self.zhuanfamodel.lackSize forKey:@"lackSize"];
+    [dic setValue:self.zhuanfamodel.num forKey:@"num"];
+    [dic setValue:price forKey:@"price"];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    [dic setValue:lyAccount.id forKey:@"userId"];
+    
+    
+    [LYTools postBossDemoWithUrl:updateUserForwardConfi param:dic success:^(NSDictionary *dict) {
+        
+        NSLog(@"%@",dict);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+        
+        if ([respCode isEqualToString:@"00000"]){
+            [self getTheUserForwardConfiSuccess:^(zhuanfaModel *model) {
+               
+                
+                self.price = model.price;
+                
+                NSString*title = [NSString stringWithFormat:@"批量转发(+%@)",self.price];
+                
+                [self.zhuanfaBtn setTitle:title forState:UIControlStateNormal];
+                
+            }];
+        }
+        
+    } fail:^(NSError *error) {
+        
+        
+    }];
+    
+}
 
 
+
+
+-(void)setUpZidingyijineView{
+    
+    
+    UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
+    UIView *mengbanView = [[UIView alloc]init];
+    self.mengbanView = mengbanView;
+    self.mengbanView.frame = keyWindow.bounds;
+    [keyWindow addSubview:self.mengbanView];
+    mengbanView.alpha = 0.5;
+    mengbanView.backgroundColor=[UIColor blackColor];
+    
+    zidingyijineView *jineview = [[NSBundle mainBundle]loadNibNamed:@"zidingyijineView" owner:self options:nil].lastObject;
+    ViewBorderRadius(jineview, 5, 1, [UIColor clearColor]);
+    self.jineview = jineview;
+    jineview.frame = CGRectMake(20, (kScreenHeight-135)/2, kScreenWidth-40, 135);
+    
+    [keyWindow addSubview:jineview];
+    
+    UITapGestureRecognizer*tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
+    [mengbanView addGestureRecognizer:tap];
+    
+    
+    [jineview.textField becomeFirstResponder];
+    __weak __typeof(self) weakSelf = self;
+    [jineview.cancelBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        [weakSelf.mengbanView removeFromSuperview];
+        [weakSelf.jineview removeFromSuperview];
+        [self.view endEditing:YES];
+    }];
+    
+    [jineview.sureBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        
+      
+        
+        self.price = jineview.textField.text;
+        
+        NSString*title = [NSString stringWithFormat:@"批量转发(+%@)",self.price];
+        
+        [self.zhuanfaBtn setTitle:title forState:UIControlStateNormal];
+        
+        
+        [weakSelf.mengbanView removeFromSuperview];
+        [weakSelf.jineview removeFromSuperview];
+        [self.view endEditing:YES];
+    }];
+    
+}
 
 
 

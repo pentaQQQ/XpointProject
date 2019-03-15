@@ -17,6 +17,40 @@
     // Drawing code
 }
 */
+
+
+
+
+
+-(void)setFirstimageview:(UIImageView *)firstimageview{
+    _firstimageview = firstimageview;
+    [_firstimageview setContentMode:UIViewContentModeScaleAspectFill];
+    _firstimageview.clipsToBounds = YES;
+}
+
+
+
+-(void)setSecondimageview:(UIImageView *)secondimageview{
+    _secondimageview = secondimageview;
+    [_secondimageview setContentMode:UIViewContentModeScaleAspectFill];
+    _secondimageview.clipsToBounds = YES;
+}
+
+
+-(void)setThirdImageview:(UIImageView *)thirdImageview{
+    _thirdImageview = thirdImageview;
+    
+    [_thirdImageview setContentMode:UIViewContentModeScaleAspectFill];
+    _thirdImageview.clipsToBounds = YES;
+    
+}
+-(void)setFourthImageview:(UIImageView *)fourthImageview{
+    
+    _fourthImageview = fourthImageview;
+    [_fourthImageview setContentMode:UIViewContentModeScaleAspectFill];
+    _fourthImageview.clipsToBounds = YES;
+    
+}
 -(void)setModel:(releaseActivitiesModel *)model{
     
     _model = model;
@@ -60,6 +94,7 @@
       
     }
     
+  
  
 }
 @end

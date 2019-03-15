@@ -66,7 +66,7 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setValue:self.phoneNumberField.text forKey:@"phone"];
-    [dic setValue:@"login" forKey:@"method"];
+    [dic setValue:@"register" forKey:@"method"];
     NSString*url = [NSString stringWithFormat:@"%@/%@",getSecurityCode,self.phoneNumberField.text];
     [[NetworkManager sharedManager]getWithUrl:url param:dic success:^(id json) {
         NSLog(@"%@",json);

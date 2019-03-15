@@ -297,7 +297,7 @@
         }else if ([type isEqualToString:@"退款审核中"]){
             MineIndentViewController *minePerCtrl = [[MineIndentViewController alloc] init];
             minePerCtrl.title = @"我的订单";
-            minePerCtrl.selectIndex = 6;
+            minePerCtrl.selectIndex = 7;
             [self.navigationController pushViewController:minePerCtrl animated:YES];
         }else{
         }

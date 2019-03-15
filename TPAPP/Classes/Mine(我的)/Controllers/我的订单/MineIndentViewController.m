@@ -19,6 +19,7 @@
 #import "WaitDeliveryViewController.h"
 #import "HavePayViewController.h"
 #import "GenerationPaymentViewController.h"
+#import "AllOrderListController.h"
 @interface MineIndentViewController ()<SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentScrollView *pageContentScrollView;
@@ -67,7 +68,7 @@
         pageTitleViewY = 88;
     }
     
-    NSArray *titleArr = @[@"待支付", @"已支付", @"待发货", @"已发货", @"已完成", @"已取消", @"售后"];
+    NSArray *titleArr = @[@"全部", @"待支付", @"已支付", @"待发货", @"已发货", @"已完成", @"已取消", @"售后"];
     SGPageTitleViewConfigure *configure = [SGPageTitleViewConfigure pageTitleViewConfigure];
     configure.titleAdditionalWidth = 15;
 //    configure.indicatorAdditionalWidth = 10; // 说明：指示器额外增加的宽度，不设置，指示器宽度为标题文字宽度；若设置无限大，则指示器宽度为按钮宽度
@@ -96,50 +97,57 @@
     NSMutableArray *childArr = [NSMutableArray array];
     for (int i=0; i<titleArr.count; i++) {
         if (i == 0) {
-            GenerationPaymentViewController *vc = [[GenerationPaymentViewController alloc]init];
+            AllOrderListController *vc = [[AllOrderListController alloc]init];
             vc.selectCtrl = i;
+            vc.pushCtrl = self.pushCtrl;
+            //设置代理
+            self.allOrderListDelegate  =  vc;
+            [childArr addObject:vc];
+        }else if (i == 1) {
+            GenerationPaymentViewController *vc = [[GenerationPaymentViewController alloc]init];
+            vc.selectCtrl = 0;
             vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.generationPaymentDelegate  =  vc;
             [childArr addObject:vc];
-        }else if (i == 1){
+        }else if (i == 2){
             HavePayViewController *vc = [[HavePayViewController alloc]init];
-            vc.selectCtrl = i;
+            vc.selectCtrl = 1;
             vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.havePayDelegate  =  vc;
             [childArr addObject:vc];
-        }else if (i == 2){
+        }else if (i == 3){
             WaitDeliveryViewController *vc = [[WaitDeliveryViewController alloc]init];
-            vc.selectCtrl = i;
+            vc.selectCtrl = 2;
             vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.waitDeliveryDelegate  =  vc;
             [childArr addObject:vc];
-        }else if (i == 3){
+        }else if (i == 4){
             HasBeenShippedViewController *vc = [[HasBeenShippedViewController alloc]init];
-            vc.selectCtrl = i;
+            vc.selectCtrl = 3;
             vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.hasBeenShippedDelegate  =  vc;
             [childArr addObject:vc];
-        }else if (i == 4){
+        }else if (i == 5){
             HasBeenCompletedController *vc = [[HasBeenCompletedController alloc]init];
-            vc.selectCtrl = i;
+            vc.selectCtrl = 4;
             vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.hasBeenCompletedDelegate  =  vc;
             [childArr addObject:vc];
-        }else if (i == 5){
+        }else if (i == 6){
             HasBeenCancelledController *vc = [[HasBeenCancelledController alloc]init];
-            vc.selectCtrl = i;
+            vc.selectCtrl = 5;
             vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.hasBeenCancelledDelegate  =  vc;
             [childArr addObject:vc];
         }else{
             AfterSalesViewController *vc = [[AfterSalesViewController alloc]init];
-            vc.selectCtrl = i;
+            vc.selectCtrl = 6;
             vc.pushCtrl = self.pushCtrl;
             //设置代理
             self.afterSalesDelegate  =  vc;
@@ -165,46 +173,52 @@
 //        [_pageTitleView removeBadgeForIndex:index];
 //    }
     if (index == 0) {
+        if (self.allOrderListDelegate && [self.allOrderListDelegate respondsToSelector:@selector(allOrderList:)])
+        {
+            // 调用代理方法
+            [self.allOrderListDelegate allOrderList:index];
+        }
+    }else if (index == 1) {
         if (self.generationPaymentDelegate && [self.generationPaymentDelegate respondsToSelector:@selector(selecteGenerationPayment:)])
         {
             // 调用代理方法
-            [self.generationPaymentDelegate selecteGenerationPayment:index];
+            [self.generationPaymentDelegate selecteGenerationPayment:index-1];
         }
-    }else if (index == 1){
+    }else if (index == 2){
         if (self.havePayDelegate && [self.havePayDelegate respondsToSelector:@selector(selecteHavePay:)])
         {
             // 调用代理方法
-            [self.havePayDelegate selecteHavePay:index];
+            [self.havePayDelegate selecteHavePay:index-1];
         }
-    }else if (index == 2){
+    }else if (index == 3){
         if (self.waitDeliveryDelegate && [self.waitDeliveryDelegate respondsToSelector:@selector(selecteWaitDelivery:)])
         {
             // 调用代理方法
-            [self.waitDeliveryDelegate selecteWaitDelivery:index];
+            [self.waitDeliveryDelegate selecteWaitDelivery:index-1];
         }
-    }else if (index == 3){
+    }else if (index == 4){
         if (self.hasBeenShippedDelegate && [self.hasBeenShippedDelegate respondsToSelector:@selector(selecteHasBeenShipped:)])
         {
             // 调用代理方法
-            [self.hasBeenShippedDelegate selecteHasBeenShipped:index];
+            [self.hasBeenShippedDelegate selecteHasBeenShipped:index-1];
         }
-    }else if (index == 4){
+    }else if (index == 5){
         if (self.hasBeenCompletedDelegate && [self.hasBeenCompletedDelegate respondsToSelector:@selector(selecteHasBeenCompleted:)])
         {
             // 调用代理方法
-            [self.hasBeenCompletedDelegate selecteHasBeenCompleted:index];
+            [self.hasBeenCompletedDelegate selecteHasBeenCompleted:index-1];
         }
-    }else if (index == 5){
+    }else if (index == 6){
         if (self.hasBeenCancelledDelegate && [self.hasBeenCancelledDelegate respondsToSelector:@selector(selecteHasBeenCancelled:)])
         {
             // 调用代理方法
             [self.hasBeenCancelledDelegate selecteHasBeenCancelled:index];
         }
-    }else if (index == 6){
+    }else if (index == 7){
         if (self.afterSalesDelegate && [self.afterSalesDelegate respondsToSelector:@selector(selecteAfterSales:)])
         {
             // 调用代理方法
-            [self.afterSalesDelegate selecteAfterSales:index];
+            [self.afterSalesDelegate selecteAfterSales:index-1];
         }
     }
     

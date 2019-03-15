@@ -37,7 +37,7 @@
 
 
 @property (nonatomic, retain) UIDocumentInteractionController *docuController;
-
+@property(nonatomic,copy)NSString *price;
 
 @end
 
@@ -49,6 +49,35 @@
     return _titleArray;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [self getTheUserForwardConfiSuccess:^(zhuanfaModel *model) {
+        
+        self.price = model.price;
+        
+    }];
+}
+
+
+-(void)getTheUserForwardConfiSuccess:(void(^)(zhuanfaModel*model))success{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    NSString *userId = [NSString stringWithFormat:@"%@",lyAccount.id];
+    [dic setValue:userId forKey:@"userId"];
+    
+    [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]){
+            zhuanfaModel*model = [zhuanfaModel mj_objectWithKeyValues:json[@"data"]];
+            success(model);
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -114,6 +143,7 @@
         
         
         if (curretDEX == 0) {
+            self.danshouview.price = self.price;
             self.danshouview.model = model;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.danshouview], 1.0f);
@@ -126,7 +156,7 @@
             [self shareMangPictureWithModel:model];
             
         }else if (curretDEX == 2){
-            
+             self.oldheview.price = self.price;
             self.oldheview.model = model;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 NSData *imagedata= UIImageJPEGRepresentation([self captureScrollView:self.oldheview.scrollview], 1.0f);
@@ -135,6 +165,7 @@
             
             
         }else{
+            self.xinheview.price = self.price;
             self.xinheview.model = model;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 NSData *imagedata= UIImageJPEGRepresentation([self snapshotScreenInView:self.xinheview], 1.0f);

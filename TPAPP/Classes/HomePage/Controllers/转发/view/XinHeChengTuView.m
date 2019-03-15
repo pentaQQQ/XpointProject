@@ -41,7 +41,9 @@
 
 
 
-
+-(void)setPrice:(NSString *)price{
+    _price = price;
+}
 
 
 -(void)setModel:(SimilarProductModel *)model{
@@ -71,7 +73,19 @@
     self.kuanhaoLab.text = [NSString stringWithFormat:@"款号 %@",model.designCode];
     
     
-    self.tejiaLab.text = model.realAmount;
+//    self.PriceLab.text = model.realAmount;
+//
+//    self.originPriceLab.text = model.marketAmount;
+//
+//    self.feeLab.text = model.discountAmount;
+    
+    
+    
+    
+    
+    NSString *jiage =[NSString stringWithFormat:@"%.2f",[model.realAmount floatValue]+[model.discountAmount floatValue]+[self.price floatValue]] ;
+    
+    self.tejiaLab.text = jiage;
     
     self.yuanjiaLab.text = model.marketAmount;
     
@@ -106,7 +120,10 @@
         [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
         [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
         
+        [self.firstImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.firstImageview.clipsToBounds = YES;
         
+       
         
     }else if (array.count == 2){
         imagesListModel *model1 =array[0];
@@ -116,6 +133,17 @@
         [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
         [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
         [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        
+        
+        [self.firstImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.firstImageview.clipsToBounds = YES;
+        
+        [self.secondImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.secondImageview.clipsToBounds = YES;
+        
+        
+      
+        
     }else if (array.count == 3){
         imagesListModel *model1 =array[0];
         imagesListModel *model2 =array[1];
@@ -126,6 +154,22 @@
         
         [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
         [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        
+        
+        
+        [self.firstImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.firstImageview.clipsToBounds = YES;
+        
+        [self.secondImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.secondImageview.clipsToBounds = YES;
+        
+        
+        [self.thirdImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.thirdImageview.clipsToBounds = YES;
+        
+        
+      
+        
         
     }else if (array.count == 4){
         imagesListModel *model1 =array[0];
@@ -138,6 +182,22 @@
         [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
         [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
         
+        
+        [self.firstImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.firstImageview.clipsToBounds = YES;
+        
+        [self.secondImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.secondImageview.clipsToBounds = YES;
+        
+        
+        [self.thirdImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.thirdImageview.clipsToBounds = YES;
+        
+        
+        [self.fourthImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.fourthImageview.clipsToBounds = YES;
+        
+        
     }else{
         
         imagesListModel *model1 =array[0];
@@ -149,9 +209,24 @@
         
         [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
         [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
+        
+        
+        
+        [self.firstImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.firstImageview.clipsToBounds = YES;
+        
+        [self.secondImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.secondImageview.clipsToBounds = YES;
+        
+        
+        [self.thirdImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.thirdImageview.clipsToBounds = YES;
+        
+        
+        [self.fourthImageview setContentMode:UIViewContentModeScaleAspectFill];
+        self.fourthImageview.clipsToBounds = YES;
+        
     }
-    
-    
     
     
 }

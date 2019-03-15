@@ -26,7 +26,10 @@
 @end
 
 @implementation WaitDeliveryViewController
-
+{
+    int _dataRefreshNumber;
+    int _isFiveData;
+}
 #pragma mark - 懒加载
 -(NSMutableArray *)listDataArr
 {
@@ -52,6 +55,129 @@
     if ([self.listTableView respondsToSelector:@selector(setLayoutMargins:)]) {
         [self.listTableView setLayoutMargins:UIEdgeInsetsZero];
     }
+//    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+//    self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+//    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+//    self.listTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+}
+- (void)headerRereshing
+{
+    _dataRefreshNumber = 1;
+    [self loadNewTopic];
+    
+}
+- (void)footerRereshing
+{
+    _dataRefreshNumber++;
+    [self loadNewTopic];
+}
+#pragma mark - 下拉刷新数据
+- (void)loadNewTopic
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        LYAccount *account = [LYAccount shareAccount];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setValue:account.id forKey:@"userId"];
+        [dic setValue:@(10) forKey:@"pageSize"];
+        [dic setValue:@(self->_dataRefreshNumber) forKey:@"pageNum"];
+        [dic setValue:@(self.selectCtrl) forKey:@"status"];
+        [LYTools postBossDemoWithUrl:self.urlString param:dic success:^(NSDictionary *dict) {
+            NSLog(@"%@",dict);
+            [SVProgressHUD dismiss];
+            [SVProgressHUD dismiss];
+            if ([self.listTableView.mj_header isRefreshing]) {
+                [self.listTableView.mj_header endRefreshing];
+            }
+            if ([self.listTableView.mj_footer isRefreshing]) {
+                [self.listTableView.mj_footer endRefreshing];
+            }
+            NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
+            if ([respCode isEqualToString:@"00000"]) {
+                if (self->_dataRefreshNumber == 1) {
+                    [self.listDataArr removeAllObjects];
+                    for (NSDictionary *dics in dict[@"data"]) {
+                        MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
+                        AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
+                        model.addressInfo = addressModel;
+                        OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
+                        model.orderLogistics = logisticsModel;
+                        [model.orderDetailList removeAllObjects];
+                        for (NSDictionary *newDic in dics[@"orderDetailList"]) {
+                            OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
+                            [model.orderDetailList addObject:orderDetailModel];
+                        }
+                        [self.listDataArr addObject:model];
+                    }
+                    [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+                    if (self.listDataArr.count != 0) {
+                        [self.listTableView xy_havingData:YES];
+                    }else{
+                        [self.listTableView xy_havingData:NO];
+                    }
+                }else{
+                    if ([dict[@"data"] count] < 10) {
+                        self->_isFiveData++;
+                        if (self->_isFiveData > 1) {
+                            [self.listTableView.mj_footer endRefreshingWithNoMoreData];
+                        }else{
+                            if (self.listDataArr.count < 10) {
+                                [self.listTableView.mj_footer endRefreshingWithNoMoreData];
+                            }else{
+                                for (NSDictionary *dics in dict[@"data"]) {
+                                    MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
+                                    AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
+                                    model.addressInfo = addressModel;
+                                    OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
+                                    model.orderLogistics = logisticsModel;
+                                    [model.orderDetailList removeAllObjects];
+                                    for (NSDictionary *newDic in dics[@"orderDetailList"]) {
+                                        OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
+                                        [model.orderDetailList addObject:orderDetailModel];
+                                    }
+                                    [self.listDataArr addObject:model];
+                                }
+                                [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+                            }
+                            
+                        }
+                    }else{
+                        for (NSDictionary *dics in dict[@"data"]) {
+                            MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
+                            AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
+                            model.addressInfo = addressModel;
+                            OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
+                            model.orderLogistics = logisticsModel;
+                            [model.orderDetailList removeAllObjects];
+                            for (NSDictionary *newDic in dics[@"orderDetailList"]) {
+                                OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
+                                [model.orderDetailList addObject:orderDetailModel];
+                            }
+                            [self.listDataArr addObject:model];
+                        }
+                        [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+                    }
+                }
+            }else if([dict[@"code"]longValue] == 500){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
+                    [self performSelectorOnMainThread:@selector(reloadDeals) withObject:self waitUntilDone:NO];
+                    if (self.listDataArr.count != 0) {
+                        [self.listTableView xy_havingData:YES];
+                    }else{
+                        [self.listTableView xy_havingData:NO];
+                    }
+                });
+            }
+        } fail:^(NSError *error) {
+            
+        }];
+    });
+}
+- (void)reloadDeals
+{
+    [self.listTableView reloadData];
+    [self.listTableView.mj_header endRefreshing];
+    [self.listTableView.mj_footer endRefreshing];
 }
 //#pragma mark - 创建tableview
 //-(UITableView *)listTableView
@@ -87,88 +213,21 @@
     self.urlString = getOrderListInfo;
     //    }
     [self setUpUI];
-    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
-    //自动更改透明度
+    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+    //    [self.listTableView.mj_header beginRefreshing];
     self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+    // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+    self.listTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+//    self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+    //自动更改透明度
+//    self.listTableView.mj_header.automaticallyChangeAlpha = YES;
     //进入刷新状态
     //    [self.listTableView.mj_header beginRefreshing];
 //    [SVProgressHUD doAnythingWithHUDMessage:nil];
 //    [self loadNewTopic];
 }
 
-#pragma mark - 下拉刷新数据
-- (void)loadNewTopic
-{
-    LYAccount *account = [LYAccount shareAccount];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:account.id forKey:@"userId"];
-    [dic setValue:@(1) forKey:@"pageNum"];
-    [dic setValue:@(10) forKey:@"pageSize"];
-    [dic setValue:@(self.selectCtrl) forKey:@"status"];
-    [LYTools postBossDemoWithUrl:self.urlString param:dic success:^(NSDictionary *dict) {
-        NSLog(@"%@",dict);
-        [SVProgressHUD dismiss];
-        [SVProgressHUD dismiss];
-        if ([self.listTableView.mj_header isRefreshing]) {
-            [self.listTableView.mj_header endRefreshing];
-        }
-        NSString *respCode = [NSString stringWithFormat:@"%@",dict[@"respCode"]];
-        if ([respCode isEqualToString:@"00000"]) {
-            [self.listDataArr removeAllObjects];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                for (NSDictionary *dics in dict[@"data"]) {
-                    MineIndentModel *model = [MineIndentModel mj_objectWithKeyValues:dics];
-                    AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:dics[@"addressInfo"]];
-                    model.addressInfo = addressModel;
-                    OrderLogisticsModel *logisticsModel = [OrderLogisticsModel mj_objectWithKeyValues:dics[@"orderLogistics"]];
-                    model.orderLogistics = logisticsModel;
-                    [model.orderDetailList removeAllObjects];
-                    for (NSDictionary *newDic in dics[@"orderDetailList"]) {
-                        OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:newDic];
-                        [model.orderDetailList addObject:orderDetailModel];
-                        
-                    }
-                    [self.listDataArr addObject:model];
-                }
 
-                // 这里是你点击了cell里的某个按钮后要做的操作
-                //                if (self.selectCtrl == 0) {
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]},@{@"goodName":@"耐克旗舰店",@"listArr":@[@[@"icon",@"NIKE男士运动板鞋",@"40码",@"1",@"355678",@"1",@"420",@"商家已接单",@"3"]]},@{@"goodName":@"阿迪达斯舰店",@"listArr":@[@[@"icon",@"阿迪达斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"],@[@"icon",@"阿迪达斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]},@{@"goodName":@"安踏旗舰店",@"listArr":@[@[@"icon",@"安踏旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]}, nil];
-                //                }else if (self.selectCtrl == 1){
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"等待付款",@"1"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"1"]]}, nil];
-                //                }else if (self.selectCtrl == 2){
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已付款",@"2"]]}, nil];
-                //                }else if (self.selectCtrl == 3){
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已接单",@"3"]]}, nil];
-                //                }else if (self.selectCtrl == 4){
-                //                    self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"商家已发货",@"4"]]}, nil];
-                //                }else{
-                //                    self.listDataArr = [NSMutableArray array];
-                //                    //self.listDataArr  = [NSMutableArray arrayWithObjects:@{@"goodName":@"花花公子旗舰店",@"listArr":@[@[@"icon",@"花花公子旗男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]},@{@"goodName":@"杰克琼斯旗舰店",@"listArr":@[@[@"icon",@"杰克琼斯男士上衣新款休闲",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"],@[@"icon",@"杰克琼斯男士秋季夹克",@"L码",@"1",@"355678",@"1",@"120",@"买家已取消",@"5"]]}, nil];
-                //                }
-                
-                [self.listTableView reloadData];
-                if (self.listDataArr.count != 0) {
-                    [self.listTableView xy_havingData:YES];
-                }else{
-                    [self.listTableView xy_havingData:NO];
-                }
-            });
-        }else if([dict[@"code"]longValue] == 500){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD doAnythingFailedWithHUDMessage:dict[@"respMessage"] withDuration:1.5];
-                [self.listTableView reloadData];
-                if (self.listDataArr.count != 0) {
-                    [self.listTableView xy_havingData:YES];
-                }else{
-                    [self.listTableView xy_havingData:NO];
-                }
-            });
-        }
-    } fail:^(NSError *error) {
-        
-    }];
-}
 
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -387,11 +446,16 @@
         //进入刷新状态
         if (self.listTableView == nil) {
             [self setUpUI];
-            self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
+            self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+            //    [self.listTableView.mj_header beginRefreshing];
+            self.listTableView.mj_header.automaticallyChangeAlpha = YES;
+            // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+            self.listTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+//            self.listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewTopic)];
         }else{
         }
         [SVProgressHUD doAnythingWithHUDMessage:nil];
-        [self loadNewTopic];
+        [self headerRereshing];
     });
 }
 

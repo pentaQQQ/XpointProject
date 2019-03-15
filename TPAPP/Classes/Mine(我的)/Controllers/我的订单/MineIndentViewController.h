@@ -12,6 +12,12 @@
 @protocol SelecteNumberDelegate <NSObject>
 - (void)selecteNumber:(NSInteger)index;
 @end
+
+//全部
+@protocol AllOrderListDelegate <NSObject>
+- (void)allOrderList:(NSInteger)index;
+@end
+
 //待支付
 @protocol GenerationPaymentDelegate <NSObject>
 - (void)selecteGenerationPayment:(NSInteger)index;
@@ -52,6 +58,7 @@
 
 
 // 在这里定义一个属性，注意这里的修饰词要用weak
+@property(nonatomic,weak)id<AllOrderListDelegate>allOrderListDelegate;
 @property(nonatomic,weak)id<SelecteNumberDelegate>selecteDelegate;
 @property(nonatomic,weak)id<GenerationPaymentDelegate>generationPaymentDelegate;
 @property(nonatomic,weak)id<HavePayDelegate>havePayDelegate;

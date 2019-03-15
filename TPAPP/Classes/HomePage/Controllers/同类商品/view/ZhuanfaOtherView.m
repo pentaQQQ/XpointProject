@@ -150,7 +150,14 @@
 }
 
 
-
+-(void)setPrice:(NSString *)price{
+    _price = price;
+    
+    NSString*title = [NSString stringWithFormat:@"转发(+%@)",price];
+    
+    [self.sureBtn setTitle:title forState:UIControlStateNormal];
+    
+}
 
 
 @end

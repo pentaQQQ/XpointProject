@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy)NSString *couponTime;
 @property (nonatomic, copy)NSString *createBy;
 @property (nonatomic, copy)NSString *createTime;
+@property (nonatomic, copy)NSString *flag;
 @property (nonatomic, assign)double discountMoney;
 @property (nonatomic, copy)NSString *enableTime;
 @property (nonatomic, copy)NSString *endDate;

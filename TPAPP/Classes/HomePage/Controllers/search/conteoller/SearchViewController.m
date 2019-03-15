@@ -118,7 +118,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
     [searchField setValue:[UIColor blackColor]forKeyPath:@"_placeholderLabel.textColor"];
     searchField.font = [UIFont systemFontOfSize:14];
     
-    searchField.returnKeyType = UIReturnKeySend;
+    searchField.returnKeyType = UIReturnKeySearch;
     searchField.backgroundColor = [UIColor whiteColor];
     
     
