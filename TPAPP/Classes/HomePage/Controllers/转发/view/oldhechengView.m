@@ -78,7 +78,7 @@
     NSString *jiage =[NSString stringWithFormat:@"%.2f",[model.realAmount floatValue]+[model.discountAmount floatValue]+[self.price floatValue]] ;
     
     self.tejiaLab.text = jiage;
-    self.yuanjiaLab.text = [NSString stringWithFormat:@"%@.00",model.marketAmount] ;
+    self.yuanjiaLab.text = [NSString stringWithFormat:@"¥%@.00",model.marketAmount] ;
     
     
     self.contentHigh.constant = [LYTools getHeighWithTitle: self.title.text font:[UIFont systemFontOfSize:14] width:kScreenWidth-20]+10;
