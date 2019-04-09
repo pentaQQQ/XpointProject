@@ -353,6 +353,8 @@
 		8E3E6DBC21451FB0007B3306 /* HuoDongCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E3E6DBA21451FB0007B3306 /* HuoDongCell.xib */; };
 		8E5B33C021DC9FED00E6F183 /* fenxiangTanchuangView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B33BF21DC9FED00E6F183 /* fenxiangTanchuangView.m */; };
 		8E5B33C221DC9FF900E6F183 /* fenxiangTanchuangView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E5B33C121DC9FF900E6F183 /* fenxiangTanchuangView.xib */; };
+		8E60FF0C225CBD6900988A5B /* huodongzhuanfayaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E60FF0B225CBD6900988A5B /* huodongzhuanfayaView.m */; };
+		8E60FF0E225CBD7700988A5B /* huodongzhuanfayaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E60FF0D225CBD7700988A5B /* huodongzhuanfayaView.xib */; };
 		8E617F6121EDD80E00DBFD2A /* ShareTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E617F5E21EDD80D00DBFD2A /* ShareTool.m */; };
 		8E617F6221EDD80E00DBFD2A /* NSData+Base64Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E617F5F21EDD80D00DBFD2A /* NSData+Base64Encode.m */; };
 		8E617F6821F8612100DBFD2A /* huodongfenxiangview.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E617F6721F8612100DBFD2A /* huodongfenxiangview.m */; };
@@ -1220,6 +1222,9 @@
 		8E5B33BE21DC9FED00E6F183 /* fenxiangTanchuangView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fenxiangTanchuangView.h; sourceTree = "<group>"; };
 		8E5B33BF21DC9FED00E6F183 /* fenxiangTanchuangView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fenxiangTanchuangView.m; sourceTree = "<group>"; };
 		8E5B33C121DC9FF900E6F183 /* fenxiangTanchuangView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = fenxiangTanchuangView.xib; sourceTree = "<group>"; };
+		8E60FF0A225CBD6900988A5B /* huodongzhuanfayaView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = huodongzhuanfayaView.h; sourceTree = "<group>"; };
+		8E60FF0B225CBD6900988A5B /* huodongzhuanfayaView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = huodongzhuanfayaView.m; sourceTree = "<group>"; wrapsLines = 1; };
+		8E60FF0D225CBD7700988A5B /* huodongzhuanfayaView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = huodongzhuanfayaView.xib; sourceTree = "<group>"; };
 		8E617F5D21EDD80D00DBFD2A /* ShareTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareTool.h; sourceTree = "<group>"; wrapsLines = 1; };
 		8E617F5E21EDD80D00DBFD2A /* ShareTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareTool.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E617F5F21EDD80D00DBFD2A /* NSData+Base64Encode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64Encode.m"; sourceTree = "<group>"; };
@@ -4121,6 +4126,9 @@
 				8E3E6DA52140FF9D007B3306 /* oldhechengView.h */,
 				8E3E6DA62140FF9D007B3306 /* oldhechengView.m */,
 				8E3E6DA82140FFA9007B3306 /* oldhechengView.xib */,
+				8E60FF0A225CBD6900988A5B /* huodongzhuanfayaView.h */,
+				8E60FF0B225CBD6900988A5B /* huodongzhuanfayaView.m */,
+				8E60FF0D225CBD7700988A5B /* huodongzhuanfayaView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4399,6 +4407,7 @@
 				547C496F1F1DBB8200178B67 /* lkbubble_warning.png in Resources */,
 				547C496D1F1DBB8200178B67 /* lkbubble7.jpg in Resources */,
 				547C49691F1DBB8200178B67 /* lkbubble3.jpg in Resources */,
+				8E60FF0E225CBD7700988A5B /* huodongzhuanfayaView.xib in Resources */,
 				019AEE8E21382B0B00EB3405 /* moment_pic_3@2x.png in Resources */,
 				8E78BDF72135343A000A9EA4 /* tupiansetview.xib in Resources */,
 				8EA95352212E54650057AC78 /* zhuanfaHeaderView.xib in Resources */,
@@ -4933,6 +4942,7 @@
 				8E78BE2A21366F2E000A9EA4 /* specsModel.m in Sources */,
 				8EA9530D212BAA930057AC78 /* ZLPhotoPickerFooterCollectionReusableView.m in Sources */,
 				01120EF621338F9C0071AC5F /* AddressManageController.m in Sources */,
+				8E60FF0C225CBD6900988A5B /* huodongzhuanfayaView.m in Sources */,
 				8E617F6121EDD80E00DBFD2A /* ShareTool.m in Sources */,
 				019AEE9821382B0B00EB3405 /* UIView+Geometry.m in Sources */,
 				01120EFC21338F9C0071AC5F /* MinePerformanceController.m in Sources */,

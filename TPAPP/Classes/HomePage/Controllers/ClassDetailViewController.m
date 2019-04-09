@@ -20,6 +20,13 @@
 
 #import "OYCountDownManager.h"
 #import "NewLoginViewController.h"
+
+#import "huodongzhuanfayaView.h"
+
+
+
+
+
 @interface ClassDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView*tableview;
 @property(nonatomic,strong)NSMutableArray*dataArr;
@@ -34,6 +41,9 @@
 @property(nonatomic,strong)UIView*vi;
 
 @property(nonatomic,strong)NSMutableArray*pictureArr;
+
+
+@property(nonatomic,strong)huodongzhuanfayaView *huodongzhuanfayaview;
 
 @end
 
@@ -178,8 +188,11 @@
         //        [self.navigationController pushViewController:vc animated:YES];
         
         
+//
+//        [self tanchuangWithModel:model];
         
-        [self tanchuangWithModel:model];
+        
+        [self quanchangzhuanfawithModel:model];
     };
     
     return cell;
@@ -214,6 +227,33 @@
 }
 
 
+-(void)quanchangzhuanfawithModel:(releaseActivitiesModel*)model{
+    
+    
+    UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
+    UIView *mengbanView = [[UIView alloc]init];
+    self.mengbanView = mengbanView;
+    self.mengbanView.frame = keyWindow.bounds;
+    [keyWindow addSubview:self.mengbanView];
+    mengbanView.alpha = 0.5;
+    mengbanView.backgroundColor=[UIColor blackColor];
+    
+    huodongzhuanfayaView *huodongzhuanfayaview = [[NSBundle mainBundle]loadNibNamed:@"huodongzhuanfayaView" owner:self options:nil].lastObject;
+    ViewBorderRadius(huodongzhuanfayaview, 5, 1, [UIColor clearColor]);
+    self.huodongzhuanfayaview = huodongzhuanfayaview;
+    huodongzhuanfayaview.frame = CGRectMake(0, kScreenHeight-550, kScreenWidth, 550);
+    
+    WeakSelf(weakSelf);
+    self.huodongzhuanfayaview.removeBlock = ^{
+       
+        
+          [weakSelf.mengbanView removeFromSuperview];
+    };
+    
+    
+    [keyWindow addSubview:huodongzhuanfayaview];
+    
+}
 
 
 
