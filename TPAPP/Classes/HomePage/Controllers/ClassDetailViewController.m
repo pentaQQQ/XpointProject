@@ -23,9 +23,9 @@
 
 #import "huodongzhuanfayaView.h"
 
-
-
-
+#import "zhuanfaModel.h"
+#import "HFiveDetailViewController.h"
+#import "CustomActivity.h"
 
 @interface ClassDetailViewController ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView*tableview;
@@ -230,6 +230,20 @@
 -(void)quanchangzhuanfawithModel:(releaseActivitiesModel*)model{
     
     
+    
+    WeakSelf(weakSelf)
+    [self getTheUserForwardConfiSuccess:^(zhuanfaModel *mod) {
+        [weakSelf getTheDiBuTanchuangWithModel:model AndzhuanfaModel:mod];
+    }];
+    
+    
+   
+    
+}
+
+
+-(void)getTheDiBuTanchuangWithModel:(releaseActivitiesModel*)model AndzhuanfaModel:(zhuanfaModel*)mod{
+   
     UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
     UIView *mengbanView = [[UIView alloc]init];
     self.mengbanView = mengbanView;
@@ -238,21 +252,96 @@
     mengbanView.alpha = 0.5;
     mengbanView.backgroundColor=[UIColor blackColor];
     
+    
+    UITapGestureRecognizer *tapges = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
+    [mengbanView addGestureRecognizer:tapges];
+    
     huodongzhuanfayaView *huodongzhuanfayaview = [[NSBundle mainBundle]loadNibNamed:@"huodongzhuanfayaView" owner:self options:nil].lastObject;
     ViewBorderRadius(huodongzhuanfayaview, 5, 1, [UIColor clearColor]);
     self.huodongzhuanfayaview = huodongzhuanfayaview;
-    huodongzhuanfayaview.frame = CGRectMake(0, kScreenHeight-550, kScreenWidth, 550);
+    huodongzhuanfayaview.frame = CGRectMake(0, kScreenHeight-500, kScreenWidth, 500);
+    
+    huodongzhuanfayaview.zhuanfamodel = mod;
+    huodongzhuanfayaview.model = model;
+    
     
     WeakSelf(weakSelf);
     self.huodongzhuanfayaview.removeBlock = ^{
-       
         
-          [weakSelf.mengbanView removeFromSuperview];
+        
+        [weakSelf.mengbanView removeFromSuperview];
     };
     
     
-    [keyWindow addSubview:huodongzhuanfayaview];
+    self.huodongzhuanfayaview.toH5Block = ^(NSString * _Nonnull url) {
+        HFiveDetailViewController *vc = [[HFiveDetailViewController alloc]init];
+        vc.url = url;
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+    };
     
+    
+    self.huodongzhuanfayaview.zhuanfaBlock = ^(NSString * _Nonnull url) {
+        
+        // 1、设置分享的内容，并将内容添加到数组中
+        NSString *shareText = @"分享的标题";
+        UIImage *shareImage = [UIImage imageNamed:@"logo"];
+        NSURL *shareUrl = [NSURL URLWithString:url];
+        NSArray *activityItemsArray = @[shareText,shareImage,shareUrl];
+        
+        // 自定义的CustomActivity，继承自UIActivity
+        CustomActivity *customActivity = [[CustomActivity alloc]initWithTitle:shareText ActivityImage:[UIImage imageNamed:@"logo"] URL:shareUrl ActivityType:@"Custom"];
+        NSArray *activityArray = @[customActivity];
+        
+        // 2、初始化控制器，添加分享内容至控制器
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItemsArray applicationActivities:activityArray];
+        activityVC.modalInPopover = YES;
+        // 3、设置回调
+        if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
+            // ios8.0 之后用此方法回调
+            UIActivityViewControllerCompletionWithItemsHandler itemsBlock = ^(UIActivityType __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError){
+                NSLog(@"activityType == %@",activityType);
+                if (completed == YES) {
+                    NSLog(@"completed");
+                }else{
+                    NSLog(@"cancel");
+                }
+            };
+            activityVC.completionWithItemsHandler = itemsBlock;
+        }else{
+            // ios8.0 之前用此方法回调
+            UIActivityViewControllerCompletionHandler handlerBlock = ^(UIActivityType __nullable activityType, BOOL completed){
+                NSLog(@"activityType == %@",activityType);
+                if (completed == YES) {
+                    NSLog(@"completed");
+                }else{
+                    NSLog(@"cancel");
+                }
+            };
+            activityVC.completionHandler = handlerBlock;
+        }
+        // 4、调用控制器
+        [weakSelf presentViewController:activityVC animated:YES completion:nil];
+    };
+    
+    
+    
+    [keyWindow addSubview:huodongzhuanfayaview];
+}
+
+
+-(void)tap{
+    [self.mengbanView removeFromSuperview];
+    [self.huodongzhuanfayaview removeView];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    self.huodongzhuanfayaview.hidden = YES;
+    self.mengbanView.hidden = YES;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+     self.huodongzhuanfayaview.hidden = NO;
+     self.mengbanView.hidden = NO;
 }
 
 
@@ -277,6 +366,11 @@
     ViewBorderRadius(zhuanfaotherview, 5, 1, [UIColor clearColor]);
     self.zhuanfaotherview = zhuanfaotherview;
     zhuanfaotherview.frame = CGRectMake(20, (kScreenHeight-322)/2, kScreenWidth-40, 322);
+    
+    
+   
+    
+    
     
     [keyWindow addSubview:zhuanfaotherview];
     
@@ -314,14 +408,6 @@
 
 
 
--(void)tap{
-    
-    [self.zhuanfaotherview removeFromSuperview];
-    [self.mengbanView removeFromSuperview];
-    
-}
-
-
 
 
 
@@ -342,8 +428,7 @@
 //合并成长图
 -(void)zhuanfaChangTuWithIndexArr:(releaseActivitiesModel*)model{
     
-    
-    
+
     [self getThePictureWithModel:model Success:^(UIImage *image) {
         
         
@@ -496,6 +581,34 @@
     activityVC.completionWithItemsHandler = myBlock;
     
     
+    
+}
+
+
+
+
+
+
+
+//获取配置设置
+-(void)getTheUserForwardConfiSuccess:(void(^)(zhuanfaModel*model))success{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    LYAccount *lyAccount = [LYAccount shareAccount];
+    NSString *userId = [NSString stringWithFormat:@"%@",lyAccount.id];
+    [dic setValue:userId forKey:@"userId"];
+    
+    [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]){
+            zhuanfaModel*model = [zhuanfaModel mj_objectWithKeyValues:json[@"data"]];
+            success(model);
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
     
 }
 

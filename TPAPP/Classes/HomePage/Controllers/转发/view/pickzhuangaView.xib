@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="pickzhuangaView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="204"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LTr-Ot-uf0">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择是否转发缺货商品" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMl-Se-WGH">
+                            <rect key="frame" x="116" y="11.5" width="143" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="9hc-Mg-eag"/>
+                        <constraint firstItem="uMl-Se-WGH" firstAttribute="centerY" secondItem="LTr-Ot-uf0" secondAttribute="centerY" id="nKB-oe-gjy"/>
+                        <constraint firstItem="uMl-Se-WGH" firstAttribute="centerX" secondItem="LTr-Ot-uf0" secondAttribute="centerX" id="tzL-le-JVS"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQG-8J-M2a">
+                    <rect key="frame" x="0.0" y="40" width="375" height="40"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="KUy-LB-6gB"/>
+                    </constraints>
+                    <state key="normal" title="不转发">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="buzhuanfaClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="stc-gl-N1K"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="khm-WY-7TL">
+                    <rect key="frame" x="0.0" y="81" width="375" height="40"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="7Ws-bn-kjP"/>
+                    </constraints>
+                    <state key="normal" title="转发">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="zhuanfaClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="4lU-Z9-bH6"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SaM-UY-KuM">
+                    <rect key="frame" x="0.0" y="131" width="375" height="40"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="40X-Ug-cGL"/>
+                    </constraints>
+                    <state key="normal" title="取消">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="quxiaoClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="GCN-F1-9bO"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dxG-Ac-H6p">
+                    <rect key="frame" x="0.0" y="172" width="375" height="32"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="khm-WY-7TL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="BKc-M2-LiA"/>
+                <constraint firstItem="SaM-UY-KuM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Emq-oi-Zu3"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="fQG-8J-M2a" secondAttribute="trailing" id="Fo1-9m-Hny"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="khm-WY-7TL" secondAttribute="trailing" id="HCy-F9-aMP"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SaM-UY-KuM" secondAttribute="trailing" id="IyW-Z1-XYC"/>
+                <constraint firstItem="LTr-Ot-uf0" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Jh5-yE-sbD"/>
+                <constraint firstItem="SaM-UY-KuM" firstAttribute="top" secondItem="khm-WY-7TL" secondAttribute="bottom" constant="10" id="KPU-Wo-kBO"/>
+                <constraint firstItem="dxG-Ac-H6p" firstAttribute="top" secondItem="SaM-UY-KuM" secondAttribute="bottom" constant="1" id="Mlp-ia-efx"/>
+                <constraint firstItem="dxG-Ac-H6p" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="S66-qk-JTg"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="LTr-Ot-uf0" secondAttribute="trailing" id="SXy-oP-P3Z"/>
+                <constraint firstAttribute="bottom" secondItem="dxG-Ac-H6p" secondAttribute="bottom" id="XyE-FZ-UMR"/>
+                <constraint firstItem="fQG-8J-M2a" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cX1-p7-C86"/>
+                <constraint firstItem="fQG-8J-M2a" firstAttribute="top" secondItem="LTr-Ot-uf0" secondAttribute="bottom" id="e0k-03-S8M"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="dxG-Ac-H6p" secondAttribute="trailing" id="mGX-cB-4me"/>
+                <constraint firstItem="khm-WY-7TL" firstAttribute="top" secondItem="fQG-8J-M2a" secondAttribute="bottom" constant="1" id="mRf-dc-P5F"/>
+                <constraint firstItem="LTr-Ot-uf0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="nZP-Ej-0IH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="138.40000000000001" y="-60.26986506746627"/>
+        </view>
+    </objects>
+</document>

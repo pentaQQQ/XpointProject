@@ -7,8 +7,11 @@
 //
 
 #import "BaseViewController.h"
-
+#import "releaseActivitiesModel.h"
 @interface PiliangzhuanfaViewController : BaseViewController
 
 @property(nonatomic,copy)NSString *ID;
+@property(nonatomic,copy)NSString *merchantId;
+
+@property(nonatomic,strong)releaseActivitiesModel *model;
 @end

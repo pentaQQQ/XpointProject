@@ -10,4 +10,7 @@
 
 @interface MerchanDetailViewController : BaseViewController
 @property(nonatomic,copy)NSString *ID;
+
+
+
 @end

@@ -486,6 +486,9 @@
             if ([model.typeac isEqualToString:@"0"]) {//批量转发
                 PiliangzhuanfaViewController *vc = [[PiliangzhuanfaViewController alloc]init];
                 vc.ID = model.id;
+                
+                vc.model = self.model;
+                
                 [self.navigationController pushViewController:vc animated:YES];
                 
             }else{//转发

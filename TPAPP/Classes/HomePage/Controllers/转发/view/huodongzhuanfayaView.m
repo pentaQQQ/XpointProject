@@ -7,8 +7,26 @@
 //
 
 #import "huodongzhuanfayaView.h"
+#import "pickzhuangaView.h"
+
+
 
 @interface huodongzhuanfayaView()<UITextViewDelegate>
+@property(nonatomic,copy)NSString *count;
+@property(nonatomic,assign)BOOL iszidingyi;
+@property(nonatomic,copy)NSString *zidingcount;
+
+@property(nonatomic,weak)UIView *mengbanView;
+@property(nonatomic,strong)pickzhuangaView*pickzhuangaview;
+
+
+
+
+
+@property(nonatomic,copy)NSString *shanghuId;
+
+@property(nonatomic,copy)NSString *cishanghuId;
+
 
 @end
 
@@ -21,6 +39,9 @@
     self = [super initWithCoder:aDecoder];
     if(self)
     {
+        self.count = @"0";
+        self.iszidingyi = NO;
+        self.zidingcount = @"0";
         [self layoutAllSubviews];
         
     }
@@ -109,7 +130,9 @@
         weakSelf.zidingyiLab.textColor = [UIColor blackColor];
         weakSelf.zidingyiLineView.hidden = YES;
         
-         weakSelf.zidingyihahhaView.hidden = YES;
+        weakSelf.zidingyihahhaView.hidden = YES;
+        
+        weakSelf.iszidingyi = NO;
     }];
     
 }
@@ -124,7 +147,10 @@
         
         weakSelf.zidingyiLab.textColor = [UIColor redColor];
         weakSelf.zidingyiLineView.hidden = NO;
-         weakSelf.zidingyihahhaView.hidden = NO;
+        weakSelf.zidingyihahhaView.hidden = NO;
+        
+        weakSelf.iszidingyi = YES;
+        
     }];
 }
 
@@ -142,7 +168,7 @@
         
         weakSelf.zidingyihahhaView.hidden = NO;
         
-        
+        weakSelf.iszidingyi = YES;
     }];
 }
 
@@ -164,6 +190,7 @@
         ViewBorderRadius(weakSelf.fiveBtn, 12.5, 1, [UIColor clearColor]);
         ViewBorderRadius(weakSelf.tenBtn, 12.5, 1, [UIColor clearColor]);
         ViewBorderRadius(weakSelf.fitenBtn, 12.5, 1, [UIColor clearColor]);
+        weakSelf.count = @"0";
     }];
     
 }
@@ -180,6 +207,8 @@
         ViewBorderRadius(weakSelf.fiveBtn, 12.5, 1, [UIColor redColor]);
         ViewBorderRadius(weakSelf.tenBtn, 12.5, 1, [UIColor clearColor]);
         ViewBorderRadius(weakSelf.fitenBtn, 12.5, 1, [UIColor clearColor]);
+        
+        weakSelf.count = @"5";
     }];
 }
 
@@ -197,6 +226,8 @@
         ViewBorderRadius(weakSelf.fiveBtn, 12.5, 1, [UIColor clearColor]);
         ViewBorderRadius(weakSelf.tenBtn, 12.5, 1, [UIColor redColor]);
         ViewBorderRadius(weakSelf.fitenBtn, 12.5, 1, [UIColor clearColor]);
+        
+        weakSelf.count = @"10";
     }];
 }
 
@@ -209,11 +240,12 @@
         [weakSelf.fiveBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [weakSelf.tenBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [weakSelf.fitenBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-
+        
         ViewBorderRadius(weakSelf.bujiajiaBtn, 12.5, 1, [UIColor clearColor]);
         ViewBorderRadius(weakSelf.fiveBtn, 12.5, 1, [UIColor clearColor]);
         ViewBorderRadius(weakSelf.tenBtn, 12.5, 1, [UIColor clearColor]);
         ViewBorderRadius(weakSelf.fitenBtn, 12.5, 1, [UIColor redColor]);
+        weakSelf.count = @"15";
     }];
 }
 
@@ -221,19 +253,179 @@
 -(void)setSecondImageview:(UIImageView *)secondImageview{
     
     _secondImageview = secondImageview;
-     ViewBorderRadius(secondImageview, 5, 1, [UIColor lightGrayColor]);
+    ViewBorderRadius(secondImageview, 5, 1, [UIColor lightGrayColor]);
 }
 
 
 -(void)setYulanBtn:(UIButton *)yulanBtn{
     _yulanBtn = yulanBtn;
-     ViewBorderRadius(yulanBtn, 20, 1, [UIColor redColor]);
+    ViewBorderRadius(yulanBtn, 20, 1, [UIColor redColor]);
 }
 
 -(void)setZhuanfaBtn:(UIButton *)zhuanfaBtn{
     _zhuanfaBtn = zhuanfaBtn;
     ViewBorderRadius(zhuanfaBtn, 20, 1, [UIColor redColor]);
 }
+
+
+-(void)setZhuanfaView:(UIView *)zhuanfaView{
+    _zhuanfaView = zhuanfaView;
+    WeakSelf(weakSelf)
+    [zhuanfaView addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
+        [weakSelf setui];
+    }];
+    
+    
+}
+
+
+
+
+-(void)setui{
+    
+    UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
+    UIView *mengbanView = [[UIView alloc]init];
+    self.mengbanView = mengbanView;
+    self.mengbanView.frame = keyWindow.bounds;
+    [keyWindow addSubview:self.mengbanView];
+    mengbanView.alpha = 0.5;
+    mengbanView.backgroundColor=[UIColor blackColor];
+    
+    
+    UITapGestureRecognizer *tapges = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
+    [mengbanView addGestureRecognizer:tapges];
+    
+    pickzhuangaView *pickzhuangaview = [[NSBundle mainBundle]loadNibNamed:@"pickzhuangaView" owner:self options:nil].lastObject;
+    
+    self.pickzhuangaview = pickzhuangaview;
+    
+    
+    pickzhuangaview.frame = CGRectMake(0, kScreenHeight-171, kScreenWidth, 171);
+    
+    [keyWindow addSubview:pickzhuangaview];
+    
+    
+    WeakSelf(weakSelf)
+    pickzhuangaview.buzhuanfaBlock = ^{
+        
+        weakSelf.zhuanfaLab.text = @"不转发";
+        [weakSelf.mengbanView removeFromSuperview];
+        
+    };
+    
+    pickzhuangaview.zhuanfaBlock = ^{
+        weakSelf.zhuanfaLab.text = @"转发";
+        [weakSelf.mengbanView removeFromSuperview];
+        
+    };
+    
+    pickzhuangaview.quxiaoBlock = ^{
+        [weakSelf.mengbanView removeFromSuperview];
+    };
+    
+    
+}
+
+-(void)tap{
+    
+    [self.mengbanView removeFromSuperview];
+    
+    [self.pickzhuangaview removeView];
+}
+
+
+
+-(void)setModel:(releaseActivitiesModel *)model{
+    
+    _model = model;
+    
+    
+    self.shanghuId = model.merchantId;
+    self.cishanghuId = model.id;
+    
+    [self.firstimageview sd_setImageWithURL:[NSURL URLWithString:model.merchantUrL] placeholderImage:[UIImage imageNamed:@""]];
+    
+    self.huodongTitle.text = model.merchantName;
+    
+    if ([self.zhuanfamodel.price isEqualToString:@"5"]) {
+        [self.bujiajiaBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.fiveBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [self.tenBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.fitenBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        ViewBorderRadius(self.bujiajiaBtn, 12.5, 1, [UIColor clearColor]);
+        ViewBorderRadius(self.fiveBtn, 12.5, 1, [UIColor redColor]);
+        ViewBorderRadius(self.tenBtn, 12.5, 1, [UIColor clearColor]);
+        ViewBorderRadius(self.fitenBtn, 12.5, 1, [UIColor clearColor]);
+        self.count = @"5";
+    }else if ([self.zhuanfamodel.price isEqualToString:@"10"]){
+        [self.bujiajiaBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.fiveBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.tenBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [self.fitenBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        ViewBorderRadius(self.bujiajiaBtn, 12.5, 1, [UIColor clearColor]);
+        ViewBorderRadius(self.fiveBtn, 12.5, 1, [UIColor clearColor]);
+        ViewBorderRadius(self.tenBtn, 12.5, 1, [UIColor redColor]);
+        ViewBorderRadius(self.fitenBtn, 12.5, 1, [UIColor clearColor]);
+        self.count = @"10";
+    }else if ([self.zhuanfamodel.price isEqualToString:@"15"]){
+        [self.bujiajiaBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.fiveBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.tenBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.fitenBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        
+        ViewBorderRadius(self.bujiajiaBtn, 12.5, 1, [UIColor clearColor]);
+        ViewBorderRadius(self.fiveBtn, 12.5, 1, [UIColor clearColor]);
+        ViewBorderRadius(self.tenBtn, 12.5, 1, [UIColor clearColor]);
+        ViewBorderRadius(self.fitenBtn, 12.5, 1, [UIColor redColor]);
+        self.count = @"15";
+    }else{
+        [self.bujiajiaBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [self.fiveBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.tenBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.fitenBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        ViewBorderRadius(self.bujiajiaBtn, 12.5, 1, [UIColor redColor]);
+        ViewBorderRadius(self.fiveBtn, 12.5, 1, [UIColor clearColor]);
+        ViewBorderRadius(self.tenBtn, 12.5, 1, [UIColor clearColor]);
+        ViewBorderRadius(self.fitenBtn, 12.5, 1, [UIColor clearColor]);
+        self.count = @"0";
+    }
+}
+
+
+-(void)setMerchantId:(NSString *)merchantId{
+    
+    _merchantId = merchantId;
+    
+    self.shanghuId = merchantId;
+}
+
+-(void)setActivityId:(NSString *)activityId{
+    
+    _activityId = activityId;
+    self.cishanghuId = activityId;
+}
+
+
+-(void)setImageurl:(NSString *)imageurl{
+    _imageurl = imageurl;
+    [self.firstimageview sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage:[UIImage imageNamed:@""]];
+    
+    
+}
+
+-(void)setName:(NSString *)name{
+    _name = name;
+    
+    self.huodongTitle.text = name;
+}
+
+
+
+
+
 
 
 
@@ -247,6 +439,100 @@
     [self removeMengbanBlock];
     
 }
+
+- (IBAction)xiaoguoyulanClick:(id)sender {
+    
+    [self getTheh5forgoods];
+}
+
+
+- (IBAction)zhuanfaClick:(id)sender {
+    
+    [self getzhuanfa];
+}
+
+
+
+
+
+-(void)getTheh5forgoods{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
+    [dic setValue:self.model.merchantId forKey:@"merchantId"];
+    [dic setValue:self.model.id forKey:@"activityId"];
+    
+    if (self.iszidingyi) {
+        
+        if (!self.textfield.text.length) {
+            [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入加价金额" withDuration:1.5];
+            return;
+        }else{
+            [dic setValue:self.textfield.text forKey:@"amount"];
+        }
+        
+    }else{
+        [dic setValue:self.count forKey:@"amount"];
+    }
+    
+    
+    
+    [[NetworkManager sharedManager]getWithUrl:geth5forgoods param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        
+        
+        if (self.toH5Block) {
+            
+            NSString *url = [NSString stringWithFormat:@"%@",json[@"data"]];
+            self.toH5Block(url);
+        }
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+}
+
+-(void)getzhuanfa{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
+    [dic setValue:self.shanghuId forKey:@"merchantId"];
+    [dic setValue:self.cishanghuId forKey:@"activityId"];
+    
+    if (self.iszidingyi) {
+        
+        if (!self.textfield.text.length) {
+            [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入加价金额" withDuration:1.5];
+            return;
+        }else{
+            [dic setValue:self.textfield.text forKey:@"amount"];
+        }
+        
+    }else{
+        [dic setValue:self.count forKey:@"amount"];
+    }
+    
+    
+    
+    [[NetworkManager sharedManager]getWithUrl:geth5forgoods param:dic success:^(id json) {
+        NSLog(@"%@",json);
+        
+        
+        if (self.toH5Block) {
+            
+            NSString *url = [NSString stringWithFormat:@"%@",json[@"data"]];
+            self.zhuanfaBlock(url);
+        }
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+}
+
 
 
 @end

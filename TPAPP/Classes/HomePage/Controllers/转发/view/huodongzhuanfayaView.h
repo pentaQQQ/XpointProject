@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "zhuanfaModel.h"
+#import "releaseActivitiesModel.h"
+
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface huodongzhuanfayaView : UIView
@@ -63,6 +68,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,copy)void(^removeBlock)(void);
 
+
+
+
+@property(nonatomic,strong)releaseActivitiesModel*model;
+
+@property(nonatomic,strong)zhuanfaModel*zhuanfamodel;
+
+
+@property(nonatomic,copy)NSString *merchantId;
+
+@property(nonatomic,copy)NSString *activityId;
+
+@property(nonatomic,copy)NSString *imageurl;
+
+@property(nonatomic,copy)NSString *name;
+
+@property(nonatomic,copy)void(^toH5Block)(NSString *url);
+
+@property(nonatomic,copy)void(^zhuanfaBlock)(NSString *url);
+
+-(void)removeView;
 @end
 
 NS_ASSUME_NONNULL_END
