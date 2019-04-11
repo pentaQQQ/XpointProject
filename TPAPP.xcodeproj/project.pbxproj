@@ -1228,7 +1228,7 @@
 		8E60007F225F344000988A5B /* pickzhuangaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pickzhuangaView.h; sourceTree = "<group>"; };
 		8E600080225F344100988A5B /* CustomActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomActivity.h; sourceTree = "<group>"; };
 		8E600081225F344100988A5B /* pickzhuangaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pickzhuangaView.m; sourceTree = "<group>"; };
-		8E600082225F344100988A5B /* huodongzhuanfayaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = huodongzhuanfayaView.m; sourceTree = "<group>"; };
+		8E600082225F344100988A5B /* huodongzhuanfayaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = huodongzhuanfayaView.m; sourceTree = "<group>"; wrapsLines = 1; };
 		8E600083225F344100988A5B /* CustomActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomActivity.m; sourceTree = "<group>"; };
 		8E600084225F344100988A5B /* huodongzhuanfayaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = huodongzhuanfayaView.xib; sourceTree = "<group>"; };
 		8E600085225F344100988A5B /* pickzhuangaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pickzhuangaView.xib; sourceTree = "<group>"; };

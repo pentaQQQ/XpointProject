@@ -300,7 +300,7 @@
     self.pickzhuangaview = pickzhuangaview;
     
     
-    pickzhuangaview.frame = CGRectMake(0, kScreenHeight-171, kScreenWidth, 171);
+    pickzhuangaview.frame = CGRectMake(0, kScreenHeight-171-SafeAreaBottomHeight, kScreenWidth, 171+SafeAreaBottomHeight);
     
     [keyWindow addSubview:pickzhuangaview];
     
