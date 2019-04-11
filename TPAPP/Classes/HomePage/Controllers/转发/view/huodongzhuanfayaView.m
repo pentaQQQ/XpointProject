@@ -51,9 +51,9 @@
 - (void)layoutAllSubviews{
     
     CGPoint accountCenter = self.center;
-    accountCenter.y += 550;
+    accountCenter.y += 550+SafeAreaBottomHeight;
     self.center =accountCenter;
-    accountCenter.y -= 550;
+    accountCenter.y -= 550+SafeAreaBottomHeight;
     [huodongzhuanfayaView animateWithDuration:0.5 animations:^{
         self.center = accountCenter;
         
@@ -66,7 +66,7 @@
     CGPoint accountCenter = self.center;
     accountCenter.y -= 0;
     self.center =accountCenter;
-    accountCenter.y += 550;
+    accountCenter.y += 550+SafeAreaBottomHeight;
     [huodongzhuanfayaView animateWithDuration:0.5 animations:^{
         self.center = accountCenter;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

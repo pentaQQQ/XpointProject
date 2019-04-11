@@ -259,7 +259,7 @@
     huodongzhuanfayaView *huodongzhuanfayaview = [[NSBundle mainBundle]loadNibNamed:@"huodongzhuanfayaView" owner:self options:nil].lastObject;
     ViewBorderRadius(huodongzhuanfayaview, 5, 1, [UIColor clearColor]);
     self.huodongzhuanfayaview = huodongzhuanfayaview;
-    huodongzhuanfayaview.frame = CGRectMake(0, kScreenHeight-500, kScreenWidth, 500);
+    huodongzhuanfayaview.frame = CGRectMake(0, kScreenHeight-500-SafeAreaBottomHeight, kScreenWidth, 500+SafeAreaBottomHeight);
     
     huodongzhuanfayaview.zhuanfamodel = mod;
     huodongzhuanfayaview.model = model;
