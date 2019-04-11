@@ -15,6 +15,9 @@
 #import "jiajiaView.h"
 #import "zidingyijineView.h"
 
+#import "huodongzhuanfayaView.h"
+#import "HFiveDetailViewController.h"
+#import "CustomActivity.h"
 @interface PiliangzhuanfaViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 
@@ -57,6 +60,13 @@
 
 @property(nonatomic,strong)jiajiaView*jiajiaview;
 @property(nonatomic,strong)zidingyijineView*jineview;
+
+
+
+
+@property(nonatomic,strong)huodongzhuanfayaView *huodongzhuanfayaview;
+
+
 @end
 
 @implementation PiliangzhuanfaViewController
@@ -81,6 +91,10 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
+    self.huodongzhuanfayaview.hidden = NO;
+    self.mengbanView.hidden = NO;
+    
     [self getTheUserForwardConfiSuccess:^(zhuanfaModel *model) {
         
         self.price = model.price;
@@ -90,7 +104,7 @@
         
         [self.zhuanfaBtn setTitle:title forState:UIControlStateNormal];
         
-      
+        
         
     }];
 }
@@ -129,7 +143,7 @@
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.tableFooterView = [UIView new];
- 
+    
     [self getTheUserForwardConfi];
     
     
@@ -243,23 +257,28 @@
     
     NSString *ind = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
     
-   
+    
+    
+    if ([self.indexArr containsObject:ind]) {
+        [self.indexArr removeObject:ind];
+        self.topLab.text = [NSString stringWithFormat:@"当前已选中%lu款商品",(unsigned long)self.indexArr.count];
+    }else{
         
-        if ([self.indexArr containsObject:ind]) {
-            [self.indexArr removeObject:ind];
+        
+        if (self.indexArr.count == self.shareCount) {
+            NSString *ti = [NSString stringWithFormat:@"一次最多只能选%d个商品",self.shareCount];
+            [SVProgressHUD doAnyRemindWithHUDMessage:ti withDuration:1.5];
+            return;
         }else{
+            [self.indexArr addObject:ind];
+            
+            self.topLab.text = [NSString stringWithFormat:@"当前已选中%lu款商品",(unsigned long)self.indexArr.count];
             
             
-            if (self.indexArr.count == self.shareCount) {
-                NSString *ti = [NSString stringWithFormat:@"一次最多只能选%d个商品",self.shareCount];
-                [SVProgressHUD doAnyRemindWithHUDMessage:ti withDuration:1.5];
-                return;
-            }else{
-                 [self.indexArr addObject:ind];
-            }
-  
         }
-        [self.tableview reloadData];
+        
+    }
+    [self.tableview reloadData];
     
     
 }
@@ -341,10 +360,130 @@
         [self zhuanfaChangTu];
         
     }else{//分享整场活动
-         [self zhuanfaChangTu];
+//        [self zhuanfaChangTu];
+        
+       
+        
+        [self getTheDiBuTanchuangWithModel:self.model AndzhuanfaModel:self.zhuanfamodel];
     }
     
 }
+
+
+
+
+
+
+
+
+-(void)getTheDiBuTanchuangWithModel:(releaseActivitiesModel*)model AndzhuanfaModel:(zhuanfaModel*)mod{
+    
+    UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
+    UIView *mengbanView = [[UIView alloc]init];
+    self.mengbanView = mengbanView;
+    self.mengbanView.frame = keyWindow.bounds;
+    [keyWindow addSubview:self.mengbanView];
+    mengbanView.alpha = 0.5;
+    mengbanView.backgroundColor=[UIColor blackColor];
+    
+    
+    UITapGestureRecognizer *tapges = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
+    [mengbanView addGestureRecognizer:tapges];
+    
+    huodongzhuanfayaView *huodongzhuanfayaview = [[NSBundle mainBundle]loadNibNamed:@"huodongzhuanfayaView" owner:self options:nil].lastObject;
+    ViewBorderRadius(huodongzhuanfayaview, 5, 1, [UIColor clearColor]);
+    self.huodongzhuanfayaview = huodongzhuanfayaview;
+    huodongzhuanfayaview.frame = CGRectMake(0, kScreenHeight-500, kScreenWidth, 500);
+    
+    huodongzhuanfayaview.zhuanfamodel = mod;
+    huodongzhuanfayaview.model = model;
+    
+    WeakSelf(weakSelf);
+    self.huodongzhuanfayaview.removeBlock = ^{
+        
+        
+        [weakSelf.mengbanView removeFromSuperview];
+    };
+    
+    
+    self.huodongzhuanfayaview.toH5Block = ^(NSString * _Nonnull url) {
+        HFiveDetailViewController *vc = [[HFiveDetailViewController alloc]init];
+        vc.url = url;
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+    };
+    
+    
+    self.huodongzhuanfayaview.zhuanfaBlock = ^(NSString * _Nonnull url) {
+        
+        // 1、设置分享的内容，并将内容添加到数组中
+        NSString *shareText = @"分享的标题";
+        UIImage *shareImage = [UIImage imageNamed:@"logo"];
+        NSURL *shareUrl = [NSURL URLWithString:url];
+        NSArray *activityItemsArray = @[shareText,shareImage,shareUrl];
+        
+        // 自定义的CustomActivity，继承自UIActivity
+        CustomActivity *customActivity = [[CustomActivity alloc]initWithTitle:shareText ActivityImage:[UIImage imageNamed:@"logo"] URL:shareUrl ActivityType:@"Custom"];
+        NSArray *activityArray = @[customActivity];
+        
+        // 2、初始化控制器，添加分享内容至控制器
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItemsArray applicationActivities:activityArray];
+        activityVC.modalInPopover = YES;
+        // 3、设置回调
+        if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
+            // ios8.0 之后用此方法回调
+            UIActivityViewControllerCompletionWithItemsHandler itemsBlock = ^(UIActivityType __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError){
+                NSLog(@"activityType == %@",activityType);
+                if (completed == YES) {
+                    NSLog(@"completed");
+                }else{
+                    NSLog(@"cancel");
+                }
+            };
+            activityVC.completionWithItemsHandler = itemsBlock;
+        }else{
+            // ios8.0 之前用此方法回调
+            UIActivityViewControllerCompletionHandler handlerBlock = ^(UIActivityType __nullable activityType, BOOL completed){
+                NSLog(@"activityType == %@",activityType);
+                if (completed == YES) {
+                    NSLog(@"completed");
+                }else{
+                    NSLog(@"cancel");
+                }
+            };
+            activityVC.completionHandler = handlerBlock;
+        }
+        // 4、调用控制器
+        [weakSelf presentViewController:activityVC animated:YES completion:nil];
+    };
+    
+    
+    
+    [keyWindow addSubview:huodongzhuanfayaview];
+}
+
+
+-(void)tappp{
+    [self.mengbanView removeFromSuperview];
+    [self.huodongzhuanfayaview removeView];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    self.huodongzhuanfayaview.hidden = YES;
+    self.mengbanView.hidden = YES;
+}
+//
+//-(void)viewWillAppear:(BOOL)animated{
+//    self.huodongzhuanfayaview.hidden = NO;
+//    self.mengbanView.hidden = NO;
+//}
+
+
+
+
+
+
+
+
 
 
 
@@ -476,7 +615,7 @@
             }];
             
         });
-
+        
     }
     
 }
@@ -491,7 +630,7 @@
         high = kScreenHeight/3+60;
     }else{
         high = kScreenHeight/3+20;
-     
+        
     }
     
     UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, high)];
@@ -530,14 +669,14 @@
     
     [[NetworkManager sharedManager]getWithUrl:getUserForwardConfi param:dic success:^(id json) {
         NSLog(@"%@",json);
-       
+        
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]){
             self.zhuanfamodel = [zhuanfaModel mj_objectWithKeyValues:json[@"data"]];
             self.shareCount =  [self.zhuanfamodel.num intValue];
             [self.tableview reloadData];
             
-        [self lodaData];
+            [self lodaData];
             
         }
     } failure:^(NSError *error) {
@@ -652,10 +791,10 @@
         
         if (![title isEqualToString:@""]) {
             
-           
+            
             
             if ([title isEqualToString:@"不加价"]) {
-               
+                
                 self.price = @"0";
                 
                 NSString*title = [NSString stringWithFormat:@"批量转发(+%@)",self.price];
@@ -665,8 +804,8 @@
                 
                 
             }else if ([title isEqualToString:@"+5元"]){
-              
-            
+                
+                
                 self.price = @"5";
                 
                 NSString*title = [NSString stringWithFormat:@"批量转发(+%@)",self.price];
@@ -675,15 +814,15 @@
                 
                 
             }else if ([title isEqualToString:@"+10元"]){
-               
+                
                 self.price = @"10";
                 
                 NSString*title = [NSString stringWithFormat:@"批量转发(+%@)",self.price];
                 
                 [self.zhuanfaBtn setTitle:title forState:UIControlStateNormal];
-  
+                
             }
-   
+            
         }else{
             
             [weakSelf setUpZidingyijineView];
@@ -722,7 +861,7 @@
         
         if ([respCode isEqualToString:@"00000"]){
             [self getTheUserForwardConfiSuccess:^(zhuanfaModel *model) {
-               
+                
                 
                 self.price = model.price;
                 
@@ -775,7 +914,7 @@
     
     [jineview.sureBtn addTapActionWithBlock:^(UIGestureRecognizer *gestureRecoginzer) {
         
-      
+        
         
         self.price = jineview.textField.text;
         

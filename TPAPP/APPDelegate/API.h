@@ -74,6 +74,8 @@
 //根据关键词和商户ID搜索商品,返回所有已上架商品
 #define getsearchProductByKeyword [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/searchProductByKeyword"]
 
+//获取转发的h5
+#define geth5forgoods [NSString stringWithFormat:@"%@%@",kBaseUrl,@"/api/merchant/getH5Address"]
 
 
 
