@@ -18,7 +18,13 @@
     return self;
 }
 
-- (void)createUI {    
+- (void)createUI {
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activityIndicatorView.frame = CGRectMake(-20, 10, 20, 20);
+    self.activityIndicatorView.backgroundColor = UIColor.clearColor;
+    [self.activityIndicatorView hidesWhenStopped];
+    [self addSubview:self.activityIndicatorView];
+
     self.nameLabel = [[UILabel alloc] init];
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.textColor = [UIColor blackColor];

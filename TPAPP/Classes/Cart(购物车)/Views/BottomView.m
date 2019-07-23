@@ -120,7 +120,7 @@
                 [dataArr addObject:model];
                 index2 = index2 +model.number;
                 double product;
-                double Price = [model.productForm.marketAmount doubleValue];
+                double Price = [model.productForm.realAmount doubleValue];
                 NSInteger goodsNum = model.number;
                 product = Price * goodsNum;
                 
@@ -142,11 +142,14 @@
     AllPrice.attributedText = [self String:String RangeString:[NSString stringWithFormat:@"￥%.2f",goodsSum]];
     if (index2 == index1 ) {
         [SelectedAll setImage:Image(@"已选中") forState:UIControlStateNormal];
+        
     }
     if (index2 > 0) {
         BalanceAccount.backgroundColor = colorWithRGB(0xFF6B24);
         BalanceAccount.userInteractionEnabled = YES;
     }else{
+        [SelectedAll setImage:Image(@"未选中支付") forState:UIControlStateNormal];
+        _AllSelected = YES;
         BalanceAccount.backgroundColor = [UIColor lightGrayColor];
         BalanceAccount.userInteractionEnabled = YES;
     }

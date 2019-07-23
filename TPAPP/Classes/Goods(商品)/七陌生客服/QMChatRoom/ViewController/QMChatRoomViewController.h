@@ -7,14 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QMLineSDK/QMLineSDK.h>
 
 @class QMChatRoomInputView;
 @class TCMessageManagerFaceView;
 @class addBackgroudView;
 @class QMChatRoomMoreView;
 @class QMRecordIndicatorView;
+@class QMChatRoomEvaluationView;
+@class QMChatRoomAssociationInputView;
 
-@interface QMChatRoomViewController : BaseViewController
+@interface QMChatRoomViewController : UIViewController
 
 @property (nonatomic, strong) UITableView *chatTableView; // 消息列表
 
@@ -25,6 +28,14 @@
 @property (nonatomic, strong) QMChatRoomMoreView *addView; // 扩展面板
 
 @property (nonatomic, strong) QMRecordIndicatorView *indicatorView; // 录音动画
+
+@property (nonatomic, strong) QMChatRoomEvaluationView *evaluationView;//人工满意度评价
+
+@property (nonatomic, strong) QMChatRoomAssociationInputView *associationView;//xbot联想输入面板
+
+@property (nonatomic, strong) UIActivityIndicatorView *circleViews;
+
+@property (nonatomic, strong) UIView *coverView;//蒙版
 
 @property (nonatomic, strong) UIButton *manualButotn; // 转人工
 
@@ -63,6 +74,10 @@
 @property (nonatomic, copy) NSString *leaveMsg; // 留言提示语 后台未配置显示默认
 
 @property (nonatomic, assign) BOOL isPush; // 判断是否为正常页面跳转
+
+@property (nonatomic, strong) QMEvaluation *evaluation;//满意度
+
+@property (nonatomic, strong) QMEvaluats *evaluats;//满意度评价详情
 
 @property (nonatomic, strong) NSMutableDictionary *heightCaches; // cell高度缓存
 

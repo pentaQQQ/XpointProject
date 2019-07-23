@@ -10,15 +10,19 @@
 
 @interface QMChatRoomGuestBookViewController : UIViewController
 
-@property (nonatomic ,strong)UILabel *messageLabel;
-@property (nonatomic ,strong)UITextView *messageTextView;
-@property (nonatomic ,strong)UILabel *textLabel;
+@property (nonatomic, strong)UIView *headerView;
 
-@property (nonatomic ,strong)UILabel *messageLabel2;
+@property (nonatomic, strong)UITextView *textView;
+
+@property (nonatomic, strong)UILabel *henaderLabel;
+
+@property (nonatomic ,strong)UILabel *textLabel;
 
 @property (nonatomic ,strong)UIButton *submitBtn;
 
 @property (nonatomic, copy) NSString *peerId; // 技能组ID
+
+@property (nonatomic, copy) NSString *headerTitle; // 留言标题
 
 @property (nonatomic, copy) NSString *leaveMsg; // 留言内容
 

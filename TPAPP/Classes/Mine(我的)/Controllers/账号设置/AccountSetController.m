@@ -16,6 +16,7 @@
 #import <NMSSH/NMSSH.h>
 #import "NewLoginViewController.h"
 #import "ConsignmentAddressManageController.h"
+#import "AboutUSViewController.h"
 @interface AccountSetController ()<UITableViewDelegate, UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,DeclareAbnormalAlertViewOrderListRemindDelegate>
 @property (nonatomic, readwrite, strong) UITableView *tableView;
 
@@ -77,8 +78,17 @@
     }
     
     cell.selectionStyle = cellModel.didSelectCellBlock ? UITableViewCellSelectionStyleDefault : UITableViewCellSelectionStyleNone;
-    
+    if (indexPath.section ==2){
+        if (indexPath.row == 0) {
+           cell.backgroundColor = [UIColor jk_colorWithHexString:@"E7E7E7"];
+        }else{
+           cell.backgroundColor = [UIColor whiteColor];
+        }
+    }else{
+        cell.backgroundColor = [UIColor whiteColor];
+    }
     [cell configureTableViewCellWithModel:cellModel];
+    
 
     return cell;
 }
@@ -137,20 +147,21 @@
             [self.navigationController pushViewController:idCtrl animated:YES];
         }
     }else if (indexPath.section == 1){
-        if (indexPath.row == 0) {
-            VIPViewController *vipCtrl = [[VIPViewController alloc] init];
-            [self.navigationController pushViewController:vipCtrl animated:YES];
-        }else if (indexPath.row == 1){
+//        if (indexPath.row == 0) {
+//            VIPViewController *vipCtrl = [[VIPViewController alloc] init];
+//            [self.navigationController pushViewController:vipCtrl animated:YES];
+//        }else
+            if (indexPath.row == 0){
             
             AddressManageController *idCtrl = [[AddressManageController alloc] init];
             idCtrl.title = @"地址管理";
             [self.navigationController pushViewController:idCtrl animated:YES];
-        }else if (indexPath.row == 2){
+        }else if (indexPath.row == 1){
             
             ConsignmentAddressManageController *idCtrl = [[ConsignmentAddressManageController alloc] init];
             idCtrl.title = @"代发货地址管理";
             [self.navigationController pushViewController:idCtrl animated:YES];
-        }else if (indexPath.row == 3){
+        }else if (indexPath.row == 2){
             //                LYAccount *account = [LYAccount shareAccount];
             //                if ([account.realName isEqualToString:@"0"]) {
             IdentificationController *idCtrl = [[IdentificationController alloc] init];
@@ -162,7 +173,11 @@
         }
     }else if (indexPath.section ==2){
         if (indexPath.row == 0) {
+            
         }else{
+            AboutUSViewController *idCtrl = [[AboutUSViewController alloc] init];
+            [self.navigationController pushViewController:idCtrl animated:YES];
+           
         }
     }else{
         DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确认退出登录吗"] selectType:@"确认退出登录" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
@@ -240,9 +255,9 @@
     
     YSStaticSectionModel *sm0 = [YSStaticSectionModel sectionWithItemArray:@[model0, model1, model2, model3]];
     
-    YSStaticDefaultModel *model4 = [[YSStaticDefaultModel alloc] init];
-    model4.title = @"会员等级";
-    model4.indicatorTitle = [NSString stringWithFormat:@"VIP%@",lyAccount.level];
+//    YSStaticDefaultModel *model4 = [[YSStaticDefaultModel alloc] init];
+//    model4.title = @"会员等级";
+//    model4.indicatorTitle = [NSString stringWithFormat:@"VIP%@",lyAccount.level];
     
     YSStaticDefaultModel *model5 = [[YSStaticDefaultModel alloc] init];
     model5.title = @"地址管理";
@@ -259,10 +274,14 @@
     YSStaticDefaultModel *model6 = [[YSStaticDefaultModel alloc] init];
     model6.title = @"实名认证";
     LYAccount *account = [LYAccount shareAccount];
-    if ([account.trueName isEqualToString:@"0"]) {
-        model6.indicatorTitle = @"未认证";
+    if ((![account.trueName isEqualToString:@"0"])&&(![account.identit isEqualToString:@"0"])) {
+        if (account.trueName == nil || account.identit == nil) {
+            model6.indicatorTitle = @"未认证";
+        }else{
+           model6.indicatorTitle = @"已认证";
+        }
     }else{
-       model6.indicatorTitle = @"已认证";
+       model6.indicatorTitle = @"未认证";
     }
     YSStaticDefaultModel *model10 = [[YSStaticDefaultModel alloc] init];
     model10.title = @"下单备注开关";
@@ -283,7 +302,8 @@
         }];
     }];
     
-    YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model4, model5,models,model6,model10]];
+//    YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model4, model5,models,model6,model10]];
+    YSStaticSectionModel *sm1 = [YSStaticSectionModel sectionWithItemArray:@[model5,models,model6,model10]];
     
     YSStaticDefaultModel *model7 = [[YSStaticDefaultModel alloc] init];
     model7.title = @"隐私政策";

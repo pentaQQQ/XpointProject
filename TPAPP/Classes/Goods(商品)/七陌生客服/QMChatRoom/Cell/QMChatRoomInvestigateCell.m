@@ -7,7 +7,7 @@
 //
 
 #import "QMChatRoomInvestigateCell.h"
-#import <QMChatSDK/QMChatSDK.h>
+#import <QMLineSDK/QMLineSDK.h>
 
 @implementation QMChatRoomInvestigateCell
 {

@@ -10,6 +10,8 @@
 
 @interface QMChatTileView : UIView
 
+@property (nonatomic, strong)UIActivityIndicatorView *activityIndicatorView;
+
 @property (nonatomic, strong)UILabel *nameLabel;
 
 @property (nonatomic, strong)UILabel *stateInfoLabel;

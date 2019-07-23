@@ -107,11 +107,11 @@ static float const NaviFont = 14.0f; /*导航栏的item字体大小*/
 #endif
 
 //开发的时候打印，但是发布的时候不打印的NSLog
-//#ifdef DEBUG
-//#define NSLog(...) NSLog(@"%s 第%d行 \n %@\n\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])
-//#else
-//#define NSLog(...)
-//#endif
+#ifdef DEBUG
+#define NSLog(...) NSLog(@"%s 第%d行 \n %@\n\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])
+#else
+#define NSLog(...)
+#endif
 
 //颜色
 #define kRGBColor(r, g, b)     [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]

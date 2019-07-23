@@ -8,7 +8,7 @@
 
 #import "QMChatRoomMp3Cell.h"
 #import <AVFoundation/AVFoundation.h>
-#import <QMChatSDK/QMChatSDK.h>
+#import <QMLineSDK/QMLineSDK.h>
 #import "QMAudioPlayer.h"
 #import "QMAudioAnimation.h"
 

@@ -16,6 +16,7 @@
 @property (nonatomic ,strong)UIButton * RecordBtn; // 录音按钮
 @property (nonatomic ,strong)UIButton * faceButton; // 表情按钮
 @property (nonatomic ,strong)UIButton * addButton; // 扩展按钮
+@property (nonatomic ,strong)UIView *coverView; // 限制出入蒙版
 
 /**
     录音按钮显示切换

@@ -131,7 +131,7 @@ static NSString *const headerViewIden = @"HeadViewIden";
     
     [self setUpUI];
     
-    [self prepareData];
+//    [self prepareData];
 }
 
 

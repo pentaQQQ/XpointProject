@@ -20,9 +20,9 @@
 
 
 #import "QMChatRoomViewController.h"
-#import <QMChatSDK/QMChatSDK.h>
-#import <QMChatSDK/QMChatSDK-Swift.h>
-
+//#import <QMChatSDK/QMChatSDK.h>
+//#import <QMChatSDK/QMChatSDK-Swift.h>
+#import <QMLineSDK/QMLineSDK.h>
 #import "QMChatRoomGuestBookViewController.h"
 #import "QMAlert.h"
 #import "QMManager.h"
@@ -59,12 +59,12 @@
     [super viewDidLoad];
     self.view.backgroundColor = WhiteColor;
     [self setUpUI];
+
     
-    
-    
+
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerSuccess:) name:CUSTOM_LOGIN_SUCCEED object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerFailure:) name:CUSTOM_LOGIN_ERROR_USER object:nil];
-    
+
     [self.navigationController.navigationBar setTranslucent:NO];
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
     
@@ -75,8 +75,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [SVProgressHUD doAnythingWithHUDMessage:@"获取中"];
     
-    [QMConnect registerSDKWithAppKey:@"5f12e670-c334-11e8-b0e0-5f753912b765" userName:@"8001" userId:@"8001_id"];
-    
+    [QMConnect registerSDKWithAppKey:QMChatSDKAppKey userName:@"8001" userId:@"8001_id"];
 }
 
 
@@ -139,8 +138,8 @@
     QImoModel *model = self.dataArr[indexPath.row];
     
     cell.titleLab.text = model.name;
-    cell.imageview.image = [UIImage imageNamed:@"qm_default_agent"];
-    
+//    cell.imageview.image = [UIImage imageNamed:@"qm_default_agent"];
+    cell.imageview.image = [UIImage imageNamed:@"QM_icon"];
     
     return cell;
 }
@@ -234,12 +233,9 @@
     [self.navigationController pushViewController:chatRoomViewController animated:YES];
 }
 
-
-
 #pragma mark - 日程管理
 - (void)starSchedule {
     self.isConnecting = NO;
-    
     if ([self.dictionary[@"scheduleId"]  isEqual: @""] || [self.dictionary[@"processId"]  isEqual: @""] || [self.dictionary objectForKey:@"entranceNode"] == nil || [self.dictionary objectForKey:@"leavemsgNodes"] == nil) {
         [QMAlert showMessage:NSLocalizedString(@"title.sorryconfigurationiswrong", nil)];
     }else{
@@ -252,9 +248,6 @@
         }
     }
 }
-
-
-
 
 - (void)showPeersWithAlert: (NSArray *)peers messageStr: (NSString *)message {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"title.type", nil) preferredStyle:UIAlertControllerStyleAlert];

@@ -24,7 +24,7 @@
 
 -(void)setImageview:(UIImageView *)imageview{
     _imageview = imageview;
-    ViewBorderRadius(imageview, 30, 1, [UIColor lightGrayColor]);
+    ViewBorderRadius(imageview, 30, 1, [UIColor whiteColor]);
 }
 
 @end

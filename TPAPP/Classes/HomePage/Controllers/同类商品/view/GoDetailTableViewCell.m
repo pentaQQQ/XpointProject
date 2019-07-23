@@ -256,10 +256,10 @@
 //增加尺码按钮
 -(void)setxianghaoBtnithArray:(NSArray*)array{
     
-    int tmp = array.count % 2;
-    int row = (int)array.count / 2;
+    int tmp = array.count % 4;
+    int row = (int)array.count / 4;
     
-    CGFloat high = 20;
+    CGFloat high = 30;
     
     row += tmp == 0 ? 0:1;
     
@@ -267,16 +267,16 @@
     int j=0;
     
     for (i=0; i<row; i++) {
-        for (j=0; j<2; j++) {
-            int k = 2*i +j;
+        for (j=0; j<4; j++) {
+            int k = 4*i +j;
             
             if (k<array.count) {
                 
                 specsModel *model =array[k];
               
-                NSString *title = [NSString stringWithFormat:@"%@(%ld)",model.size,[model.stock integerValue]];
-                
-                CGFloat widt = [LYTools widthForString:title fontSize:12 andHeight:20]+40;
+//                NSString *title = [NSString stringWithFormat:@"%@(%ld)",model.size,[model.stock integerValue]];
+                NSString *title = [NSString stringWithFormat:@"%@",model.size];
+                CGFloat widt = [LYTools widthForString:title fontSize:12 andHeight:30]+40;
                 
                 
                 CGFloat x = 0;
@@ -285,9 +285,9 @@
                     
                     specsModel *model =array[k-j+m];
                   
-                    NSString *title = [NSString stringWithFormat:@"%@(%ld)",model.size,[model.stock integerValue]];
-                    
-                    CGFloat widt = [LYTools widthForString:title fontSize:12 andHeight:20]+40;
+//                    NSString *title = [NSString stringWithFormat:@"%@(%ld)",model.size,[model.stock integerValue]];
+                    NSString *title = [NSString stringWithFormat:@"%@",model.size];
+                    CGFloat widt = [LYTools widthForString:title fontSize:12 andHeight:30]+40;
                     
                     if (m==0) {
                         x = widt+10;

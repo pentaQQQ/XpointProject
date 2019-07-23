@@ -314,87 +314,159 @@
         }
         
     }else{
-        [self.contentView addSubview:self.localImageView];
-        UIImage *image = [UIImage imageNamed:@"icon_addres"];
-        self.localImageView.image = image;
-        self.localImageView.sd_layout
-        .topSpaceToView(self.contentView, 28)
-        .leftSpaceToView(self.contentView, 15)
-        .widthIs(15)
-        .heightIs(15*image.size.height/image.size.width);
+        if (self.model == nil) {
+            [self.contentView addSubview:self.getAddess];
+            self.getAddess.text = @"发货地址";
+            self.getAddess.sd_layout
+            .topSpaceToView(self.contentView, 10)
+            .leftSpaceToView(self.contentView, 15)
+            .widthIs([self widthLabelWithModel:@"发货地址" withFont:15])
+            .heightIs(20);
+            
+            self.chooseAddress = [[UIControl alloc] init];
+            [self.contentView addSubview:self.chooseAddress];
+            [self.chooseAddress addTarget:self action:@selector(chooseNewAddressAction) forControlEvents:UIControlEventTouchUpInside];
+            self.chooseAddress.sd_layout
+            .topSpaceToView(self.contentView, 10)
+            .rightSpaceToView(self.contentView, 15)
+            .widthIs(55)
+            .heightIs(20);
+            
+            UIImageView *myImageview = [[UIImageView alloc] init];
+            myImageview.image = [UIImage imageNamed:@"编辑"];
+            [self.chooseAddress addSubview:myImageview];
+            myImageview.sd_layout
+            .topEqualToView(self.chooseAddress)
+            .leftEqualToView(self.chooseAddress)
+            .heightIs(20)
+            .widthIs(20);
+            
+            UILabel *chooseLabel = [[UILabel alloc] init];
+            chooseLabel.text = @"选择";
+            [self.chooseAddress addSubview:chooseLabel];
+            chooseLabel.font = [UIFont systemFontOfSize:14];
+            chooseLabel.textColor = [UIColor lightGrayColor];
+            chooseLabel.textAlignment = NSTextAlignmentRight;
+            chooseLabel.sd_layout
+            .topEqualToView(self.chooseAddress)
+            .rightEqualToView(self.chooseAddress)
+            .heightIs(20)
+            .widthIs(35);
+            
+            self.lineView = [[UIView alloc] init];
+            self.lineView.backgroundColor = colorWithRGB(0xEEEEEE);
+            [self.contentView addSubview:self.lineView];
+            self.lineView.sd_layout
+            .topSpaceToView(self.chooseAddress, 10)
+            .leftSpaceToView(self.contentView, 0)
+            .rightSpaceToView(self.contentView, 0)
+            .heightIs(1);
+            
+            [self.contentView addSubview:self.defaultLabel];
+            self.defaultLabel.text = @"是否代发货";
+            self.defaultLabel.sd_layout
+            .topSpaceToView(self.chooseAddress, 31)
+            .leftSpaceToView(self.contentView, 15)
+            .widthIs([self widthLabelWithModel:@"是否代发货" withFont:15])
+            .heightIs(20);
+            
+            
+            [self.contentView addSubview:self.defaultSwitch];
+            [self.defaultSwitch setOn:self.isSender];
+            self.defaultSwitch.onTintColor = colorWithRGB(0xFF6B24);
+            self.defaultSwitch.transform = CGAffineTransformMakeScale(.8, .8);
+            self.defaultSwitch.layer.anchorPoint = CGPointMake(0, 0);
+            self.defaultSwitch.sd_layout
+            .topSpaceToView(self.chooseAddress, 28)
+            .rightSpaceToView(self.contentView, 5)
+            .widthIs(40)
+            .heightIs(20);
+            
+            
+        }else{
+            [self.contentView addSubview:self.localImageView];
+            UIImage *image = [UIImage imageNamed:@"icon_addres"];
+            self.localImageView.image = image;
+            self.localImageView.sd_layout
+            .topSpaceToView(self.contentView, 28)
+            .leftSpaceToView(self.contentView, 15)
+            .widthIs(15)
+            .heightIs(15*image.size.height/image.size.width);
+            
+            
+            [self.contentView addSubview:self.buyUserName];
+            self.buyUserName.text = model.recNickName;
+            self.buyUserName.sd_layout
+            .topSpaceToView(self.contentView, 10)
+            .leftSpaceToView(self.contentView, 40)
+            .widthIs([self widthLabelWithModel:self.buyUserName.text withFont:15])
+            .heightIs(30);
+            
+            
+            [self.contentView addSubview:self.buyUserTelephone];
+            self.buyUserTelephone.text = model.recPhone;
+            self.buyUserTelephone.sd_layout
+            .topSpaceToView(self.contentView, 10)
+            .leftSpaceToView(self.buyUserName, 30)
+            .widthIs([self widthLabelWithModel:self.buyUserTelephone.text withFont:15])
+            .heightIs(30);
+            
+            [self.contentView addSubview:self.defaultImageView];
+            UIImage *image1 = [UIImage imageNamed:@"tag_moren"];
+            self.defaultImageView.image = image1;
+            self.defaultImageView.sd_layout
+            .topSpaceToView(self.contentView, 15)
+            .leftSpaceToView(self.buyUserTelephone, 5)
+            .widthIs(50)
+            .heightIs(20);
+            
+            
+            [self.contentView addSubview:self.buyUserAddess];
+            self.buyUserAddess.text = [NSString stringWithFormat:@"%@ %@ %@ %@",model.recProv,model.recCity,model.recArea,model.recAddress];
+            self.buyUserAddess.sd_layout
+            .topSpaceToView(self.buyUserTelephone, 0)
+            .leftSpaceToView(self.contentView, 40)
+            .rightSpaceToView(self.contentView, 60)
+            .heightIs(20);
+            
+            [self.contentView addSubview:self.changeAddressBtn];
+            UIImage *image2 = [UIImage imageNamed:@"icon_qiehuan"];
+            self.changeAddressBtn.sd_layout
+            .topSpaceToView(self.contentView, 25+(40-(15*image2.size.height/image2.size.width+20))/2)
+            .rightSpaceToView(self.contentView, 10)
+            .widthIs(40)
+            .heightIs(15*image2.size.height/image2.size.width+20);
+            
+            
+            [self.contentView addSubview:self.lineView];
+            self.lineView.sd_layout
+            .topSpaceToView(self.buyUserAddess, 15)
+            .leftSpaceToView(self.contentView, 0)
+            .rightSpaceToView(self.contentView, 0)
+            .heightIs(1);
+            
+            
+            [self.contentView addSubview:self.defaultLabel];
+            self.defaultLabel.text = @"是否代发货";
+            self.defaultLabel.sd_layout
+            .topSpaceToView(self.contentView, 91)
+            .leftSpaceToView(self.contentView, 15)
+            .widthIs([self widthLabelWithModel:@"是否代发货" withFont:15])
+            .heightIs(20);
+            
+            
+            [self.contentView addSubview:self.defaultSwitch];
+            [self.defaultSwitch setOn:NO];
+            self.defaultSwitch.onTintColor = colorWithRGB(0xFF6B24);
+            self.defaultSwitch.transform = CGAffineTransformMakeScale(.8, .8);
+            self.defaultSwitch.layer.anchorPoint = CGPointMake(0, 0);
+            self.defaultSwitch.sd_layout
+            .topSpaceToView(self.contentView, 91)
+            .rightSpaceToView(self.contentView, 5)
+            .widthIs(40)
+            .heightIs(20);
+        }
         
-        
-        [self.contentView addSubview:self.buyUserName];
-        self.buyUserName.text = model.recNickName;
-        self.buyUserName.sd_layout
-        .topSpaceToView(self.contentView, 10)
-        .leftSpaceToView(self.contentView, 40)
-        .widthIs([self widthLabelWithModel:self.buyUserName.text withFont:15])
-        .heightIs(30);
-        
-        
-        [self.contentView addSubview:self.buyUserTelephone];
-        self.buyUserTelephone.text = model.recPhone;
-        self.buyUserTelephone.sd_layout
-        .topSpaceToView(self.contentView, 10)
-        .leftSpaceToView(self.buyUserName, 30)
-        .widthIs([self widthLabelWithModel:self.buyUserTelephone.text withFont:15])
-        .heightIs(30);
-        
-        [self.contentView addSubview:self.defaultImageView];
-        UIImage *image1 = [UIImage imageNamed:@"tag_moren"];
-        self.defaultImageView.image = image1;
-        self.defaultImageView.sd_layout
-        .topSpaceToView(self.contentView, 15)
-        .leftSpaceToView(self.buyUserTelephone, 5)
-        .widthIs(50)
-        .heightIs(20);
-        
-        
-        [self.contentView addSubview:self.buyUserAddess];
-        self.buyUserAddess.text = [NSString stringWithFormat:@"%@ %@ %@ %@",model.recProv,model.recCity,model.recArea,model.recAddress];
-        self.buyUserAddess.sd_layout
-        .topSpaceToView(self.buyUserTelephone, 0)
-        .leftSpaceToView(self.contentView, 40)
-        .rightSpaceToView(self.contentView, 60)
-        .heightIs(20);
-        
-        [self.contentView addSubview:self.changeAddressBtn];
-        UIImage *image2 = [UIImage imageNamed:@"icon_qiehuan"];
-        self.changeAddressBtn.sd_layout
-        .topSpaceToView(self.contentView, 25+(40-(15*image2.size.height/image2.size.width+20))/2)
-        .rightSpaceToView(self.contentView, 10)
-        .widthIs(40)
-        .heightIs(15*image2.size.height/image2.size.width+20);
-        
-        
-        [self.contentView addSubview:self.lineView];
-        self.lineView.sd_layout
-        .topSpaceToView(self.buyUserAddess, 15)
-        .leftSpaceToView(self.contentView, 0)
-        .rightSpaceToView(self.contentView, 0)
-        .heightIs(1);
-        
-        
-        [self.contentView addSubview:self.defaultLabel];
-        self.defaultLabel.text = @"是否代发货";
-        self.defaultLabel.sd_layout
-        .topSpaceToView(self.buyUserAddess, 30)
-        .leftSpaceToView(self.contentView, 15)
-        .widthIs([self widthLabelWithModel:@"是否代发货" withFont:15])
-        .heightIs(20);
-        
-        
-        [self.contentView addSubview:self.defaultSwitch];
-        [self.defaultSwitch setOn:NO];
-        self.defaultSwitch.onTintColor = colorWithRGB(0xFF6B24);
-        self.defaultSwitch.transform = CGAffineTransformMakeScale(.8, .8);
-        self.defaultSwitch.layer.anchorPoint = CGPointMake(0, 0);
-        self.defaultSwitch.sd_layout
-        .topSpaceToView(self.buyUserAddess, 30)
-        .rightSpaceToView(self.contentView, 5)
-        .widthIs(40)
-        .heightIs(20);
     }
     
     
@@ -402,6 +474,11 @@
     
 }
 
+#pragma mark - 选择发货地址
+- (void)chooseNewAddressAction
+{
+    self.selectBlock(0);
+}
 #pragma mark - 选择代发货地址
 - (void)chooseAddressAction
 {

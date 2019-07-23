@@ -69,6 +69,13 @@
     self.addButton.tag = 3;
     [self.addButton setImage:[UIImage imageNamed:@"ToolBar_Add"] forState:UIControlStateNormal];
     [self addSubview: self.addButton];
+    
+    self.coverView = [[UIView alloc] init];
+    self.coverView.frame = CGRectMake(0, 0, kScreenWidth, kInputViewHeight);
+    self.coverView.backgroundColor = UIColor.clearColor;
+    [self.coverView setHidden:YES];
+    [self addSubview:self.coverView];
+    
 }
 
 // 开始录音

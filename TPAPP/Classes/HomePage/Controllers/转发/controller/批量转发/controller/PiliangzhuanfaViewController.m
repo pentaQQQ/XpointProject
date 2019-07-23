@@ -133,7 +133,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.currentIndex = 1;
+//    self.currentIndex = 1;
+    self.currentIndex = 3;
+    self.firstBtn.alpha = 0;
+    self.secondBtn.alpha = 0;
+    [self.firstBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
+    [self.secondBtn setImage:[UIImage imageNamed:@"icon_未选择"] forState:UIControlStateNormal];
+    [self.thirdBtn setImage:[UIImage imageNamed:@"已选中"] forState:UIControlStateNormal];
+    
+    
     ViewBorderRadius(self.jiajiaBtn, 5, 1, [UIColor redColor]);
     ViewBorderRadius(self.zhuanfaBtn, 5, 1, [UIColor clearColor]);
     self.toTopHigh.constant = SafeAreaTopHeight;
@@ -414,15 +422,20 @@
     
     
     self.huodongzhuanfayaview.zhuanfaBlock = ^(NSString * _Nonnull url) {
-        
+        NSString *titleName = model.merchantName;
+        if (self.huodongzhuanfayaview.biaotiTextView.text.length == 0) {
+            titleName = model.merchantName;
+        }else{
+            titleName = self.huodongzhuanfayaview.biaotiTextView.text;
+        }
         // 1、设置分享的内容，并将内容添加到数组中
-        NSString *shareText = @"分享的标题";
-        UIImage *shareImage = [UIImage imageNamed:@"logo"];
+        NSString *shareText = titleName;
+        UIImage *shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.merchantUrL]]];
         NSURL *shareUrl = [NSURL URLWithString:url];
         NSArray *activityItemsArray = @[shareText,shareImage,shareUrl];
         
         // 自定义的CustomActivity，继承自UIActivity
-        CustomActivity *customActivity = [[CustomActivity alloc]initWithTitle:shareText ActivityImage:[UIImage imageNamed:@"logo"] URL:shareUrl ActivityType:@"Custom"];
+        CustomActivity *customActivity = [[CustomActivity alloc]initWithTitle:shareText ActivityImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.merchantUrL]]] URL:shareUrl ActivityType:@"Custom"];
         NSArray *activityArray = @[customActivity];
         
         // 2、初始化控制器，添加分享内容至控制器

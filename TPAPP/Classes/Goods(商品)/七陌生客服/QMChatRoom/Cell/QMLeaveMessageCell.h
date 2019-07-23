@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) UITextField *textField;
 
+@property (nonatomic, strong) UIView *backView;
+
 - (void)setData: (NSDictionary *)information defaultValue: (NSString *)value;
 
 @property (nonatomic, copy) void(^backInformation)(NSString *);

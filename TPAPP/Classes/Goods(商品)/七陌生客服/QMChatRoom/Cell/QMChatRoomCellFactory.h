@@ -8,7 +8,7 @@
 
 @class QMChatRoomBaseCell;
 #import <Foundation/Foundation.h>
-#import <QMChatSDK/QMChatSDK-Swift.h>
+#import <QMLineSDK/QMLineSDK.h>
 
 @interface QMChatRoomCellFactory : NSObject
 

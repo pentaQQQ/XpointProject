@@ -45,6 +45,11 @@
     // Do any additional setup after loading the view.
     self.title = @"实名认证";
     self.view.backgroundColor = colorWithRGB(0xEEEEEE);
+    
+    [self listTableView];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     LYAccount *account = [LYAccount shareAccount];
     if (account.identitPicZ.length != 0) {
         self.FacadeIDImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:account.identitPicZ]]];
@@ -52,7 +57,7 @@
     if (account.identitPicF.length != 0) {
         self.oppositeIDImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:account.identitPicF]]];
     }
-    [self listTableView];
+    [self.listTableView reloadData];
 }
 #pragma mark - 懒加载
 -(NSMutableArray *)listDataArr

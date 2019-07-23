@@ -14,7 +14,7 @@
 #define AliSchemeKey @"tianyangcangappalipay"
 #define WeChateSecret   @"844ce927ffd81e5eee4c936e84c37da3"//微信开发者账号Secret
 #define WeChateappid    @"wxf366f6ce13931de9"//微信开发者账号appid
-
+#define QMChatSDKAppKey    @"5f12e670-c334-11e8-b0e0-5f753912b765"//七陌客服AppKey
 
 //AppID  :wx32d968fae8531d0a   AppSecret:a5315115b905a26a31e02ad5659fa22a
 

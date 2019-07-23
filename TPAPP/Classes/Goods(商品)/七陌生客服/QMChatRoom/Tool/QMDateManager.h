@@ -12,4 +12,12 @@
 
 + (NSString *)showChatTime:(NSString *)timeT;
 
++ (NSString*)getTimeStringAutoShort2:(NSDate*)dt mustIncludeTime:(BOOL)includeTime;
+
++ (NSString*)getTimeString:(NSDate*)dt format:(NSString*)fmt;
+
++ (NSTimeInterval) getIOSTimeStamp:(NSDate*)dat;
+
++ (long) getIOSTimeStamp_l:(NSDate*)dat;
+
 @end

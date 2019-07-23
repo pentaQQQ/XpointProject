@@ -7,6 +7,7 @@
 //
 
 #import "QMChatRoomBaseCell.h"
+#import "QMManager.h"
 
 #define kIconImageViewWidth 45
 
@@ -68,7 +69,14 @@
     }else {
         self.timeLabel.frame = CGRectMake(0, 10, kScreenWidth, 20);
     }
-    self.timeLabel.text = [QMDateManager showChatTime:message.createdTime];
+    /**3.2.2之前版本的时间显示
+     self.timeLabel.text = [QMDateManager showChatTime:message.createdTime];
+     */
+    
+    //3.2.2显示时间
+    NSString *spString = message.createdTime;
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[spString integerValue]/1000];
+    self.timeLabel.text = [QMDateManager getTimeStringAutoShort2:confromTimesp mustIncludeTime:true];
     
     // 重写
     if ([message.fromType isEqualToString:@"0"]) {
@@ -147,6 +155,10 @@
 }
 
 - (void)reSendAction: (UITapGestureRecognizer *)gesture {
+    if ([QMManager defaultManager].isFinish == YES) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:CUSTOMSRV_FINISH object:@"tapAction"];
+        return;
+    }
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"button.sendAgain", nil) preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction * doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"button.sure", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if ([_message.status isEqualToString:@"1"]) {

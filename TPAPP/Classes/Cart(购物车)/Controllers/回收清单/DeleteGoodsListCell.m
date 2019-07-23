@@ -170,7 +170,7 @@
     _Goods_Desc.text = [NSString stringWithFormat:@"款式 %@",info.productForm.design];
     _Goods_DescNum.text = [NSString stringWithFormat:@"款号 %@",info.productForm.designCode];
     _Goods_Size.text = [NSString stringWithFormat:@"规格: %@",info.size];
-    _Goods_Price.text = [NSString stringWithFormat:@"￥%@",info.productForm.marketAmount];
+    _Goods_Price.text = [NSString stringWithFormat:@"￥%@",info.productForm.realAmount];
     _Goods_Number.text = [NSString stringWithFormat:@"x%ld",(long)info.number];
     
     

@@ -38,13 +38,13 @@
         [self.describeLbl setHidden:NO];
         [self.noHelpBtn setSelected:NO];
         [self.helpBtn setSelected:YES];
-        self.describeLbl.text = NSLocalizedString(@"title.thanks", nil);
+        self.describeLbl.text = NSLocalizedString(@"title.thanks_yes", nil);
     }else if ([status isEqualToString:@"useless"]) {
         [self.horizonalLine setHidden:NO];
         [self.describeLbl setHidden:NO];
         [self.noHelpBtn setSelected:YES];
         [self.helpBtn setSelected:NO];
-        self.describeLbl.text = NSLocalizedString(@"title.thanks", nil);
+        self.describeLbl.text = NSLocalizedString(@"title.thanks_no", nil);
     }else {
         [self.horizonalLine setHidden:YES];
         [self.describeLbl setHidden:YES];

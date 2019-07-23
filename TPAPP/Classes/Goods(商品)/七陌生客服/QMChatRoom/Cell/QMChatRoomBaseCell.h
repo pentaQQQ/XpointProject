@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <QMChatSDK/QMChatSDK-Swift.h>
+#import <QMLineSDK/QMLineSDK.h>
+
 
 @interface QMChatRoomBaseCell : UITableViewCell
 

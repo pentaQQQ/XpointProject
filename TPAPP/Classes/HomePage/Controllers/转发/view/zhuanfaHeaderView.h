@@ -55,4 +55,8 @@
 @property(nonatomic,copy)void(^zhuanfaBlock)(SimilarProductModel*model,int currentDEX);
 
 
+
+@property (strong, nonatomic) UIButton *jiajiaBtn;
+@property (strong, nonatomic) UIButton *piliangBtn;
+//@property(nonatomic,strong)NSString * price;
 @end

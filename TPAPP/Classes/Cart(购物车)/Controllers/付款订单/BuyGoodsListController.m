@@ -219,6 +219,12 @@
     } fail:^(NSError *error) {
 //        NSLog(@"%@",error);
     }];
+    
+    [self.listTableView reloadData];
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     [self.listTableView reloadData];
 }
 - (void)createBottomView
@@ -283,9 +289,12 @@
 }
 - (void)buyButtonAction
 {
-    DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"结单后到已支付里 打勾 按批量发货或 按确定发货 按钮" remind:@"" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
-    [alertView show];
-    
+    if ([self.addressModel.id length]== 0) {
+        [SVProgressHUD showInfoWithStatus:@"请先添加收货地址"];
+    }else{
+        DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"提示" message:@"结单后到已支付里 打勾 按批量发货或 按确定发货 按钮" remind:@"" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"确定" comGoodList:nil];
+        [alertView show];
+    }
 }
 - (void)setUpUI
 {
@@ -363,6 +372,7 @@
             self.isSender = isSender;
             if (self.isSender) {
                 self.addressModel = [AddressModel mj_objectWithKeyValues:[[ConsignmentManage shareDefaultAddressMessage] mj_keyValues]];
+                [self.listTableView reloadData];
             }else{
                 DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
                 if ([addressMess.id length] == 0) {
@@ -370,6 +380,7 @@
                 }else{
                     self.addressModel = [AddressModel mj_objectWithKeyValues:[addressMess mj_keyValues]];
                 }
+                [self.listTableView reloadData];
             }
             [self.listTableView reloadData];
         }];
@@ -463,7 +474,12 @@
                return 80;
             }
         }else{
-          return 130;
+            if (self.addressModel == nil) {
+                return 80;
+            }else{
+                return 130;
+            }
+          
         }
         
     }else{

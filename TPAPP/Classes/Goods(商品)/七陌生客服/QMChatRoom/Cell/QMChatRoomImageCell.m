@@ -9,7 +9,7 @@
 #import "QMChatRoomImageCell.h"
 #import "QMTapGestureRecognizer.h"
 #import "QMChatRoomShowImageController.h"
-#import <QMChatSDK/QMChatSDK.h>
+#import <QMLineSDK/QMLineSDK.h>
 
 /**
     图片消息

@@ -26,9 +26,9 @@
 
 
 #import "QMChatRoomViewController.h"
-#import <QMChatSDK/QMChatSDK.h>
-#import <QMChatSDK/QMChatSDK-Swift.h>
-
+//#import <QMChatSDK/QMChatSDK.h>
+//#import <QMChatSDK/QMChatSDK-Swift.h>
+#import <QMLineSDK/QMLineSDK.h>
 #import "QMChatRoomGuestBookViewController.h"
 #import "QMAlert.h"
 #import "QMManager.h"
@@ -90,7 +90,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [SVProgressHUD doAnythingWithHUDMessage:@"获取中"];
-    [QMConnect registerSDKWithAppKey:@"5f12e670-c334-11e8-b0e0-5f753912b765" userName:@"8001" userId:@"8001_id"];
+    [QMConnect registerSDKWithAppKey:QMChatSDKAppKey userName:@"8001" userId:@"8001_id"];
     
     [self.navigationController.navigationBar setTranslucent:NO];
     self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;

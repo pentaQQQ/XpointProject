@@ -527,112 +527,117 @@ static NSString *kMiniProgramDesc = @"小程序Desc";
                 minePerCtrl.selectIndex = 5;
                 [self.navigationController pushViewController:minePerCtrl animated:YES];
             }else if (num == 3){
-                UIImage *thumbImage = nil;
-                NSData *thumbData = UIImageJPEGRepresentation([UIImage imageNamed:@"logo"], 0.7);
-                WXMiniProgramType miniProgramType = (WXMiniProgramType)[@"0" integerValue];
-                [WXApiRequestHandler sendMiniProgramWebpageUrl:@"https://www.baidu.com"
-                                                      userName:@"gh_c9f31c64dcdb"
-                                                          path:@"首页"
-                                                         title:kMiniProgramTitle
-                                                   Description:kMiniProgramDesc
-                                                    ThumbImage:thumbImage
-                                                   hdImageData:thumbData
-                                               withShareTicket:NO
-                                               miniProgramType:miniProgramType
-                                                       InScene:WXSceneSession];
+//                UIImage *thumbImage = nil;
+//                NSData *thumbData = UIImageJPEGRepresentation([UIImage imageNamed:@"logo"], 0.7);
+//                WXMiniProgramType miniProgramType = (WXMiniProgramType)[@"0" integerValue];
+//                [WXApiRequestHandler sendMiniProgramWebpageUrl:@"https://www.baidu.com"
+//                                                      userName:@"gh_c9f31c64dcdb"
+//                                                          path:@"首页"
+//                                                         title:kMiniProgramTitle
+//                                                   Description:kMiniProgramDesc
+//                                                    ThumbImage:thumbImage
+//                                                   hdImageData:thumbData
+//                                               withShareTicket:NO
+//                                               miniProgramType:miniProgramType
+//                                                       InScene:WXSceneSession];
                 
                 
-//                self.myQRBgview = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, kScreenHeight/2.0, 0, 0)];
-//                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(qrTapAction)];
-//                [self.myQRBgview addGestureRecognizer:tap];
-//                self.myQRBgview.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
-//                UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//                [window addSubview:self.myQRBgview];
-//
-//
-//                [UIView animateWithDuration:.5 animations:^{
-//                    self.myQRBgview.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
-//                } completion:^(BOOL finished) {
-//                    self.myQRView = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth-300)/2.0, (kScreenHeight-400)/2.0, 300, 400)];
-//                    self.myQRView.backgroundColor = [UIColor whiteColor];
-//                    [self.myQRBgview addSubview:self.myQRView];
-//                    self.myQRView.layer.cornerRadius = 8;
-//                    self.myQRView.layer.masksToBounds = YES;
-//
-//                    self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 300, 20)];
-//                    self.dateLabel.text = @"微信公众号";
-//                    self.dateLabel.textAlignment = NSTextAlignmentCenter;
-//                    self.dateLabel.font = [UIFont systemFontOfSize:16];
+                self.myQRBgview = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, kScreenHeight/2.0, 0, 0)];
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(qrTapAction)];
+                [self.myQRBgview addGestureRecognizer:tap];
+                self.myQRBgview.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+                UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                [window addSubview:self.myQRBgview];
+
+
+                [UIView animateWithDuration:.5 animations:^{
+                    self.myQRBgview.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+                } completion:^(BOOL finished) {
+                    self.myQRView = [[UIView alloc] initWithFrame:CGRectMake((kScreenWidth-300)/2.0, (kScreenHeight-400)/2.0, 300, 400)];
+                    self.myQRView.backgroundColor = [UIColor whiteColor];
+                    [self.myQRBgview addSubview:self.myQRView];
+                    self.myQRView.layer.cornerRadius = 8;
+                    self.myQRView.layer.masksToBounds = YES;
+
+                    self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 300, 20)];
+                    self.dateLabel.text = @"微信公众号";
+                    self.dateLabel.textAlignment = NSTextAlignmentCenter;
+                    self.dateLabel.font = [UIFont systemFontOfSize:18];
 //                    self.dateLabel.textColor = colorWithRGB(0xFF5760);
-//                    [self.myQRView addSubview:self.dateLabel];
-//                    //                    self.dateLabel.sd_layout
-//                    //                    .topSpaceToView(self.myQRView, 20)
-//                    //                    .centerXEqualToView(self.myQRView)
-//                    //                    .widthIs(180)
-//                    //                    .heightIs(20);
-//
-//                    self.bgview = [[UIView alloc] initWithFrame:CGRectMake((300-160)/2, CGRectGetMaxY(self.dateLabel.frame)+10, 160, 160)];
+                    self.dateLabel.textColor = colorWithRGB(0x666666);
+                    [self.myQRView addSubview:self.dateLabel];
+                    //                    self.dateLabel.sd_layout
+                    //                    .topSpaceToView(self.myQRView, 20)
+                    //                    .centerXEqualToView(self.myQRView)
+                    //                    .widthIs(180)
+                    //                    .heightIs(20);
+
+                    self.bgview = [[UIView alloc] initWithFrame:CGRectMake((300-160)/2, CGRectGetMaxY(self.dateLabel.frame)+10, 160, 160)];
 //                    self.bgview.backgroundColor = colorWithRGB(0xFF5760);
-//                    [self.myQRView addSubview:self.bgview];
-//                    //                    self.bgview.sd_layout
-//                    //                    .topSpaceToView(self.dateLabel, 15)
-//                    //                    .centerXEqualToView(self.myQRView)
-//                    //                    .widthIs(120)
-//                    //                    .heightIs(120);
-//
-//                    self.qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 140, 140)];
-//                    //                    imageView.backgroundColor = [UIColor grayColor];
+                    self.bgview.backgroundColor = colorWithRGB(0xFF6B24);
+                    [self.myQRView addSubview:self.bgview];
+                    //                    self.bgview.sd_layout
+                    //                    .topSpaceToView(self.dateLabel, 15)
+                    //                    .centerXEqualToView(self.myQRView)
+                    //                    .widthIs(120)
+                    //                    .heightIs(120);
+
+                    self.qrImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 150, 150)];
+                    //                    imageView.backgroundColor = [UIColor grayColor];
+                    self.qrImageView.image = [UIImage imageNamed:@"公众号二维码"];
 //                    self.qrImageView.image = [self createQRImageWithString:@"1234" size:CGSizeMake(140, 140)];
-//                    [self.bgview addSubview:self.qrImageView];
-//                    //                    self.qrImageView.sd_layout
-//                    //                    .topSpaceToView(self.bgview, 10)
-//                    //                    .leftSpaceToView(self.bgview, 10)
-//                    //                    .bottomSpaceToView(self.bgview, 10)
-//                    //                    .rightSpaceToView(self.bgview, 10);
-//
-//
-//                    self.firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.bgview.frame)+20, 290, 40)];
-//                    self.firstLabel.numberOfLines = 2;
-//                    self.firstLabel.text = @"1、点击立即关注，二维码会自动保存至你的相册";
-//                    self.firstLabel.textAlignment = NSTextAlignmentLeft;
-//                    self.firstLabel.font = [UIFont systemFontOfSize:15];
-//                    self.firstLabel.textColor = [UIColor lightGrayColor];
-//                    [self.myQRView addSubview:self.firstLabel];
-//                    //                    self.firstLabel.sd_layout
-//                    //                    .topSpaceToView(self.bgview, 20)
-//                    //                    .leftSpaceToView(self.myQRView, 10)
-//                    //                    .rightEqualToView(self.myQRView)
-//                    //                    .heightIs(40);
-//
-//                    self.secondLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.firstLabel.frame), 290, 40)];
-//                    self.secondLabel.numberOfLines = 2;
-//                    self.secondLabel.text = @"2、打开微信扫一扫，选择相册中的二维码，直接关注成功";
-//                    self.secondLabel.textAlignment = NSTextAlignmentLeft;
-//                    self.secondLabel.font = [UIFont systemFontOfSize:15];
-//                    self.secondLabel.textColor = [UIColor lightGrayColor];
-//                    [self.myQRView addSubview:self.secondLabel];
-//                    //                    self.secondLabel.sd_layout
-//                    //                    .topSpaceToView(self.firstLabel, 0)
-//                    //                    .leftSpaceToView(self.myQRView, 10)
-//                    //                    .rightEqualToView(self.myQRView)
-//                    //                    .heightIs(40);
-//
-//
-//                    self.attentionBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.secondLabel.frame)+30, 260, 40)];
+                    [self.bgview addSubview:self.qrImageView];
+                    //                    self.qrImageView.sd_layout
+                    //                    .topSpaceToView(self.bgview, 10)
+                    //                    .leftSpaceToView(self.bgview, 10)
+                    //                    .bottomSpaceToView(self.bgview, 10)
+                    //                    .rightSpaceToView(self.bgview, 10);
+
+
+                    self.firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.bgview.frame)+20, 290, 40)];
+                    self.firstLabel.numberOfLines = 2;
+                    self.firstLabel.text = @"1.点击立即关注,二维码会自动保存至你的相册";
+                    self.firstLabel.textAlignment = NSTextAlignmentLeft;
+                    self.firstLabel.font = [UIFont systemFontOfSize:15];
+                    self.firstLabel.textColor = [UIColor lightGrayColor];
+                    [self.myQRView addSubview:self.firstLabel];
+                    //                    self.firstLabel.sd_layout
+                    //                    .topSpaceToView(self.bgview, 20)
+                    //                    .leftSpaceToView(self.myQRView, 10)
+                    //                    .rightEqualToView(self.myQRView)
+                    //                    .heightIs(40);
+
+                    self.secondLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.firstLabel.frame), 290, 40)];
+                    self.secondLabel.numberOfLines = 2;
+                    self.secondLabel.text = @"2.打开微信扫一扫,选择相册中的二维码,直接关注成功";
+                    self.secondLabel.textAlignment = NSTextAlignmentLeft;
+                    self.secondLabel.font = [UIFont systemFontOfSize:15];
+                    self.secondLabel.textColor = [UIColor lightGrayColor];
+                    [self.myQRView addSubview:self.secondLabel];
+                    //                    self.secondLabel.sd_layout
+                    //                    .topSpaceToView(self.firstLabel, 0)
+                    //                    .leftSpaceToView(self.myQRView, 10)
+                    //                    .rightEqualToView(self.myQRView)
+                    //                    .heightIs(40);
+
+
+                    self.attentionBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.secondLabel.frame)+30, 260, 40)];
 //                    self.attentionBtn.backgroundColor = colorWithRGB(0xFF5760);
-//                    [self.attentionBtn setTitle:@"立即关注" forState:UIControlStateNormal];
-//                    [self.attentionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//                    [self.attentionBtn addTarget:self action:@selector(attentionBtnAction) forControlEvents:UIControlEventTouchUpInside];
-//                    [self.myQRView addSubview:self.attentionBtn];
-//                    //                    self.attentionBtn.sd_layout
-//                    //                    .topSpaceToView(self.secondLabel,40)
-//                    //                    .rightSpaceToView(self.myQRView, 20)
-//                    //                    .leftSpaceToView(self.myQRView, 20)
-//                    //                    .heightIs(40);
-//                    self.attentionBtn.layer.cornerRadius = 6;
-//                    self.attentionBtn.layer.masksToBounds = YES;
-//
-//                }];
+                    self.attentionBtn.backgroundColor = colorWithRGB(0xFF6B24);
+                    
+                    [self.attentionBtn setTitle:@"立即关注" forState:UIControlStateNormal];
+                    [self.attentionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    [self.attentionBtn addTarget:self action:@selector(attentionBtnAction) forControlEvents:UIControlEventTouchUpInside];
+                    [self.myQRView addSubview:self.attentionBtn];
+                    //                    self.attentionBtn.sd_layout
+                    //                    .topSpaceToView(self.secondLabel,40)
+                    //                    .rightSpaceToView(self.myQRView, 20)
+                    //                    .leftSpaceToView(self.myQRView, 20)
+                    //                    .heightIs(40);
+                    self.attentionBtn.layer.cornerRadius = 6;
+                    self.attentionBtn.layer.masksToBounds = YES;
+
+                }];
             }else{
                 InviteAwardController *inviteCtrl = [[InviteAwardController alloc] init];
                 [self.navigationController pushViewController:inviteCtrl animated:YES];
@@ -645,20 +650,35 @@ static NSString *kMiniProgramDesc = @"小程序Desc";
 }
 -(void)attentionBtnAction
 {
-    NSMutableArray *imageIds = [NSMutableArray array];
-    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-        //写入图片到相册
-        PHAssetChangeRequest *req = [PHAssetChangeRequest creationRequestForAssetFromImage:[self createQRImageWithString:@"1234" size:CGSizeMake(120, 120)]];
-        //记录本地标识，等待完成后取到相册中的图片对象
-        [imageIds addObject:req.placeholderForCreatedAsset.localIdentifier];
-    } completionHandler:^(BOOL success, NSError * _Nullable error) {
-        if (success) {
-            [SVProgressHUD doAnythingSuccessWithHUDMessage:@"保存成功" withDuration:1.0];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIImage *qrImage = [UIImage imageNamed:@"公众号二维码"];
+        if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+            UIImageWriteToSavedPhotosAlbum(qrImage, nil, nil, nil);
+            if (qrImage) {
+                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"保存成功" withDuration:1.5];
+            }
         }else{
-            [SVProgressHUD doAnythingFailedWithHUDMessage:@"保存失败" withDuration:1.0];
+            if (qrImage) {
+                [SVProgressHUD doAnythingFailedWithHUDMessage:@"保存失败" withDuration:1.5];
+            }
         }
-        //        NSLog(@"success = %d, error = %@", success, error);
-    }];
+//        NSMutableArray *imageIds = [NSMutableArray array];
+//        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+//            //写入图片到相册
+////            PHAssetChangeRequest *req = [PHAssetChangeRequest creationRequestForAssetFromImage:[self createQRImageWithString:@"1234" size:CGSizeMake(120, 120)]];
+//            PHAssetChangeRequest *req = [PHAssetChangeRequest creationRequestForAssetFromImage:[UIImage imageNamed:@"公众号二维码"]];
+//            //记录本地标识，等待完成后取到相册中的图片对象
+//            [imageIds addObject:req.placeholderForCreatedAsset.localIdentifier];
+//        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+//            if (success) {
+//                [SVProgressHUD doAnythingSuccessWithHUDMessage:@"保存成功"];
+//            }else{
+//                [SVProgressHUD doAnythingFailedWithHUDMessage:@"保存失败"];
+//            }
+//            //        NSLog(@"success = %d, error = %@", success, error);
+//        }];
+    });
+    
 }
 #pragma mark - 生成制定大小的黑白二维码
 - (UIImage *)createQRImageWithString:(NSString *)string size:(CGSize)size

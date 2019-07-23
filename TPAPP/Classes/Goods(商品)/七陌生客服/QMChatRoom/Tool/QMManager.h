@@ -12,6 +12,10 @@
 
 @property (nonatomic, assign) BOOL selectedPush;
 
+@property (nonatomic, copy) NSDictionary *dic;
+
+@property (nonatomic, assign) BOOL isFinish;
+
 + (instancetype)defaultManager;
 
 @end

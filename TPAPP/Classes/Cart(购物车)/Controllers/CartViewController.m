@@ -281,9 +281,11 @@
             
         }
         [self postCenter];
-        self.CartTableView.frame = CGRectMake(0, 45, SCREEN_WIDTH, SCREEN_HEIGHT-44-44-SafeAreaBottomHeight-45);
+//        self.CartTableView.frame = CGRectMake(0, 45, SCREEN_WIDTH, SCREEN_HEIGHT-44-44-SafeAreaBottomHeight-45);
+        self.CartTableView.frame = CGRectMake(0, 45, SCREEN_WIDTH, SCREEN_HEIGHT-44-44-SafeAreaBottomHeight-45-54);
         if (section == self.dataSource.count - 1) {
-            return 260;
+//            return 260;
+            return 10;
         }else{
             return 10;
         }
@@ -302,7 +304,8 @@
         
         //  图片
         UIImageView *imgView = [[UIImageView alloc] init];
-        imgView.frame        = CGRectMake((kScreenWidth - iW) / 2, 30, iW, iH);
+//        imgView.frame        = CGRectMake((kScreenWidth - iW) / 2, 30, iW, iH);
+        imgView.frame        = CGRectMake((kScreenWidth - iW) / 2, (300-74-14-20)/2, iW, iH);
         imgView.image        = [UIImage imageNamed:@"购物车"];
         
         //  文字
@@ -313,101 +316,108 @@
         label.text           = @"购物车为空";
         label.textAlignment  = NSTextAlignmentCenter;
         label.frame          = CGRectMake(0, CGRectGetMaxY(imgView.frame) + 14, sW, label.font.lineHeight);
+        
+        UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gouwucheAction)];
+        [view addGestureRecognizer:tapGes];
+        
+//        label.frame          = CGRectMake(0, CGRectGetMaxY(imgView.frame) + 14, sW, label.font.lineHeight);
         //  图片
-        UIImageView *leftImgView = [[UIImageView alloc] init];
-        leftImgView.frame        = CGRectMake(30, CGRectGetMaxY(label.frame) + 35, (kScreenWidth-60)/3-10, 1.5);
-        leftImgView.image        = [UIImage imageNamed:@"我的订单_line"];
-        
-        //  图片
-        UIImageView *rightImgView = [[UIImageView alloc] init];
-        rightImgView.frame        = CGRectMake(30+(kScreenWidth-60)/3*2+10, CGRectGetMaxY(label.frame) + 35, (kScreenWidth-60)/3-10, 1.5);
-        rightImgView.image        = [UIImage imageNamed:@"我的订单_line"];
-        
-        
-        UIButton *btn = [[UIButton alloc] init];
-        btn.frame        = CGRectMake(30+(kScreenWidth-60)/3-10, CGRectGetMaxY(label.frame) + 20, (kScreenWidth-60)/3+20, 30);
-        [btn setImage:[UIImage imageNamed:@"icon_mine_sqsh"] forState:UIControlStateNormal];
-        btn.imageEdgeInsets = UIEdgeInsetsMake(5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+10, 5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+((kScreenWidth-60)/3+20-20)-10-10);
-        [btn addTarget:self action:@selector(guanzhuAction) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitle:@"关注商品" forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        btn.titleEdgeInsets = UIEdgeInsetsMake(5, -((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2, 5, 0);
-        //  文字
-        UILabel *remindLabel       = [[UILabel alloc] init];
-        remindLabel.font           = [UIFont systemFontOfSize:15];
-        remindLabel.textColor      = colorWithRGB(0xC7C7C7);
-        remindLabel.text           = @"你还没有关注的商品";
-        remindLabel.textAlignment  = NSTextAlignmentCenter;
-        remindLabel.frame          = CGRectMake(0, CGRectGetMaxY(btn.frame) + 30, sW, remindLabel.font.lineHeight);
-        
-        UIButton *guanzhuBtn = [[UIButton alloc] init];
-        guanzhuBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
-        guanzhuBtn.frame        = CGRectMake((kScreenWidth-((kScreenWidth-60)/3+30))/2, CGRectGetMaxY(remindLabel.frame)+20, (kScreenWidth-60)/3+30, 30);
-        guanzhuBtn.layer.cornerRadius = 5;
-        guanzhuBtn.layer.masksToBounds = YES;
-        [guanzhuBtn addTarget:self action:@selector(goGuanzhuAction) forControlEvents:UIControlEventTouchUpInside];
-        [guanzhuBtn setTitle:@"去关注" forState:UIControlStateNormal];
-        [guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        guanzhuBtn.userInteractionEnabled = YES;
-        guanzhuBtn.exclusiveTouch = YES;
-        guanzhuBtn.enabled = YES;
+//        UIImageView *leftImgView = [[UIImageView alloc] init];
+//        leftImgView.frame        = CGRectMake(30, CGRectGetMaxY(label.frame) + 35, (kScreenWidth-60)/3-10, 1.5);
+//        leftImgView.image        = [UIImage imageNamed:@"我的订单_line"];
+//
+//        //  图片
+//        UIImageView *rightImgView = [[UIImageView alloc] init];
+//        rightImgView.frame        = CGRectMake(30+(kScreenWidth-60)/3*2+10, CGRectGetMaxY(label.frame) + 35, (kScreenWidth-60)/3-10, 1.5);
+//        rightImgView.image        = [UIImage imageNamed:@"我的订单_line"];
+//
+//
+//        UIButton *btn = [[UIButton alloc] init];
+//        btn.frame        = CGRectMake(30+(kScreenWidth-60)/3-10, CGRectGetMaxY(label.frame) + 20, (kScreenWidth-60)/3+20, 30);
+//        [btn setImage:[UIImage imageNamed:@"icon_mine_sqsh"] forState:UIControlStateNormal];
+//        btn.imageEdgeInsets = UIEdgeInsetsMake(5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+10, 5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+((kScreenWidth-60)/3+20-20)-10-10);
+//        [btn addTarget:self action:@selector(guanzhuAction) forControlEvents:UIControlEventTouchUpInside];
+//        [btn setTitle:@"关注商品" forState:UIControlStateNormal];
+//        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        btn.titleEdgeInsets = UIEdgeInsetsMake(5, -((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2, 5, 0);
+//        //  文字
+//        UILabel *remindLabel       = [[UILabel alloc] init];
+//        remindLabel.font           = [UIFont systemFontOfSize:15];
+//        remindLabel.textColor      = colorWithRGB(0xC7C7C7);
+//        remindLabel.text           = @"你还没有关注的商品";
+//        remindLabel.textAlignment  = NSTextAlignmentCenter;
+//        remindLabel.frame          = CGRectMake(0, CGRectGetMaxY(btn.frame) + 30, sW, remindLabel.font.lineHeight);
+//
+//        UIButton *guanzhuBtn = [[UIButton alloc] init];
+//        guanzhuBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
+//        guanzhuBtn.frame        = CGRectMake((kScreenWidth-((kScreenWidth-60)/3+30))/2, CGRectGetMaxY(remindLabel.frame)+20, (kScreenWidth-60)/3+30, 30);
+//        guanzhuBtn.layer.cornerRadius = 5;
+//        guanzhuBtn.layer.masksToBounds = YES;
+//        [guanzhuBtn addTarget:self action:@selector(goGuanzhuAction) forControlEvents:UIControlEventTouchUpInside];
+//        [guanzhuBtn setTitle:@"去关注" forState:UIControlStateNormal];
+//        [guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        guanzhuBtn.userInteractionEnabled = YES;
+//        guanzhuBtn.exclusiveTouch = YES;
+//        guanzhuBtn.enabled = YES;
         [view addSubview:imgView];
         [view addSubview:label];
-        [view addSubview:leftImgView];
-        [view addSubview:rightImgView];
-        [view addSubview:btn];
-        [view addSubview:remindLabel];
-        [view addSubview:guanzhuBtn];
+//        [view addSubview:leftImgView];
+//        [view addSubview:rightImgView];
+//        [view addSubview:btn];
+//        [view addSubview:remindLabel];
+//        [view addSubview:guanzhuBtn];
         return view;
     }else{
         if (section == self.dataSource.count - 1) {
-            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200)];
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 10)];
             view.backgroundColor = colorWithRGB(0xEEEEEE);
-            //  计算位置, 垂直居中, 图片默认中心偏上.
-            CGFloat sW = self.CartTableView.size.width;
+//            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200)];
+//            view.backgroundColor = colorWithRGB(0xEEEEEE);
+//            //  计算位置, 垂直居中, 图片默认中心偏上.
+//            CGFloat sW = self.CartTableView.size.width;
             //  图片
-            UIImageView *leftImgView = [[UIImageView alloc] init];
-            leftImgView.frame        = CGRectMake(30, 35, (kScreenWidth-60)/3-10, 1.5);
-            leftImgView.image        = [UIImage imageNamed:@"我的订单_line"];
+//            UIImageView *leftImgView = [[UIImageView alloc] init];
+//            leftImgView.frame        = CGRectMake(30, 35, (kScreenWidth-60)/3-10, 1.5);
+//            leftImgView.image        = [UIImage imageNamed:@"我的订单_line"];
             
             //  图片
-            UIImageView *rightImgView = [[UIImageView alloc] init];
-            rightImgView.frame        = CGRectMake(30+(kScreenWidth-60)/3*2+10, 35, (kScreenWidth-60)/3-10, 1.5);
-            rightImgView.image        = [UIImage imageNamed:@"我的订单_line"];
+//            UIImageView *rightImgView = [[UIImageView alloc] init];
+//            rightImgView.frame        = CGRectMake(30+(kScreenWidth-60)/3*2+10, 35, (kScreenWidth-60)/3-10, 1.5);
+//            rightImgView.image        = [UIImage imageNamed:@"我的订单_line"];
             
             
-            UIButton *btn = [[UIButton alloc] init];
-            btn.frame        = CGRectMake(30+(kScreenWidth-60)/3-10, 20, (kScreenWidth-60)/3+20, 30);
-            [btn setImage:[UIImage imageNamed:@"icon_mine_sqsh"] forState:UIControlStateNormal];
-            btn.imageEdgeInsets = UIEdgeInsetsMake(5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+10, 5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+((kScreenWidth-60)/3+20-20)-10-10);
-            [btn addTarget:self action:@selector(guanzhuAction) forControlEvents:UIControlEventTouchUpInside];
-            [btn setTitle:@"关注商品" forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            btn.titleEdgeInsets = UIEdgeInsetsMake(5, -((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2, 5, 0);
-            //  文字
-            UILabel *remindLabel       = [[UILabel alloc] init];
-            remindLabel.font           = [UIFont systemFontOfSize:15];
-            remindLabel.textColor      = colorWithRGB(0xC7C7C7);
-            remindLabel.text           = @"你还没有关注的商品";
-            remindLabel.textAlignment  = NSTextAlignmentCenter;
-            remindLabel.frame          = CGRectMake(0, CGRectGetMaxY(btn.frame) + 30, sW, remindLabel.font.lineHeight);
-            
-            UIButton *guanzhuBtn = [[UIButton alloc] init];
-            guanzhuBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
-            guanzhuBtn.frame        = CGRectMake((kScreenWidth-((kScreenWidth-60)/3+30))/2, CGRectGetMaxY(remindLabel.frame)+20, (kScreenWidth-60)/3+30, 30);
-            guanzhuBtn.layer.cornerRadius = 5;
-            guanzhuBtn.layer.masksToBounds = YES;
-            [guanzhuBtn addTarget:self action:@selector(goGuanzhuAction) forControlEvents:UIControlEventTouchUpInside];
-            [guanzhuBtn setTitle:@"去关注" forState:UIControlStateNormal];
-            [guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            guanzhuBtn.userInteractionEnabled = YES;
-            guanzhuBtn.exclusiveTouch = YES;
-            guanzhuBtn.enabled = YES;
-            [view addSubview:leftImgView];
-            [view addSubview:rightImgView];
-            [view addSubview:btn];
-            [view addSubview:remindLabel];
-            [view addSubview:guanzhuBtn];
+//            UIButton *btn = [[UIButton alloc] init];
+//            btn.frame        = CGRectMake(30+(kScreenWidth-60)/3-10, 20, (kScreenWidth-60)/3+20, 30);
+//            [btn setImage:[UIImage imageNamed:@"icon_mine_sqsh"] forState:UIControlStateNormal];
+//            btn.imageEdgeInsets = UIEdgeInsetsMake(5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+10, 5, ((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2+((kScreenWidth-60)/3+20-20)-10-10);
+//            [btn addTarget:self action:@selector(guanzhuAction) forControlEvents:UIControlEventTouchUpInside];
+//            [btn setTitle:@"关注商品" forState:UIControlStateNormal];
+//            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            btn.titleEdgeInsets = UIEdgeInsetsMake(5, -((kScreenWidth-60)/3+20-((kScreenWidth-60)/3+20-20)-10)/2, 5, 0);
+//            //  文字
+//            UILabel *remindLabel       = [[UILabel alloc] init];
+//            remindLabel.font           = [UIFont systemFontOfSize:15];
+//            remindLabel.textColor      = colorWithRGB(0xC7C7C7);
+//            remindLabel.text           = @"你还没有关注的商品";
+//            remindLabel.textAlignment  = NSTextAlignmentCenter;
+//            remindLabel.frame          = CGRectMake(0, CGRectGetMaxY(btn.frame) + 30, sW, remindLabel.font.lineHeight);
+//
+//            UIButton *guanzhuBtn = [[UIButton alloc] init];
+//            guanzhuBtn.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:87.0/255.0 blue:96.0/255.0 alpha:1.0];
+//            guanzhuBtn.frame        = CGRectMake((kScreenWidth-((kScreenWidth-60)/3+30))/2, CGRectGetMaxY(remindLabel.frame)+20, (kScreenWidth-60)/3+30, 30);
+//            guanzhuBtn.layer.cornerRadius = 5;
+//            guanzhuBtn.layer.masksToBounds = YES;
+//            [guanzhuBtn addTarget:self action:@selector(goGuanzhuAction) forControlEvents:UIControlEventTouchUpInside];
+//            [guanzhuBtn setTitle:@"去关注" forState:UIControlStateNormal];
+//            [guanzhuBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//            guanzhuBtn.userInteractionEnabled = YES;
+//            guanzhuBtn.exclusiveTouch = YES;
+//            guanzhuBtn.enabled = YES;
+//            [view addSubview:leftImgView];
+//            [view addSubview:rightImgView];
+//            [view addSubview:btn];
+//            [view addSubview:remindLabel];
+//            [view addSubview:guanzhuBtn];
             return view;
         }else{
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 10)];
@@ -416,20 +426,23 @@
         }
     }
 }
+- (void)gouwucheAction
+{
+    self.tabBarController.selectedIndex = 0;
+}
 //cell高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        LYAccount *lyAccount = [LYAccount shareAccount];
-        AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:lyAccount.defaultAddress];
-        DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
-        if (addressModel.id.length == 0 && addressMes.id.length == 0) {
-            return 100;
-        }else{
-          return 155;
-        }
-        
-//        return 120;
+//        LYAccount *lyAccount = [LYAccount shareAccount];
+//        AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:lyAccount.defaultAddress];
+//        DefaultAddressMessage *addressMes = [DefaultAddressMessage shareDefaultAddressMessage];
+//        if (addressModel.id.length == 0 && addressMes.id.length == 0) {
+//            return 100;
+//        }else{
+//          return 155;
+//        }
+        return 60;
     }else{
       return 160;
     }
@@ -967,16 +980,16 @@
         LYAccount *lyAccount = [LYAccount shareAccount];
         AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:lyAccount.defaultAddress];
         DefaultAddressMessage *defaultMess = [DefaultAddressMessage shareDefaultAddressMessage];
-        if ([addressModel.id length]== 0 && [defaultMess.id length] == 0) {
-            [SVProgressHUD showInfoWithStatus:@"请先添加收货地址"];
-        }else{
+//        if ([addressModel.id length]== 0 && [defaultMess.id length] == 0) {
+//            [SVProgressHUD showInfoWithStatus:@"请先添加收货地址"];
+//        }else{
             _goodsNum = goodsNum;
             _goodsPrice = goodsPrice;
             DeclareAbnormalAlertView *alertView = [[DeclareAbnormalAlertView alloc]initWithTitle:@"立即去支付?" message:[NSString stringWithFormat:@"一共%d件 结算金额%@元",goodsNum,goodsPrice] remind:@"(单场活动最多可取消5件商品！)" delegate:self leftButtonTitle:@"取消" rightButtonTitle:@"去支付" comGoodList:arr];
             [alertView show];
             
             
-        }
+//        }
     }
     
     
@@ -1025,7 +1038,7 @@
                 [newDics removeObjectForKey:@"superclass"];
                 newDic[@"productForm"] = newDics;
                 [newDic setValue:@(1) forKey:@"isCheck"];
-                [newDic setValue:detailModel.productForm.marketAmount forKey:@"productAmount"];
+                [newDic setValue:detailModel.productForm.realAmount forKey:@"productAmount"];
                 [newDic removeObjectForKey:@"SelectedType"];
                 [newDic removeObjectForKey:@"Type"];
                 [newDic removeObjectForKey:@"CheckAll"];

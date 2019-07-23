@@ -17,28 +17,25 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithRed:244/255.0 green:244/255.0 blue:246/255.0 alpha:1];
         [self setUI];
     }
     return self;
 }
 
 - (void)setUI {
-    self.fieldLabel = [[UILabel alloc] init];
-    self.fieldLabel.frame = CGRectMake(15, 7, 100, 30);
-    self.fieldLabel.backgroundColor = [UIColor clearColor];
-    self.fieldLabel.font = [UIFont systemFontOfSize:14];
-    self.fieldLabel.text = NSLocalizedString(@"title.phoneNumber", nil);
-    self.fieldLabel.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
-    [self.contentView addSubview:self.fieldLabel];
-
+    self.backView = [[UIView alloc] init];
+    self.backView.frame = CGRectMake(10, 0, kScreenWidth - 20, 44);
+    self.backView.backgroundColor = [UIColor whiteColor];
+    [self.contentView addSubview:self.backView];
+    
     self.textField = [[UITextField alloc] init];
-    self.textField.frame = CGRectMake(15 + 100, 7, kScreenWidth - 30 - 100, 30);
+    self.textField.frame = CGRectMake(5, 7, kScreenWidth - 30, 30);
     self.textField.backgroundColor = [UIColor clearColor];
-    self.textField.textAlignment = NSTextAlignmentRight;
+    self.textField.textAlignment = NSTextAlignmentLeft;
     self.textField.font = [UIFont systemFontOfSize:16];
-    self.textField.placeholder = NSLocalizedString(@"title.selection", nil);
-    [self.contentView addSubview:self.textField];
+    self.textField.placeholder = @"";
+    [self.backView addSubview:self.textField];
     
     [self.textField addTarget:self action:@selector(change:) forControlEvents:UIControlEventEditingChanged];
 }
@@ -46,18 +43,7 @@
 - (void)setData: (NSDictionary *)information defaultValue: (NSString *)value {
     self.textField.text = @"";
     if (information[@"name"]) {
-        self.fieldLabel.text = information[@"name"];
-    }
-    
-    if (information[@"required"]) {
-        BOOL required = [[information objectForKey:@"required"] boolValue];
-        if (required == YES) {
-            self.textField.placeholder = NSLocalizedString(@"title.required", nil);
-        }else {
-            self.textField.placeholder = NSLocalizedString(@"title.selection", nil);
-        }
-    }else {
-        self.textField.placeholder = NSLocalizedString(@"title.selection", nil);
+        self.textField.placeholder = information[@"name"];
     }
     
     if (value) {

@@ -194,162 +194,162 @@
     self.retureList.layer.borderColor = [UIColor grayColor].CGColor;
     
     
-    AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:info.defaultAddress];
-    DefaultAddressMessage *defaultMess = [DefaultAddressMessage shareDefaultAddressMessage];
-    if ([addressModel.id length] == 0 && [defaultMess.id length] == 0) {
-        [self.contentView addSubview:self.lineView];
-        self.lineView.sd_layout
-        .topSpaceToView(self.contentView, 20+40)
-        .leftSpaceToView(self.contentView, 0)
-        .rightSpaceToView(self.contentView, 0)
-        .heightIs(1);
-        
-        [self.contentView addSubview:self.getAddess];
-        self.getAddess.text = @"收货地址";
-        self.getAddess.sd_layout
-        .topSpaceToView(self.lineView, 10)
-        .leftSpaceToView(self.contentView, 15)
-        .widthIs([self widthLabelWithModel:@"收货地址" withFont:15])
-        .heightIs(20);
-        
-        self.chooseAddress = [[UIControl alloc] init];
-        [self.contentView addSubview:self.chooseAddress];
-        [self.chooseAddress addTarget:self action:@selector(chooseAddressAction) forControlEvents:UIControlEventTouchUpInside];
-        self.chooseAddress.sd_layout
-        .topSpaceToView(self.lineView, 10)
-        .rightSpaceToView(self.contentView, 15)
-        .widthIs(55)
-        .heightIs(20);
-        
-        UIImageView *myImageview = [[UIImageView alloc] init];
-        myImageview.image = [UIImage imageNamed:@"编辑"];
-        [self.chooseAddress addSubview:myImageview];
-        myImageview.sd_layout
-        .topEqualToView(self.chooseAddress)
-        .leftEqualToView(self.chooseAddress)
-        .heightIs(20)
-        .widthIs(20);
-        
-        UILabel *chooseLabel = [[UILabel alloc] init];
-        chooseLabel.text = @"选择";
-        [self.chooseAddress addSubview:chooseLabel];
-        chooseLabel.font = [UIFont systemFontOfSize:14];
-        chooseLabel.textColor = [UIColor lightGrayColor];
-        chooseLabel.textAlignment = NSTextAlignmentRight;
-        chooseLabel.sd_layout
-        .topEqualToView(self.chooseAddress)
-        .rightEqualToView(self.chooseAddress)
-        .heightIs(20)
-        .widthIs(35);
-    }else{
-        [self.contentView addSubview:self.localImageView];
-        UIImage *image = [UIImage imageNamed:@"icon_addres"];
-        self.localImageView.image = image;
-        [self.contentView addSubview:self.buyUserName];
-        [self.contentView addSubview:self.buyUserTelephone];
-        [self.contentView addSubview:self.defaultImageView];
-        UIImage *image1 = [UIImage imageNamed:@"tag_moren"];
-        [self.contentView addSubview:self.buyUserAddess];
-        
-        
-        [self.lineView removeFromSuperview];
-        [self.getAddess removeFromSuperview];
-        [self.chooseAddress removeFromSuperview];
-        [self.contentView addSubview:self.lineView];
-        [self.contentView addSubview:self.getAddess];
-        self.getAddess.text = @"收货地址";
-        self.chooseAddress = [[UIControl alloc] init];
-        [self.contentView addSubview:self.chooseAddress];
-        [self.chooseAddress addTarget:self action:@selector(chooseAddressAction) forControlEvents:UIControlEventTouchUpInside];
-        UIImageView *myImageview = [[UIImageView alloc] init];
-        myImageview.image = [UIImage imageNamed:@"编辑"];
-        [self.chooseAddress addSubview:myImageview];
-        
-        UILabel *chooseLabel = [[UILabel alloc] init];
-        chooseLabel.text = @"选择";
-        [self.chooseAddress addSubview:chooseLabel];
-        chooseLabel.font = [UIFont systemFontOfSize:14];
-        chooseLabel.textColor = [UIColor lightGrayColor];
-        chooseLabel.textAlignment = NSTextAlignmentRight;
-        
-        DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
-        if ([addressMess.id length] == 0) {
-            self.buyUserName.text = addressModel.recNickName;
-            NSString *str1 = [addressModel.recPhone substringToIndex:3];
-            NSString *str2 = [addressModel.recPhone substringFromIndex:6];
-            self.buyUserTelephone.text = [NSString stringWithFormat:@"%@****%@",str1,str2];
-            self.buyUserAddess.text = [NSString stringWithFormat:@"%@ %@ %@ %@",addressModel.recProv,addressModel.recCity,addressModel.recArea,addressModel.recAddress];
-        }else{
-            self.buyUserName.text = addressMess.recNickName;
-            NSString *str1 = [addressMess.recPhone substringToIndex:3];
-            NSString *str2 = [addressMess.recPhone substringFromIndex:6];
-            self.buyUserTelephone.text = [NSString stringWithFormat:@"%@****%@",str1,str2];
-            self.buyUserAddess.text = [NSString stringWithFormat:@"%@ %@ %@ %@",addressMess.recProv,addressMess.recCity,addressMess.recArea,addressMess.recAddress];
-        }
-        
-        self.localImageView.sd_layout
-        .topSpaceToView(self.contentView, 28+40)
-        .leftSpaceToView(self.contentView, 15)
-        .widthIs(15)
-        .heightIs(15*image.size.height/image.size.width);
-        self.buyUserName.sd_layout
-        .topSpaceToView(self.contentView, 20+40)
-        .leftSpaceToView(self.contentView, 40)
-        .widthIs([self widthLabelWithModel:self.buyUserName.text withFont:15])
-        .heightIs(20);
-        
-        self.buyUserTelephone.sd_layout
-        .topSpaceToView(self.contentView, 20+40)
-        .leftSpaceToView(self.buyUserName, 30)
-        .widthIs([self widthLabelWithModel:self.buyUserTelephone.text withFont:15])
-        .heightIs(20);
-        
-        self.defaultImageView.image = image1;
-        self.defaultImageView.sd_layout
-        .topSpaceToView(self.contentView, 20+40)
-        .leftSpaceToView(self.buyUserTelephone, 5)
-        .widthIs(50)
-        .heightIs(20);
-        
-        self.buyUserAddess.sd_layout
-        .topSpaceToView(self.buyUserTelephone, 5)
-        .leftSpaceToView(self.contentView, 40)
-        .rightSpaceToView(self.contentView, 40)
-        .heightIs(20);
-        
-        
-        self.lineView.sd_layout
-        .topSpaceToView(self.buyUserAddess, 10)
-        .leftSpaceToView(self.contentView, 0)
-        .rightSpaceToView(self.contentView, 0)
-        .heightIs(1);
-        
-        self.getAddess.sd_layout
-        .topSpaceToView(self.lineView, 10)
-        .leftSpaceToView(self.contentView, 15)
-        .widthIs([self widthLabelWithModel:@"收货地址" withFont:15])
-        .heightIs(20);
-        
-        self.chooseAddress.sd_layout
-        .topSpaceToView(self.lineView, 10)
-        .rightSpaceToView(self.contentView, 15)
-        .widthIs(55)
-        .heightIs(20);
-        
-        myImageview.sd_layout
-        .topEqualToView(self.chooseAddress)
-        .leftEqualToView(self.chooseAddress)
-        .heightIs(20)
-        .widthIs(20);
-        
-        chooseLabel.sd_layout
-        .topEqualToView(self.chooseAddress)
-        .rightEqualToView(self.chooseAddress)
-        .heightIs(20)
-        .widthIs(35);
-        
-       
-    }
+//    AddressModel *addressModel = [AddressModel mj_objectWithKeyValues:info.defaultAddress];
+//    DefaultAddressMessage *defaultMess = [DefaultAddressMessage shareDefaultAddressMessage];
+//    if ([addressModel.id length] == 0 && [defaultMess.id length] == 0) {
+//        [self.contentView addSubview:self.lineView];
+//        self.lineView.sd_layout
+//        .topSpaceToView(self.contentView, 20+40)
+//        .leftSpaceToView(self.contentView, 0)
+//        .rightSpaceToView(self.contentView, 0)
+//        .heightIs(1);
+//
+//        [self.contentView addSubview:self.getAddess];
+//        self.getAddess.text = @"收货地址";
+//        self.getAddess.sd_layout
+//        .topSpaceToView(self.lineView, 10)
+//        .leftSpaceToView(self.contentView, 15)
+//        .widthIs([self widthLabelWithModel:@"收货地址" withFont:15])
+//        .heightIs(20);
+//
+//        self.chooseAddress = [[UIControl alloc] init];
+//        [self.contentView addSubview:self.chooseAddress];
+//        [self.chooseAddress addTarget:self action:@selector(chooseAddressAction) forControlEvents:UIControlEventTouchUpInside];
+//        self.chooseAddress.sd_layout
+//        .topSpaceToView(self.lineView, 10)
+//        .rightSpaceToView(self.contentView, 15)
+//        .widthIs(55)
+//        .heightIs(20);
+//
+//        UIImageView *myImageview = [[UIImageView alloc] init];
+//        myImageview.image = [UIImage imageNamed:@"编辑"];
+//        [self.chooseAddress addSubview:myImageview];
+//        myImageview.sd_layout
+//        .topEqualToView(self.chooseAddress)
+//        .leftEqualToView(self.chooseAddress)
+//        .heightIs(20)
+//        .widthIs(20);
+//
+//        UILabel *chooseLabel = [[UILabel alloc] init];
+//        chooseLabel.text = @"选择";
+//        [self.chooseAddress addSubview:chooseLabel];
+//        chooseLabel.font = [UIFont systemFontOfSize:14];
+//        chooseLabel.textColor = [UIColor lightGrayColor];
+//        chooseLabel.textAlignment = NSTextAlignmentRight;
+//        chooseLabel.sd_layout
+//        .topEqualToView(self.chooseAddress)
+//        .rightEqualToView(self.chooseAddress)
+//        .heightIs(20)
+//        .widthIs(35);
+//    }else{
+//        [self.contentView addSubview:self.localImageView];
+//        UIImage *image = [UIImage imageNamed:@"icon_addres"];
+//        self.localImageView.image = image;
+//        [self.contentView addSubview:self.buyUserName];
+//        [self.contentView addSubview:self.buyUserTelephone];
+//        [self.contentView addSubview:self.defaultImageView];
+//        UIImage *image1 = [UIImage imageNamed:@"tag_moren"];
+//        [self.contentView addSubview:self.buyUserAddess];
+//
+//
+//        [self.lineView removeFromSuperview];
+//        [self.getAddess removeFromSuperview];
+//        [self.chooseAddress removeFromSuperview];
+//        [self.contentView addSubview:self.lineView];
+//        [self.contentView addSubview:self.getAddess];
+//        self.getAddess.text = @"收货地址";
+//        self.chooseAddress = [[UIControl alloc] init];
+//        [self.contentView addSubview:self.chooseAddress];
+//        [self.chooseAddress addTarget:self action:@selector(chooseAddressAction) forControlEvents:UIControlEventTouchUpInside];
+//        UIImageView *myImageview = [[UIImageView alloc] init];
+//        myImageview.image = [UIImage imageNamed:@"编辑"];
+//        [self.chooseAddress addSubview:myImageview];
+//
+//        UILabel *chooseLabel = [[UILabel alloc] init];
+//        chooseLabel.text = @"选择";
+//        [self.chooseAddress addSubview:chooseLabel];
+//        chooseLabel.font = [UIFont systemFontOfSize:14];
+//        chooseLabel.textColor = [UIColor lightGrayColor];
+//        chooseLabel.textAlignment = NSTextAlignmentRight;
+//
+//        DefaultAddressMessage *addressMess = [DefaultAddressMessage shareDefaultAddressMessage];
+//        if ([addressMess.id length] == 0) {
+//            self.buyUserName.text = addressModel.recNickName;
+//            NSString *str1 = [addressModel.recPhone substringToIndex:3];
+//            NSString *str2 = [addressModel.recPhone substringFromIndex:6];
+//            self.buyUserTelephone.text = [NSString stringWithFormat:@"%@****%@",str1,str2];
+//            self.buyUserAddess.text = [NSString stringWithFormat:@"%@ %@ %@ %@",addressModel.recProv,addressModel.recCity,addressModel.recArea,addressModel.recAddress];
+//        }else{
+//            self.buyUserName.text = addressMess.recNickName;
+//            NSString *str1 = [addressMess.recPhone substringToIndex:3];
+//            NSString *str2 = [addressMess.recPhone substringFromIndex:6];
+//            self.buyUserTelephone.text = [NSString stringWithFormat:@"%@****%@",str1,str2];
+//            self.buyUserAddess.text = [NSString stringWithFormat:@"%@ %@ %@ %@",addressMess.recProv,addressMess.recCity,addressMess.recArea,addressMess.recAddress];
+//        }
+//
+//        self.localImageView.sd_layout
+//        .topSpaceToView(self.contentView, 28+40)
+//        .leftSpaceToView(self.contentView, 15)
+//        .widthIs(15)
+//        .heightIs(15*image.size.height/image.size.width);
+//        self.buyUserName.sd_layout
+//        .topSpaceToView(self.contentView, 20+40)
+//        .leftSpaceToView(self.contentView, 40)
+//        .widthIs([self widthLabelWithModel:self.buyUserName.text withFont:15])
+//        .heightIs(20);
+//
+//        self.buyUserTelephone.sd_layout
+//        .topSpaceToView(self.contentView, 20+40)
+//        .leftSpaceToView(self.buyUserName, 30)
+//        .widthIs([self widthLabelWithModel:self.buyUserTelephone.text withFont:15])
+//        .heightIs(20);
+//
+//        self.defaultImageView.image = image1;
+//        self.defaultImageView.sd_layout
+//        .topSpaceToView(self.contentView, 20+40)
+//        .leftSpaceToView(self.buyUserTelephone, 5)
+//        .widthIs(50)
+//        .heightIs(20);
+//
+//        self.buyUserAddess.sd_layout
+//        .topSpaceToView(self.buyUserTelephone, 5)
+//        .leftSpaceToView(self.contentView, 40)
+//        .rightSpaceToView(self.contentView, 40)
+//        .heightIs(20);
+//
+//
+//        self.lineView.sd_layout
+//        .topSpaceToView(self.buyUserAddess, 10)
+//        .leftSpaceToView(self.contentView, 0)
+//        .rightSpaceToView(self.contentView, 0)
+//        .heightIs(1);
+//
+//        self.getAddess.sd_layout
+//        .topSpaceToView(self.lineView, 10)
+//        .leftSpaceToView(self.contentView, 15)
+//        .widthIs([self widthLabelWithModel:@"收货地址" withFont:15])
+//        .heightIs(20);
+//
+//        self.chooseAddress.sd_layout
+//        .topSpaceToView(self.lineView, 10)
+//        .rightSpaceToView(self.contentView, 15)
+//        .widthIs(55)
+//        .heightIs(20);
+//
+//        myImageview.sd_layout
+//        .topEqualToView(self.chooseAddress)
+//        .leftEqualToView(self.chooseAddress)
+//        .heightIs(20)
+//        .widthIs(20);
+//
+//        chooseLabel.sd_layout
+//        .topEqualToView(self.chooseAddress)
+//        .rightEqualToView(self.chooseAddress)
+//        .heightIs(20)
+//        .widthIs(35);
+//
+//
+//    }
    
  
 }

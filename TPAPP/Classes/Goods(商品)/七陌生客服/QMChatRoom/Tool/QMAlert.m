@@ -48,7 +48,7 @@
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:14];
     [showview addSubview:label];
-    showview.frame = CGRectMake((kScreenWidth - LabelSize.width - 20)/2, kScreenHeight - label.frame.size.height - 80, LabelSize.width + 20, LabelSize.height + 10);
+    showview.frame = CGRectMake((kScreenWidth - LabelSize.width - 20)/2, kScreenHeight - label.frame.size.height - 180, LabelSize.width + 20, LabelSize.height + 10);
     [UIView animateWithDuration:5 animations:^{
         showview.alpha = 0;
     } completion:^(BOOL finished) {
@@ -62,6 +62,15 @@
     CGRect rect = [string boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 180, 0)/*计算高度要先指定宽度*/ options:NSStringDrawingUsesLineFragmentOrigin |
                    NSStringDrawingUsesFontLeading attributes:dic context:nil];
     return rect.size.height;
+}
+
+//计算文字宽度
++ (CGFloat)calcLabelHeight: (NSString *)text font: (UIFont *)font{
+    CGSize size = CGSizeMake(2000, 0);
+    NSDictionary *attribute = @{NSFontAttributeName: font};
+    NSStringDrawingOptions option = NSStringDrawingUsesLineFragmentOrigin;
+    CGRect labelRect = [text boundingRectWithSize:size options: option attributes:attribute context:nil];
+    return labelRect.size.width;
 }
 
 @end

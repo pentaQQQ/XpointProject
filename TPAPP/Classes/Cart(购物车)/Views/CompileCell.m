@@ -216,9 +216,9 @@
     _Goods_DescNum.text = [NSString stringWithFormat:@"款号 %@",info.productForm.designCode];
 
     _Goods_Size.text = [NSString stringWithFormat:@"规格: %@",info.size];
-    _Goods_Price.text = [NSString stringWithFormat:@"￥%@",info.productForm.marketAmount];
+    _Goods_Price.text = [NSString stringWithFormat:@"￥%@",info.productForm.realAmount];
     
-    //中划线
+    //中划线realAmount
 //    NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
 //    NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:@"" attributes:attribtDic];
 //    // 赋值

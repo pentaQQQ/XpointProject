@@ -112,8 +112,6 @@
     
     UITapGestureRecognizer*tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap)];
     [mengbanView addGestureRecognizer:tap];
-    
-    
     __weak __typeof(self) weakSelf = self;
     
     tupianview.TupianviewBlock = ^(NSString *title, NSString *detailTitle) {

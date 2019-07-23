@@ -8,7 +8,7 @@
 
 #import "QMChatRoomTextCell.h"
 #import "QMChatRoomRobotReplyView.h"
-#import <QMChatSDK/QMChatSDK.h>
+#import <QMLineSDK/QMLineSDK.h>
 
 /**
     文本消息

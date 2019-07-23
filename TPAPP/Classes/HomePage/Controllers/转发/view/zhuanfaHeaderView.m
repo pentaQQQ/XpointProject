@@ -8,6 +8,7 @@
 
 #import "zhuanfaHeaderView.h"
 #import "zidingyijineView.h"
+#import "releaseActivitiesModel.h"
 @interface zhuanfaHeaderView()
 @property(nonatomic,strong)NSMutableArray*MerchanArray;
 @property(nonatomic,assign)int count;
@@ -16,6 +17,8 @@
 
 @property(nonatomic,assign)int currentDEX;
 @property(nonatomic,strong)zhuanfaModel *zhuanfamodel;
+@property(nonatomic,copy)NSString * price;
+
 @end
 
 @implementation zhuanfaHeaderView
@@ -25,17 +28,100 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.count = 0;
+        [SVProgressHUD doAnythingWithHUDMessage:@"获取中..."];
         [self getTheUserForwardConfiSuccess:^(zhuanfaModel *zhuanfamodel) {
             
             [self setBtnStateWithzhuanfaModel:zhuanfamodel];
+            self.price = zhuanfamodel.price;
+            
+            NSString*title = [NSString stringWithFormat:@"批量转发 (+%@)",self.price];
+            if (self.piliangBtn.titleLabel.text.length != 0) {
+               [self.piliangBtn setTitle:title forState:UIControlStateNormal];
+            }
+            
             
         }];
+        
+        self.jiajiaBtn = [[UIButton alloc] init];
+        [self.jiajiaBtn setTitle:@"加价" forState:UIControlStateNormal];
+        [self.jiajiaBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        self.jiajiaBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [self.jiajiaBtn addTarget:self action:@selector(jiajiaBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.jiajiaBtn];
+        [self.jiajiaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self).offset(10);
+            make.top.equalTo(self).offset(315);
+            make.height.equalTo(@(40));
+            make.width.equalTo(@(80));
+        }];
+        self.jiajiaBtn.layer.borderWidth = 1;
+        self.jiajiaBtn.layer.borderColor = [[UIColor redColor] CGColor];
+        self.jiajiaBtn.layer.masksToBounds = YES;
+        self.jiajiaBtn.layer.cornerRadius = 5;
+        
+        self.piliangBtn = [[UIButton alloc] init];
+        self.piliangBtn.backgroundColor = [UIColor redColor];
+        NSString*title = [NSString stringWithFormat:@"批量转发 (+%@)",self.price];
+        [self.piliangBtn setTitle:title forState:UIControlStateNormal];
+        [self.piliangBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.piliangBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [self.piliangBtn addTarget:self action:@selector(piliangBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.piliangBtn];
+        [self.piliangBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.jiajiaBtn.mas_right).offset(10);
+            make.right.equalTo(self.mas_right).offset(-10);
+            make.top.equalTo(self).offset(315);
+            make.height.equalTo(@(40));
+        }];
+        self.piliangBtn.layer.borderWidth = 1;
+        self.piliangBtn.layer.borderColor = [[UIColor redColor] CGColor];
+        self.piliangBtn.layer.masksToBounds = YES;
+        self.piliangBtn.layer.cornerRadius = 5;
         
     }
     return self;
 }
-
-
+- (void)piliangBtnAction
+{
+    if (self.MerchanArray.count == 0) {
+        [SVProgressHUD doAnyRemindWithHUDMessage:@"暂无商品，无法批量转发" withDuration:1.5];
+    }else{
+        SimilarProductModel *model = self.MerchanArray[self.count];
+        [self getMerchanData:model num:1];
+    }
+    
+}
+- (void)jiajiaBtnAction
+{
+    if (self.MerchanArray.count == 0) {
+        [SVProgressHUD doAnyRemindWithHUDMessage:@"暂无商品，无法进行加价" withDuration:1.5];
+    }else{
+        SimilarProductModel *model = self.MerchanArray[self.count];
+        [self getMerchanData:model num:0];
+    }
+}
+-(void)getMerchanData:(SimilarProductModel *)model num:(int)num
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setValue:nil forKey:@"activityId"];
+    [dic setValue:model.merchantId forKey:@"merchantId"];
+    [dic setValue:@(0) forKey:@"pageNum"];
+    [dic setValue:@(5) forKey:@"pageSize"];
+    [[NetworkManager sharedManager] getWithUrl:getActivityByMerchantId param:dic success:^(id json) {
+        
+        NSLog(@"%@",json);
+        
+        
+        NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
+        if ([respCode isEqualToString:@"00000"]) {
+            releaseActivitiesModel *model1 = [releaseActivitiesModel mj_objectWithKeyValues:json[@"data"][@"releaseActivityApiResult"]];
+            self.zhuanfaBlock(model1, num);
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 
 
 -(NSMutableArray*)MerchanArray{
@@ -298,60 +384,68 @@
 
 -(void)setImagewithArray:(NSArray*)array{
     
-    
-    
-    if (array.count == 1) {
-        imagesListModel *model1 =array[0];
-        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+    if (array.count != 0) {
+        if (array.count == 1) {
+            imagesListModel *model1 =array[0];
+            [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+            [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+            
+            [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+            [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+            
+            
+            
+        }else if (array.count == 2){
+            imagesListModel *model1 =array[0];
+            imagesListModel *model2 =array[1];
+            
+            [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+            [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+            [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+            [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+        }else if (array.count == 3){
+            imagesListModel *model1 =array[0];
+            imagesListModel *model2 =array[1];
+            imagesListModel *model3 =array[2];
+            
+            [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+            [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+            
+            [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+            [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
+            
+        }else if (array.count == 4){
+            imagesListModel *model1 =array[0];
+            imagesListModel *model2 =array[1];
+            imagesListModel *model3 =array[2];
+            imagesListModel *model4 =array[3];
+            [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+            [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+            
+            [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+            [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
+            
+        }else{
+            
+            imagesListModel *model1 =array[0];
+            imagesListModel *model2 =array[1];
+            imagesListModel *model3 =array[2];
+            imagesListModel *model4 =array[3];
+            [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
+            [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
+            
+            [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
+            [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
+        }
+    }else {
+        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
         [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
         
         [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
         [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
-        
-        
-        
-    }else if (array.count == 2){
-        imagesListModel *model1 =array[0];
-        imagesListModel *model2 =array[1];
-        
-        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
-        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
-        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
-        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
-    }else if (array.count == 3){
-        imagesListModel *model1 =array[0];
-        imagesListModel *model2 =array[1];
-        imagesListModel *model3 =array[2];
-        
-        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
-        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
-        
-        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
-        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:@""]];
-        
-    }else if (array.count == 4){
-        imagesListModel *model1 =array[0];
-        imagesListModel *model2 =array[1];
-        imagesListModel *model3 =array[2];
-        imagesListModel *model4 =array[3];
-        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
-        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
-        
-        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
-        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
-        
-    }else{
-        
-        imagesListModel *model1 =array[0];
-        imagesListModel *model2 =array[1];
-        imagesListModel *model3 =array[2];
-        imagesListModel *model4 =array[3];
-        [self.firstImageview sd_setImageWithURL:[NSURL URLWithString:model1.imgUrl]];
-        [self.secondImageview sd_setImageWithURL:[NSURL URLWithString:model2.imgUrl]];
-        
-        [self.thirdImageview sd_setImageWithURL:[NSURL URLWithString:model3.imgUrl]];
-        [self.fourthImageview sd_setImageWithURL:[NSURL URLWithString:model4.imgUrl]];
     }
+    
+    
     
     
     
@@ -449,32 +543,47 @@
 -(void)getTheMerchanWitnTheMerchanId:(NSString*)merchanid{
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setValue:merchanid forKey:@"id"];//  getProductByMerchantId
-    
+//    [dic setValue:merchanid forKey:@"id"];//  getProductByMerchantId
+    [dic setValue:nil forKey:@"activityId"];
+    [dic setValue:merchanid forKey:@"merchantId"];
+    [dic setValue:@(0) forKey:@"pageNum"];
+    [dic setValue:@(10) forKey:@"pageSize"];
     //getProductByActivityId   getActivityByMerchantId
-    [[NetworkManager sharedManager] getWithUrl:getsearchProductByKeyword param:dic success:^(id json) {
+    [[NetworkManager sharedManager] getWithUrl:getActivityByMerchantId param:dic success:^(id json) {
     
         NSLog(@"%@",json);
-        
+        [SVProgressHUD dismiss];
         
         NSString *respCode = [NSString stringWithFormat:@"%@",json[@"respCode"]];
         if ([respCode isEqualToString:@"00000"]){
             [self.MerchanArray removeAllObjects];
-            for (NSDictionary *dic in json[@"data"]) {
-                
+//            releaseActivitiesModel *model = [releaseActivitiesModel mj_objectWithKeyValues:json[@"data"][@"releaseActivityApiResult"]];
+//            [self.MerchanArray addObject:model];
+            for (NSDictionary *dic in json[@"data"][@"productApiResults"][@"data"]) {
                 SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
                 [self.MerchanArray addObject:model];
-                
             }
+//            for (NSDictionary *dic in json[@"data"]) {
+//
+//                SimilarProductModel *model = [SimilarProductModel mj_objectWithKeyValues:dic];
+//                [self.MerchanArray addObject:model];
+//
+//            }
             if (self.MerchanArray.count>=1 ) {
-                  [self setDadaWithModel:self.MerchanArray[self.count]];
+//                NSInteger num = self.count;
+//                if (self.MerchanArray.count > 0) {
+//                   SimilarProductModel *model = self.MerchanArray[num];
+                    [self setDadaWithModel:self.MerchanArray[self.count]];
+//                }
+                
+                
             }
           
             
         }
         
     } failure:^(NSError *error) {
-        
+        [SVProgressHUD dismiss];
         
     }];
     

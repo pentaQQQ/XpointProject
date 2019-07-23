@@ -7,7 +7,7 @@
 //
 
 #import "QMChatRoomGuestBookViewController.h"
-#import <QMChatSDK/QMChatSDK-Swift.h>
+#import <QMLineSDK/QMLineSDK.h>
 #import "QMLeaveMessageCell.h"
 
 /**
@@ -34,6 +34,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardFrameChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
     if (!self.isScheduleLeave) {
+        NSString *title = [QMConnect leaveMessageTitle];
+        self.headerTitle = [title isEqualToString:@""] ? NSLocalizedString(@"title.messageHeader", nil) : title;
         self.leaveMsg = [QMConnect leaveMessagePlaceholder];
         self.contactFields = [QMConnect leaveMessageContactInformation];
     }
@@ -46,21 +48,37 @@
 }
 
 - (void)createUI {
-    self.messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(self.messageLabel.frame)+10, kScreenWidth-40, 120)];
-    self.messageTextView.font = [UIFont systemFontOfSize:16];
-    self.messageTextView.backgroundColor = [UIColor whiteColor];
-    self.messageTextView.layer.borderColor = [[UIColor colorWithRed:215/255.0 green:215/255.0 blue:215/255.0 alpha:1.0] CGColor];
-    self.messageTextView.layer.borderWidth = 0.6;
-    self.messageTextView.delegate = self;
+    CGFloat height = [self calcLabelHeight:self.headerTitle ?: NSLocalizedString(@"title.messageHeader", nil) font:[UIFont systemFontOfSize:17] width:kScreenWidth - 20];
+    CGFloat labelHeight = height > 25 ? height : 25;
     
-    self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.messageTextView.frame), CGRectGetMinY(self.messageTextView.frame), CGRectGetWidth(self.messageTextView.frame),  [self calcLabelHeight:self.leaveMsg ?: NSLocalizedString(@"title.pleaseLeave", nil) font:[UIFont systemFontOfSize:15] width:CGRectGetWidth(self.messageTextView.frame)])];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 185+labelHeight)];
+    self.headerView.backgroundColor = [UIColor colorWithRed:244/255.0 green:244/255.0 blue:246/255.0 alpha:1];
+    
+    self.henaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, kScreenWidth, labelHeight)];
+    self.henaderLabel.text = self.headerTitle ?: NSLocalizedString(@"title.messageHeader", nil);
+    self.henaderLabel.font = [UIFont systemFontOfSize:17];
+    self.henaderLabel.textColor = [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1];
+    self.henaderLabel.numberOfLines = 0;
+    [self.headerView addSubview:self.henaderLabel];
+    
+    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.henaderLabel.frame)+10, kScreenWidth-20, 165)];
+    self.textView.font = [UIFont systemFontOfSize:16];
+    self.textView.backgroundColor = [UIColor whiteColor];
+    self.textView.layer.borderColor = [[UIColor colorWithRed:215/255.0 green:215/255.0 blue:215/255.0 alpha:1.0] CGColor];
+    self.textView.layer.borderWidth = 0.6;
+    self.textView.layer.masksToBounds = YES;
+    self.textView.layer.cornerRadius = 2;
+    self.textView.delegate = self;
+    
+    self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, CGRectGetWidth(self.textView.frame),  [self calcLabelHeight:self.leaveMsg ?: NSLocalizedString(@"title.pleaseLeave", nil) font:[UIFont systemFontOfSize:15] width:CGRectGetWidth(self.textView.frame)])];
     self.textLabel.backgroundColor = [UIColor clearColor];
     self.textLabel.textColor = [UIColor lightGrayColor];
     self.textLabel.font = [UIFont systemFontOfSize:15];
     self.textLabel.numberOfLines = 0;
     self.textLabel.text = self.leaveMsg ?: NSLocalizedString(@"title.pleaseLeave", nil);
-    [self.messageTextView addSubview:self.textLabel];
-
+    [self.textView addSubview:self.textLabel];
+    [self.headerView addSubview:self.textView];
+    
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 100)];
     bottomView.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1.0];
     
@@ -78,12 +96,12 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     
-    _tableView.tableHeaderView = self.messageTextView;
+    _tableView.tableHeaderView = self.headerView;
     _tableView.tableFooterView = bottomView;
 }
 
 - (void)tapAction {
-    [self.messageTextView resignFirstResponder];
+    [self.textView resignFirstResponder];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
@@ -97,8 +115,8 @@
 }
 
 - (void)submitAction: (UIButton *)sender {
-    if (![[self.messageTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""] && [self verifyRequired]) {
-        [QMConnect sdkSubmitLeaveMessageWithInformation:self.peerId information:_condition leavemsgFields:self.contactFields message:self.messageTextView.text successBlock:^{
+    if (![[self.textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""] && [self verifyRequired]) {
+        [QMConnect sdkSubmitLeaveMessageWithInformation:self.peerId information:_condition leavemsgFields:self.contactFields message:self.textView.text successBlock:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showAlertViewControllerWithTitle:NSLocalizedString(@"title.messageSuccess", nil)];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -145,7 +163,7 @@
 
 - (CGFloat)calcLabelHeight: (NSString *)text font: (UIFont *)font width: (CGFloat)width {
     NSDictionary *attribute = @{NSFontAttributeName: font};
-    CGRect labelRect = [text boundingRectWithSize:CGSizeMake(width, CGRectGetHeight(self.messageTextView.frame)) options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil];
+    CGRect labelRect = [text boundingRectWithSize:CGSizeMake(width, CGRectGetHeight(self.textView.frame)) options:NSStringDrawingUsesLineFragmentOrigin attributes:attribute context:nil];
     return labelRect.size.height;
 }
 

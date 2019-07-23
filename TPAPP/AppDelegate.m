@@ -17,8 +17,8 @@
 
 #import "QMProfileManager.h"
 #import <UserNotifications/UserNotifications.h>
-#import <QMChatSDK/QMChatSDK.h>
-#import <QMChatSDK/QMChatSDK-Swift.h>
+#import <QMLineSDK/QMLineSDK.h>
+//#import <QMChatSDK/QMChatSDK-Swift.h>
 #import "QMManager.h"
 
 #import "NewLoginViewController.h"
@@ -311,12 +311,12 @@
         //弹框通知
         UIAlertController * stateAlert = [UIAlertController alertControllerWithTitle:@"客服新消息" message:messageAlert preferredStyle:UIAlertControllerStyleAlert];
         [stateAlert addAction:[UIAlertAction actionWithTitle:@"前往" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [QMConnect registerSDKWithAppKey:@"" userName:@"" userId:@""];
+            [QMConnect registerSDKWithAppKey:QMChatSDKAppKey userName:@"8001" userId:@"8001_id"];
         }]];
         [stateAlert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
         [self.window.rootViewController presentViewController:stateAlert animated:YES completion:nil];
     }else {
-        [QMConnect registerSDKWithAppKey:@"" userName:@"" userId:@""];
+        [QMConnect registerSDKWithAppKey:QMChatSDKAppKey userName:@"8001" userId:@"8001_id"];
     }
     
     [QMManager defaultManager].selectedPush = YES;

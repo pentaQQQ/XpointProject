@@ -14,4 +14,8 @@
 
 + (void)showMessage:(NSString *)message;
 
++ (CGFloat)calculateRowHeight:(NSString *)string fontSize:(NSInteger)fontSize;
+
++ (CGFloat)calcLabelHeight: (NSString *)text font: (UIFont *)font;
+
 @end
